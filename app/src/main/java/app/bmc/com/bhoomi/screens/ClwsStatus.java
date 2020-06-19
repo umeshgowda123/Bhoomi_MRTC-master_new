@@ -222,9 +222,9 @@ public class ClwsStatus extends AppCompatActivity {
                             } else {
                                 //-------------------------SUSMITA-------------------
                                 if (rationcard.isEmpty()) {
-                                    Toast.makeText(ClwsStatus.this, "Please Enter RationCard Num.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ClwsStatus.this, getString(R.string.please_enter_rationcard_num), Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(ClwsStatus.this, "Invalid RationCard Num.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ClwsStatus.this, getString(R.string.invalid_rationcard_num), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }

@@ -440,6 +440,8 @@
     <string name="citizen_payment_certificate_for_banks">Citizen Payment Certificate For Banks</string>
     <string name="parihara_benificary_details_land_wise">Parihara Benificary Details Land Wise</string>
     <string name="logo">Logo</string>
+    <string name="please_enter_rationcard_num">Please Enter RationCard Num.</string>
+    <string name="invalid_rationcard_num">Invalid RationCard Num.</string>
 
 
 </resources>

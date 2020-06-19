@@ -238,9 +238,9 @@ public class CitizenPaymentCertificateBanksActivity extends AppCompatActivity {
                             //---------------------SUSMITA------------------------
                             progressDialog.dismiss();
                             if (bankRasanCardNumber.isEmpty()){
-                                Toast.makeText(getApplicationContext(), "Please Enter RationCard Num.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), getString(R.string.please_enter_rationcard_num), Toast.LENGTH_SHORT).show();
                             }else {
-                                Toast.makeText(getApplicationContext(), "Invalid RationCard Num.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), getString(R.string.invalid_rationcard_num), Toast.LENGTH_SHORT).show();
                             }
                             //----------------------------------------------------
                         }
