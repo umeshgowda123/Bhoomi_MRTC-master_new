@@ -417,7 +417,7 @@ public class LoanWaiverReportForPacsBankWise extends AppCompatActivity {
                     if (s.equals("<NewDataSet />")) {
                         final AlertDialog.Builder builder = new AlertDialog.Builder(LoanWaiverReportForPacsBankWise.this, R.style.MyDialogTheme);
                         builder.setTitle("STATUS")
-                                .setMessage("No Report Found For this Input")
+                                .setMessage("No Report Found For this Record")
                                 .setIcon(R.drawable.ic_notifications_black_24dp)
                                 .setCancelable(false)
                                 .setPositiveButton("OK", (dialog, id) -> dialog.cancel());

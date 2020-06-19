@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -159,15 +160,26 @@ public class PariharaDetailsIndividual extends AppCompatActivity {
 
                                 if(response.isSuccessful())
                                 {
-
-                                    /*sp_year.setText("");
-                                    sp_calamity_type.setText("");
-                                    etAadharNumber.setText("");*/
                                     PariharaIndividualDetailsResponse result = response.body();
                                     progressDialog.dismiss();
-                                    Intent intent = new Intent(PariharaDetailsIndividual.this, ShowIndividualPariharaDetailsReport.class);
-                                    intent.putExtra("response_data",result.getGetPariharaPaymentDetailsResult());
-                                    startActivity(intent);
+                                    assert result != null;
+                                    String str = result.getGetPariharaPaymentDetailsResult();
+                                    Log.d("Result_1",""+str);
+                                    if (str.contains("No Details Found for This Record")){
+                                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(PariharaDetailsIndividual.this, R.style.MyDialogTheme);
+                                        builder.setTitle("STATUS")
+                                                .setMessage("No Details Found for This Record")
+                                                .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                .setCancelable(false)
+                                                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                        final android.app.AlertDialog alert = builder.create();
+                                        alert.show();
+                                        alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                    } else {
+                                        Intent intent = new Intent(PariharaDetailsIndividual.this, ShowIndividualPariharaDetailsReport.class);
+                                        intent.putExtra("response_data", result.getGetPariharaPaymentDetailsResult());
+                                        startActivity(intent);
+                                    }
                                 }
                             }
 

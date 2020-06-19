@@ -162,7 +162,7 @@ public class ClwsStatusRationCardDetails extends AppCompatActivity {
                 if (bankloanrationdata.size() == 0 && paymentRclist.size() == 0 && pacsloanRcNolist.size() == 0 && pacsRationPaymentList.size() == 0) {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(ClwsStatusRationCardDetails.this, R.style.MyDialogTheme);
                     builder.setTitle("STATUS")
-                            .setMessage("No Data Found For this Input")
+                            .setMessage("No Data Found For this Record")
                             .setIcon(R.drawable.ic_notifications_black_24dp)
                             .setCancelable(false)
                             .setPositiveButton("OK", (dialog, id) -> dialog.cancel());

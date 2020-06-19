@@ -355,7 +355,7 @@ public class LoanWaiverReportForCommercialFramerWise extends AppCompatActivity {
                                     if (s.equals("<NewDataSet />")) {
                                         final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LoanWaiverReportForCommercialFramerWise.this, R.style.MyDialogTheme);
                                         builder.setTitle("STATUS")
-                                                .setMessage("No Report Found For this Input")
+                                                .setMessage("No Report Found For this Record")
                                                 .setIcon(R.drawable.ic_notifications_black_24dp)
                                                 .setCancelable(false)
                                                 .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
