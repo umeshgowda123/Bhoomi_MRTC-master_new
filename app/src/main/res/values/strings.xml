@@ -444,6 +444,8 @@
     <string name="todo">TODO</string>
     <string name="submit">Submit</string>
     <string name="dashboard_details">DashBoard Details</string>
+    <string name="invalid_rationcard_num">Invalid RationCard Num.</string>
+    <string name="please_enter_rationcard_num">Please Enter RationCard Num.</string>
 
 
 </resources>
