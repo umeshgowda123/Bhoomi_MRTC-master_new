@@ -6,12 +6,9 @@
     android:background="@android:color/white"
     tools:context=".screens.Language"
     tools:showIn="@layout/activity_language"
+    android:layout_marginTop="60dp"
     android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
-        android:orientation="vertical">
+
 
 
         <TextView
@@ -27,7 +24,8 @@
             android:layout_height="64dp"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
-            android:src="@drawable/language" />
+            android:src="@drawable/language"
+            android:contentDescription="@string/todo" />
 
 
         <LinearLayout
@@ -54,4 +52,3 @@
 
     </LinearLayout>
 
-</LinearLayout>

@@ -1,14 +1,10 @@
 package app.bmc.com.bhoomi.screens;
 
-import android.Manifest;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
@@ -17,9 +13,9 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import app.bmc.com.bhoomi.R;
 import app.bmc.com.bhoomi.database.DataBaseHelper;
@@ -47,13 +43,8 @@ public class AppLancher extends AppCompatActivity {
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
                         DataBaseHelper.class, getString(R.string.db_name)).build();
-        Observable<Integer> noOfRows = Observable.fromCallable(new Callable<Integer>() {
-
-            @Override
-            public Integer call() {
-                return dataBaseHelper.daoAccess().getNumberOfRows();
-            }
-        });
+        Observable<Integer> noOfRows;
+        noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumberOfRows());
         noOfRows
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -71,15 +62,10 @@ public class AppLancher extends AppCompatActivity {
                             List<MST_VLM> mst_vlmList = loadDataFromCsv();
                             createMasterData(mst_vlmList);
                         } else {
-                            new Handler().postDelayed(new Runnable() {
-
-
-                                @Override
-                                public void run() {
-                                    Intent intent = new Intent(AppLancher.this, BhoomiHomePage.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
+                            new Handler().postDelayed(() -> {
+                                Intent intent = new Intent(AppLancher.this, BhoomiHomePage.class);
+                                startActivity(intent);
+                                finish();
                             }, 1000);
 
                         }
@@ -106,19 +92,19 @@ public class AppLancher extends AppCompatActivity {
 
 
             reader = new BufferedReader(
-                    new InputStreamReader(getApplicationContext().getAssets().open("MasterData.csv"), "UTF-8"));
+                    new InputStreamReader(getApplicationContext().getAssets().open("MasterData.csv"), StandardCharsets.UTF_8));
 
             int i = 0;
             while ((mLine = reader.readLine()) != null) {
                 if (i > 0) {
-                    String data[] = mLine.split(",");
+                    String[] data = mLine.split(",");
                     MST_VLM mst_vlm = new MST_VLM();
-                    mst_vlm.setVLM_ID(Integer.valueOf(data[0]));
-                    mst_vlm.setVLM_DST_ID(Integer.valueOf(data[1]));
-                    mst_vlm.setVLM_TLK_ID(Integer.valueOf(data[2]));
-                    mst_vlm.setVLM_HBL_ID(Integer.valueOf(data[3]));
-                    mst_vlm.setVLM_CIR_ID(Integer.valueOf(data[4]));
-                    mst_vlm.setVLM_VLG_ID(Integer.valueOf(data[5]));
+                    mst_vlm.setVLM_ID(Integer.parseInt(data[0]));
+                    mst_vlm.setVLM_DST_ID(Integer.parseInt(data[1]));
+                    mst_vlm.setVLM_TLK_ID(Integer.parseInt(data[2]));
+                    mst_vlm.setVLM_HBL_ID(Integer.parseInt(data[3]));
+                    mst_vlm.setVLM_CIR_ID(Integer.parseInt(data[4]));
+                    mst_vlm.setVLM_VLG_ID(Integer.parseInt(data[5]));
                     mst_vlm.setVLM_DKN_NM(data[6]);
                     mst_vlm.setVLM_DST_NM(data[7]);
                     mst_vlm.setVLM_TLK_NM(data[8]);
@@ -153,13 +139,7 @@ public class AppLancher extends AppCompatActivity {
     }
 
     public void createMasterData(final List<MST_VLM> mst_vlmList) {
-        Observable<Long[]> insertMasterObservable = Observable.fromCallable(new Callable<Long[]>() {
-
-            @Override
-            public Long[] call() {
-                return dataBaseHelper.daoAccess().insertMasterData(mst_vlmList);
-            }
-        });
+        Observable<Long[]> insertMasterObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().insertMasterData(mst_vlmList));
         insertMasterObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
