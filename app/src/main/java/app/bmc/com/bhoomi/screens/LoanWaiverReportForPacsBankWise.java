@@ -333,6 +333,10 @@ public class LoanWaiverReportForPacsBankWise extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 bank_name =  sp_pacs_bank.getText().toString().trim();
+                Log.d("bank_name",""+bank_name);
+                if (bank_name.equals("\"Karnataka State Co.oparative Agriculture & Rural Development Bank Ltd.")){
+                    bank_name = "Karnataka State Co.oparative Agriculture & Rural Development Bank Ltd.,";
+                }
             }
         });
 
