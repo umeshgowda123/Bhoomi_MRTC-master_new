@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -79,6 +80,14 @@ public class ShowLoanWaiverReportFarmerWise extends AppCompatActivity {
 
             if(formatted.contains("Table"))
             {
+                String form = String.valueOf(rtc);
+                form = form.replace("{\"Table\":{", "{\"Table\":[{");
+                Log.d("form_1",""+form);
+                form = form.replace("}}", "}]}");
+                Log.d("form_2",""+form);
+                rtc =  new JSONObject(form);
+                Log.d("rtc",""+rtc);
+
                 tableEntries = rtc.getJSONArray("Table");
                 Type listType = new TypeToken<List<LoanWaiverFramerWiseResponseData>>() {
                 }.getType();
@@ -102,8 +111,7 @@ public class ShowLoanWaiverReportFarmerWise extends AppCompatActivity {
 
         }else
         {
-            Intent intent  = new Intent(ShowLoanWaiverReportFarmerWise.this,CommonErrorActivity.class);
-            startActivity(intent);
+            Toast.makeText(getApplicationContext(), "No Data Found!", Toast.LENGTH_SHORT).show();
 
         }
 

@@ -10,6 +10,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -83,11 +84,19 @@ public class ShowPariharaBenificiaryDetailsLandWise extends AppCompatActivity {
             String formatted = xmlToJson.toFormattedString().replace("\n", "");
             JSONObject responseObject = new JSONObject(formatted);
             JSONObject rtc = responseObject.getJSONObject("NewDataSet");
-            JSONArray  tableEntries = rtc.getJSONArray("Table");
 
-
+            JSONArray  tableEntries;
             if(formatted.contains("Table"))
             {
+                String form = String.valueOf(rtc);
+                form = form.replace("{\"Table\":{", "{\"Table\":[{");
+                Log.d("form_1",""+form);
+                form = form.replace("}}", "}]}");
+                Log.d("form_2",""+form);
+                rtc =  new JSONObject(form);
+                Log.d("rtc",""+rtc);
+
+                tableEntries = rtc.getJSONArray("Table");
                 Type listType = new TypeToken<List<BenificaryDataLandWise>>() {
                 }.getType();
                 myBenificaryLandList = new Gson().fromJson(tableEntries.toString(), listType);
@@ -109,8 +118,7 @@ public class ShowPariharaBenificiaryDetailsLandWise extends AppCompatActivity {
 
         }else
         {
-            Intent intent  = new Intent(ShowPariharaBenificiaryDetailsLandWise.this,CommonErrorActivity.class);
-            startActivity(intent);
+            Toast.makeText(getApplicationContext(), "No Data Found!", Toast.LENGTH_SHORT).show();
         }
     }
 

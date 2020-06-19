@@ -10,8 +10,10 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -86,11 +88,18 @@ public class ShowPariharaBenificiaryDetailsVlgWise extends AppCompatActivity {
             String formatted = xmlToJson.toFormattedString().replace("\n", "");
             JSONObject responseObject = new JSONObject(formatted);
             JSONObject rtc = responseObject.getJSONObject("NewDataSet");
-            JSONArray tableEntries = null;
-            JSONArray paymentEntries = null;
+            JSONArray tableEntries;
 
             if(formatted.contains("Table"))
             {
+                String form = String.valueOf(rtc);
+                form = form.replace("{\"Table\":{", "{\"Table\":[{");
+                Log.d("form_1",""+form);
+                form = form.replace("}}", "}]}");
+                Log.d("form_2",""+form);
+                rtc =  new JSONObject(form);
+                Log.d("rtc",""+rtc);
+
                 tableEntries = rtc.getJSONArray("Table");
                 Type listType = new TypeToken<List<BenificaryDataVlgWise>>() {
                 }.getType();
@@ -114,8 +123,7 @@ public class ShowPariharaBenificiaryDetailsVlgWise extends AppCompatActivity {
 
         }else
         {
-            Intent intent  = new Intent(ShowPariharaBenificiaryDetailsVlgWise.this,CommonErrorActivity.class);
-            startActivity(intent);
+            Toast.makeText(getApplicationContext(), "No Data Found!", Toast.LENGTH_SHORT).show();
 
         }
 

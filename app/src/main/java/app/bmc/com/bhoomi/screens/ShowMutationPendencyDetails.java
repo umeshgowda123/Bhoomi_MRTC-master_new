@@ -1,13 +1,17 @@
 package app.bmc.com.bhoomi.screens;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -47,6 +51,17 @@ public class ShowMutationPendencyDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_mutation_pendency_details);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
+        }
+
         rvMutationPendency =  findViewById(R.id.rvMutationPendency);
 
         pending_data_response  = (String) getIntent().getStringExtra("ped_response_data");
@@ -73,6 +88,14 @@ public class ShowMutationPendencyDetails extends AppCompatActivity {
 
             if(formatted.contains("Table"))
             {
+                String form = String.valueOf(mutationDetails);
+                form = form.replace("{\"Table\":{", "{\"Table\":[{");
+                Log.d("form_1",""+form);
+                form = form.replace("}}", "}]}");
+                Log.d("form_2",""+form);
+                mutationDetails =  new JSONObject(form);
+                Log.d("mutationDetails",""+mutationDetails);
+
                 mutationEntries = mutationDetails.getJSONArray("Table");
                 Log.d("mutationEntries",""+mutationEntries);
                 Type listType = new TypeToken<List<MutualPendacyData>>() {
@@ -96,5 +119,11 @@ public class ShowMutationPendencyDetails extends AppCompatActivity {
             Toast.makeText(ShowMutationPendencyDetails.this, "No Data Found!", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

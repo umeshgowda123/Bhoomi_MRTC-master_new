@@ -135,11 +135,6 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.CommonErrorActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
             android:name=".screens.ShowPariharaBenificiaryDetailsVlgWise"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
@@ -202,11 +197,6 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"/>
 
-        <activity
-            android:name=".screens.DetailsNotPresentActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".screens.PacsLoanAffidavitView"
             android:configChanges="orientation|keyboardHidden"

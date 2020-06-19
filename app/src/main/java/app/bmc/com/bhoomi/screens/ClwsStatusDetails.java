@@ -1,5 +1,6 @@
 package app.bmc.com.bhoomi.screens;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -159,8 +160,15 @@ public class ClwsStatusDetails extends AppCompatActivity {
             }
 
             if (bankloanadata.size() == 0 && paymentList.size() == 0 && pacsLoanList.size() == 0 && pacsPaymentList.size() == 0) {
-                Intent intent = new Intent(ClwsStatusDetails.this, DetailsNotPresentActivity.class);
-                startActivity(intent);
+                final AlertDialog.Builder builder = new AlertDialog.Builder(ClwsStatusDetails.this, R.style.MyDialogTheme);
+                builder.setTitle("STATUS")
+                        .setMessage("No Data Found For this Input")
+                        .setIcon(R.drawable.ic_notifications_black_24dp)
+                        .setCancelable(false)
+                        .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                final AlertDialog alert = builder.create();
+                alert.show();
+                alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
             } else {
                 if (bankloanadata.size() != 0) {
                     tvCBLD.setVisibility(View.VISIBLE);

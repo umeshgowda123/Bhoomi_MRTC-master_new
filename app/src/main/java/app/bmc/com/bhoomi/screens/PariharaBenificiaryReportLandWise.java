@@ -222,13 +222,15 @@ public class PariharaBenificiaryReportLandWise extends AppCompatActivity {
                                         startActivity(intent);
                                     }else
                                     {
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-
-                                                Toast.makeText(PariharaBenificiaryReportLandWise.this, "Data Not Found1", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
+                                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(PariharaBenificiaryReportLandWise.this, R.style.MyDialogTheme);
+                                        builder.setTitle("STATUS")
+                                                .setMessage("No Data Found")
+                                                .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                .setCancelable(false)
+                                                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                        final android.app.AlertDialog alert = builder.create();
+                                        alert.show();
+                                        alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
                                     }
 
                                 }

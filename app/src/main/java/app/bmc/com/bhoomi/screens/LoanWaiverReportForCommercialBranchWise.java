@@ -1,5 +1,6 @@
 package app.bmc.com.bhoomi.screens;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.arch.persistence.room.Room;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -174,6 +176,13 @@ public class LoanWaiverReportForCommercialBranchWise extends AppCompatActivity {
         });*/
 
 
+        etBranchName.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                etBranchName.showDropDown();
+                return false;
+            }
+        });
         etBranchName.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -245,9 +254,21 @@ public class LoanWaiverReportForCommercialBranchWise extends AppCompatActivity {
                     PariharaIndividualDetailsResponse result = response.body();
                     String s = result.getGetLoanWaiverReportBANK_BranchwiseResult();
                     Log.d("RESPONSE_DATA", s);
-                    Intent intent = new Intent(LoanWaiverReportForCommercialBranchWise.this, ShowLoanWaiverReportBranchWise.class);
-                    intent.putExtra("branch_response_data", result.getGetLoanWaiverReportBANK_BranchwiseResult());
-                    startActivity(intent);
+                    if (s.equals("<NewDataSet />")) {
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(LoanWaiverReportForCommercialBranchWise.this, R.style.MyDialogTheme);
+                        builder.setTitle("STATUS")
+                                .setMessage("No Data Found")
+                                .setIcon(R.drawable.ic_notifications_black_24dp)
+                                .setCancelable(false)
+                                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                        final AlertDialog alert = builder.create();
+                        alert.show();
+                        alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                    } else {
+                        Intent intent = new Intent(LoanWaiverReportForCommercialBranchWise.this, ShowLoanWaiverReportBranchWise.class);
+                        intent.putExtra("branch_response_data", result.getGetLoanWaiverReportBANK_BranchwiseResult());
+                        startActivity(intent);
+                    }
                 }
             }
 

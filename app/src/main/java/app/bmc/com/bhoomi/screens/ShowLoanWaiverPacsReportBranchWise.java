@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -110,8 +111,7 @@ public class ShowLoanWaiverPacsReportBranchWise extends AppCompatActivity {
 
         }else
         {
-            Intent intent  = new Intent(ShowLoanWaiverPacsReportBranchWise.this,CommonErrorActivity.class);
-            startActivity(intent);
+            Toast.makeText(getApplicationContext(), "No Report Found", Toast.LENGTH_SHORT).show();
 
         }
 

@@ -1,5 +1,6 @@
 package app.bmc.com.bhoomi.screens;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.arch.persistence.room.Room;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -56,7 +58,7 @@ public class LoanWaiverReportForPacsBranchWsie extends AppCompatActivity {
     private DataBaseHelper dataBaseHelper;
     private MaterialBetterSpinner sp_pacs_dist;
     private MaterialBetterSpinner sp_pacs_bank;
-  //  private MaterialBetterSpinner sp_pacs_branch;
+  //  private MaterialBetterSpinner csp_pacs_branch;
     private AutoCompleteTextView etPacsBranchName;
     private int district_id;
     private String dist_name;
@@ -401,7 +403,16 @@ public class LoanWaiverReportForPacsBranchWsie extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 bank_name =  sp_pacs_bank.getText().toString().trim();
+                Log.d("bank_name",""+bank_name);
                 getBranchNameDetails(bank_name);
+            }
+        });
+
+        etPacsBranchName.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                etPacsBranchName.showDropDown();
+                return false;
             }
         });
 
@@ -442,6 +453,12 @@ public class LoanWaiverReportForPacsBranchWsie extends AppCompatActivity {
                 } else {
                     if (isNetworkAvailable()) {
 
+                        Log.d("bank_name",""+bank_name);
+                        if (bank_name.equals("Karnataka State Co.oparative Agriculture & Rural Development Bank Ltd")){
+                            bank_name = "Karnataka State Co.oparative Agriculture & Rural Development Bank Ltd.,";
+                            Log.d("bank_name",""+bank_name);
+                        }
+
                         ClsLoanWaiverReportPacs_Branchwise cobj =  new ClsLoanWaiverReportPacs_Branchwise();
                         cobj.setDISTRICT_CODE(district_id);
                         cobj.setBANK_NAME(bank_name);
@@ -478,9 +495,22 @@ public class LoanWaiverReportForPacsBranchWsie extends AppCompatActivity {
                     PariharaIndividualDetailsResponse result = response.body();
                     String s = result.getGetLoanWaiverReportPACS_BranchwiseResult();
                     Log.d("response_data", s);
-                    Intent intent = new Intent(LoanWaiverReportForPacsBranchWsie.this, ShowLoanWaiverPacsReportBranchWise.class);
-                    intent.putExtra("pacs_branch_response_data", result.getGetLoanWaiverReportPACS_BranchwiseResult());
-                    startActivity(intent);
+
+                    if (s.equals("<NewDataSet />")) {
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(LoanWaiverReportForPacsBranchWsie.this, R.style.MyDialogTheme);
+                        builder.setTitle("STATUS")
+                                .setMessage("No Report Found For this Input")
+                                .setIcon(R.drawable.ic_notifications_black_24dp)
+                                .setCancelable(false)
+                                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                        final AlertDialog alert = builder.create();
+                        alert.show();
+                        alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                    } else {
+                        Intent intent = new Intent(LoanWaiverReportForPacsBranchWsie.this, ShowLoanWaiverPacsReportBranchWise.class);
+                        intent.putExtra("pacs_branch_response_data", result.getGetLoanWaiverReportPACS_BranchwiseResult());
+                        startActivity(intent);
+                    }
                 }
             }
 

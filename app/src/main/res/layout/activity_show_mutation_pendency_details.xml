@@ -8,16 +8,40 @@
     tools:context=".screens.ShowPariharaBenificiaryDetailsVlgWise">
 
 
-
-    <TextView
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:textSize="17sp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:text="@string/mutation_pendencey_details"/>
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:background="@drawable/shp">
 
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/AppTheme.PopupOverlay"
+            app:title="@string/toolbartitle"
+            app:titleTextColor="@color/toolbartitle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+
+                <TextView
+                    android:id="@+id/tvSetTite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/mutation_pendencey_details"
+                    android:textColor="#fff"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"

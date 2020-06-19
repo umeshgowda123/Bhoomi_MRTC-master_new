@@ -349,9 +349,21 @@ public class LoanWaiverReportForPacsFarmerWise extends AppCompatActivity {
                                     String s = result.getGetLoanWaiverReportPACS_FarmerwiseResult();
                                     Log.d("RESPONSE_DATA",s);
 
-                                    PacsThreadSafeSingletonFarmerWiseClass.getInstance().setResponse(result.getGetLoanWaiverReportPACS_FarmerwiseResult());
-                                    Intent intent = new Intent(LoanWaiverReportForPacsFarmerWise.this, ShowLoanWaiverReportPacsFarmerWise.class);
-                                    startActivity(intent);
+                                    if (s.equals("<NewDataSet />")) {
+                                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LoanWaiverReportForPacsFarmerWise.this, R.style.MyDialogTheme);
+                                        builder.setTitle("STATUS")
+                                                .setMessage("No Report Found For this Input")
+                                                .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                .setCancelable(false)
+                                                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                        final android.app.AlertDialog alert = builder.create();
+                                        alert.show();
+                                        alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                    } else {
+                                        PacsThreadSafeSingletonFarmerWiseClass.getInstance().setResponse(result.getGetLoanWaiverReportPACS_FarmerwiseResult());
+                                        Intent intent = new Intent(LoanWaiverReportForPacsFarmerWise.this, ShowLoanWaiverReportPacsFarmerWise.class);
+                                        startActivity(intent);
+                                    }
                                 }
                             }
 

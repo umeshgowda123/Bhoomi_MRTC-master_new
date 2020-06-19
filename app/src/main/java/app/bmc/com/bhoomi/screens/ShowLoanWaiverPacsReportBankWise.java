@@ -81,12 +81,18 @@ public class ShowLoanWaiverPacsReportBankWise extends AppCompatActivity {
 
             JSONObject mutationDetails =  responseObject.getJSONObject("NewDataSet");
 
-            JSONArray responseData =  mutationDetails.getJSONArray("Table");
-
             JSONArray mutationEntries = null;
 
             if(formatted.contains("Table"))
             {
+                String form = String.valueOf(mutationDetails);
+                form = form.replace("{\"Table\":{", "{\"Table\":[{");
+                Log.d("form_1",""+form);
+                form = form.replace("}}", "}]}");
+                Log.d("form_2",""+form);
+                mutationDetails =  new JSONObject(form);
+                Log.d("mutationDetails",""+mutationDetails);
+
                 mutationEntries = mutationDetails.getJSONArray("Table");
                 Type listType = new TypeToken<List<PacsWaiverBankResponseData>>() {
                 }.getType();
@@ -107,7 +113,7 @@ public class ShowLoanWaiverPacsReportBankWise extends AppCompatActivity {
             initScrollListener();
 
         }else {
-            Toast.makeText(ShowLoanWaiverPacsReportBankWise.this, "No Data Found!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ShowLoanWaiverPacsReportBankWise.this, "No Report Found!", Toast.LENGTH_SHORT).show();
         }
     }
 

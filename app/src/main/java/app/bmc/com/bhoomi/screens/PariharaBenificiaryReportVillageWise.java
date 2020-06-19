@@ -501,11 +501,22 @@ public class PariharaBenificiaryReportVillageWise extends AppCompatActivity {
 
                                     String s = result.getGetPariharaBeneficiaryResult();
                                     Log.d("RESPONSE_DATA", s);
-
-                                    ThreadSafeSingletonClass.getInstance().setResponse(result.getGetPariharaBeneficiaryResult());
-                                    Intent intent = new Intent(PariharaBenificiaryReportVillageWise.this, ShowPariharaBenificiaryDetailsVlgWise.class);
-                                  //  intent.putExtra("response_data", result.getGetPariharaBeneficiaryResult());
-                                    startActivity(intent);
+                                    if (s.equals("<NewDataSet />")) {
+                                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(PariharaBenificiaryReportVillageWise.this, R.style.MyDialogTheme);
+                                        builder.setTitle("STATUS")
+                                                .setMessage("No Report Found For this Input")
+                                                .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                .setCancelable(false)
+                                                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                        final android.app.AlertDialog alert = builder.create();
+                                        alert.show();
+                                        alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                    } else {
+                                        ThreadSafeSingletonClass.getInstance().setResponse(result.getGetPariharaBeneficiaryResult());
+                                        Intent intent = new Intent(PariharaBenificiaryReportVillageWise.this, ShowPariharaBenificiaryDetailsVlgWise.class);
+                                        //  intent.putExtra("response_data", result.getGetPariharaBeneficiaryResult());
+                                        startActivity(intent);
+                                    }
                                 }
                             }
 

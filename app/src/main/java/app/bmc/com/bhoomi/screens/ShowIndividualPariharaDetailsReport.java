@@ -84,12 +84,28 @@ public class ShowIndividualPariharaDetailsReport extends AppCompatActivity {
 
             if(formatted.contains("PariharaEntries"))
             {
+                String form = String.valueOf(rtc);
+                form = form.replace("{\"PariharaEntries\":{", "{\"PariharaEntries\":[{");
+                Log.d("form_1",""+form);
+                form = form.replace("}}", "}]}");
+                Log.d("form_2",""+form);
+                rtc =  new JSONObject(form);
+                Log.d("rtc",""+rtc);
+
                 pariharaEntries = rtc.getJSONArray("PariharaEntries");
                 Type listType = new TypeToken<List<PariharaEntry>>() {
                 }.getType();
                 myPariharaList = new Gson().fromJson(pariharaEntries.toString(), listType);
             }if(formatted.contains("PaymentDetails"))
             {
+                String form1 = String.valueOf(rtc);
+                form1 = form1.replace("{\"PaymentDetails\":{", "{\"PaymentDetails\":[{");
+                Log.d("form_1",""+form1);
+                form1 = form1.replace("}}", "}]}");
+                Log.d("form_2",""+form1);
+                rtc =  new JSONObject(form1);
+                Log.d("rtc",""+rtc);
+
                 paymentEntries = rtc.getJSONArray("PaymentDetails");
                 Type paymentlistType = new TypeToken<List<PaymentDetail>>() {
                 }.getType();

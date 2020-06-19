@@ -10,8 +10,10 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -78,6 +80,14 @@ public class ShowLoanWaiverReportPacsFarmerWise extends AppCompatActivity {
 
             if(formatted.contains("Table"))
             {
+                String form = String.valueOf(rtc);
+                form = form.replace("{\"Table\":{", "{\"Table\":[{");
+                Log.d("form_1",""+form);
+                form = form.replace("}}", "}]}");
+                Log.d("form_2",""+form);
+                rtc =  new JSONObject(form);
+                Log.d("rtc",""+rtc);
+
                 tableEntries = rtc.getJSONArray("Table");
                 Type listType = new TypeToken<List<LoanWaiverPACSFramerWiseResponseData>>() {
                 }.getType();
@@ -100,8 +110,7 @@ public class ShowLoanWaiverReportPacsFarmerWise extends AppCompatActivity {
 
         }else
         {
-            Intent intent  = new Intent(ShowLoanWaiverReportPacsFarmerWise.this,CommonErrorActivity.class);
-            startActivity(intent);
+            Toast.makeText(getApplicationContext(), "No Report Found!", Toast.LENGTH_SHORT).show();
         }
     }
 

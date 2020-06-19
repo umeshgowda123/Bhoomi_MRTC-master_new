@@ -1,5 +1,6 @@
 package app.bmc.com.bhoomi.screens;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.arch.persistence.room.Room;
 import android.content.Context;
@@ -334,8 +335,9 @@ public class LoanWaiverReportForPacsBankWise extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 bank_name =  sp_pacs_bank.getText().toString().trim();
                 Log.d("bank_name",""+bank_name);
-                if (bank_name.equals("\"Karnataka State Co.oparative Agriculture & Rural Development Bank Ltd.")){
+                if (bank_name.equals("Karnataka State Co.oparative Agriculture & Rural Development Bank Ltd")){
                     bank_name = "Karnataka State Co.oparative Agriculture & Rural Development Bank Ltd.,";
+                    Log.d("bank_name",""+bank_name);
                 }
             }
         });
@@ -412,9 +414,21 @@ public class LoanWaiverReportForPacsBankWise extends AppCompatActivity {
                     PariharaIndividualDetailsResponse result = response.body();
                     String s = result.getGetLoanWaiverReportPACS_BankwiseResult();
                     // Log.d("RESPONSE_DATA", s);
-                    Intent intent = new Intent(LoanWaiverReportForPacsBankWise.this, ShowLoanWaiverPacsReportBankWise.class);
-                    intent.putExtra("pacs_response_data", result.getGetLoanWaiverReportPACS_BankwiseResult());
-                    startActivity(intent);
+                    if (s.equals("<NewDataSet />")) {
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(LoanWaiverReportForPacsBankWise.this, R.style.MyDialogTheme);
+                        builder.setTitle("STATUS")
+                                .setMessage("No Report Found For this Input")
+                                .setIcon(R.drawable.ic_notifications_black_24dp)
+                                .setCancelable(false)
+                                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                        final AlertDialog alert = builder.create();
+                        alert.show();
+                        alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                    } else {
+                        Intent intent = new Intent(LoanWaiverReportForPacsBankWise.this, ShowLoanWaiverPacsReportBankWise.class);
+                        intent.putExtra("pacs_response_data", result.getGetLoanWaiverReportPACS_BankwiseResult());
+                        startActivity(intent);
+                    }
                 }
             }
             @Override
