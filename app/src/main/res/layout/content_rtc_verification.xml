@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    card_view:cardUseCompatPadding="true">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        tools:context=".screens.RtcVerification"
+        tools:showIn="@layout/activity_rtc_verification">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:id="@+id/progress_circular"
+                style="@android:style/Widget.ProgressBar.Inverse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/linear_layout_boarder"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/rtc_verification_text_bg"
+                    android:padding="8dp"
+                    android:text="@string/rtc_verification"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/linear_layout_boarder"
+                    android:orientation="vertical">
+
+
+                    <EditText
+                        android:id="@+id/edittext_reference_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/edittext_rtc_verification_border"
+                        android:drawableStart="@drawable/ic_mode_edit_black_24dp"
+                        android:hint="@string/rtc_verification_et_hint"
+                        android:inputType="textNoSuggestions|textCapCharacters"
+                        android:maxLines="1"
+                        android:padding="8dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+
+                    <Button
+                        android:id="@+id/btn_get_rtc_data"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:background="@color/btn_fetch"
+                        android:text="@string/rtc_verification_btn1"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white" />
+
+                    <Button
+                        android:id="@+id/btn_clear_reference_no"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:background="@color/btn_fetch"
+                        android:text="@string/rtc_verification_btn2"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

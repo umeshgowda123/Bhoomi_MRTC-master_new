@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:fillViewport="true"
+    android:paddingTop="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_pay_heading"
+            cardCornerRadius="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/title_shape"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_heading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorTitleBackground"
+                    android:fontFamily="@fonts/custom_font"
+                    android:text="@string/certificate_heading"
+                    android:textAlignment="center"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorTitleForeground" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+
+        <RadioGroup
+            android:id="@+id/rgBankCertificate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cv_pay_heading"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
+
+
+            <RadioButton
+                android:id="@+id/rbBankCertAadhar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:text="@string/clws_radio_btn_adhar"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/background_dark"
+                android:textSize="16sp" />
+
+
+            <RadioButton
+                android:id="@+id/rbBankCertRasanCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/clws_radio_btn_ration_card"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/background_dark"
+                android:textSize="16sp" />
+
+
+            <RadioButton
+                android:id="@+id/rbBankCertFSDId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/clws_fsd_edit_text"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/background_dark"
+                android:textSize="16sp" />
+
+
+        </RadioGroup>
+
+
+        <EditText
+            android:id="@+id/etBankCertAaadhar"
+            android:layout_below="@+id/rgBankCertificate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="30dp"
+            android:enabled="false"
+            android:maxLength="20"
+            android:background="@drawable/edit_text_bg"
+            android:hint="@string/clws_aadhar_edittext"
+            android:inputType="textCapCharacters"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:padding="8dp" />
+
+
+        <Button
+            android:id="@+id/btnBankFetchDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/round"
+            android:text="@string/btn_text"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white"
+            android:textSize="17sp" />
+
+
+    </RelativeLayout>
+</ScrollView>

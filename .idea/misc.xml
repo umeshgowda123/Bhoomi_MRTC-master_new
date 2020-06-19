@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
+  <component name="SvnBranchConfigurationManager">
+    <option name="myConfigurationMap">
+      <map>
+        <entry key="$PROJECT_DIR$">
+          <value>
+            <SvnBranchConfiguration>
+              <option name="branchUrls">
+                <list>
+                  <option value="https://bmc-scmsrvr-01/svn/Android/bhoomi/branches" />
+                  <option value="https://bmc-scmsrvr-01/svn/Android/bhoomi/tags" />
+                </list>
+              </option>
+              <option name="trunkUrl" value="https://bmc-scmsrvr-01/svn/Android/bhoomi/trunk" />
+            </SvnBranchConfiguration>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

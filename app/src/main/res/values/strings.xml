@@ -1,0 +1,444 @@
+<resources>
+    <string name="app_name">M RTC</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="services">Services</string>
+    <string name="viewrtcinformation">VIEW RTC INFORMATION</string>
+    <string name="viewrtcinformationByOwnerName">VIEW RTC INFORMATION BY OWNER NAME</string>
+    <string name="content_banner_header_text">BHOOMI</string>
+    <string name="content_banner_text1">Land Records Computerization Project</string>
+    <string name="content3_banner_header_text">Projects</string>
+    <string name="content3_banner_header_text1">Bhoomi Online</string>
+    <string name="content3_banner_text2"><![CDATA[A flagship project of Karnataka State Government, is a Land Records management system. The project was inaugurated in the year 2000. Under this project, all the manual RTCs which prevailed at the time of data entry were digitized and made available to the citizen through Kiosk Centres. All the ownership or any other changes in the RTCs are carried out through mutation as per KLR Act using the Land Records database. Bhoomi back offices have been set up at all  taluks of the state. In each of these centres LR Kiosk & Application Kiosk have also been setup.]]></string>
+    <string name="toolbartitle">Bhoomi Online</string>
+    <string name="rtc_toolbartitle">RTC</string>
+    <string name="rtc_header">Land Details</string>
+    <string name="btnGo">GO</string>
+    <string name="btnfetch">Fetch Details</string>
+
+    <string name="btnViewDetails">View Details</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="rtc_details_toolbartitle">RTC Details</string>
+
+
+    <string name="rtc_details_toolbartitle_byOwnerName">RTC Details By Owner</string>
+    <string name="natural_services">Natural Calamity Crop Loss Payment Services</string>
+
+
+    <string name="cultivator_details">Cultivator </string>
+    <string name="owner_details">Owner </string>
+    <string name="land_details">Land </string>
+
+    <string name="owner_details_heading">Owner Details</string>
+    <string name="owner_name">Owner Name</string>
+    <string name="surnoc_no">Surnoc </string>
+
+
+    <string name="language_selection">Please Select Preferred Language</string>
+    <string name="toolbartitle_settings">settings</string>
+    <string name="app_kannada">Kannada</string>
+    <string name="app_english">English</string>
+    <string name="language">Language</string>
+    <string name="district">District</string>
+    <string name="taluk">Taluk</string>
+    <string name="hobli">Hobli</string>
+    <string name="village">Village</string>
+    <string name="survey_no">Survey No</string>
+    <string name="hissa">Hissa</string>
+    <string name="district_err">District is required</string>
+    <string name="taluk_err">Taluk is required</string>
+    <string name="hobli_err">Hobli is required</string>
+    <string name="village_err">Village is required</string>
+    <string name="survey_no_err">Survey Number is required</string>
+    <string name="hissa_err">Hissa is required</string>
+    <string name="validfrom">Valid From</string>
+    <string name="land_code">Land Code</string>
+
+
+    <string name="financial_year">Financial Year</string>
+
+    <string name="year_err">Select Year</string>
+    <string name="calamity_err">Select Calamity</string>
+
+    <string name="calamity_type">Calamity Type</string>
+
+    <string name="calamity">Calamity</string>
+
+    <string name="beneficiary_details">Beneficiary Details</string>
+
+    <string name="financial_year_error">Select Financial Year</string>
+
+    <string name="season_error">Select Season</string>
+
+    <string name="calamity_error">Select Calamity</string>
+
+    <string name="aadhaar_number_err">Enter aadhar Number!</string>
+
+    <string name="action_text">Action</string>
+
+    <string name="year_season">1.Year Season</string>
+    <string name="CultivatorName">2.Cultivator Name</string>
+    <string name="CultType">3.Cult Type</string>
+    <string name="TenancyExtent">4.Tenancy Extent</string>
+    <string name="TenancyRent">5.Tenancy Rent</string>
+    <string name="LandUtilisationCLS">6.Land Utilisation CLS</string>
+    <string name="LandUtilisationRent">7.Land Utilisation Rent</string>
+    <string name="DrywetofGarden">8.Dry. wet of Garden</string>
+    <string name="CropName">9.Crop Name</string>
+    <string name="SingleCropExtents">10.Single Crop Extents</string>
+    <string name="MixedCropExtents">11.Mixed Crop Extents</string>
+    <string name="TotalCropExtents">12.Total Crop Extents</string>
+    <string name="WaterSource">13.Water Source</string>
+    <string name="Yield">14.Yield</string>
+    <string name="MixedCropName">15.Mixed Crop Name</string>
+    <string name="MixedCropNameExtents">16.Mixed Crop Extents</string>
+    <string name="SurveyNo">1.Survey No</string>
+
+
+    <string name="Survey_No">Survey No</string>
+    <string name="HissaNo">2.Hissa No</string>
+    <string name="TotalExtentAcreGunta">Total Extent)</string>
+    <string name="Karab_a">Karab(a))</string>
+    <string name="Karab_b">Karab(b)</string>
+    <string name="Remaining">Remaining</string>
+    <string name="LandRevenue">Land Revenue</string>
+    <string name="Jodi">Jodi</string>
+    <string name="Cesses">Cesses</string>
+    <string name="WaterRate">Water Rate</string>
+    <string name="Total">Total</string>
+    <string name="SoilType">5.Soil Type</string>
+    <string name="Patta">6.Patta</string>
+    <string name="TreeName">Tree Name</string>
+    <string name="TreeNos">Tree Nos</string>
+    <string name="Sno">S.no</string>
+    <string name="Watersource">Water source</string>
+    <string name="KharifAcGun">Kharif Ac Gun</string>
+    <string name="RabiAcGun">Rabi Ac Gun</string>
+    <string name="GardenAcGun">Garden Ac Gun</string>
+    <string name="TotalAcGun">Total Ac Gun</string>
+    <string name="OwnerNameFatherNameandaddress">9.Owner Name,Father Name and addres</string>
+    <string name="ExtentAcGun">Extent Ac Gun</string>
+    <string name="KhataNo">Khata No</string>
+    <string name="AcquisitionDetails">10.Acquisition Type and Description</string>
+    <string name="otherrightliaHeading">11.Other rights and liablities</string>
+    <string name="Rights">Rights</string>
+    <string name="Liablities">Liablities</string>
+    <string name="rtc_verification">RTC XML Verification</string>
+    <string name="rtc_verification_et_hint">Enter Reference Number</string>
+    <string name="rtc_verification_btn1">Get RTC Data</string>
+    <string name="rtc_verification_btn2">Reset</string>
+    <string name="rtc_verification_data_toolbartitle">RTC Verification Data</string>
+    <string name="rtc_verification_cultivator_heading">Details of Cultivation and Crop</string>
+    <string name="rtc_verification_owner_heading">Details Of Owner</string>
+    <string name="rtc_verification_land_heading">Details Of Land</string>
+    <string name="passcode">Bhoomi_rtC_xMl_verificaTion_paSScode</string>
+    <string name="saltkey">bhoomI_Rtc_xmL_veriFication_saltKey</string>
+    <string name="rtc_view_info_url">https://www.landrecords.karnataka.gov.in/RWSROR/GETBhoomiCode/</string>
+    <string name="rtc_xml_verification_url">https://landrecords.karnataka.gov.in/Service76/RTCXML.svc/</string>
+
+    <string-array name="app_languages">
+        <item>Kannada</item>
+        <item>English</item>
+    </string-array>
+
+    <string name="error_auth">Auth Failure Error</string>
+    <string name="error_server">Server Error</string>
+    <string name="error_network">Network Error</string>
+    <string name="error_parse">Parse Error</string>
+    <string name="error_network_timeout">Connection Timeout</string>
+    <string name="Extentofland">3.Extent of Land</string>
+    <string name="ExtentoflandType">Acre Gunta/Cents</string>
+    <string name="LandRevenueHeading">4.Revenue</string>
+    <string name="LandRevenueHeadingType">Rs. Paise</string>
+    <string name="treeDetailsHeading">7.Tree Details</string>
+    <string name="irrigationdetailsheading">8.Irrigation Details as per Extent</string>
+    <string name="cultivator_details_header">12.Cultivation and Tenancy Details /Previous year crop details prnted since current year details yet to be recorded</string>
+    <string name="cultivator_land_header">13.Land utilisation and Crop Details</string>
+    <string name="treeDetailsHeadingNo">Tree Number</string>
+    <string name="db_name">bhoomi</string>
+    <string name="title_activity_language_screen">LanguageScreen</string>
+
+
+    <string name="img_desc"></string>
+    <string name="clws_home">Clws Online</string>
+    <string name="lonee_report">INDIVIDUAL LOANE REPORT</string>
+    <string name="pac_certificate">CERTIFICATE FOR PACS</string>
+    <string name="bank_certificate">CERTIFICATE FOR BANKS</string>
+
+
+    <string name="toolbar_title_clws">CLWS Online</string>
+
+    <string name="clsw_toolbar_title">Crop Loan Waiver System</string>
+    <string name="clws_heading"><![CDATA[Payment & Loan Status Report]]></string>
+    <string name="clws_radio_btn_adhar">Aadhar Number</string>
+    <string name="clws_radio_btn_ration_card">Ration Card Number</string>
+    <string name="clws_aadhar_edittext">Enter Aadhar Number</string>
+    <string name="clws_ration_edittext">Enter RationCard Number</string>
+    <string name="clws_tetch_reports">Fetch Reports</string>
+
+    <string name="clsw_toolbartitle_status_details">Crop Loan Waiver</string>
+    <string name="commercial_bank_loan_details">Commercial Bank Loan Details</string>
+    <string name="bank_payment_details">Bank Payment Details</string>
+    <string name="pacs_loan_details">PACS Loan Details </string>
+    <string name="pacs_payment_details">PACS Payment Details </string>
+    <string name="report_view">Report View</string>
+    <string name="affidavit_view">Affidavit View</string>
+
+
+    <string name="details_parihara_entires">Details of Parihara Entries</string>
+    <string name="payment_details">Payment Details</string>
+
+    <string name="serial_no">Sl No</string>
+
+    <string name="entry_number">Entry Number</string>
+
+    <string name="aadhar_number">Aadhar Number</string>
+    <string name="crop_category">Crop Category</string>
+    <string name="crop_name">Crop Name</string>
+    <string name="crop_lost_extent_in">Crop Loss Extent in(Acre-Gunta-Fgunta)</string>
+
+    // Commercial Bank Adapter
+    <string name="reports_column">Reports</string>
+    <string name="clws_id_column">CLWS ID</string>
+    <string name="branch_column">Branch</string>
+    <string name="former_name">Farmer Name</string>
+    <string name="account_number_column">Account Number</string>
+    <string name="out_amount_comm_bank_loan_column">OutStanding Amount as on 31.12.2017</string>
+    <string name="status_column">Status</string>
+
+    <string name="croploss_extent_acre">Crop Loss ExtentAcre</string>
+    <string name="croploss_extent_gunta">Crop Loss ExtentGunta</string>
+    <string name="croploss_extent_fgunta">Crop Loss ExtentFGunta</string>
+
+    <string name="district_name">District</string>
+
+    <string name="taluka_name_one">Taluka Name</string>
+    <string name="bank_name">Bank Name</string>
+    <string name="ration_card_no">RationCard No</string>
+    <string name="loan_type">Loan Type</string>
+    <string name="pacs_name">PACS Name</string>
+    <string name="lonee_name">Loanee Name</string>
+    <string name="payment_status">Payment Status</string>
+    <string name="payment_remarks">Payment Remarks</string>
+    <string name="paid_date">Paid Date</string>
+    <string name="no_data_avilable">Details Not Avilable</string>
+    <string name="loan_amount_waiver">Loan Amount Eligible for Waiver</string>
+    <string name="loan_waiver_amount_date">Total Waiver amount actually release as on report date</string>
+    <string name="balance_waiver_amount_release">Balance Waiver amount to be release</string>
+
+    <string name="clws_fsd_edit_text">Enter FSD ID</string>
+    <string name="btn_text">Fetch Details</string>
+
+    // Pacs Loan Details Adapter
+    <string name="share_number">Share Number</string>
+    <string name="outstanding_amount_pacs_column">OutStanding Amount as on 10.07.2018</string>
+
+    <string name="loan_amount_eligible_for_waiver">Loan Amount Eligible for Waiver</string>
+    <string name="total_waiver_amount_release_report_date">Total Waiver amount actually release as on report date</string>
+
+    <string name="certificate_heading">Crop Loan Waiver Payment Certificate For Citizen</string>
+    <string name="corporate_certificate_heading">Cooperate Bank Loan Waiver Payment Details</string>
+
+    <string name="taluka_name">Taluka</string>
+    <string name="dcc_bank_name">DCC Bank Name</string>
+    <string name="share_no">Share No</string>
+    <string name="paid_amount">Paid Amount</string>
+
+    // Common Certificate Payment Adapter
+    <string name="action_column">Action</string>
+    <string name="father_name">Father/Guardian Name</string>
+    <string name="outstanding_amount_on_july">Outstanding Amount(on 10th July 2018)</string>
+
+    <string name="bank_certificate_details_heading">Commercial Bank Loan Waiver Payment Details</string>
+
+    <string name="english_language">English</string>
+    <string name="kanada_language">Kannada</string>
+
+    <string name="branch_name">Branch Name</string>
+    <string name="loan_acc_no">Loan Acc No</string>
+
+    <string name="bank_outstanding_amount">Outstanding Amount(on 30th December 2017)</string>
+
+    <string name="clws_services">CLWS Services</string>
+    <string name="rtc_services">RTC Services</string>
+
+
+    <string name="parihara_details_individual">Parihara Details - Individual</string>
+
+    <string name="p_benificary_details_vlg_wise">Parihara Beneficiary Details - Beneficiary Wise</string>
+
+    <string name="p_benificary_details_land_wise">Parihara Beneficiary Details - Land Wise</string>
+
+    <string name="land_wise">Land Wise</string>
+
+    <string name="village_circle_name">Village Circle</string>
+
+    <string name="crop_loss_report">Parihara Crop Loss Report</string>
+
+    <string name="entry_id">Entry ID</string>
+    <string name="hissa_number">Hissa Number</string>
+
+
+    <string-array name="select_financial_year">
+
+        <item>2019-20</item>
+        <item>2018-19</item>
+        <item>2017-18</item>
+        <item>2016-17</item>
+        <item>2015-16</item>
+        <item>2014-15</item>
+
+    </string-array>
+
+
+    <string-array name="select_financial_year_village_wise">
+
+        <item>2019-20</item>
+        <item>2018-19</item>
+        <item>2017-18</item>
+        <item>2016-17</item>
+
+    </string-array>
+
+
+    <string-array name="select_season">
+
+        <item>Khariff</item>
+        <item>Late Khariff</item>
+        <item>Rabi</item>
+        <item>Summer</item>
+
+    </string-array>
+
+
+    <string-array name="select_calamity_type_village_wise">
+
+        <item>Desiliting</item>
+        <item>Drought</item>
+        <item>Flood</item>
+        <item>Landslide</item>
+        <item>PEST</item>
+    </string-array>
+
+
+    <string-array name="select_calamity_type">
+
+        <item>Desiliting</item>
+        <item>Drought</item>
+        <item>Flood</item>
+        <item>Landslide</item>
+    </string-array>
+
+    <string name="aadhaar_err">Aadhar Error</string>
+
+    <string name="dist_code">District Code</string>
+
+    <string name="amount_in_ruppes">Amount in Rupees (Rs.).</string>
+
+    <string name="ac_holder_name">A/C Holder Name</string>
+    <string name="bank_account_no">Bank Account Number</string>
+
+    <string name="payment_status_column">Payment Status</string>
+
+    <string name="payment_date">Payment Date</string>
+    <string name="season">Season</string>
+    <string name="year">Year</string>
+
+    <string name="parihara_benificary_details">Parihara Beneficiary Details</string>
+
+    <string name="beneficiray_name">Beneficiary Name</string>
+    <string name="amount">Amount</string>
+
+    <string name="beneficiary_details_land_details">Beneficiary Details Land Wise</string>
+
+
+    <string name="server_report_url">https://clws.karnataka.gov.in/Service4/BHOOMI/</string>
+
+    <string name="downlaod_village_map">Downlaod Village Map</string>
+
+    <string name="mutation_pendencey_details">Mutation Pendency Details</string>
+
+    <string name="application_number">Application Number</string>
+
+    <string name="transaction_number">Transaction Number</string>
+
+    <string name="transaction_start_date">Transaction Start Date</string>
+
+    <string name="mr_number">MR Number</string>
+
+    <string name="mutation_registered_number">Mutation Registered Number</string>
+    <string name="mutation_registered_date">Mutation Registered Date</string>
+
+    <string name="mutation_type">Mutation Type</string>
+
+    <string name="mutation_status">Mutation Status</string>
+
+    <string name="acquatation_type">Acquisition Type</string>
+
+    <string name="court_type">Court Type</string>
+
+    <string name="report_genrated_date">Report Genrated Date</string>
+
+
+    <string name="survey_no_included_transaction">Survey Number Included In The Transaction</string>
+
+    <string name="mutation_sum_report">Mutation Summary Report</string>
+
+    <string name="loan_waiver_report">Loan Waiver Report For Commercial Bank</string>
+
+    <string name="loan_waiver_farmer_report">Loan Waiver Report For Commercial Bank- Farmer wise</string>
+
+    <string name="view_mutation_status">View Mutation Status</string>
+
+    <string name="btnSubmit">Submit</string>
+    <string name="req_msg">Please Wait</string>
+    <string name="bnk_error">Select Bank Name</string>
+
+    <string name="total_no_of_lonee">Total No Of Loanees</string>
+    <string name="loan_amount_lakh">Loan Amount(Lakhs)</string>
+
+    <string name="eligible_loans">Eligible Loans</string>
+    <string name="eligible_loan_amount_lakh">Eligible Loan Amount(Lakh)</string>
+
+    <string name="green_list_loan">Green List Loans</string>
+    <string name="green_list_amount">Green List Amount(Lakhs)</string>
+    <string name="paid_loan">Paid Loans</string>
+    <string name="paid_loan_amount">Paid Loan Amount(Lakhs)</string>
+    <string name="percentage">Percentage</string>
+    <string name="transactions_pending_due">Transaction Pending Due to Approval Of PACS, Manager,CDO\n or Pending due to submitted Ration Card issued after 5/4/2018 or TLC rejected Cases</string>
+
+    <string name="loan_waiver_report_for_bank_wise">Loan Waiver Report for Commercial Bank - Bank wise</string>
+    <string name="loan_waiver_report_for_farmer_wise">Loan Waiver Report for Commercial Bank - Farmer wise</string>
+
+    <string name="ration_card_data_mismatch">Ration Card data mismatch,Aadhaar Authentication Failed and mismatch in land data</string>
+    <string name="customer_name">Customer Name</string>
+    <string name="customer_rel_name">Customer Relative Name</string>
+    <string name="bank_branch_name">Bank Branch Name</string>
+    <string name="liability_amount">Liabiality Amount (Rs.) as on 2017/12/31</string>
+    <string name="in_green_list">In Green List (Yes/No)</string>
+    <string name="reason_if_no">Reason (if \'No\' in Green List)</string>
+    <string name="loan_waiver_disbured">Loan Waiver Disbursed (Yes/NO)</string>
+    <string name="loan_waiver_disbured_com">Loan Waiver Disbursement Completed</string>
+    <string name="loan_waiver_report_branch_wise">Loan Waiver Report For Commercial Bank - Branch Wise</string>
+    <string name="bank_branch_err_name">Select Branch Name</string>
+    <string name="loan_waiver_report_pacs">Loan Waiver Report For PACS-Bank Wise</string>
+    <string name="district_code">District Code</string>
+    <string name="loan_waiver_report_pacs_branch">Loan Waiver Report For Pacs BranchWise</string>
+    <string name="loan_waiver_report_pacs_farmer">Loan Waiver Report For Pacs FarmerWise</string>
+    <string name="parihara">Parihara</string>
+    <string name="mojini">Mojini</string>
+    <string name="view_phody_sketch">View 11e/Pre alienation/Phody Sketch</string>
+    <string name="view_mojini_request_status">View Mojini Request Status</string>
+    <string name="bhoomi">Bhoomi</string>
+    <string name="kar" >Government Of Karnataka</string>
+    <string name="view_rtc_information" >View Rtc Information</string>
+    <string name="rtc_xml_verification" >Rtc Xml Verification</string>
+    <string name="view_rtc_by_ownername" >View Rtc By OwnerName</string>
+    <string name="clws_status" >CLWS STATUS</string>
+    <string name="citizen_payment_certificate_for_pacs">Citizen Payment Certificate For Pacs</string>
+    <string name="citizen_payment_certificate_for_banks">Citizen Payment Certificate For Banks</string>
+    <string name="parihara_benificary_details_land_wise">Parihara Benificary Details Land Wise</string>
+
+
+</resources>

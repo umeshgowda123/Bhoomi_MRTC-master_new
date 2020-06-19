@@ -1,0 +1,56 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+
+
+
+    <dimen name="home_image_width">200dp</dimen>
+    <dimen name="home_image_height">170dp</dimen>
+    <dimen name="home_text_size">12sp</dimen>
+
+    <dimen name="title_text_size">16sp</dimen>
+    <dimen name="heading_text_size">20sp</dimen>
+
+    <dimen name="list_item_height_small">48dp</dimen>
+
+    <dimen name="item_bold_text_size">14sp</dimen>
+    <dimen name="item_normal_text_size">10dp</dimen>
+
+    <!--Headings text size-->
+    <dimen name="headingTitleSize">14sp</dimen>
+    <!--Label text size-->
+    <dimen name="labelTitleSize">14sp</dimen>
+
+    <dimen name="inputTextSize">14sp</dimen>
+
+    <dimen name="awesome">20sp</dimen>
+    <dimen name="stpi_labelSize">10sp</dimen>
+    <dimen name="buttonTextSize">14sp</dimen>
+    <dimen name="otp_btn_top_margin">20dp</dimen>
+    <dimen name="otp_not_received">10dp</dimen>
+    <dimen name="click_to_generate_otp">5dp</dimen>
+    <dimen name="awesome_margin_top">20dp</dimen>
+    <dimen name="otp_layout_margin">10dp</dimen>
+    <dimen name="margin_top_bottom">7dp</dimen>
+
+    <dimen name="headingSize">16sp</dimen>
+    <dimen name="etSize">14sp</dimen>
+
+
+    <dimen name="activity_margin">16dp</dimen>
+    <dimen name="dot_margin_right">10dp</dimen>
+    <dimen name="msg_no_notes">26sp</dimen>
+    <dimen name="margin_top_no_notes">120dp</dimen>
+    <dimen name="lbl_new_note_title">20sp</dimen>
+    <dimen name="dimen_10">10dp</dimen>
+    <dimen name="input_new_note">20sp</dimen>
+    <dimen name="dot_height">30dp</dimen>
+    <dimen name="dot_text_size">40sp</dimen>
+    <dimen name="timestamp">14sp</dimen>
+    <dimen name="note_list_text">18sp</dimen>
+</resources>
