@@ -7,7 +7,7 @@
     tools:context=".screens.CommercialBankLoanReportDocActivity">
 
 
-    <WebView xmlns:android="http://schemas.android.com/apk/res/android"
+    <WebView
         android:id="@+id/webViewBankLoanReport"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"/>

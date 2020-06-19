@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/tools"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
@@ -41,8 +40,7 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="55dp"
@@ -51,15 +49,15 @@
         android:layout_marginBottom="16dp"
         android:orientation="vertical">
 
-        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            tools:ignore="UselessParent">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <ProgressBar
                     android:id="@+id/progress_circular"
@@ -137,7 +135,8 @@
                         android:layout_marginRight="24dp"
                         android:layout_marginTop="10dp"
                         android:textColorHint="@color/hint_before_float_rtc"
-                        android:hint="Enter Aadhar Number"/>
+                        android:hint="@string/aadhaar_number_err"
+                        android:autofillHints="@string/aadhaar_number_err" />
 
 
                     <Button
@@ -149,7 +148,7 @@
                         android:layout_marginRight="24dp"
                         android:layout_marginBottom="8dp"
                         android:background="@color/btn_fetch"
-                        android:hint="Submit"
+                        android:hint="@string/submit"
                         android:text="@string/btnfetch"
                         android:textColor="@android:color/white" />
                 </LinearLayout>
