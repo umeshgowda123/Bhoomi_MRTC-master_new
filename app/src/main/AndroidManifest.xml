@@ -155,11 +155,6 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.BankCertificateDataNotFound"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
             android:name=".screens.ShowEnglishCertificateActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"

@@ -7,6 +7,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -102,7 +103,7 @@ public class PaymentBankCertificateDetails extends AppCompatActivity {
             }
         }
 
-        if(!bankCertificateDetailslist.isEmpty() && bankCertificateDetailslist.size() != 0) {
+        if(!bankCertificateDetailslist.isEmpty()) {
             cBankCertificatePaymentAdapter = new CommonBankCertificatePaymentAdapter(bankCertificateDetailslist,commonId,this);
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
             rvBankPaymentCertificateDetails.setLayoutManager(mLayoutManager);
@@ -110,8 +111,7 @@ public class PaymentBankCertificateDetails extends AppCompatActivity {
             rvBankPaymentCertificateDetails.setAdapter(cBankCertificatePaymentAdapter);
         }else
         {
-            Intent intent = new Intent(PaymentBankCertificateDetails.this,BankCertificateDataNotFound.class);
-            startActivity(intent);
+            Toast.makeText(getApplicationContext(), "No Data Found!", Toast.LENGTH_SHORT).show();
         }
     }
 }

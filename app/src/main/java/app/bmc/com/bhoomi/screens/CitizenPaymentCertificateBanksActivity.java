@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -139,7 +140,7 @@ public class CitizenPaymentCertificateBanksActivity extends AppCompatActivity {
                     if (rbBankCertAadhar.isChecked()) {
                         aadharNumber = etBankCertAaadhar.getText().toString().trim();
 //                        if (!aadharNumber.isEmpty()) {
-                        if (!aadharNumber.isEmpty() && aadharNumber.length() == 12) {// SUSMITA
+                        if (aadharNumber.length() == 12) {// SUSMITA
                             apiInterface = APIClient.getClient().create(APIInterface.class);
                             Call<BankPaymentCertiUidResult> call = apiInterface.getBankCertificationPaymentDetails(aadharNumber);
                             call.enqueue(new Callback<BankPaymentCertiUidResult>() {
@@ -151,9 +152,24 @@ public class CitizenPaymentCertificateBanksActivity extends AppCompatActivity {
 
                                         BankPaymentCertiUidResult result = response.body();
                                         progressDialog.dismiss();
-                                        Intent intent = new Intent(CitizenPaymentCertificateBanksActivity.this, PaymentBankCertificateDetails.class);
-                                        intent.putExtra("response_data",result.getGetPayMentCertificateForBankByAadharNumberResult());
-                                        startActivity(intent);
+                                        assert result != null;
+                                        String res = result.getGetPayMentCertificateForBankByAadharNumberResult();
+                                        Log.d("Result_1","res: "+res);
+                                        if (res.equals("[]")){
+                                            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(CitizenPaymentCertificateBanksActivity.this, R.style.MyDialogTheme);
+                                            builder.setTitle("STATUS")
+                                                    .setMessage("No Details Found for This Record")
+                                                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                    .setCancelable(false)
+                                                    .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                            final android.app.AlertDialog alert = builder.create();
+                                            alert.show();
+                                            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                        } else {
+                                            Intent intent = new Intent(CitizenPaymentCertificateBanksActivity.this, PaymentBankCertificateDetails.class);
+                                            intent.putExtra("response_data", result.getGetPayMentCertificateForBankByAadharNumberResult());
+                                            startActivity(intent);
+                                        }
                                     }
                                 }
 
@@ -190,9 +206,24 @@ public class CitizenPaymentCertificateBanksActivity extends AppCompatActivity {
                                     {
                                         BankPaymentCertiRasonResult result = response.body();
                                         progressDialog.dismiss();
-                                        Intent intent = new Intent(CitizenPaymentCertificateBanksActivity.this, PaymentBankCertificateDetails.class);
-                                        intent.putExtra("response_data",result.getGetPayMentCertificateForBankByRationCardNumberResult());
-                                        startActivity(intent);
+                                        assert result != null;
+                                        String res = result.getGetPayMentCertificateForBankByRationCardNumberResult();
+                                        Log.d("Result_1","res: "+res);
+                                        if (res.equals("[]")){
+                                            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(CitizenPaymentCertificateBanksActivity.this, R.style.MyDialogTheme);
+                                            builder.setTitle("STATUS")
+                                                    .setMessage("No Details Found for This Record")
+                                                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                    .setCancelable(false)
+                                                    .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                            final android.app.AlertDialog alert = builder.create();
+                                            alert.show();
+                                            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                        } else {
+                                            Intent intent = new Intent(CitizenPaymentCertificateBanksActivity.this, PaymentBankCertificateDetails.class);
+                                            intent.putExtra("response_data", result.getGetPayMentCertificateForBankByRationCardNumberResult());
+                                            startActivity(intent);
+                                        }
                                     }
                                 }
 
@@ -207,9 +238,9 @@ public class CitizenPaymentCertificateBanksActivity extends AppCompatActivity {
                             //---------------------SUSMITA------------------------
                             progressDialog.dismiss();
                             if (bankRasanCardNumber.isEmpty()){
-                                Toast.makeText(getApplicationContext(), "Please Enter Rasan Card Number", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Please Enter RationCard Num.", Toast.LENGTH_SHORT).show();
                             }else {
-                                Toast.makeText(getApplicationContext(), "Rasan Card Number should be 8 digit", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Invalid RationCard Num.", Toast.LENGTH_SHORT).show();
                             }
                             //----------------------------------------------------
                         }
@@ -227,10 +258,25 @@ public class CitizenPaymentCertificateBanksActivity extends AppCompatActivity {
 
                                         BankPaymentCertiFsdResult result = response.body();
                                         progressDialog.dismiss();
-                                        Intent intent = new Intent(CitizenPaymentCertificateBanksActivity.this, PaymentBankCertificateDetails.class);
-                                        intent.putExtra("PACS_Request_Parameter",bankFsdId);
-                                        intent.putExtra("response_data",result.getGetPayMentCertificateForBankByFsdIdNumberResult());
-                                        startActivity(intent);
+                                        assert result != null;
+                                        String res = result.getGetPayMentCertificateForBankByFsdIdNumberResult();
+                                        Log.d("Result_1","res: "+res);
+                                        if (res.equals("[]")){
+                                            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(CitizenPaymentCertificateBanksActivity.this, R.style.MyDialogTheme);
+                                            builder.setTitle("STATUS")
+                                                    .setMessage("No Details Found for This Record")
+                                                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                    .setCancelable(false)
+                                                    .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                            final android.app.AlertDialog alert = builder.create();
+                                            alert.show();
+                                            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                        } else {
+                                            Intent intent = new Intent(CitizenPaymentCertificateBanksActivity.this, PaymentBankCertificateDetails.class);
+                                            intent.putExtra("PACS_Request_Parameter", bankFsdId);
+                                            intent.putExtra("response_data", result.getGetPayMentCertificateForBankByFsdIdNumberResult());
+                                            startActivity(intent);
+                                        }
                                     }
                                 }
 

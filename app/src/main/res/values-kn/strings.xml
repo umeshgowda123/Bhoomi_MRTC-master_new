@@ -400,6 +400,9 @@
     <string name="view_rtc_by_ownername" >View Rtc By OwnerName</string>
     <string name="clws_status" >CLWS STATUS</string>
     <string name="citizen_payment_certificate_for_pacs">Citizen Payment Certificate For Pacs</string>
+    <string name="citizen_payment_certificate_for_banks">Citizen Payment Certificate For Banks</string>
+    <string name="parihara_benificary_details_land_wise">Parihara Benificary Details Land Wise</string>
+    <string name="logo">Logo</string>
 
 
 </resources>

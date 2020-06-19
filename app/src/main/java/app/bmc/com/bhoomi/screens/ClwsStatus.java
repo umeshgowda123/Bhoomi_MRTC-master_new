@@ -222,12 +222,10 @@ public class ClwsStatus extends AppCompatActivity {
                             } else {
                                 //-------------------------SUSMITA-------------------
                                 if (rationcard.isEmpty()) {
-                                    Toast.makeText(ClwsStatus.this, "Please Enter Ration Card Number", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ClwsStatus.this, "Please Enter RationCard Num.", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(ClwsStatus.this, "Ration Card Number should be 8 digit", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ClwsStatus.this, "Invalid RationCard Num.", Toast.LENGTH_SHORT).show();
                                 }
-                                //--------------------------------------------------
-//                            Toast.makeText(ClwsStatus.this, "Rasan Card Number should be 8 digit", Toast.LENGTH_SHORT).show();
                             }
                         }
                     //-------------------------SUSMITA-------------------

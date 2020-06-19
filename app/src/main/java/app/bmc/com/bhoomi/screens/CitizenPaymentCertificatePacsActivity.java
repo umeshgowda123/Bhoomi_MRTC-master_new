@@ -207,9 +207,9 @@ public class CitizenPaymentCertificatePacsActivity extends AppCompatActivity {
                             //---------------------SUSMITA------------------------
                             progressDialog.dismiss();
                             if (paymentRasanCardNumber.isEmpty()){
-                                Toast.makeText(CitizenPaymentCertificatePacsActivity.this, "Please Enter Rasan Card Number", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(CitizenPaymentCertificatePacsActivity.this, "Please Enter RationCard Num.", Toast.LENGTH_SHORT).show();
                             }else {
-                                Toast.makeText(CitizenPaymentCertificatePacsActivity.this, "Rasan Card Number should be 8 digit", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(CitizenPaymentCertificatePacsActivity.this, "Invalid RationCard Num.", Toast.LENGTH_SHORT).show();
                             }
                             //----------------------------------------------------
                         }
