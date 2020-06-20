@@ -1,4 +1,9 @@
 <resources>
+
+    <string name="rtc_view_info_url"> https://www.landrecords.karnataka.gov.in/RWSROR/GETBhoomiCode/</string>
+    <string name="rtc_xml_verification_url">https://landrecords.karnataka.gov.in/Service76/RTCXML.svc/</string>
+    <string name="server_report_url">https://clws.karnataka.gov.in/Service4/BHOOMI/</string>
+
     <string name="app_name">M RTC</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -16,16 +21,22 @@
     <string name="btnGo">GO</string>
     <string name="btnfetch">Fetch Details</string>
     <string name="btnViewDetails">View Details</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="rtc_details_toolbartitle">RTC Details</string>
+
+
     <string name="rtc_details_toolbartitle_byOwnerName">RTC Details By Owner</string>
     <string name="natural_services">Natural Calamity Crop Loss Payment Services</string>
+
+
     <string name="cultivator_details">Cultivator </string>
     <string name="owner_details">Owner </string>
     <string name="land_details">Land </string>
+
     <string name="owner_details_heading">Owner Details</string>
     <string name="owner_name">Owner Name</string>
     <string name="surnoc_no">Surnoc </string>
+
+
     <string name="language_selection">Please Select Preferred Language</string>
     <string name="toolbartitle_settings">settings</string>
     <string name="app_kannada">Kannada</string>
@@ -45,17 +56,29 @@
     <string name="hissa_err">Hissa is required</string>
     <string name="validfrom">Valid From</string>
     <string name="land_code">Land Code</string>
+
+
     <string name="financial_year">Financial Year</string>
+
     <string name="year_err">Select Year</string>
     <string name="calamity_err">Select Calamity</string>
+
     <string name="calamity_type">Calamity Type</string>
+
     <string name="calamity">Calamity</string>
+
     <string name="beneficiary_details">Beneficiary Details</string>
+
     <string name="financial_year_error">Select Financial Year</string>
+
     <string name="season_error">Select Season</string>
+
     <string name="calamity_error">Select Calamity</string>
+
     <string name="aadhaar_number_err">Enter aadhar Number!</string>
+
     <string name="action_text">Action</string>
+
     <string name="year_season">1.Year Season</string>
     <string name="CultivatorName">2.Cultivator Name</string>
     <string name="CultType">3.Cult Type</string>
@@ -73,6 +96,8 @@
     <string name="MixedCropName">15.Mixed Crop Name</string>
     <string name="MixedCropNameExtents">16.Mixed Crop Extents</string>
     <string name="SurveyNo">1.Survey No</string>
+
+
     <string name="Survey_No">Survey No</string>
     <string name="HissaNo">2.Hissa No</string>
     <string name="TotalExtentAcreGunta">Total Extent)</string>
@@ -111,12 +136,12 @@
     <string name="rtc_verification_land_heading">Details Of Land</string>
     <string name="passcode">Bhoomi_rtC_xMl_verificaTion_paSScode</string>
     <string name="saltkey">bhoomI_Rtc_xmL_veriFication_saltKey</string>
-    <string name="rtc_view_info_url">https://www.landrecords.karnataka.gov.in/RWSROR/GETBhoomiCode/</string>
-    <string name="rtc_xml_verification_url">https://landrecords.karnataka.gov.in/Service76/RTCXML.svc/</string>
+
     <string-array name="app_languages">
         <item>Kannada</item>
         <item>English</item>
     </string-array>
+
     <string name="error_auth">Auth Failure Error</string>
     <string name="error_server">Server Error</string>
     <string name="error_network">Network Error</string>
@@ -133,12 +158,17 @@
     <string name="treeDetailsHeadingNo">Tree Number</string>
     <string name="db_name">bhoomi</string>
     <string name="title_activity_language_screen">LanguageScreen</string>
-    <string name="img_desc"></string>
+
+
+    <string name="img_desc">Logo</string>
     <string name="clws_home">Clws Online</string>
     <string name="lonee_report">INDIVIDUAL LOANE REPORT</string>
     <string name="pac_certificate">CERTIFICATE FOR PACS</string>
     <string name="bank_certificate">CERTIFICATE FOR BANKS</string>
+
+
     <string name="toolbar_title_clws">CLWS Online</string>
+
     <string name="clsw_toolbar_title">Crop Loan Waiver System</string>
     <string name="clws_heading"><![CDATA[Payment & Loan Status Report]]></string>
     <string name="clws_radio_btn_adhar">Aadhar Number</string>
@@ -146,6 +176,7 @@
     <string name="clws_aadhar_edittext">Enter Aadhar Number</string>
     <string name="clws_ration_edittext">Enter RationCard Number</string>
     <string name="clws_tetch_reports">Fetch Reports</string>
+
     <string name="clsw_toolbartitle_status_details">Crop Loan Waiver</string>
     <string name="commercial_bank_loan_details">Commercial Bank Loan Details</string>
     <string name="bank_payment_details">Bank Payment Details</string>
@@ -153,14 +184,20 @@
     <string name="pacs_payment_details">PACS Payment Details </string>
     <string name="report_view">Report View</string>
     <string name="affidavit_view">Affidavit View</string>
+
+
     <string name="details_parihara_entires">Details of Parihara Entries</string>
     <string name="payment_details">Payment Details</string>
+
     <string name="serial_no">Sl No</string>
+
     <string name="entry_number">Entry Number</string>
+
     <string name="aadhar_number">Aadhar Number</string>
     <string name="crop_category">Crop Category</string>
     <string name="crop_name">Crop Name</string>
     <string name="crop_lost_extent_in">Crop Loss Extent in(Acre-Gunta-Fgunta)</string>
+
     // Commercial Bank Adapter
     <string name="reports_column">Reports</string>
     <string name="clws_id_column">CLWS ID</string>
@@ -169,10 +206,13 @@
     <string name="account_number_column">Account Number</string>
     <string name="out_amount_comm_bank_loan_column">OutStanding Amount as on 31.12.2017</string>
     <string name="status_column">Status</string>
+
     <string name="croploss_extent_acre">Crop Loss ExtentAcre</string>
     <string name="croploss_extent_gunta">Crop Loss ExtentGunta</string>
     <string name="croploss_extent_fgunta">Crop Loss ExtentFGunta</string>
+
     <string name="district_name">District</string>
+
     <string name="taluka_name_one">Taluka Name</string>
     <string name="bank_name">Bank Name</string>
     <string name="ration_card_no">RationCard No</string>
@@ -186,19 +226,25 @@
     <string name="loan_amount_waiver">Loan Amount Eligible for Waiver</string>
     <string name="loan_waiver_amount_date">Total Waiver amount actually release as on report date</string>
     <string name="balance_waiver_amount_release">Balance Waiver amount to be release</string>
+
     <string name="clws_fsd_edit_text">Enter FSD ID</string>
     <string name="btn_text">Fetch Details</string>
+
     // Pacs Loan Details Adapter
     <string name="share_number">Share Number</string>
     <string name="outstanding_amount_pacs_column">OutStanding Amount as on 10.07.2018</string>
+
     <string name="loan_amount_eligible_for_waiver">Loan Amount Eligible for Waiver</string>
     <string name="total_waiver_amount_release_report_date">Total Waiver amount actually release as on report date</string>
+
     <string name="certificate_heading">Crop Loan Waiver Payment Certificate For Citizen</string>
     <string name="corporate_certificate_heading">Cooperate Bank Loan Waiver Payment Details</string>
+
     <string name="taluka_name">Taluka</string>
     <string name="dcc_bank_name">DCC Bank Name</string>
     <string name="share_no">Share No</string>
     <string name="paid_amount">Paid Amount</string>
+
     // Common Certificate Payment Adapter
     <string name="action_column">Action</string>
     <string name="father_name">Father/Guardian Name</string>
@@ -305,9 +351,6 @@
     <string name="amount">Amount</string>
 
     <string name="beneficiary_details_land_details">Beneficiary Details Land Wise</string>
-
-
-    <string name="server_report_url">https://clws.karnataka.gov.in/Service4/BHOOMI/</string>
 
     <string name="downlaod_village_map">Downlaod Village Map</string>
 

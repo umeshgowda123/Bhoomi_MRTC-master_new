@@ -1,4 +1,9 @@
 <resources>
+
+    <string name="rtc_view_info_url"> https://www.landrecords.karnataka.gov.in/RWSROR/GETBhoomiCode/</string>
+    <string name="rtc_xml_verification_url">https://landrecords.karnataka.gov.in/Service76/RTCXML.svc/</string>
+    <string name="server_report_url">https://clws.karnataka.gov.in/Service4/BHOOMI/</string>
+
     <string name="app_name">M RTC</string>
     <string name="navigation_drawer_open">ನ್ಯಾವಿಗೇಷನ್ ಡ್ರಾಯರ್ ತೆರೆಯಿರಿ</string>
     <string name="navigation_drawer_close">ಸಂಚರಣೆ ಡ್ರಾಯರ್ ಮುಚ್ಚಿ</string>
@@ -97,8 +102,6 @@
     <string name="rtc_verification_land_heading">ಸಾಗುವಳಿದಾರರ ವಿವರ</string>
     <string name="passcode">Bhoomi_rtC_xMl_verificaTion_paSScode</string>
     <string name="saltkey">bhoomI_Rtc_xmL_veriFication_saltKey</string>
-    <string name="rtc_view_info_url"> https://www.landrecords.karnataka.gov.in/RWSROR/GETBhoomiCode/</string>
-    <string name="rtc_xml_verification_url">https://landrecords.karnataka.gov.in/Service76/RTCXML.svc/</string>
     <string-array name="app_languages">
         <item>ಕನ್ನಡ</item>
         <item>ಇಂಗ್ಲಿಷ್</item>
@@ -128,7 +131,7 @@
     <string name="rtc_details_toolbartitle_byOwnerName">ಆರ್‌ಟಿಸಿ ವಿವರಗಳು ಮಾಲೀಕರ ಹೆಸರಿನ ಪ್ರಕಾರ</string>
     <string name="natural_services">ನೈಸರ್ಗಿಕ ವಿಪತ್ತು ಬೆಳೆ ನಷ್ಟ ಪಾವತಿ ಸೇವೆಗಳು</string>
     <string name="title_activity_language_screen">LanguageScreen</string>
-    <string name="img_desc"></string>
+    <string name="img_desc">Logo</string>
     <string name="clws_home">ಸಿ ಎಲ್ ಡಬ್ಲು ಎಸ್  ಆನ್‌ಲೈನ್</string>
     <string name="lonee_report">ವೈಯಕ್ತಿಕ ಸಾಲ ವರದಿ</string>
     <string name="pac_certificate">ಪಿ ಎ ಸಿ ಎಸ್ ಪ್ರಮಾಣಪತ್ರ</string>
@@ -261,7 +264,6 @@
     <string name="crop_category">ಬೆಳೆ ವರ್ಗ</string>
     <string name="crop_name">ಬೆಳೆ ಹೆಸರು</string>
     <string name="crop_lost_extent_in">Crop Loss Extent in(Acre-Gunta-Fgunta)</string>
-    <string name="server_report_url">https://clws.karnataka.gov.in/Service4/BHOOMI/</string>
     <string name="aadhaar_err">ಆಧಾರ್ ದೋಷ</string>
     <string name="dist_code">ಜಿಲ್ಲಾ ಕೋಡ್</string>
     <string name="payment_date">ಪಾವತಿ ದಿನಾಂಕ</string>
@@ -306,7 +308,7 @@
     <string name="bank_branch_name">ಬ್ಯಾಂಕ್ ಶಾಖೆಯ ಹೆಸರು</string>
     <string name="liability_amount">2017/12/31 ರಂತೆ ಹೊಣೆಗಾರಿಕೆ ಮೊತ್ತ (ರೂ.)</string>
     <string name="bank_branch_err_name">ಶಾಖೆಯ ಹೆಸರನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
-    <string name="reason_if_no">ಕಾರಣ (ಹಸಿರು ಪಟ್ಟಿಯಲ್ಲಿ  'ಇಲ್ಲ \' ಇದ್ದರೆ)</string>
+    <string name="reason_if_no">ಕಾರಣ (ಹಸಿರು ಪಟ್ಟಿಯಲ್ಲಿ  ಇಲ್ಲ / ಇದ್ದರೆ)</string>
     <string name="loan_waiver_disbured">ಸಾಲ ಮನ್ನಾ ವಿತರಿಸಲಾಗಿದೆ (ಹೌದು / ಇಲ್ಲ)</string>
     <string name="loan_waiver_disbured_com">ಸಾಲ ಮನ್ನಾ ವಿತರಣೆ ಪೂರ್ಣಗೊಂಡಿದೆ</string>
     <string name="loan_waiver_report_branch_wise">ಕಮರ್ಷಿಯಲ್ ಬ್ಯಾಂಕ್‌ಗಾಗಿ ಸಾಲ ಮನ್ನಾ ವರದಿ - ಶಾಖಾವಾರು</string>
