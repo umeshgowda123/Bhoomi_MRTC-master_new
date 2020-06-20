@@ -359,9 +359,21 @@ public class MutationPendencyDetails extends AppCompatActivity {
                                     String s = result.getGetMutationPendencyDetailsResult();
                                     Log.d("MAP_RESPONSE_DATA", s);
 
-                                    Intent intent = new Intent(MutationPendencyDetails.this, ShowMutationPendencyDetails.class);
-                                    intent.putExtra("ped_response_data",result.getGetMutationPendencyDetailsResult());
-                                    startActivity(intent);
+                                    if (s.equals("<NewDataSet />")) {
+                                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(MutationPendencyDetails.this, R.style.MyDialogTheme);
+                                        builder.setTitle("STATUS")
+                                                .setMessage("No Report Found For this Record")
+                                                .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                .setCancelable(false)
+                                                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                        final android.app.AlertDialog alert = builder.create();
+                                        alert.show();
+                                        alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                    } else {
+                                        Intent intent = new Intent(MutationPendencyDetails.this, ShowMutationPendencyDetails.class);
+                                        intent.putExtra("ped_response_data", result.getGetMutationPendencyDetailsResult());
+                                        startActivity(intent);
+                                    }
                                 }
                             }
 

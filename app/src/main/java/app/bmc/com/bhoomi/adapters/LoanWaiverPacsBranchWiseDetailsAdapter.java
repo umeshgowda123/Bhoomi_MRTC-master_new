@@ -50,6 +50,7 @@ public class LoanWaiverPacsBranchWiseDetailsAdapter extends RecyclerView.Adapter
         public TextView tvBranchPaidLoan;
         public TextView tvBranchPaidAmount;
         public TextView tvBranchPercentage;
+        TextView txt;
 
 
         public MyViewHolder(View view) {
@@ -74,6 +75,7 @@ public class LoanWaiverPacsBranchWiseDetailsAdapter extends RecyclerView.Adapter
             tvBranchPaidLoan = (TextView) view.findViewById(R.id.tvBranchPaidLoan);
             tvBranchPaidAmount = (TextView) view.findViewById(R.id.tvBranchPaidAmount);
             tvBranchPercentage = (TextView) view.findViewById(R.id.tvBranchPercentage);
+            txt = view.findViewById(R.id.txt);
 
         }
 
@@ -159,6 +161,7 @@ public class LoanWaiverPacsBranchWiseDetailsAdapter extends RecyclerView.Adapter
         holder.tvBranchPaidLoan.setText(clist.get(position).getPaidLoans());
         holder.tvBranchPaidAmount.setText(clist.get(position).getPaidLoanAmount());
         holder.tvBranchPercentage.setText(clist.get(position).getPerc());
+        holder.txt.setText(R.string.loan_waiver_report_pacs_branch);
     }
 }
 

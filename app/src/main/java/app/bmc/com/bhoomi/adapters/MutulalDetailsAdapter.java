@@ -88,7 +88,7 @@ public class MutulalDetailsAdapter extends RecyclerView.Adapter<MutulalDetailsAd
             Toast.makeText(activity, "No Data Found!", Toast.LENGTH_SHORT).show();
         }else
         {
-            holder.tvMPHobliName.setText(clist.get(position).getCourtType());
+            holder.tvMPHobliName.setText(clist.get(position).getHobliName());
             holder.tvMPVillageName.setText(clist.get(position).getVillageName());
             holder.tvMPApplicationNo.setText(clist.get(position).getಅರ್ಜಿ_x0020_ಸಂಖ್ಯ());
             holder.tvMPTransactionNo.setText(clist.get(position).getವಹಿವಾಟಿನ_x0020_ಸಂಖ್ಯೆ());

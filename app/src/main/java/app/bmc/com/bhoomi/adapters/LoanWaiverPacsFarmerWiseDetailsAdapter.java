@@ -52,6 +52,7 @@ public class LoanWaiverPacsFarmerWiseDetailsAdapter extends RecyclerView.Adapter
         public TextView tvFPaidAmount;
         public TextView tvFLoanWaiverDisburedCom;
         public TextView tvFRationCardNo;
+        TextView txt;
 
 
         public MyViewHolder(View view) {
@@ -75,6 +76,7 @@ public class LoanWaiverPacsFarmerWiseDetailsAdapter extends RecyclerView.Adapter
             tvFPaidAmount = (TextView) view.findViewById(R.id.tvFPaidAmount);
             tvFLoanWaiverDisburedCom = (TextView) view.findViewById(R.id.tvFLoanWaiverDisburedCom);
             tvFRationCardNo = (TextView) view.findViewById(R.id.tvFRationCardNo);
+            txt = view.findViewById(R.id.txt);
 
         }
 
@@ -160,6 +162,7 @@ public class LoanWaiverPacsFarmerWiseDetailsAdapter extends RecyclerView.Adapter
         holder. tvFPaidAmount.setText(clist.get(position).getPaidamt());
         holder. tvFLoanWaiverDisburedCom.setText(clist.get(position).getLoanWaiverdisbursedCompleted());
         holder.tvFRationCardNo.setText(clist.get(position).getRationCardNum());
+        holder.txt.setText(R.string.loan_waiver_report_pacs_farmer);
     }
 }
 
