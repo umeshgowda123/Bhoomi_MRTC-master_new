@@ -47,7 +47,7 @@ public class LoanWaiverPacsWiseDetailsAdapter extends RecyclerView.Adapter<Recyc
 
         public TextView tvLWTranPendingDue;
         public TextView tvLWRationCardMismatch;
-
+        TextView txt;
 
         public MyViewHolder(View view) {
             super(view);
@@ -69,6 +69,7 @@ public class LoanWaiverPacsWiseDetailsAdapter extends RecyclerView.Adapter<Recyc
             tvLWPaidLoanAmount = (TextView) view.findViewById(R.id.tvLWPaidLoanAmount);
             tvLWTranPendingDue = (TextView) view.findViewById(R.id.tvLWTranPendingDue);
             tvLWRationCardMismatch = (TextView) view.findViewById(R.id.tvLWRationCardMismatch);
+            txt = view.findViewById(R.id.txt);
 
         }
 
@@ -153,6 +154,7 @@ public class LoanWaiverPacsWiseDetailsAdapter extends RecyclerView.Adapter<Recyc
 
         holder. tvLWTranPendingDue.setText(clist.get(position).getCoopCommon());
         holder. tvLWRationCardMismatch.setText(clist.get(position).getAuthenticationFailed());
+        holder.txt.setText(R.string.loan_waiver_report_pacs);
     }
 }
 

@@ -17,7 +17,7 @@ public class MutualPendacyData {
     private String ವಹಿವಾಟು_x0020_ಆರಂಭಿಸಿದ_x0020_ದಿನಾಂಕ;
 
 
-    @SerializedName("ಅರ್ಜಿ_x0020_ಸಂಖ್ಯ")
+    @SerializedName("ಅರ್ಜಿ_x0020_ಸಂಖ್ಯೆ")
     @Expose
     private String ಅರ್ಜಿ_x0020_ಸಂಖ್ಯ;
 
@@ -65,13 +65,13 @@ public class MutualPendacyData {
     @Expose
     private String Amount;
 
-    @SerializedName("ಸ್ವಾಧೀನತೆ_x0020_ರೀ")
+    @SerializedName("ಸ್ವಾಧೀನತೆ_x0020_ರೀತಿ")
     @Expose
     private String ಸ್ವಾಧೀನತೆ_x0020_ರೀ;
 
 
 
-    @SerializedName("ಮ್ಯುಟೇಷನ್_x0020_ಸ್ಥಿ")
+    @SerializedName("ಮ್ಯುಟೇಷನ್_x0020_ಸ್ಥಿತಿ")
     @Expose
     private String ಮ್ಯುಟೇಷನ್_x0020_ಸ್ಥಿ;
 
