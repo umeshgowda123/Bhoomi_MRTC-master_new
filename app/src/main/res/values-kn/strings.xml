@@ -9,7 +9,7 @@
     <string name="navigation_drawer_close">ಸಂಚರಣೆ ಡ್ರಾಯರ್ ಮುಚ್ಚಿ</string>
     <string name="services">ಸೇವೆಗಳು</string>
     <string name="viewrtcinformation">ಆರ್ .ಟಿ .ಸಿ ಮಾಹಿತಿ  ವೀಕ್ಷಣೆ</string>
-    <string name="viewrtcinformationByOwnerName">VIEW RTC INFORMATION BY OWNER NAME</string>
+    <string name="viewrtcinformationByOwnerName">ಮಾಲೀಕರ ಹೆಸರಿನ ಪ್ರಕಾರ ಆರ್‌ಟಿಸಿ ಮಾಹಿತಿಯನ್ನು ವೀಕ್ಷಿಸಿ</string>
     <string name="content_banner_header_text">ಭೂಮಿ</string>
     <string name="content_banner_text1">ಭೂ ದಾಖಲೆಗಳ ಗಣಕೀಕರಣ ಯೋಜನೆ</string>
     <string name="content3_banner_header_text">ಯೋಜನೆಗಳು</string>
@@ -21,8 +21,7 @@
     <string name="btnGo">ಮುಂದೆ</string>
     <string name="btnfetch">ವಿವರಗಳನ್ನು ಕರೆತರು</string>
     <string name="rtc_details_toolbartitle">ಆರ್ .ಟಿ .ಸಿ ವಿವರ</string>
-
-    <string name="Survey_No">Survey No</string>
+    <string name="Survey_No">ಸರ್ವೆ ನಂ</string>
     <string name="cultivator_details">ಸಾಗುವಳಿದಾರರ </string>
     <string name="owner_details">ಸ್ವಾದೀನದಾರರ </string>
     <string name="land_details">ಜಮೀನಿನ</string>
@@ -36,15 +35,12 @@
     <string name="village">ಗ್ರಾಮ</string>
     <string name="survey_no">ಸರ್ವೇ ನಂಬರ್</string>
     <string name="hissa">ಹಿಸ್ಸಾ</string>
-    <string name="land_code">Land Code</string>
-
+    <string name="land_code">ಲ್ಯಾಂಡ್ ಕೋಡ್</string>
     <string name="btnViewDetails">ವಿವರಗಳನ್ನು ಪಡೆ</string>
-    <string name="owner_details_heading">Owner Details</string>
-
-    <string name="owner_name">Owner Name</string>
-    <string name="surnoc_no">Surnoc </string>
-
-    <string name="action_text">Action</string>
+    <string name="owner_details_heading">ಮಾಲೀಕರ ವಿವರಗಳು</string>
+    <string name="owner_name">ಮಾಲೀಕರ ಹೆಸರು</string>
+    <string name="surnoc_no">ಸರ್ ನಾಕ್ </string>
+    <string name="action_text">ಕ್ರಿಯೆ</string>
     <!-- error msg text-->
     <string name="district_err">ಜಿಲ್ಲೆ ಅಗತ್ಯವಿದೆ</string>
     <string name="taluk_err">ತಾಲ್ಲೂಕ್ ಅಗತ್ಯವಿದೆ</string>
@@ -53,7 +49,6 @@
     <string name="survey_no_err">ಸರ್ವೇ ನಂಬರ್ ಅಗತ್ಯವಿದೆ</string>
     <string name="hissa_err">ಹಿಸ್ಸಾ ಅಗತ್ಯವಿದೆ</string>
     <string name="validfrom">ನಿಂದ ಮಾನ್ಯ</string>
-
     <string name="year_season">1.ವರ್ಷ ಮತ್ತು ಕಾಲ</string>
     <string name="CultivatorName">2.ವ್ಯವಸಾಯಗಾರನ ಹೆಸರು</string>
     <string name="CultType">3.ಸಾಗುವಳಿ ಪದ್ಧತಿ</string>
@@ -107,25 +102,21 @@
     <string name="rtc_verification_land_heading">ಸಾಗುವಳಿದಾರರ ವಿವರ</string>
     <string name="passcode">Bhoomi_rtC_xMl_verificaTion_paSScode</string>
     <string name="saltkey">bhoomI_Rtc_xmL_veriFication_saltKey</string>
-
     <string-array name="app_languages">
         <item>ಕನ್ನಡ</item>
         <item>ಇಂಗ್ಲಿಷ್</item>
     </string-array>
     <string name="language_selection">ದಯವಿಟ್ಟು ಆದ್ಯತೆಯ ಭಾಷೆಯನ್ನು ಆಯ್ಕೆ ಮಾಡಿ</string>
-    <string name="error_auth">Auth Failure Error</string>
-    <string name="error_server">Server Error</string>
-    <string name="error_network">Network Error</string>
-    <string name="error_parse">Parse Error</string>
-    <string name="error_network_timeout">Connection Timeout</string>
-
-    <string name="parihara_benificary_details">Parihara Beneficiary Details</string>
-    <string name="beneficiray_name">Beneficiary Name</string>
-    <string name="amount">Amount</string>
-    <string name="beneficiary_details_land_details">Beneficiary Details Land Wise</string>
-
-    <string name="aadhaar_number_err">Enter aadhar Number!</string>
-
+    <string name="error_auth">ದೃಡೀಕರಣ ವಿಫಲತೆ ದೋಷ</string>
+    <string name="error_server">ಸರ್ವರ್ ದೋಷ</string>
+    <string name="error_network">ನೆಟ್‌ವರ್ಕ್ ದೋಷ</string>
+    <string name="error_parse">ಪಾರ್ಸ್ ದೋಷ</string>
+    <string name="error_network_timeout">ಸಂಪರ್ಕ ಸಮಯ ಮೀರಿದೆ</string>
+    <string name="parihara_benificary_details">ಪರಿಹಾರ ಫಲಾನುಭವಿ ವಿವರಗಳು</string>
+    <string name="beneficiray_name">ಫಲಾನುಭವಿ ಹೆಸರು</string>
+    <string name="amount">ಮೊತ್ತ</string>
+    <string name="beneficiary_details_land_details">ಫಲಾನುಭವಿ ವಿವರಗಳು ಜಮೀನಿನ ಪ್ರಕಾರ</string>
+    <string name="aadhaar_number_err">ಆಧಾರ್ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ!</string>
     <string name="Extentofland">3.ಖೇತುವಾರು</string>
     <string name="ExtentoflandType">(ಏಕರೆ ಗುಂಟೆ/ಸೇಂಟ್)</string>
     <string name="LandRevenueHeading">4.ಕಂದಾಯ</string>
@@ -137,125 +128,94 @@
     <string name="otherrightliaHeading">11.ಇತರೆ ಹಕ್ಕುಗಳು ಮತ್ತು ಋಣಗಳು</string>
     <string name="treeDetailsHeadingNo">ಮರಗಳ ಸಂಖ್ಯೆ</string>
     <string name="db_name">bhoomi</string>
-
-    <string name="rtc_details_toolbartitle_byOwnerName">RTC Details By Owner</string>
-
-    <string name="natural_services">Natural Calamity Crop Loss Payment Services</string>
-
-
+    <string name="rtc_details_toolbartitle_byOwnerName">ಆರ್‌ಟಿಸಿ ವಿವರಗಳು ಮಾಲೀಕರ ಹೆಸರಿನ ಪ್ರಕಾರ</string>
+    <string name="natural_services">ನೈಸರ್ಗಿಕ ವಿಪತ್ತು ಬೆಳೆ ನಷ್ಟ ಪಾವತಿ ಸೇವೆಗಳು</string>
     <string name="title_activity_language_screen">LanguageScreen</string>
-
-
-
-    <string name="img_desc"></string>
-    <string name="clws_home">Clws Online</string>
-    <string name="lonee_report">INDIVIDUAL LOANE REPORT</string>
-    <string name="pac_certificate">CERTIFICATE FOR PACS</string>
-    <string name="bank_certificate">CERTIFICATE FOR BANKS</string>
-    <string name="toolbar_title_clws">CLWS Online</string>
-
-    <string name="clsw_toolbar_title">Crop Loan Waiver System</string>
-    <string name="clws_heading"><![CDATA[Payment & Loan Status Report]]></string>
-    <string name="clws_radio_btn_adhar">Aadhar Number</string>
-    <string name="clws_radio_btn_ration_card">Ration Card Number</string>
-    <string name="clws_aadhar_edittext">Enter Aadhar Number</string>
-    <string name="clws_ration_edittext">Enter RationCard Number</string>
-    <string name="clws_tetch_reports">Fetch Reports</string>
-
-    <string name="clsw_toolbartitle_status_details">Crop Loan Waiver</string>
-    <string name="commercial_bank_loan_details">Commercial Bank Loan Details</string>
-    <string name="bank_payment_details">Bank Payment Details</string>
-    <string name="pacs_loan_details">PACS Loan Details </string>
-    <string name="pacs_payment_details">PACS Payment Details </string>
-    <string name="report_view">Report View</string>
-    <string name="affidavit_view">Affidavit View</string>
-
+    <string name="img_desc">Logo</string>
+    <string name="clws_home">ಸಿ ಎಲ್ ಡಬ್ಲು ಎಸ್  ಆನ್‌ಲೈನ್</string>
+    <string name="lonee_report">ವೈಯಕ್ತಿಕ ಸಾಲ ವರದಿ</string>
+    <string name="pac_certificate">ಪಿ ಎ ಸಿ ಎಸ್ ಪ್ರಮಾಣಪತ್ರ</string>
+    <string name="bank_certificate">ಬ್ಯಾಂಕುಗಳ ಪ್ರಮಾಣಪತ್ರ</string>
+    <string name="toolbar_title_clws">ಸಿ ಎಲ್ ಡಬ್ಲು ಎಸ್  ಆನ್‌ಲೈನ್</string>
+    <string name="clsw_toolbar_title">ಬೆಳೆ ಸಾಲ ಮನ್ನಾ ವ್ಯವಸ್ಥೆ</string>
+    <string name="clws_heading"><![CDATA[ಪಾವತಿ ಮತ್ತು ಸಾಲ ಸ್ಥಿತಿ ವರದಿ]]></string>
+    <string name="clws_radio_btn_adhar">ಆಧಾರ್ ಸಂಖ್ಯೆ</string>
+    <string name="clws_radio_btn_ration_card">ಪಡಿತರ ಚೀಟಿ ಸಂಖ್ಯೆ</string>
+    <string name="clws_aadhar_edittext">ಆಧಾರ್ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ</string>
+    <string name="clws_ration_edittext">ರೇಷನ್‌ಕಾರ್ಡ್ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ</string>
+    <string name="clws_tetch_reports">ವರದಿಗಳನ್ನು ಪಡೆಯಿರಿ</string>
+    <string name="clsw_toolbartitle_status_details">ಬೆಳೆ ಸಾಲ ಮನ್ನಾ</string>
+    <string name="commercial_bank_loan_details">ಕಮರ್ಷಿಯಲ್ ಬ್ಯಾಂಕ್ ಸಾಲದ ವಿವರಗಳು</string>
+    <string name="bank_payment_details">ಬ್ಯಾಂಕ್ ಪಾವತಿ ವಿವರಗಳು</string>
+    <string name="pacs_loan_details">ಪಿಎಸಿಎಸ್ ಸಾಲದ ವಿವರಗಳು</string>
+    <string name="pacs_payment_details">ಪಿಎಸಿಎಸ್ ಪಾವತಿ ವಿವರಗಳು </string>
+    <string name="report_view">ವರದಿ ವೀಕ್ಷಣೆ</string>
+    <string name="affidavit_view">ಅಫಿಡವಿಟ್ ವೀಕ್ಷಣೆ</string>
     // Commercial Bank Adapter
-    <string name="reports_column">Reports</string>
-    <string name="clws_id_column">CLWS ID</string>
-    <string name="branch_column">Branch</string>
-    <string name="former_name">Farmer Name</string>
-    <string name="account_number_column">Account Number</string>
-    <string name="out_amount_comm_bank_loan_column">OutStanding Amount as on 31.12.2017</string>
-    <string name="status_column">Status</string>
-
-    <string name="district_name">District</string>
-    <string name="taluka_name_one">Taluka Name</string>
-    <string name="bank_name">Bank Name</string>
-    <string name="ration_card_no">RationCard No</string>
-    <string name="loan_type">Loan Type</string>
-    <string name="pacs_name">PACS Name</string>
-    <string name="lonee_name">Loanee Name</string>
-    <string name="payment_status">Payment Status</string>
-    <string name="payment_remarks">Payment Remarks</string>
-    <string name="paid_date">Paid Date</string>
-    <string name="no_data_avilable">Details Not Avilable</string>
-    <string name="loan_amount_waiver">Loan Amount Eligible for Waiver</string>
-    <string name="loan_waiver_amount_date">Total Waiver amount actually release as on report date</string>
-    <string name="balance_waiver_amount_release">Balance Waiver amount to be release</string>
-
-    <string name="clws_fsd_edit_text">Enter FSD ID</string>
-    <string name="btn_text">Fetch Details</string>
-
+    <string name="reports_column">ವರದಿಗಳು</string>
+    <string name="clws_id_column">ಸಿಎಲ್‌ಡಬ್ಲ್ಯೂಎಸ್ ಐಡಿ</string>
+    <string name="branch_column">ಶಾಖೆ</string>
+    <string name="former_name">ರೈತನ ಹೆಸರು</string>
+    <string name="account_number_column">ಖಾತೆ ಸಂಖ್ಯೆ</string>
+    <string name="out_amount_comm_bank_loan_column">31.12.2017 ರಂತೆ ಔಟ್‌ಸ್ಟ್ಯಾಂಡಿಂಗ್ ಮೊತ್ತ</string>
+    <string name="status_column">ಸ್ಥಿತಿ</string>
+    <string name="district_name">ಜಿಲ್ಲೆ</string>
+    <string name="taluka_name_one">ತಾಲ್ಲೂಕು ಹೆಸರು</string>
+    <string name="bank_name">ಬ್ಯಾಂಕ್ ಹೆಸರು</string>
+    <string name="ration_card_no">ರೇಷನ್ ಕಾರ್ಡ್ ಸಂಖ್ಯೆ</string>
+    <string name="loan_type">ಸಾಲದ ವಿಧ</string>
+    <string name="pacs_name">ಪಿಎಸಿಎಸ್ ಹೆಸರು</string>
+    <string name="lonee_name">ಸಾಲಗಾರರ ಹೆಸರು</string>
+    <string name="payment_status">ಪಾವತಿ ಸ್ಥಿತಿ</string>
+    <string name="payment_remarks">ಪಾವತಿ ಷರಾ</string>
+    <string name="paid_date">ಪಾವತಿಸಿದ ದಿನಾಂಕ</string>
+    <string name="no_data_avilable">ವಿವರಗಳು ಲಭ್ಯವಿಲ್ಲ</string>
+    <string name="loan_amount_waiver">ಸಾಲಮನ್ನಾಕ್ಕೆ ಅರ್ಹವಾಗಿರುವ ಸಾಲದ ಮೊತ್ತ</string>
+    <string name="loan_waiver_amount_date">ವರದಿಯ ದಿನಾಂಕದಂತೆ ಬಿಡುಗಡೆಯಾಗಿರುವ ಒಟ್ಟು ಮನ್ನಾ ಮೊತ್ತ</string>
+    <string name="balance_waiver_amount_release">ಬಿಡುಗಡೆಯಾಗಬೇಕಾದ ಬಾಕಿ ಮನ್ನಾ ಮೊತ್ತ</string>
+    <string name="clws_fsd_edit_text">ಎಫ್ಎಸ್ಡಿ ಐಡಿ ನಮೂದಿಸಿ</string>
+    <string name="btn_text">ವಿವರಗಳನ್ನು ಪಡೆಯಿರಿ</string>
     // Pacs Loan Details Adapter
-    <string name="share_number">Share Number</string>
-    <string name="outstanding_amount_pacs_column">OutStanding Amount as on 10.07.2018</string>
-
-    <string name="loan_amount_eligible_for_waiver">Loan Amount Eligible for Waiver</string>
-    <string name="total_waiver_amount_release_report_date">Total Waiver amount actually release as on report date</string>
-
-    <string name="certificate_heading">Crop Loan Waiver Payment Certificate For Citizen</string>
-    <string name="corporate_certificate_heading">Cooperate Bank Loan Waiver Payment Details</string>
-    <string name="taluka_name">Taluka</string>
-
-    <string name="dcc_bank_name">DCC Bank Name</string>
-    <string name="share_no">Share No</string>
-    <string name="paid_amount">Paid Amount</string>
-
+    <string name="share_number">ಹಂಚಿಕೆ ಸಂಖ್ಯೆ</string>
+    <string name="outstanding_amount_pacs_column">10.07.2018 ರಂತೆ ಔಟ್‌ಸ್ಟ್ಯಾಂಡಿಂಗ್ ಮೊತ್ತ</string>
+    <string name="loan_amount_eligible_for_waiver">ಮನ್ನಾಕ್ಕೆ ಅರ್ಹವಾಗಿರುವ ಸಾಲದ ಮೊತ್ತ </string>
+    <string name="total_waiver_amount_release_report_date">ವರದಿಯ ದಿನಾಂಕದಂತೆ ಬಿಡುಗಡೆಯಾಗಿರುವ ಒಟ್ಟು ಮನ್ನಾ ಮೊತ್ತ</string>
+    <string name="certificate_heading">ನಾಗರಿಕರಿಗೆ ಬೆಳೆ ಸಾಲ ಮನ್ನಾ ಪಾವತಿ ಪ್ರಮಾಣಪತ್ರ</string>
+    <string name="corporate_certificate_heading">ಸಹಕಾರಿ ಬ್ಯಾಂಕ್ ಸಾಲ ಮನ್ನಾ ಪಾವತಿ ವಿವರಗಳು</string>
+    <string name="taluka_name">ತಾಲ್ಲೂಕು</string>
+    <string name="dcc_bank_name">ಡಿಸಿಸಿ ಬ್ಯಾಂಕ್ ಹೆಸರು</string>
+    <string name="share_no">ಹಂಚಿಕೆ ಸಂಖ್ಯೆ</string>
+    <string name="paid_amount">ಪಾವತಿಸಿದ ಮೊತ್ತ</string>
     // Common Certificate Payment Adapter
-    <string name="action_column">Action</string>
-    <string name="father_name">Father/Guardian Name</string>
-    <string name="outstanding_amount_on_july">Outstanding Amount(on 10th July 2018)</string>
-
-    <string name="bank_certificate_details_heading">Commercial Bank Loan Waiver Payment Details</string>
-    <string name="english_language">English</string>
-    <string name="kanada_language">Kannada</string>
-
-    <string name="branch_name">Branch Name</string>
-    <string name="loan_acc_no">Loan Acc No</string>
-    <string name="bank_outstanding_amount">Outstanding Amount(on 30th December 2017)</string>
-    <string name="clws_services">CLWS Services</string>
-    <string name="rtc_services">RTC Services</string>
-
-
-    <string name="parihara_details_individual">Parihara Details - Individual</string>
-
-    <string name="p_benificary_details_vlg_wise">Parihara Beneficiary Details - Beneficiary Wise</string>
-    <string name="p_benificary_details_land_wise">Parihara Beneficiary Details - Land Wise</string>
-
-    <string name="calamity">Calamity</string>
-
-    <string name="beneficiary_details">Beneficiary Details</string>
-
-    <string name="crop_loss_report">Parihara Crop Loss Report</string>
-
-    <string name="financial_year">Financial Year</string>
-    <string name="calamity_type">Calamity Type</string>
-
-    <string name="village_circle_name">Village Circle</string>
-
-    <string name="financial_year_error">Financial Year Error</string>
-    <string name="land_wise">Land Wise</string>
-    <string name="entry_id">Entry ID</string>
-    <string name="hissa_number">Hissa Number</string>
-
-    <string name="croploss_extent_acre">Crop Loss ExtentAcre</string>
-    <string name="croploss_extent_gunta">Crop Loss ExtentGunta</string>
-    <string name="croploss_extent_fgunta">Crop Loss ExtentFGunta</string>
-
-    <string name="season_error">Select Season</string>
-    <string name="calamity_error">Select Calamity</string>
-
+    <string name="action_column">ಕ್ರಿಯೆ</string>
+    <string name="father_name">ತಂದೆ / ಪೋಷಕರ ಹೆಸರು</string>
+    <string name="outstanding_amount_on_july">ಬಾಕಿ ಇರುವ ಮೊತ್ತ (10 ಜುಲೈ 2018 ರಂದು)</string>
+    <string name="bank_certificate_details_heading">ವಾಣಿಜ್ಯ ಬ್ಯಾಂಕ್ ಸಾಲ ಮನ್ನಾ ಪಾವತಿ ವಿವರಗಳು</string>
+    <string name="english_language">ಇಂಗ್ಲೀಷ್</string>
+    <string name="kanada_language">ಕನ್ನಡ</string>
+    <string name="branch_name">ಶಾಖೆಯ ಹೆಸರು</string>
+    <string name="loan_acc_no">ಸಾಲದ ಖಾತಾ ಸಂಖ್ಯೆ</string>
+    <string name="bank_outstanding_amount">Oಬಾಕಿ ಇರುವ ಮೊತ್ತ (30 ಡಿಸೆಂಬರ್ 2017 ರಂದು)</string>
+    <string name="clws_services">ಸಿಎಲ್‌ಡಬ್ಲ್ಯೂಎಸ್ ಸೇವೆಗಳು</string>
+    <string name="rtc_services">ಆರ್ಟಿಸಿ ಸೇವೆಗಳು</string>
+    <string name="parihara_details_individual">ಪರಿಹಾರ ವಿವರಗಳು - ವೈಯಕ್ತಿಕ</string>
+    <string name="p_benificary_details_vlg_wise">ಪರಿಹಾರ ಫಲಾನುಭವಿ ವಿವರಗಳು - ಫಲಾನುಭವಿ ವಾರು</string>
+    <string name="p_benificary_details_land_wise">ಪರಿಹಾರ ಫಲಾನುಭವಿ ವಿವರಗಳು - ಭೂಮಿವಾರು</string>
+    <string name="calamity">ವಿಪತ್ತು</string>
+    <string name="beneficiary_details">ಫಲಾನುಭವಿ ವಿವರಗಳು</string>
+    <string name="crop_loss_report">ಪರಿಹಾರ ಬೆಳೆ ನಷ್ಟ ವರದಿ</string>
+    <string name="financial_year">ಹಣಕಾಸು ವರ್ಷ</string>
+    <string name="calamity_type">ವಿಪತ್ತಿನ ವಿಧ</string>
+    <string name="village_circle_name">ಗ್ರಾಮ ವೃತ್ತ</string>
+    <string name="financial_year_error">ಹಣಕಾಸು ವರ್ಷದ ದೋಷ</string>
+    <string name="land_wise">ಲ್ಯಾಂಡ್ ವಾರು</string>
+    <string name="entry_id">ಎಂಟ್ರಿ ಐಡಿ </string>
+    <string name="hissa_number">ಹಿಸ್ಸಾ ಸಂಖ್ಯೆ</string>
+    <string name="croploss_extent_acre">ಬೆಳೆ ನಷ್ಟ ವಿಸ್ತೀರ್ಣ ಏಕರೆ</string>
+    <string name="croploss_extent_gunta">ಬೆಳೆ ನಷ್ಟ ವಿಸ್ತೀರ್ಣ ಗುಂಟಾ</string>
+    <string name="croploss_extent_fgunta">ಬೆಳೆ ನಷ್ಟ ವಿಸ್ತೀರ್ಣ ಎಫ್ ಗುಂಟಾ</string>
+    <string name="season_error">ಸೀಸನ್ ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="calamity_error">ವಿಪತ್ತು ಆಯ್ಕೆಮಾಡಿ</string>
     <string-array name="select_financial_year">
         <item>2019-20</item>
         <item>2018-19</item>
@@ -263,153 +223,118 @@
         <item>2016-17</item>
         <item>2015-16</item>
         <item>2014-15</item>
-
     </string-array>
-
     <string-array name="select_financial_year_village_wise">
-
         <item>2019-20</item>
         <item>2018-19</item>
         <item>2017-18</item>
         <item>2016-17</item>
-
     </string-array>
-
     <string-array name="select_calamity_type_village_wise">
-
-        <item>Desiliting</item>
-        <item>Drought</item>
-        <item>Flood</item>
-        <item>Landslide</item>
-        <item>PEST</item>
+        <item>ಡೆಸಿಲೈಟಿಂಗ್</item>
+        <item>ಬರ</item>
+        <item>ಪ್ರವಾಹ</item>
+        <item>ಭೂಕುಸಿತ</item>
+        <item>ಪೆಸ್ಟ್</item>
     </string-array>
-
-
     <string-array name="select_season">
-
-        <item>Khariff</item>
-        <item>Late Khariff</item>
-        <item>Rabi</item>
-        <item>Summer</item>
-
+        <item>ಮುಂಗಾರು</item>
+        <item>ಪೂರ್ವ ಮುಂಗಾರು</item>
+        <item>ಹಿಂಗಾರು</item>
+        <item>ಬೇಸಿಗೆ</item>
     </string-array>
-
-    <string name="year_err">Select Year</string>
-    <string name="calamity_err">Select Calamity</string>
-
+    <string name="year_err">ವರ್ಷ ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="calamity_err">ವಿಪತ್ತು ಆಯ್ಕೆಮಾಡಿ</string>
     <string-array name="select_calamity_type">
-        <item>Desiliting</item>
-        <item>Drought</item>
-        <item>Flood</item>
-        <item>Landslide</item>
-
+        <item>ಡೆಸಿಲೈಟಿಂಗ್</item>
+        <item>ಬರ</item>
+        <item>ಪ್ರವಾಹ</item>
+        <item>ಭೂಕುಸಿತ</item>
     </string-array>
-
-    <string name="downlaod_village_map">Downlaod Village Map</string>
-    <string name="mutation_pendencey_details">Mutation Pendency Details</string>
-    <string name="application_number">Application Number</string>
-
-    <string name="transaction_number">Transaction Number</string>
-
-    <string name="transaction_start_date">Transaction Start Date</string>
-
-    <string name="details_parihara_entires">Details of Parihara Entries</string>
-    <string name="payment_details">Payment Details</string>
-    <string name="serial_no">Sl No</string>
-    <string name="entry_number">Entry Number</string>
-    <string name="aadhar_number">Aadhar Number</string>
-    <string name="crop_category">Crop Category</string>
-    <string name="crop_name">Crop Name</string>
+    <string name="downlaod_village_map"> ಗ್ರಾಮ ನಕ್ಷೆ ಡೌನ್‌ಲಾಡ್ ಮಾಡಿ</string>
+    <string name="mutation_pendencey_details">ಮ್ಯುಟೇಶನ್ ಬಾಕಿ ವಿವರಗಳು</string>
+    <string name="application_number">ಅರ್ಜಿ ಸಂಖ್ಯೆ</string>
+    <string name="transaction_number">ವಹಿವಾಟು ಸಂಖ್ಯೆ</string>
+    <string name="transaction_start_date">ವಹಿವಾಟು ಪ್ರಾರಂಭ ದಿನಾಂಕ</string>
+    <string name="details_parihara_entires">ಪರಿಹಾರ ನಮೂದುಗಳ ವಿವರಗಳು</string>
+    <string name="payment_details">ಪಾವತಿ ವಿವರಗಳು</string>
+    <string name="serial_no">ಕ್ರಮಸಂಖ್ಯೆ</string>
+    <string name="entry_number">ಎಂಟ್ರಿ ಸಂಖ್ಯೆ</string>
+    <string name="aadhar_number">ಆಧಾರ್ ಸಂಖ್ಯೆ</string>
+    <string name="crop_category">ಬೆಳೆ ವರ್ಗ</string>
+    <string name="crop_name">ಬೆಳೆ ಹೆಸರು</string>
     <string name="crop_lost_extent_in">Crop Loss Extent in(Acre-Gunta-Fgunta)</string>
-
-    <string name="aadhaar_err">Aadhar Error</string>
-
-    <string name="dist_code">District Code</string>
-
-    <string name="payment_date">Payment Date</string>
-    <string name="season">Season</string>
-    <string name="year">Year</string>
-
-
-    <string name="amount_in_ruppes">Amount in Rupees (Rs.).</string>
-    <string name="ac_holder_name">A/C Holder Name</string>
-    <string name="bank_account_no">Bank Account Number</string>
-    <string name="payment_status_column">Payment Status</string>
-
-    <string name="mr_number">MR Number</string>
-    <string name="mutation_registered_number">Mutation Registered Number</string>
-    <string name="mutation_registered_date">Mutation Registered Date</string>
-
-    <string name="mutation_type">Mutation Type</string>
-
-    <string name="mutation_status">Mutation Status</string>
-
-    <string name="survey_no_included_transaction">Survey Number Included In The Transaction</string>
-
-    <string name="acquatation_type">Acquisition Type</string>
-    <string name="court_type">Court Type</string>
-    <string name="report_genrated_date">Report Genrated Date</string>
-
-    <string name="mutation_sum_report">Mutation Summary Report</string>
-    <string name="loan_waiver_report">Loan Waiver Report For Commerical Bank</string>
-    <string name="loan_waiver_farmer_report">Loan Waiver Report For Commerical Bank- Farmer wise</string>
-    <string name="view_mutation_status">View Mutation Status</string>
-    <string name="total_no_of_lonee">Total No Of Loanees</string>
-    <string name="loan_amount_lakh">Loan Amount(Lakhs)</string>
-
-    <string name="eligible_loans">Eligible Loans</string>
-    <string name="eligible_loan_amount_lakh">Eligible Loan Amount(Lakh)</string>
-    <string name="green_list_loan">Green List Loans</string>
-    <string name="green_list_amount">Green List Amount(Lakhs)</string>
-    <string name="paid_loan">Paid Loans</string>
-    <string name="paid_loan_amount">Paid Loan Amount(Lakhs)</string>
-    <string name="percentage">Percentage</string>
-
-    <string name="loan_waiver_report_for_bank_wise">Loan Waiver Report for Commercial Bank - Bank wise</string>
-    <string name="loan_waiver_report_for_farmer_wise">Loan Waiver Report for Commercial Bank - Farmer wise</string>
-    <string name="transactions_pending_due">Transaction Pending Due to Approval Of PACS, Manager,CDO\n
-        or Pending due to submitted Ration Card issued after 5/4/2018 or TLC rejected Cases</string>
-
-    <string name="ration_card_data_mismatch">Ration Card data mismatch,Aadhaar Authentication Failed and mismatch in land data</string>
-
-    <string name="btnSubmit">Submit</string>
-    <string name="req_msg">Please Wait</string>
-    <string name="bnk_error">Select Bank Name</string>
-    <string name="customer_name">Customer Name</string>
-    <string name="customer_rel_name">Customer Relative Name</string>
-    <string name="in_green_list">In Green  (Yes/No)</string>
-
-    <string name="bank_branch_name">Bank Branch Name</string>
-    <string name="liability_amount">Liabiality Amount (Rs.) as on 2017/12/31</string>
-    <string name="bank_branch_err_name">Select Branch Name</string>
-    <string name="reason_if_no">Reason (if \'No\' in Green List)</string>
-    <string name="loan_waiver_disbured">Loan Waiver Disbursed (Yes/NO)</string>
-    <string name="loan_waiver_disbured_com">Loan Waiver Disbursement Completed</string>
-    <string name="loan_waiver_report_branch_wise">Loan Waiver Report For Commercial Bank - Branch Wise</string>
-    <string name="loan_waiver_report_pacs">Loan Waiver Report For PACS- Bank Wise</string>
-    <string name="district_code">District Code</string>
-    <string name="loan_waiver_report_pacs_branch">Loan Waiver Report For Pacs BranchWise</string>
-    <string name="loan_waiver_report_pacs_farmer">Loan Waiver Report For Pacs FarmerWise</string>
-    <string name="bhoomi">Bhoomi</string>
-    <string name="parihara">Parihara</string>
-    <string name="mojini">Mojini</string>
-    <string name="view_phody_sketch">View 11e/Pre alienation/Phody Sketch</string>
-    <string name="view_mojini_request_status">View Mojini Request Status</string>
-
-    <string name="kar" >Government Of Karnataka</string>
-    <string name="view_rtc_information" >View Rtc Information</string>
-    <string name="rtc_xml_verification" >Rtc Xml Verification</string>
-    <string name="view_rtc_by_ownername" >View Rtc By OwnerName</string>
-    <string name="clws_status" >CLWS STATUS</string>
-    <string name="citizen_payment_certificate_for_pacs">Citizen Payment Certificate For Pacs</string>
-    <string name="citizen_payment_certificate_for_banks">Citizen Payment Certificate For Banks</string>
-    <string name="parihara_benificary_details_land_wise">Parihara Benificary Details Land Wise</string>
-    <string name="logo">Logo</string>
-    <string name="survey">Survey</string>
-    <string name="todo">TODO</string>
-    <string name="submit">Submit</string>
-    <string name="dashboard_details">DashBoard Details</string>
-    <string name="invalid_rationcard_num">Invalid RationCard Num.</string>
-    <string name="please_enter_rationcard_num">Please Enter RationCard Num.</string>
+    <string name="aadhaar_err">ಆಧಾರ್ ದೋಷ</string>
+    <string name="dist_code">ಜಿಲ್ಲಾ ಕೋಡ್</string>
+    <string name="payment_date">ಪಾವತಿ ದಿನಾಂಕ</string>
+    <string name="season">ಸೀಸನ್</string>
+    <string name="year">ವರ್ಷ</string>
+    <string name="amount_in_ruppes">ರೂಪಾಯಿ ಮೊತ್ತ (ರೂ.).</string>
+    <string name="ac_holder_name">ಖಾತಾ ಹೋಲ್ಡರ್ ಹೆಸರು</string>
+    <string name="bank_account_no">ಬ್ಯಾಂಕ್ ಖಾತೆ ಸಂಖ್ಯೆ</string>
+    <string name="payment_status_column">ಪಾವತಿ ಸ್ಥಿತಿ</string>
+    <string name="mr_number">ಎಮ್ಆರ್ ಸಂಖ್ಯೆ</string>
+    <string name="mutation_registered_number">ಮ್ಯುಟೇಶನ್ ನೋಂದಾಯಿತ ಸಂಖ್ಯೆ</string>
+    <string name="mutation_registered_date">ಮ್ಯುಟೇಶನ್  ನೋಂದಾಯಿತ ದಿನಾಂಕ</string>
+    <string name="mutation_type">ಮ್ಯುಟೇಶನ್ ವಿಧ</string>
+    <string name="mutation_status">ಮ್ಯುಟೇಶನ್ ಸ್ಥಿತಿ</string>
+    <string name="survey_no_included_transaction">ಮ್ಯುಟೇಶನ್ ನಲ್ಲಿ ಭಾಗಿಯಾಗಿರುವ ಸರ್ವೆ ನಂಬರು</string>
+    <string name="acquatation_type">ಸ್ವಾಧೀನತೆ ರೀತಿ</string>
+    <string name="court_type">ನ್ಯಾಯಾಲಯದ ರೀತಿ</string>
+    <string name="report_genrated_date">ವರದಿ ಸೃಜಿಸಿದ ದಿನಾಂಕ</string>
+    <string name="mutation_sum_report">ಮ್ಯುಟೇಶನ್ ಸಾರಾಂಶ ವರದಿ</string>
+    <string name="loan_waiver_report">ವಾಣಿಜ್ಯ ಬ್ಯಾಂಕ್‌ನ ಸಾಲ ಮನ್ನಾ ವರದಿ</string>
+    <string name="loan_waiver_farmer_report">ವಾಣಿಜ್ಯ ಬ್ಯಾಂಕ್‌ನ ಸಾಲ ಮನ್ನಾ ವರದಿ - ರೈತರ ವಾರು</string>
+    <string name="view_mutation_status">ಮ್ಯುಟೇಶನ್ ಸ್ಥಿತಿಯನ್ನು ವೀಕ್ಷಿಸಿ</string>
+    <string name="total_no_of_lonee">ಸಾಲಗಾರರ ಒಟ್ಟು ಸಂಖ್ಯೆ</string>
+    <string name="loan_amount_lakh">ಸಾಲದ ಮೊತ್ತ (ಲಕ್ಷ)</string>
+    <string name="eligible_loans">ಅರ್ಹ ಸಾಲಗಳು</string>
+    <string name="eligible_loan_amount_lakh">ಅರ್ಹ ಸಾಲ ಮೊತ್ತ (ಲಕ್ಷ)</string>
+    <string name="green_list_loan">ಹಸಿರು ಪಟ್ಟಿ ಸಾಲಗಳು</string>
+    <string name="green_list_amount">ಹಸಿರು ಪಟ್ಟಿ ಮೊತ್ತ (ಲಕ್ಷ)</string>
+    <string name="paid_loan">ಪಾವತಿಸಿದ ಸಾಲಗಳು</string>
+    <string name="paid_loan_amount">ಪಾವತಿಸಿದ ಸಾಲದ ಮೊತ್ತ (ಲಕ್ಷ)</string>
+    <string name="percentage">ಶೇಕಡಾವಾರು</string>
+    <string name="loan_waiver_report_for_bank_wise">ಕಮರ್ಷಿಯಲ್ ಬ್ಯಾಂಕ್‌ ಸಾಲ ಮನ್ನಾ ವರದಿ - ಬ್ಯಾಂಕ್ವಾರು</string>
+    <string name="loan_waiver_report_for_farmer_wise">ಕಮರ್ಷಿಯಲ್ ಬ್ಯಾಂಕ್‌ ಸಾಲ ಮನ್ನಾ ವರದಿ - ರೈತರ ವಾರು</string>
+    <string name="transactions_pending_due">ಪಿಎಸಿಎಸ್ ಮ್ಯಾನೇಜರ್, ಸಿಡಿಒ ಅನುಮೋದನೆ ಮಾಡದೇ ಬಾಕಿ ಉಳಿದಿರುವ ಕಾರಣ ಅಥವಾ  5/4/2018 ರ ನಂತರ ನೀಡಲಾದ ಸಲ್ಲಿಸಿದ ರೇಷನ್ ಕಾರ್ಡ್‌ನಿಂದಾಗಿ ಅಥವಾ ಟಿಎಲ್‌ಸಿ ತಿರಸ್ಕರಿಸಿದ ಪ್ರಕರಣಗಳು </string>
+    <string name="ration_card_data_mismatch">ರೇಷನ್ ಕಾರ್ಡ್ ಡೇಟಾ ಹೊಂದಿಕೆಯಾಗುವುದಿಲ್ಲ, ಆಧಾರ್ ದೃಡೀಕರಣ ವಿಫಲವಾಗಿದೆ ಮತ್ತು ಭೂಮಿ ಡೇಟಾದಲ್ಲಿ </string>
+    <string name="btnSubmit">ಸಲ್ಲಿಸು</string>
+    <string name="req_msg">ದಯಮಾಡಿ ನಿರೀಕ್ಷಿಸಿ</string>
+    <string name="bnk_error">ಬ್ಯಾಂಕ್ ಹೆಸರನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="customer_name">ಗ್ರಾಹಕ ಹೆಸರು</string>
+    <string name="customer_rel_name">ಗ್ರಾಹಕ ಸಂಬಂಧಿಕರ ಹೆಸರು</string>
+    <string name="in_green_list">ಹಸಿರು ಬಣ್ಣದಲ್ಲಿ (ಹೌದು / ಇಲ್ಲ)</string>
+    <string name="bank_branch_name">ಬ್ಯಾಂಕ್ ಶಾಖೆಯ ಹೆಸರು</string>
+    <string name="liability_amount">2017/12/31 ರಂತೆ ಹೊಣೆಗಾರಿಕೆ ಮೊತ್ತ (ರೂ.)</string>
+    <string name="bank_branch_err_name">ಶಾಖೆಯ ಹೆಸರನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="reason_if_no">ಕಾರಣ (ಹಸಿರು ಪಟ್ಟಿಯಲ್ಲಿ  ಇಲ್ಲ / ಇದ್ದರೆ)</string>
+    <string name="loan_waiver_disbured">ಸಾಲ ಮನ್ನಾ ವಿತರಿಸಲಾಗಿದೆ (ಹೌದು / ಇಲ್ಲ)</string>
+    <string name="loan_waiver_disbured_com">ಸಾಲ ಮನ್ನಾ ವಿತರಣೆ ಪೂರ್ಣಗೊಂಡಿದೆ</string>
+    <string name="loan_waiver_report_branch_wise">ಕಮರ್ಷಿಯಲ್ ಬ್ಯಾಂಕ್‌ಗಾಗಿ ಸಾಲ ಮನ್ನಾ ವರದಿ - ಶಾಖಾವಾರು</string>
+    <string name="loan_waiver_report_pacs">ಪಿ ಎ ಸಿ ಎಸ್ ಗಾಗಿ ಸಾಲ ಮನ್ನಾ ವರದಿ - ಬ್ಯಾಂಕ್ ವಾರು </string>
+    <string name="district_code">ಜಿಲ್ಲಾ ಕೋಡ್</string>
+    <string name="loan_waiver_report_pacs_branch">ಪಿ ಎ ಸಿ ಎಸ್ ಗಾಗಿ ಸಾಲ ಮನ್ನಾ ವರದಿ - ಶಾಖಾ ವಾರು </string>
+    <string name="loan_waiver_report_pacs_farmer">ಪಿ ಎ ಸಿ ಎಸ್ ಗಾಗಿ ಸಾಲ ಮನ್ನಾ ವರದಿ - ರೈತ ವಾರು</string>
+    <string name="bhoomi">ಭೂಮಿ</string>
+    <string name="parihara">ಪರಿಹಾರ</string>
+    <string name="mojini">ಮೋಜಿಣಿ</string>
+    <string name="view_phody_sketch">11 ಇ / ಪೂರ್ವ ಭೂಪರಿವರರ್ತನೆ / ಫೋಡಿ ಸ್ಕೆಚ್ ವೀಕ್ಷಿಸಿ</string>
+    <string name="view_mojini_request_status">ಮೋಜಿಣಿ ವಿನಂತಿ ಸ್ಥಿತಿಯನ್ನು ವೀಕ್ಷಿಸಿ</string>
+    <string name="kar" >ಕರ್ನಾಟಕ ಸರ್ಕಾರ</string>
+    <string name="view_rtc_information" >ಆರ್ಟಿಸಿ ಮಾಹಿತಿಯನ್ನು ವೀಕ್ಷಿಸಿ</string>
+    <string name="rtc_xml_verification" >ಆರ್ ಟಿ ಸಿ ಎಕ್ಷ್ ಎಮ್ ಎಲ್  ಪರಿಶೀಲನೆ</string>
+    <string name="view_rtc_by_ownername" >ಮಾಲೀಕ ಹೆಸರಿನಿಂದ  ಆರ್ ಟಿ ಸಿ ವೀಕ್ಷಿಸಿ</string>
+    <string name="clws_status" >ಸಿ ಎಲ್ ಡಬ್ಲು ಎಸ್ ಸ್ಥಿತಿ</string>
+    <string name="citizen_payment_certificate_for_pacs">ಪಿ ಎ ಸಿ ಎಸ್ ಗಳ ನಾಗರಿಕ ಪಾವತಿ ಪ್ರಮಾಣಪತ್ರ</string>
+    <string name="citizen_payment_certificate_for_banks">ಬ್ಯಾಂಕುಗಳ ನಾಗರಿಕ ಪಾವತಿ ಪ್ರಮಾಣಪತ್ರ</string>
+    <string name="parihara_benificary_details_land_wise">ಪರಿಹಾರ ಫಲಾನುಬಾವಿಗಳ ವಿವರಗಳು ಲ್ಯಾಂಡ್ ವೈಸ್</string>
+    <string name="logo">ಲೋಗೋ</string>
+    <string name="survey">ಸರ್ವೆ</string>
+    <string name="todo">ಮಾಡಬೇಕಾದದ್ದು</string>
+    <string name="submit">ಸಲ್ಲಿಸು</string>
+    <string name="dashboard_details">ಡ್ಯಾಶ್‌ಬೋರ್ಡ್ ವಿವರಗಳು</string>
+    <string name="invalid_rationcard_num">ಅಮಾನ್ಯ ರೇಷನ್‌ಕಾರ್ಡ್ ಸಂಖ್ಯೆ.</string>
+    <string name="please_enter_rationcard_num">ದಯವಿಟ್ಟು ರೇಷನ್‌ಕಾರ್ಡ್ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ.</string>
 
 </resources>

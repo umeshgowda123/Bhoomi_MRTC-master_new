@@ -20,10 +20,7 @@
     <string name="rtc_header">Land Details</string>
     <string name="btnGo">GO</string>
     <string name="btnfetch">Fetch Details</string>
-
     <string name="btnViewDetails">View Details</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="rtc_details_toolbartitle">RTC Details</string>
 
 
@@ -122,7 +119,7 @@
     <string name="RabiAcGun">Rabi Ac Gun</string>
     <string name="GardenAcGun">Garden Ac Gun</string>
     <string name="TotalAcGun">Total Ac Gun</string>
-    <string name="OwnerNameFatherNameandaddress">9.Owner Name,Father Name and addres</string>
+    <string name="OwnerNameFatherNameandaddress">9.Owner Name,Father Name and address</string>
     <string name="ExtentAcGun">Extent Ac Gun</string>
     <string name="KhataNo">Khata No</string>
     <string name="AcquisitionDetails">10.Acquisition Type and Description</string>
@@ -163,7 +160,7 @@
     <string name="title_activity_language_screen">LanguageScreen</string>
 
 
-    <string name="img_desc"></string>
+    <string name="img_desc">Logo</string>
     <string name="clws_home">Clws Online</string>
     <string name="lonee_report">INDIVIDUAL LOANE REPORT</string>
     <string name="pac_certificate">CERTIFICATE FOR PACS</string>
@@ -225,7 +222,7 @@
     <string name="payment_status">Payment Status</string>
     <string name="payment_remarks">Payment Remarks</string>
     <string name="paid_date">Paid Date</string>
-    <string name="no_data_avilable">Details Not Avilable</string>
+    <string name="no_data_avilable">Details Not Available</string>
     <string name="loan_amount_waiver">Loan Amount Eligible for Waiver</string>
     <string name="loan_waiver_amount_date">Total Waiver amount actually release as on report date</string>
     <string name="balance_waiver_amount_release">Balance Waiver amount to be release</string>

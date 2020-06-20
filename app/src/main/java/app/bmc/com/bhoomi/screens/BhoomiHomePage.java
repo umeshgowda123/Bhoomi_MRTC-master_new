@@ -72,6 +72,7 @@ public class BhoomiHomePage extends AppCompatActivity {
 
     private LinearLayout layout_view_phody_sketch;
     private LinearLayout view_mojini_req_status;
+    LinearLayout view_land_conversion, view_land_conversion_request_status;
 
     private DataBaseHelper dataBaseHelper;
 
@@ -123,6 +124,9 @@ public class BhoomiHomePage extends AppCompatActivity {
 
         layout_view_phody_sketch =  findViewById(R.id.layout_view_phody_sketch);
         view_mojini_req_status =  findViewById(R.id.view_mojini_req_status);
+
+        view_land_conversion = findViewById(R.id.view_land_conversion);
+        view_land_conversion_request_status = findViewById(R.id.view_land_conversion_request_status);
 
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
@@ -325,6 +329,25 @@ public class BhoomiHomePage extends AppCompatActivity {
             }
         });
 
+        view_land_conversion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://landrecords.karnataka.gov.in/service99/";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
+
+        view_land_conversion_request_status.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://landrecords.karnataka.gov.in/service80/";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
 
     }
 
