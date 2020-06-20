@@ -336,5 +336,7 @@
     <string name="dashboard_details">ಡ್ಯಾಶ್‌ಬೋರ್ಡ್ ವಿವರಗಳು</string>
     <string name="invalid_rationcard_num">ಅಮಾನ್ಯ ರೇಷನ್‌ಕಾರ್ಡ್ ಸಂಖ್ಯೆ.</string>
     <string name="please_enter_rationcard_num">ದಯವಿಟ್ಟು ರೇಷನ್‌ಕಾರ್ಡ್ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ.</string>
+    <string name="land_conversion">ಭೂ ಪರಿವರ್ತನೆ</string>
+    <string name="land_conversion_request_status">ಭೂ ಪರಿವರ್ತನೆಯ ವಿನಂತಿಯ ಸ್ಥಿತಿ</string>
 
 </resources>
