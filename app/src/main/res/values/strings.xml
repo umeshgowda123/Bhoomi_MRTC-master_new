@@ -4,7 +4,7 @@
     <string name="rtc_xml_verification_url">https://landrecords.karnataka.gov.in/Service76/RTCXML.svc/</string>
     <string name="server_report_url">https://clws.karnataka.gov.in/Service4/BHOOMI/</string>
 
-    <string name="app_name">M RTC</string>
+    <string name="app_name">Bhoomi</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="services">Services</string>
