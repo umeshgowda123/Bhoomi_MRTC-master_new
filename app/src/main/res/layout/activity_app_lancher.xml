@@ -4,6 +4,7 @@
     android:background="@drawable/shp">
 
     <ImageView
+        android:id="@+id/img1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
@@ -14,10 +15,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:paddingHorizontal="30dp"
+        android:gravity="center"
+        android:text="@string/ver_1_0_0"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="0dp"
         android:paddingHorizontal="30dp"
         android:gravity="center"
-        android:text="Copyright© Bhoomi Monitoring Cell - 2020 | All Right Reserved"
+        android:text="@string/copyright_bhoomi_monitoring_cell_2020_all_right_reserved"
         android:textColor="@android:color/white"
         android:textStyle="bold"/>
 
