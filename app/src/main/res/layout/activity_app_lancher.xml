@@ -6,21 +6,11 @@
     <ImageView
         android:id="@+id/img1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:src="@drawable/gok"
         android:contentDescription="@string/logo"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="40dp"
-        android:paddingHorizontal="30dp"
-        android:gravity="center"
-        android:text="@string/ver_1_0_0"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -32,5 +22,17 @@
         android:text="@string/copyright_bhoomi_monitoring_cell_2020_all_right_reserved"
         android:textColor="@android:color/white"
         android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:gravity="center"
+        android:paddingHorizontal="10dp"
+        android:text="Ver 1.0.0"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
+
 
 </RelativeLayout>

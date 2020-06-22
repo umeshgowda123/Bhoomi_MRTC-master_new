@@ -233,8 +233,8 @@ public class ClwsStatus extends AppCompatActivity {
                         Toast.makeText(ClwsStatus.this, "Please Select Any Radio Button", Toast.LENGTH_SHORT).show();
                     }
                     //--------------------------------------------------
-                }else
-                {
+                }
+                else {
                     selfDestruct();
                 }
             }

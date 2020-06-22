@@ -5,8 +5,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
-
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -17,17 +16,16 @@
         android:roundIcon="@mipmap/ic_launcher_bhoomi_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".screens.ShowLoanWaiverReportPacsFarmerWise"
+        <activity
+            android:name=".screens.ShowLoanWaiverReportPacsFarmerWise"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity">
-        </activity>
-
-        <activity android:name=".screens.LoanWaiverReportForPacsFarmerWise"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".screens.LoanWaiverReportForPacsFarmerWise"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".screens.ShowLoanWaiverPacsReportBranchWise"
             android:configChanges="orientation|keyboardHidden"
@@ -98,12 +96,11 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-
-        <activity android:name=".screens.ShowMutationStatusDetails"
+        <activity
+            android:name=".screens.ShowMutationStatusDetails"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".screens.MutationPendencyDetails"
             android:configChanges="orientation|keyboardHidden"
@@ -174,24 +171,21 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-
         <activity
             android:name=".screens.PaymentCertifiacteDetails"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-
         <activity
             android:name=".screens.CommercialBankLoanAffidavitDoc"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-
-        <activity android:name=".screens.CommercialBankLoanReportDocActivity"
+        <activity
+            android:name=".screens.CommercialBankLoanReportDocActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".screens.PacsLoanAffidavitView"
             android:configChanges="orientation|keyboardHidden"
@@ -236,8 +230,7 @@
             android:name=".screens.BhoomiHomePage"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"
-            />
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".screens.ShowFullOwnerAllDetails"
             android:configChanges="orientation|keyboardHidden"
@@ -249,10 +242,27 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
+            android:name=".screens.LandConversion"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".screens.LandConversionBasedOnAffidavit"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name=".screens.LandConversionBasedOnUserId"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
             android:name=".screens.ViewRtcInformationByOwnerName"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
+            tools:ignore="LockedOrientationActivity" />
         <activity android:name=".screens.AppLancher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -270,13 +280,10 @@
         <activity
             android:name=".screens.ViewRtcInformation"
             android:label="@string/rtc_toolbartitle"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".screens.ViewMutationStatusInformation"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".screens.RtcDetails"
             android:theme="@style/AppTheme.NoActionBar" />
