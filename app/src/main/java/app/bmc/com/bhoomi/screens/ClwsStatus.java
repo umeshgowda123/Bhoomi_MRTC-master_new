@@ -84,7 +84,6 @@ public class ClwsStatus extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     etAaadhar.setVisibility(View.VISIBLE);
-                    etAaadhar.setEnabled(true);
                     etAaadhar.setHint(R.string.clws_aadhar_edittext);
                     etAaadhar.setInputType(InputType.TYPE_CLASS_NUMBER);
                     etAaadhar.setText("");
@@ -98,7 +97,6 @@ public class ClwsStatus extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     etAaadhar.setVisibility(View.VISIBLE);
-                    etAaadhar.setEnabled(true);
                     etAaadhar.setHint(R.string.clws_ration_edittext);
                     etAaadhar.setInputType(InputType.TYPE_CLASS_TEXT);
                     etAaadhar.setFilters(new InputFilter[]{new InputFilter.AllCaps()});

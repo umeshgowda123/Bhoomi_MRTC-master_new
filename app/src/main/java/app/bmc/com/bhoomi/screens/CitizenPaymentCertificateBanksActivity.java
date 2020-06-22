@@ -83,7 +83,6 @@ public class CitizenPaymentCertificateBanksActivity extends AppCompatActivity {
                 if(isChecked)
                 {
                     etBankCertAaadhar.setVisibility(View.VISIBLE);
-                    etBankCertAaadhar.setEnabled(true);
                     etBankCertAaadhar.setText("");
                     etBankCertAaadhar.setHint(R.string.clws_aadhar_edittext);
                     etBankCertAaadhar.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -99,7 +98,6 @@ public class CitizenPaymentCertificateBanksActivity extends AppCompatActivity {
                 if(isChecked)
                 {
                     etBankCertAaadhar.setText("");
-                    etBankCertAaadhar.setEnabled(true);
                     etBankCertAaadhar.setVisibility(View.VISIBLE);
                     etBankCertAaadhar.setHint(R.string.clws_ration_edittext);
                     etBankCertAaadhar.setInputType(InputType.TYPE_CLASS_TEXT);

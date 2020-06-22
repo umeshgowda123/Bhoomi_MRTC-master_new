@@ -87,7 +87,6 @@ public class CitizenPaymentCertificatePacsActivity extends AppCompatActivity {
                 if(isChecked)
                 {
                     etPaymentCertAaadhar.setVisibility(View.VISIBLE);
-                    etPaymentCertAaadhar.setEnabled(true);
                     etPaymentCertAaadhar.setHint(R.string.clws_aadhar_edittext);
                     etPaymentCertAaadhar.setText("");
                     etPaymentCertAaadhar.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -103,7 +102,6 @@ public class CitizenPaymentCertificatePacsActivity extends AppCompatActivity {
                 if(isChecked)
                 {
                     etPaymentCertAaadhar.setText("");
-                    etPaymentCertAaadhar.setEnabled(true);
                     etPaymentCertAaadhar.setVisibility(View.VISIBLE);
                     etPaymentCertAaadhar.setHint(R.string.clws_ration_edittext);
                     etPaymentCertAaadhar.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -120,7 +118,6 @@ public class CitizenPaymentCertificatePacsActivity extends AppCompatActivity {
                 if(isChecked)
                 {
                     etPaymentCertAaadhar.setVisibility(View.VISIBLE);
-                    etPaymentCertAaadhar.setEnabled(true);
                     etPaymentCertAaadhar.setText("");
                     etPaymentCertAaadhar.setHint(R.string.clws_fsd_edit_text);
                     etPaymentCertAaadhar.setInputType(InputType.TYPE_CLASS_NUMBER);

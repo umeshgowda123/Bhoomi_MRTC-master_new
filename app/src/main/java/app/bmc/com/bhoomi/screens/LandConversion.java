@@ -66,7 +66,6 @@ public class LandConversion extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     etRadioText.setVisibility(View.VISIBLE);
-                    etRadioText.setEnabled(true);
                     etRadioText.setHint(R.string.enter_affidavit_id);
                     etRadioText.setInputType(InputType.TYPE_CLASS_NUMBER);
                     etRadioText.setText("");
