@@ -155,6 +155,7 @@ public class LoanWaiverReportForCommercialBranchWise extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 district_id = districtData.get(position).getVLM_DST_ID();
+                Log.d("district_id",""+district_id);
                 getBankDetailsList(district_id);
                 sp_bank.setText("");
             }
@@ -165,6 +166,8 @@ public class LoanWaiverReportForCommercialBranchWise extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 bank_name =  sp_bank.getText().toString().trim();
+                Log.d("bank_name",""+bank_name);
+                getBranchNameDetails(district_id, bank_name);
             }
         });
 
@@ -187,7 +190,7 @@ public class LoanWaiverReportForCommercialBranchWise extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 branch_name = (String) parent.getItemAtPosition(position);
-
+                Log.d("branch_name",""+branch_name);
             }
         });
 
@@ -371,8 +374,6 @@ public class LoanWaiverReportForCommercialBranchWise extends AppCompatActivity {
                         ArrayAdapter<String> bankArrayAdapter = new ArrayAdapter<String>(getApplicationContext(),
                                 android.R.layout.simple_list_item_single_choice, clist);
                         sp_bank.setAdapter(bankArrayAdapter);
-
-                        getBranchNameDetails();
                     }
 
                     @Override
@@ -473,7 +474,7 @@ public class LoanWaiverReportForCommercialBranchWise extends AppCompatActivity {
     }
 
 
-    public void getBranchNameDetails()
+    public void getBranchNameDetails(int district_id, String bank_name)
     {
         dataBaseHelper = Room.databaseBuilder(getApplicationContext(),
                 DataBaseHelper.class, getString(R.string.db_name)).build();
@@ -482,7 +483,7 @@ public class LoanWaiverReportForCommercialBranchWise extends AppCompatActivity {
 
             @Override
             public List<String> call() {
-                return dataBaseHelper.daoAccess().getBranchNameList();
+                return dataBaseHelper.daoAccess().getBranchNameList(district_id, bank_name);
 
             }
         });

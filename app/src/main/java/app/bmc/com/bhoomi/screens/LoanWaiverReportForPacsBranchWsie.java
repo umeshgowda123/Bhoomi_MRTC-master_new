@@ -338,7 +338,7 @@ public class LoanWaiverReportForPacsBranchWsie extends AppCompatActivity {
     }
 
 
-    public void getBranchNameDetails(String bank_name)
+    public void getBranchNameDetails(int district_id, String bank_name)
     {
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
@@ -348,7 +348,7 @@ public class LoanWaiverReportForPacsBranchWsie extends AppCompatActivity {
 
             @Override
             public List<? extends BranchNameModelInterface> call() {
-                return dataBaseHelper.daoAccess().getPacsBranchNameList(bank_name);
+                return dataBaseHelper.daoAccess().getPacsBranchNameList(district_id, bank_name);
             }
         });
         districtDataObservable
@@ -393,6 +393,7 @@ public class LoanWaiverReportForPacsBranchWsie extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 district_id = districtData.get(position).getVLM_DST_ID();
+                Log.d("district_id",""+district_id);
                 getBankDetailsList(district_id);
                 sp_pacs_bank.setText("");
             }
@@ -404,7 +405,7 @@ public class LoanWaiverReportForPacsBranchWsie extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 bank_name =  sp_pacs_bank.getText().toString().trim();
                 Log.d("bank_name",""+bank_name);
-                getBranchNameDetails(bank_name);
+                getBranchNameDetails(district_id, bank_name);
             }
         });
 
@@ -421,6 +422,7 @@ public class LoanWaiverReportForPacsBranchWsie extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 branch_name =  etPacsBranchName.getText().toString().trim();
                 branch_code = branchData.get(position).getBNK_BRNCH_CDE();
+                Log.d("branch_name",""+branch_name);
                 Log.d("branch_code",""+branch_code);
             }
         });
