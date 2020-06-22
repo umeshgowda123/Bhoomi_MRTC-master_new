@@ -447,6 +447,11 @@
     <string name="land_conversion_request_status">Land Conversion Request Status</string>
     <string name="ver_1_0_0">Ver: 1.0.0</string>
     <string name="copyright_bhoomi_monitoring_cell_2020_all_right_reserved">Copyright© Bhoomi Monitoring Cell - 2020  All Right Reserved</string>
+    <string name="download_conversion_order">Download Conversion Order</string>
+    <string name="request_id">Request ID Wise</string>
+    <string name="survey_no_wise">Survey No. Wise</string>
+    <string name="enter_request_id">Enter Request ID</string>
+    <string name="download_order">Download Order</string>
 
 
 </resources>
