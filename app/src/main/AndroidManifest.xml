@@ -293,6 +293,9 @@
         <activity
             android:name=".screens.Language"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".screens.Download_Conversion_order"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

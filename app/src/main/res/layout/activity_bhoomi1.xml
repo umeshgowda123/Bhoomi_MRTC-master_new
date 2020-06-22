@@ -1016,7 +1016,7 @@
                         android:layout_gravity="center"
                         android:paddingStart="2dip"
                         android:paddingEnd="5dip"
-                        android:src="@drawable/land_conversion"
+                        android:src="@drawable/landconv_request_status"
                         tools:ignore="ContentDescription" />
 
                     <TextView
@@ -1026,11 +1026,11 @@
                         android:paddingStart="2dip"
                         android:paddingEnd="5dip"
                         android:textColor="#26A69A"
-                        android:text="@string/land_conversion" />
+                        android:text="@string/land_conversion_request_status" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/view_land_conversion_request_status"
+                    android:id="@+id/download_Conversion_order"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -1046,7 +1046,7 @@
                         android:layout_gravity="center"
                         android:paddingStart="2dip"
                         android:paddingEnd="5dip"
-                        android:src="@drawable/landconv_request_status"
+                        android:src="@drawable/land_conversion"
                         tools:ignore="ContentDescription" />
 
                     <TextView
@@ -1056,7 +1056,7 @@
                         android:paddingStart="2dip"
                         android:paddingEnd="5dip"
                         android:textColor="#26A69A"
-                        android:text="@string/land_conversion_request_status" />
+                        android:text="@string/download_conversion_order" />
                 </LinearLayout>
 
                 <LinearLayout
