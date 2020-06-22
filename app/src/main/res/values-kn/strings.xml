@@ -196,7 +196,7 @@
     <string name="branch_name">ಶಾಖೆಯ ಹೆಸರು</string>
     <string name="loan_acc_no">ಸಾಲದ ಖಾತಾ ಸಂಖ್ಯೆ</string>
     <string name="bank_outstanding_amount">Oಬಾಕಿ ಇರುವ ಮೊತ್ತ (30 ಡಿಸೆಂಬರ್ 2017 ರಂದು)</string>
-    <string name="clws_services">ಸಿಎಲ್‌ಡಬ್ಲ್ಯೂಎಸ್ ಸೇವೆಗಳು</string>
+    <string name="clws_services">ಬೆಳೆ ಸಾಲ ಮನ್ನಾ ಸೇವೆಗಳು</string>
     <string name="rtc_services">ಆರ್ಟಿಸಿ ಸೇವೆಗಳು</string>
     <string name="parihara_details_individual">ಪರಿಹಾರ ವಿವರಗಳು - ವೈಯಕ್ತಿಕ</string>
     <string name="p_benificary_details_vlg_wise">ಪರಿಹಾರ ಫಲಾನುಭವಿ ವಿವರಗಳು - ಫಲಾನುಭವಿ ವಾರು</string>
@@ -317,7 +317,7 @@
     <string name="loan_waiver_report_pacs_branch">ಪಿ ಎ ಸಿ ಎಸ್ ಗಾಗಿ ಸಾಲ ಮನ್ನಾ ವರದಿ - ಶಾಖಾ ವಾರು </string>
     <string name="loan_waiver_report_pacs_farmer">ಪಿ ಎ ಸಿ ಎಸ್ ಗಾಗಿ ಸಾಲ ಮನ್ನಾ ವರದಿ - ರೈತ ವಾರು</string>
     <string name="bhoomi">ಭೂಮಿ</string>
-    <string name="parihara">ಪರಿಹಾರ</string>
+    <string name="parihara">ಬೆಳೆ ಪರಿಹಾರ</string>
     <string name="mojini">ಮೋಜಿಣಿ</string>
     <string name="view_phody_sketch">11 ಇ / ಪೂರ್ವ ಭೂಪರಿವರರ್ತನೆ / ಫೋಡಿ ಸ್ಕೆಚ್ ವೀಕ್ಷಿಸಿ</string>
     <string name="view_mojini_request_status">ಮೋಜಿಣಿ ವಿನಂತಿ ಸ್ಥಿತಿಯನ್ನು ವೀಕ್ಷಿಸಿ</string>
@@ -339,6 +339,6 @@
     <string name="land_conversion">ಭೂ ಪರಿವರ್ತನೆ</string>
     <string name="land_conversion_request_status">ಭೂ ಪರಿವರ್ತನೆಯ ವಿನಂತಿಯ ಸ್ಥಿತಿ</string>
     <string name="ver_1_0_0">Ver: 1.0.0</string>
-    <string name="copyright_bhoomi_monitoring_cell_2020_all_right_reserved">Copyright© Bhoomi Monitoring Cell - 2020 | All Right Reserved</string>
+    <string name="copyright_bhoomi_monitoring_cell_2020_all_right_reserved">Copyright© Bhoomi Monitoring Cell - 2020  All Right Reserved</string>
 
 </resources>
