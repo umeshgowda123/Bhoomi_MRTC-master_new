@@ -991,7 +991,7 @@
                         android:paddingStart="2dip"
                         android:paddingEnd="5dip"
                         android:textColor="#26A69A"
-                        android:text="Land Conversion" />
+                        android:text="@string/land_conversion" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -1021,7 +1021,7 @@
                         android:paddingStart="2dip"
                         android:paddingEnd="5dip"
                         android:textColor="#26A69A"
-                        android:text="Land Conversion Request Status" />
+                        android:text="@string/land_conversion_request_status" />
                 </LinearLayout>
 
                 <LinearLayout

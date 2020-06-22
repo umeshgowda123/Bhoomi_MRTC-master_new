@@ -4,7 +4,7 @@
     <string name="rtc_xml_verification_url">https://landrecords.karnataka.gov.in/Service76/RTCXML.svc/</string>
     <string name="server_report_url">https://clws.karnataka.gov.in/Service4/BHOOMI/</string>
 
-    <string name="app_name">M RTC</string>
+    <string name="app_name">Bhoomi</string>
     <string name="navigation_drawer_open">ನ್ಯಾವಿಗೇಷನ್ ಡ್ರಾಯರ್ ತೆರೆಯಿರಿ</string>
     <string name="navigation_drawer_close">ಸಂಚರಣೆ ಡ್ರಾಯರ್ ಮುಚ್ಚಿ</string>
     <string name="services">ಸೇವೆಗಳು</string>
@@ -336,5 +336,9 @@
     <string name="dashboard_details">ಡ್ಯಾಶ್‌ಬೋರ್ಡ್ ವಿವರಗಳು</string>
     <string name="invalid_rationcard_num">ಅಮಾನ್ಯ ರೇಷನ್‌ಕಾರ್ಡ್ ಸಂಖ್ಯೆ.</string>
     <string name="please_enter_rationcard_num">ದಯವಿಟ್ಟು ರೇಷನ್‌ಕಾರ್ಡ್ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ.</string>
+    <string name="land_conversion">ಭೂ ಪರಿವರ್ತನೆ</string>
+    <string name="land_conversion_request_status">ಭೂ ಪರಿವರ್ತನೆಯ ವಿನಂತಿಯ ಸ್ಥಿತಿ</string>
+    <string name="ver_1_0_0">Ver: 1.0.0</string>
+    <string name="copyright_bhoomi_monitoring_cell_2020_all_right_reserved">Copyright© Bhoomi Monitoring Cell - 2020 | All Right Reserved</string>
 
 </resources>

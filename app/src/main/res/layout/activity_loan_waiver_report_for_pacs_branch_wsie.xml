@@ -135,7 +135,7 @@
                         android:layout_marginRight="24dp"
                         android:hint="@string/branch_name"
                         android:inputType="textCapCharacters"
-                        android:selectAllOnFocus="true" />
+                        android:imeOptions="actionDone"/>
 
                     <Button
                         android:id="@+id/btnShowPacsDetails"
