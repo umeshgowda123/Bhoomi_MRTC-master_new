@@ -85,12 +85,10 @@ public class PacsLoanReportView extends AppCompatActivity {
 
     private void loadURL() {
         if (!mbURLLoaded)
-
             reportUrl = "https://clws.karnataka.gov.in/clws/pacs/pacsAffidavite/ACK_PACS.aspx?" + "rp_CoustmerBankID="  + bankId + "&rp_CLW_APPGUID=" + appId + "&rp_CoustmerID=" + customerId;
-//            reportUrl = "https://clws.karnataka.gov.in/clws/pacs/pacsAffidavite/ACK_PACS.aspx?" + "rp_CoustmerBankID="  + bankId + "&rp_CLW_APPGUID=" + appId + "&rp_CoustmerID=" + customerId;//SUSMITA  4:26.P.M.
-        if(reportUrl != null)
-        {
             Log.d("reportUrl",""+reportUrl);
+        if(bankId != null && appId!=null &&  customerId!= null)
+        {
             webViewPacsReport.loadUrl(reportUrl);
         }
 

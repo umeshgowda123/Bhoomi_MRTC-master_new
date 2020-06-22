@@ -88,10 +88,9 @@ public class PacsLoanAffidavitView extends AppCompatActivity {
     {
         affidavitUrl = "https://clws.karnataka.gov.in/clws/pacs/pacsAffidavite/AFDVT_PRINT_PACS.aspx?" + "rp_CoustmerBankID=" + bankId + "&rp_CLW_APPGUID=" + appId + "&rp_CoustmerID=" + customerId + "&rp_CLW_UserID=" + "";
 //        affidavitUrl = "https://clws.karnataka.gov.in/clws/pacs/pacsAffidavite/AFDVT_PRINT_PACS.aspx?" + "rp_CoustmerBankID=" + bankId + "&rp_CLW_APPGUID=" + appId + "&rp_CoustmerID=" + customerId + "&rp_CLW_UserID=" + "";//SUSMITA  4:26.P.M.
-
-        if(affidavitUrl != null)
+        Log.d("resultUrl",""+affidavitUrl);
+        if(bankId != null && appId!=null &&  customerId!= null)
         {
-            Log.d("resultUrl",""+affidavitUrl);
             webViewPacsAffidavit.loadUrl(affidavitUrl);
         }
     }

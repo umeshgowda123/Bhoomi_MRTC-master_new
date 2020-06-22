@@ -86,9 +86,10 @@ public class CommercialBankLoanAffidavitDoc extends AppCompatActivity {
     private void loadURL() {
         if (!mbURLLoaded)
 
+            resultUrl = "https://clws.karnataka.gov.in/clws/Bank/Affidavite/AFDVT_PRINT_BANK.aspx?" + "rp_CoustmerBankID=" + bankIdValue + "&rp_CLW_APPGUID=" + appValue + "&rp_CoustmerID=" + custIdValue + "&rp_CLW_UserID=" + "";
+            Log.d("resultUrl",""+resultUrl);
+
             if (appValue != null && custIdValue!=null &&  bankIdValue!= null) {
-                resultUrl = baseUrl + "rp_CoustmerBankID=" + bankIdValue + "&rp_CLW_APPGUID=" + appValue + "&rp_CoustmerID=" + custIdValue + "&rp_CLW_UserID=" + "";
-                Log.d("resultUrl",""+resultUrl);
                 webViewBankLoanAffidavit.loadUrl(resultUrl);
             }
 
