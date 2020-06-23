@@ -140,7 +140,7 @@ public class CitizenPaymentCertificatePacsActivity extends AppCompatActivity {
                 if (isNetworkAvailable()){
                     if (rbPayCertAadhar.isChecked()) {
                         aadharNumber = etPaymentCertAaadhar.getText().toString().trim();
-                        if (!aadharNumber.isEmpty() && aadharNumber.length() == 12) {
+                        if (aadharNumber.length() == 12) {
                             apiInterface = APIClient.getClient().create(APIInterface.class);
                             Call<PacsPaymentCertiUidResult> call = apiInterface.getPacsCertificationPaymentDetails(aadharNumber);
                             call.enqueue(new Callback<PacsPaymentCertiUidResult>() {
