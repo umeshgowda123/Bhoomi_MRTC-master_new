@@ -39,17 +39,19 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/rtc_verification_text_bg"
                     android:padding="8dp"
+                    android:background="#5cb85c"
+                    android:textSize="24sp"
                     android:text="@string/rtc_verification"
                     android:textAlignment="center"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/white" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/linear_layout_boarder"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginTop="20dp">
 
 
                     <EditText
