@@ -18,6 +18,7 @@
             android:layout_height="?attr/actionBarSize"
             android:theme="@style/AppTheme.PopupOverlay"
             app:title="@string/toolbartitle"
+            android:background="@drawable/shp"
             app:titleTextColor="@color/toolbartitle">
 
             <LinearLayout
@@ -30,7 +31,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="@string/language"
-                    android:textColor="@color/toolbartitle"
+                    android:textColor="@color/colorBackroundWhite"
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>

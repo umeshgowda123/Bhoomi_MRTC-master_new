@@ -42,7 +42,7 @@
                     android:padding="8dp"
                     android:background="#5cb85c"
                     android:textSize="24sp"
-                    android:text="@string/rtc_verification"
+                    android:text="@string/rtc_xml_verification"
                     android:textAlignment="center"
                     android:textColor="@android:color/white" />
 
