@@ -965,7 +965,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <View
                     android:layout_width="0dp"
@@ -997,7 +998,8 @@
 
             <TableRow
                 android:divider="@color/colorPrimary"
-                android:showDividers="middle">
+                android:showDividers="middle"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:id="@+id/view_land_conversion"
