@@ -86,7 +86,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
     private ProgressBar progressBar;
     private String language;
     private DataBaseHelper dataBaseHelper;
-    private TextView tvSetTite;
+    private TextView txtMutationStatust;
 
 
     @Override
@@ -118,7 +118,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
         edittext_survey = findViewById(R.id.edittext_survey);
         btn_go = findViewById(R.id.btn_go);
         btn_fetch = findViewById(R.id.btn_fetch);
-        tvSetTite = findViewById(R.id.tvSetTite);
+        txtMutationStatust = findViewById(R.id.txtMutationStatust);
         ArrayAdapter<String> defaultArrayAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_single_choice, new String[]{});
         spinner_taluk.setAdapter(defaultArrayAdapter);
@@ -126,6 +126,8 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
         spinner_village.setAdapter(defaultArrayAdapter);
         spinner_hissa.setAdapter(defaultArrayAdapter);
         spinner_district.setAdapter(defaultArrayAdapter);
+
+        txtMutationStatust.setText(getString(R.string.view_mutation_status));
 
 
         dataBaseHelper =

@@ -46,7 +46,7 @@
                         android:layout_margin="24dp"
                         android:background="#5cb85c"
                         android:padding="8dp"
-                        android:text="@string/rtc_header"
+                        android:text="@string/view_rtc_by_ownername"
                         android:textAlignment="center"
                         android:textColor="@android:color/white"
                         android:textSize="24sp" />
