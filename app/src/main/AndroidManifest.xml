@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="app.bmc.com.bhoomi">
+    package="app.bmc.com.BHOOMI_MRTC">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -17,253 +17,253 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".screens.ShowLoanWaiverReportPacsFarmerWise"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.ShowLoanWaiverReportPacsFarmerWise"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.LoanWaiverReportForPacsFarmerWise"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.LoanWaiverReportForPacsFarmerWise"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.ShowLoanWaiverPacsReportBranchWise"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.ShowLoanWaiverPacsReportBranchWise"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.LoanWaiverReportForPacsBranchWsie"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.LoanWaiverReportForPacsBranchWsie"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.ShowLoanWaiverPacsReportBankWise"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.ShowLoanWaiverPacsReportBankWise"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.LoanWaiverReportForPacsBankWise"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.LoanWaiverReportForPacsBankWise"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.ShowLoanWaiverReportBranchWise"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.ShowLoanWaiverReportBranchWise"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.LoanWaiverReportForCommercialBranchWise"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.LoanWaiverReportForCommercialBranchWise"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.ShowLoanWaiverReportFarmerWise"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.ShowLoanWaiverReportFarmerWise"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.LoanWaiverReportForCommercialFramerWise"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.LoanWaiverReportForCommercialFramerWise"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.ShowLoanWaiverReportBankWise"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.ShowLoanWaiverReportBankWise"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.ViewMutationStatusReport"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.ViewMutationStatusReport"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.LoanWaiverReportForCommercialBankWise"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.LoanWaiverReportForCommercialBankWise"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.ShowMutationSummeryReport"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.ShowMutationSummeryReport"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.ViewMutationSummeryReport"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.ViewMutationSummeryReport"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.ShowMutationPendencyDetails"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.ShowMutationPendencyDetails"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.ShowMutationStatusDetails"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.ShowMutationStatusDetails"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.MutationPendencyDetails"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.MutationPendencyDetails"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.ViewMapInPdfActivity"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.ViewMapInPdfActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.ShowVillageMapDetails"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.ShowVillageMapDetails"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.DownloadVillageMap"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.DownloadVillageMap"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.ShowPariharaBenificiaryDetailsLandWise"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.ShowPariharaBenificiaryDetailsLandWise"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.PariharaBenificiaryReportLandWise"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.PariharaBenificiaryReportLandWise"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.ShowPariharaBenificiaryDetailsVlgWise"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.ShowPariharaBenificiaryDetailsVlgWise"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.PariharaBenificiaryReportVillageWise"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.PariharaBenificiaryReportVillageWise"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.ShowIndividualPariharaDetailsReport"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.ShowIndividualPariharaDetailsReport"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.PariharaDetailsIndividual"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.PariharaDetailsIndividual"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.ShowEnglishCertificateActivity"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.ShowEnglishCertificateActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.PaymentBankCertificateDetails"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.PaymentBankCertificateDetails"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.PacsCertificateDataNotPresent"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.PacsCertificateDataNotPresent"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.PacsWebViewActivity"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.PacsWebViewActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.PaymentCertifiacteDetails"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.PaymentCertifiacteDetails"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.CommercialBankLoanAffidavitDoc"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.CommercialBankLoanAffidavitDoc"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.CommercialBankLoanReportDocActivity"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.CommercialBankLoanReportDocActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.PacsLoanAffidavitView"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.PacsLoanAffidavitView"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.PacsLoanReportView"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.PacsLoanReportView"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.ClwsStatusRationCardDetails"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.ClwsStatusRationCardDetails"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.ClwsStatusDetails"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.ClwsStatusDetails"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.CitizenPaymentCertificateBanksActivity"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.CitizenPaymentCertificateBanksActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.CitizenPaymentCertificatePacsActivity"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.CitizenPaymentCertificatePacsActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.ClwsStatus"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.ClwsStatus"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.DashBoardActivity"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.DashBoardActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.BhoomiHomePage"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.BhoomiHomePage"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.ShowFullOwnerAllDetails"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.ShowFullOwnerAllDetails"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.ShowRtcDetailsBYOwnerName"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.ShowRtcDetailsBYOwnerName"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.LandConversion"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.LandConversion"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.LandConversionBasedOnAffidavit"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.LandConversionBasedOnAffidavit"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name=".screens.LandConversionBasedOnUserId"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.LandConversionBasedOnUserId"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name=".screens.ViewRtcInformationByOwnerName"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.ViewRtcInformationByOwnerName"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-        <activity android:name=".screens.AppLancher">
+        <activity android:name="app.bmc.com.BHOOMI_MRTC.screens.AppLancher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -271,30 +271,30 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".screens.RtcVerificationData"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.RtcVerificationData"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".screens.Bhoomi"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.Bhoomi"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".screens.ViewRtcInformation"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.ViewRtcInformation"
             android:label="@string/rtc_toolbartitle"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".screens.ViewMutationStatusInformation"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.ViewMutationStatusInformation"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".screens.RtcDetails"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.RtcDetails"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".screens.RtcVerification"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.RtcVerification"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".screens.Language"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.Language"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".screens.Download_Conversion_order"
+            android:name="app.bmc.com.BHOOMI_MRTC.screens.Download_Conversion_order"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
