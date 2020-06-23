@@ -81,7 +81,7 @@ public class LandConversion extends AppCompatActivity {
                     etRadioText.setVisibility(View.VISIBLE);
                     etRadioText.setEnabled(true);
                     etRadioText.setHint(R.string.enter_user_ID);
-                    etRadioText.setInputType(InputType.TYPE_CLASS_TEXT);
+                    etRadioText.setInputType(InputType.TYPE_CLASS_NUMBER);
                     etRadioText.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
                     etRadioText.setText("");
                     rb_AffidavitID.setChecked(false);
@@ -99,6 +99,10 @@ public class LandConversion extends AppCompatActivity {
                             affidavitID = etRadioText.getText().toString().trim();
                             if (!affidavitID.isEmpty()) {
 
+                                progressDialog = new ProgressDialog(LandConversion.this);
+                                progressDialog.setMessage("Please Wait");
+                                progressDialog.setCancelable(false);
+                                progressDialog.show();
                                 Intent intent = new Intent(LandConversion.this, LandConversionBasedOnAffidavit.class);
                                 intent.putExtra("AFFIDAVIT ID", affidavitID);
                                 startActivity(intent);
@@ -113,7 +117,10 @@ public class LandConversion extends AppCompatActivity {
                         } else {
                             userID = etRadioText.getText().toString().trim();
                             if (!userID.isEmpty()) {
-
+                                progressDialog = new ProgressDialog(LandConversion.this);
+                                progressDialog.setMessage("Please Wait");
+                                progressDialog.setCancelable(false);
+                                progressDialog.show();
                                 Intent intent = new Intent(LandConversion.this, LandConversionBasedOnUserId.class);
                                 intent.putExtra("USER ID", userID);
                                 startActivity(intent);
