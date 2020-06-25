@@ -15,7 +15,8 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_bhoomi_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme.NoActionBar"
+        android:largeHeap="true">
         <activity
             android:name=".screens.ShowLoanWaiverReportPacsFarmerWise"
             android:configChanges="orientation|keyboardHidden"

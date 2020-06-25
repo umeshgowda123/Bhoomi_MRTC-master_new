@@ -19,17 +19,34 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 -renamesourcefileattribute SourceFile
+-flattenpackagehierarchy
 
--repackageclasses
+-optimizationpasses 5
+-dontskipnonpubliclibraryclassmembers
+-dontpreverify
+-dump class_files.txt
+-printseeds seeds.txt
+-printusage unused.txt
+-printmapping mapping.txt
 
--keepclassmembernames class * {
-    native <methods>;
+-keep class com.example.datamodel.** { *; }
+-keepattributes Signature
+-keepattributes Annotation
+-keep class retrofit.** { *; }
+-keepclasseswithmembers class * {
+    @retrofit.http.* <methods>;
 }
+-keep class okhttp3.** { *; }
+-keep interface okhttp3.** { *; }
+-keep class org.xmlpull.v1.* {*;}
 
--keepclassmembers class * {
-    public <init>(android.content.Context, anroid.util.Attributeset);
-}
+-dontwarn okhttp3.**
+-dontwarn okio.**
+-dontwarn rx.**
+-dontwarn retrofit.**
+-dontwarn retrofit.appengine.UrlFetchClient
+-dontwarn org.xmlpull.v1.**
+-dontwarn org.xmlpull.v1.XmlPullParser
+-dontwarn org.xmlpull.v1.XmlSerializer
 
--dontskipnonpubliclibraryclasses
--dontusemixedcaseclassnames
--verbose
+

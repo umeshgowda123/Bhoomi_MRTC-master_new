@@ -1,5 +1,6 @@
 package app.bmc.com.BHOOMI_MRTC.screens;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import androidx.room.Room;
 import android.content.Context;
@@ -12,6 +13,8 @@ import android.os.Build;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
+
+import android.os.TransactionTooLargeException;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -458,15 +461,33 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
                 try {
                     jsonArray = new JSONArray(resultFromServer);
                     Log.d("jsonArray_", "str: "+jsonArray);
-                    Intent intent = new Intent(ViewRtcInformationByOwnerName.this,ShowRtcDetailsBYOwnerName.class);
-                    intent.putExtra("response_data",jsonArray.toString());
-                    intent.putExtra("distId",distId+"");
-                    intent.putExtra("talkId",talkId+"");
-                    intent.putExtra("hblId",hblId+"");
-                    intent.putExtra("village_id",village_id+"");
+                    try {
+                        Intent intent = new Intent(ViewRtcInformationByOwnerName.this, ShowRtcDetailsBYOwnerName.class);
+                        intent.putExtra("response_data", jsonArray.toString());
+                        intent.putExtra("distId", distId + "");
+                        intent.putExtra("talkId", talkId + "");
+                        intent.putExtra("hblId", hblId + "");
+                        intent.putExtra("village_id", village_id + "");
 //                  Log.d("ID : ",distId+" "+talkId+" "+hblId+" "+village_id+" ");
-
-                    startActivity(intent);
+                        startActivity(intent);
+                    } catch (Throwable e){
+                        e.printStackTrace();
+                        String throwab = e.toString();
+                        Log.d("Throwable_e", ""+throwab);
+                        if (throwab.contains("Failure from system")) {
+                            final AlertDialog.Builder builder = new AlertDialog.Builder(ViewRtcInformationByOwnerName.this, R.style.MyDialogTheme);
+                            builder.setTitle("Alert")
+                                    .setMessage("Transaction contains Too Large Data.")
+                                    .setIcon(R.drawable.ic_error_black_24dp)
+                                    .setCancelable(false)
+                                    .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                            final AlertDialog alert = builder.create();
+                            alert.show();
+                            alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                        } else {
+                            Toast.makeText(getApplicationContext(), ""+e, Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
