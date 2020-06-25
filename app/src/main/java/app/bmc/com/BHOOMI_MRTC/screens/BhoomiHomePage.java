@@ -331,10 +331,6 @@ public class BhoomiHomePage extends AppCompatActivity {
         view_land_conversion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                String url = "https://landrecords.karnataka.gov.in/service99/";
-//                Intent i = new Intent(Intent.ACTION_VIEW);
-//                i.setData(Uri.parse(url));
-//                startActivity(i);
                 Intent intent = new Intent(BhoomiHomePage.this,LandConversion.class);
                 startActivity(intent);
             }

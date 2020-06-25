@@ -999,7 +999,7 @@
             <TableRow
                 android:divider="@color/colorPrimary"
                 android:showDividers="middle"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <LinearLayout
                     android:id="@+id/view_land_conversion"

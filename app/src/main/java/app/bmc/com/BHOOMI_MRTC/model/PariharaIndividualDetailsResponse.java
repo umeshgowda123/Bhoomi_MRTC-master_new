@@ -194,4 +194,26 @@ public class PariharaIndividualDetailsResponse {
     public void setGetLoanWaiverReportPACS_FarmerwiseResult(String getLoanWaiverReportPACS_FarmerwiseResult) {
         this.getLoanWaiverReportPACS_FarmerwiseResult = getLoanWaiverReportPACS_FarmerwiseResult;
     }
+    @SerializedName("GET_Afdvt_ReqSts_BasedOnAfdvtIdResult")
+    @Expose
+    private String get_Afdvt_ReqSts_BasedOnAfdvtIdResult;
+
+    public void setGet_Afdvt_ReqSts_BasedOnAfdvtIdResult(String get_Afdvt_ReqSts_BasedOnAfdvtIdResult) {
+        this.get_Afdvt_ReqSts_BasedOnAfdvtIdResult = get_Afdvt_ReqSts_BasedOnAfdvtIdResult;
+    }
+
+    public String getGet_Afdvt_ReqSts_BasedOnAfdvtIdResult() {
+        return get_Afdvt_ReqSts_BasedOnAfdvtIdResult;
+    }
+    @SerializedName("GET_Afdvt_ReqSts_BasedOnUserIdResult")
+    @Expose
+    private String get_Afdvt_ReqSts_BasedOnUserIdResult;
+
+    public String getGet_Afdvt_ReqSts_BasedOnUserIdResult() {
+        return get_Afdvt_ReqSts_BasedOnUserIdResult;
+    }
+
+    public void setGet_Afdvt_ReqSts_BasedOnUserIdResult(String get_Afdvt_ReqSts_BasedOnUserIdResult) {
+        this.get_Afdvt_ReqSts_BasedOnUserIdResult = get_Afdvt_ReqSts_BasedOnUserIdResult;
+    }
 }

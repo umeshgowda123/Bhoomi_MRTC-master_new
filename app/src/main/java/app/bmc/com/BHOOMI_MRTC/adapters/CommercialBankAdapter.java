@@ -43,8 +43,6 @@ public class CommercialBankAdapter extends RecyclerView.Adapter<CommercialBankAd
     public TextView tvRationCardNo;
     public TextView tvLoanType;
     public TextView tvAccountNumber;
-
-
     public TextView tvOutStandingAmount;
     public TextView tvStatus;
 
@@ -62,12 +60,9 @@ public class CommercialBankAdapter extends RecyclerView.Adapter<CommercialBankAd
         tvRationCardNo = (TextView) view.findViewById(R.id.tvRationCardNo);
         tvLoanType = (TextView) view.findViewById(R.id.tvLoanType);
         tvAccountNumber = (TextView) view.findViewById(R.id.tvAccountNumber);
-
         tvOutStandingAmount = (TextView) view.findViewById(R.id.tvOutStandingAmount);
-
         tvStatus = (TextView) view.findViewById(R.id.tvStatus);
-
-         appId = "1516978b-4b63-4072-9ecf-560dee62baff";
+        appId = "1516978b-4b63-4072-9ecf-560dee62baff";
 
         ivPdffile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +73,6 @@ public class CommercialBankAdapter extends RecyclerView.Adapter<CommercialBankAd
                     customerId = clickedDataItem.getTRN_CUSTID();
                     bankId = clickedDataItem.getTRN_BNKID();
                 }
-
                 Intent intent = new Intent(activity, CommercialBankLoanReportDocActivity.class);
                 intent.putExtra("Cust_ID",customerId);
                 intent.putExtra("Bank_ID",bankId);
@@ -105,8 +99,6 @@ public class CommercialBankAdapter extends RecyclerView.Adapter<CommercialBankAd
             }
         });
     }
-
-
 }
 
     public CommercialBankAdapter(List<BankLoanTableData> cBnakDetailsList, ClwsStatusDetails  activity) {
@@ -120,7 +112,6 @@ public class CommercialBankAdapter extends RecyclerView.Adapter<CommercialBankAd
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.commercial_bank_loan_details, parent, false);
-
         return new MyViewHolder(itemView);
     }
 

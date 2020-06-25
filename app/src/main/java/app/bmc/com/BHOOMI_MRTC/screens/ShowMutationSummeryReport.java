@@ -37,7 +37,7 @@ public class ShowMutationSummeryReport extends AppCompatActivity {
             if (htmlResponseData != null) {
                 webView.requestFocus();
                 webView.getSettings().setJavaScriptEnabled(true);
-                webView.loadDataWithBaseURL("", htmlResponseData, "text/html", "UTF-8", "");
+                webView.loadDataWithBaseURL("file:///android_asset/", htmlResponseData, "text/html", "UTF-8", null);
             }
         } catch (Exception ex) {
             ex.printStackTrace();

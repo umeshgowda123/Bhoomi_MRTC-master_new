@@ -351,4 +351,13 @@
     <string name="enter_user_ID">Enter User ID</string>
     <string name="enter_affidavit_id">Enter Affidavit ID</string>
     <string name="requestid_err">Request ID Required</string>
+    <string name="req_id">Request ID</string>
+    <string name="dist_name">District Name</string>
+    <string name="hobli_name">Hobli Name</string>
+    <string name="village_name">Village Name</string>
+    <string name="created_date">Created Date</string>
+    <string name="type_of_conversion">Type of ConverSion</string>
+    <string name="land_conversion_request_based_on_affidavit_id">Land Conversion Request Based On Affidavit ID</string>
+    <string name="land_conversion_request_based_on_user_id">Land Conversion Request Based On User ID</string>
+
 </resources>

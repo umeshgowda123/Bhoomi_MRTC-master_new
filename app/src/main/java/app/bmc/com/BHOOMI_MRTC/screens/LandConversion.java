@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -22,9 +23,21 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Objects;
 
 import app.bmc.com.BHOOMI_MRTC.R;
+import app.bmc.com.BHOOMI_MRTC.api.PariharaIndividualReportInteface;
+import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
+import app.bmc.com.BHOOMI_MRTC.retrofit.PariharaIndividualreportClient;
+import app.bmc.com.BHOOMI_MRTC.util.Constants;
+import fr.arnaudguyon.xmltojsonlib.XmlToJson;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LandConversion extends AppCompatActivity {
 
@@ -102,9 +115,37 @@ public class LandConversion extends AppCompatActivity {
                                 progressDialog.setMessage("Please Wait");
                                 progressDialog.setCancelable(false);
                                 progressDialog.show();
-                                Intent intent = new Intent(LandConversion.this, LandConversionBasedOnAffidavit.class);
-                                intent.putExtra("AFFIDAVIT ID", affidavitID);
-                                startActivity(intent);
+
+                                PariharaIndividualReportInteface apiInterface = PariharaIndividualreportClient.getClient("https://clws.karnataka.gov.in/Service4/BHOOMI/").create(PariharaIndividualReportInteface.class);
+                                Call<PariharaIndividualDetailsResponse> call = apiInterface.getLandConversionBasedOnAffidavitID(Constants.REPORT_SERVICE_USER_NAME,
+                                        Constants.REPORT_SERVICE_PASSWORD,affidavitID);
+                                call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+                                    @Override
+                                    public void onResponse(Call<PariharaIndividualDetailsResponse> call, Response<PariharaIndividualDetailsResponse> response) {
+
+                                        if(response.isSuccessful())
+                                        {
+                                            PariharaIndividualDetailsResponse result = response.body();
+                                            assert result != null;
+                                            String res = result.getGet_Afdvt_ReqSts_BasedOnAfdvtIdResult();
+                                            Log.d("AFFIDAVIT_ResponseData", ""+res);
+
+                                            progressDialog.dismiss();
+
+                                            Intent intent = new Intent(LandConversion.this, LandConversionBasedOnAffidavit.class);
+                                            intent.putExtra("AFFIDAVIT_ResponseData", res);
+                                            intent.putExtra("AFFIDAVIT_ID", affidavitID);
+//                                            Log.d("put : ", res+" & "+affidavitID);
+                                            startActivity(intent);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<PariharaIndividualDetailsResponse> call, Throwable t) {
+                                        call.cancel();
+                                        progressDialog.dismiss();
+                                    }
+                                });
 
                             } else {
                                 if (affidavitID.isEmpty()) {
@@ -120,9 +161,39 @@ public class LandConversion extends AppCompatActivity {
                                 progressDialog.setMessage("Please Wait");
                                 progressDialog.setCancelable(false);
                                 progressDialog.show();
-                                Intent intent = new Intent(LandConversion.this, LandConversionBasedOnUserId.class);
-                                intent.putExtra("USER ID", userID);
-                                startActivity(intent);
+
+
+                                PariharaIndividualReportInteface apiInterface = PariharaIndividualreportClient.getClient("https://clws.karnataka.gov.in/Service4/BHOOMI/").create(PariharaIndividualReportInteface.class);
+                                Call<PariharaIndividualDetailsResponse> call = apiInterface.getLandConversionBasedOnUserID(Constants.REPORT_SERVICE_USER_NAME,
+                                        Constants.REPORT_SERVICE_PASSWORD,userID);
+                                call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+                                    @Override
+                                    public void onResponse(Call<PariharaIndividualDetailsResponse> call, Response<PariharaIndividualDetailsResponse> response) {
+
+                                        if(response.isSuccessful())
+                                        {
+                                            PariharaIndividualDetailsResponse result = response.body();
+                                            assert result != null;
+                                            String res = result.getGet_Afdvt_ReqSts_BasedOnUserIdResult();
+                                            Log.d("USERID_ResponseData", ""+res);
+
+                                            progressDialog.dismiss();
+
+                                            Intent intent = new Intent(LandConversion.this, LandConversionBasedOnUserId.class);
+                                            intent.putExtra("USERID_ResponseData", res);
+                                            intent.putExtra("USER_ID", userID);
+                                            Log.d("put : ", res+" & "+userID);
+                                            startActivity(intent);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<PariharaIndividualDetailsResponse> call, Throwable t) {
+                                        call.cancel();
+                                        progressDialog.dismiss();
+                                    }
+                                });
+
                             } else {
                                 if (userID.isEmpty()) {
                                     Toast.makeText(LandConversion.this, "Pleae enter User ID", Toast.LENGTH_SHORT).show();

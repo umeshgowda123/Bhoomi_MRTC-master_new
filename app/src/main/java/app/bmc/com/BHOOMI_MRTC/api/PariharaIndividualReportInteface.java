@@ -111,4 +111,13 @@ public interface PariharaIndividualReportInteface {
                                                                           @Body ClsLoanWaiverReportPacs_Branchwise clsLoanWaiverReportPacs_branchwise);
 
 
+    @Headers({"content-type: text/json; charset=utf-8"})
+    @POST("GET_Afdvt_ReqSts_BasedOnAfdvtId/{pstrUserName}/{pStrPassword}/{pAfdvtId}")
+    Call<PariharaIndividualDetailsResponse> getLandConversionBasedOnAffidavitID(@Path("pstrUserName") String pstrUserName, @Path("pStrPassword") String pstrPassword,
+                                                                         @Path("pAfdvtId") String pAfdvtId);
+
+    @Headers({"content-type: text/json; charset=utf-8"})
+    @POST("GET_Afdvt_ReqSts_BasedOnUserId/{pstrUserName}/{pStrPassword}/{pUserId}")
+    Call<PariharaIndividualDetailsResponse> getLandConversionBasedOnUserID(@Path("pstrUserName") String pstrUserName, @Path("pStrPassword") String pstrPassword,
+                                                                                @Path("pUserId") String pUserId);
 }
