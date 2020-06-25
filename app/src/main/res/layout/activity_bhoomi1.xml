@@ -1057,7 +1057,7 @@
                         android:paddingStart="2dip"
                         android:paddingEnd="5dip"
                         android:textColor="#26A69A"
-                        android:text="@string/download_conversion_order" />
+                        android:text="@string/land_conversion_final_orders" />
                 </LinearLayout>
 
                 <LinearLayout

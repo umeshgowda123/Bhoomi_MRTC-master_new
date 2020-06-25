@@ -126,6 +126,15 @@ public interface PariharaIndividualReportInteface {
     Call<PariharaIndividualDetailsResponse> getLandConversionFinalOrders_BasedOnReqId(@Path("PSTRUSERNAME") String PSTRUSERNAME, @Path("PSTRPASSWORD") String PSTRPASSWORD,
                                                                            @Path("PREQUESTID") String PREQUESTID);
 
-
-
+    @Headers({"content-type: text/json; charset=utf-8"})
+    @POST("GetLandConversionFinalOrders_BasedOnSurveyNo/{PSTRUSERNAME}/{PSTRPASSWORD}/{pDistrictCode}/{pTalukCode}/{pHobliCode}/{pVillageCode}/{pSurveyNo}")
+    Call<PariharaIndividualDetailsResponse> getLandConversionFinalOrders_BasedOnSurveyNo(
+            @Path("PSTRUSERNAME") String PSTRUSERNAME,
+            @Path("PSTRPASSWORD") String PSTRPASSWORD,
+            @Path("pDistrictCode") int pDistrictCode,
+            @Path("pTalukCode") int pTalukCode,
+            @Path("pHobliCode") int pHobliCode,
+            @Path("pVillageCode") int pVillageCode,
+            @Path("pSurveyNo") String pSurveyNo
+    );
 }

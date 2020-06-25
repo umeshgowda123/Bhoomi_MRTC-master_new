@@ -388,6 +388,34 @@ public class Download_Conversion_order extends AppCompatActivity {
                                 progressDialog.setCancelable(false);
                                 progressDialog.show();
 
+                                PariharaIndividualReportInteface apiInterface = PariharaIndividualreportClient.getClient("https://clws.karnataka.gov.in/Service4/BHOOMI/").create(PariharaIndividualReportInteface.class);
+                                Call<PariharaIndividualDetailsResponse> call = apiInterface.getLandConversionFinalOrders_BasedOnSurveyNo(Constants.REPORT_SERVICE_USER_NAME,
+                                        Constants.REPORT_SERVICE_PASSWORD, district_id, taluk_id, hobli_id, village_id, surveyNumber);
+                                call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+                                    @Override
+                                    public void onResponse(Call<PariharaIndividualDetailsResponse> call, Response<PariharaIndividualDetailsResponse> response) {
+
+                                        if (response.isSuccessful()) {
+                                            PariharaIndividualDetailsResponse result = response.body();
+                                            assert result != null;
+                                            String res = result.getGetLandConversionFinalOrders_BasedOnSurveyNoResult();
+                                            Log.d("ResponseBasedOnSurveyNo", "" + res);
+
+                                            progressDialog.dismiss();
+
+                                            Intent intent = new Intent(Download_Conversion_order.this, ConversionFinalOrders_BasedOnReq_ID.class);
+                                            intent.putExtra("LandConversionFinalOrders", ""+res);
+                                            startActivity(intent);
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<PariharaIndividualDetailsResponse> call, Throwable t) {
+                                        call.cancel();
+                                        progressDialog.dismiss();
+                                    }
+                                });
 
                             } else {
                                 selfDestruct();
@@ -416,16 +444,14 @@ public class Download_Conversion_order extends AppCompatActivity {
                                         if (response.isSuccessful()) {
                                             PariharaIndividualDetailsResponse result = response.body();
                                             assert result != null;
-                                            String res = result.getGet_Afdvt_ReqSts_BasedOnAfdvtIdResult();
+                                            String res = result.getGetLandConversionFinalOrders_BasedOnReqIdResult();
                                             Log.d("ResponseBasedOnReqID", "" + res);
 
                                             progressDialog.dismiss();
 
-//                                        Intent intent = new Intent(Download_Conversion_order.this, LandConversionBasedOnAffidavit.class);
-//                                        intent.putExtra("AFFIDAVIT_ResponseData", res);
-//                                        intent.putExtra("AFFIDAVIT_ID", affidavitID);
-//                                        Log.d("put : ", res+" & "+affidavitID);
-//                                        startActivity(intent);
+                                        Intent intent = new Intent(Download_Conversion_order.this, ConversionFinalOrders_BasedOnReq_ID.class);
+                                        intent.putExtra("LandConversionFinalOrders", ""+res);
+                                        startActivity(intent);
                                         }
                                     }
 
@@ -472,5 +498,11 @@ public class Download_Conversion_order extends AppCompatActivity {
             }
         });
         alertDialog.show();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

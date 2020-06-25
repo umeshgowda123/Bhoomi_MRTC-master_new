@@ -209,11 +209,35 @@ public class PariharaIndividualDetailsResponse {
     @Expose
     private String get_Afdvt_ReqSts_BasedOnUserIdResult;
 
+    @SerializedName("GetLandConversionFinalOrders_BasedOnSurveyNoResult")
+    @Expose
+    private String getLandConversionFinalOrders_BasedOnSurveyNoResult;
+
+    @SerializedName("GetLandConversionFinalOrders_BasedOnReqIdResult")
+    @Expose
+    private String getLandConversionFinalOrders_BasedOnReqIdResult;
+
     public String getGet_Afdvt_ReqSts_BasedOnUserIdResult() {
         return get_Afdvt_ReqSts_BasedOnUserIdResult;
     }
 
     public void setGet_Afdvt_ReqSts_BasedOnUserIdResult(String get_Afdvt_ReqSts_BasedOnUserIdResult) {
         this.get_Afdvt_ReqSts_BasedOnUserIdResult = get_Afdvt_ReqSts_BasedOnUserIdResult;
+    }
+
+    public String getGetLandConversionFinalOrders_BasedOnSurveyNoResult() {
+        return getLandConversionFinalOrders_BasedOnSurveyNoResult;
+    }
+
+    public void setGetLandConversionFinalOrders_BasedOnSurveyNoResult(String getLandConversionFinalOrders_BasedOnSurveyNoResult) {
+        this.getLandConversionFinalOrders_BasedOnSurveyNoResult = getLandConversionFinalOrders_BasedOnSurveyNoResult;
+    }
+
+    public String getGetLandConversionFinalOrders_BasedOnReqIdResult() {
+        return getLandConversionFinalOrders_BasedOnReqIdResult;
+    }
+
+    public void setGetLandConversionFinalOrders_BasedOnReqIdResult(String getLandConversionFinalOrders_BasedOnReqIdResult) {
+        this.getLandConversionFinalOrders_BasedOnReqIdResult = getLandConversionFinalOrders_BasedOnReqIdResult;
     }
 }

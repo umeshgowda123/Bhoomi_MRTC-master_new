@@ -287,6 +287,41 @@ kotlin.collections.ArraysKt___ArraysJvmKt
     public static final java.util.SortedSet toSortedSet(java.lang.Object[],java.util.Comparator)
     public void <init>()
 kotlin.collections.ByteIterator
+app.bmc.com.BHOOMI_MRTC.model.Afdvt_ReqSts_BasedOnAfdvtIdTable
+    public java.lang.String getREQ_CBY()
+    public void setREQ_CBY(java.lang.String)
+    public java.lang.String getREQ_WFID()
+    public void setREQ_WFID(java.lang.String)
+    public void setREQ_ID(java.lang.String)
+    public void setREQ_AID(java.lang.String)
+    public void setDISTRICT_NAME(java.lang.String)
+    public void setTALUKA_NAME(java.lang.String)
+    public void setREQ_TYPE(java.lang.String)
+    public void setREQ_CDTE(java.lang.String)
+    public void setHOBLI_NAME(java.lang.String)
+    public void setVILLAGE_NAME(java.lang.String)
+    public void setSurveyno(java.lang.String)
+    public java.lang.String getREQ_CDTE1()
+    public void setREQ_CDTE1(java.lang.String)
+    public java.lang.String getREQ_STS()
+    public void setREQ_STS(java.lang.String)
+    public java.lang.String getTALUKA_CODE()
+    public void setTALUKA_CODE(java.lang.String)
+    public java.lang.String getHOBLI_CODE()
+    public void setHOBLI_CODE(java.lang.String)
+    public java.lang.String getVILLAGE_CODE()
+    public void setVILLAGE_CODE(java.lang.String)
+    public void setStatus_Description(java.lang.String)
+    public java.lang.String getActionCol()
+    public void setActionCol(java.lang.String)
+    private java.lang.String REQ_CBY
+    private java.lang.String REQ_WFID
+    private java.lang.String REQ_CDTE1
+    private java.lang.String REQ_STS
+    private java.lang.String TALUKA_CODE
+    private java.lang.String HOBLI_CODE
+    private java.lang.String VILLAGE_CODE
+    private java.lang.String ActionCol
 androidx.vectordrawable.R$layout
 kotlin.coroutines.experimental.SequenceBuilder
 androidx.transition.ChangeImageTransform$3
@@ -437,8 +472,6 @@ io.reactivex.internal.operators.maybe.MaybeDetach
 kotlin.collections.ArraysKt___ArraysJvmKt$asList$5
 io.reactivex.internal.util.SorterFunction
 kotlin.ULongArray$Iterator
-app.bmc.com.BHOOMI_MRTC.screens.AppLancher
-    private static final int PERMISSION_REQUEST_CODE_WRITE_STORAGE
 io.reactivex.internal.operators.flowable.FlowableElementAt
 io.reactivex.internal.operators.observable.ObservableWindowBoundary$WindowBoundaryMainObserver
 androidx.media.MediaBrowserServiceCompatApi21$ServiceCompatProxy
@@ -3082,6 +3115,8 @@ com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton$On
     public void onExtended(com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton)
     public void onShrunken(com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton)
 io.reactivex.internal.operators.flowable.FlowableTimer
+androidx.core.app.ActivityCompat$OnRequestPermissionsResultCallback
+    public abstract void onRequestPermissionsResult(int,java.lang.String[],int[])
 androidx.fragment.app.Fragment$SavedState$1
 androidx.media.MediaBrowserServiceCompat$4
 io.reactivex.internal.operators.observable.ObservableWindowBoundarySupplier
@@ -3196,6 +3231,7 @@ androidx.core.app.ActivityCompat
     public static void setExitSharedElementCallback(android.app.Activity,androidx.core.app.SharedElementCallback)
     public static void postponeEnterTransition(android.app.Activity)
     public static void startPostponedEnterTransition(android.app.Activity)
+    public static void requestPermissions(android.app.Activity,java.lang.String[],int)
     public static boolean shouldShowRequestPermissionRationale(android.app.Activity,java.lang.String)
     public static androidx.core.view.DragAndDropPermissionsCompat requestDragAndDropPermissions(android.app.Activity,android.view.DragEvent)
 kotlin.coroutines.CoroutineContext
@@ -3549,6 +3585,7 @@ com.google.android.material.internal.CheckableImageButton
     public boolean isPressable()
 io.reactivex.internal.operators.parallel.ParallelRunOn
 com.rengwuxian.materialedittext.MaterialEditText$FloatingLabelType
+androidx.core.app.ActivityCompat$1
 io.reactivex.internal.operators.flowable.FlowableIgnoreElementsCompletable$IgnoreElementsSubscriber
 com.google.android.material.R$id
     private void <init>()
@@ -6383,6 +6420,8 @@ app.bmc.com.BHOOMI_MRTC.model.SeasonData
 androidx.room.R
 io.reactivex.MaybeOperator
 androidx.media.VolumeProviderCompatApi21
+androidx.core.app.ActivityCompat$RequestPermissionsRequestCodeValidator
+    public abstract void validateRequestPermissionsRequestCode(int)
 com.google.android.material.switchmaterial.SwitchMaterial
 io.reactivex.subjects.AsyncSubject
 io.reactivex.internal.operators.flowable.FlowableWindow
@@ -6823,8 +6862,8 @@ kotlin.comparisons.ComparisonsKt__ComparisonsKt$compareBy$1
 app.bmc.com.BHOOMI_MRTC.retrofit.APIClient
     public void <init>()
 io.reactivex.internal.operators.flowable.FlowableMap
-kotlin.text.MatcherMatchResult$groupValues$1
 android.support.v4.media.MediaBrowserCompat$MediaBrowserImplApi21$1
+kotlin.text.MatcherMatchResult$groupValues$1
 androidx.recyclerview.widget.ItemTouchHelper$ViewDropHandler
     public abstract void prepareForDrop(android.view.View,android.view.View,int,int)
 kotlin.collections.ArraysKt___ArraysJvmKt$asList$7
@@ -7049,6 +7088,8 @@ app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse
     public void setGetLoanWaiverReportPACS_BankwiseResult(java.lang.String)
     public void setGetLoanWaiverReportPACS_BranchwiseResult(java.lang.String)
     public void setGetLoanWaiverReportPACS_FarmerwiseResult(java.lang.String)
+    public void setGet_Afdvt_ReqSts_BasedOnAfdvtIdResult(java.lang.String)
+    public void setGet_Afdvt_ReqSts_BasedOnUserIdResult(java.lang.String)
 io.reactivex.internal.operators.flowable.FlowableFilter
 io.reactivex.internal.operators.completable.CompletableHide$HideCompletableObserver
 io.reactivex.internal.operators.flowable.FlowablePublish$FlowablePublisher
@@ -7163,10 +7204,12 @@ androidx.fragment.app.FragmentActivity
     public void supportPostponeEnterTransition()
     public void supportStartPostponedEnterTransition()
     public androidx.loader.app.LoaderManager getSupportLoaderManager()
+    public final void validateRequestPermissionsRequestCode(int)
     public void startActivityFromFragment(androidx.fragment.app.Fragment,android.content.Intent,int)
     public void startActivityFromFragment(androidx.fragment.app.Fragment,android.content.Intent,int,android.os.Bundle)
     public void startIntentSenderFromFragment(androidx.fragment.app.Fragment,android.content.IntentSender,int,android.content.Intent,int,int,int,android.os.Bundle)
     void requestPermissionsFromFragment(androidx.fragment.app.Fragment,java.lang.String[],int)
+    boolean mRequestedPermissionsFromFragment
     private static final java.lang.String TAG
     static final java.lang.String FRAGMENTS_TAG
     static final java.lang.String NEXT_CANDIDATE_REQUEST_INDEX_TAG
@@ -9064,6 +9107,8 @@ app.bmc.com.BHOOMI_MRTC.model.PacsPaymentRationTableData
     public void setPAYMENT_DT(java.lang.String)
     private java.lang.String PCUST_BNK_ID
     private java.lang.String NeedtoPay
+androidx.core.app.ActivityCompat$PermissionCompatDelegate
+    public abstract boolean requestPermissions(android.app.Activity,java.lang.String[],int)
 kotlin.jvm.internal.CharSpreadBuilder
 app.bmc.com.BHOOMI_MRTC.R$array
 io.reactivex.internal.operators.observable.ObservableReplay$ReplayBuffer
@@ -14277,6 +14322,7 @@ androidx.core.content.ContextCompat
     public static java.io.File[] getObbDirs(android.content.Context)
     public static java.io.File[] getExternalFilesDirs(android.content.Context,java.lang.String)
     public static java.io.File[] getExternalCacheDirs(android.content.Context)
+    public static int checkSelfPermission(android.content.Context,java.lang.String)
     public static java.io.File getNoBackupFilesDir(android.content.Context)
     public static java.io.File getCodeCacheDir(android.content.Context)
     private static synchronized java.io.File createFilesDir(java.io.File)
@@ -15929,6 +15975,9 @@ android.support.v4.media.session.ParcelableVolumeInfo$1
     public android.support.v4.media.session.ParcelableVolumeInfo[] newArray(int)
 com.google.android.material.appbar.AppBarLayout$2
     public final synthetic com.google.android.material.appbar.AppBarLayout this$0
+app.bmc.com.BHOOMI_MRTC.model.Afdvt_ReqSts_BasedOnAfdvtIdTable
+    public java.lang.String getREQ_ID()
+    public java.lang.String getREQ_AID()
 retrofit2.http.HeaderMap
 androidx.appcompat.app.AlertController$2
     public void onScrollChange(androidx.core.widget.NestedScrollView,int,int,int,int)
@@ -16161,9 +16210,6 @@ app.bmc.com.BHOOMI_MRTC.adapters.LandWiseBenificaryAdapter
     public final void populateItemRows(app.bmc.com.BHOOMI_MRTC.adapters.LandWiseBenificaryAdapter$MyViewHolder,int)
     public final int VIEW_TYPE_ITEM
     public final int VIEW_TYPE_LOADING
-app.bmc.com.BHOOMI_MRTC.screens.AppLancher
-    public final boolean hasPermissions()
-    public final void requestPerms()
 com.google.android.material.appbar.ViewOffsetHelper
     public void onViewLayout()
     public boolean setLeftAndRightOffset(int)
@@ -16685,6 +16731,14 @@ androidx.appcompat.widget.AppCompatTextHelper
     public final void setTextSizeInternal(int,float)
     public final void setCompoundDrawables(android.graphics.drawable.Drawable,android.graphics.drawable.Drawable,android.graphics.drawable.Drawable,android.graphics.drawable.Drawable,android.graphics.drawable.Drawable,android.graphics.drawable.Drawable)
 androidx.core.widget.ImageViewCompat
+app.bmc.com.BHOOMI_MRTC.adapters.LandConversionBasedOnUserIDAdapter
+    public static synthetic java.lang.String access$002(app.bmc.com.BHOOMI_MRTC.adapters.LandConversionBasedOnUserIDAdapter,java.lang.String)
+    public static synthetic java.lang.String access$000(app.bmc.com.BHOOMI_MRTC.adapters.LandConversionBasedOnUserIDAdapter)
+    public static synthetic java.lang.String access$102(app.bmc.com.BHOOMI_MRTC.adapters.LandConversionBasedOnUserIDAdapter,java.lang.String)
+    public static synthetic java.lang.String access$100(app.bmc.com.BHOOMI_MRTC.adapters.LandConversionBasedOnUserIDAdapter)
+    public app.bmc.com.BHOOMI_MRTC.adapters.LandConversionBasedOnUserIDAdapter$ViewHolder onCreateViewHolder(android.view.ViewGroup,int)
+    public void onBindViewHolder(app.bmc.com.BHOOMI_MRTC.adapters.LandConversionBasedOnUserIDAdapter$ViewHolder,int)
+    public app.bmc.com.BHOOMI_MRTC.screens.LandConversionBasedOnUserId activity
 app.bmc.com.BHOOMI_MRTC.adapters.PacsLoanRationDetailsAdapter
     public static synthetic java.lang.String access$002(app.bmc.com.BHOOMI_MRTC.adapters.PacsLoanRationDetailsAdapter,java.lang.String)
     public static synthetic java.util.List access$100(app.bmc.com.BHOOMI_MRTC.adapters.PacsLoanRationDetailsAdapter)
@@ -18143,6 +18197,8 @@ okio.internal.ByteStringKt
 com.google.android.material.snackbar.BaseTransientBottomBar$OnAttachStateChangeListener
     public abstract void onViewAttachedToWindow(android.view.View)
     public abstract void onViewDetachedFromWindow(android.view.View)
+app.bmc.com.BHOOMI_MRTC.screens.Endorsement_ReportWebView
+    public final void loadURL()
 androidx.recyclerview.widget.RecyclerView$ItemAnimator$ItemHolderInfo
     public androidx.recyclerview.widget.RecyclerView$ItemAnimator$ItemHolderInfo setFrom(androidx.recyclerview.widget.RecyclerView$ViewHolder)
     public androidx.recyclerview.widget.RecyclerView$ItemAnimator$ItemHolderInfo setFrom(androidx.recyclerview.widget.RecyclerView$ViewHolder,int)
@@ -18300,6 +18356,8 @@ app.bmc.com.BHOOMI_MRTC.model.MutualPendacyData
     public java.lang.String getCourtType()
 androidx.core.provider.SelfDestructiveThread$3
     public final synthetic androidx.core.provider.SelfDestructiveThread this$0
+app.bmc.com.BHOOMI_MRTC.screens.Endorsement_ReportWebView$1
+    public final synthetic app.bmc.com.BHOOMI_MRTC.screens.Endorsement_ReportWebView this$0
 retrofit2.ParameterHandler
     public final retrofit2.ParameterHandler iterable()
     public final retrofit2.ParameterHandler array()
@@ -19186,6 +19244,13 @@ app.bmc.com.BHOOMI_MRTC.adapters.LoanWaiverPacsFarmerWiseDetailsAdapter
     public final void populateItemRows(app.bmc.com.BHOOMI_MRTC.adapters.LoanWaiverPacsFarmerWiseDetailsAdapter$MyViewHolder,int)
     public final int VIEW_TYPE_ITEM
     public final int VIEW_TYPE_LOADING
+app.bmc.com.BHOOMI_MRTC.adapters.LandConversionBasedOnAffidavitAdapter
+    public static synthetic java.lang.String access$002(app.bmc.com.BHOOMI_MRTC.adapters.LandConversionBasedOnAffidavitAdapter,java.lang.String)
+    public static synthetic java.lang.String access$000(app.bmc.com.BHOOMI_MRTC.adapters.LandConversionBasedOnAffidavitAdapter)
+    public static synthetic java.lang.String access$102(app.bmc.com.BHOOMI_MRTC.adapters.LandConversionBasedOnAffidavitAdapter,java.lang.String)
+    public static synthetic java.lang.String access$100(app.bmc.com.BHOOMI_MRTC.adapters.LandConversionBasedOnAffidavitAdapter)
+    public app.bmc.com.BHOOMI_MRTC.adapters.LandConversionBasedOnAffidavitAdapter$ViewHolder onCreateViewHolder(android.view.ViewGroup,int)
+    public void onBindViewHolder(app.bmc.com.BHOOMI_MRTC.adapters.LandConversionBasedOnAffidavitAdapter$ViewHolder,int)
 com.google.android.material.shape.MaterialShapeDrawable$1
     public void onCornerPathCreated(com.google.android.material.shape.ShapePath,android.graphics.Matrix,int)
     public void onEdgePathCreated(com.google.android.material.shape.ShapePath,android.graphics.Matrix,int)
@@ -19761,6 +19826,8 @@ app.bmc.com.BHOOMI_MRTC.screens.ShowLoanWaiverPacsReportBranchWise
 androidx.core.widget.TextViewCompat
 com.nineoldandroids.animation.PreHoneycombCompat$11
     public java.lang.Integer get(android.view.View)
+app.bmc.com.BHOOMI_MRTC.adapters.LandConversionBasedOnAffidavitAdapter$ViewHolder$1
+    public final synthetic app.bmc.com.BHOOMI_MRTC.adapters.LandConversionBasedOnAffidavitAdapter val$this$0
 app.bmc.com.BHOOMI_MRTC.screens.PacsLoanReportView$1
     public final synthetic app.bmc.com.BHOOMI_MRTC.screens.PacsLoanReportView this$0
 androidx.core.graphics.PathParser
@@ -19786,7 +19853,7 @@ androidx.cardview.widget.CardViewDelegate
     public abstract void setMinWidthHeightInternal(int,int)
     public abstract android.view.View getCardView()
 app.bmc.com.BHOOMI_MRTC.screens.AppLancher$1
-    public void onNext(java.lang.Long[])
+    public void onNext(java.lang.Integer)
 androidx.transition.AutoTransition
     public final void init()
 androidx.core.view.ViewCompat$AccessibilityPaneVisibilityManager
@@ -19963,6 +20030,8 @@ com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$BoundField
     public abstract boolean writeField(java.lang.Object)
     public abstract void write(com.google.gson.stream.JsonWriter,java.lang.Object)
     public abstract void read(com.google.gson.stream.JsonReader,java.lang.Object)
+app.bmc.com.BHOOMI_MRTC.screens.Endorsement_ReportWebView$1$1
+    public final synthetic app.bmc.com.BHOOMI_MRTC.screens.Endorsement_ReportWebView$1 this$1
 app.bmc.com.BHOOMI_MRTC.model.LoanWaiverBankResponseData
     public java.lang.String getDISTRICT_NAME()
     public java.lang.String getBnk_nme_en()
@@ -20356,6 +20425,8 @@ app.bmc.com.BHOOMI_MRTC.screens.ShowPariharaBenificiaryDetailsVlgWise
     public final void showData(java.lang.String)
     public final void populateData()
     public final void initScrollListener()
+app.bmc.com.BHOOMI_MRTC.adapters.LandConversionBasedOnUserIDAdapter$ViewHolder$2
+    public final synthetic app.bmc.com.BHOOMI_MRTC.adapters.LandConversionBasedOnUserIDAdapter val$this$0
 app.bmc.com.BHOOMI_MRTC.database.DataBaseAccess
     public abstract java.lang.Long[] insertMasterData(java.util.List)
     public abstract java.lang.Long[] insertMasterCalamityData(java.util.List)
@@ -21146,6 +21217,8 @@ kotlin.jvm.internal.TypeIntrinsics
     public static void throwCce(java.lang.String)
     public static java.util.List asMutableList(java.lang.Object)
     public static java.util.List castToList(java.lang.Object)
+app.bmc.com.BHOOMI_MRTC.adapters.LandConversionBasedOnUserIDAdapter$ViewHolder$1
+    public final synthetic app.bmc.com.BHOOMI_MRTC.adapters.LandConversionBasedOnUserIDAdapter val$this$0
 kotlin.coroutines.intrinsics.IntrinsicsKt__IntrinsicsKt
 com.google.android.material.circularreveal.cardview.CircularRevealCardView
     public final com.google.android.material.circularreveal.CircularRevealHelper helper
@@ -21361,6 +21434,8 @@ com.google.android.material.circularreveal.CircularRevealWidget$CircularRevealSc
     public void set(com.google.android.material.circularreveal.CircularRevealWidget,java.lang.Integer)
 app.bmc.com.BHOOMI_MRTC.screens.PacsWebViewActivity$1
     public final synthetic app.bmc.com.BHOOMI_MRTC.screens.PacsWebViewActivity this$0
+app.bmc.com.BHOOMI_MRTC.screens.LandConversionBasedOnUserId$1
+    public final synthetic app.bmc.com.BHOOMI_MRTC.screens.LandConversionBasedOnUserId this$0
 com.google.android.material.animation.MotionTiming
     public static com.google.android.material.animation.MotionTiming createFromAnimator(android.animation.ValueAnimator)
     public static android.animation.TimeInterpolator getInterpolatorCompat(android.animation.ValueAnimator)
@@ -21424,6 +21499,9 @@ app.bmc.com.BHOOMI_MRTC.adapters.VillageWiseBenificaryAdapter$LoadingViewHolder
     public android.widget.ProgressBar progressBar
     public final synthetic app.bmc.com.BHOOMI_MRTC.adapters.VillageWiseBenificaryAdapter this$0
 androidx.core.widget.EdgeEffectCompat
+app.bmc.com.BHOOMI_MRTC.screens.LandConversion$3$1
+    static void <clinit>()
+    public static final synthetic boolean $assertionsDisabled
 app.bmc.com.BHOOMI_MRTC.screens.DownloadVillageMap$8
     public final synthetic app.bmc.com.BHOOMI_MRTC.screens.DownloadVillageMap this$0
 androidx.lifecycle.ReportFragment$ActivityInitializationListener
@@ -21592,6 +21670,8 @@ app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse
     public java.lang.String getGetLoanWaiverReportPACS_BankwiseResult()
     public java.lang.String getGetLoanWaiverReportPACS_BranchwiseResult()
     public java.lang.String getGetLoanWaiverReportPACS_FarmerwiseResult()
+    public java.lang.String getGet_Afdvt_ReqSts_BasedOnAfdvtIdResult()
+    public java.lang.String getGet_Afdvt_ReqSts_BasedOnUserIdResult()
 com.google.gson.internal.bind.CollectionTypeAdapterFactory$Adapter
     public java.util.Collection read(com.google.gson.stream.JsonReader)
     public void write(com.google.gson.stream.JsonWriter,java.util.Collection)
@@ -21796,6 +21876,8 @@ retrofit2.Platform
     public int defaultConverterFactoriesSize()
 io.reactivex.internal.schedulers.NewThreadWorker
     public void shutdown()
+app.bmc.com.BHOOMI_MRTC.screens.LandConversionBasedOnAffidavit$1
+    public final synthetic app.bmc.com.BHOOMI_MRTC.screens.LandConversionBasedOnAffidavit this$0
 androidx.core.text.TextDirectionHeuristicsCompat$TextDirectionHeuristicLocale
 androidx.appcompat.widget.AppCompatHintHelper
 org.ksoap2.serialization.HasAttributes
@@ -21896,7 +21978,7 @@ com.google.android.material.internal.StateListAnimator
 androidx.appcompat.widget.AbsActionBarView$VisibilityAnimListener
     public androidx.appcompat.widget.AbsActionBarView$VisibilityAnimListener withFinalVisibility(androidx.core.view.ViewPropertyAnimatorCompat,int)
 app.bmc.com.BHOOMI_MRTC.screens.AppLancher$2
-    public void onNext(java.lang.Integer)
+    public void onNext(java.lang.Long[])
 app.bmc.com.BHOOMI_MRTC.screens.PariharaDetailsIndividual
     public final boolean isNetworkAvailable()
     public java.lang.String financial_year
@@ -21929,6 +22011,8 @@ com.google.gson.internal.bind.util.ISO8601Utils
     public static int indexOfNonDigit(java.lang.String,int)
 app.bmc.com.BHOOMI_MRTC.screens.PariharaBenificiaryReportVillageWise$5$2
     public void onNext(java.util.List)
+app.bmc.com.BHOOMI_MRTC.adapters.LandConversionBasedOnAffidavitAdapter$ViewHolder$2
+    public final synthetic app.bmc.com.BHOOMI_MRTC.adapters.LandConversionBasedOnAffidavitAdapter val$this$0
 androidx.appcompat.widget.MenuPopupWindow
     public void setEnterTransition(java.lang.Object)
     public void setHoverListener(androidx.appcompat.widget.MenuItemHoverListener)
@@ -22021,6 +22105,9 @@ kotlin.collections.CollectionsKt__ReversedViewsKt
 com.google.gson.internal.bind.TypeAdapters$36
 app.bmc.com.BHOOMI_MRTC.screens.LoanWaiverReportForCommercialFramerWise$5$2
     public void onNext(java.util.List)
+app.bmc.com.BHOOMI_MRTC.screens.LandConversion$3$2
+    static void <clinit>()
+    public static final synthetic boolean $assertionsDisabled
 androidx.collection.MapCollections$EntrySet
     public boolean add(java.util.Map$Entry)
 androidx.recyclerview.widget.RecyclerView$6

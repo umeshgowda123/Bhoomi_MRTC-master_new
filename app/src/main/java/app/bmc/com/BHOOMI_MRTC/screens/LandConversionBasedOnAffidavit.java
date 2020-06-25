@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.json.JSONArray;
@@ -88,6 +90,8 @@ public class LandConversionBasedOnAffidavit extends AppCompatActivity {
                 e.printStackTrace();
                 Log.d("ExceptionSUS", e + "");
             }
+        } else {
+            Toast.makeText(getApplicationContext(), "Null", Toast.LENGTH_SHORT).show();
         }
     }
     @Override

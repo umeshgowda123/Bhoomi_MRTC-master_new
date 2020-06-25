@@ -295,6 +295,15 @@
         <activity
             android:name=".screens.Download_Conversion_order"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".screens.ConversionFinalOrders_BasedOnReq_ID"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".screens.ConversionFinalOrders_BasedOnSurveyNo"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".screens.Endorsement_ReportWebView"
             android:screenOrientation="landscape"

@@ -340,7 +340,6 @@
     <string name="land_conversion_request_status">ಭೂ ಪರಿವರ್ತನೆಯ ವಿನಂತಿಯ ಸ್ಥಿತಿ</string>
     <string name="ver_1_0_0">Ver: 1.0.0</string>
     <string name="copyright_bhoomi_monitoring_cell_2020_all_right_reserved">Copyright© Bhoomi Monitoring Cell - 2020  All Right Reserved</string>
-    <string name="download_conversion_order">Download Conversion Order</string>
     <string name="request_id">Request ID Wise</string>
     <string name="survey_no_wise">Survey No. Wise</string>
     <string name="enter_request_id">Enter Request ID</string>
@@ -359,5 +358,9 @@
     <string name="type_of_conversion">Type of ConverSion</string>
     <string name="land_conversion_request_based_on_affidavit_id">Land Conversion Request Based On Affidavit ID</string>
     <string name="land_conversion_request_based_on_user_id">Land Conversion Request Based On User ID</string>
+    <string name="endorsement_report">Endorsement Report</string>
+    <string name="transaction_report">Transaction Report</string>
+    <string name="land_conversion_final_orders">Land Conversion Final Orders</string>
+    <string name="final_order">Final Order</string>
 
 </resources>
