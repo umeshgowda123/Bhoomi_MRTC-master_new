@@ -1,8 +1,7 @@
 package app.bmc.com.BHOOMI_MRTC.adapters;
 
-import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +13,6 @@ import java.util.List;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.model.Afdvt_ReqSts_BasedOnAfdvtIdTable;
-import app.bmc.com.BHOOMI_MRTC.model.BankLoanTableData;
-import app.bmc.com.BHOOMI_MRTC.screens.CommercialBankLoanReportDocActivity;
-import app.bmc.com.BHOOMI_MRTC.screens.LandConversionBasedOnAffidavit;
 import app.bmc.com.BHOOMI_MRTC.screens.LandConversionBasedOnUserId;
 
 public class LandConversionBasedOnUserIDAdapter extends RecyclerView.Adapter<LandConversionBasedOnUserIDAdapter.ViewHolder> {

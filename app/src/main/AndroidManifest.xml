@@ -296,10 +296,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".screens.Endorsement_ReportWebView"
-            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="landscape"
-            tools:ignore="LockedOrientationActivity"/>
-
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
     </application>
 
 </manifest>

@@ -1,7 +1,7 @@
 package app.bmc.com.BHOOMI_MRTC.model;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.support.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.annotation.NonNull;
 
 import app.bmc.com.BHOOMI_MRTC.interfaces.SeasonInterface;
 

@@ -95,7 +95,7 @@
                     android:layout_margin="4dp"
                     android:orientation="horizontal">
 
-                    <android.support.design.widget.TextInputLayout
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3">
@@ -111,7 +111,7 @@
                             android:maxLines="1"
                             android:textColorHint="@color/hint_before_float_rtc"
                             android:autofillHints="survey_no" />
-                    </android.support.design.widget.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <Button
                         android:id="@+id/btn_go"

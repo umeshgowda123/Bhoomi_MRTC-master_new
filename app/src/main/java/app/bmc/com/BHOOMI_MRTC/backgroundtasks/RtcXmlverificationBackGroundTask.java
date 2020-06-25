@@ -2,7 +2,7 @@ package app.bmc.com.BHOOMI_MRTC.backgroundtasks;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.api.RtcXmlVerificationApi;

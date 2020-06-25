@@ -8,9 +8,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
@@ -23,10 +23,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.Objects;
 
 import app.bmc.com.BHOOMI_MRTC.R;
@@ -34,7 +30,6 @@ import app.bmc.com.BHOOMI_MRTC.api.PariharaIndividualReportInteface;
 import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
 import app.bmc.com.BHOOMI_MRTC.retrofit.PariharaIndividualreportClient;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
-import fr.arnaudguyon.xmltojsonlib.XmlToJson;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

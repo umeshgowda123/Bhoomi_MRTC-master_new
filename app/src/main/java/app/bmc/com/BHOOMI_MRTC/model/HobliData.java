@@ -1,6 +1,6 @@
 package app.bmc.com.BHOOMI_MRTC.model;
 
-import android.arch.persistence.room.ColumnInfo;
+import androidx.room.ColumnInfo;
 
 import app.bmc.com.BHOOMI_MRTC.interfaces.HobliModelInterface;
 

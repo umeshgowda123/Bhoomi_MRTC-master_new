@@ -7,12 +7,12 @@
     android:orientation="vertical"
     tools:context=".screens.ShowFullOwnerAllDetails">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -31,17 +31,17 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
 
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabsByOwner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabMode="fixed"
             app:tabTextColor="@color/colorPrimary" />
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/owner_viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

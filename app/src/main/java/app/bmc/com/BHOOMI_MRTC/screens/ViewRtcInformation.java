@@ -1,6 +1,6 @@
 package app.bmc.com.BHOOMI_MRTC.screens;
 
-import android.arch.persistence.room.Room;
+import androidx.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,8 +8,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
@@ -21,6 +21,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.FragmentManager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -167,7 +169,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
 
 
         onClickAction();
-        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+        FragmentManager fm = getSupportFragmentManager();
         mTaskFragment = (RtcViewInfoBackGroundTaskFragment) fm.findFragmentByTag(RtcViewInfoBackGroundTaskFragment.TAG_HEADLESS_FRAGMENT);
 
         // If the Fragment is non-null, then it is currently being

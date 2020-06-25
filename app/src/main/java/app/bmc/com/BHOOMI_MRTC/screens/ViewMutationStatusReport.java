@@ -1,6 +1,6 @@
 package app.bmc.com.BHOOMI_MRTC.screens;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import app.bmc.com.BHOOMI_MRTC.R;

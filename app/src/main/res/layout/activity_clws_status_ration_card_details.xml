@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/shp">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -41,10 +41,10 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-        </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
@@ -74,7 +74,7 @@
                     android:textStyle="bold" />
 
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvRcNoCommercialBank"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
                     android:textColor="@android:color/black"
                     android:textStyle="bold" />
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvRcNoBankPaymentDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
                     android:textColor="@android:color/black"
                     android:textStyle="bold" />
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvRcNoPacsLoanDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -156,7 +156,7 @@
                     android:textColor="@android:color/black"
                     android:textStyle="bold" />
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvRcNoPacsPaymentDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -167,6 +167,6 @@
             </LinearLayout>
 
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

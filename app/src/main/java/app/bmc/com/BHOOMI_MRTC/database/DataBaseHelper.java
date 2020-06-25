@@ -1,7 +1,7 @@
 package app.bmc.com.BHOOMI_MRTC.database;
 
-import android.arch.persistence.room.Database;
-import android.arch.persistence.room.RoomDatabase;
+import androidx.room.Database;
+import androidx.room.RoomDatabase;
 
 import app.bmc.com.BHOOMI_MRTC.model.BankMasterData;
 import app.bmc.com.BHOOMI_MRTC.model.CalamityDetails;
