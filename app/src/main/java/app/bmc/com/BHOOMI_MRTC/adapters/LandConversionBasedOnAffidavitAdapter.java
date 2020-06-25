@@ -22,6 +22,8 @@ public class LandConversionBasedOnAffidavitAdapter extends RecyclerView.Adapter<
     LandConversionBasedOnAffidavit activity;
     private String req_id;
     private String req_Aid;
+    String baseUrl_endo = "https://landrecords.karnataka.gov.in/service80/CitizenRequest/EndorsementReport?REQ_ID=";
+    String baseUrl_tran = "https://landrecords.karnataka.gov.in/service80/CitizenRequest/TransactionReport?reqAID=";
 
     @NonNull
     @Override
@@ -91,7 +93,8 @@ public class LandConversionBasedOnAffidavitAdapter extends RecyclerView.Adapter<
                         Log.d("IDDDDD",req_id);
                     }
                     Intent intent = new Intent(activity, Endorsement_ReportWebView.class);
-                    intent.putExtra("REQ_ID",req_id);
+                    intent.putExtra("REQ_ID",""+req_id);
+                    intent.putExtra("baseUrl", ""+ baseUrl_endo);
                     activity.startActivity(intent);
 
                 }
@@ -105,9 +108,10 @@ public class LandConversionBasedOnAffidavitAdapter extends RecyclerView.Adapter<
                             req_Aid = clickedDataItem.getREQ_AID();
                             Log.d("IDDDDD",req_Aid);
                         }
-//                    Intent intent = new Intent(activity, .class);
-//                    intent.putExtra("REQ_AID",req_Aid);
-//                    activity.startActivity(intent);
+                    Intent intent = new Intent(activity, Endorsement_ReportWebView.class);
+                    intent.putExtra("REQ_ID",""+req_Aid);
+                    intent.putExtra("baseUrl", ""+baseUrl_tran);
+                    activity.startActivity(intent);
 
                     }
             });

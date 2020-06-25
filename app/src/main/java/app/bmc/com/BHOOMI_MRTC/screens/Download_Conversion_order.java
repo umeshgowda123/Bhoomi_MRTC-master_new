@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import androidx.room.Room;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -25,6 +26,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
@@ -32,16 +34,23 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 import app.bmc.com.BHOOMI_MRTC.R;
+import app.bmc.com.BHOOMI_MRTC.api.PariharaIndividualReportInteface;
 import app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper;
 import app.bmc.com.BHOOMI_MRTC.interfaces.DistrictModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.HobliModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.TalukModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.VillageModelInterface;
+import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
+import app.bmc.com.BHOOMI_MRTC.retrofit.PariharaIndividualreportClient;
+import app.bmc.com.BHOOMI_MRTC.util.Constants;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Download_Conversion_order extends AppCompatActivity {
 
@@ -103,6 +112,8 @@ public class Download_Conversion_order extends AppCompatActivity {
 
         dataBaseHelper = Room.databaseBuilder(getApplicationContext(),
                         DataBaseHelper.class, getString(R.string.db_name)).build();
+
+        strSelected = getString(R.string.request_id);
 
         ArrayAdapter<String> defaultArrayAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_single_choice, new String[]{});
@@ -337,71 +348,109 @@ public class Download_Conversion_order extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                String districtName = sp_sum_district.getText().toString().trim();
-                String talukName = sp_sum_taluk.getText().toString().trim();
-                String hobliName = sp_sum_hobli.getText().toString().trim();
-                String villageName = sp_sum_village.getText().toString().trim();
-                surveyNumber = etSurveyNumber.getText().toString().trim();
-                requestID = etRequestID.getText().toString().trim();
 
-                View focus = null;
-                boolean status = false;
-
-                if (strSelected.equals(getString(R.string.survey_no_wise))) {
-                    if (TextUtils.isEmpty(districtName)) {
-                        focus = sp_sum_district;
-                        status = true;
-                        sp_sum_district.setError(getString(R.string.district_err));
-                    } else if (TextUtils.isEmpty(talukName)) {
-                        focus = sp_sum_taluk;
-                        status = true;
-                        sp_sum_taluk.setError(getString(R.string.taluk_err));
-                    } else if (TextUtils.isEmpty(hobliName)) {
-                        focus = sp_sum_hobli;
-                        status = true;
-                        sp_sum_hobli.setError(getString(R.string.hobli_err));
-                    } else if (TextUtils.isEmpty(villageName)) {
-                        focus = sp_sum_village;
-                        status = true;
-                        sp_sum_village.setError(getString(R.string.village_err));
-                    } else if (TextUtils.isEmpty(surveyNumber)) {
-                        focus = etSurveyNumber;
-                        status = true;
-                        etSurveyNumber.setError(getString(R.string.survey_no_err));
-                    }
-                    if (status) {
-                        focus.requestFocus();
-                    } else {
-
-                        if (isNetworkAvailable()) {
-                            progressDialog = new ProgressDialog(Download_Conversion_order.this);
-                            progressDialog.setMessage("Please Wait");
-                            progressDialog.setCancelable(false);
-                            progressDialog.show();
-
-
-                        } else {
-                            selfDestruct();
+                    View focus = null;
+                    boolean status = false;
+                    if (strSelected.equals(getString(R.string.survey_no_wise))) {
+                        String districtName = sp_sum_district.getText().toString().trim();
+                        String talukName = sp_sum_taluk.getText().toString().trim();
+                        String hobliName = sp_sum_hobli.getText().toString().trim();
+                        String villageName = sp_sum_village.getText().toString().trim();
+                        surveyNumber = etSurveyNumber.getText().toString().trim();
+                        if (TextUtils.isEmpty(districtName)) {
+                            focus = sp_sum_district;
+                            status = true;
+                            sp_sum_district.setError(getString(R.string.district_err));
+                        } else if (TextUtils.isEmpty(talukName)) {
+                            focus = sp_sum_taluk;
+                            status = true;
+                            sp_sum_taluk.setError(getString(R.string.taluk_err));
+                        } else if (TextUtils.isEmpty(hobliName)) {
+                            focus = sp_sum_hobli;
+                            status = true;
+                            sp_sum_hobli.setError(getString(R.string.hobli_err));
+                        } else if (TextUtils.isEmpty(villageName)) {
+                            focus = sp_sum_village;
+                            status = true;
+                            sp_sum_village.setError(getString(R.string.village_err));
+                        } else if (TextUtils.isEmpty(surveyNumber)) {
+                            focus = etSurveyNumber;
+                            status = true;
+                            etSurveyNumber.setError(getString(R.string.survey_no_err));
                         }
-                    }
-                } else if (strSelected.equals(getString(R.string.request_id))) {
-                    if (TextUtils.isEmpty(requestID)){
-                        etRequestID.setError(getString(R.string.requestid_err));
-                        etRequestID.requestFocus();
-                    } else {
-                        if (isNetworkAvailable()) {
-                            progressDialog = new ProgressDialog(Download_Conversion_order.this);
-                            progressDialog.setMessage("Please Wait");
-                            progressDialog.setCancelable(false);
-                            progressDialog.show();
-
-
+                        if (status) {
+                            focus.requestFocus();
                         } else {
-                            selfDestruct();
+
+                            if (isNetworkAvailable()) {
+                                progressDialog = new ProgressDialog(Download_Conversion_order.this);
+                                progressDialog.setMessage("Please Wait");
+                                progressDialog.setCancelable(false);
+                                progressDialog.show();
+
+
+                            } else {
+                                selfDestruct();
+                            }
                         }
+                    } else if (strSelected.equals(getString(R.string.request_id))) {
+                        requestID = etRequestID.getText().toString().trim();
+                        if (TextUtils.isEmpty(requestID)) {
+                            etRequestID.setError(getString(R.string.requestid_err));
+                            etRequestID.requestFocus();
+                        } else {
+                            if (isNetworkAvailable()) {
+
+                                progressDialog = new ProgressDialog(Download_Conversion_order.this);
+                                progressDialog.setMessage("Please Wait");
+                                progressDialog.setCancelable(false);
+                                progressDialog.show();
+
+                                PariharaIndividualReportInteface apiInterface = PariharaIndividualreportClient.getClient("https://clws.karnataka.gov.in/Service4/BHOOMI/").create(PariharaIndividualReportInteface.class);
+                                Call<PariharaIndividualDetailsResponse> call = apiInterface.getLandConversionFinalOrders_BasedOnReqId(Constants.REPORT_SERVICE_USER_NAME,
+                                        Constants.REPORT_SERVICE_PASSWORD, requestID);
+                                call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+                                    @Override
+                                    public void onResponse(Call<PariharaIndividualDetailsResponse> call, Response<PariharaIndividualDetailsResponse> response) {
+
+                                        if (response.isSuccessful()) {
+                                            PariharaIndividualDetailsResponse result = response.body();
+                                            assert result != null;
+                                            String res = result.getGet_Afdvt_ReqSts_BasedOnAfdvtIdResult();
+                                            Log.d("ResponseBasedOnReqID", "" + res);
+
+                                            progressDialog.dismiss();
+
+//                                        Intent intent = new Intent(Download_Conversion_order.this, LandConversionBasedOnAffidavit.class);
+//                                        intent.putExtra("AFFIDAVIT_ResponseData", res);
+//                                        intent.putExtra("AFFIDAVIT_ID", affidavitID);
+//                                        Log.d("put : ", res+" & "+affidavitID);
+//                                        startActivity(intent);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<PariharaIndividualDetailsResponse> call, Throwable t) {
+                                        call.cancel();
+                                        progressDialog.dismiss();
+                                    }
+                                });
+
+                            } else {
+                                if (savedInstanceState.isEmpty()) {
+                                    Toast.makeText(Download_Conversion_order.this, "Please Enter Affidavit Number", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(Download_Conversion_order.this, "Invalid Affidavit Number", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
                     }
+                    } else {
+                        selfDestruct();
+                    }
+
                 }
-            }
+
         });
     }
 

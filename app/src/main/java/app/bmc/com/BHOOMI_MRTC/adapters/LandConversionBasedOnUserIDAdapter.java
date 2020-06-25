@@ -2,6 +2,8 @@ package app.bmc.com.BHOOMI_MRTC.adapters;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import java.util.List;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.model.Afdvt_ReqSts_BasedOnAfdvtIdTable;
+import app.bmc.com.BHOOMI_MRTC.screens.Endorsement_ReportWebView;
 import app.bmc.com.BHOOMI_MRTC.screens.LandConversionBasedOnUserId;
 
 public class LandConversionBasedOnUserIDAdapter extends RecyclerView.Adapter<LandConversionBasedOnUserIDAdapter.ViewHolder> {
@@ -20,6 +23,9 @@ public class LandConversionBasedOnUserIDAdapter extends RecyclerView.Adapter<Lan
     LandConversionBasedOnUserId activity;
     private String req_id;
     private String req_Aid;
+    String baseUrl_endo = "https://landrecords.karnataka.gov.in/service80/CitizenRequest/EndorsementReport?REQ_ID=";
+    String baseUrl_tran = "https://landrecords.karnataka.gov.in/service80/CitizenRequest/TransactionReport?reqAID=";
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -85,9 +91,11 @@ public class LandConversionBasedOnUserIDAdapter extends RecyclerView.Adapter<Lan
                         req_id = clickedDataItem.getREQ_ID();
                         Log.d("IDDDDD",req_id);
                     }
-//                    Intent intent = new Intent(activity, .class);
-//                    intent.putExtra("REQ_ID",req_id);
-//                    activity.startActivity(intent);
+                    Intent intent = new Intent(activity, Endorsement_ReportWebView.class);
+                    intent.putExtra("REQ_ID",""+req_id);
+                    intent.putExtra("baseUrl", ""+ baseUrl_endo);
+                    activity.startActivity(intent);
+
                 }
             });
             ivTransaction_Report.setOnClickListener(new View.OnClickListener() {
@@ -99,9 +107,11 @@ public class LandConversionBasedOnUserIDAdapter extends RecyclerView.Adapter<Lan
                         req_Aid = clickedDataItem.getREQ_AID();
                         Log.d("IDDDDD",req_Aid);
                     }
-//                    Intent intent = new Intent(activity, .class);
-//                    intent.putExtra("REQ_AID",req_Aid);
-//                    activity.startActivity(intent);
+                    Intent intent = new Intent(activity, Endorsement_ReportWebView.class);
+                    intent.putExtra("REQ_ID",""+req_Aid);
+                    intent.putExtra("baseUrl", ""+baseUrl_tran);
+                    activity.startActivity(intent);
+
                 }
             });
 

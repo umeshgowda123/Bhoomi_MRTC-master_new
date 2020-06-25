@@ -60,7 +60,7 @@
                         android:hint="@string/district"
                         android:textColorHint="@color/hint_before_float_rtc"
                         app:met_floatingLabel="normal"
-                        app:met_floatingLabellTextColor="@color/hint_rtc" />
+                        app:met_floatingLabelTextColor="@color/hint_rtc" />
 
                     <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
                         android:id="@+id/sp_taluk"

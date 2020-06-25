@@ -120,4 +120,12 @@ public interface PariharaIndividualReportInteface {
     @POST("GET_Afdvt_ReqSts_BasedOnUserId/{pstrUserName}/{pStrPassword}/{pUserId}")
     Call<PariharaIndividualDetailsResponse> getLandConversionBasedOnUserID(@Path("pstrUserName") String pstrUserName, @Path("pStrPassword") String pstrPassword,
                                                                                 @Path("pUserId") String pUserId);
+
+    @Headers({"content-type: text/json; charset=utf-8"})
+    @POST("GetLandConversionFinalOrders_BasedOnReqId/{PSTRUSERNAME}/{PSTRPASSWORD}/{PREQUESTID}")
+    Call<PariharaIndividualDetailsResponse> getLandConversionFinalOrders_BasedOnReqId(@Path("PSTRUSERNAME") String PSTRUSERNAME, @Path("PSTRPASSWORD") String PSTRPASSWORD,
+                                                                           @Path("PREQUESTID") String PREQUESTID);
+
+
+
 }

@@ -15,25 +15,25 @@ import app.bmc.com.BHOOMI_MRTC.R;
 
 public class Endorsement_ReportWebView extends AppCompatActivity {
     String REQ_ID;
-    private String baseUrl = "https://landrecords.karnataka.gov.in/service80/CitizenRequest/EndorsementReport?";
     WebView webViewEndorsement_Report;
     private boolean mbURLLoaded = false;
     private String resultUrl;
-
+    String baseUrl;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_endorsement__report_web_view);
 
+        baseUrl = getIntent().getStringExtra("baseUrl");
         REQ_ID = getIntent().getStringExtra("REQ_ID");
 
         webViewEndorsement_Report = findViewById(R.id.webViewEndorsement_Report);
 
-        initializeWebView();
+        initializeWebView(baseUrl, REQ_ID);
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    public void initializeWebView() {
+    public void initializeWebView(String baseUrl, String REQ_ID) {
         WebSettings webSettings = webViewEndorsement_Report.getSettings();
         webViewEndorsement_Report.setClickable(true);
         webSettings.setJavaScriptEnabled(true);
@@ -72,14 +72,15 @@ public class Endorsement_ReportWebView extends AppCompatActivity {
 
         });
 
-        loadURL();
+        loadURL(baseUrl, REQ_ID);
 
     }
 
-    private void loadURL() {
+    private void loadURL(String baseUrl, String REQ_ID) {
+
         if (!mbURLLoaded)
 
-            resultUrl = baseUrl + "REQ_ID=" +REQ_ID ;
+            resultUrl = baseUrl + REQ_ID ;
         Log.d("resultUrl",""+resultUrl);
 
         if (REQ_ID != null) {
