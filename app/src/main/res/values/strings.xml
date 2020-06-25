@@ -428,11 +428,11 @@
     <string name="view_phody_sketch">View 11e/Pre alienation/Phody Sketch</string>
     <string name="view_mojini_request_status">View Mojini Request Status</string>
     <string name="bhoomi">Bhoomi</string>
-    <string name="kar" >Government Of Karnataka</string>
-    <string name="view_rtc_information" >View Rtc Information</string>
-    <string name="rtc_xml_verification" >Rtc Xml Verification</string>
-    <string name="view_rtc_by_ownername" >View Rtc By OwnerName</string>
-    <string name="clws_status" >CLWS STATUS</string>
+    <string name="kar">Government Of Karnataka</string>
+    <string name="view_rtc_information">View Rtc Information</string>
+    <string name="rtc_xml_verification">Rtc Xml Verification</string>
+    <string name="view_rtc_by_ownername">View Rtc By OwnerName</string>
+    <string name="clws_status">CLWS STATUS</string>
     <string name="citizen_payment_certificate_for_pacs">Citizen Payment Certificate For Pacs</string>
     <string name="citizen_payment_certificate_for_banks">Citizen Payment Certificate For Banks</string>
     <string name="parihara_benificary_details_land_wise">Parihara Benificary Details Land Wise</string>
@@ -466,5 +466,7 @@
     <string name="type_of_conversion">Type of ConverSion</string>
     <string name="land_conversion_request_based_on_affidavit_id">Land Conversion Request Based On Affidavit ID</string>
     <string name="land_conversion_request_based_on_user_id">Land Conversion Request Based On User ID</string>
+    <string name="endorsement_report">Endorsement Report</string>
+    <string name="transaction_report">Transaction Report</string>
 
 </resources>

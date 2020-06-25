@@ -1,7 +1,9 @@
 package app.bmc.com.BHOOMI_MRTC.adapters;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +14,14 @@ import java.util.List;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.model.Afdvt_ReqSts_BasedOnAfdvtIdTable;
+import app.bmc.com.BHOOMI_MRTC.screens.Endorsement_ReportWebView;
 import app.bmc.com.BHOOMI_MRTC.screens.LandConversionBasedOnAffidavit;
 
 public class LandConversionBasedOnAffidavitAdapter extends RecyclerView.Adapter<LandConversionBasedOnAffidavitAdapter.ViewHolder> {
     List<Afdvt_ReqSts_BasedOnAfdvtIdTable> list ;
     LandConversionBasedOnAffidavit activity;
-
+    private String req_id;
+    private String req_Aid;
 
     @NonNull
     @Override
@@ -49,8 +53,8 @@ public class LandConversionBasedOnAffidavitAdapter extends RecyclerView.Adapter<
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ImageView iv1;
-        public ImageView iv2;
+        public ImageView ivEndorsement_Report;
+        public ImageView ivTransaction_Report;
         public TextView tvAffidavitID;
         public TextView tvReqID;
         public TextView tvDistID;
@@ -64,8 +68,8 @@ public class LandConversionBasedOnAffidavitAdapter extends RecyclerView.Adapter<
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            iv1 = itemView.findViewById(R.id.iv1);
-            iv2 = itemView.findViewById(R.id.iv2);
+            ivEndorsement_Report = itemView.findViewById(R.id.iv1);
+            ivTransaction_Report = itemView.findViewById(R.id.iv2);
             tvAffidavitID = itemView.findViewById(R.id.tvAffidavitID);
             tvReqID = itemView.findViewById(R.id.tvReqID);
             tvDistID = itemView.findViewById(R.id.tvDistID);
@@ -76,6 +80,38 @@ public class LandConversionBasedOnAffidavitAdapter extends RecyclerView.Adapter<
             tvCreatedDate = itemView.findViewById(R.id.tvCreatedDate);
             tvTypeOfConverSion = itemView.findViewById(R.id.tvTypeOfConverSion);
             tvStatus = itemView.findViewById(R.id.tvStatus);
+
+            ivEndorsement_Report.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    if(pos != RecyclerView.NO_POSITION){
+                        Afdvt_ReqSts_BasedOnAfdvtIdTable clickedDataItem = list.get(pos);
+                        req_id = clickedDataItem.getREQ_ID();
+                        Log.d("IDDDDD",req_id);
+                    }
+                    Intent intent = new Intent(activity, Endorsement_ReportWebView.class);
+                    intent.putExtra("REQ_ID",req_id);
+                    activity.startActivity(intent);
+
+                }
+            });
+            ivTransaction_Report.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                        int pos = getAdapterPosition();
+                        if(pos != RecyclerView.NO_POSITION){
+                            Afdvt_ReqSts_BasedOnAfdvtIdTable clickedDataItem = list.get(pos);
+                            req_Aid = clickedDataItem.getREQ_AID();
+                            Log.d("IDDDDD",req_Aid);
+                        }
+//                    Intent intent = new Intent(activity, .class);
+//                    intent.putExtra("REQ_AID",req_Aid);
+//                    activity.startActivity(intent);
+
+                    }
+            });
+
         }
     }
 
