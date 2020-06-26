@@ -39,7 +39,16 @@
 -keep class okhttp3.** { *; }
 -keep interface okhttp3.** { *; }
 -keep class org.xmlpull.v1.* {*;}
+-keep class sun.misc.Unsafe { *; }
+-keep class com.google.gson.stream.** { *; }
+-keep interface org.parceler.Parcel
+-keep @org.parceler.Parcel class * { *; }
+-keep class **$$Parcelable { *; }
+-keepclassmembers class com.codepath.model** { <fields>; }
+-keepclassmembers class com.codepath.adapter** { <fields>; }
+-keepattributes Exceptions
 
+-dontwarn java.lang.invoke.*
 -dontwarn okhttp3.**
 -dontwarn okio.**
 -dontwarn rx.**

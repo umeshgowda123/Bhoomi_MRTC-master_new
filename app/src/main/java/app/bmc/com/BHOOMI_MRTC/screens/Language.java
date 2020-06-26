@@ -86,8 +86,7 @@ public class Language extends AppCompatActivity {
         Configuration conf = res.getConfiguration();
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
-        Intent refresh = new Intent(this, BhoomiHomePage
-                .class);
+        Intent refresh = new Intent(this, BhoomiHomePage.class);
         startActivity(refresh);
         finish();
 

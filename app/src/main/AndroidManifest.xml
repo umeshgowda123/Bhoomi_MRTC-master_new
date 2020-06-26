@@ -84,9 +84,7 @@
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".screens.ShowMutationSummeryReport"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="landscape"
-            tools:ignore="LockedOrientationActivity" />
+            android:configChanges="orientation|keyboardHidden" />
         <activity
             android:name=".screens.ViewMutationSummeryReport"
             android:configChanges="orientation|keyboardHidden"
@@ -301,14 +299,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".screens.ConversionFinalOrders_BasedOnSurveyNo"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
             android:name=".screens.Endorsement_ReportWebView"
-            android:screenOrientation="landscape"
-            android:theme="@style/AppTheme.NoActionBar"
-            tools:ignore="LockedOrientationActivity" />
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

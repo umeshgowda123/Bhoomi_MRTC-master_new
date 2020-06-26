@@ -360,7 +360,7 @@ public class BhoomiHomePage extends AppCompatActivity {
             case R.id.action_settings:
                 Intent intent = new Intent(BhoomiHomePage.this, Language.class);
                 startActivity(intent);
-                // finish();
+                finish();
                 return true;
 
             default:

@@ -402,10 +402,21 @@ public class Download_Conversion_order extends AppCompatActivity {
                                             Log.d("ResponseBasedOnSurveyNo", "" + res);
 
                                             progressDialog.dismiss();
-
-                                            Intent intent = new Intent(Download_Conversion_order.this, ConversionFinalOrders_BasedOnReq_ID.class);
-                                            intent.putExtra("LandConversionFinalOrders", ""+res);
-                                            startActivity(intent);
+                                            if(res == null || res.equals("[{\"Result\":\"Details not found\"}]")) {
+                                                final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Download_Conversion_order.this, R.style.MyDialogTheme);
+                                                builder.setTitle("STATUS")
+                                                        .setMessage("No Data Found For this Record")
+                                                        .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                        .setCancelable(false)
+                                                        .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                                final android.app.AlertDialog alert = builder.create();
+                                                alert.show();
+                                                alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                            } else {
+                                                Intent intent = new Intent(Download_Conversion_order.this, ConversionFinalOrders_BasedOnReq_ID.class);
+                                                intent.putExtra("LandConversionFinalOrders", "" + res);
+                                                startActivity(intent);
+                                            }
 
                                         }
                                     }
@@ -448,10 +459,21 @@ public class Download_Conversion_order extends AppCompatActivity {
                                             Log.d("ResponseBasedOnReqID", "" + res);
 
                                             progressDialog.dismiss();
-
-                                        Intent intent = new Intent(Download_Conversion_order.this, ConversionFinalOrders_BasedOnReq_ID.class);
-                                        intent.putExtra("LandConversionFinalOrders", ""+res);
-                                        startActivity(intent);
+                                            if(res == null || res.equals("[{\"Result\":\"Details not found\"}]")) {
+                                                final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Download_Conversion_order.this, R.style.MyDialogTheme);
+                                                builder.setTitle("STATUS")
+                                                        .setMessage("No Data Found For this Record")
+                                                        .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                        .setCancelable(false)
+                                                        .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                                final android.app.AlertDialog alert = builder.create();
+                                                alert.show();
+                                                alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                            } else {
+                                                Intent intent = new Intent(Download_Conversion_order.this, ConversionFinalOrders_BasedOnReq_ID.class);
+                                                intent.putExtra("LandConversionFinalOrders", "" + res);
+                                                startActivity(intent);
+                                            }
                                         }
                                     }
 
