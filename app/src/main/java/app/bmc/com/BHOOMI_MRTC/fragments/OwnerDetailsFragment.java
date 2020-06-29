@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -36,9 +35,6 @@ import app.bmc.com.BHOOMI_MRTC.model.Owner;
  */
 public class OwnerDetailsFragment extends Fragment {
 
-
-    private LinearLayout linearLayout;
-
     public OwnerDetailsFragment() {
         // Required empty public constructor
     }
@@ -47,10 +43,9 @@ public class OwnerDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_owner_details, container, false);
 
 
-        return view;
+        return inflater.inflate(R.layout.fragment_owner_details, container, false);
     }
 
     @Override
@@ -66,6 +61,7 @@ public class OwnerDetailsFragment extends Fragment {
         try {
             // linearLayout=view.findViewById(R.id.owner_table_layout);
             Bundle bundle = this.getArguments();
+            assert bundle != null;
             String data = bundle.getString("OwnerDetailsFragment", "");
             TextView taluk_textview = view.findViewById(R.id.textview_taluk);
             TextView hobli_textview = view.findViewById(R.id.textview_hobli);
@@ -97,7 +93,7 @@ public class OwnerDetailsFragment extends Fragment {
                 Object object = jointOwnerObject.get("owner");
 
                 if (object instanceof JSONObject) {
-                    owersArray.put((JSONObject) object);
+                    owersArray.put(object);
                 } else if (object instanceof JSONArray) {
                     owersArray = (JSONArray) object;
                 } else if (object instanceof String) {
@@ -109,7 +105,7 @@ public class OwnerDetailsFragment extends Fragment {
                 allOwnerList.addAll(ownerList);
             }
 
-            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.owner_recycler_view);
+            RecyclerView recyclerView = view.findViewById(R.id.owner_recycler_view);
             recyclerView.setHasFixedSize(true);
 
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());

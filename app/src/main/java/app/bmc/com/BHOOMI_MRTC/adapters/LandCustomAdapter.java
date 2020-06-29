@@ -1,6 +1,9 @@
 package app.bmc.com.BHOOMI_MRTC.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,15 +34,16 @@ public class LandCustomAdapter extends RecyclerView.Adapter<LandCustomAdapter.My
         this.context = context;
     }
 
+    @NonNull
     @Override
     public LandCustomAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
                                                              int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.land_details_list, parent, false);
-        LandCustomAdapter.MyViewHolder myViewHolder = new LandCustomAdapter.MyViewHolder(view);
-        return myViewHolder;
+        return new MyViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(final LandCustomAdapter.MyViewHolder holder, final int listPosition) {
         Landdetails landdetails = dataSet.get(listPosition);
@@ -76,7 +80,7 @@ public class LandCustomAdapter extends RecyclerView.Adapter<LandCustomAdapter.My
         for (Tree tree : landdetails.getTreedetails().getTree()) {
 
             LayoutInflater li = LayoutInflater.from(context);
-            View v = li.inflate(R.layout.tree_layout, null, false);
+            @SuppressLint("InflateParams") View v = li.inflate(R.layout.tree_layout, null, false);
             TextView land_details_tree_name = v.findViewById(R.id.land_details_tree_name);
             TextView land_details_tree_no = v.findViewById(R.id.land_details_tree_no);
             land_details_tree_name.setText(tree.getTreename());
@@ -86,7 +90,7 @@ public class LandCustomAdapter extends RecyclerView.Adapter<LandCustomAdapter.My
         }
         for (Irrigation irrigation : landdetails.getIrrigationdetails().getIrrigation()) {
             LayoutInflater li = LayoutInflater.from(context);
-            View v = li.inflate(R.layout.irrigation_layout, null, false);
+            @SuppressLint("InflateParams") View v = li.inflate(R.layout.irrigation_layout, null, false);
             TextView land_details_irigation_s_no = v.findViewById(R.id.land_details_irigation_s_no);
             TextView land_details_irigation_water_source = v.findViewById(R.id.land_details_irigation_water_source);
             TextView land_details_irigation_kharif_ac_gun = v.findViewById(R.id.land_details_irigation_kharif_ac_gun);

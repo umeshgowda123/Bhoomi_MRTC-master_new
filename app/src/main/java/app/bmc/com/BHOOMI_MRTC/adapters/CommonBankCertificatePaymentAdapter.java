@@ -1,5 +1,6 @@
 package app.bmc.com.BHOOMI_MRTC.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,26 +24,24 @@ public class CommonBankCertificatePaymentAdapter extends RecyclerView.Adapter<Co
 
 
     private List<CommonBankPaymentCertiTableData> bankcertificatePaymentlist;
-    private String requestmode;
     private String  custId;
     private String languageEnglish ="2";
     private String languageKanadaa ="1";
-    PaymentBankCertificateDetails activity;
+    private PaymentBankCertificateDetails activity;
 
     private String paymentStatus;
 
 
-    public CommonBankCertificatePaymentAdapter(List<CommonBankPaymentCertiTableData> bankcertiPaymentlist, String mode, PaymentBankCertificateDetails activity) {
+    public CommonBankCertificatePaymentAdapter(List<CommonBankPaymentCertiTableData> bankcertiPaymentlist, PaymentBankCertificateDetails activity) {
         this.bankcertificatePaymentlist = bankcertiPaymentlist;
-        this.requestmode = mode;
         this.activity = activity;
     }
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView ivEnglishAction;
-        private ImageView ivKanadaAction;
+        public ImageView ivEnglishAction;
+        public ImageView ivKanadaAction;
         public TextView tvBankCertLoneeName;
         public TextView tvBankCertDistrict;
         public TextView tvBankCertTaluka;
@@ -60,70 +59,64 @@ public class CommonBankCertificatePaymentAdapter extends RecyclerView.Adapter<Co
         public MyViewHolder(View view) {
             super(view);
 
-            ivEnglishAction = (ImageView)view.findViewById(R.id.ivEnglishAction);
-            ivKanadaAction = (ImageView)view.findViewById(R.id.ivKanadaAction);
-            tvBankCertLoneeName = (TextView) view.findViewById(R.id.tvBankCertLoneeName);
-            tvBankCertDistrict = (TextView) view.findViewById(R.id.tvBankCertDistrict);
-            tvBankCertTaluka = (TextView) view.findViewById(R.id.tvBankCertTaluka);
-            tvBankCertBankName = (TextView) view.findViewById(R.id.tvBankCertBankName);
-            tvBankCertBranchName = (TextView) view.findViewById(R.id.tvBankCertBranchName);
-            tvBankCertLonneAccNo = (TextView) view.findViewById(R.id.tvBankCertLonneAccNo);
-            tvBankCertOutStandingAmount = (TextView) view.findViewById(R.id.tvBankCertOutStandingAmount);
-            tvBankCertLoanType = (TextView) view.findViewById(R.id.tvBankCertLoanType);
-            tvBankCertPaidAmount = (TextView) view.findViewById(R.id.tvBankCertPaidAmount);
-            tvBankCertPaymentStatus = (TextView) view.findViewById(R.id.tvBankCertPaymentStatus);
-            tvHeadingBankPaymentRemarks = (TextView) view.findViewById(R.id.tvHeadingBankPaymentRemarks);
-            tvBankCertPaymentRemarks = (TextView) view.findViewById(R.id.tvBankCertPaymentRemarks);
+            ivEnglishAction = view.findViewById(R.id.ivEnglishAction);
+            ivKanadaAction = view.findViewById(R.id.ivKanadaAction);
+            tvBankCertLoneeName = view.findViewById(R.id.tvBankCertLoneeName);
+            tvBankCertDistrict = view.findViewById(R.id.tvBankCertDistrict);
+            tvBankCertTaluka = view.findViewById(R.id.tvBankCertTaluka);
+            tvBankCertBankName = view.findViewById(R.id.tvBankCertBankName);
+            tvBankCertBranchName = view.findViewById(R.id.tvBankCertBranchName);
+            tvBankCertLonneAccNo = view.findViewById(R.id.tvBankCertLonneAccNo);
+            tvBankCertOutStandingAmount = view.findViewById(R.id.tvBankCertOutStandingAmount);
+            tvBankCertLoanType = view.findViewById(R.id.tvBankCertLoanType);
+            tvBankCertPaidAmount = view.findViewById(R.id.tvBankCertPaidAmount);
+            tvBankCertPaymentStatus = view.findViewById(R.id.tvBankCertPaymentStatus);
+            tvHeadingBankPaymentRemarks = view.findViewById(R.id.tvHeadingBankPaymentRemarks);
+            tvBankCertPaymentRemarks = view.findViewById(R.id.tvBankCertPaymentRemarks);
 
 
 
-            ivEnglishAction.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                    // get position
-                    int pos = getAdapterPosition();
-                    if(pos != RecyclerView.NO_POSITION){
-                        CommonBankPaymentCertiTableData clickedDataItem = bankcertificatePaymentlist.get(pos);
-                        custId = clickedDataItem.getTRN_CUSTID();
-                        paymentStatus = clickedDataItem.getPaymentStatus();
-                        if(Constants.convertInt(paymentStatus)==1)
-                        {
-                            Intent intent = new Intent(activity, ShowEnglishCertificateActivity.class);
-                            intent.putExtra("Request_Parameter",custId);
-                            intent.putExtra("Language_Parameter",languageEnglish);
-                            activity.startActivity(intent);
-                        }
-                        else {
-                            Toast.makeText(activity, "Certificate is not Avilable!", Toast.LENGTH_SHORT).show();
-                        }
+            ivEnglishAction.setOnClickListener(v -> {
+                // get position
+                int pos = getAdapterPosition();
+                if(pos != RecyclerView.NO_POSITION){
+                    CommonBankPaymentCertiTableData clickedDataItem = bankcertificatePaymentlist.get(pos);
+                    custId = clickedDataItem.getTRN_CUSTID();
+                    paymentStatus = clickedDataItem.getPaymentStatus();
+                    if(Constants.convertInt(paymentStatus)==1)
+                    {
+                        Intent intent = new Intent(activity, ShowEnglishCertificateActivity.class);
+                        intent.putExtra("Request_Parameter",custId);
+                        intent.putExtra("Language_Parameter",languageEnglish);
+                        activity.startActivity(intent);
                     }
-
-
+                    else {
+                        Toast.makeText(activity, "Certificate is not Avilable!", Toast.LENGTH_SHORT).show();
+                    }
                 }
+
+
             });
 
-           ivKanadaAction.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+           ivKanadaAction.setOnClickListener(v -> {
 
-                    int pos = getAdapterPosition();
-                    if(pos != RecyclerView.NO_POSITION){
-                        CommonBankPaymentCertiTableData clickedDataItem = bankcertificatePaymentlist.get(pos);
-                        custId = clickedDataItem.getTRN_CUSTID();
-                        paymentStatus = clickedDataItem.getPaymentStatus();
-                        if(Constants.convertInt(paymentStatus)==1) {
-                            Intent intent = new Intent(activity, ShowEnglishCertificateActivity.class);
-                            intent.putExtra("Request_Parameter", custId);
-                            intent.putExtra("Language_Kanada", languageKanadaa);
-                            activity.startActivity(intent);
-                        }
-                        else {
-                            Toast.makeText(activity, "Certificate is not Avilable!", Toast.LENGTH_SHORT).show();
-                        }
-                    }
+               int pos = getAdapterPosition();
+               if(pos != RecyclerView.NO_POSITION){
+                   CommonBankPaymentCertiTableData clickedDataItem = bankcertificatePaymentlist.get(pos);
+                   custId = clickedDataItem.getTRN_CUSTID();
+                   paymentStatus = clickedDataItem.getPaymentStatus();
+                   if(Constants.convertInt(paymentStatus)==1) {
+                       Intent intent = new Intent(activity, ShowEnglishCertificateActivity.class);
+                       intent.putExtra("Request_Parameter", custId);
+                       intent.putExtra("Language_Kanada", languageKanadaa);
+                       activity.startActivity(intent);
+                   }
+                   else {
+                       Toast.makeText(activity, "Certificate is not Avilable!", Toast.LENGTH_SHORT).show();
+                   }
+               }
 
-                }
-            });
+           });
 
         }
     }
@@ -142,6 +135,7 @@ public class CommonBankCertificatePaymentAdapter extends RecyclerView.Adapter<Co
         return new CommonBankCertificatePaymentAdapter.MyViewHolder(itemView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 /*if(Constants.convertInt(bankcertificatePaymentlist.get(position).getPaymentStatus())!=1){

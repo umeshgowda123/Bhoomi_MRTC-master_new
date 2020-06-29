@@ -28,7 +28,7 @@ public class MutulalDetailsAdapter extends RecyclerView.Adapter<MutulalDetailsAd
         this.activity = activity;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         public TextView tvMPHobliName;
         public TextView tvMPVillageName;
@@ -49,20 +49,20 @@ public class MutulalDetailsAdapter extends RecyclerView.Adapter<MutulalDetailsAd
         public MyViewHolder(View view) {
             super(view);
 
-            tvMPHobliName = (TextView) view.findViewById(R.id.tvMPHobliName);
-            tvMPVillageName = (TextView) view.findViewById(R.id.tvMPVillageName);
-            tvMPApplicationNo = (TextView) view.findViewById(R.id.tvMPApplicationNo);
-            tvMPTransactionNo = (TextView) view.findViewById(R.id.tvMPTransactionNo);
-            tvMPTStartDate = (TextView) view.findViewById(R.id.tvMPTStartDate);
-            tvMMrNumber = (TextView) view.findViewById(R.id.tvMMrNumber);
-            tvMPMRegisterNo = (TextView) view.findViewById(R.id.tvMPMRegisterNo);
-            tvMPRegisteredDate = (TextView) view.findViewById(R.id.tvMPRegisteredDate);
-            tvMPMutationType = (TextView) view.findViewById(R.id.tvMPMutationType);
-            tvMPMutationStatus = (TextView) view.findViewById(R.id.tvMPMutationStatus);
-            tvAcquatationType = (TextView) view.findViewById(R.id.tvAcquatationType);
-            tvCourtType = (TextView) view.findViewById(R.id.tvCourtType);
-            tvReportGenratedDate = (TextView) view.findViewById(R.id.tvReportGenratedDate);
-            tvMPSurveyNoIncluTransaction = (TextView) view.findViewById(R.id.tvMPSurveyNoIncluTransaction);
+            tvMPHobliName = view.findViewById(R.id.tvMPHobliName);
+            tvMPVillageName = view.findViewById(R.id.tvMPVillageName);
+            tvMPApplicationNo = view.findViewById(R.id.tvMPApplicationNo);
+            tvMPTransactionNo = view.findViewById(R.id.tvMPTransactionNo);
+            tvMPTStartDate = view.findViewById(R.id.tvMPTStartDate);
+            tvMMrNumber = view.findViewById(R.id.tvMMrNumber);
+            tvMPMRegisterNo = view.findViewById(R.id.tvMPMRegisterNo);
+            tvMPRegisteredDate = view.findViewById(R.id.tvMPRegisteredDate);
+            tvMPMutationType = view.findViewById(R.id.tvMPMutationType);
+            tvMPMutationStatus = view.findViewById(R.id.tvMPMutationStatus);
+            tvAcquatationType = view.findViewById(R.id.tvAcquatationType);
+            tvCourtType = view.findViewById(R.id.tvCourtType);
+            tvReportGenratedDate = view.findViewById(R.id.tvReportGenratedDate);
+            tvMPSurveyNoIncluTransaction = view.findViewById(R.id.tvMPSurveyNoIncluTransaction);
 
 
         }
@@ -76,11 +76,11 @@ public class MutulalDetailsAdapter extends RecyclerView.Adapter<MutulalDetailsAd
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.mutual_pending_details_list, parent, false);
 
-        return new MutulalDetailsAdapter.MyViewHolder(itemView);
+        return new MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(MutulalDetailsAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MutulalDetailsAdapter.MyViewHolder holder, int position) {
 
 
         if(clist.size() == 0)

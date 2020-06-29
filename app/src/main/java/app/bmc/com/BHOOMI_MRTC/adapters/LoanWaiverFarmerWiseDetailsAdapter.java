@@ -19,9 +19,8 @@ import app.bmc.com.BHOOMI_MRTC.screens.ShowLoanWaiverReportFarmerWise;
 public class LoanWaiverFarmerWiseDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final int VIEW_TYPE_ITEM = 0;
-    private final int VIEW_TYPE_LOADING = 1;
 
-   private  List<LoanWaiverFramerWiseResponseData> clist ;
+    private  List<LoanWaiverFramerWiseResponseData> clist ;
    private ShowLoanWaiverReportFarmerWise activity;
 
 
@@ -31,7 +30,7 @@ public class LoanWaiverFarmerWiseDetailsAdapter extends RecyclerView.Adapter<Rec
     }
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         public TextView tvFVillage;
         public TextView tvFCustomerName;
@@ -55,24 +54,24 @@ public class LoanWaiverFarmerWiseDetailsAdapter extends RecyclerView.Adapter<Rec
         public MyViewHolder(View view) {
             super(view);
 
-            tvFVillage = (TextView) view.findViewById(R.id.tvFVillage);
-            tvFCustomerName = (TextView) view.findViewById(R.id.tvFCustomerName);
-            tvFCustomerRName = (TextView) view.findViewById(R.id.tvFCustomerRName);
-            tvFBankName = (TextView) view.findViewById(R.id.tvFBankName);
-            tvFBankBranchName = (TextView) view.findViewById(R.id.tvFBankBranchName);
+            tvFVillage = view.findViewById(R.id.tvFVillage);
+            tvFCustomerName = view.findViewById(R.id.tvFCustomerName);
+            tvFCustomerRName = view.findViewById(R.id.tvFCustomerRName);
+            tvFBankName = view.findViewById(R.id.tvFBankName);
+            tvFBankBranchName = view.findViewById(R.id.tvFBankBranchName);
 
-            TvFLoanAccNo = (TextView) view.findViewById(R.id.TvFLoanAccNo);
-            tvFLoanType = (TextView) view.findViewById(R.id.tvFLoanType);
+            TvFLoanAccNo = view.findViewById(R.id.TvFLoanAccNo);
+            tvFLoanType = view.findViewById(R.id.tvFLoanType);
 
-            tvFLiabilityAmount = (TextView) view.findViewById(R.id.tvFLiabilityAmount);
-            tvFInGreenList = (TextView) view.findViewById(R.id.tvFInGreenList);
+            tvFLiabilityAmount = view.findViewById(R.id.tvFLiabilityAmount);
+            tvFInGreenList = view.findViewById(R.id.tvFInGreenList);
 
-            tvFRasonIfNo = (TextView) view.findViewById(R.id.tvFRasonIfNo);
+            tvFRasonIfNo = view.findViewById(R.id.tvFRasonIfNo);
 
-            tvFLoanWaiverDisbured = (TextView) view.findViewById(R.id.tvFLoanWaiverDisbured);
-            tvFPaidAmount = (TextView) view.findViewById(R.id.tvFPaidAmount);
-            tvFLoanWaiverDisburedCom = (TextView) view.findViewById(R.id.tvFLoanWaiverDisburedCom);
-            tvFRationCardNo = (TextView) view.findViewById(R.id.tvFRationCardNo);
+            tvFLoanWaiverDisbured = view.findViewById(R.id.tvFLoanWaiverDisbured);
+            tvFPaidAmount = view.findViewById(R.id.tvFPaidAmount);
+            tvFLoanWaiverDisburedCom = view.findViewById(R.id.tvFLoanWaiverDisburedCom);
+            tvFRationCardNo = view.findViewById(R.id.tvFRationCardNo);
 
         }
 
@@ -94,7 +93,7 @@ public class LoanWaiverFarmerWiseDetailsAdapter extends RecyclerView.Adapter<Rec
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
 
         if(clist.size() == 0)
@@ -106,7 +105,7 @@ public class LoanWaiverFarmerWiseDetailsAdapter extends RecyclerView.Adapter<Rec
 
                 populateItemRows((MyViewHolder) holder, position);
             } else if (holder instanceof LoadingViewHolder) {
-                showLoadingView((LoadingViewHolder) holder, position);
+                showLoadingView();
             }
         }
     }
@@ -117,20 +116,21 @@ public class LoanWaiverFarmerWiseDetailsAdapter extends RecyclerView.Adapter<Rec
     }
 
     public int getItemViewType(int position) {
+        int VIEW_TYPE_LOADING = 1;
         return clist.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
     }
 
-    private class LoadingViewHolder extends RecyclerView.ViewHolder {
+    private static class LoadingViewHolder extends RecyclerView.ViewHolder {
 
         ProgressBar progressBar;
 
-        public LoadingViewHolder(@NonNull View itemView) {
+        LoadingViewHolder(@NonNull View itemView) {
             super(itemView);
             progressBar = itemView.findViewById(R.id.progressBar);
         }
     }
 
-    private void showLoadingView(LoadingViewHolder viewHolder, int position) {
+    private void showLoadingView() {
         //ProgressBar would be displayed
 
     }

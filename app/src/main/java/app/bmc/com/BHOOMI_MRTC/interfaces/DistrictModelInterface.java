@@ -1,16 +1,19 @@
 package app.bmc.com.BHOOMI_MRTC.interfaces;
 
+import androidx.annotation.NonNull;
+
 public interface DistrictModelInterface {
 
 
-    public int getVLM_DST_ID();
+    int getVLM_DST_ID();
 
 
-    public String getVLM_DKN_NM();
+    String getVLM_DKN_NM();
 
 
-    public String getVLM_DST_NM();
+    String getVLM_DST_NM();
 
 
-    public String toString();
+    @NonNull
+    String toString();
 }

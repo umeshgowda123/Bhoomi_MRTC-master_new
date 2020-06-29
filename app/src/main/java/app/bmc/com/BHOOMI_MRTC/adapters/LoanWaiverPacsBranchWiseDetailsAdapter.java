@@ -19,7 +19,6 @@ import app.bmc.com.BHOOMI_MRTC.screens.ShowLoanWaiverPacsReportBranchWise;
 public class LoanWaiverPacsBranchWiseDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final int VIEW_TYPE_ITEM = 0;
-    private final int VIEW_TYPE_LOADING = 1;
 
     private List<LoanWaiverPacsBranchResponseData> clist;
     private ShowLoanWaiverPacsReportBranchWise activity;
@@ -31,7 +30,7 @@ public class LoanWaiverPacsBranchWiseDetailsAdapter extends RecyclerView.Adapter
     }
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         public TextView tvBranchDist;
         public TextView tvBranchBankName;
@@ -54,25 +53,25 @@ public class LoanWaiverPacsBranchWiseDetailsAdapter extends RecyclerView.Adapter
         public MyViewHolder(View view) {
             super(view);
 
-            tvBranchDist = (TextView) view.findViewById(R.id.tvBranchDist);
-            tvBranchBankName = (TextView) view.findViewById(R.id.tvBranchBankName);
-            tvBankBranchName = (TextView) view.findViewById(R.id.tvBankBranchName);
-            tvBranchLoanType = (TextView) view.findViewById(R.id.tvBranchLoanType);
-            tvBranchTotalLonee = (TextView) view.findViewById(R.id.tvBranchTotalLonee);
+            tvBranchDist = view.findViewById(R.id.tvBranchDist);
+            tvBranchBankName = view.findViewById(R.id.tvBranchBankName);
+            tvBankBranchName = view.findViewById(R.id.tvBankBranchName);
+            tvBranchLoanType = view.findViewById(R.id.tvBranchLoanType);
+            tvBranchTotalLonee = view.findViewById(R.id.tvBranchTotalLonee);
 
-            tvBranchLoanAmount = (TextView) view.findViewById(R.id.tvBranchLoanAmount);
-            TvBranchPendingDue = (TextView) view.findViewById(R.id.TvBranchPendingDue);
+            tvBranchLoanAmount = view.findViewById(R.id.tvBranchLoanAmount);
+            TvBranchPendingDue = view.findViewById(R.id.TvBranchPendingDue);
 
-            tvBranchRationMisMatch = (TextView) view.findViewById(R.id.tvBranchRationMisMatch);
-            tvBranchEligibleLoans = (TextView) view.findViewById(R.id.tvBranchEligibleLoans);
+            tvBranchRationMisMatch = view.findViewById(R.id.tvBranchRationMisMatch);
+            tvBranchEligibleLoans = view.findViewById(R.id.tvBranchEligibleLoans);
 
-            tvBranchEligibleLoanAmount = (TextView) view.findViewById(R.id.tvBranchEligibleLoanAmount);
+            tvBranchEligibleLoanAmount = view.findViewById(R.id.tvBranchEligibleLoanAmount);
 
-            tvBranchGreenListLoan = (TextView) view.findViewById(R.id.tvBranchGreenListLoan);
-            tvBranchGreenListAmount = (TextView) view.findViewById(R.id.tvBranchGreenListAmount);
-            tvBranchPaidLoan = (TextView) view.findViewById(R.id.tvBranchPaidLoan);
-            tvBranchPaidAmount = (TextView) view.findViewById(R.id.tvBranchPaidAmount);
-            tvBranchPercentage = (TextView) view.findViewById(R.id.tvBranchPercentage);
+            tvBranchGreenListLoan = view.findViewById(R.id.tvBranchGreenListLoan);
+            tvBranchGreenListAmount = view.findViewById(R.id.tvBranchGreenListAmount);
+            tvBranchPaidLoan = view.findViewById(R.id.tvBranchPaidLoan);
+            tvBranchPaidAmount = view.findViewById(R.id.tvBranchPaidAmount);
+            tvBranchPercentage = view.findViewById(R.id.tvBranchPercentage);
             txt = view.findViewById(R.id.txt);
 
         }
@@ -97,7 +96,7 @@ public class LoanWaiverPacsBranchWiseDetailsAdapter extends RecyclerView.Adapter
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
 
         if (clist.size() == 0) {
@@ -108,7 +107,7 @@ public class LoanWaiverPacsBranchWiseDetailsAdapter extends RecyclerView.Adapter
 
                 populateItemRows((MyViewHolder) holder, position);
             } else if (holder instanceof LoadingViewHolder) {
-                showLoadingView((LoadingViewHolder) holder, position);
+                showLoadingView();
             }
 
 
@@ -122,20 +121,21 @@ public class LoanWaiverPacsBranchWiseDetailsAdapter extends RecyclerView.Adapter
 
     @Override
     public int getItemViewType(int position) {
+        int VIEW_TYPE_LOADING = 1;
         return clist.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
     }
 
-    private class LoadingViewHolder extends RecyclerView.ViewHolder {
+    private static class LoadingViewHolder extends RecyclerView.ViewHolder {
 
         ProgressBar progressBar;
 
-        public LoadingViewHolder(@NonNull View itemView) {
+        LoadingViewHolder(@NonNull View itemView) {
             super(itemView);
             progressBar = itemView.findViewById(R.id.progressBar);
         }
     }
 
-    private void showLoadingView(LoadingViewHolder viewHolder, int position) {
+    private void showLoadingView() {
         //ProgressBar would be displayed
 
     }
@@ -146,10 +146,8 @@ public class LoanWaiverPacsBranchWiseDetailsAdapter extends RecyclerView.Adapter
         holder.tvBankBranchName.setText(clist.get(position).getBNK_BRNCH_NME());
         holder.tvBranchLoanType.setText(clist.get(position).getLoantype());
         holder.tvBranchTotalLonee.setText(clist.get(position).getTotal());
-
         holder.tvBranchLoanAmount.setText(clist.get(position).getLoanAmount());
         holder.TvBranchPendingDue.setText(clist.get(position).getCoopCommon());
-
         holder.tvBranchRationMisMatch.setText(clist.get(position).getAuthenticationFailed());
         holder.tvBranchEligibleLoans.setText(clist.get(position).getEligibleLoan());
         holder.tvBranchEligibleLoanAmount.setText(clist.get(position).getEligibleLoanAmount());

@@ -19,19 +19,18 @@ import app.bmc.com.BHOOMI_MRTC.screens.Endorsement_ReportWebView;
 import app.bmc.com.BHOOMI_MRTC.screens.LandConversionBasedOnUserId;
 
 public class LandConversionBasedOnUserIDAdapter extends RecyclerView.Adapter<LandConversionBasedOnUserIDAdapter.ViewHolder> {
-    List<Afdvt_ReqSts_BasedOnAfdvtIdTable> list ;
-    LandConversionBasedOnUserId activity;
+    private List<Afdvt_ReqSts_BasedOnAfdvtIdTable> list ;
+    private LandConversionBasedOnUserId activity;
     private String req_id;
     private String req_Aid;
-    String baseUrl_endo = "https://landrecords.karnataka.gov.in/service80/CitizenRequest/EndorsementReport?REQ_ID=";
-    String baseUrl_tran = "https://landrecords.karnataka.gov.in/service80/CitizenRequest/TransactionReport?reqAID=";
+    private String baseUrl_endo = "https://landrecords.karnataka.gov.in/service80/CitizenRequest/EndorsementReport?REQ_ID=";
+    private String baseUrl_tran = "https://landrecords.karnataka.gov.in/service80/CitizenRequest/TransactionReport?reqAID=";
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.land_conversion_based_on_affidavit_userid,viewGroup,false);
-        LandConversionBasedOnUserIDAdapter.ViewHolder viewHolder = new LandConversionBasedOnUserIDAdapter.ViewHolder(v);
-        return viewHolder;
+        return new ViewHolder(v);
     }
 
     @Override
@@ -82,37 +81,31 @@ public class LandConversionBasedOnUserIDAdapter extends RecyclerView.Adapter<Lan
             tvTypeOfConverSion = itemView.findViewById(R.id.tvTypeOfConverSion);
             tvStatus = itemView.findViewById(R.id.tvStatus);
 
-            ivEndorsement_Report.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int pos = getAdapterPosition();
-                    if(pos != RecyclerView.NO_POSITION){
-                        Afdvt_ReqSts_BasedOnAfdvtIdTable clickedDataItem = list.get(pos);
-                        req_id = clickedDataItem.getREQ_ID();
-                        Log.d("IDDDDD",req_id);
-                    }
-                    Intent intent = new Intent(activity, Endorsement_ReportWebView.class);
-                    intent.putExtra("REQ_ID",""+req_id);
-                    intent.putExtra("baseUrl", ""+ baseUrl_endo);
-                    activity.startActivity(intent);
-
+            ivEndorsement_Report.setOnClickListener(v -> {
+                int pos = getAdapterPosition();
+                if(pos != RecyclerView.NO_POSITION){
+                    Afdvt_ReqSts_BasedOnAfdvtIdTable clickedDataItem = list.get(pos);
+                    req_id = clickedDataItem.getREQ_ID();
+                    Log.d("IDDDDD",req_id);
                 }
+                Intent intent = new Intent(activity, Endorsement_ReportWebView.class);
+                intent.putExtra("REQ_ID",""+req_id);
+                intent.putExtra("baseUrl", ""+ baseUrl_endo);
+                activity.startActivity(intent);
+
             });
-            ivTransaction_Report.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int pos = getAdapterPosition();
-                    if(pos != RecyclerView.NO_POSITION){
-                        Afdvt_ReqSts_BasedOnAfdvtIdTable clickedDataItem = list.get(pos);
-                        req_Aid = clickedDataItem.getREQ_AID();
-                        Log.d("IDDDDD",req_Aid);
-                    }
-                    Intent intent = new Intent(activity, Endorsement_ReportWebView.class);
-                    intent.putExtra("REQ_ID",""+req_Aid);
-                    intent.putExtra("baseUrl", ""+baseUrl_tran);
-                    activity.startActivity(intent);
-
+            ivTransaction_Report.setOnClickListener(v -> {
+                int pos = getAdapterPosition();
+                if(pos != RecyclerView.NO_POSITION){
+                    Afdvt_ReqSts_BasedOnAfdvtIdTable clickedDataItem = list.get(pos);
+                    req_Aid = clickedDataItem.getREQ_AID();
+                    Log.d("IDDDDD",req_Aid);
                 }
+                Intent intent = new Intent(activity, Endorsement_ReportWebView.class);
+                intent.putExtra("REQ_ID",""+req_Aid);
+                intent.putExtra("baseUrl", ""+baseUrl_tran);
+                activity.startActivity(intent);
+
             });
 
         }

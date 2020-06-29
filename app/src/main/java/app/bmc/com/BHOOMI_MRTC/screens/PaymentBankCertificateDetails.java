@@ -103,7 +103,7 @@ public class PaymentBankCertificateDetails extends AppCompatActivity {
         }
 
         if(!bankCertificateDetailslist.isEmpty()) {
-            cBankCertificatePaymentAdapter = new CommonBankCertificatePaymentAdapter(bankCertificateDetailslist,commonId,this);
+            cBankCertificatePaymentAdapter = new CommonBankCertificatePaymentAdapter(bankCertificateDetailslist, this);
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
             rvBankPaymentCertificateDetails.setLayoutManager(mLayoutManager);
             rvBankPaymentCertificateDetails.setItemAnimator(new DefaultItemAnimator());

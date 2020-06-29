@@ -55,9 +55,9 @@ public class ClwsStatusDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clws_status_details);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
@@ -182,7 +182,7 @@ public class ClwsStatusDetails extends AppCompatActivity {
                 if (paymentList != null && paymentList.size() != 0) {
                     tvBPD.setVisibility(View.VISIBLE);
                     rvBankPaymentDetails.setVisibility(View.VISIBLE);
-                    BankPaymentDetailsAdapter bankPaymentadapter = new BankPaymentDetailsAdapter(paymentList, this);
+                    BankPaymentDetailsAdapter bankPaymentadapter = new BankPaymentDetailsAdapter(paymentList);
                     RecyclerView.LayoutManager bPaymentLayoutManager = new LinearLayoutManager(getApplicationContext());
                     rvBankPaymentDetails.setLayoutManager(bPaymentLayoutManager);
                     rvBankPaymentDetails.setItemAnimator(new DefaultItemAnimator());
@@ -203,7 +203,7 @@ public class ClwsStatusDetails extends AppCompatActivity {
                 if (pacsPaymentList != null && pacsPaymentList.size() != 0) {
                     tvPPD.setVisibility(View.VISIBLE);
                     rvPacsPaymentDetails.setVisibility(View.VISIBLE);
-                    PacsPaymentDetailsAdapter pacPaymentDetailsadapter = new PacsPaymentDetailsAdapter(pacsPaymentList, this);
+                    PacsPaymentDetailsAdapter pacPaymentDetailsadapter = new PacsPaymentDetailsAdapter(pacsPaymentList);
                     RecyclerView.LayoutManager pacsPaymentLayoutManager = new LinearLayoutManager(getApplicationContext());
                     rvPacsPaymentDetails.setLayoutManager(pacsPaymentLayoutManager);
                     rvPacsPaymentDetails.setItemAnimator(new DefaultItemAnimator());

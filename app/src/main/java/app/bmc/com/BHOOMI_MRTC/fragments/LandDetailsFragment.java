@@ -58,9 +58,8 @@ public class LandDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_land_details, container, false);
 
-        return view;
+        return inflater.inflate(R.layout.fragment_land_details, container, false);
     }
 
     @Override
@@ -69,6 +68,7 @@ public class LandDetailsFragment extends Fragment {
         try {
             //WebView land_details_html=view.findViewById(R.id.land_details_html);
             Bundle bundle = this.getArguments();
+            assert bundle != null;
             String data = bundle.getString("LandDetailsFragment", "");
             TextView taluk_textview = view.findViewById(R.id.textview_taluk);
             TextView hobli_textview = view.findViewById(R.id.textview_hobli);
@@ -95,7 +95,7 @@ public class LandDetailsFragment extends Fragment {
         Pahanidetails pahanidetails = new Pahanidetails();
         Villagedetails villagedetails = new Villagedetails();
         Gson gson = new Gson();
-        ArrayList<Landdetails> landdetailsArrayList = new ArrayList<Landdetails>();
+        ArrayList<Landdetails> landdetailsArrayList = new ArrayList<>();
         Log.d("landdetailsArrayList",landdetailsArrayList.size()+"");//SUSMITA
         JSONObject rtc = new JSONObject(data);
 
@@ -104,7 +104,6 @@ public class LandDetailsFragment extends Fragment {
             Object staticinfopahaniObject = rtc.get("staticinfopahani");
 
             if (staticinfopahaniObject instanceof JSONObject) {
-                JSONObject jsonObject = (JSONObject) staticinfopahaniObject;
                 staticinfopahani = gson.fromJson(staticinfopahaniObject.toString(), Staticinfopahani.class);
 
             } else if (staticinfopahaniObject instanceof String) {
@@ -135,7 +134,7 @@ public class LandDetailsFragment extends Fragment {
                         jsonArray = (JSONArray) treeObj;
 
                     } else if (treeObj instanceof JSONObject) {
-                        jsonArray.put((JSONObject) treeObj);
+                        jsonArray.put(treeObj);
                     } else if (treeObj instanceof String) {
                         jsonArray.put(new JSONObject());
                     }
@@ -156,7 +155,6 @@ public class LandDetailsFragment extends Fragment {
 
             Object villagedetailsObject = rtc.get("villagedetails");
             if (villagedetailsObject instanceof JSONObject) {
-                JSONObject jsonObject = (JSONObject) villagedetailsObject;
                 villagedetails = gson.fromJson(villagedetailsObject.toString(), Villagedetails.class);
             } else if (villagedetailsObject instanceof String) {
                 villagedetails = new Villagedetails();
@@ -175,7 +173,7 @@ public class LandDetailsFragment extends Fragment {
                 if (irrigationObject instanceof JSONArray) {
                     irrigationArray = (JSONArray) irrigationObject;
                 } else if (irrigationObject instanceof JSONObject) {
-                    irrigationArray.put((JSONObject) irrigationObject);
+                    irrigationArray.put(irrigationObject);
                 } else if (irrigationObject instanceof String) {
                     irrigationArray.put(new JSONObject());
                 }
@@ -195,7 +193,7 @@ public class LandDetailsFragment extends Fragment {
         }
 
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.land_recycler_view);
+        RecyclerView recyclerView = view.findViewById(R.id.land_recycler_view);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);

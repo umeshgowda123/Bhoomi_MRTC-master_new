@@ -310,10 +310,12 @@ public class BhoomiHomePage extends AppCompatActivity {
         layout_view_phody_sketch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "http://202.138.101.171/service18";
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
+//                String url = "http://202.138.101.171/service18";
+//                Intent i = new Intent(Intent.ACTION_VIEW);
+//                i.setData(Uri.parse(url));
+//                startActivity(i);
+                Intent intent = new Intent(BhoomiHomePage.this,MojiniPhodySketch.class);
+                startActivity(intent);
             }
         });
 

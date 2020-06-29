@@ -1,14 +1,17 @@
 package app.bmc.com.BHOOMI_MRTC.interfaces;
 
+import androidx.annotation.NonNull;
+
 public interface HobliModelInterface {
-    public int getVLM_HBL_ID();
+    int getVLM_HBL_ID();
 
 
-    public String getVLM_HKN_NM();
+    String getVLM_HKN_NM();
 
 
-    public String getVLM_HBL_NM();
+    String getVLM_HBL_NM();
 
 
-    public String toString();
+    @NonNull
+    String toString();
 }

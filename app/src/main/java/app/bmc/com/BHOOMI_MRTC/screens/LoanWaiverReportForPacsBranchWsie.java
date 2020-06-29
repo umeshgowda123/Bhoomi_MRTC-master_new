@@ -56,7 +56,6 @@ public class LoanWaiverReportForPacsBranchWsie extends AppCompatActivity {
     private DataBaseHelper dataBaseHelper;
     private MaterialBetterSpinner sp_pacs_dist;
     private MaterialBetterSpinner sp_pacs_bank;
-  //  private MaterialBetterSpinner csp_pacs_branch;
     private AutoCompleteTextView etPacsBranchName;
     private int district_id;
     private String dist_name;

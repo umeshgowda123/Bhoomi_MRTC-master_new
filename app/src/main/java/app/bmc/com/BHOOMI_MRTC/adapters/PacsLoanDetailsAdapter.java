@@ -8,11 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-
-import java.util.ArrayList;
 import java.util.List;
-
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.model.PacsLoanTableData;
 import app.bmc.com.BHOOMI_MRTC.screens.ClwsStatusDetails;
@@ -21,7 +17,7 @@ import app.bmc.com.BHOOMI_MRTC.screens.PacsLoanReportView;
 
 public class PacsLoanDetailsAdapter extends RecyclerView.Adapter<PacsLoanDetailsAdapter.MyViewHolder> {
 
-    private List<PacsLoanTableData> pacsLoanList = new ArrayList<>();
+    private List<PacsLoanTableData> pacsLoanList;
     private ClwsStatusDetails activity;
 
 
@@ -51,55 +47,49 @@ public class PacsLoanDetailsAdapter extends RecyclerView.Adapter<PacsLoanDetails
 
             ivReortfile = view.findViewById(R.id.ivReortfile);
             ivAffidavitfile = view.findViewById(R.id.ivAffidavitfile);
-            tvPacsCLWSID = (TextView) view.findViewById(R.id.tvPacsCLWSID);
-            tvPacsDistrictID = (TextView) view.findViewById(R.id.tvPacsDistrictID);
-            tvPacsTalukName = (TextView) view.findViewById(R.id.tvPacsTalukName);
-            tvPacsBankName = (TextView) view.findViewById(R.id.tvPacsBankName);
-            tvPacsName = (TextView) view.findViewById(R.id.tvPacsName);
-            tvPacsFarmerName = (TextView) view.findViewById(R.id.tvPacsFarmerName);
-            tvPacsRationCardNo = (TextView) view.findViewById(R.id.tvPacsRationCardNo);
-            tvPacsLoanType = (TextView) view.findViewById(R.id.tvPacsLoanType);
-            tvPacsShareNumber = (TextView) view.findViewById(R.id.tvPacsShareNumber);
-            tvPacsOutStandingAmount = (TextView) view.findViewById(R.id.tvPacsOutStandingAmount);
-            tvPacsStatus = (TextView) view.findViewById(R.id.tvPacsStatus);
+            tvPacsCLWSID = view.findViewById(R.id.tvPacsCLWSID);
+            tvPacsDistrictID = view.findViewById(R.id.tvPacsDistrictID);
+            tvPacsTalukName = view.findViewById(R.id.tvPacsTalukName);
+            tvPacsBankName = view.findViewById(R.id.tvPacsBankName);
+            tvPacsName = view.findViewById(R.id.tvPacsName);
+            tvPacsFarmerName = view.findViewById(R.id.tvPacsFarmerName);
+            tvPacsRationCardNo = view.findViewById(R.id.tvPacsRationCardNo);
+            tvPacsLoanType = view.findViewById(R.id.tvPacsLoanType);
+            tvPacsShareNumber = view.findViewById(R.id.tvPacsShareNumber);
+            tvPacsOutStandingAmount = view.findViewById(R.id.tvPacsOutStandingAmount);
+            tvPacsStatus = view.findViewById(R.id.tvPacsStatus);
 
 
             appId = "1516978b-4b63-4072-9ecf-560dee62baff";
 
-            ivReortfile.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int pos = getAdapterPosition();
-                    if(pos != RecyclerView.NO_POSITION){
-                        PacsLoanTableData clickedDataItem = pacsLoanList.get(pos);
-                        customerId = clickedDataItem.getTRN_CUSTID();
-                        bankId = clickedDataItem.getTRN_BNKID();
-                    }
-
-                    Intent intent = new Intent(activity, PacsLoanReportView.class);
-                    intent.putExtra("Cust_ID",customerId);
-                    intent.putExtra("Bank_ID",bankId);
-                    intent.putExtra("APP_ID",appId);
-                    activity.startActivity(intent);
+            ivReortfile.setOnClickListener(v -> {
+                int pos = getAdapterPosition();
+                if(pos != RecyclerView.NO_POSITION){
+                    PacsLoanTableData clickedDataItem = pacsLoanList.get(pos);
+                    customerId = clickedDataItem.getTRN_CUSTID();
+                    bankId = clickedDataItem.getTRN_BNKID();
                 }
+
+                Intent intent = new Intent(activity, PacsLoanReportView.class);
+                intent.putExtra("Cust_ID",customerId);
+                intent.putExtra("Bank_ID",bankId);
+                intent.putExtra("APP_ID",appId);
+                activity.startActivity(intent);
             });
 
-            ivAffidavitfile.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            ivAffidavitfile.setOnClickListener(v -> {
 
-                    int pos = getAdapterPosition();
-                    if(pos != RecyclerView.NO_POSITION){
-                        PacsLoanTableData clickedDataItem = pacsLoanList.get(pos);
-                        customerId = clickedDataItem.getTRN_CUSTID();
-                        bankId = clickedDataItem.getTRN_BNKID();
-                    }
-                    Intent intent = new Intent(activity, PacsLoanAffidavitView.class);
-                    intent.putExtra("Cust_ID",customerId);
-                    intent.putExtra("Bank_ID",bankId);
-                    intent.putExtra("APP_ID",appId);
-                    activity.startActivity(intent);
+                int pos = getAdapterPosition();
+                if(pos != RecyclerView.NO_POSITION){
+                    PacsLoanTableData clickedDataItem = pacsLoanList.get(pos);
+                    customerId = clickedDataItem.getTRN_CUSTID();
+                    bankId = clickedDataItem.getTRN_BNKID();
                 }
+                Intent intent = new Intent(activity, PacsLoanAffidavitView.class);
+                intent.putExtra("Cust_ID",customerId);
+                intent.putExtra("Bank_ID",bankId);
+                intent.putExtra("APP_ID",appId);
+                activity.startActivity(intent);
             });
 
         }

@@ -1,5 +1,7 @@
 package app.bmc.com.BHOOMI_MRTC.model;
 
+import androidx.annotation.NonNull;
+
 /**
  * Author Name:Venkat Purimitla
  * Date       :2019-01-31
@@ -34,6 +36,7 @@ public class Hissa_Response {
         this.land_code = land_code;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return Hissa_no + "";

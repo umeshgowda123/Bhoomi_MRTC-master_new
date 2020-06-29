@@ -20,7 +20,6 @@ public class VillageWiseBenificaryAdapter extends RecyclerView.Adapter<RecyclerV
 
 
     private final int VIEW_TYPE_ITEM = 0;
-    private final int VIEW_TYPE_LOADING = 1;
 
     private List<BenificaryDataVlgWise> clist ;
     private ShowPariharaBenificiaryDetailsVlgWise activity;
@@ -32,7 +31,7 @@ public class VillageWiseBenificaryAdapter extends RecyclerView.Adapter<RecyclerV
         this.activity = activity;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         public TextView tvBAadharNumber;
         public TextView tvBBankName;
@@ -46,19 +45,19 @@ public class VillageWiseBenificaryAdapter extends RecyclerView.Adapter<RecyclerV
         public MyViewHolder(View view) {
             super(view);
 
-            tvBAadharNumber = (TextView) view.findViewById(R.id.tvBAadharNumber);
-            tvBBankName = (TextView) view.findViewById(R.id.tvBBankName);
-            tvBPStatus = (TextView) view.findViewById(R.id.tvBPStatus);
-            tvBPaymentDate = (TextView) view.findViewById(R.id.tvBPaymentDate);
-            tvBeneficiaryName = (TextView) view.findViewById(R.id.tvBeneficiaryName);
-            tvBankAccountNumber = (TextView) view.findViewById(R.id.tvBankAccountNumber);
-            tvBAmount = (TextView) view.findViewById(R.id.tvBAmount);
+            tvBAadharNumber = view.findViewById(R.id.tvBAadharNumber);
+            tvBBankName = view.findViewById(R.id.tvBBankName);
+            tvBPStatus = view.findViewById(R.id.tvBPStatus);
+            tvBPaymentDate = view.findViewById(R.id.tvBPaymentDate);
+            tvBeneficiaryName = view.findViewById(R.id.tvBeneficiaryName);
+            tvBankAccountNumber = view.findViewById(R.id.tvBankAccountNumber);
+            tvBAmount = view.findViewById(R.id.tvBAmount);
 
         }
 
     }
 
-    public class LoadingViewHolder extends RecyclerView.ViewHolder {
+    public static class LoadingViewHolder extends RecyclerView.ViewHolder {
 
         ProgressBar progressBar;
 
@@ -83,7 +82,7 @@ public class VillageWiseBenificaryAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
 
         if(clist.size() == 0)
         {
@@ -94,7 +93,7 @@ public class VillageWiseBenificaryAdapter extends RecyclerView.Adapter<RecyclerV
 
             populateItemRows((MyViewHolder) viewHolder, position);
         } else if (viewHolder instanceof LoadingViewHolder) {
-            showLoadingView((LoadingViewHolder) viewHolder, position);
+            showLoadingView();
         }
     }
 
@@ -106,10 +105,11 @@ public class VillageWiseBenificaryAdapter extends RecyclerView.Adapter<RecyclerV
 
     @Override
     public int getItemViewType(int position) {
+        int VIEW_TYPE_LOADING = 1;
         return clist.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
     }
 
-    private void showLoadingView(LoadingViewHolder viewHolder, int position) {
+    private void showLoadingView() {
         //ProgressBar would be displayed
 
 

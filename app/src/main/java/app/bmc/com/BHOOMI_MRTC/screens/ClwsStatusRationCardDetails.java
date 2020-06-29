@@ -182,7 +182,7 @@ public class ClwsStatusRationCardDetails extends AppCompatActivity {
                         tvRcNoBPD.setVisibility(View.VISIBLE);
                         rvRcNoBankPaymentDetails = findViewById(R.id.rvRcNoBankPaymentDetails);
                         rvRcNoBankPaymentDetails.setVisibility(View.VISIBLE);
-                        bankpaymentrationadapter = new BankPaymentRationDetailsAdapter(paymentRclist, this);
+                        bankpaymentrationadapter = new BankPaymentRationDetailsAdapter(paymentRclist);
                         RecyclerView.LayoutManager bPaymentLayoutManager = new LinearLayoutManager(getApplicationContext());
                         rvRcNoBankPaymentDetails.setLayoutManager(bPaymentLayoutManager);
                         rvRcNoBankPaymentDetails.setItemAnimator(new DefaultItemAnimator());
@@ -205,7 +205,7 @@ public class ClwsStatusRationCardDetails extends AppCompatActivity {
                         tvRcNoPPD.setVisibility(View.VISIBLE);
                         rvRcNoPacsPaymentDetails = findViewById(R.id.rvRcNoPacsPaymentDetails);
                         rvRcNoPacsPaymentDetails.setVisibility(View.VISIBLE);
-                        pacspaymentrationAdapter = new PacsPaymentRationDetailsAdapter(pacsRationPaymentList, this);
+                        pacspaymentrationAdapter = new PacsPaymentRationDetailsAdapter(pacsRationPaymentList);
                         RecyclerView.LayoutManager pacsPaymentLayoutManager = new LinearLayoutManager(getApplicationContext());
                         rvRcNoPacsPaymentDetails.setLayoutManager(pacsPaymentLayoutManager);
                         rvRcNoPacsPaymentDetails.setItemAnimator(new DefaultItemAnimator());

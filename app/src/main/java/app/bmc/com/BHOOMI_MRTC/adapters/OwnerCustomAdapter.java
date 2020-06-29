@@ -1,6 +1,9 @@
 package app.bmc.com.BHOOMI_MRTC.adapters;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,15 +28,16 @@ public class OwnerCustomAdapter extends RecyclerView.Adapter<OwnerCustomAdapter.
         this.dataSet = data;
     }
 
+    @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent,
                                            int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.owner_list, parent, false);
-        MyViewHolder myViewHolder = new MyViewHolder(view);
-        return myViewHolder;
+        return new MyViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int listPosition) {
 
@@ -69,12 +73,12 @@ public class OwnerCustomAdapter extends RecyclerView.Adapter<OwnerCustomAdapter.
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            owner_name = (TextView) itemView.findViewById(R.id.owner_table_owner_name);
-            extent_ac_gun = (TextView) itemView.findViewById(R.id.owner_table_extent_ac_gun);
-            khata_no = (TextView) itemView.findViewById(R.id.owner_table_khata_no);
-            liablities = (TextView) itemView.findViewById(R.id.owner_table_liablities);
-            rights = (TextView) itemView.findViewById(R.id.owner_table_rights);
-            Acquisitiondetails = (TextView) itemView.findViewById(R.id.owner_table_Acquisitiondetails);
+            owner_name = itemView.findViewById(R.id.owner_table_owner_name);
+            extent_ac_gun = itemView.findViewById(R.id.owner_table_extent_ac_gun);
+            khata_no = itemView.findViewById(R.id.owner_table_khata_no);
+            liablities = itemView.findViewById(R.id.owner_table_liablities);
+            rights = itemView.findViewById(R.id.owner_table_rights);
+            Acquisitiondetails = itemView.findViewById(R.id.owner_table_Acquisitiondetails);
         }
     }
 }

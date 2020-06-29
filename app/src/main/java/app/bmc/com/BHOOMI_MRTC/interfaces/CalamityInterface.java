@@ -1,16 +1,19 @@
 package app.bmc.com.BHOOMI_MRTC.interfaces;
 
+import androidx.annotation.NonNull;
+
 public interface CalamityInterface {
 
 
-    public int getMSTCTYPE_ID();
+    int getMSTCTYPE_ID();
 
 
-    public int getMSTCTYPE_VAL();
+    int getMSTCTYPE_VAL();
 
 
-    public String getMSTCTYPE_DESC();
+    String getMSTCTYPE_DESC();
 
 
-    public String toString();
+    @NonNull
+    String toString();
 }

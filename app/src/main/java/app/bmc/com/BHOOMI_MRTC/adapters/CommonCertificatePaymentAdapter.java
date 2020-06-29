@@ -1,5 +1,6 @@
 package app.bmc.com.BHOOMI_MRTC.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,7 +24,7 @@ public class CommonCertificatePaymentAdapter extends RecyclerView.Adapter<Common
 
 
     private List<PacsCertificateAadharTableData> certificatePaymentlist;
-    PaymentCertifiacteDetails activity;
+    private PaymentCertifiacteDetails activity;
 
     private String appId;
     private String customerId;
@@ -38,7 +39,7 @@ public class CommonCertificatePaymentAdapter extends RecyclerView.Adapter<Common
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView ivAction;
+        public ImageView ivAction;
         public TextView tvPayCertLoneeName;
         public TextView tvPayCertFatherName;
         public TextView tvPayCertDistrict;
@@ -58,42 +59,39 @@ public class CommonCertificatePaymentAdapter extends RecyclerView.Adapter<Common
         public MyViewHolder(View view) {
             super(view);
 
-            ivAction = (ImageView)view.findViewById(R.id.ivAction);
-            tvPayCertLoneeName = (TextView) view.findViewById(R.id.tvPayCertLoneeName);
-            tvPayCertFatherName = (TextView) view.findViewById(R.id.tvPayCertFatherName);
-            tvPayCertDistrict = (TextView) view.findViewById(R.id.tvPayCertDistrict);
-            tvPayCertTaluka = (TextView) view.findViewById(R.id.tvPayCertTaluka);
-            tvPayCertDCCBankName = (TextView) view.findViewById(R.id.tvPayCertDCCBankName);
-            tvPayCertPACSName = (TextView) view.findViewById(R.id.tvPayCertPACSName);
-            tvPayCertRationCardNo = (TextView) view.findViewById(R.id.tvPayCertRationCardNo);
-            tvPayCertShareNo = (TextView) view.findViewById(R.id.tvPayCertShareNo);
-            tvPayCertOutstandingAmount = (TextView) view.findViewById(R.id.tvPayCertOutstandingAmount);
-            tvPayCertLoanType = (TextView) view.findViewById(R.id.tvPayCertLoanType);
-            tvPayCertPaidAmount = (TextView) view.findViewById(R.id.tvPayCertPaidAmount);
-            tvPayCertPaymentStatus = (TextView) view.findViewById(R.id.tvPayCertPaymentStatus);
-            tvPayCertPaymentRemarks = (TextView) view.findViewById(R.id.tvPayCertPaymentRemarks);
-            tvHeadingPaymentRemarks = (TextView) view.findViewById(R.id.tvHeadingPaymentRemarks);
+            ivAction = view.findViewById(R.id.ivAction);
+            tvPayCertLoneeName = view.findViewById(R.id.tvPayCertLoneeName);
+            tvPayCertFatherName = view.findViewById(R.id.tvPayCertFatherName);
+            tvPayCertDistrict = view.findViewById(R.id.tvPayCertDistrict);
+            tvPayCertTaluka = view.findViewById(R.id.tvPayCertTaluka);
+            tvPayCertDCCBankName = view.findViewById(R.id.tvPayCertDCCBankName);
+            tvPayCertPACSName = view.findViewById(R.id.tvPayCertPACSName);
+            tvPayCertRationCardNo = view.findViewById(R.id.tvPayCertRationCardNo);
+            tvPayCertShareNo = view.findViewById(R.id.tvPayCertShareNo);
+            tvPayCertOutstandingAmount = view.findViewById(R.id.tvPayCertOutstandingAmount);
+            tvPayCertLoanType = view.findViewById(R.id.tvPayCertLoanType);
+            tvPayCertPaidAmount = view.findViewById(R.id.tvPayCertPaidAmount);
+            tvPayCertPaymentStatus = view.findViewById(R.id.tvPayCertPaymentStatus);
+            tvPayCertPaymentRemarks = view.findViewById(R.id.tvPayCertPaymentRemarks);
+            tvHeadingPaymentRemarks = view.findViewById(R.id.tvHeadingPaymentRemarks);
 
 
             appId = "1516978b-4b63-4072-9ecf-560dee62baff";
-            ivAction.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            ivAction.setOnClickListener(v -> {
 
-                    int pos = getAdapterPosition();
-                    if(pos != RecyclerView.NO_POSITION){
-                        PacsCertificateAadharTableData clickedDataItem = certificatePaymentlist.get(pos);
-                        customerId = clickedDataItem.getTrn_custid();
-                        paymentStatus = clickedDataItem.getPaymentStatus();
-                        if(Constants.convertInt(paymentStatus) ==1)
-                        {
-                            Intent intent = new Intent(activity, PacsWebViewActivity.class);
-                            intent.putExtra("Cust_ID",customerId);
-                            intent.putExtra("APP_ID",appId);
-                            activity.startActivity(intent);
-                        }else {
-                            Toast.makeText(activity, "Certificate is not Avilable!", Toast.LENGTH_SHORT).show();
-                        }
+                int pos = getAdapterPosition();
+                if(pos != RecyclerView.NO_POSITION){
+                    PacsCertificateAadharTableData clickedDataItem = certificatePaymentlist.get(pos);
+                    customerId = clickedDataItem.getTrn_custid();
+                    paymentStatus = clickedDataItem.getPaymentStatus();
+                    if(Constants.convertInt(paymentStatus) ==1)
+                    {
+                        Intent intent = new Intent(activity, PacsWebViewActivity.class);
+                        intent.putExtra("Cust_ID",customerId);
+                        intent.putExtra("APP_ID",appId);
+                        activity.startActivity(intent);
+                    }else {
+                        Toast.makeText(activity, "Certificate is not Avilable!", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -109,6 +107,7 @@ public class CommonCertificatePaymentAdapter extends RecyclerView.Adapter<Common
         return new CommonCertificatePaymentAdapter.MyViewHolder(itemView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 

@@ -30,7 +30,7 @@
         android:layout_marginBottom="40dp"
         android:gravity="center"
         android:paddingHorizontal="10dp"
-        android:text="Ver 1.0.0"
+        android:text="@string/ver_1_0_0"
         android:textColor="@android:color/white"
         android:textStyle="bold" />
 

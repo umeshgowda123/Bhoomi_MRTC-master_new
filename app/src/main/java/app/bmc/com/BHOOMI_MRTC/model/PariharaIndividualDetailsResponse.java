@@ -45,7 +45,6 @@ public class PariharaIndividualDetailsResponse {
     }
 
 
-
     @SerializedName("GetPariharaBeneficiaryResult")
     @Expose
     private String getPariharaBeneficiaryResult;
@@ -239,5 +238,19 @@ public class PariharaIndividualDetailsResponse {
 
     public void setGetLandConversionFinalOrders_BasedOnReqIdResult(String getLandConversionFinalOrders_BasedOnReqIdResult) {
         this.getLandConversionFinalOrders_BasedOnReqIdResult = getLandConversionFinalOrders_BasedOnReqIdResult;
+    }
+
+
+
+    @SerializedName("GetSketchDetailsDetailsBasedOnAppNoResult")
+    @Expose
+    private String getSketchDetailsDetailsBasedOnAppNoResult;
+
+    public String getGetSketchDetailsDetailsBasedOnAppNoResult() {
+        return getSketchDetailsDetailsBasedOnAppNoResult;
+    }
+
+    public void setGetSketchDetailsDetailsBasedOnAppNoResult(String getSketchDetailsDetailsBasedOnAppNoResult) {
+        this.getSketchDetailsDetailsBasedOnAppNoResult = getSketchDetailsDetailsBasedOnAppNoResult;
     }
 }

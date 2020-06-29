@@ -137,4 +137,10 @@ public interface PariharaIndividualReportInteface {
             @Path("pVillageCode") int pVillageCode,
             @Path("pSurveyNo") String pSurveyNo
     );
+//------------------------------SUS 12:20 P.M 29June-------------------------------------------------
+    @Headers({"content-type: text/json; charset=utf-8"})
+    @POST("GetSketchDetailsDetailsBasedOnAppNo/{pstrUserName}/{pStrPassword}/{pApplicationNo}/{ApplicationType}")
+    Call<PariharaIndividualDetailsResponse> getSketchDetailsDetailsBasedOnAppNo(@Path("pstrUserName") String pstrUserName, @Path("pStrPassword") String pStrPassword,
+                                                                                      @Path("pApplicationNo") String pApplicationNo, @Path("ApplicationType") String ApplicationType);
+
 }

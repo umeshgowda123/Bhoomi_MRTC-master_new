@@ -32,7 +32,7 @@ public class LoanWaiverBankWiseDetailsAdapter extends RecyclerView.Adapter<LoanW
     }
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         public TextView tvBDistName;
         public TextView tvLWBankName;
@@ -55,27 +55,23 @@ public class LoanWaiverBankWiseDetailsAdapter extends RecyclerView.Adapter<LoanW
         public MyViewHolder(View view) {
             super(view);
 
-            tvBDistName = (TextView) view.findViewById(R.id.tvBDistName);
-            tvLWBankName = (TextView) view.findViewById(R.id.tvLWBankName);
-            tvLWLoanType = (TextView) view.findViewById(R.id.tvLWLoanType);
-            tvLWTotalNoOfLonee = (TextView) view.findViewById(R.id.tvLWTotalNoOfLonee);
-            tvLWLoanAmount = (TextView) view.findViewById(R.id.tvLWLoanAmount);
+            tvBDistName = view.findViewById(R.id.tvBDistName);
+            tvLWBankName = view.findViewById(R.id.tvLWBankName);
+            tvLWLoanType = view.findViewById(R.id.tvLWLoanType);
+            tvLWTotalNoOfLonee = view.findViewById(R.id.tvLWTotalNoOfLonee);
+            tvLWLoanAmount = view.findViewById(R.id.tvLWLoanAmount);
 
-            tvLWEligibleLoans = (TextView) view.findViewById(R.id.tvLWEligibleLoans);
-            tvLWEligibleLoanAmount = (TextView) view.findViewById(R.id.tvLWEligibleLoanAmount);
+            tvLWEligibleLoans = view.findViewById(R.id.tvLWEligibleLoans);
+            tvLWEligibleLoanAmount = view.findViewById(R.id.tvLWEligibleLoanAmount);
 
-            tvLWGreenListLoan = (TextView) view.findViewById(R.id.tvLWGreenListLoan);
-            tvLWGreenListAmount = (TextView) view.findViewById(R.id.tvLWGreenListAmount);
+            tvLWGreenListLoan = view.findViewById(R.id.tvLWGreenListLoan);
+            tvLWGreenListAmount = view.findViewById(R.id.tvLWGreenListAmount);
 
-            tvLWPaidLoan = (TextView) view.findViewById(R.id.tvLWPaidLoan);
+            tvLWPaidLoan = view.findViewById(R.id.tvLWPaidLoan);
 
-            tvLWPaidLoanAmount = (TextView) view.findViewById(R.id.tvLWPaidLoanAmount);
-            tvLWTranPendingDue = (TextView) view.findViewById(R.id.tvLWTranPendingDue);
-            tvLWRationCardMismatch = (TextView) view.findViewById(R.id.tvLWRationCardMismatch);
-
-
-
-
+            tvLWPaidLoanAmount = view.findViewById(R.id.tvLWPaidLoanAmount);
+            tvLWTranPendingDue = view.findViewById(R.id.tvLWTranPendingDue);
+            tvLWRationCardMismatch = view.findViewById(R.id.tvLWRationCardMismatch);
         }
 
     }
@@ -87,11 +83,11 @@ public class LoanWaiverBankWiseDetailsAdapter extends RecyclerView.Adapter<LoanW
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.loan_bank_data_list, parent, false);
 
-        return new LoanWaiverBankWiseDetailsAdapter.MyViewHolder(itemView);
+        return new MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(LoanWaiverBankWiseDetailsAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull LoanWaiverBankWiseDetailsAdapter.MyViewHolder holder, int position) {
 
 
         if(clist.size() == 0)

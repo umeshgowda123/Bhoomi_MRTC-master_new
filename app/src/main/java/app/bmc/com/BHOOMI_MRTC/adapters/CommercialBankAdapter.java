@@ -49,54 +49,48 @@ public class CommercialBankAdapter extends RecyclerView.Adapter<CommercialBankAd
     public MyViewHolder(View view) {
         super(view);
 
-        ivPdffile = (ImageView)view.findViewById(R.id.ivPdffile);
-        ivPdfBluefile = (ImageView)view.findViewById(R.id.ivPdfBluefile);
-        tvCLWSID = (TextView) view.findViewById(R.id.tvCLWSID);
-        tvDistrictName = (TextView) view.findViewById(R.id.tvDistrictName);
-        tvTalukName = (TextView) view.findViewById(R.id.tvTalukName);
-        tvBankName = (TextView) view.findViewById(R.id.tvBankName);
-        tvBranch = (TextView) view.findViewById(R.id.tvBranch);
-        tvFarmerName = (TextView) view.findViewById(R.id.tvFarmerName);
-        tvRationCardNo = (TextView) view.findViewById(R.id.tvRationCardNo);
-        tvLoanType = (TextView) view.findViewById(R.id.tvLoanType);
-        tvAccountNumber = (TextView) view.findViewById(R.id.tvAccountNumber);
-        tvOutStandingAmount = (TextView) view.findViewById(R.id.tvOutStandingAmount);
-        tvStatus = (TextView) view.findViewById(R.id.tvStatus);
+        ivPdffile = view.findViewById(R.id.ivPdffile);
+        ivPdfBluefile = view.findViewById(R.id.ivPdfBluefile);
+        tvCLWSID = view.findViewById(R.id.tvCLWSID);
+        tvDistrictName = view.findViewById(R.id.tvDistrictName);
+        tvTalukName = view.findViewById(R.id.tvTalukName);
+        tvBankName = view.findViewById(R.id.tvBankName);
+        tvBranch = view.findViewById(R.id.tvBranch);
+        tvFarmerName = view.findViewById(R.id.tvFarmerName);
+        tvRationCardNo = view.findViewById(R.id.tvRationCardNo);
+        tvLoanType = view.findViewById(R.id.tvLoanType);
+        tvAccountNumber = view.findViewById(R.id.tvAccountNumber);
+        tvOutStandingAmount = view.findViewById(R.id.tvOutStandingAmount);
+        tvStatus = view.findViewById(R.id.tvStatus);
         appId = "1516978b-4b63-4072-9ecf-560dee62baff";
 
-        ivPdffile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int pos = getAdapterPosition();
-                if(pos != RecyclerView.NO_POSITION){
-                    BankLoanTableData clickedDataItem = clist.get(pos);
-                    customerId = clickedDataItem.getTRN_CUSTID();
-                    bankId = clickedDataItem.getTRN_BNKID();
-                }
-                Intent intent = new Intent(activity, CommercialBankLoanReportDocActivity.class);
-                intent.putExtra("Cust_ID",customerId);
-                intent.putExtra("Bank_ID",bankId);
-                intent.putExtra("APP_ID",appId);
-                activity.startActivity(intent);
+        ivPdffile.setOnClickListener(v -> {
+            int pos = getAdapterPosition();
+            if(pos != RecyclerView.NO_POSITION){
+                BankLoanTableData clickedDataItem = clist.get(pos);
+                customerId = clickedDataItem.getTRN_CUSTID();
+                bankId = clickedDataItem.getTRN_BNKID();
             }
+            Intent intent = new Intent(activity, CommercialBankLoanReportDocActivity.class);
+            intent.putExtra("Cust_ID",customerId);
+            intent.putExtra("Bank_ID",bankId);
+            intent.putExtra("APP_ID",appId);
+            activity.startActivity(intent);
         });
 
-        ivPdfBluefile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        ivPdfBluefile.setOnClickListener(v -> {
 
-                int pos = getAdapterPosition();
-                if(pos != RecyclerView.NO_POSITION){
-                    BankLoanTableData clickedDataItem = clist.get(pos);
-                  customerId = clickedDataItem.getTRN_CUSTID();
-                  bankId = clickedDataItem.getTRN_BNKID();
-                }
-                Intent intent = new Intent(activity, CommercialBankLoanAffidavitDoc.class);
-                intent.putExtra("Cust_ID",customerId);
-                intent.putExtra("Bank_ID",bankId);
-                intent.putExtra("APP_ID",appId);
-                activity.startActivity(intent);
+            int pos = getAdapterPosition();
+            if(pos != RecyclerView.NO_POSITION){
+                BankLoanTableData clickedDataItem = clist.get(pos);
+              customerId = clickedDataItem.getTRN_CUSTID();
+              bankId = clickedDataItem.getTRN_BNKID();
             }
+            Intent intent = new Intent(activity, CommercialBankLoanAffidavitDoc.class);
+            intent.putExtra("Cust_ID",customerId);
+            intent.putExtra("Bank_ID",bankId);
+            intent.putExtra("APP_ID",appId);
+            activity.startActivity(intent);
         });
     }
 }

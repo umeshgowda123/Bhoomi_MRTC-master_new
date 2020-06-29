@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/tools"
-    android:id="@+id/card_view"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:ignore="NamespaceTypo">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,13 +21,16 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                >
+
 
                 <TextView
+                    android:id="@+id/tvSetTite"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="@string/parihara"
+                    android:text="@string/mojini"
                     android:textColor="#fff"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -38,10 +41,8 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="55dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
@@ -50,16 +51,21 @@
         tools:showIn="@layout/activity_view_rtc_information">
 
         <ScrollView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:ignore="UselessParent">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:ignore="ScrollViewSize">
+                android:layout_height="wrap_content">
+
+                <ProgressBar
+                    android:id="@+id/progress_circular"
+                    style="@android:style/Widget.ProgressBar.Inverse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -76,55 +82,36 @@
                         android:layout_margin="24dp"
                         android:background="#5cb85c"
                         android:padding="8dp"
-                        android:text="@string/parihara_details_individual"
+                        android:text="@string/sketch_report_view"
                         android:textAlignment="center"
                         android:textColor="@android:color/white"
-                        android:textSize="20sp" />
+                        android:textSize="24sp" />
+                    <AutoCompleteTextView
+                        android:id="@+id/etAppID"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginRight="24dp"
+                        android:hint="@string/application_id"
+                        android:inputType="textCapCharacters"
+                        android:imeOptions="actionDone"/>
 
                     <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-                        android:id="@+id/sp_year"
+                        android:id="@+id/sp_app_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="24dp"
                         android:layout_marginRight="24dp"
-                        android:hint="@string/financial_year"
-                        android:textColorHint="@color/hint_before_float_rtc"
-                        app:met_floatingLabel="normal"
-                        app:met_floatingLabelTextColor="@color/hint_rtc" />
-
-                    <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-                        android:id="@+id/sp_calamity_type"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginRight="24dp"
-                        android:hint="@string/calamity_type"
+                        android:hint="@string/application_type"
                         android:textColorHint="@color/hint_before_float_rtc"
                         app:met_floatingLabel="normal"
                         app:met_floatingLabelTextColor="@color/hint_rtc" />
 
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="24dp">
-
-                        <EditText
-                            android:id="@+id/etAadharNumber"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/survey_background"
-                            android:hint="@string/clws_aadhar_edittext"
-                            android:inputType="number"
-                            android:layout_marginTop="5dp"
-                            android:maxLines="1"
-                            android:textColorHint="@color/hint_before_float_rtc"
-                            tools:ignore="Autofill" />
-                    </com.google.android.material.textfield.TextInputLayout>
                     <Button
-                        android:id="@+id/btn_GetDetails"
+                        android:id="@+id/btnShowSketch"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="24dp"
@@ -132,10 +119,15 @@
                         android:layout_marginRight="24dp"
                         android:layout_marginBottom="8dp"
                         android:background="@color/btn_go"
-                        android:text="@string/btnViewDetails"
+                        android:text="@string/btnSubmit"
                         android:textColor="@android:color/white" />
+
                 </LinearLayout>
+
             </RelativeLayout>
+
         </ScrollView>
+
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+
+</LinearLayout>

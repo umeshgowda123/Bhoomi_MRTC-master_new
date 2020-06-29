@@ -28,7 +28,7 @@ public class IndividualPariharaDetailsAdapter extends RecyclerView.Adapter<Indiv
         this.activity = activity;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         public TextView tvSerialNo;
         public TextView tvEntryNumber;
@@ -46,17 +46,17 @@ public class IndividualPariharaDetailsAdapter extends RecyclerView.Adapter<Indiv
         public MyViewHolder(View view) {
             super(view);
 
-            tvSerialNo = (TextView) view.findViewById(R.id.tvSerialNo);
-            tvEntryNumber = (TextView) view.findViewById(R.id.tvEntryNumber);
-            tvAdharNumber = (TextView) view.findViewById(R.id.tvAdharNumber);
-            tvDistrict = (TextView) view.findViewById(R.id.tvDistrict);
-            tvTaluk = (TextView) view.findViewById(R.id.tvTaluk);
-            tvHobli = (TextView) view.findViewById(R.id.tvHobli);
-            tvVillage = (TextView) view.findViewById(R.id.tvVillage);
-            tvSurveyNo = (TextView) view.findViewById(R.id.tvSurveyNo);
-            tvCropCategory = (TextView) view.findViewById(R.id.tvCropCategory);
-            tvCropName = (TextView) view.findViewById(R.id.tvCropName);
-            tvCropLostExtent = (TextView) view.findViewById(R.id.tvCropLostExtent);
+            tvSerialNo = view.findViewById(R.id.tvSerialNo);
+            tvEntryNumber = view.findViewById(R.id.tvEntryNumber);
+            tvAdharNumber = view.findViewById(R.id.tvAdharNumber);
+            tvDistrict = view.findViewById(R.id.tvDistrict);
+            tvTaluk = view.findViewById(R.id.tvTaluk);
+            tvHobli = view.findViewById(R.id.tvHobli);
+            tvVillage = view.findViewById(R.id.tvVillage);
+            tvSurveyNo = view.findViewById(R.id.tvSurveyNo);
+            tvCropCategory = view.findViewById(R.id.tvCropCategory);
+            tvCropName = view.findViewById(R.id.tvCropName);
+            tvCropLostExtent = view.findViewById(R.id.tvCropLostExtent);
 
 
         }
@@ -70,11 +70,11 @@ public class IndividualPariharaDetailsAdapter extends RecyclerView.Adapter<Indiv
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.show_individual_parihara_details, parent, false);
 
-        return new IndividualPariharaDetailsAdapter.MyViewHolder(itemView);
+        return new MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(IndividualPariharaDetailsAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull IndividualPariharaDetailsAdapter.MyViewHolder holder, int position) {
 
 
         if(clist.size() == 0)

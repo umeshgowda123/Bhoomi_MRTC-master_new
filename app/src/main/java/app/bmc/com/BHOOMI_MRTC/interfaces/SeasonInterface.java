@@ -1,14 +1,17 @@
 package app.bmc.com.BHOOMI_MRTC.interfaces;
 
+import androidx.annotation.NonNull;
+
 public interface SeasonInterface {
 
 
-    public int getMSTSEASON_ID();
+    int getMSTSEASON_ID();
 
-    public int getMSTSEASON_VAL();
+    int getMSTSEASON_VAL();
 
-    public String getMSTSEASON_DESC();
+    String getMSTSEASON_DESC();
 
-    public String toString();
+    @NonNull
+    String toString();
 
 }

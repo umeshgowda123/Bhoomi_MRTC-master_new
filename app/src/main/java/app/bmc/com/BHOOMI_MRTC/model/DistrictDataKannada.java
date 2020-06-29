@@ -1,5 +1,6 @@
 package app.bmc.com.BHOOMI_MRTC.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 
 import app.bmc.com.BHOOMI_MRTC.interfaces.DistrictModelInterface;
@@ -37,6 +38,7 @@ public class DistrictDataKannada implements DistrictModelInterface {
     }
 
 
+    @NonNull
     @Override
     public String toString() {
         return this.VLM_DKN_NM;

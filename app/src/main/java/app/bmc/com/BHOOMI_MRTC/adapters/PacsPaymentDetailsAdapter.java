@@ -2,6 +2,8 @@ package app.bmc.com.BHOOMI_MRTC.adapters;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,14 +15,12 @@ import java.util.List;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.model.PacsPaymentTableData;
-import app.bmc.com.BHOOMI_MRTC.screens.ClwsStatusDetails;
 
 public class PacsPaymentDetailsAdapter extends RecyclerView.Adapter<PacsPaymentDetailsAdapter.MyViewHolder> {
 
     private List<PacsPaymentTableData> pacPayDetaillist;
-    private ClwsStatusDetails activity;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         public TextView tvPacPaymentClwsId;
         public TextView tvPacPaymentLoneeId;
@@ -34,21 +34,20 @@ public class PacsPaymentDetailsAdapter extends RecyclerView.Adapter<PacsPaymentD
 
         public MyViewHolder(View view) {
             super(view);
-            tvPacPaymentClwsId = (TextView) view.findViewById(R.id.tvPacPaymentClwsId);
-            tvPacPaymentLoneeId = (TextView) view.findViewById(R.id.tvPacPaymentLoneeId);
-            tvPacPaymentAccountNumber = (TextView) view.findViewById(R.id.tvPacPaymentAccountNumber);
-            tvPacPaymentLoanType = (TextView) view.findViewById(R.id.tvPacPaymentLoanType);
-            tvPacPaymentLoanAmountWaiver = (TextView) view.findViewById(R.id.tvPacPaymentLoanAmountWaiver);
-            tvPacPaymentTotalWaiverAmountReportDate = (TextView) view.findViewById(R.id.tvPacPaymentTotalWaiverAmountReportDate);
-            tvPacPaymentStatus = (TextView) view.findViewById(R.id.tvPacPaymentStatus);
-            tvPacPaymentPaidDate = (TextView) view.findViewById(R.id.tvPacPaymentPaidDate);
+            tvPacPaymentClwsId = view.findViewById(R.id.tvPacPaymentClwsId);
+            tvPacPaymentLoneeId = view.findViewById(R.id.tvPacPaymentLoneeId);
+            tvPacPaymentAccountNumber = view.findViewById(R.id.tvPacPaymentAccountNumber);
+            tvPacPaymentLoanType = view.findViewById(R.id.tvPacPaymentLoanType);
+            tvPacPaymentLoanAmountWaiver = view.findViewById(R.id.tvPacPaymentLoanAmountWaiver);
+            tvPacPaymentTotalWaiverAmountReportDate = view.findViewById(R.id.tvPacPaymentTotalWaiverAmountReportDate);
+            tvPacPaymentStatus = view.findViewById(R.id.tvPacPaymentStatus);
+            tvPacPaymentPaidDate = view.findViewById(R.id.tvPacPaymentPaidDate);
 
         }
     }
 
-    public PacsPaymentDetailsAdapter(List<PacsPaymentTableData> pacspaymentList, ClwsStatusDetails activity) {
+    public PacsPaymentDetailsAdapter(List<PacsPaymentTableData> pacspaymentList) {
         this.pacPayDetaillist = pacspaymentList;
-        this.activity= activity;
     }
 
     @NonNull
@@ -57,9 +56,10 @@ public class PacsPaymentDetailsAdapter extends RecyclerView.Adapter<PacsPaymentD
          View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.pacs_payment_details_list, parent, false);
 
-        return new PacsPaymentDetailsAdapter.MyViewHolder(itemView);
+        return new MyViewHolder(itemView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.tvPacPaymentClwsId.setText(pacPayDetaillist.get(position).getPCUST_ID());

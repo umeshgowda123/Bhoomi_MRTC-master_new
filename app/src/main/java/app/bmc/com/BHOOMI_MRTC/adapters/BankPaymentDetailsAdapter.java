@@ -2,6 +2,8 @@ package app.bmc.com.BHOOMI_MRTC.adapters;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +14,14 @@ import java.util.List;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.model.BankPaymentTableData;
-import app.bmc.com.BHOOMI_MRTC.screens.ClwsStatusDetails;
 
 public class BankPaymentDetailsAdapter extends RecyclerView.Adapter<BankPaymentDetailsAdapter.MyViewHolder> {
 
 
     private List<BankPaymentTableData> paylist;
-    private ClwsStatusDetails activity;
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
 
         public TextView tvBPDClwsId;
@@ -37,22 +37,21 @@ public class BankPaymentDetailsAdapter extends RecyclerView.Adapter<BankPaymentD
 
         public MyViewHolder(View view) {
             super(view);
-            tvBPDClwsId = (TextView) view.findViewById(R.id.tvBPDClwsId);
-            tvBPDCLoneeName = (TextView) view.findViewById(R.id.tvBPDCLoneeName);
-            tvBPDCAccountNumber = (TextView) view.findViewById(R.id.tvBPDCAccountNumber);
-            tvBPDCLoanType = (TextView) view.findViewById(R.id.tvBPDCLoanType);
-            tvBPDCLoanAmountWaiver = (TextView) view.findViewById(R.id.tvBPDCLoanAmountWaiver);
-            tvBPDCLoanTotalWaiverAmount = (TextView) view.findViewById(R.id.tvBPDCLoanTotalWaiverAmount);
-            tvBPDCBalanceWaiverAmount = (TextView) view.findViewById(R.id.tvBPDCBalanceWaiverAmount);
-            tvBPDCPaymentStatus = (TextView) view.findViewById(R.id.tvBPDCPaymentStatus);
-            tvBPDCPaidDate = (TextView) view.findViewById(R.id.tvBPDCPaidDate);
+            tvBPDClwsId =  view.findViewById(R.id.tvBPDClwsId);
+            tvBPDCLoneeName =  view.findViewById(R.id.tvBPDCLoneeName);
+            tvBPDCAccountNumber = view.findViewById(R.id.tvBPDCAccountNumber);
+            tvBPDCLoanType = view.findViewById(R.id.tvBPDCLoanType);
+            tvBPDCLoanAmountWaiver = view.findViewById(R.id.tvBPDCLoanAmountWaiver);
+            tvBPDCLoanTotalWaiverAmount = view.findViewById(R.id.tvBPDCLoanTotalWaiverAmount);
+            tvBPDCBalanceWaiverAmount = view.findViewById(R.id.tvBPDCBalanceWaiverAmount);
+            tvBPDCPaymentStatus = view.findViewById(R.id.tvBPDCPaymentStatus);
+            tvBPDCPaidDate = view.findViewById(R.id.tvBPDCPaidDate);
 
         }
     }
 
-    public BankPaymentDetailsAdapter(List<BankPaymentTableData> paymentList, ClwsStatusDetails  activity) {
+    public BankPaymentDetailsAdapter(List<BankPaymentTableData> paymentList) {
         this.paylist = paymentList;
-        this.activity = activity;
     }
 
     @NonNull
@@ -61,9 +60,10 @@ public class BankPaymentDetailsAdapter extends RecyclerView.Adapter<BankPaymentD
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.bank_payment_details_list, parent, false);
 
-        return new BankPaymentDetailsAdapter.MyViewHolder(itemView);
+        return new MyViewHolder(itemView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull BankPaymentDetailsAdapter.MyViewHolder holder, int position) {
         holder.tvBPDClwsId.setText(paylist.get(position).getPCUST_ID());

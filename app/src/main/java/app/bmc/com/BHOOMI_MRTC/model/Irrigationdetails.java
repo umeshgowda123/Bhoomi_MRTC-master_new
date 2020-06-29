@@ -12,7 +12,7 @@ public class Irrigationdetails {
     private List<Irrigation> irrigation;
 
     public List<Irrigation> getIrrigation() {
-        return irrigation == null ? new ArrayList<Irrigation>() : irrigation;
+        return irrigation == null ? new ArrayList<>() : irrigation;
     }
 
     public void setIrrigation(List<Irrigation> irrigation) {

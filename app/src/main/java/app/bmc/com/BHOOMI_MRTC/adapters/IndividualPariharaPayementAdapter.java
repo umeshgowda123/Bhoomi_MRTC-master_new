@@ -28,7 +28,7 @@ public class IndividualPariharaPayementAdapter extends RecyclerView.Adapter<Indi
         this.activity = activity;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         public TextView tvPSerialNo;
         public TextView tvPDistCode;
@@ -46,17 +46,17 @@ public class IndividualPariharaPayementAdapter extends RecyclerView.Adapter<Indi
         public MyViewHolder(View view) {
             super(view);
 
-            tvPSerialNo = (TextView) view.findViewById(R.id.tvPSerialNo);
-            tvPDistCode = (TextView) view.findViewById(R.id.tvPDistCode);
-            tvPBankName = (TextView) view.findViewById(R.id.tvPBankName);
-            tvPAmountInRs = (TextView) view.findViewById(R.id.tvPAmountInRs);
-            tvPAcHolder = (TextView) view.findViewById(R.id.tvPAcHolder);
-            tvPBankAccountNo = (TextView) view.findViewById(R.id.tvPBankAccountNo);
-            tvPStatus = (TextView) view.findViewById(R.id.tvPStatus);
-            tvPPaymentDate = (TextView) view.findViewById(R.id.tvPPaymentDate);
-            tvPCalamityType = (TextView) view.findViewById(R.id.tvPCalamityType);
-            tvPSeason = (TextView) view.findViewById(R.id.tvPSeason);
-            tvPYear = (TextView) view.findViewById(R.id.tvPYear);
+            tvPSerialNo = view.findViewById(R.id.tvPSerialNo);
+            tvPDistCode = view.findViewById(R.id.tvPDistCode);
+            tvPBankName = view.findViewById(R.id.tvPBankName);
+            tvPAmountInRs = view.findViewById(R.id.tvPAmountInRs);
+            tvPAcHolder = view.findViewById(R.id.tvPAcHolder);
+            tvPBankAccountNo = view.findViewById(R.id.tvPBankAccountNo);
+            tvPStatus = view.findViewById(R.id.tvPStatus);
+            tvPPaymentDate = view.findViewById(R.id.tvPPaymentDate);
+            tvPCalamityType = view.findViewById(R.id.tvPCalamityType);
+            tvPSeason = view.findViewById(R.id.tvPSeason);
+            tvPYear = view.findViewById(R.id.tvPYear);
 
 
         }
@@ -70,11 +70,11 @@ public class IndividualPariharaPayementAdapter extends RecyclerView.Adapter<Indi
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.show_individual_payment_details, parent, false);
 
-        return new IndividualPariharaPayementAdapter.MyViewHolder(itemView);
+        return new MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(IndividualPariharaPayementAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull IndividualPariharaPayementAdapter.MyViewHolder holder, int position) {
 
         if(clist.size() == 0)
         {

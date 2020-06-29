@@ -1,5 +1,6 @@
 package app.bmc.com.BHOOMI_MRTC.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 
 import app.bmc.com.BHOOMI_MRTC.interfaces.HobliModelInterface;
@@ -37,6 +38,7 @@ public class HobliDataKannada implements HobliModelInterface {
         this.VLM_HBL_NM = VLM_HBL_NM;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return this.VLM_HKN_NM;

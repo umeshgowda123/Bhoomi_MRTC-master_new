@@ -3,6 +3,8 @@ package app.bmc.com.BHOOMI_MRTC.backgroundtasks;
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.util.Log;
 
@@ -27,14 +29,15 @@ import retrofit2.Retrofit;
 public class RtcViewInfoBackGroundTaskFragment extends Fragment {
     public static final String TAG_HEADLESS_FRAGMENT = "headless_fragment";
     public boolean isTaskExecuting = false;
-    BackgroundCallBackRtcViewInfo backgroundCallBack;
+    private BackgroundCallBackRtcViewInfo backgroundCallBack;
 
     /**
      * Called when a fragment is first attached to its activity.
      * onCreate(Bundle) will be called after this.
      */
+    
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(@NonNull Activity activity) {
         super.onAttach(activity);
         backgroundCallBack = (BackgroundCallBackRtcViewInfo) activity;
     }
@@ -95,11 +98,12 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         Call<Get_Rtc_Data_Result> get_rtc_data_resultCall = service.getRtcResponse(district_id, taluk_id, hobli_id, village_id, land_no);
         get_rtc_data_resultCall.enqueue(new Callback<Get_Rtc_Data_Result>() {
             @Override
-            public void onResponse(Call<Get_Rtc_Data_Result> call, Response<Get_Rtc_Data_Result> response) {
+            public void onResponse(@NonNull Call<Get_Rtc_Data_Result> call, @NonNull Response<Get_Rtc_Data_Result> response) {
                 if (response.isSuccessful()) {
                     Get_Rtc_Data_Result get_rtc_data_result = response.body();
                     isTaskExecuting = false;
                     if (backgroundCallBack != null) {
+                        assert get_rtc_data_result != null;
                         backgroundCallBack.onPostResponseSuccess2(get_rtc_data_result.getGetRtcDataResult());
 
                     }
@@ -112,9 +116,8 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
 
             }
 
-
             @Override
-            public void onFailure(Call<Get_Rtc_Data_Result> call, Throwable error) {
+            public void onFailure(@NonNull Call<Get_Rtc_Data_Result> call, @NonNull Throwable error) {
                 isTaskExecuting = false;
 
                 String errorResponse = error.getLocalizedMessage();
@@ -135,10 +138,11 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         Call<Get_Surnoc_HissaResult> get_surnoc_hissaResultCall = service.getSurnocHissaResponse(district_id, taluk_id, hobli_id, village_id, surveyNo);
         get_surnoc_hissaResultCall.enqueue(new Callback<Get_Surnoc_HissaResult>() {
             @Override
-            public void onResponse(Call<Get_Surnoc_HissaResult> call, Response<Get_Surnoc_HissaResult> response) {
+            public void onResponse(@NonNull Call<Get_Surnoc_HissaResult> call, @NonNull Response<Get_Surnoc_HissaResult> response) {
                 if (response.isSuccessful()) {
                     Get_Surnoc_HissaResult get_surnoc_hissaResult = response.body();
                     isTaskExecuting = false;
+                    assert get_surnoc_hissaResult != null;
                     backgroundCallBack.onPostResponseSuccess1(get_surnoc_hissaResult.getGetSurnocHissaResult());
                 } else {
                     isTaskExecuting = false;
@@ -150,7 +154,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<Get_Surnoc_HissaResult> call, Throwable error) {
+            public void onFailure(@NonNull Call<Get_Surnoc_HissaResult> call, @NonNull Throwable error) {
                 isTaskExecuting = false;
 
                 String errorResponse = error.getLocalizedMessage();
@@ -170,15 +174,16 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
 
         Retrofit retrofit = RtcViewInfoClient.getClient("https://clws.karnataka.gov.in/Service4/BHOOMI/");
         RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
-        Call<Get_ViewMutationStatusResult> get_rtc_data_resultCall = service.getMutationStatusResponse(Constants.REPORT_SERVICE_USER_NAME,Constants.REPORT_SERVICE_PASSWORD,Integer.valueOf(district_id),Integer.valueOf(taluk_id),Integer.valueOf(hobli_id),Integer.valueOf(village_id),Integer.valueOf(land_no));
+        Call<Get_ViewMutationStatusResult> get_rtc_data_resultCall = service.getMutationStatusResponse(Constants.REPORT_SERVICE_USER_NAME,Constants.REPORT_SERVICE_PASSWORD,Integer.parseInt(district_id),Integer.parseInt(taluk_id),Integer.parseInt(hobli_id),Integer.parseInt(village_id),Integer.parseInt(land_no));
         get_rtc_data_resultCall.enqueue(new Callback<Get_ViewMutationStatusResult>() {
             @Override
-            public void onResponse(Call<Get_ViewMutationStatusResult> call, Response<Get_ViewMutationStatusResult> response) {
+            public void onResponse(@NonNull Call<Get_ViewMutationStatusResult> call, @NonNull Response<Get_ViewMutationStatusResult> response) {
                 if (response.isSuccessful()) {
                     Get_ViewMutationStatusResult viewMutationStatusResult = response.body();
                     //String get_rtc_data_result = response.body();
                     isTaskExecuting = false;
                     if (backgroundCallBack != null) {
+                        assert viewMutationStatusResult != null;
                         backgroundCallBack.onPostResponseSuccess3(viewMutationStatusResult.getViewMutationStatusResult());
                     }
                 } else {
@@ -192,7 +197,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
 
 
             @Override
-            public void onFailure(Call<Get_ViewMutationStatusResult> call, Throwable error) {
+            public void onFailure(@NonNull Call<Get_ViewMutationStatusResult> call, @NonNull Throwable error) {
                 isTaskExecuting = false;
 
                 String errorResponse = error.getLocalizedMessage();

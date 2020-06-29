@@ -1,5 +1,6 @@
 package app.bmc.com.BHOOMI_MRTC.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 
 import app.bmc.com.BHOOMI_MRTC.interfaces.BranchNameModelInterface;
@@ -43,6 +44,7 @@ public class BranchNameWithCodeData implements BranchNameModelInterface {
         Bnk_Brnch_Nme_Eng = bnk_Brnch_Nme_Eng;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return this.Bnk_Brnch_Nme_Eng;

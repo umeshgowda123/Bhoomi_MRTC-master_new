@@ -59,7 +59,7 @@ public class Cultivator {
 
 
     public List<Cropdetails> getCropdetails() {
-        return cropdetails == null ? new ArrayList<Cropdetails>() : cropdetails;
+        return cropdetails == null ? new ArrayList<>() : cropdetails;
     }
 
     public void setCropdetails(List<Cropdetails> cropdetails) {

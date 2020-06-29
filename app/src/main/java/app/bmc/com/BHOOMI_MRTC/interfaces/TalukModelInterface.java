@@ -1,14 +1,14 @@
 package app.bmc.com.BHOOMI_MRTC.interfaces;
 
 public interface TalukModelInterface {
-    public int getVLM_TLK_ID();
+     int getVLM_TLK_ID();
 
 
-    public String getVLM_TLK_NM();
+     String getVLM_TLK_NM();
 
 
-    public String getVLM_TKN_NM();
+     String getVLM_TKN_NM();
 
 
-    public String toString();
+     String toString();
 }

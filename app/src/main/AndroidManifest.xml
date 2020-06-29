@@ -301,6 +301,15 @@
         <activity
             android:name=".screens.Endorsement_ReportWebView"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".screens.MojiniPhodySketch"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".screens.Sketch"
+            android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>

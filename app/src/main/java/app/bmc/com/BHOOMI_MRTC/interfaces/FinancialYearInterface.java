@@ -1,10 +1,13 @@
 package app.bmc.com.BHOOMI_MRTC.interfaces;
 
+import androidx.annotation.NonNull;
+
 public interface FinancialYearInterface {
 
-    public String getYear();
+    String getYear();
 
-    public int getCode();
+    int getCode();
 
-    public String toString();
+    @NonNull
+    String toString();
 }

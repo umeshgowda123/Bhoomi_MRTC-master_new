@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -42,9 +41,6 @@ import app.bmc.com.BHOOMI_MRTC.model.Season;
  */
 public class CultivatorDetailsFragment extends Fragment {
 
-
-    private LinearLayout linearLayout;
-
     public CultivatorDetailsFragment() {
         // Required empty public constructor
     }
@@ -59,15 +55,15 @@ public class CultivatorDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_cultivator_details, container, false);
 
-        return view;
+        return inflater.inflate(R.layout.fragment_cultivator_details, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle = this.getArguments();
+        assert bundle != null;
         String data = bundle.getString("CultivatorDetailsFragment", "");
         // WebView cultivator_details_html = view.findViewById(R.id.cultivator_details_html);
         TextView taluk_textview = view.findViewById(R.id.textview_taluk);
@@ -94,7 +90,7 @@ public class CultivatorDetailsFragment extends Fragment {
                 if (object instanceof JSONArray) {
                     jsonArray = (JSONArray) object;
                 } else if (object instanceof JSONObject) {
-                    jsonArray.put((JSONObject) object);
+                    jsonArray.put(object);
                 } else if (object instanceof String) {
                     jsonArray.put(new JSONObject());
                 }
@@ -111,7 +107,7 @@ public class CultivatorDetailsFragment extends Fragment {
                         if (season instanceof JSONArray) {
                             seasonArray = (JSONArray) season;
                         } else if (season instanceof JSONObject) {
-                            seasonArray.put((JSONObject) season);
+                            seasonArray.put(season);
 
                         } else if (season instanceof String) {
                             seasonArray.put(new JSONObject());
@@ -125,7 +121,7 @@ public class CultivatorDetailsFragment extends Fragment {
                             Object cultivatorobject = seasonObject.get("cultivator");
                             JSONArray cultivatorArray = new JSONArray();
                             if (cultivatorobject instanceof JSONObject) {
-                                cultivatorArray.put((JSONObject) cultivatorobject);
+                                cultivatorArray.put(cultivatorobject);
                             } else if (cultivatorobject instanceof JSONArray) {
                                 cultivatorArray = (JSONArray) cultivatorobject;
                             } else if (cultivatorobject instanceof String) {
@@ -138,7 +134,7 @@ public class CultivatorDetailsFragment extends Fragment {
                                 if (cultivator.has("mixedcropdetails")) {
                                     Object mixedcropdetailsObject = cultivator.get("mixedcropdetails");
                                     if (mixedcropdetailsObject instanceof JSONObject) {
-                                        mixedcropdetails = gson.fromJson(((JSONObject) mixedcropdetailsObject).toString(), Mixedcropdetails.class);
+                                        mixedcropdetails = gson.fromJson(mixedcropdetailsObject.toString(), Mixedcropdetails.class);
 
                                     } else if (mixedcropdetailsObject instanceof String) {
                                         mixedcropdetails = gson.fromJson((new JSONObject()).toString(), Mixedcropdetails.class);
@@ -161,7 +157,7 @@ public class CultivatorDetailsFragment extends Fragment {
                                     Object cropdetailsObject = cultivator.get("cropdetails");
                                     JSONArray cropdetailsjsonArray = new JSONArray();
                                     if (cropdetailsObject instanceof JSONObject) {
-                                        cropdetailsjsonArray.put((JSONObject) cropdetailsObject);
+                                        cropdetailsjsonArray.put(cropdetailsObject);
                                     } else if (cropdetailsObject instanceof JSONArray) {
                                         cropdetailsjsonArray = (JSONArray) cropdetailsObject;
                                     } else if (cropdetailsObject instanceof String) {
@@ -181,7 +177,7 @@ public class CultivatorDetailsFragment extends Fragment {
                                 if (cultivator.has("landutilisation")) {
                                     Object landutilisationObject = cultivator.get("landutilisation");
                                     if (landutilisationObject instanceof JSONObject) {
-                                        landutilisation = gson.fromJson(((JSONObject) landutilisationObject).toString(), Landutilisation.class);
+                                        landutilisation = gson.fromJson(landutilisationObject.toString(), Landutilisation.class);
                                     } else if (landutilisationObject instanceof String) {
                                         landutilisation = gson.fromJson((new JSONObject()).toString(), Landutilisation.class);
 
@@ -237,7 +233,7 @@ public class CultivatorDetailsFragment extends Fragment {
                 }
             }
 
-            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.cultivator_recycler_view);
+            RecyclerView recyclerView = view.findViewById(R.id.cultivator_recycler_view);
             recyclerView.setHasFixedSize(true);
 
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());

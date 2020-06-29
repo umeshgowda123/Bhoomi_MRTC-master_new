@@ -1,16 +1,19 @@
 package app.bmc.com.BHOOMI_MRTC.interfaces;
 
+import androidx.annotation.NonNull;
+
 public interface BranchNameModelInterface {
 
 
-    public String getBNK_NME_EN();
+    String getBNK_NME_EN();
 
 
-    public int getBNK_BRNCH_CDE();
+    int getBNK_BRNCH_CDE();
 
 
-    public String getBnk_Brnch_Nme_Eng();
+    String getBnk_Brnch_Nme_Eng();
 
 
-    public String toString();
+    @NonNull
+    String toString();
 }

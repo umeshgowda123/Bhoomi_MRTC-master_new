@@ -2,6 +2,8 @@ package app.bmc.com.BHOOMI_MRTC.backgroundtasks;
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import app.bmc.com.BHOOMI_MRTC.R;
@@ -22,7 +24,7 @@ import retrofit2.Retrofit;
 public class RtcXmlverificationBackGroundTask extends Fragment {
     public static final String TAG_HEADLESS_FRAGMENT = "headless_fragment";
     public boolean isTaskExecuting = false;
-    BackgroundCallBackRtcXmlVerification backgroundCallBack;
+    private BackgroundCallBackRtcXmlVerification backgroundCallBack;
 
     /**
      * Called when a fragment is first attached to its activity.
@@ -76,10 +78,11 @@ public class RtcXmlverificationBackGroundTask extends Fragment {
             Call<GETRTCXMLDATAResult> stringCall = rtcXmlVerificationApi.getStringResponse(referenceNo, passcode, saltkey);
             stringCall.enqueue(new Callback<GETRTCXMLDATAResult>() {
                 @Override
-                public void onResponse(Call<GETRTCXMLDATAResult> call, Response<GETRTCXMLDATAResult> response) {
+                public void onResponse(@NonNull Call<GETRTCXMLDATAResult> call, @NonNull Response<GETRTCXMLDATAResult> response) {
                     if (response.isSuccessful()) {
                         GETRTCXMLDATAResult getrtcxmldataResult = response.body();
                         isTaskExecuting = false;
+                        assert getrtcxmldataResult != null;
                         backgroundCallBack.onPostResponseSuccess1(getrtcxmldataResult.getGETRTCXMLDATAResult());
 
 
@@ -94,7 +97,7 @@ public class RtcXmlverificationBackGroundTask extends Fragment {
                 }
 
                 @Override
-                public void onFailure(Call<GETRTCXMLDATAResult> call, Throwable error) {
+                public void onFailure(@NonNull Call<GETRTCXMLDATAResult> call, @NonNull Throwable error) {
                     isTaskExecuting = false;
                     String errorResponse = error.getLocalizedMessage();
                     backgroundCallBack.onPostResponseError(errorResponse);

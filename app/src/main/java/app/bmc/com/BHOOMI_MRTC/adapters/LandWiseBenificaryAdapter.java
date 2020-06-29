@@ -19,7 +19,6 @@ public class LandWiseBenificaryAdapter extends RecyclerView.Adapter<RecyclerView
 
 
     private final int VIEW_TYPE_ITEM = 0;
-    private final int VIEW_TYPE_LOADING = 1;
 
     private List<BenificaryDataLandWise> clist ;
     private ShowPariharaBenificiaryDetailsLandWise activity;
@@ -31,7 +30,7 @@ public class LandWiseBenificaryAdapter extends RecyclerView.Adapter<RecyclerView
         this.activity = activity;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         public TextView tvLDistrictName;
         public TextView tvLTalukName;
@@ -52,25 +51,25 @@ public class LandWiseBenificaryAdapter extends RecyclerView.Adapter<RecyclerView
         public MyViewHolder(View view) {
             super(view);
 
-            tvLDistrictName = (TextView) view.findViewById(R.id.tvLDistrictName);
-            tvLTalukName = (TextView) view. findViewById(R.id.tvLTalukName);
-            tvLHobliName = (TextView) view. findViewById(R.id.tvLHobliName);
-            tvLVillageCircleName = (TextView) view.findViewById(R.id.tvLVillageCircleName);
-            tvLVillageName = (TextView) view.findViewById(R.id.tvLVillageName);
-            tvLEntryId = (TextView) view.findViewById(R.id.tvLEntryId);
-            tvLSurveyNumber = (TextView) view.findViewById(R.id.tvLSurveyNumber);
-            tvLSurnocNumber = (TextView) view.findViewById(R.id.tvLSurnocNumber);
-            tvLHissaNumber = (TextView) view.findViewById(R.id.tvLHissaNumber);
-            tvLCropName = (TextView) view.findViewById(R.id.tvLCropName);
-            tvLCropCategory = (TextView) view.findViewById(R.id.tvLCropCategory);
-            tvLCropLossExtentAcre = (TextView) view.findViewById(R.id.tvLCropLossExtentAcre);
-            tvLCropLossExtentGunta = (TextView) view.findViewById(R.id.tvLCropLossExtentGunta);
-            tvLCropLossExtentFGunta = (TextView) view.findViewById(R.id.tvLCropLossExtentFGunta);
+            tvLDistrictName = view.findViewById(R.id.tvLDistrictName);
+            tvLTalukName = view. findViewById(R.id.tvLTalukName);
+            tvLHobliName = view. findViewById(R.id.tvLHobliName);
+            tvLVillageCircleName = view.findViewById(R.id.tvLVillageCircleName);
+            tvLVillageName = view.findViewById(R.id.tvLVillageName);
+            tvLEntryId = view.findViewById(R.id.tvLEntryId);
+            tvLSurveyNumber = view.findViewById(R.id.tvLSurveyNumber);
+            tvLSurnocNumber = view.findViewById(R.id.tvLSurnocNumber);
+            tvLHissaNumber = view.findViewById(R.id.tvLHissaNumber);
+            tvLCropName = view.findViewById(R.id.tvLCropName);
+            tvLCropCategory = view.findViewById(R.id.tvLCropCategory);
+            tvLCropLossExtentAcre = view.findViewById(R.id.tvLCropLossExtentAcre);
+            tvLCropLossExtentGunta = view.findViewById(R.id.tvLCropLossExtentGunta);
+            tvLCropLossExtentFGunta = view.findViewById(R.id.tvLCropLossExtentFGunta);
         }
 
     }
 
-    public class LoadingViewHolder extends RecyclerView.ViewHolder {
+    public static class LoadingViewHolder extends RecyclerView.ViewHolder {
 
         ProgressBar progressBar;
 
@@ -95,7 +94,7 @@ public class LandWiseBenificaryAdapter extends RecyclerView.Adapter<RecyclerView
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
 
         if(clist.size() == 0)
         {
@@ -105,7 +104,7 @@ public class LandWiseBenificaryAdapter extends RecyclerView.Adapter<RecyclerView
         if (viewHolder instanceof MyViewHolder) {
             populateItemRows((MyViewHolder) viewHolder, position);
         } else if (viewHolder instanceof LoadingViewHolder) {
-            showLoadingView((LoadingViewHolder) viewHolder, position);
+            showLoadingView();
         }
     }
 
@@ -117,10 +116,11 @@ public class LandWiseBenificaryAdapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public int getItemViewType(int position) {
+        int VIEW_TYPE_LOADING = 1;
         return clist.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
     }
 
-    private void showLoadingView(LoadingViewHolder viewHolder, int position) {
+    private void showLoadingView() {
         //ProgressBar would be displayed
 
 

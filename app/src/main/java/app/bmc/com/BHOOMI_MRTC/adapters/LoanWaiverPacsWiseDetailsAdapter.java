@@ -22,14 +22,13 @@ public class LoanWaiverPacsWiseDetailsAdapter extends RecyclerView.Adapter<Recyc
    private ShowLoanWaiverPacsReportBankWise activity;
 
     private final int VIEW_TYPE_ITEM = 0;
-    private final int VIEW_TYPE_LOADING = 1;
 
     public LoanWaiverPacsWiseDetailsAdapter(List<PacsWaiverBankResponseData> myBankDataList, ShowLoanWaiverPacsReportBankWise activity) {
         this.clist = myBankDataList;
         this.activity = activity;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         public TextView tvBDistName;
         public TextView tvLWBankName;
@@ -52,27 +51,25 @@ public class LoanWaiverPacsWiseDetailsAdapter extends RecyclerView.Adapter<Recyc
         public MyViewHolder(View view) {
             super(view);
 
-            tvBDistName = (TextView) view.findViewById(R.id.tvBDistName);
-            tvLWBankName = (TextView) view.findViewById(R.id.tvLWBankName);
-            tvLWLoanType = (TextView) view.findViewById(R.id.tvLWLoanType);
-            tvLWTotalNoOfLonee = (TextView) view.findViewById(R.id.tvLWTotalNoOfLonee);
-            tvLWLoanAmount = (TextView) view.findViewById(R.id.tvLWLoanAmount);
+            tvBDistName = view.findViewById(R.id.tvBDistName);
+            tvLWBankName = view.findViewById(R.id.tvLWBankName);
+            tvLWLoanType = view.findViewById(R.id.tvLWLoanType);
+            tvLWTotalNoOfLonee = view.findViewById(R.id.tvLWTotalNoOfLonee);
+            tvLWLoanAmount = view.findViewById(R.id.tvLWLoanAmount);
 
-            tvLWEligibleLoans = (TextView) view.findViewById(R.id.tvLWEligibleLoans);
-            tvLWEligibleLoanAmount = (TextView) view.findViewById(R.id.tvLWEligibleLoanAmount);
+            tvLWEligibleLoans = view.findViewById(R.id.tvLWEligibleLoans);
+            tvLWEligibleLoanAmount = view.findViewById(R.id.tvLWEligibleLoanAmount);
 
-            tvLWGreenListLoan = (TextView) view.findViewById(R.id.tvLWGreenListLoan);
-            tvLWGreenListAmount = (TextView) view.findViewById(R.id.tvLWGreenListAmount);
+            tvLWGreenListLoan = view.findViewById(R.id.tvLWGreenListLoan);
+            tvLWGreenListAmount = view.findViewById(R.id.tvLWGreenListAmount);
 
-            tvLWPaidLoan = (TextView) view.findViewById(R.id.tvLWPaidLoan);
+            tvLWPaidLoan = view.findViewById(R.id.tvLWPaidLoan);
 
-            tvLWPaidLoanAmount = (TextView) view.findViewById(R.id.tvLWPaidLoanAmount);
-            tvLWTranPendingDue = (TextView) view.findViewById(R.id.tvLWTranPendingDue);
-            tvLWRationCardMismatch = (TextView) view.findViewById(R.id.tvLWRationCardMismatch);
+            tvLWPaidLoanAmount = view.findViewById(R.id.tvLWPaidLoanAmount);
+            tvLWTranPendingDue = view.findViewById(R.id.tvLWTranPendingDue);
+            tvLWRationCardMismatch = view.findViewById(R.id.tvLWRationCardMismatch);
             txt = view.findViewById(R.id.txt);
-
         }
-
     }
 
 
@@ -93,7 +90,7 @@ public class LoanWaiverPacsWiseDetailsAdapter extends RecyclerView.Adapter<Recyc
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
 
         if(clist.size() == 0)
@@ -105,7 +102,7 @@ public class LoanWaiverPacsWiseDetailsAdapter extends RecyclerView.Adapter<Recyc
             if (holder instanceof MyViewHolder) {
                 populateItemRows((MyViewHolder) holder, position);
             } else if (holder instanceof LoadingViewHolder) {
-                showLoadingView((LoadingViewHolder) holder, position);
+                showLoadingView();
             }
         }
 
@@ -119,20 +116,21 @@ public class LoanWaiverPacsWiseDetailsAdapter extends RecyclerView.Adapter<Recyc
 
     @Override
     public int getItemViewType(int position) {
+        int VIEW_TYPE_LOADING = 1;
         return clist.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
     }
 
-    private class LoadingViewHolder extends RecyclerView.ViewHolder {
+    private static class LoadingViewHolder extends RecyclerView.ViewHolder {
 
         ProgressBar progressBar;
 
-        public LoadingViewHolder(@NonNull View itemView) {
+        LoadingViewHolder(@NonNull View itemView) {
             super(itemView);
             progressBar = itemView.findViewById(R.id.progressBar);
         }
     }
 
-    private void showLoadingView(LoadingViewHolder viewHolder, int position) {
+    private void showLoadingView() {
         //ProgressBar would be displayed
 
     }
