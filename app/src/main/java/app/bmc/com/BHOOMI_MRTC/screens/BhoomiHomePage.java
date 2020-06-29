@@ -323,9 +323,7 @@ public class BhoomiHomePage extends AppCompatActivity {
         view_mojini_req_status.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "http://202.138.101.171/service19/report/Allotdetails";
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
+                Intent i = new Intent(BhoomiHomePage.this, MojiniRequestStatus.class);
                 startActivity(i);
             }
         });
