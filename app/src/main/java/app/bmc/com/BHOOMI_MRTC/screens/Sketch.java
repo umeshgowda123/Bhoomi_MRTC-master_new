@@ -83,8 +83,17 @@ public class Sketch extends AppCompatActivity {
                     Log.d("SketchDetails", "" + res);
 
                     progressDialog.dismiss();
-
-                    if (res != null) {
+                    if (res==null || res.contains("Details not found")){
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(Sketch.this, R.style.MyDialogTheme);
+                        builder.setTitle("STATUS")
+                                .setMessage("No Data Found For this Record")
+                                .setIcon(R.drawable.ic_notifications_black_24dp)
+                                .setCancelable(false)
+                                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                        final AlertDialog alert = builder.create();
+                        alert.show();
+                        alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                    } else  {
                         try {
                             JSONArray jsonArray = new JSONArray(res);
                             Log.d("jsonArray", String.valueOf(jsonArray));
@@ -116,8 +125,6 @@ public class Sketch extends AppCompatActivity {
                             e.printStackTrace();
                             Log.d("ExceptionSUS", e + "");
                         }
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Null", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
