@@ -77,7 +77,7 @@ public class ConversionFinalOrders_BasedOnReq_ID extends AppCompatActivity {
                     alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
                 } else {
                     list.size();
-                    LandConversionFinalOrdersAdapter adapter = new LandConversionFinalOrdersAdapter(list);
+                    LandConversionFinalOrdersAdapter adapter = new LandConversionFinalOrdersAdapter(list, ConversionFinalOrders_BasedOnReq_ID.this);
                     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                     rvReqID.setLayoutManager(mLayoutManager);
                     rvReqID.setItemAnimator(new DefaultItemAnimator());
