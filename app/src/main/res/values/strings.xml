@@ -281,24 +281,13 @@
 
 
     <string-array name="select_financial_year">
-
-        <item>2019-20</item>
-        <item>2018-19</item>
-        <item>2017-18</item>
-        <item>2016-17</item>
-        <item>2015-16</item>
-        <item>2014-15</item>
-
-    </string-array>
-
-
-    <string-array name="select_financial_year_village_wise">
-
-        <item>2019-20</item>
-        <item>2018-19</item>
-        <item>2017-18</item>
-        <item>2016-17</item>
-
+        <item>2020–21</item>
+        <item>2019–20</item>
+        <item>2018–19</item>
+        <item>2017–18</item>
+        <item>2016–17</item>
+        <item>2015–16</item>
+        <item>2014–15</item>
     </string-array>
 
 
@@ -311,23 +300,12 @@
 
     </string-array>
 
-
-    <string-array name="select_calamity_type_village_wise">
-
-        <item>Desiliting</item>
-        <item>Drought</item>
-        <item>Flood</item>
-        <item>Landslide</item>
-        <item>PEST</item>
-    </string-array>
-
-
     <string-array name="select_calamity_type">
-
         <item>Desiliting</item>
         <item>Drought</item>
         <item>Flood</item>
         <item>Landslide</item>
+        <item>HailstormOrHeavryRains</item>
     </string-array>
 
     <string name="aadhaar_err">Aadhar Error</string>
@@ -469,5 +447,8 @@
     <string name="transaction_report">Transaction Report</string>
     <string name="land_conversion_final_orders">Land Conversion Final Orders</string>
     <string name="final_order">Final Order</string>
-
+    <string name="sketch">Sketch</string>
+    <string name="sketch_report_view">Sketch Report View</string>
+    <string name="application_id">Application ID</string>
+    <string name="application_type">Application Type</string>
 </resources>
