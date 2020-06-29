@@ -158,7 +158,7 @@ public class PariharaDetailsIndividual extends AppCompatActivity {
                                     progressDialog.dismiss();
                                     assert result != null;
                                     String str = result.getGetPariharaPaymentDetailsResult();
-                                    Log.d("Result_1",""+str);
+                                    Log.d("Result_11",""+str);
                                     if (str.contains("No Details Found for This Record")){
                                         final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(PariharaDetailsIndividual.this, R.style.MyDialogTheme);
                                         builder.setTitle("STATUS")

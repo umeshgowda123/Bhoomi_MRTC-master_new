@@ -14,6 +14,7 @@ public class GetLandConversionFinalOrders_Table {
     String HOBLI_NAME;
     String VILLAGE_NAME;
     String SURVEYNO;
+    String ReturnPage;
 
     public String getREQ_ID() {
         return REQ_ID;
@@ -65,5 +66,9 @@ public class GetLandConversionFinalOrders_Table {
 
     public String getSURVEYNO() {
         return SURVEYNO;
+    }
+
+    public String getReturnPage() {
+        return ReturnPage;
     }
 }

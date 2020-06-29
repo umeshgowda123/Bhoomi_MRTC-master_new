@@ -199,7 +199,7 @@
     <string name="clws_services">ಬೆಳೆ ಸಾಲ ಮನ್ನಾ ಸೇವೆಗಳು</string>
     <string name="rtc_services">ಆರ್ಟಿಸಿ ಸೇವೆಗಳು</string>
     <string name="parihara_details_individual">ಪರಿಹಾರ ವಿವರಗಳು - ವೈಯಕ್ತಿಕ</string>
-    <string name="p_benificary_details_vlg_wise">ಪರಿಹಾರ ಫಲಾನುಭವಿ ವಿವರಗಳು - ಫಲಾನುಭವಿ ವಾರು</string>
+    <string name="p_benificary_details_vlg_wise">Parihara Beneficiary Paid Details- Village Wise</string>
     <string name="p_benificary_details_land_wise">ಪರಿಹಾರ ಫಲಾನುಭವಿ ವಿವರಗಳು - ಭೂಮಿವಾರು</string>
     <string name="calamity">ವಿಪತ್ತು</string>
     <string name="beneficiary_details">ಫಲಾನುಭವಿ ವಿವರಗಳು</string>
@@ -216,27 +216,17 @@
     <string name="croploss_extent_fgunta">ಬೆಳೆ ನಷ್ಟ ವಿಸ್ತೀರ್ಣ ಎಫ್ ಗುಂಟಾ</string>
     <string name="season_error">ಸೀಸನ್ ಆಯ್ಕೆಮಾಡಿ</string>
     <string name="calamity_error">ವಿಪತ್ತು ಆಯ್ಕೆಮಾಡಿ</string>
+
     <string-array name="select_financial_year">
-        <item>2019-20</item>
-        <item>2018-19</item>
-        <item>2017-18</item>
-        <item>2016-17</item>
-        <item>2015-16</item>
-        <item>2014-15</item>
+        <item>2020–21</item>
+        <item>2019–20</item>
+        <item>2018–19</item>
+        <item>2017–18</item>
+        <item>2016–17</item>
+        <item>2015–16</item>
+        <item>2014–15</item>
     </string-array>
-    <string-array name="select_financial_year_village_wise">
-        <item>2019-20</item>
-        <item>2018-19</item>
-        <item>2017-18</item>
-        <item>2016-17</item>
-    </string-array>
-    <string-array name="select_calamity_type_village_wise">
-        <item>ಡೆಸಿಲೈಟಿಂಗ್</item>
-        <item>ಬರ</item>
-        <item>ಪ್ರವಾಹ</item>
-        <item>ಭೂಕುಸಿತ</item>
-        <item>ಪೆಸ್ಟ್</item>
-    </string-array>
+
     <string-array name="select_season">
         <item>ಮುಂಗಾರು</item>
         <item>ಪೂರ್ವ ಮುಂಗಾರು</item>
@@ -245,12 +235,15 @@
     </string-array>
     <string name="year_err">ವರ್ಷ ಆಯ್ಕೆಮಾಡಿ</string>
     <string name="calamity_err">ವಿಪತ್ತು ಆಯ್ಕೆಮಾಡಿ</string>
+
     <string-array name="select_calamity_type">
         <item>ಡೆಸಿಲೈಟಿಂಗ್</item>
         <item>ಬರ</item>
         <item>ಪ್ರವಾಹ</item>
         <item>ಭೂಕುಸಿತ</item>
+        <item>HailstormOrHeavryRains</item>
     </string-array>
+
     <string name="downlaod_village_map"> ಗ್ರಾಮ ನಕ್ಷೆ ಡೌನ್‌ಲಾಡ್ ಮಾಡಿ</string>
     <string name="mutation_pendencey_details">ಮ್ಯುಟೇಶನ್ ಬಾಕಿ ವಿವರಗಳು</string>
     <string name="application_number">ಅರ್ಜಿ ಸಂಖ್ಯೆ</string>

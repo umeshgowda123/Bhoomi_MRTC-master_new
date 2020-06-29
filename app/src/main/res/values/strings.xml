@@ -266,7 +266,7 @@
 
     <string name="parihara_details_individual">Parihara Details - Individual</string>
 
-    <string name="p_benificary_details_vlg_wise">Parihara Beneficiary Details - Beneficiary Wise</string>
+    <string name="p_benificary_details_vlg_wise">Parihara Beneficiary Paid Details- Village Wise</string>
 
     <string name="p_benificary_details_land_wise">Parihara Beneficiary Details - Land Wise</string>
 
@@ -281,26 +281,14 @@
 
 
     <string-array name="select_financial_year">
-
-        <item>2019-20</item>
-        <item>2018-19</item>
-        <item>2017-18</item>
-        <item>2016-17</item>
-        <item>2015-16</item>
-        <item>2014-15</item>
-
+        <item>2020–21</item>
+        <item>2019–20</item>
+        <item>2018–19</item>
+        <item>2017–18</item>
+        <item>2016–17</item>
+        <item>2015–16</item>
+        <item>2014–15</item>
     </string-array>
-
-
-    <string-array name="select_financial_year_village_wise">
-
-        <item>2019-20</item>
-        <item>2018-19</item>
-        <item>2017-18</item>
-        <item>2016-17</item>
-
-    </string-array>
-
 
     <string-array name="select_season">
 
@@ -311,23 +299,12 @@
 
     </string-array>
 
-
-    <string-array name="select_calamity_type_village_wise">
-
-        <item>Desiliting</item>
-        <item>Drought</item>
-        <item>Flood</item>
-        <item>Landslide</item>
-        <item>PEST</item>
-    </string-array>
-
-
     <string-array name="select_calamity_type">
-
         <item>Desiliting</item>
         <item>Drought</item>
         <item>Flood</item>
         <item>Landslide</item>
+        <item>HailstormOrHeavryRains</item>
     </string-array>
 
     <string name="aadhaar_err">Aadhar Error</string>

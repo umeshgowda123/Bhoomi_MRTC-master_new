@@ -25,6 +25,8 @@ public class LandConversionFinalOrdersAdapter extends RecyclerView.Adapter<LandC
 
     List<GetLandConversionFinalOrders_Table> list ;
     ConversionFinalOrders_BasedOnReq_ID activity;
+    String returnPage, req_id;
+    String baseUrl;
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -44,6 +46,23 @@ public class LandConversionFinalOrdersAdapter extends RecyclerView.Adapter<LandC
         viewHolder.tvTypeOfConverSion.setText(list.get(i).getTypeOfConv());
         viewHolder.tvStatus.setText(list.get(i).getWFL_STG());
 
+        viewHolder.ivFinalOrder.setOnClickListener(v -> {
+
+            req_id = list.get(i).getREQ_ID();
+            returnPage = list.get(i).getReturnPage();
+            Log.d("returnPage",""+returnPage);
+            Log.d("IDDDDD",""+req_id);
+
+            baseUrl = "https://landrecords.karnataka.gov.in/service99/"+returnPage+"?REQ_ID=";
+            Log.d("baseUrl",""+baseUrl);
+
+            Intent intent = new Intent(activity, Endorsement_ReportWebView.class);
+            intent.putExtra("REQ_ID",""+ req_id);
+            intent.putExtra("baseUrl", ""+ baseUrl);
+            activity.startActivity(intent);
+
+        });
+
     }
 
     @Override
@@ -62,6 +81,7 @@ public class LandConversionFinalOrdersAdapter extends RecyclerView.Adapter<LandC
         TextView tvSurveydNo;
         TextView tvTypeOfConverSion;
         TextView tvStatus;
+        TextView tvReturnPage;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,6 +94,7 @@ public class LandConversionFinalOrdersAdapter extends RecyclerView.Adapter<LandC
             tvSurveydNo = itemView.findViewById(R.id.tvSurveydNo);
             tvTypeOfConverSion = itemView.findViewById(R.id.tvTypeOfConverSion);
             tvStatus = itemView.findViewById(R.id.tvStatus);
+            tvReturnPage = itemView.findViewById(R.id.tvReturnPage);
 
         }
     }

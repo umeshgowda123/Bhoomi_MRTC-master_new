@@ -73,6 +73,7 @@ public class ShowIndividualPariharaDetailsReport extends AppCompatActivity {
     private void showData(String pariharaqResponsedata) {
         try {
 
+            Log.d("Result_11",""+pariharaqResponsedata);
             XmlToJson xmlToJson = new XmlToJson.Builder(pariharaqResponsedata.replace("\\r\\n", "").trim()).build();
             String formatted = xmlToJson.toFormattedString().replace("\n", "");
             JSONObject responseObject = new JSONObject(formatted);

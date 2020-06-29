@@ -29,23 +29,10 @@
 -printusage unused.txt
 -printmapping mapping.txt
 
--keep class com.example.datamodel.** { *; }
 -keepattributes Signature
 -keepattributes Annotation
--keep class retrofit.** { *; }
--keepclasseswithmembers class * {
-    @retrofit.http.* <methods>;
-}
--keep class okhttp3.** { *; }
--keep interface okhttp3.** { *; }
+
 -keep class org.xmlpull.v1.* {*;}
--keep class sun.misc.Unsafe { *; }
--keep class com.google.gson.stream.** { *; }
--keep interface org.parceler.Parcel
--keep @org.parceler.Parcel class * { *; }
--keep class **$$Parcelable { *; }
--keepclassmembers class com.codepath.model** { <fields>; }
--keepclassmembers class com.codepath.adapter** { <fields>; }
 -keepattributes Exceptions
 
 -dontwarn java.lang.invoke.*
