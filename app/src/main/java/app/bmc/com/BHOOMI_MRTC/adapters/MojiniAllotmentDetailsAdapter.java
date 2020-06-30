@@ -3,7 +3,6 @@ package app.bmc.com.BHOOMI_MRTC.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,15 +12,12 @@ import java.util.List;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.model.MojiniAllotementDetailsTable;
-import app.bmc.com.BHOOMI_MRTC.screens.Mojini_Allotment_Details_BasedOnAppNo;
 
 public class MojiniAllotmentDetailsAdapter extends RecyclerView.Adapter<MojiniAllotmentDetailsAdapter.ViewHolder>{
     private List<MojiniAllotementDetailsTable> list;
-    private Mojini_Allotment_Details_BasedOnAppNo activity;
 
-    public MojiniAllotmentDetailsAdapter(List<MojiniAllotementDetailsTable> allotementDetailsTableList, Mojini_Allotment_Details_BasedOnAppNo mojini_allotment_details_basedOnAppNo) {
+    public MojiniAllotmentDetailsAdapter(List<MojiniAllotementDetailsTable> allotementDetailsTableList) {
         this.list = allotementDetailsTableList;
-        this.activity = mojini_allotment_details_basedOnAppNo;
     }
 
     @NonNull
@@ -52,19 +48,19 @@ public class MojiniAllotmentDetailsAdapter extends RecyclerView.Adapter<MojiniAl
         return list.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvDistName;
-        public TextView tvTalukaName;
-        public TextView tvHobliiName;
-        public TextView tvVillageName;
-        public TextView tvAppNo;
-        public TextView tvTypeOfApp;
-        public TextView tvApplAllottedTo;
-        public TextView tvApplCreatedDate;
-        public TextView tvAllottedDate;
-        public TextView tvCompletionDate;
-        public TextView tvtypofAppNm;
-        public TextView tvSurveyNum;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView tvDistName;
+        TextView tvTalukaName;
+        TextView tvHobliiName;
+        TextView tvVillageName;
+        TextView tvAppNo;
+        TextView tvTypeOfApp;
+        TextView tvApplAllottedTo;
+        TextView tvApplCreatedDate;
+        TextView tvAllottedDate;
+        TextView tvCompletionDate;
+        TextView tvtypofAppNm;
+        TextView tvSurveyNum;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

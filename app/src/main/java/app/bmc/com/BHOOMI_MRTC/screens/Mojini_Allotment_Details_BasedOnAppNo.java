@@ -77,7 +77,7 @@ public class Mojini_Allotment_Details_BasedOnAppNo extends AppCompatActivity {
                 } else {
                     allotementDetailsTableList.size();
                     Log.d("allotementDetailslist",allotementDetailsTableList.size()+"");
-                    MojiniAllotmentDetailsAdapter adapter = new MojiniAllotmentDetailsAdapter(allotementDetailsTableList,this);
+                    MojiniAllotmentDetailsAdapter adapter = new MojiniAllotmentDetailsAdapter(allotementDetailsTableList);
                     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                     rvAllotmentDetail.setLayoutManager(mLayoutManager);
                     rvAllotmentDetail.setItemAnimator(new DefaultItemAnimator());

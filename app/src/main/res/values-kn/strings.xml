@@ -357,12 +357,11 @@
     <string name="transaction_report">ವಹಿವಾಟು ವರದಿ</string>
     <string name="land_conversion_final_orders">ಭೂ ಪರಿವರ್ತನೆ ಅಂತಿಮ ಆದೇಶಗಳು</string>
     <string name="final_order">ಅಂತಿಮ ಆದೇಶ</string>
+
     <string name="sketch">Sketch</string>
     <string name="sketch_report_view">Sketch Report View</string>
     <string name="application_id">Application ID</string>
     <string name="application_type">Application Type</string>
-
-
     <string name="application_status">Application Status</string>
     <string name="allotment_details">Allotment Details</string>
     <string name="enter_application_number">Enter Application Number</string>

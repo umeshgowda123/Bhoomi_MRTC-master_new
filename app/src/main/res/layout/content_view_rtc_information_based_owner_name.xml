@@ -35,6 +35,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:paddingBottom="10dp"
                     android:background="@drawable/linear_layout_boarder"
                     android:orientation="vertical"
                     tools:context=".screens.ViewRtcInformation"

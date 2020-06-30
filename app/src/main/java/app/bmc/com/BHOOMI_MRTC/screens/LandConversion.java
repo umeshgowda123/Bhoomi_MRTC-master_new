@@ -65,7 +65,7 @@ public class LandConversion extends AppCompatActivity {
         }
 
         etRadioText = findViewById(R.id.etRadioText);
-        btnFetchReports = findViewById(R.id.btnFetchReports);
+        btnFetchReports = findViewById(R.id.btnSubmit);
         rb_AffidavitID = findViewById(R.id.rb_AffidavitID);
         rb_UserID = findViewById(R.id.rb_UserID);
 

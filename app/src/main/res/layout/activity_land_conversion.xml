@@ -58,99 +58,92 @@
         android:background="@android:color/white"
         android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_heading"
-            app:cardCornerRadius="1dp"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp">
+            android:paddingBottom="10dp"
+            android:background="@drawable/linear_layout_boarder"
+            android:orientation="vertical"
+            tools:context=".screens.ViewRtcInformation"
+            tools:showIn="@layout/activity_view_rtc_information">
 
-                <TextView
-                    android:id="@+id/tv_heading"
-                    android:layout_width="match_parent"
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="24dp"
+                android:background="#5cb85c"
+                android:padding="8dp"
+                android:text="@string/land_conversion_report"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="24sp" />
+
+
+            <RadioGroup
+                android:id="@+id/rgForSelection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical">
+
+
+                <RadioButton
+                    android:id="@+id/rb_AffidavitID"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorTitleBackground"
-                    android:fontFamily="@fonts/custom_font"
-                    android:padding="5dp"
-                    android:text="@string/land_conversion_report"
-                    android:textAlignment="center"
+                    android:checked="true"
+                    android:padding="10dp"
+                    android:text="@string/affidavit_id"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/colorTitleForeground" />
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="16sp" />
 
-        </androidx.cardview.widget.CardView>
+                <RadioButton
+                    android:id="@+id/rb_UserID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="@string/user_id"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="16sp" />
 
+            </RadioGroup>
 
-        <RadioGroup
-            android:id="@+id/rgForSelection"
-            android:layout_below="@+id/cv_heading"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
-
-
-            <RadioButton
-                android:id="@+id/rb_AffidavitID"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/etRadioText"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:checked="true"
-                android:padding="10dp"
-                android:text="@string/affidavit_id"
-                android:textColor="@android:color/background_dark"
-                android:textSize="16sp"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:autofillHints="Enter Affidavit Number"
+                android:background="@drawable/edit_text_bg"
+                android:hint="@string/enter_affidavit_id"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:lines="1"
+                android:maxLength="20"
+                android:padding="8dp"
+                android:singleLine="true"
+                android:textAllCaps="true" />
 
-
-            <RadioButton
-                android:id="@+id/rb_UserID"
-                android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="@string/user_id"
-                android:textColor="@android:color/background_dark"
-                android:textSize="16sp"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/btn_go"
+                android:text="@string/btnSubmit"
+                android:textColor="@android:color/white" />
 
-
-        </RadioGroup>
-
-        <EditText
-            android:id="@+id/etRadioText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/rgForSelection"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
-            android:autofillHints="Enter Affidavit Number"
-            android:background="@drawable/edit_text_bg"
-            android:hint="@string/enter_affidavit_id"
-            android:imeOptions="actionDone"
-            android:inputType="number"
-            android:lines="1"
-            android:maxLength="20"
-            android:padding="8dp"
-            android:singleLine="true"
-            android:textAllCaps="true" />
-
-        <Button
-            android:id="@+id/btnFetchReports"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="10dp"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/round"
-            android:text="@string/clws_tetch_reports"
-            android:textAlignment="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/white"
-            android:textSize="17sp" />
-
+        </LinearLayout>
     </RelativeLayout>
     </ScrollView>
 </LinearLayout>

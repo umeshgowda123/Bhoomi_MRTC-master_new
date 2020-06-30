@@ -1,46 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="#FFFFFF"
     android:paddingTop="10dp"
     android:fillViewport="true">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@android:color/white"
+        android:paddingBottom="10dp"
+        android:background="@drawable/title_shape"
         android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_heading"
-            cardCornerRadius="1dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp">
-
             <LinearLayout
+                android:id="@+id/cv_heading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/title_shape"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp">
 
                 <TextView
-                    android:id="@+id/tv_heading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorTitleBackground"
-                    android:fontFamily="@fonts/custom_font"
-                    android:padding="5dp"
+                    android:layout_margin="24dp"
+                    android:background="#5cb85c"
+                    android:padding="8dp"
                     android:text="@string/land_conversion_final_orders"
                     android:textAlignment="center"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/colorTitleForeground" />
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp" />
+
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
 
 
         <RadioGroup
@@ -215,21 +208,17 @@
 
         <Button
             android:id="@+id/btnDownloadOrder"
+            android:layout_below="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/linearLayout"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/round"
-            android:text="@string/btnfetch"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textSize="17sp"
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/btn_go"
+            android:text="@string/btnSubmit"
+            android:textColor="@android:color/white" />
     </RelativeLayout>
-
 </ScrollView>
 
 

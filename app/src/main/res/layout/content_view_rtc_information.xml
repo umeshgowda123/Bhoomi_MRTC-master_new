@@ -37,6 +37,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/linear_layout_boarder"
                     android:orientation="vertical"
+                    android:paddingBottom="10dp"
                     tools:context=".screens.ViewRtcInformation"
                     tools:showIn="@layout/activity_view_rtc_information">
 
