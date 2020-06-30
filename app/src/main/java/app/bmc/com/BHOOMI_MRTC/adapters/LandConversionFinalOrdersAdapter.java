@@ -49,11 +49,11 @@ public class LandConversionFinalOrdersAdapter extends RecyclerView.Adapter<LandC
         viewHolder.ivFinalOrder.setOnClickListener(v -> {
 
             req_id = list.get(i).getREQ_ID();
-            returnPage = list.get(i).getReturnPage();
+            returnPage = list.get(0).getReturnPage();
             Log.d("returnPage",""+returnPage);
             Log.d("IDDDDD",""+req_id);
 
-            baseUrl = "https://landrecords.karnataka.gov.in/service99/"+returnPage+"?REQ_ID=";
+            baseUrl = "https://landrecords.karnataka.gov.in/service99/"+returnPage+"?ReqId=";
             Log.d("baseUrl",""+baseUrl);
 
             Intent intent = new Intent(activity, Endorsement_ReportWebView.class);
