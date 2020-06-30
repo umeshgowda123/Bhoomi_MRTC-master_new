@@ -130,7 +130,7 @@
                         android:layout_height="wrap_content"
                         android:maxLines="1"
                         android:maxLength="12"
-                        android:inputType="number"
+                        android:inputType="numberPassword"
                         android:layout_marginLeft="24dp"
                         android:layout_marginRight="24dp"
                         android:layout_marginTop="10dp"

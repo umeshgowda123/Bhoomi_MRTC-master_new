@@ -492,7 +492,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
         formatted = formatted.replace("</Details", "");
 
         Log.d("DATA", formatted);
-        if (formatted.equals("<MutationStatus>Details not found</MutationStatus>")) {
+        if (formatted.contains("Details not found")) {
             formatted = formatted.replace("<MutationStatus>", "");
             formatted = formatted.replace("</MutationStatus>", "");
             Log.d("formatted_DATA", "" + formatted);

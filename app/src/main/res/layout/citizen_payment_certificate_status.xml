@@ -81,7 +81,7 @@
                 android:layout_marginTop="10dp"
                 android:hint="@string/clws_aadhar_edittext"
                 android:background="@drawable/edit_text_bg"
-                android:inputType="textCapCharacters"
+                android:inputType="numberPassword"
                 android:maxLength="20"
                 android:singleLine="true"
                 android:padding="8dp"

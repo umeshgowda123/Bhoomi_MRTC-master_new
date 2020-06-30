@@ -129,7 +129,7 @@
             android:background="@drawable/edit_text_bg"
             android:hint="@string/enter_affidavit_id"
             android:imeOptions="actionDone"
-            android:inputType="textCapCharacters"
+            android:inputType="number"
             android:lines="1"
             android:maxLength="20"
             android:padding="8dp"

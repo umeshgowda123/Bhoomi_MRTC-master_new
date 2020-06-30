@@ -75,7 +75,7 @@
             android:imeOptions="actionDone"
             android:maxLength="20"
             android:lines="1"
-            android:inputType="textCapCharacters"
+            android:inputType="numberPassword"
             android:textAllCaps="true"
             android:singleLine="true"
             android:padding="8dp"
