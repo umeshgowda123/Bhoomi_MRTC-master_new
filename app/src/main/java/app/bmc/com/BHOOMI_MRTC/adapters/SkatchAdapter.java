@@ -2,7 +2,6 @@ package app.bmc.com.BHOOMI_MRTC.adapters;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,20 +12,13 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import app.bmc.com.BHOOMI_MRTC.R;
-
-import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
 import app.bmc.com.BHOOMI_MRTC.model.PhodySketch;
-import app.bmc.com.BHOOMI_MRTC.screens.Sketch;
-import retrofit2.Callback;
-
 
 public class SkatchAdapter extends RecyclerView.Adapter<SkatchAdapter.ViewHolder> {
     private List<PhodySketch> list ;
-    private Sketch activity;
 
     @NonNull
     @Override
@@ -38,6 +30,18 @@ public class SkatchAdapter extends RecyclerView.Adapter<SkatchAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String imgres = list.get(position).getImage();
+        Log.d("img_11",""+imgres);
+        if (imgres!=null) {
+            imgres = imgres.replace("data:image/png;base64,", "");
+            Log.d("img_11", "" + imgres);
+
+            byte[] im_bytes = Base64.decode(imgres, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(im_bytes, 0, im_bytes.length);
+            Log.d("bitmap",bitmap+"");
+
+            holder.sketch.setImageBitmap(bitmap);
+        }
+
     }
 
     @Override
@@ -52,8 +56,7 @@ public class SkatchAdapter extends RecyclerView.Adapter<SkatchAdapter.ViewHolder
             sketch = itemView.findViewById(R.id.sketch);
         }
     }
-    public SkatchAdapter(List<PhodySketch> list, Sketch activity) {
+    public SkatchAdapter(List<PhodySketch> list) {
         this.list = list;
-        this.activity = (Sketch) activity;
     }
 }

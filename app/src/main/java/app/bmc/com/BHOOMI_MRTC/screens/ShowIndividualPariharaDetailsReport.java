@@ -123,8 +123,8 @@ public class ShowIndividualPariharaDetailsReport extends AppCompatActivity {
             rvPariharaDetails.setAdapter(cadapter);
 
         }
-        if (myPaymentList.size() > 0) {
-            cpaymentAdapter = new IndividualPariharaPayementAdapter(myPaymentList, this);
+        if (myPariharaList.size() > 0 && myPaymentList.size() > 0) {
+            cpaymentAdapter = new IndividualPariharaPayementAdapter(myPariharaList, myPaymentList, this);
             RecyclerView.LayoutManager pmLayoutManager = new LinearLayoutManager(getApplicationContext());
             rvPaymentDetails.setLayoutManager(pmLayoutManager);
             rvPaymentDetails.setItemAnimator(new DefaultItemAnimator());

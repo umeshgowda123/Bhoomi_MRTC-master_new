@@ -83,7 +83,7 @@
                 android:maxLength="20"
                 android:background="@drawable/edit_text_bg"
                 android:hint="@string/clws_aadhar_edittext"
-                android:inputType="textCapCharacters"
+                android:inputType="numberPassword"
                 android:imeOptions="actionDone"
                 android:maxLines="1"
                 android:padding="8dp"

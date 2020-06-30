@@ -115,7 +115,7 @@ public class Sketch extends AppCompatActivity {
                                 alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
                             } else {
 
-                                SkatchAdapter adapter = new SkatchAdapter(PhodySketch,Sketch.this);
+                                SkatchAdapter adapter = new SkatchAdapter(PhodySketch);
                                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                                 rvSketch.setLayoutManager(mLayoutManager);
                                 rvSketch.setItemAnimator(new DefaultItemAnimator());

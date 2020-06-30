@@ -199,7 +199,7 @@
     <string name="clws_services">ಬೆಳೆ ಸಾಲ ಮನ್ನಾ ಸೇವೆಗಳು</string>
     <string name="rtc_services">ಆರ್ಟಿಸಿ ಸೇವೆಗಳು</string>
     <string name="parihara_details_individual">ಪರಿಹಾರ ವಿವರಗಳು - ವೈಯಕ್ತಿಕ</string>
-    <string name="p_benificary_details_vlg_wise">Parihara Beneficiary Paid Details- Village Wise</string>
+    <string name="p_benificary_details_vlg_wise">ಪರಿಹಾರ ಪಾವತಿಸಿದ ಫಲಾನುಭವಿ  ವಿವರಗಳು- ಗ್ರಾಮವಾರು</string>
     <string name="p_benificary_details_land_wise">ಪರಿಹಾರ ಫಲಾನುಭವಿ ವಿವರಗಳು - ಭೂಮಿವಾರು</string>
     <string name="calamity">ವಿಪತ್ತು</string>
     <string name="beneficiary_details">ಫಲಾನುಭವಿ ವಿವರಗಳು</string>
@@ -218,13 +218,13 @@
     <string name="calamity_error">ವಿಪತ್ತು ಆಯ್ಕೆಮಾಡಿ</string>
 
     <string-array name="select_financial_year">
-        <item>2020–21</item>
-        <item>2019–20</item>
-        <item>2018–19</item>
-        <item>2017–18</item>
-        <item>2016–17</item>
-        <item>2015–16</item>
-        <item>2014–15</item>
+        <item>2020-21</item>
+        <item>2019-20</item>
+        <item>2018-19</item>
+        <item>2017-18</item>
+        <item>2016-17</item>
+        <item>2015-16</item>
+        <item>2014-15</item>
     </string-array>
 
     <string-array name="select_season">
@@ -238,10 +238,11 @@
     <string name="calamity_err">ವಿಪತ್ತು ಆಯ್ಕೆಮಾಡಿ</string>
 
     <string-array name="select_calamity_type">
-        <item>ಡೆಸಿಲೈಟಿಂಗ್</item>
-        <item>ಬರ</item>
-        <item>ಪ್ರವಾಹ</item>
-        <item>ಭೂಕುಸಿತ</item>
+        <item>Drought</item>
+        <item>Flood</item>
+        <item>PEST</item>
+        <item>Desilting</item>
+        <item>Landslide</item>
         <item>HailstormOrHeavryRains</item>
     </string-array>
 
