@@ -241,6 +241,7 @@ public class PariharaIndividualDetailsResponse {
     }
 
 
+//-----------------------------------------SUS 12:36 P.M 29/06/20----------------------------------
 
     @SerializedName("GetSketchDetailsDetailsBasedOnAppNoResult")
     @Expose
@@ -253,4 +254,31 @@ public class PariharaIndividualDetailsResponse {
     public void setGetSketchDetailsDetailsBasedOnAppNoResult(String getSketchDetailsDetailsBasedOnAppNoResult) {
         this.getSketchDetailsDetailsBasedOnAppNoResult = getSketchDetailsDetailsBasedOnAppNoResult;
     }
+//-----------------------------------------SUS 12:56 P.M 30/06/20----------------------------------
+    @SerializedName("GetApplicationStatusBasedonAppNoResult")
+    @Expose
+    private String getApplicationStatusBasedonAppNoResult;
+
+    public String getGetApplicationStatusBasedonAppNoResult() {
+        return getApplicationStatusBasedonAppNoResult;
+    }
+
+    public void setGetApplicationStatusBasedonAppNoResult(String getApplicationStatusBasedonAppNoResult) {
+        this.getApplicationStatusBasedonAppNoResult = getApplicationStatusBasedonAppNoResult;
+    }
+
+                        //-------------------- 1:06 P.M--------------
+
+    @SerializedName("GetAllotmentDetailsBasedOnAppNoResult")
+    @Expose
+    private String getAllotmentDetailsBasedOnAppNoResult;
+
+    public String getGetAllotmentDetailsBasedOnAppNoResult() {
+        return getAllotmentDetailsBasedOnAppNoResult;
+    }
+
+    public void setGetAllotmentDetailsBasedOnAppNoResult(String getAllotmentDetailsBasedOnAppNoResult) {
+        this.getAllotmentDetailsBasedOnAppNoResult = getAllotmentDetailsBasedOnAppNoResult;
+    }
+
 }

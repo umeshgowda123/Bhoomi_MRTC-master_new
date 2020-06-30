@@ -143,4 +143,15 @@ public interface PariharaIndividualReportInteface {
     Call<PariharaIndividualDetailsResponse> getSketchDetailsDetailsBasedOnAppNo(@Path("pstrUserName") String pstrUserName, @Path("pStrPassword") String pStrPassword,
                                                                                       @Path("pApplicationNo") String pApplicationNo, @Path("ApplicationType") String ApplicationType);
 
+//-----------------------------------------SUS 12:30 P.M 30/06/20----------------------------------
+
+    @Headers({"content-type: text/json; charset=utf-8"})
+    @POST("GetApplicationStatusBasedonAppNo/{pstrUserName}/{pStrPassword}/{pApplicationNo}")
+    Call<PariharaIndividualDetailsResponse> getApplicationStatusBasedonAppNo(@Path("pstrUserName") String pstrUserName, @Path("pStrPassword") String pStrPassword,
+                                                                                @Path("pApplicationNo") String pApplicationNo);
+    @Headers({"content-type: text/json; charset=utf-8"})
+    @POST("GetAllotmentDetailsBasedOnAppNo/{pstrUserName}/{pStrPassword}/{pApplicationNo}")
+    Call<PariharaIndividualDetailsResponse> getAllotmentDetailsBasedOnAppNo(@Path("pstrUserName") String pstrUserName, @Path("pStrPassword") String pStrPassword,
+                                                                                @Path("pApplicationNo") String pApplicationNo);
+
 }

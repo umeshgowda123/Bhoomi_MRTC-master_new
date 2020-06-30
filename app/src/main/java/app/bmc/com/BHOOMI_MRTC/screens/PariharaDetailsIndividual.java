@@ -176,7 +176,6 @@ public class PariharaDetailsIndividual extends AppCompatActivity {
                                     }
                                 }
                             }
-
                             @Override
                             public void onFailure(Call<PariharaIndividualDetailsResponse> call, Throwable t) {
                                 call.cancel();

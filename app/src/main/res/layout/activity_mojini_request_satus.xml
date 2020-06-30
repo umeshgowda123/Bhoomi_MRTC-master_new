@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -23,8 +24,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 >
-
-
                 <TextView
                     android:id="@+id/tvSetTite"
                     android:layout_width="wrap_content"
@@ -40,6 +39,121 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
+        tools:context=".screens.RtcDetails"
+        tools:showIn="@layout/activity_view_rtc_information">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="UselessParent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/linear_layout_boarder"
+                    android:orientation="vertical"
+                    tools:context=".screens.ViewRtcInformation"
+                    tools:showIn="@layout/activity_view_rtc_information">
+
+
+                    <TextView
+                        android:id="@+id/tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="24dp"
+                        android:background="#5cb85c"
+                        android:padding="8dp"
+                        android:text="@string/view_mojini_request_status"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white"
+                        android:textSize="24sp" />
+
+
+                    <RadioGroup
+                        android:id="@+id/rgForSelection"
+                        android:layout_below="@+id/tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+
+                        <RadioButton
+                            android:id="@+id/rb_App_Status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:padding="10dp"
+                            android:text="@string/application_status"
+                            android:textColor="@android:color/background_dark"
+                            android:textSize="16sp"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+                        <RadioButton
+                            android:id="@+id/rb_Allotment_Details"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="@string/allotment_details"
+                            android:textColor="@android:color/background_dark"
+                            android:textSize="16sp"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+                    </RadioGroup>
+
+                    <EditText
+                        android:id="@+id/etText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/rgForSelection"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="20dp"
+                        android:autofillHints="Enter Affidavit Number"
+                        android:background="@drawable/edit_text_bg"
+                        android:hint="@string/enter_application_number"
+                        android:imeOptions="actionDone"
+                        android:inputType="textCapCharacters"
+                        android:lines="1"
+                        android:maxLength="20"
+                        android:padding="8dp"
+                        android:singleLine="true"
+                        android:textAllCaps="true" />
+
+                    <Button
+                        android:id="@+id/btnSubmit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="24dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@color/btn_go"
+                        android:text="@string/btnSubmit"
+                        android:textColor="@android:color/white" />
+
+                </LinearLayout>
+            </RelativeLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
 
 
 </LinearLayout>

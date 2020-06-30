@@ -95,12 +95,6 @@ public class MojiniPhodySketch extends AppCompatActivity {
                         intent.putExtra("etAppId", etAppId+"");
                         intent.putExtra("sp_AppType", sp_AppType+"");
                         startActivity(intent);
-
-
-
-
-
-
                     } else {
                         Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
                     }

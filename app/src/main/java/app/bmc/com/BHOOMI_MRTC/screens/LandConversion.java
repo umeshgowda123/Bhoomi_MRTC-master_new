@@ -78,14 +78,13 @@ public class LandConversion extends AppCompatActivity {
                 rb_UserID.setChecked(false);
             }
         });
-//
+
         rb_UserID.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 etRadioText.setVisibility(View.VISIBLE);
                 etRadioText.setEnabled(true);
                 etRadioText.setHint(R.string.enter_user_ID);
                 etRadioText.setInputType(InputType.TYPE_CLASS_NUMBER);
-                etRadioText.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
                 etRadioText.setText("");
                 rb_AffidavitID.setChecked(false);
             }
