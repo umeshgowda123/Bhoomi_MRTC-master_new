@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -22,11 +21,10 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONArray;
 
 import java.util.List;
+import java.util.Objects;
 
 import app.bmc.com.BHOOMI_MRTC.R;
-import app.bmc.com.BHOOMI_MRTC.adapters.LandConversionBasedOnAffidavitAdapter;
 import app.bmc.com.BHOOMI_MRTC.adapters.MojiniAllotmentDetailsAdapter;
-import app.bmc.com.BHOOMI_MRTC.model.Afdvt_ReqSts_BasedOnAfdvtIdTable;
 import app.bmc.com.BHOOMI_MRTC.model.MojiniAllotementDetailsTable;
 
 public class Mojini_Allotment_Details_BasedOnAppNo extends AppCompatActivity {
@@ -40,9 +38,9 @@ public class Mojini_Allotment_Details_BasedOnAppNo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mojini_allotment_details_basedonappno);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -90,7 +88,7 @@ public class Mojini_Allotment_Details_BasedOnAppNo extends AppCompatActivity {
                 Log.d("ExceptionSUS", e + "");
             }
         } else {
-            Toast.makeText(getApplicationContext(), "Null", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "No Details Found", Toast.LENGTH_SHORT).show();
         }
 
     }

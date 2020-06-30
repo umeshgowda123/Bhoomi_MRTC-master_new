@@ -13,6 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.util.Objects;
+
 import app.bmc.com.BHOOMI_MRTC.R;
 
 public class Mojini_Application_Status_BasedOnAppNo extends AppCompatActivity {
@@ -25,9 +27,9 @@ public class Mojini_Application_Status_BasedOnAppNo extends AppCompatActivity {
         setContentView(R.layout.activity_mojini_application_status_basedonappno);
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -44,7 +46,7 @@ public class Mojini_Application_Status_BasedOnAppNo extends AppCompatActivity {
         if(app_Status_ResponseData != null) {
             tvAppStatus.setText(app_Status_ResponseData);
         } else {
-            Toast.makeText(getApplicationContext(), "Null", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "No Status Found", Toast.LENGTH_SHORT).show();
         }
 
     }

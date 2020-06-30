@@ -25,6 +25,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.api.PariharaIndividualReportInteface;
 import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
@@ -49,9 +51,9 @@ public class MojiniRequestStatus extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mojini_request_satus);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -113,7 +115,7 @@ public class MojiniRequestStatus extends AppCompatActivity {
                                         Log.d("app_Status_ResponseData", ""+res);
 
                                         progressDialog.dismiss();
-                                        if(res == null || res.contains("Details not found")) {
+                                        if(res == null || res.contains("Details not found") || res.equals("")) {
                                             final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(MojiniRequestStatus.this, R.style.MyDialogTheme);
                                             builder.setTitle("STATUS")
                                                     .setMessage("No Data Found For this Record")
@@ -164,7 +166,7 @@ public class MojiniRequestStatus extends AppCompatActivity {
                                         Log.d("allotment_ResponseData", ""+res);
 
                                         progressDialog.dismiss();
-                                        if(res == null || res.contains("[{Details not found")) {
+                                        if(res == null || res.contains("Details not found") || res.equals("")) {
                                             final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(MojiniRequestStatus.this, R.style.MyDialogTheme);
                                             builder.setTitle("STATUS")
                                                     .setMessage("No Data Found For this Record")
