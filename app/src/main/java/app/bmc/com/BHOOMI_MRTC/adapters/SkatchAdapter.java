@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.github.chrisbanes.photoview.PhotoView;
+
 import java.util.List;
 
 import app.bmc.com.BHOOMI_MRTC.R;
@@ -39,7 +41,7 @@ public class SkatchAdapter extends RecyclerView.Adapter<SkatchAdapter.ViewHolder
             Bitmap bitmap = BitmapFactory.decodeByteArray(im_bytes, 0, im_bytes.length);
             Log.d("bitmap",bitmap+"");
 
-            holder.sketch.setImageBitmap(bitmap);
+            holder.pv_sketch.setImageBitmap(bitmap);
         }
 
     }
@@ -50,10 +52,10 @@ public class SkatchAdapter extends RecyclerView.Adapter<SkatchAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView sketch;
+        PhotoView pv_sketch;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            sketch = itemView.findViewById(R.id.sketch);
+            pv_sketch = itemView.findViewById(R.id.pv_sketch);
         }
     }
     public SkatchAdapter(List<PhodySketch> list) {

@@ -5,10 +5,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/pv_sketch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/sketch"
-        android:contentDescription="@string/img_desc" />
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:background="@drawable/linear_layout_boarder"/>
 
 </LinearLayout>

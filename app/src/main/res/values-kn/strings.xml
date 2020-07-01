@@ -3,7 +3,6 @@
     <string name="rtc_view_info_url"> https://www.landrecords.karnataka.gov.in/RWSROR/GETBhoomiCode/</string>
     <string name="rtc_xml_verification_url">https://landrecords.karnataka.gov.in/Service76/RTCXML.svc/</string>
     <string name="server_report_url">https://clws.karnataka.gov.in/Service4/BHOOMI/</string>
-
     <string name="app_name">Bhoomi</string>
     <string name="navigation_drawer_open">ನ್ಯಾವಿಗೇಷನ್ ಡ್ರಾಯರ್ ತೆರೆಯಿರಿ</string>
     <string name="navigation_drawer_close">ಸಂಚರಣೆ ಡ್ರಾಯರ್ ಮುಚ್ಚಿ</string>
@@ -357,7 +356,6 @@
     <string name="transaction_report">ವಹಿವಾಟು ವರದಿ</string>
     <string name="land_conversion_final_orders">ಭೂ ಪರಿವರ್ತನೆ ಅಂತಿಮ ಆದೇಶಗಳು</string>
     <string name="final_order">ಅಂತಿಮ ಆದೇಶ</string>
-
     <string name="sketch">ಸ್ಕೆಚ್</string>
     <string name="sketch_report_view">ಸ್ಕೆಚ್ ವರದಿ ವೀಕ್ಷಣೆ</string>
     <string name="application_id">ಅರ್ಜಿ ಸಂಖ್ಯೆ</string>

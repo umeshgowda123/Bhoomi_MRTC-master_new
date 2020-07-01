@@ -118,10 +118,10 @@ public class LandConversion extends AppCompatActivity {
                                         Log.d("AFFIDAVIT_ResponseData", ""+res);
 
                                         progressDialog.dismiss();
-                                        if(res == null || res.equals("[{\"Result\":\"Details not found\"}]")) {
+                                        if(res == null || res.contains("INVALID")) {
                                             final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversion.this, R.style.MyDialogTheme);
                                             builder.setTitle("STATUS")
-                                                    .setMessage("No Data Found For this Record")
+                                                    .setMessage("Invalid Affidavit ID")
                                                     .setIcon(R.drawable.ic_notifications_black_24dp)
                                                     .setCancelable(false)
                                                     .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
@@ -132,7 +132,6 @@ public class LandConversion extends AppCompatActivity {
                                             Intent intent = new Intent(LandConversion.this, LandConversionBasedOnAffidavit.class);
                                             intent.putExtra("AFFIDAVIT_ResponseData", res);
                                             intent.putExtra("AFFIDAVIT_ID", affidavitID);
-//                                            Log.d("put : ", res+" & "+affidavitID);
                                             startActivity(intent);
                                         }
                                     }
@@ -172,10 +171,10 @@ public class LandConversion extends AppCompatActivity {
                                         Log.d("USERID_ResponseData", ""+res);
 
                                         progressDialog.dismiss();
-                                        if(res == null || res.equals("[{\"Result\":\"Details not found\"}]")) {
+                                        if(res == null || res.contains("INVALID")) {
                                             final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversion.this, R.style.MyDialogTheme);
                                             builder.setTitle("STATUS")
-                                                    .setMessage("No Data Found For this Record")
+                                                    .setMessage("Invalid User ID")
                                                     .setIcon(R.drawable.ic_notifications_black_24dp)
                                                     .setCancelable(false)
                                                     .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
@@ -183,22 +182,19 @@ public class LandConversion extends AppCompatActivity {
                                             alert.show();
                                             alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
                                         } else {
+
                                             Intent intent = new Intent(LandConversion.this, LandConversionBasedOnUserId.class);
-                                            intent.putExtra("USERID_ResponseData", res);
                                             intent.putExtra("USER_ID", userID);
-                                            Log.d("put : ", res + " & " + userID);
                                             startActivity(intent);
                                         }
                                     }
                                 }
-
                                 @Override
                                 public void onFailure( @NotNull Call<PariharaIndividualDetailsResponse> call, @NotNull Throwable t) {
                                     call.cancel();
                                     progressDialog.dismiss();
                                 }
                             });
-
                         } else {
                             Toast.makeText(LandConversion.this, "Pleae enter User ID", Toast.LENGTH_SHORT).show();
                         }
