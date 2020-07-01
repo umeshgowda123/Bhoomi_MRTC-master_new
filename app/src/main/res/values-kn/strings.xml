@@ -358,17 +358,17 @@
     <string name="land_conversion_final_orders">ಭೂ ಪರಿವರ್ತನೆ ಅಂತಿಮ ಆದೇಶಗಳು</string>
     <string name="final_order">ಅಂತಿಮ ಆದೇಶ</string>
 
-    <string name="sketch">Sketch</string>
-    <string name="sketch_report_view">Sketch Report View</string>
-    <string name="application_id">Application ID</string>
-    <string name="application_type">Application Type</string>
-    <string name="application_status">Application Status</string>
-    <string name="allotment_details">Allotment Details</string>
-    <string name="enter_application_number">Enter Application Number</string>
-    <string name="type_of_application">Type Of Application</string>
-    <string name="applicatio_allotted_to">Applicatio Allotted To</string>
-    <string name="allotted_date">Allotted Date</string>
-    <string name="completion_date">Completion Date</string>
-    <string name="type_of_application_num">Type Of Application Num</string>
-    <string name="application_created_date">Application Created Date</string>
+    <string name="sketch">ಸ್ಕೆಚ್</string>
+    <string name="sketch_report_view">ಸ್ಕೆಚ್ ವರದಿ ವೀಕ್ಷಣೆ</string>
+    <string name="application_id">ಅರ್ಜಿ ಸಂಖ್ಯೆ</string>
+    <string name="application_type">ಅರ್ಜಿ ವಾರು</string>
+    <string name="application_status">ಅರ್ಜಿ ಸ್ಥಿತಿ</string>
+    <string name="allotment_details">ಹಂಚಿಕೆ ವಿವರಗಳು</string>
+    <string name="enter_application_number">ಅರ್ಜಿ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ</string>
+    <string name="type_of_application">ಅರ್ಜಿಯ ವಿಧ</string>
+    <string name="applicatio_allotted_to">ಅರ್ಜಿ ಹಂಚಿಕೆಯಾದ</string>
+    <string name="allotted_date">ಹಂಚಿಕೆಯಾದ ದಿನಾಂಕ</string>
+    <string name="completion_date">ಪೂರ್ಣಗೊಳ್ಳುವ ದಿನಾಂಕ</string>
+    <string name="type_of_application_num">ಅರ್ಜಿ ಸಂಖ್ಯೆಯ ವಿಧ</string>
+    <string name="application_created_date">ಅರ್ಜಿ ಸೃಜನೆಯಾದ ದಿನಾಂಕ</string>
 </resources>
