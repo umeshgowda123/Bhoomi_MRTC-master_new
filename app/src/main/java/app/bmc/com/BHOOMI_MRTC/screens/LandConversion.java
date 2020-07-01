@@ -11,7 +11,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
@@ -84,7 +83,7 @@ public class LandConversion extends AppCompatActivity {
                 etRadioText.setVisibility(View.VISIBLE);
                 etRadioText.setEnabled(true);
                 etRadioText.setHint(R.string.enter_user_ID);
-                etRadioText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                etRadioText.setInputType(InputType.TYPE_CLASS_TEXT);
                 etRadioText.setText("");
                 rb_AffidavitID.setChecked(false);
             }

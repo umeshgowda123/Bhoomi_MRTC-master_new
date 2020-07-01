@@ -17,8 +17,8 @@ android {
         applicationId "app.bmc.com.BHOOMI_MRTC"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 3
-        versionName "1.0"
+        versionCode 4
+        versionName "2.0"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
