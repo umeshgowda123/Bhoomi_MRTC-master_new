@@ -259,10 +259,8 @@ public class CitizenPaymentCertificatePacsActivity extends AppCompatActivity {
         AlertDialog alertDialog = new AlertDialog.Builder(CitizenPaymentCertificatePacsActivity.this).create();
         // alertDialog.setTitle("Reset...");
         alertDialog.setMessage("Please Enable Internet Connection");
-        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE,"OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                progressDialog.dismiss();//----------SUSMITA----------
-            } });
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE,"OK", (dialog, which) -> {
+        });
         alertDialog.show();
     }
 

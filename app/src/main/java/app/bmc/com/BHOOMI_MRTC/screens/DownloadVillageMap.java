@@ -397,10 +397,8 @@ public class DownloadVillageMap extends AppCompatActivity {
         AlertDialog alertDialog = new AlertDialog.Builder(DownloadVillageMap.this).create();
         // alertDialog.setTitle("Reset...");
         alertDialog.setMessage("Please Enable Internet Connection");
-        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "OK", (dialog, which) -> {
 
-            }
         });
         alertDialog.show();
     }
