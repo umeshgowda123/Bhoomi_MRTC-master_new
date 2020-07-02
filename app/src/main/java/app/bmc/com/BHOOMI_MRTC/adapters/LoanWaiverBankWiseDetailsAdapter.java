@@ -51,6 +51,8 @@ public class LoanWaiverBankWiseDetailsAdapter extends RecyclerView.Adapter<LoanW
         public TextView tvLWTranPendingDue;
         public TextView tvLWRationCardMismatch;
 
+        public TextView tvLWPercentage;
+
 
         public MyViewHolder(View view) {
             super(view);
@@ -72,6 +74,7 @@ public class LoanWaiverBankWiseDetailsAdapter extends RecyclerView.Adapter<LoanW
             tvLWPaidLoanAmount = view.findViewById(R.id.tvLWPaidLoanAmount);
             tvLWTranPendingDue = view.findViewById(R.id.tvLWTranPendingDue);
             tvLWRationCardMismatch = view.findViewById(R.id.tvLWRationCardMismatch);
+            tvLWPercentage = view.findViewById(R.id.tvLWPercentage);
         }
 
     }
@@ -111,6 +114,7 @@ public class LoanWaiverBankWiseDetailsAdapter extends RecyclerView.Adapter<LoanW
 
             holder. tvLWTranPendingDue.setText(clist.get(position).getCoopCommon());
             holder. tvLWRationCardMismatch.setText(clist.get(position).getAuthenticationFailed());
+            holder.tvLWPercentage.setText(clist.get(position).getPerc());
         }
 
     }

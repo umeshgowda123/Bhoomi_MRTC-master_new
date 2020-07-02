@@ -55,9 +55,10 @@ public class MutationStatusAdapter extends RecyclerView.Adapter<MutationStatusAd
             Toast.makeText(activity, "No Data Found!", Toast.LENGTH_SHORT).show();
         }else
         {
+            String str = "["+clist.get(position).getMUTAION_STATUS_ENG()+"]";
             myViewHolder.tvYear.setText(clist.get(position).getYEAR());
             myViewHolder.tvMutationType.setText(clist.get(position).getMUTATION_TYPE());
-            myViewHolder.tvMutationStatusEng.setText(clist.get(position).getMUTAION_STATUS_ENG());
+            myViewHolder.tvMutationStatusEng.setText(str);
             myViewHolder.tvMutationStatusKan.setText(clist.get(position).getMUTAION_STATUS_KN());
         }
     }

@@ -487,16 +487,12 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
 
-        String formatted = data.replace("<Details", "");
+        String formatted = data;
 
-        formatted = formatted.replace("</Details", "");
+//        formatted = formatted.replace("</Details", "");
 
         Log.d("DATA", formatted);
         if (formatted.contains("Details not found")) {
-            formatted = formatted.replace("<MutationStatus>", "");
-            formatted = formatted.replace("</MutationStatus>", "");
-            Log.d("formatted_DATA", "" + formatted);
-            //Toast.makeText(getApplicationContext(), "No Mutation are pending in this Survey Number", Toast.LENGTH_SHORT).show();
             final AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.MyDialogTheme);
             builder.setTitle("Mutation Status")
                     .setMessage("No Mutations are pending in this Survey Number")
@@ -506,7 +502,6 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
             final AlertDialog alert = builder.create();
             alert.show();
             alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-//            alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(android.R.color.black));
         } else {
             try {
 
@@ -516,8 +511,11 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                 formatted = xmlToJson.toFormattedString();
                 Log.d("MAP_RESPONSE_DATA", formatted);
 
+                JSONObject obj1 = new JSONObject(formatted);
+                obj1 = obj1.getJSONObject("Details");
+
                 Intent intent = new Intent(ViewMutationStatusInformation.this, ShowMutationStatusDetails.class);
-                intent.putExtra("status_response_data",""+formatted);
+                intent.putExtra("status_response_data",""+obj1);
                 startActivity(intent);
 
             } catch (Exception e) {

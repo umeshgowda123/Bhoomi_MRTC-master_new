@@ -177,7 +177,6 @@
                         android:gravity="center"
                         android:paddingStart="2dip"
                         android:paddingEnd="5dip"
-                        android:textStyle="italic"
                         android:textColor="#26A69A"
                         android:text="@string/view_rtc_information" />
 
@@ -207,7 +206,6 @@
                         android:gravity="center"
                         android:paddingStart="2dip"
                         android:paddingEnd="5dip"
-                        android:textStyle="italic"
                         android:textColor="#26A69A"
                         android:text="@string/rtc_xml_verification" />
 
@@ -237,7 +235,6 @@
                         android:gravity="center"
                         android:paddingStart="2dip"
                         android:paddingEnd="5dip"
-                        android:textStyle="italic"
                         android:textColor="#26A69A"
                         android:text="@string/view_rtc_by_ownername" />
                 </LinearLayout>
@@ -408,7 +405,6 @@
                         android:paddingStart="2dip"
                         android:paddingEnd="5dip"
                         android:textColor="#26A69A"
-                        android:textStyle="italic"
                         android:text="@string/clws_status" />
                 </LinearLayout>
 
@@ -439,7 +435,6 @@
                         android:paddingStart="2dip"
                         android:paddingEnd="5dip"
                         android:textColor="#26A69A"
-                        android:textStyle="italic"
                         android:text="@string/citizen_payment_certificate_for_pacs" />
                 </LinearLayout>
 
@@ -471,7 +466,6 @@
                         android:paddingStart="2dip"
                         android:paddingEnd="5dip"
                         android:textColor="#26A69A"
-                        android:textStyle="italic"
                         android:text="@string/citizen_payment_certificate_for_banks" />
                 </LinearLayout>
             </TableRow>

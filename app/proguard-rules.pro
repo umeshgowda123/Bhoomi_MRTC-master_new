@@ -34,6 +34,12 @@
 
 -keep class org.xmlpull.v1.* {*;}
 -keepattributes Exceptions
+-keepclassmembers class * {
+    *** get*();
+    void set*(***);
+}
+-keep public interface com.somepackage.SomeClass$someInterface {*;}
+-keep class app.bmc.com.BHOOMI_MRTC.model.** { <fields>; }
 
 -dontwarn java.lang.invoke.*
 -dontwarn okhttp3.**
