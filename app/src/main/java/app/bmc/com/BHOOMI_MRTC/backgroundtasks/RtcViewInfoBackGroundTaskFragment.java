@@ -2,11 +2,14 @@ package app.bmc.com.BHOOMI_MRTC.backgroundtasks;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.util.Log;
+
+import org.jetbrains.annotations.NotNull;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.api.RtcViewInformationApi;
@@ -36,10 +39,23 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
      * onCreate(Bundle) will be called after this.
      */
     
+//    @Override
+//    public void onAttach(@NonNull Activity activity) {
+//        super.onAttach(activity);
+//        backgroundCallBack = (BackgroundCallBackRtcViewInfo) activity;
+//    }
+
     @Override
-    public void onAttach(@NonNull Activity activity) {
-        super.onAttach(activity);
-        backgroundCallBack = (BackgroundCallBackRtcViewInfo) activity;
+    public void onAttach(@NotNull Context context) {
+        super.onAttach(context);
+
+        Activity activity;
+
+        if (context instanceof Activity){
+            activity=(Activity) context;
+            backgroundCallBack = (BackgroundCallBackRtcViewInfo) activity;
+        }
+
     }
 
     /**

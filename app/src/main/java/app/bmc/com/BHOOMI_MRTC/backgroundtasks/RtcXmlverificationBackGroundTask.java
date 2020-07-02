@@ -1,10 +1,13 @@
 package app.bmc.com.BHOOMI_MRTC.backgroundtasks;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import org.jetbrains.annotations.NotNull;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.api.RtcXmlVerificationApi;
@@ -30,10 +33,23 @@ public class RtcXmlverificationBackGroundTask extends Fragment {
      * Called when a fragment is first attached to its activity.
      * onCreate(Bundle) will be called after this.
      */
+//    @Override
+//    public void onAttach(Activity activity) {
+//        super.onAttach(activity);
+//        backgroundCallBack = (BackgroundCallBackRtcXmlVerification) activity;
+//    }
+
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        backgroundCallBack = (BackgroundCallBackRtcXmlVerification) activity;
+    public void onAttach(@NotNull Context context) {
+        super.onAttach(context);
+
+        Activity activity;
+
+        if (context instanceof Activity){
+            activity=(Activity) context;
+            backgroundCallBack = (BackgroundCallBackRtcXmlVerification) activity;
+        }
+
     }
 
     /**
