@@ -36,7 +36,6 @@ public class ViewMapInPdfActivity extends AppCompatActivity {
             showMap.getSettings().setJavaScriptEnabled(true);
 
             String url = "http://docs.google.com/gview?embedded=true&url="+responsepdfUrl;
-//            String url = "https://docs.google.com/gview?embedded=true&url="+responsepdfUrl;//SUSMITA  4:31.P.M.
 
             showMap.loadUrl(url);
 

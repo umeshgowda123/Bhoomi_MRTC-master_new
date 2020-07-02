@@ -14,6 +14,21 @@ public class MojiniAllotementDetailsTable {
     private String typofAppNm;
     private String SurveyNum;
 
+    public MojiniAllotementDetailsTable(String districtName, String talukName, String hobliName, String villageName, String applicationNo, String typeOfApplication, String applAllottedTo, String applCreatedDate, String allottedDate, String completionDate, String typofAppNm, String surveyNum) {
+        DistrictName = districtName;
+        TalukName = talukName;
+        HobliName = hobliName;
+        VillageName = villageName;
+        ApplicationNo = applicationNo;
+        TypeOfApplication = typeOfApplication;
+        ApplAllottedTo = applAllottedTo;
+        ApplCreatedDate = applCreatedDate;
+        AllottedDate = allottedDate;
+        CompletionDate = completionDate;
+        this.typofAppNm = typofAppNm;
+        SurveyNum = surveyNum;
+    }
+
     public String getDistrictName() {
         return DistrictName;
     }

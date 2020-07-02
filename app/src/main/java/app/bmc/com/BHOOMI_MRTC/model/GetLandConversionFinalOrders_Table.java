@@ -1,20 +1,36 @@
 package app.bmc.com.BHOOMI_MRTC.model;
-
 public class GetLandConversionFinalOrders_Table {
-    String REQ_ID;
-    String REQ_WFID;
-    String TypeOfConv;
-    String WFL_STG;
-    String LND_DCODE;
-    String LND_TCODE;
-    String LND_HCODE;
-    String LND_VCODE;
-    String DISTRICT_NAME;
-    String TALUKA_NAME;
-    String HOBLI_NAME;
-    String VILLAGE_NAME;
-    String SURVEYNO;
-    String ReturnPage;
+    private String REQ_ID;
+    private String REQ_WFID;
+    private String TypeOfConv;
+    private String WFL_STG;
+    private String LND_DCODE;
+    private String LND_TCODE;
+    private String LND_HCODE;
+    private String LND_VCODE;
+    private String DISTRICT_NAME;
+    private String TALUKA_NAME;
+    private String HOBLI_NAME;
+    private String VILLAGE_NAME;
+    private String SURVEYNO;
+    private String ReturnPage;
+
+    public GetLandConversionFinalOrders_Table(String req_id, String req_wfid, String typeOfConv, String wfl_stg, String lnd_dcode, String lnd_tcode, String lnd_hcode, String lnd_vcode, String district_name, String taluka_name, String hobli_name, String village_name, String surveyno, String returnPage) {
+        REQ_ID = req_id;
+        REQ_WFID = req_wfid;
+        TypeOfConv = typeOfConv;
+        WFL_STG = wfl_stg;
+        LND_DCODE = lnd_dcode;
+        LND_TCODE = lnd_tcode;
+        LND_HCODE = lnd_hcode;
+        LND_VCODE = lnd_vcode;
+        DISTRICT_NAME = district_name;
+        TALUKA_NAME = taluka_name;
+        HOBLI_NAME = hobli_name;
+        VILLAGE_NAME = village_name;
+        SURVEYNO = surveyno;
+        ReturnPage = returnPage;
+    }
 
     public String getREQ_ID() {
         return REQ_ID;

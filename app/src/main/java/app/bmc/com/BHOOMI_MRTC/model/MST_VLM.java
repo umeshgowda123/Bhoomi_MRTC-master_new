@@ -1,5 +1,6 @@
 package app.bmc.com.BHOOMI_MRTC.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -203,6 +204,7 @@ public class MST_VLM {
     }
 
 
+    @NonNull
     @Override
     public String toString() {
         return this.VLM_DKN_NM;

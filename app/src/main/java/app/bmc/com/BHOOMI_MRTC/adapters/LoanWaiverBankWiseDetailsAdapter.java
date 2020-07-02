@@ -26,12 +26,6 @@ public class LoanWaiverBankWiseDetailsAdapter extends RecyclerView.Adapter<LoanW
         this.activity = activity;
     }
 
-    public LoanWaiverBankWiseDetailsAdapter(List<LoanWaiverBankResponseData> myBankDataList, ShowLoanWaiverReportBankWise activity,int i) {
-        this.clist = myBankDataList;
-        this.activity = activity;
-    }
-
-
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         public TextView tvBDistName;

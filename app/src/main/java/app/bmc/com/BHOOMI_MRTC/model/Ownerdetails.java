@@ -12,7 +12,7 @@ public class Ownerdetails {
     private List<Jointowners> jointowners;
 
     public List<Jointowners> getJointowners() {
-        return jointowners == null ? new ArrayList<Jointowners>() : jointowners;
+        return jointowners == null ? new ArrayList<>() : jointowners;
     }
 
     public void setJointowners(List<Jointowners> jointowners) {

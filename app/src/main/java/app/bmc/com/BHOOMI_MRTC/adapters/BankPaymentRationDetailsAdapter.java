@@ -12,7 +12,7 @@ import java.util.List;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.model.BankPaymentRationTableData;
-import app.bmc.com.BHOOMI_MRTC.screens.ClwsStatusRationCardDetails;
+
 
 public class BankPaymentRationDetailsAdapter extends RecyclerView.Adapter<BankPaymentRationDetailsAdapter.MyViewHolder> {
 

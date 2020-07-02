@@ -5,7 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,24 +15,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import app.bmc.com.BHOOMI_MRTC.R;
-import app.bmc.com.BHOOMI_MRTC.model.Afdvt_ReqSts_BasedOnAfdvtIdTable;
+
 import app.bmc.com.BHOOMI_MRTC.model.GetLandConversionFinalOrders_Table;
 import app.bmc.com.BHOOMI_MRTC.screens.ConversionFinalOrders_BasedOnReq_ID;
 import app.bmc.com.BHOOMI_MRTC.screens.Endorsement_ReportWebView;
-import app.bmc.com.BHOOMI_MRTC.screens.LandConversionBasedOnAffidavit;
+
 
 public class LandConversionFinalOrdersAdapter extends RecyclerView.Adapter<LandConversionFinalOrdersAdapter.ViewHolder> {
 
-    List<GetLandConversionFinalOrders_Table> list ;
-    ConversionFinalOrders_BasedOnReq_ID activity;
-    String returnPage, req_id;
-    String baseUrl;
+    private List<GetLandConversionFinalOrders_Table> list ;
+    private ConversionFinalOrders_BasedOnReq_ID activity;
+    private String returnPage, req_id;
+    private String baseUrl;
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.landconversionfinalorders_list,viewGroup,false);
-        ViewHolder viewHolder = new ViewHolder(v);
-        return viewHolder;
+        return new ViewHolder(v);
     }
 
     @Override
@@ -70,7 +69,7 @@ public class LandConversionFinalOrdersAdapter extends RecyclerView.Adapter<LandC
         return list.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView ivFinalOrder;
         TextView tvReqID;

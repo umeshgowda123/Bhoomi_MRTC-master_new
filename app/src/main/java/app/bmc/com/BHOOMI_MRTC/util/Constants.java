@@ -40,7 +40,7 @@ public class Constants {
 
     public static int convertInt(String paymentStatus) {
         try{
-            return Integer.valueOf(paymentStatus);
+            return Integer.parseInt(paymentStatus);
         }catch (Exception e){
             return 0;
         }

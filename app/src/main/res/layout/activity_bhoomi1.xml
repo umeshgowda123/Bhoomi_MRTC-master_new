@@ -1061,9 +1061,7 @@
                     android:layout_marginBottom="10dp"
                     android:layout_weight="1"
                     android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-                </LinearLayout>
+                    tools:ignore="UseCompoundDrawables,UselessLeaf" />
 
             </TableRow>
 

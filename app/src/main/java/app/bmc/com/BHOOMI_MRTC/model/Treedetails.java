@@ -14,7 +14,6 @@ public class Treedetails {
     public List<Tree> getTree() {
         return tree == null ? new ArrayList<Tree>() : tree;
     }
-
     public void setTree(List<Tree> tree) {
         this.tree = tree;
     }

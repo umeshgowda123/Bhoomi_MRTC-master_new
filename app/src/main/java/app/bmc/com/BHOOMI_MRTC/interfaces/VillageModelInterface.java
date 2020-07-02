@@ -1,5 +1,7 @@
 package app.bmc.com.BHOOMI_MRTC.interfaces;
 
+import androidx.annotation.NonNull;
+
 public interface VillageModelInterface {
     int getVLM_VLG_ID();
 
@@ -10,5 +12,6 @@ public interface VillageModelInterface {
     String getVLM_VLG_NM();
 
 
+    @NonNull
     String toString();
 }

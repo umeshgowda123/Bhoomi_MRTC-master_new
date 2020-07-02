@@ -15,14 +15,14 @@ import java.util.List;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.model.Afdvt_ReqSts_BasedOnAfdvtIdTable;
-import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
+
 import app.bmc.com.BHOOMI_MRTC.screens.Endorsement_ReportWebView;
 import app.bmc.com.BHOOMI_MRTC.screens.LandConversionBasedOnUserId;
-import retrofit2.Callback;
+
 
 public class LandConversionBasedOnUserIDAdapter extends RecyclerView.Adapter<LandConversionBasedOnUserIDAdapter.ViewHolder> {
     private List<Afdvt_ReqSts_BasedOnAfdvtIdTable> list ;
-    LandConversionBasedOnUserId activity;
+    private LandConversionBasedOnUserId activity;
     private String req_id;
     private String req_Aid;
     private String baseUrl_endo = "https://landrecords.karnataka.gov.in/service80/CitizenRequest/EndorsementReport?REQ_ID=";
