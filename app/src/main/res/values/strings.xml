@@ -464,4 +464,5 @@
     <string name="completion_date">Completion Date</string>
     <string name="type_of_application_num">Type Of Application Num</string>
     <string name="application_created_date">Application Created Date</string>
+    <string name="check_for_update">Check For Update</string>
 </resources>

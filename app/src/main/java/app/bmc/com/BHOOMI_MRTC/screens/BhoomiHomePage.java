@@ -93,6 +93,8 @@ public class BhoomiHomePage extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
+        AppUpdateChecker appUpdateChecker = new AppUpdateChecker(this);
+        appUpdateChecker.checkForUpdate(false);
 
 
         layout_viewRtc =  findViewById(R.id.layout_viewRtc);
@@ -343,7 +345,6 @@ public class BhoomiHomePage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     @Override
@@ -361,6 +362,10 @@ public class BhoomiHomePage extends AppCompatActivity {
                 Intent intent = new Intent(BhoomiHomePage.this, Language.class);
                 startActivity(intent);
                 finish();
+                return true;
+            case R.id.update_checker:
+                AppUpdateChecker appUpdateChecker = new AppUpdateChecker(this);
+                appUpdateChecker.checkForUpdate(true);
                 return true;
 
             default:

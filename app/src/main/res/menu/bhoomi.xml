@@ -6,4 +6,10 @@
         android:orderInCategory="100"
         android:title="@string/language"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/update_checker"
+        android:orderInCategory="100"
+        android:title="@string/check_for_update"
+        app:showAsAction="never"/>
+
 </menu>
