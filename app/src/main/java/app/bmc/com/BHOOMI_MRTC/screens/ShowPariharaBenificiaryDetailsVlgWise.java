@@ -1,5 +1,7 @@
 package app.bmc.com.BHOOMI_MRTC.screens;
 
+
+import android.app.ProgressDialog;
 import android.os.Build;
 import android.os.Handler;
 import androidx.annotation.NonNull;
@@ -12,6 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AbsListView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -46,6 +49,8 @@ public class ShowPariharaBenificiaryDetailsVlgWise extends AppCompatActivity {
 
     boolean isLoading = false;
 
+    ProgressDialog progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +68,7 @@ public class ShowPariharaBenificiaryDetailsVlgWise extends AppCompatActivity {
         }
 
         rvBenificaryDetailsVlgWise =  findViewById(R.id.rvBenificaryDetailsVlgWise);
+        progressBar = ProgressDialog.show(ShowPariharaBenificiaryDetailsVlgWise.this, "Loading...", "Transaction contains Too Large Data. Please Do not Interrupt");
 
      //   phraBenificaryDataResponse = (String) getIntent().getStringExtra("response_data");
 
@@ -72,11 +78,14 @@ public class ShowPariharaBenificiaryDetailsVlgWise extends AppCompatActivity {
         showData(phraBenificaryDataResponse);
         Log.d("RES : ", phraBenificaryDataResponse);
 
+
     }
+
+
 
     private void showData(String benificaryResponsedata) {
         try {
-
+            progressBar.isShowing();
             XmlToJson xmlToJson = new XmlToJson.Builder(benificaryResponsedata.replace("\r\n", "").trim()).build();
             String formatted = xmlToJson.toFormattedString().replace("\n", "");
             JSONObject responseObject = new JSONObject(formatted);
@@ -104,6 +113,11 @@ public class ShowPariharaBenificiaryDetailsVlgWise extends AppCompatActivity {
             Log.d("Exception", Objects.requireNonNull(ex.getMessage()));
         }
 
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
         if (myBenificaryList.size() > 0) {
             populateData();
             cadapter = new VillageWiseBenificaryAdapter(rowsArrayList, ShowPariharaBenificiaryDetailsVlgWise.this);
@@ -112,13 +126,16 @@ public class ShowPariharaBenificiaryDetailsVlgWise extends AppCompatActivity {
             rvBenificaryDetailsVlgWise.setItemAnimator(new DefaultItemAnimator());
             rvBenificaryDetailsVlgWise.setAdapter(cadapter);
             initScrollListener();
-
         }else
-        {
+            {
             Toast.makeText(getApplicationContext(), "No Data Found!", Toast.LENGTH_SHORT).show();
+            }
         }
-    }
 
+        }, 2000);
+
+
+    }
 
     private void populateData() {
         Log.d("myBenificaryList",myBenificaryList.size()+"");
@@ -134,6 +151,7 @@ public class ShowPariharaBenificiaryDetailsVlgWise extends AppCompatActivity {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
+
             }
 
             @Override
@@ -146,7 +164,9 @@ public class ShowPariharaBenificiaryDetailsVlgWise extends AppCompatActivity {
                     if (linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == rowsArrayList.size() - 1) {
                         //bottom of list!
 //                        loadMore();
-//                        isLoading = true;
+
+                        progressBar.dismiss();
+                        isLoading = true;
                     }
                 }
             }
@@ -158,8 +178,6 @@ public class ShowPariharaBenificiaryDetailsVlgWise extends AppCompatActivity {
     private void loadMore() {
         rowsArrayList.add(null);
         cadapter.notifyItemInserted(rowsArrayList.size() - 1);
-
-
         Handler handler = new Handler();
         handler.postDelayed(() -> {
             rowsArrayList.remove(rowsArrayList.size() - 1);
