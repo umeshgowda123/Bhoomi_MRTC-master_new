@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Build;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,6 +31,7 @@ import java.util.concurrent.Callable;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper;
+import app.bmc.com.BHOOMI_MRTC.model.AppUpdateChecker;
 import app.bmc.com.BHOOMI_MRTC.model.CalamityDetails;
 import app.bmc.com.BHOOMI_MRTC.model.SeasonDetails;
 import app.bmc.com.BHOOMI_MRTC.model.YearDetails;
@@ -44,34 +44,35 @@ import io.reactivex.schedulers.Schedulers;
 
 public class BhoomiHomePage extends AppCompatActivity {
 
-    private LinearLayout layout_viewRtc;
-    private LinearLayout layout_rtc_verify;
-    private LinearLayout layout_view_rtc_ownerName;
-    private LinearLayout layout_clws_status;
-    private LinearLayout layout_certificate_pacs;
-    private LinearLayout layout_certificate_banks;
-    private LinearLayout layout_parihara_individual;
-    private LinearLayout layout_parihara_benificary;
-    private LinearLayout layout_benificiary_land_report;
-    private LinearLayout layout_download_villageMap;
-    private LinearLayout layout_mutation_pendency;
-    private LinearLayout layout_loan_w_branch_wise;
+    LinearLayout layout_viewRtc;
+    LinearLayout layout_rtc_verify;
+    LinearLayout layout_view_rtc_ownerName;
+    LinearLayout layout_clws_status;
+    LinearLayout layout_certificate_pacs;
+    LinearLayout layout_certificate_banks;
+    LinearLayout layout_parihara_individual;
+    LinearLayout layout_parihara_benificary;
+    LinearLayout layout_benificiary_land_report;
+    LinearLayout layout_download_villageMap;
+    LinearLayout layout_mutation_pendency;
+    LinearLayout layout_loan_w_branch_wise;
 
-    private LinearLayout layout_mut_summery;
+    LinearLayout layout_mut_summery;
 
-    private LinearLayout layout_loan_w_bank;
+    LinearLayout layout_loan_w_bank;
 
-    private LinearLayout layout_mutation_status;
-    private LinearLayout layout_loan_b_layout;
-    private LinearLayout layout_loan_w_farmer_wise;
+    LinearLayout layout_mutation_status;
+    LinearLayout layout_loan_b_layout;
+    LinearLayout layout_loan_w_farmer_wise;
 
-    private LinearLayout layout_pacs_bank_wise;
-    private LinearLayout layout_pacs_report_branchwise;
-    private LinearLayout layout_pacs_farmer_wise;
+    LinearLayout layout_pacs_bank_wise;
+    LinearLayout layout_pacs_report_branchwise;
+    LinearLayout layout_pacs_farmer_wise;
 
-    private LinearLayout layout_view_phody_sketch;
-    private LinearLayout view_mojini_req_status;
+    LinearLayout layout_view_phody_sketch;
+    LinearLayout view_mojini_req_status;
     LinearLayout view_land_conversion, download_Conversion_order;
+    LinearLayout layout_restriction_land;
 
     private DataBaseHelper dataBaseHelper;
 
@@ -93,13 +94,14 @@ public class BhoomiHomePage extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
+
         AppUpdateChecker appUpdateChecker = new AppUpdateChecker(this);
         appUpdateChecker.checkForUpdate(false);
-
 
         layout_viewRtc =  findViewById(R.id.layout_viewRtc);
         layout_rtc_verify =  findViewById(R.id.layout_rtc_verify);
         layout_view_rtc_ownerName =  findViewById(R.id.layout_view_rtc_ownerName);
+        layout_restriction_land = findViewById(R.id.layout_restriction_land);
 
         layout_clws_status =  findViewById(R.id.layout_clws_status);
         layout_certificate_pacs =  findViewById(R.id.layout_certificate_pacs);
@@ -158,6 +160,13 @@ public class BhoomiHomePage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(BhoomiHomePage.this, ViewRtcInformationByOwnerName.class);
                 startActivity(intent);
+            }
+        });
+
+        layout_restriction_land.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
@@ -367,7 +376,6 @@ public class BhoomiHomePage extends AppCompatActivity {
                 AppUpdateChecker appUpdateChecker = new AppUpdateChecker(this);
                 appUpdateChecker.checkForUpdate(true);
                 return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -21,7 +21,6 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -186,12 +185,6 @@ public class Bhoomi extends AppCompatActivity
             Intent intent = new Intent(Bhoomi.this, Language.class);
             startActivity(intent);
             // finish();
-            return true;
-        }
-        if (item.getItemId() == R.id.update_checker){
-            Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
-            AppUpdateChecker appUpdateChecker = new AppUpdateChecker(this);
-            appUpdateChecker.checkForUpdate(true);
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;

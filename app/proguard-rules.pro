@@ -40,6 +40,9 @@
 }
 -keep public interface com.somepackage.SomeClass$someInterface {*;}
 -keep class app.bmc.com.BHOOMI_MRTC.model.** { <fields>; }
+-keep public class org.jsoup.** {
+    public *;
+}
 
 -dontwarn java.lang.invoke.*
 -dontwarn okhttp3.**

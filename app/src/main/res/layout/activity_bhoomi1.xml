@@ -336,6 +336,60 @@
 
                 </LinearLayout>
 
+            </TableRow>
+            <TableRow
+                android:divider="@color/colorPrimary"
+                android:showDividers="middle">
+
+                <LinearLayout
+                    android:id="@+id/layout_restriction_land"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        android:id="@+id/ivService77"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:layout_gravity="center"
+                        android:paddingStart="2dip"
+                        android:paddingEnd="5dip"
+                        android:src="@drawable/view_rtc"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingStart="2dip"
+                        android:paddingEnd="5dip"
+                        android:textColor="#26A69A"
+                        android:text="Restriction on Land" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    tools:ignore="UseCompoundDrawables">
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    tools:ignore="UseCompoundDrawables">
+                </LinearLayout>
 
             </TableRow>
 

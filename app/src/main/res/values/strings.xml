@@ -459,10 +459,11 @@
     <string name="allotment_details">Allotment Details</string>
     <string name="enter_application_number">Enter Application Number</string>
     <string name="type_of_application">Type Of Application</string>
-    <string name="applicatio_allotted_to">Applicatio Allotted To</string>
+    <string name="applicatio_allotted_to">Application Allotted To</string>
     <string name="allotted_date">Allotted Date</string>
     <string name="completion_date">Completion Date</string>
     <string name="type_of_application_num">Type Of Application Num</string>
     <string name="application_created_date">Application Created Date</string>
     <string name="check_for_update">Check For Update</string>
+    <string name="restart">Restart</string>
 </resources>
