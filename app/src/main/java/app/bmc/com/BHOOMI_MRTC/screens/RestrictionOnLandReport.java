@@ -186,7 +186,7 @@ public class RestrictionOnLandReport extends AppCompatActivity {
             super.onPostExecute(result);
             Log.d(TAG + " onPostExecute", "" + result);
 
-            if (result == null) {
+            if (result != null) {
                 progressDialog.dismiss();
                 try {
 
@@ -220,6 +220,8 @@ public class RestrictionOnLandReport extends AppCompatActivity {
                     e.printStackTrace();
                     Log.d("ExceptionSUS", e + "");
                 }
+            }else {
+                Toast.makeText(getApplicationContext(), "Result Null", Toast.LENGTH_SHORT).show();
             }
         }
     }
