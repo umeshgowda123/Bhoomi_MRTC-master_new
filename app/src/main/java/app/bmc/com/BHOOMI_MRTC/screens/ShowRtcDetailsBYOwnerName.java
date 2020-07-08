@@ -168,9 +168,7 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
 //              }.getType();
 //              rtcByOwnerNameResponsesList = new Gson().fromJson(jsonArray.toString(), listType);
 
-            } catch (IOException | XmlPullParserException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
+            } catch (IOException | XmlPullParserException | JSONException e) {
                 e.printStackTrace();
             }
 

@@ -371,4 +371,14 @@
     <string name="application_created_date">ಅರ್ಜಿ ಸೃಜನೆಯಾದ ದಿನಾಂಕ</string>
     <string name="check_for_update">Check For Update</string>
     <string name="restart">Restart</string>
+    <string name="restriction_on_land">Restriction on Land</string>
+    <string name="view_restriction_on_land">View Restriction On Land</string>
+    <string name="restriction_on_land_report">Restriction On Land Report</string>
+    <string name="extent">Extent</string>
+    <string name="is_he_main_owner">Is he main owner?</string>
+    <string name="land_type">Land Type?</string>
+    <string name="is_land_govt_restrivted">Is Land Govt. restrivted?</string>
+    <string name="is_there_a_court_stay">Is there a Court stay?</string>
+    <string name="is_land_alienated">Is Land Alienated?</string>
+    <string name="any_trnsc_running">Any Trnsc Running?</string>
 </resources>

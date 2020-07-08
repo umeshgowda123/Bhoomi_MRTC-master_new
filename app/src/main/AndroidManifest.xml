@@ -322,6 +322,14 @@
             android:name=".screens.Mojini_Application_Status_BasedOnAppNo"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity
+            android:name=".screens.RestrictionOnLand"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".screens.RestrictionOnLandReport"
+            android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>

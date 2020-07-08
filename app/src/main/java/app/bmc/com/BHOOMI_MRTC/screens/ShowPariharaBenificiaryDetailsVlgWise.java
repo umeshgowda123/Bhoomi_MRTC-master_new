@@ -14,7 +14,6 @@ import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AbsListView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;

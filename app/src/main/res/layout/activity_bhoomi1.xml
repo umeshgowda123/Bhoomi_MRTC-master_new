@@ -48,6 +48,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            style="@android:style/Widget.ProgressBar.Inverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
 
         <LinearLayout
@@ -368,7 +374,7 @@
                         android:paddingStart="2dip"
                         android:paddingEnd="5dip"
                         android:textColor="#26A69A"
-                        android:text="Restriction on Land" />
+                        android:text="@string/restriction_on_land" />
 
                 </LinearLayout>
 

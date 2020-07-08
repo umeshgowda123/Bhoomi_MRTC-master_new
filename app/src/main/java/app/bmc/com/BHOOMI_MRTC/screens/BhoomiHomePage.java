@@ -166,11 +166,10 @@ public class BhoomiHomePage extends AppCompatActivity {
         layout_restriction_land.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent in = new Intent(BhoomiHomePage.this,RestrictionOnLand.class);
+                startActivity(in);
             }
         });
-
-
 
         layout_clws_status.setOnClickListener(new View.OnClickListener() {
             @Override
