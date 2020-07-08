@@ -1,9 +1,9 @@
 package app.bmc.com.BHOOMI_MRTC.adapters;
 
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,12 +13,11 @@ import java.util.List;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.model.RestrictionOnLandReportTable;
-import app.bmc.com.BHOOMI_MRTC.screens.RestrictionOnLandReport;
+
 
 public class RestrictionOnLandReportAdapter extends RecyclerView.Adapter<RestrictionOnLandReportAdapter.ViewHolder> {
 
-    List<RestrictionOnLandReportTable> list;
-    RestrictionOnLandReport activity;
+    private List<RestrictionOnLandReportTable> list;
 
 
     @NonNull
@@ -46,7 +45,7 @@ public class RestrictionOnLandReportAdapter extends RecyclerView.Adapter<Restric
         return list.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
          TextView tvOwnerName;
          TextView tvExtent;
          TextView tvMainOwner;
@@ -68,8 +67,7 @@ public class RestrictionOnLandReportAdapter extends RecyclerView.Adapter<Restric
             tvTrnscRunning = itemView.findViewById(R.id.tvTrnscRunning);
         }
     }
-    public RestrictionOnLandReportAdapter(List<RestrictionOnLandReportTable> list, RestrictionOnLandReport activity){
+    public RestrictionOnLandReportAdapter(List<RestrictionOnLandReportTable> list){
         this.list = list;
-        this.activity = activity;
     }
 }

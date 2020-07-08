@@ -1,6 +1,5 @@
 package app.bmc.com.BHOOMI_MRTC.screens;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -26,7 +25,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
@@ -41,7 +39,6 @@ import java.util.Objects;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.adapters.RestrictionOnLandReportAdapter;
-import app.bmc.com.BHOOMI_MRTC.model.Afdvt_ReqSts_BasedOnAfdvtIdTable;
 import app.bmc.com.BHOOMI_MRTC.model.RestrictionOnLandReportTable;
 import fr.arnaudguyon.xmltojsonlib.XmlToJson;
 
@@ -104,7 +101,6 @@ public class RestrictionOnLandReport extends AppCompatActivity {
         String TAG = getClass().getSimpleName();
 
         String distId, talkId, hblId, vlgId, surveyNO, surcoNo, hissaNo;
-
         private GetRestrictionOnLandReport(String dId, String tId, String hId, String vId, String survey_No,
                                           String surco_No, String hissa_No) {
             this.distId = dId;
@@ -128,25 +124,25 @@ public class RestrictionOnLandReport extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             SoapObject request = new SoapObject(WSDL_TARGET_NAMESPACE2, OPERATION_NAME2);
-//            request.addProperty("DeptID", "WS_BMC_ID");
-//            request.addProperty("DeptPassPhase", " fa16722b-36e0-40d1-805a-9026d600ab1d");
-//            request.addProperty("Bhm_dist_code", distId);
-//            request.addProperty("Bhm_taluk_code", talkId);
-//            request.addProperty("Bhm_hobli_code", hblId);
-//            request.addProperty("Bhm_village_code", vlgId);
-//            request.addProperty("Bhm_survey_no", surveyNO);
-//            request.addProperty("Bhm_surnoc", surcoNo);
-//            request.addProperty("Bhm_Hissa", hissaNo);
-
             request.addProperty("DeptID", "WS_BMC_ID");
             request.addProperty("DeptPassPhase", " fa16722b-36e0-40d1-805a-9026d600ab1d");
-            request.addProperty("Bhm_dist_code", "20");
-            request.addProperty("Bhm_taluk_code", "2");
-            request.addProperty("Bhm_hobli_code", "16");
-            request.addProperty("Bhm_village_code", "36");
-            request.addProperty("Bhm_survey_no", "1");
-            request.addProperty("Bhm_surnoc", "*");
-            request.addProperty("Bhm_Hissa", "1");
+            request.addProperty("Bhm_dist_code", distId);
+            request.addProperty("Bhm_taluk_code", talkId);
+            request.addProperty("Bhm_hobli_code", hblId);
+            request.addProperty("Bhm_village_code", vlgId);
+            request.addProperty("Bhm_survey_no", surveyNO);
+            request.addProperty("Bhm_surnoc", surcoNo);
+            request.addProperty("Bhm_Hissa", hissaNo);
+
+//            request.addProperty("DeptID", "WS_BMC_ID");
+//            request.addProperty("DeptPassPhase", " fa16722b-36e0-40d1-805a-9026d600ab1d");
+//            request.addProperty("Bhm_dist_code", "20");
+//            request.addProperty("Bhm_taluk_code", "2");
+//            request.addProperty("Bhm_hobli_code", "16");
+//            request.addProperty("Bhm_village_code", "36");
+//            request.addProperty("Bhm_survey_no", "1");
+//            request.addProperty("Bhm_surnoc", "*");
+//            request.addProperty("Bhm_Hissa", "1");
 
             Log.d("request", ": " + request);
 
@@ -157,26 +153,13 @@ public class RestrictionOnLandReport extends AppCompatActivity {
             Log.d("URL", "URL: " + SOAP_ADDRESS2);
 
             try {
-
                 androidHttpTransport.call(SOAP_ACTION2,envelope);
                 resultString = (SoapPrimitive) envelope.getResponse();
                 resultFromServer = String.valueOf(resultString);
 
-                Log.i("Resultttt", resultFromServer);
-                XmlToJson xmlToJson = new XmlToJson.Builder(resultFromServer.replace("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>", "").trim()).build();
-                // convert to a JSONObject
-                JSONObject output = xmlToJson.toJson();
-                assert output != null;
-                String s = (String) output.remove("{\"OwnerDetails\":{\"VILLAGE\":{\"NAME\":\"ದೊಡ್ಡನಾಗಮಂಗಲ\",\"CODE\":\"36\"},\"DISTRICT\":{\"NAME\":\"ಬೆ೦ಗಳೂರು ನಗರ\",\"CODE\":\"20\"},\"TALUKA\":{\"NAME\":\"ಬೆ೦ಗಳೂರು - ದಕ್ಷಿಣ\",\"CODE\":\"2\"},\"HOBLI\":{\"NAME\":\"ಬೇಗೂರು - 2\",\"CODE\":\"16\"},\"SURVEY_DETAILS\":{\"SurveyNumber\":\"1 \\/ * \\/ 2\"},\"OWNERS\":{");
-                assert s != null;
-                String str = s.replace("}}}","");
-                Log.d("jsonObj", "str: " + str);
+                Log.d("Resultttt", resultFromServer);
 
-                JSONArray jsonArray = output.getJSONArray("JOINT_OWNERS");
-
-                Log.d("jsonArray_", "str: " + jsonArray);
-
-            } catch (IOException | XmlPullParserException | JSONException e) {
+            } catch (IOException | XmlPullParserException e) {
                 e.printStackTrace();
             }
             return resultFromServer;
@@ -187,15 +170,30 @@ public class RestrictionOnLandReport extends AppCompatActivity {
             Log.d(TAG + " onPostExecute", "" + result);
 
             if (result != null) {
-
                 try {
                     progressDialog.dismiss();
-                    JSONArray jsonArray = new JSONArray(result);
-                    Log.d("jsonArray", String.valueOf(jsonArray));
+                    XmlToJson xmlToJson = new XmlToJson.Builder(result.replace("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>", "").trim()).build();
+                    // convert to a JSONObject
+                    JSONObject response = xmlToJson.toJson();
+                    Log.d("jsonObj", "str: " + response);
+                    assert response != null;
+                    JSONObject OwnerDetails_Obj = response.getJSONObject("OwnerDetails");
+                    Log.d("jsonObj", "str: " + OwnerDetails_Obj);
+                    JSONObject OWNERS_Obj = OwnerDetails_Obj.getJSONObject("OWNERS");
+                    Log.d("jsonObj", "str: " + OWNERS_Obj);
+                    JSONArray JOINT_OWNERS_jsonArray = OWNERS_Obj.getJSONArray("JOINT_OWNERS");
+                    Log.d("jsonArr", "str: " + JOINT_OWNERS_jsonArray);
 
-                    Gson gson = new Gson();
-                    restrictionOnLandReportTableList = gson.fromJson(String.valueOf(jsonArray), new TypeToken<List<Afdvt_ReqSts_BasedOnAfdvtIdTable>>() {}.getType());
-                    Log.d("SIZESUS", restrictionOnLandReportTableList.size() + "");
+                    String strJsonArray = JOINT_OWNERS_jsonArray.toString();
+                    strJsonArray = strJsonArray.replace("{\"OWNER\":","");
+                    strJsonArray = strJsonArray.replace("},\"EXTENT\"",",\"EXTENT\"");
+
+                    JSONArray final_JsonArray = new JSONArray(strJsonArray);
+
+                        Gson gson = new Gson();
+                        restrictionOnLandReportTableList = gson.fromJson(String.valueOf(final_JsonArray), new TypeToken<List<RestrictionOnLandReportTable>>() {
+                        }.getType());
+                        Log.d("SIZESUS", restrictionOnLandReportTableList.size() + "");
 
                     if (restrictionOnLandReportTableList.size() == 0) {
                         final AlertDialog.Builder builder = new AlertDialog.Builder(RestrictionOnLandReport.this, R.style.MyDialogTheme);
@@ -210,7 +208,7 @@ public class RestrictionOnLandReport extends AppCompatActivity {
                     } else {
                         restrictionOnLandReportTableList.size();
                         Log.d("List",restrictionOnLandReportTableList.size()+"");
-                        RestrictionOnLandReportAdapter adapter = new RestrictionOnLandReportAdapter(restrictionOnLandReportTableList,RestrictionOnLandReport.this);
+                        RestrictionOnLandReportAdapter adapter = new RestrictionOnLandReportAdapter(restrictionOnLandReportTableList);
                         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                         rvRestrictionReport.setLayoutManager(mLayoutManager);
                         rvRestrictionReport.setItemAnimator(new DefaultItemAnimator());
@@ -223,6 +221,7 @@ public class RestrictionOnLandReport extends AppCompatActivity {
             }else {
                 progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "Result Null", Toast.LENGTH_SHORT).show();
+                finish();
             }
         }
     }
