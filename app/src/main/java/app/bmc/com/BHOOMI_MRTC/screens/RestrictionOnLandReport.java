@@ -187,9 +187,9 @@ public class RestrictionOnLandReport extends AppCompatActivity {
             Log.d(TAG + " onPostExecute", "" + result);
 
             if (result != null) {
-                progressDialog.dismiss();
-                try {
 
+                try {
+                    progressDialog.dismiss();
                     JSONArray jsonArray = new JSONArray(result);
                     Log.d("jsonArray", String.valueOf(jsonArray));
 
@@ -221,6 +221,7 @@ public class RestrictionOnLandReport extends AppCompatActivity {
                     Log.d("ExceptionSUS", e + "");
                 }
             }else {
+                progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "Result Null", Toast.LENGTH_SHORT).show();
             }
         }
