@@ -108,7 +108,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/is_land_govt_restrivted"
+                android:text="@string/is_land_govt_restricted"
                 android:layout_weight="1"
                 android:layout_margin="2dp"
                 android:textStyle="bold"

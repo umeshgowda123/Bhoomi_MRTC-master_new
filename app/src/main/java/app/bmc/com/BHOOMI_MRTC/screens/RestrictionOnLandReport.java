@@ -178,11 +178,13 @@ public class RestrictionOnLandReport extends AppCompatActivity {
                     Log.d("jsonObj", "str: " + response);
                     assert response != null;
                     JSONObject OwnerDetails_Obj = response.getJSONObject("OwnerDetails");
-                    Log.d("jsonObj", "str: " + OwnerDetails_Obj);
-                    JSONObject OWNERS_Obj = OwnerDetails_Obj.getJSONObject("OWNERS");
-                    Log.d("jsonObj", "str: " + OWNERS_Obj);
-                    JSONArray JOINT_OWNERS_jsonArray = OWNERS_Obj.getJSONArray("JOINT_OWNERS");
-                    Log.d("jsonArr", "str: " + JOINT_OWNERS_jsonArray);
+                    Log.d("OwnerDetails", "str: " + OwnerDetails_Obj);
+                    OwnerDetails_Obj = OwnerDetails_Obj.getJSONObject("OWNERS");
+                    Log.d("OWNERS", "str: " + OwnerDetails_Obj);
+                    OwnerDetails_Obj = OwnerDetails_Obj.getJSONObject("JOINT_OWNERS");
+                    Log.d("JOINT_OWNERS", "str: " + OwnerDetails_Obj);
+                    JSONArray JOINT_OWNERS_jsonArray = OwnerDetails_Obj.getJSONArray("OWNER");
+                    Log.d("OWNER", "str: " + JOINT_OWNERS_jsonArray);
 
                     String strJsonArray = JOINT_OWNERS_jsonArray.toString();
                     strJsonArray = strJsonArray.replace("{\"OWNER\":","");

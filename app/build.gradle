@@ -17,10 +17,11 @@ android {
         applicationId "app.bmc.com.BHOOMI_MRTC"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 4
-        versionName "2.0"
+        versionCode 8
+        versionName "3.0"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     signingConfigs {
@@ -39,6 +40,7 @@ android {
             signingConfig signingConfigs.release
         }
     }
+
     sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
 
 }

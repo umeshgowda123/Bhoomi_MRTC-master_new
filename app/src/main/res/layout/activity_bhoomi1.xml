@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/linearLayout_bhoomi"
     tools:context=".screens.Bhoomi">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -1123,5 +1124,4 @@
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
-
 </LinearLayout>

@@ -54,8 +54,8 @@ public class AppUpdateChecker {
             //If the versions are not the same
             if(!currentVersion.equals(latestVersion)&&latestVersion!=null){
                 final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-                builder.setTitle("An Update is Available");
-                builder.setMessage("Its better to update now");
+                builder.setTitle("Update BHOOMI");
+                builder.setMessage("BHOOMI recommends that you update to the latest version. You can keep using the application while downloading the update.");
                 builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -64,10 +64,11 @@ public class AppUpdateChecker {
                         dialog.dismiss();
                     }
                 });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("No thanks", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //Cancel button action
+                        dialog.dismiss();
                     }
                 });
                 builder.setCancelable(false);

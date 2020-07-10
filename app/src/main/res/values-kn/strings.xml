@@ -377,7 +377,7 @@
     <string name="extent">Extent</string>
     <string name="is_he_main_owner">Is he main owner?</string>
     <string name="land_type">Land Type?</string>
-    <string name="is_land_govt_restrivted">Is Land Govt. restrivted?</string>
+    <string name="is_land_govt_restricted">Is Land Govt. restricted?</string>
     <string name="is_there_a_court_stay">Is there a Court stay?</string>
     <string name="is_land_alienated">Is Land Alienated?</string>
     <string name="any_trnsc_running">Any Trnsc Running?</string>
