@@ -30,7 +30,7 @@
                 android:id="@+id/tvOwnerName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
+                android:maxLines="3"
                 android:layout_margin="2dp"
                 android:gravity="center"
                 android:layout_weight="1"
