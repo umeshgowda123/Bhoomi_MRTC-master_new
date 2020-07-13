@@ -113,7 +113,7 @@ public class BhoomiHomePage extends AppCompatActivity {
             window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
 
-        checkForAppUpdate();
+        //checkForAppUpdate();
 
 //        AppUpdateChecker appUpdateChecker = new AppUpdateChecker(this);
 //        appUpdateChecker.checkForUpdate(false);
@@ -682,159 +682,159 @@ public class BhoomiHomePage extends AppCompatActivity {
                 });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d("APP_UPDATE", "onResume Entered");
-        checkNewAppVersionState();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, final int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-        Log.d("APP_UPDATE", "onActivityResult Entered");
-        switch (requestCode) {
-            case REQ_CODE_VERSION_UPDATE:
-                if (resultCode != RESULT_OK) { //RESULT_OK / RESULT_CANCELED / RESULT_IN_APP_UPDATE_FAILED
-                    Log.d("APP_UPDATE", "Update flow failed! Result code: " + resultCode);
-                    // If the update is cancelled or fails,
-                    // you can request to start the update again.
-                    unregisterInstallStateUpdListener();
-                }
-
-                break;
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        Log.d("APP_UPDATE", " onDestroy Entered");
-        unregisterInstallStateUpdListener();
-        super.onDestroy();
-    }
-
-
-    private void checkForAppUpdate() {
-        Log.d("APP_UPDATE", "checkForAppUpdate Entered");
-        // Creates instance of the manager.
-        appUpdateManager = AppUpdateManagerFactory.create(getApplicationContext());
-
-        // Returns an intent object that you use to check for an update.
-        Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
-
-        // Create a listener to track request state updates.
-        installStateUpdatedListener = new InstallStateUpdatedListener() {
-            @Override
-            public void onStateUpdate(InstallState installState) {
-                // Show module progress, log state, or install the update.
-                Log.d("APP_UPDATE", ""+installState);
-                if (installState.installStatus() == InstallStatus.DOWNLOADED)
-                    // After the update is downloaded, show a notification
-                    // and request user confirmation to restart the app.
-                    popupSnackbarForCompleteUpdateAndUnregister();
-            }
-        };
-
-        // Checks that the platform will allow the specified type of update.
-        appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
-            Log.d("APP_UPDATE", "appUpdateInfo"+appUpdateInfo);
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
-                Log.d("APP_UPDATE", "appUpdateInfo_updateAvailability"+appUpdateInfo.updateAvailability());
-                // Request the update.
-                if (appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
-                    Log.d("APP_UPDATE", "appUpdateInfo_FLEXIBLE"+appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE));
-                    // Before starting an update, register a listener for updates.
-                    appUpdateManager.registerListener(installStateUpdatedListener);
-                    // Start an update.
-                    startAppUpdateFlexible(appUpdateInfo);
-                } else if (appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE) ) {
-                    Log.d("APP_UPDATE", "appUpdateInfo_IMMEDIATE"+appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE));
-                    // Start an update.
-                    startAppUpdateImmediate(appUpdateInfo);
-                }
-            }
-        });
-    }
-
-    private void startAppUpdateImmediate(AppUpdateInfo appUpdateInfo) {
-        Log.d("APP_UPDATE", "startAppUpdateIm Entered");
-        try {
-            appUpdateManager.startUpdateFlowForResult(
-                    appUpdateInfo,
-                    AppUpdateType.IMMEDIATE,
-                    // The current activity making the update request.
-                    this,
-                    // Include a request code to later monitor this update request.
-                    REQ_CODE_VERSION_UPDATE);
-        } catch (IntentSender.SendIntentException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void startAppUpdateFlexible(AppUpdateInfo appUpdateInfo) {
-        Log.d("APP_UPDATE", "startAppUpdateFl Entered");
-        try {
-            appUpdateManager.startUpdateFlowForResult(
-                    appUpdateInfo,
-                    AppUpdateType.FLEXIBLE,
-                    // The current activity making the update request.
-                    this,
-                    // Include a request code to later monitor this update request.
-                    REQ_CODE_VERSION_UPDATE);
-        } catch (IntentSender.SendIntentException e) {
-            e.printStackTrace();
-            unregisterInstallStateUpdListener();
-        }
-    }
-
-    /**
-     * Displays the snackbar notification and call to action.
-     * Needed only for Flexible app update
-     */
-    private void popupSnackbarForCompleteUpdateAndUnregister() {
-        Log.d("APP_UPDATE", "popupSnackbarForC Entered");
-        Snackbar snackbar = Snackbar.make(linearLayout_bhoomi, "Update Downloaded", Snackbar.LENGTH_INDEFINITE);
-        snackbar.setAction("Restart", view -> appUpdateManager.completeUpdate());
-        snackbar.show();
-
-        //Toast.makeText(getApplicationContext(), "Update Downloaded", Toast.LENGTH_SHORT).show();
-
-        unregisterInstallStateUpdListener();
-    }
-
-    /**
-     * Checks that the update is not stalled during 'onResume()'.
-     * However, you should execute this check at all app entry points.
-     */
-    private void checkNewAppVersionState() {
-        Log.d("APP_UPDATE", "checkNewAppVersionState Entered");
-        appUpdateManager.getAppUpdateInfo().addOnSuccessListener(appUpdateInfo -> {
-            Log.d("APP_UPDATE", "appUpdateInfo_Ver"+appUpdateInfo);
-            //FLEXIBLE:
-            // If the update is downloaded but not installed,
-            // notify the user to complete the update.
-            if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
-                Log.d("APP_UPDATE", "appUpdateInfo_Ver"+appUpdateInfo.installStatus());
-                popupSnackbarForCompleteUpdateAndUnregister();
-            }
-            //Toast.makeText(getApplicationContext(), "UpdateAvailability: "+appUpdateInfo.updateAvailability(), Toast.LENGTH_SHORT).show();
-            //IMMEDIATE:
-            if (appUpdateInfo.updateAvailability()
-                    == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
-                // If an in-app update is already running, resume the update.
-                Log.d("APP_UPDATE", "appUpdateInfo_Ver"+appUpdateInfo.updateAvailability());
-                startAppUpdateImmediate(appUpdateInfo);
-            }
-        });
-
-    }
-
-    /**
-     * Needed only for FLEXIBLE update
-     */
-    private void unregisterInstallStateUpdListener() {
-        Log.d("APP_UPDATE", "unregisterInstall Entered");
-        if (appUpdateManager != null && installStateUpdatedListener != null)
-            appUpdateManager.unregisterListener(installStateUpdatedListener);
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        Log.d("APP_UPDATE", "onResume Entered");
+//        checkNewAppVersionState();
+//    }
+//
+//    @Override
+//    public void onActivityResult(int requestCode, final int resultCode, Intent intent) {
+//        super.onActivityResult(requestCode, resultCode, intent);
+//        Log.d("APP_UPDATE", "onActivityResult Entered");
+//        switch (requestCode) {
+//            case REQ_CODE_VERSION_UPDATE:
+//                if (resultCode != RESULT_OK) { //RESULT_OK / RESULT_CANCELED / RESULT_IN_APP_UPDATE_FAILED
+//                    Log.d("APP_UPDATE", "Update flow failed! Result code: " + resultCode);
+//                    // If the update is cancelled or fails,
+//                    // you can request to start the update again.
+//                    unregisterInstallStateUpdListener();
+//                }
+//
+//                break;
+//        }
+//    }
+//
+//    @Override
+//    protected void onDestroy() {
+//        Log.d("APP_UPDATE", " onDestroy Entered");
+//        unregisterInstallStateUpdListener();
+//        super.onDestroy();
+//    }
+//
+//
+//    private void checkForAppUpdate() {
+//        Log.d("APP_UPDATE", "checkForAppUpdate Entered");
+//        // Creates instance of the manager.
+//        appUpdateManager = AppUpdateManagerFactory.create(getApplicationContext());
+//
+//        // Returns an intent object that you use to check for an update.
+//        Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
+//
+//        // Create a listener to track request state updates.
+//        installStateUpdatedListener = new InstallStateUpdatedListener() {
+//            @Override
+//            public void onStateUpdate(InstallState installState) {
+//                // Show module progress, log state, or install the update.
+//                Log.d("APP_UPDATE", ""+installState);
+//                if (installState.installStatus() == InstallStatus.DOWNLOADED)
+//                    // After the update is downloaded, show a notification
+//                    // and request user confirmation to restart the app.
+//                    popupSnackbarForCompleteUpdateAndUnregister();
+//            }
+//        };
+//
+//        // Checks that the platform will allow the specified type of update.
+//        appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
+//            Log.d("APP_UPDATE", "appUpdateInfo"+appUpdateInfo);
+//            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
+//                Log.d("APP_UPDATE", "appUpdateInfo_updateAvailability"+appUpdateInfo.updateAvailability());
+//                // Request the update.
+//                if (appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
+//                    Log.d("APP_UPDATE", "appUpdateInfo_FLEXIBLE"+appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE));
+//                    // Before starting an update, register a listener for updates.
+//                    appUpdateManager.registerListener(installStateUpdatedListener);
+//                    // Start an update.
+//                    startAppUpdateFlexible(appUpdateInfo);
+//                } else if (appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE) ) {
+//                    Log.d("APP_UPDATE", "appUpdateInfo_IMMEDIATE"+appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE));
+//                    // Start an update.
+//                    startAppUpdateImmediate(appUpdateInfo);
+//                }
+//            }
+//        });
+//    }
+//
+//    private void startAppUpdateImmediate(AppUpdateInfo appUpdateInfo) {
+//        Log.d("APP_UPDATE", "startAppUpdateIm Entered");
+//        try {
+//            appUpdateManager.startUpdateFlowForResult(
+//                    appUpdateInfo,
+//                    AppUpdateType.IMMEDIATE,
+//                    // The current activity making the update request.
+//                    this,
+//                    // Include a request code to later monitor this update request.
+//                    REQ_CODE_VERSION_UPDATE);
+//        } catch (IntentSender.SendIntentException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    private void startAppUpdateFlexible(AppUpdateInfo appUpdateInfo) {
+//        Log.d("APP_UPDATE", "startAppUpdateFl Entered");
+//        try {
+//            appUpdateManager.startUpdateFlowForResult(
+//                    appUpdateInfo,
+//                    AppUpdateType.FLEXIBLE,
+//                    // The current activity making the update request.
+//                    this,
+//                    // Include a request code to later monitor this update request.
+//                    REQ_CODE_VERSION_UPDATE);
+//        } catch (IntentSender.SendIntentException e) {
+//            e.printStackTrace();
+//            unregisterInstallStateUpdListener();
+//        }
+//    }
+//
+//    /**
+//     * Displays the snackbar notification and call to action.
+//     * Needed only for Flexible app update
+//     */
+//    private void popupSnackbarForCompleteUpdateAndUnregister() {
+//        Log.d("APP_UPDATE", "popupSnackbarForC Entered");
+//        Snackbar snackbar = Snackbar.make(linearLayout_bhoomi, "Update Downloaded", Snackbar.LENGTH_INDEFINITE);
+//        snackbar.setAction("Restart", view -> appUpdateManager.completeUpdate());
+//        snackbar.show();
+//
+//        //Toast.makeText(getApplicationContext(), "Update Downloaded", Toast.LENGTH_SHORT).show();
+//
+//        unregisterInstallStateUpdListener();
+//    }
+//
+//    /**
+//     * Checks that the update is not stalled during 'onResume()'.
+//     * However, you should execute this check at all app entry points.
+//     */
+//    private void checkNewAppVersionState() {
+//        Log.d("APP_UPDATE", "checkNewAppVersionState Entered");
+//        appUpdateManager.getAppUpdateInfo().addOnSuccessListener(appUpdateInfo -> {
+//            Log.d("APP_UPDATE", "appUpdateInfo_Ver"+appUpdateInfo);
+//            //FLEXIBLE:
+//            // If the update is downloaded but not installed,
+//            // notify the user to complete the update.
+//            if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
+//                Log.d("APP_UPDATE", "appUpdateInfo_Ver"+appUpdateInfo.installStatus());
+//                popupSnackbarForCompleteUpdateAndUnregister();
+//            }
+//            //Toast.makeText(getApplicationContext(), "UpdateAvailability: "+appUpdateInfo.updateAvailability(), Toast.LENGTH_SHORT).show();
+//            //IMMEDIATE:
+//            if (appUpdateInfo.updateAvailability()
+//                    == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
+//                // If an in-app update is already running, resume the update.
+//                Log.d("APP_UPDATE", "appUpdateInfo_Ver"+appUpdateInfo.updateAvailability());
+//                startAppUpdateImmediate(appUpdateInfo);
+//            }
+//        });
+//
+//    }
+//
+//    /**
+//     * Needed only for FLEXIBLE update
+//     */
+//    private void unregisterInstallStateUpdListener() {
+//        Log.d("APP_UPDATE", "unregisterInstall Entered");
+//        if (appUpdateManager != null && installStateUpdatedListener != null)
+//            appUpdateManager.unregisterListener(installStateUpdatedListener);
+//    }
 }

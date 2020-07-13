@@ -77,7 +77,6 @@ public class Language extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finish();
     }
     public void setLocale(String localeName) {
         Locale myLocale = new Locale(localeName);

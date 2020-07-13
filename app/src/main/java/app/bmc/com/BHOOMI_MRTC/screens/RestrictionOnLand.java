@@ -428,6 +428,16 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
     }
 
     @Override
+    public void onPostResponseSuccess4(String data) {
+
+    }
+
+    @Override
+    public void onPreExecute4() {
+
+    }
+
+    @Override
     public void onPostResponseError(String data) {
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);

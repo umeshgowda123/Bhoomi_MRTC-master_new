@@ -10,18 +10,23 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
@@ -39,10 +44,12 @@ import java.util.Objects;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.adapters.RestrictionOnLandReportAdapter;
+import app.bmc.com.BHOOMI_MRTC.backgroundtasks.RtcViewInfoBackGroundTaskFragment;
 import app.bmc.com.BHOOMI_MRTC.model.RestrictionOnLandReportTable;
+import app.bmc.com.BHOOMI_MRTC.util.Constants;
 import fr.arnaudguyon.xmltojsonlib.XmlToJson;
 
-public class RestrictionOnLandReport extends AppCompatActivity {
+public class RestrictionOnLandReport extends AppCompatActivity implements RtcViewInfoBackGroundTaskFragment.BackgroundCallBackRtcViewInfo {
     RecyclerView rvRestrictionReport;
     List<RestrictionOnLandReportTable> restrictionOnLandReportTableList;
 
@@ -58,6 +65,8 @@ public class RestrictionOnLandReport extends AppCompatActivity {
     SoapSerializationEnvelope envelope;
     SoapPrimitive resultString;
     String resultFromServer;
+    RtcViewInfoBackGroundTaskFragment mTaskFragment;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,6 +85,17 @@ public class RestrictionOnLandReport extends AppCompatActivity {
             window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
 
+        FragmentManager fm = getSupportFragmentManager();
+        mTaskFragment = (RtcViewInfoBackGroundTaskFragment) fm.findFragmentByTag(RtcViewInfoBackGroundTaskFragment.TAG_HEADLESS_FRAGMENT);
+
+        // If the Fragment is non-null, then it is currently being
+        // retained across a configuration change.
+        if (mTaskFragment == null) {
+            mTaskFragment = new RtcViewInfoBackGroundTaskFragment();
+            fm.beginTransaction().add(mTaskFragment, RtcViewInfoBackGroundTaskFragment.TAG_HEADLESS_FRAGMENT).commit();
+        }
+
+        progressBar = findViewById(R.id.progress_circular);
         rvRestrictionReport = findViewById(R.id.rvRestrictionReport);
 
         Intent intent = getIntent();
@@ -91,10 +111,128 @@ public class RestrictionOnLandReport extends AppCompatActivity {
                     +" "+suroc+" "+hissa);
         }
         if (isNetworkAvailable()){
-            new GetRestrictionOnLandReport(district_id,taluk_id,hobli_id,village_id,surveyNo,suroc,hissa).execute();
+            String input = "{" +
+                    "\"DISTRICT_CODE\": \""+district_id+"\"," +
+                    "\"TALUK_CODE\": \""+taluk_id+"\"," +
+                    "\"HOBLI_CODE\":\""+hobli_id+"\"," +
+                    "\"VILLAGE_CODE\": \""+village_id+"\"," +
+                    "\"SURVEY_NUMBER\": \""+surveyNo+"\"," +
+                    "\"SURNOC\": \""+suroc+"\"," +
+                    "\"HISSA\": \""+hissa+"\"" +
+                    "}";
+            try
+            {
+                JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
+                Log.d("jsonObject", "" + jsonObject);
+                progressBar.setVisibility(View.VISIBLE);
+                mTaskFragment.startBackgroundTask4(jsonObject);
+            }catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            //new GetRestrictionOnLandReport(district_id,taluk_id,hobli_id,village_id,surveyNo,suroc,hissa).execute();
         }else {
             Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void onPreExecute1() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess1(String data) {
+
+    }
+
+    @Override
+    public void onPreExecute2() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess2(String data) {
+
+    }
+
+    @Override
+    public void onPreExecute3() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess3(String data) {
+
+    }
+
+    @Override
+    public void onPreExecute4() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onPostResponseSuccess4(String data) {
+        progressBar.setVisibility(View.GONE);
+
+        XmlToJson xmlToJson = new XmlToJson.Builder(data).build();
+        String formatted = xmlToJson.toFormattedString();
+        try {
+            JSONObject obj = new JSONObject(formatted.replace("\n", ""));
+            JSONObject OwnerDetails_Obj = obj.getJSONObject("OwnerDetails");
+            Log.d("OwnerDetails", "str: " + OwnerDetails_Obj);
+            OwnerDetails_Obj = OwnerDetails_Obj.getJSONObject("OWNERS");
+            Log.d("OWNERS", "str: " + OwnerDetails_Obj);
+            formatted = OwnerDetails_Obj.toString();
+            formatted = formatted.replace("\"JOINT_OWNERS\":{","\"JOINT_OWNERS\":[{");
+            formatted = formatted.replace("}}","}]}");
+            OwnerDetails_Obj = new JSONObject(formatted);
+            Log.d("JOINT_formatted", "str: " + OwnerDetails_Obj);
+//            OwnerDetails_Obj = OwnerDetails_Obj.getJSONObject("JOINT_OWNERS");
+//            Log.d("JOINT_OWNERS", "str: " + OwnerDetails_Obj);
+            JSONArray JOINT_OWNERS_jsonArray = OwnerDetails_Obj.getJSONArray("JOINT_OWNERS");
+            Log.d("JOINT_OWNERS", "" + JOINT_OWNERS_jsonArray);
+
+            String strJsonArray = JOINT_OWNERS_jsonArray.toString();
+            strJsonArray = strJsonArray.replace("{\"OWNER\":","");
+            strJsonArray = strJsonArray.replace("},\"EXTENT\"",",\"EXTENT\"");
+
+            JSONArray final_JsonArray = new JSONArray(strJsonArray);
+
+            Gson gson = new Gson();
+            restrictionOnLandReportTableList = gson.fromJson(String.valueOf(final_JsonArray), new TypeToken<List<RestrictionOnLandReportTable>>() {
+            }.getType());
+            Log.d("SIZESUS", restrictionOnLandReportTableList.size() + "");
+
+            if (restrictionOnLandReportTableList.size() == 0) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(RestrictionOnLandReport.this, R.style.MyDialogTheme);
+                builder.setTitle("STATUS")
+                        .setMessage("No Data Found For this Record")
+                        .setIcon(R.drawable.ic_notifications_black_24dp)
+                        .setCancelable(false)
+                        .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                final AlertDialog alert = builder.create();
+                alert.show();
+                alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+            } else {
+                restrictionOnLandReportTableList.size();
+                Log.d("List",restrictionOnLandReportTableList.size()+"");
+                RestrictionOnLandReportAdapter adapter = new RestrictionOnLandReportAdapter(restrictionOnLandReportTableList);
+                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+                rvRestrictionReport.setLayoutManager(mLayoutManager);
+                rvRestrictionReport.setItemAnimator(new DefaultItemAnimator());
+                rvRestrictionReport.setAdapter(adapter);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), Constants.ERR_MSG, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onPostResponseError(String data) {
+        if (progressBar != null)
+            progressBar.setVisibility(View.GONE);
+        Toast.makeText(getApplicationContext(), data, Toast.LENGTH_LONG).show();
     }
 
     private class GetRestrictionOnLandReport extends AsyncTask<String, Integer, String> {

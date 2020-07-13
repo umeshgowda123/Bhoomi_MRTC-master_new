@@ -154,4 +154,11 @@ public interface PariharaIndividualReportInteface {
     Call<PariharaIndividualDetailsResponse> getAllotmentDetailsBasedOnAppNo(@Path("pstrUserName") String pstrUserName, @Path("pStrPassword") String pStrPassword,
                                                                                 @Path("pApplicationNo") String pApplicationNo);
 
+
+    @Headers({"content-type: text/json; charset=utf-8"})
+    @POST("GetLandRestriction/{pstr_UserName}/{pStr_Password}/")
+    Call<PariharaIndividualDetailsResponse> fnGetLandRestrictionResult(
+            @Path("pstr_UserName") String username,
+            @Path("pStr_Password") String password,
+            @Body JsonObject input);
 }

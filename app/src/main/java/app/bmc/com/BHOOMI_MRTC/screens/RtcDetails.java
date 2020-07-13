@@ -235,6 +235,16 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
     }
 
     @Override
+    public void onPostResponseSuccess4(String data) {
+
+    }
+
+    @Override
+    public void onPreExecute4() {
+
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
        /* outState.putString(GAME_STATE_KEY, mGameState);
         outState.putString(TEXT_VIEW_KEY, mTextView.getText());

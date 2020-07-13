@@ -11,6 +11,14 @@ public class PariharaIndividualDetailsResponse {
     @Expose
     public String getDownloadCLWSSTATUS_AadhaarResult;
 
+    @SerializedName("GetLandRestrictionResult")
+    @Expose
+    public String GetLandRestrictionResult;
+
+    public String getGetLandRestrictionResult() {
+        return GetLandRestrictionResult;
+    }
+
     @SerializedName("DownloadCLWSSTATUS_RationCardResult")
     @Expose
     public String getDownloadCLWSSTATUS_RationCardResult;

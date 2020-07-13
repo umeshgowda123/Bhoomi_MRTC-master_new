@@ -9,13 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.util.Log;
 
+import com.google.gson.JsonObject;
+
 import org.jetbrains.annotations.NotNull;
 
 import app.bmc.com.BHOOMI_MRTC.R;
+import app.bmc.com.BHOOMI_MRTC.api.PariharaIndividualReportInteface;
 import app.bmc.com.BHOOMI_MRTC.api.RtcViewInformationApi;
 import app.bmc.com.BHOOMI_MRTC.model.Get_Rtc_Data_Result;
 import app.bmc.com.BHOOMI_MRTC.model.Get_Surnoc_HissaResult;
 import app.bmc.com.BHOOMI_MRTC.model.Get_ViewMutationStatusResult;
+import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
 import app.bmc.com.BHOOMI_MRTC.retrofit.RtcViewInfoClient;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
 import retrofit2.Call;
@@ -100,6 +104,13 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
     public void startBackgroundTask3(int district_id, int taluk_id, int hobli_id, int village_id, int land_no) {
         if (!isTaskExecuting) {
             getMutationStatusResponse(String.valueOf(district_id), String.valueOf(taluk_id), String.valueOf(hobli_id), String.valueOf(village_id), String.valueOf(land_no));
+
+        }
+    }
+
+    public void startBackgroundTask4(JsonObject input) {
+        if (!isTaskExecuting) {
+            getLandRestrictionResult(input);
 
         }
     }
@@ -224,6 +235,46 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
 
     }
 
+    private void getLandRestrictionResult(JsonObject input){
+        isTaskExecuting = true;
+        if (backgroundCallBack != null)
+            backgroundCallBack.onPreExecute4();
+
+        Retrofit retrofit = RtcViewInfoClient.getClient("https://clws.karnataka.gov.in/Service4/BHOOMI/");
+        PariharaIndividualReportInteface service = retrofit.create(PariharaIndividualReportInteface.class);
+        Call<PariharaIndividualDetailsResponse> get_rtc_data_resultCall = service.fnGetLandRestrictionResult(Constants.REPORT_SERVICE_USER_NAME,Constants.REPORT_SERVICE_PASSWORD, input);
+        get_rtc_data_resultCall.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {
+                if (response.isSuccessful()) {
+                    PariharaIndividualDetailsResponse viewResult = response.body();
+                    //String get_rtc_data_result = response.body();
+                    isTaskExecuting = false;
+                    if (backgroundCallBack != null) {
+                        assert viewResult != null;
+                        backgroundCallBack.onPostResponseSuccess4(viewResult.getGetLandRestrictionResult());
+                    }
+                } else {
+                    isTaskExecuting = false;
+
+                    String errorResponse = response.message();
+                    backgroundCallBack.onPostResponseError(errorResponse);
+                }
+
+            }
+
+
+            @Override
+            public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable error) {
+                isTaskExecuting = false;
+
+                String errorResponse = error.getLocalizedMessage();
+                Log.d("errorResponse",""+errorResponse);
+                backgroundCallBack.onPostResponseError(errorResponse);
+            }
+        });
+    }
+
     public interface BackgroundCallBackRtcViewInfo {
         void onPreExecute1();
 
@@ -238,6 +289,10 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         void onPreExecute3();
 
         void onPostResponseSuccess3(String data);
+
+        void onPostResponseSuccess4(String data);
+
+        void onPreExecute4();
 
     }
 }
