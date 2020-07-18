@@ -77,6 +77,9 @@ public class Language extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Intent refresh = new Intent(this, BhoomiHomePage.class);
+        startActivity(refresh);
+        finish();
     }
     public void setLocale(String localeName) {
         Locale myLocale = new Locale(localeName);
