@@ -371,8 +371,8 @@ io.reactivex.internal.operators.flowable.FlowableFlatMapCompletableCompletable
 androidx.asynclayoutinflater.R$layout
 androidx.recyclerview.widget.DiffUtil$1
 androidx.core.content.IntentCompat
-kotlin.sequences.GeneratorSequence$iterator$1
 kotlin.sequences.SequencesKt___SequencesKt$minus$4
+kotlin.sequences.GeneratorSequence$iterator$1
 com.google.android.play.core.internal.bo
 androidx.fragment.R$style
 io.reactivex.internal.operators.flowable.FlowableRangeLong
@@ -592,6 +592,12 @@ androidx.annotation.RestrictTo
 androidx.appcompat.R$drawable
     private void <init>()
 android.support.v4.media.MediaBrowserCompatApi23$ItemCallback
+app.bmc.com.BHOOMI_MRTC.screens.RestrictionOnLandReport
+    android.app.ProgressDialog progressDialog
+    org.ksoap2.transport.HttpTransportSE androidHttpTransport
+    org.ksoap2.serialization.SoapSerializationEnvelope envelope
+    org.ksoap2.serialization.SoapPrimitive resultString
+    java.lang.String resultFromServer
 androidx.legacy.v4.R$integer
 io.reactivex.internal.operators.flowable.FlowableReplay$ReplayBuffer
 androidx.interpolator.R
@@ -741,6 +747,7 @@ kotlin.jvm.internal.CallableReference
 com.google.android.play.core.assetpacks.d
 kotlin.collections.ArraysKt___ArraysKt$asIterable$$inlined$Iterable$2
 kotlin.UIntArray
+app.bmc.com.BHOOMI_MRTC.screens.RestrictionOnLandReport$GetRestrictionOnLandReport$1
 androidx.media.MediaSessionManager$MediaSessionManagerImpl
 androidx.constraintlayout.solver.widgets.ResolutionNode
 org.intellij.lang.annotations.JdkConstants$FlowLayoutAlignment
@@ -3494,9 +3501,9 @@ com.google.android.material.R$id
 io.reactivex.internal.operators.observable.ObservableInternalHelper$SimpleGenerator
 org.kobjects.io.BoundInputStream
 com.google.android.play.core.missingsplits.MissingSplitsManagerFactory
-kotlin.sequences.SequencesKt___SequencesKt$minus$2
-okio.DeflaterSink
 io.reactivex.internal.operators.observable.ObservableMergeWithCompletable$MergeWithObserver
+okio.DeflaterSink
+kotlin.sequences.SequencesKt___SequencesKt$minus$2
 android.support.v4.media.session.MediaSessionCompatApi23
 androidx.appcompat.app.ActionBar$NavigationMode
 androidx.appcompat.widget.AbsActionBarView$1
@@ -3668,8 +3675,8 @@ io.reactivex.internal.operators.observable.ObservableTakeUntilPredicate
 kotlin.comparisons.ComparisonsKt__ComparisonsKt$then$1
 androidx.appcompat.app.ActionBar$DisplayOptions
 androidx.vectordrawable.animated.R$integer
-com.google.android.material.bottomnavigation.BottomNavigationView
 okhttp3.internal.concurrent.TaskQueue$execute$1
+com.google.android.material.bottomnavigation.BottomNavigationView
 io.reactivex.internal.operators.observable.ObservableCombineLatest$CombinerObserver
 org.reactivestreams.FlowAdapters$FlowPublisherFromReactive
 org.intellij.lang.annotations.JdkConstants$HorizontalAlignment
@@ -4628,6 +4635,7 @@ kotlin.UByte$Companion
 com.google.android.material.R$color
     private void <init>()
 io.reactivex.internal.operators.maybe.MaybeDetach$DetachMaybeObserver
+app.bmc.com.BHOOMI_MRTC.screens.RestrictionOnLandReport$GetRestrictionOnLandReport
 androidx.legacy.v4.R$string
 androidx.core.view.PointerIconCompat
     public static androidx.core.view.PointerIconCompat create(android.graphics.Bitmap,float,float)
@@ -7365,6 +7373,9 @@ io.reactivex.internal.operators.single.SingleHide
 io.reactivex.internal.operators.observable.ObservableDebounceTimed$DebounceTimedObserver
 io.reactivex.internal.operators.single.SingleNever
 io.reactivex.internal.operators.observable.ObservableDoOnEach
+app.bmc.com.BHOOMI_MRTC.screens.RestrictionOnLand
+    private static synthetic void lambda$selfDestruct$11(android.content.DialogInterface,int)
+    public void selfDestruct()
 androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView
     public void <init>(android.content.Context)
 io.reactivex.android.R
@@ -15672,6 +15683,12 @@ okhttp3.ResponseBody
 okhttp3.internal.http.ExchangeCodec
     static void <clinit>()
     public static final okhttp3.internal.http.ExchangeCodec$Companion Companion
+app.bmc.com.BHOOMI_MRTC.screens.RestrictionOnLandReport
+    public final boolean isNetworkAvailable()
+    public final java.lang.String OPERATION_NAME2
+    public final java.lang.String WSDL_TARGET_NAMESPACE2
+    public java.lang.String SOAP_ACTION2
+    public java.lang.String SOAP_ADDRESS2
 app.bmc.com.BHOOMI_MRTC.screens.LoanWaiverReportForCommercialFramerWise$1
     public java.util.List call()
 retrofit2.adapter.rxjava2.CallEnqueueObservable$CallCallback
@@ -16267,6 +16284,7 @@ app.bmc.com.BHOOMI_MRTC.backgroundtasks.RtcViewInfoBackGroundTaskFragment
     public final void getRtcResponse(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)
     public final void getSurnocHissaResponse(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)
     public final void getMutationStatusResponse(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)
+    public final void getLandRestrictionResult(com.google.gson.JsonObject)
 fr.arnaudguyon.xmltojsonlib.XmlToJson
     public void <init>(fr.arnaudguyon.xmltojsonlib.XmlToJson$Builder)
     public final org.json.JSONObject convertToJSONObject()
@@ -16390,6 +16408,9 @@ app.bmc.com.BHOOMI_MRTC.screens.ViewRtcInformationByOwnerName
 app.bmc.com.BHOOMI_MRTC.screens.LoanWaiverReportForCommercialFramerWise
     public final void onClickAction()
     public final boolean isNetworkAvailable()
+app.bmc.com.BHOOMI_MRTC.backgroundtasks.RtcViewInfoBackGroundTaskFragment$4
+    static void <clinit>()
+    public static final synthetic boolean $assertionsDisabled
 androidx.core.provider.FontsContractCompat$5
     public int compare(byte[],byte[])
 com.google.android.material.transformation.FabTransformationBehavior$3
@@ -17073,8 +17094,6 @@ com.google.gson.internal.ConstructorConstructor$2
     public final synthetic com.google.gson.internal.ConstructorConstructor this$0
 app.bmc.com.BHOOMI_MRTC.screens.ViewMutationSummeryReport$5$2
     public void onNext(java.util.List)
-app.bmc.com.BHOOMI_MRTC.screens.BhoomiHomePage$4
-    public final synthetic app.bmc.com.BHOOMI_MRTC.screens.BhoomiHomePage this$0
 androidx.core.view.ViewPropertyAnimatorUpdateListener
     public abstract void onAnimationUpdate(android.view.View)
 okhttp3.internal.cache.CacheStrategy
@@ -17110,6 +17129,8 @@ androidx.appcompat.widget.ActionMenuPresenter$OverflowMenuButton$1
 com.google.android.material.chip.ChipGroup$OnCheckedChangeListener
     public abstract void onCheckedChanged(com.google.android.material.chip.ChipGroup,int)
 okhttp3.internal.http.StatusLine$Companion
+app.bmc.com.BHOOMI_MRTC.screens.RestrictionOnLand$5
+    public final synthetic app.bmc.com.BHOOMI_MRTC.screens.RestrictionOnLand this$0
 retrofit2.adapter.rxjava2.CallExecuteObservable$CallDisposable
     public boolean isDisposed()
 com.google.android.material.card.MaterialCardViewHelper$1
@@ -17533,6 +17554,8 @@ org.jsoup.helper.HttpConnection
     public static java.lang.String encodeMimeName(java.lang.String)
     public static boolean needsMultipart(org.jsoup.Connection$Request)
     public static synthetic java.net.URL access$200(java.net.URL)
+app.bmc.com.BHOOMI_MRTC.screens.RestrictionOnLand$4
+    public void onNext(java.util.List)
 kotlin.jvm.internal.markers.KMutableList
 androidx.recyclerview.widget.GapWorker$LayoutPrefetchRegistryImpl
     public void setPrefetchVector(int,int)
@@ -18492,6 +18515,8 @@ com.google.android.material.appbar.MaterialToolbar
 androidx.appcompat.widget.AppCompatImageHelper
     public final boolean shouldApplyFrameworkTintUsingColorFilter()
     public final boolean applyFrameworkTintUsingColorFilter(android.graphics.drawable.Drawable)
+app.bmc.com.BHOOMI_MRTC.screens.RestrictionOnLand$3
+    public void onNext(java.util.List)
 androidx.fragment.app.FragmentController
     public static androidx.fragment.app.FragmentController createController(androidx.fragment.app.FragmentHostCallback)
 com.google.android.material.internal.ParcelableSparseArray$1
@@ -19083,6 +19108,8 @@ app.bmc.com.BHOOMI_MRTC.screens.ClwsStatusRationCardDetails$3
 app.bmc.com.BHOOMI_MRTC.screens.MutationPendencyDetails
     public final void onClickAction()
     public final boolean isNetworkAvailable()
+app.bmc.com.BHOOMI_MRTC.screens.RestrictionOnLand$2
+    public void onNext(java.util.List)
 com.google.gson.internal.ConstructorConstructor$11
     public final synthetic com.google.gson.internal.ConstructorConstructor this$0
 okhttp3.internal.http.HttpMethod
@@ -19704,6 +19731,8 @@ androidx.lifecycle.LiveData
 androidx.appcompat.widget.SearchView$OnQueryTextListener
     public abstract boolean onQueryTextSubmit(java.lang.String)
     public abstract boolean onQueryTextChange(java.lang.String)
+app.bmc.com.BHOOMI_MRTC.screens.RestrictionOnLand$1
+    public void onNext(java.util.List)
 org.ksoap2.SoapFault
     public int version
 org.jsoup.parser.HtmlTreeBuilderState$Constants
@@ -20302,6 +20331,12 @@ app.bmc.com.BHOOMI_MRTC.screens.MutationPendencyDetails$3$1
 com.google.gson.internal.bind.TypeAdapters$23
     public java.net.InetAddress read(com.google.gson.stream.JsonReader)
     public void write(com.google.gson.stream.JsonWriter,java.net.InetAddress)
+app.bmc.com.BHOOMI_MRTC.screens.RestrictionOnLand
+    public final void onClickAction()
+    public final boolean isNetworkAvailable()
+    public int land_no
+    public java.lang.String hissa
+    public android.widget.TextView tvSetTite
 kotlin.comparisons.ComparisonsKt__ComparisonsKt
 androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView
     public void <init>(android.content.Context,android.util.AttributeSet,int)
@@ -20382,6 +20417,8 @@ androidx.appcompat.widget.TooltipPopup
     public static android.view.View getAppRootView(android.view.View)
     public void show(android.view.View,int,int,boolean,java.lang.CharSequence)
     public final void computePosition(android.view.View,int,int,boolean,android.view.WindowManager$LayoutParams)
+app.bmc.com.BHOOMI_MRTC.screens.RestrictionOnLandReport$1
+    public final synthetic app.bmc.com.BHOOMI_MRTC.screens.RestrictionOnLandReport this$0
 org.jsoup.parser.XmlTreeBuilder
     public final void insertNode(org.jsoup.nodes.Node)
     public final void popStackToClose(org.jsoup.parser.Token$EndTag)

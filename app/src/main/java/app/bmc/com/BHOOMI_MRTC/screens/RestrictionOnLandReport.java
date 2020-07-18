@@ -173,58 +173,76 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
     @Override
     public void onPostResponseSuccess4(String data) {
         progressBar.setVisibility(View.GONE);
-
-        XmlToJson xmlToJson = new XmlToJson.Builder(data).build();
-        String formatted = xmlToJson.toFormattedString();
-        try {
-            JSONObject obj = new JSONObject(formatted.replace("\n", ""));
-            JSONObject OwnerDetails_Obj = obj.getJSONObject("OwnerDetails");
-            Log.d("OwnerDetails", "str: " + OwnerDetails_Obj);
-            OwnerDetails_Obj = OwnerDetails_Obj.getJSONObject("OWNERS");
-            Log.d("OWNERS", "str: " + OwnerDetails_Obj);
-            formatted = OwnerDetails_Obj.toString();
-            formatted = formatted.replace("\"JOINT_OWNERS\":{","\"JOINT_OWNERS\":[{");
-            formatted = formatted.replace("}}","}]}");
-            OwnerDetails_Obj = new JSONObject(formatted);
-            Log.d("JOINT_formatted", "str: " + OwnerDetails_Obj);
+        Log.d("",""+data);
+        if (data==null || data.equals("")){
+            final AlertDialog.Builder builder = new AlertDialog.Builder(RestrictionOnLandReport.this, R.style.MyDialogTheme);
+            builder.setTitle("STATUS")
+                    .setMessage("No Data Found For this Record")
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", (dialog, id) -> {
+                        dialog.cancel();
+                        finish();
+                    });
+            final AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        } else {
+            XmlToJson xmlToJson = new XmlToJson.Builder(data).build();
+            String formatted = xmlToJson.toFormattedString();
+            try {
+                JSONObject obj = new JSONObject(formatted.replace("\n", ""));
+                JSONObject OwnerDetails_Obj = obj.getJSONObject("OwnerDetails");
+                Log.d("OwnerDetails", "str: " + OwnerDetails_Obj);
+                OwnerDetails_Obj = OwnerDetails_Obj.getJSONObject("OWNERS");
+                Log.d("OWNERS", "str: " + OwnerDetails_Obj);
+                formatted = OwnerDetails_Obj.toString();
+                formatted = formatted.replace("\"JOINT_OWNERS\":{", "\"JOINT_OWNERS\":[{");
+                formatted = formatted.replace("}}", "}]}");
+                OwnerDetails_Obj = new JSONObject(formatted);
+                Log.d("JOINT_formatted", "str: " + OwnerDetails_Obj);
 //            OwnerDetails_Obj = OwnerDetails_Obj.getJSONObject("JOINT_OWNERS");
 //            Log.d("JOINT_OWNERS", "str: " + OwnerDetails_Obj);
-            JSONArray JOINT_OWNERS_jsonArray = OwnerDetails_Obj.getJSONArray("JOINT_OWNERS");
-            Log.d("JOINT_OWNERS", "" + JOINT_OWNERS_jsonArray);
+                JSONArray JOINT_OWNERS_jsonArray = OwnerDetails_Obj.getJSONArray("JOINT_OWNERS");
+                Log.d("JOINT_OWNERS", "" + JOINT_OWNERS_jsonArray);
 
-            String strJsonArray = JOINT_OWNERS_jsonArray.toString();
-            strJsonArray = strJsonArray.replace("{\"OWNER\":","");
-            strJsonArray = strJsonArray.replace("},\"EXTENT\"",",\"EXTENT\"");
+                String strJsonArray = JOINT_OWNERS_jsonArray.toString();
+                strJsonArray = strJsonArray.replace("{\"OWNER\":", "");
+                strJsonArray = strJsonArray.replace("},\"EXTENT\"", ",\"EXTENT\"");
 
-            JSONArray final_JsonArray = new JSONArray(strJsonArray);
+                JSONArray final_JsonArray = new JSONArray(strJsonArray);
 
-            Gson gson = new Gson();
-            restrictionOnLandReportTableList = gson.fromJson(String.valueOf(final_JsonArray), new TypeToken<List<RestrictionOnLandReportTable>>() {
-            }.getType());
-            Log.d("SIZESUS", restrictionOnLandReportTableList.size() + "");
+                Gson gson = new Gson();
+                restrictionOnLandReportTableList = gson.fromJson(String.valueOf(final_JsonArray), new TypeToken<List<RestrictionOnLandReportTable>>() {
+                }.getType());
+                Log.d("SIZESUS", restrictionOnLandReportTableList.size() + "");
 
-            if (restrictionOnLandReportTableList.size() == 0) {
-                final AlertDialog.Builder builder = new AlertDialog.Builder(RestrictionOnLandReport.this, R.style.MyDialogTheme);
-                builder.setTitle("STATUS")
-                        .setMessage("No Data Found For this Record")
-                        .setIcon(R.drawable.ic_notifications_black_24dp)
-                        .setCancelable(false)
-                        .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
-                final AlertDialog alert = builder.create();
-                alert.show();
-                alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-            } else {
-                restrictionOnLandReportTableList.size();
-                Log.d("List",restrictionOnLandReportTableList.size()+"");
-                RestrictionOnLandReportAdapter adapter = new RestrictionOnLandReportAdapter(restrictionOnLandReportTableList);
-                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-                rvRestrictionReport.setLayoutManager(mLayoutManager);
-                rvRestrictionReport.setItemAnimator(new DefaultItemAnimator());
-                rvRestrictionReport.setAdapter(adapter);
+                if (restrictionOnLandReportTableList.size() == 0) {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(RestrictionOnLandReport.this, R.style.MyDialogTheme);
+                    builder.setTitle("STATUS")
+                            .setMessage("No Data Found For this Record")
+                            .setIcon(R.drawable.ic_notifications_black_24dp)
+                            .setCancelable(false)
+                            .setPositiveButton("OK", (dialog, id) -> {
+                                dialog.cancel();
+                                finish();
+                            });
+                    final AlertDialog alert = builder.create();
+                    alert.show();
+                    alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                } else {
+                    restrictionOnLandReportTableList.size();
+                    Log.d("List", restrictionOnLandReportTableList.size() + "");
+                    RestrictionOnLandReportAdapter adapter = new RestrictionOnLandReportAdapter(restrictionOnLandReportTableList);
+                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+                    rvRestrictionReport.setLayoutManager(mLayoutManager);
+                    rvRestrictionReport.setItemAnimator(new DefaultItemAnimator());
+                    rvRestrictionReport.setAdapter(adapter);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), Constants.ERR_MSG, Toast.LENGTH_LONG).show();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(getApplicationContext(), Constants.ERR_MSG, Toast.LENGTH_LONG).show();
         }
     }
 

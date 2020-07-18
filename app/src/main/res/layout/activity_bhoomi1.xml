@@ -39,1089 +39,607 @@
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
-<androidx.core.widget.NestedScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:scrollbars="vertical">
-
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
+        android:orientation="vertical"
+        android:scrollbars="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/profile_image"
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
-                    android:layout_marginStart="20dp"
-                    android:src="@drawable/gok"
-                    app:civ_border_color="#616161"
-                    app:civ_border_width="2dp" />
+                android:layout_margin="10dp"
+                android:orientation="vertical">
 
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/tvWelcomeMsg"
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile_image"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:layout_marginStart="20dp"
+                        android:src="@drawable/gok"
+                        app:civ_border_color="#616161"
+                        app:civ_border_width="2dp" />
+
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:text="@string/bhoomi"
-                        android:textSize="17sp"
-                        android:textColor="#000"
-                        android:textStyle="bold" />
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:id="@+id/tvWelcomeMsg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/bhoomi"
+                            android:textSize="17sp"
+                            android:textColor="#000"
+                            android:textStyle="bold" />
 
 
-                    <TextView
-                        android:id="@+id/tvGok"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tvWelcomeMsg"
-                        android:layout_marginStart="10dp"
-                        android:textColor="#000"
-                        android:text="@string/kar"
-                        android:textSize="17sp"
-                        android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/tvGok"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvWelcomeMsg"
+                            android:layout_marginStart="10dp"
+                            android:textColor="#000"
+                            android:text="@string/kar"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
 
 
-                </RelativeLayout>
-            </LinearLayout>
+                    </RelativeLayout>
+                </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:orientation="horizontal">
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@color/colorGrey" />
-
-                <TextView
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:text="@string/bhoomi"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal">
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@color/colorGrey" />
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@color/colorGrey" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="@string/bhoomi"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@color/colorGrey" />
+                </LinearLayout>
+
             </LinearLayout>
+
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:divider="#000000"
+                android:orientation="vertical"
+                android:padding="5dip"
+                android:showDividers="middle"
+                android:stretchColumns="*">
+
+                <TableRow
+                    android:divider="@color/colorPrimary"
+                    android:showDividers="middle">
+
+                    <LinearLayout
+                        android:id="@+id/layout_viewRtc"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:id="@+id/iv_view_rtc"
+                            android:layout_width="65dp"
+                            android:layout_height="65dp"
+                            android:layout_gravity="center"
+                            android:paddingStart="2dip"
+                            android:paddingEnd="5dip"
+                            android:src="@drawable/view_rtc"
+                            tools:ignore="ContentDescription" />
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingStart="2dip"
+                            android:paddingEnd="5dip"
+                            android:textColor="#26A69A"
+                            android:text="@string/view_rtc_information" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_rtc_verify"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/iv_rtc_verify"
+                            android:layout_width="65dp"
+                            android:layout_height="65dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:paddingStart="2dip"
+                            android:paddingEnd="5dip"
+                            android:src="@drawable/rtc_xml_verify"
+                            tools:ignore="ContentDescription,InefficientWeight" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingStart="2dip"
+                            android:paddingEnd="5dip"
+                            android:textColor="#26A69A"
+                            android:text="@string/rtc_xml_verification" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_view_rtc_ownerName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/iv_view_rtc_owner_name"
+                            android:layout_width="65dp"
+                            android:layout_height="65dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:paddingStart="2dip"
+                            android:paddingEnd="5dip"
+                            android:src="@drawable/view_rtc_owner"
+                            tools:ignore="ContentDescription,InefficientWeight" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingStart="2dip"
+                            android:paddingEnd="5dip"
+                            android:textColor="#26A69A"
+                            android:text="@string/view_rtc_by_ownername" />
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow
+                    android:divider="@color/colorPrimary"
+                    android:showDividers="middle">
+
+                    <LinearLayout
+                        android:id="@+id/layout_mutation_pendency"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:id="@+id/ivService5"
+                            android:layout_width="65dp"
+                            android:layout_height="65dp"
+                            android:layout_gravity="center"
+                            android:paddingStart="2dip"
+                            android:paddingEnd="5dip"
+                            android:src="@drawable/mut_pend"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingStart="2dip"
+                            android:paddingEnd="5dip"
+                            android:textColor="#26A69A"
+                            android:text="@string/mutation_pendencey_details" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_mut_summery"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:id="@+id/inService5"
+                            android:layout_width="65dp"
+                            android:layout_height="54dp"
+                            android:layout_gravity="center"
+                            android:paddingStart="2dip"
+                            android:paddingEnd="5dip"
+                            android:src="@drawable/mut_sum"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingStart="2dip"
+                            android:paddingEnd="5dip"
+                            android:textColor="#26A69A"
+                            android:text="@string/mutation_sum_report" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_mutation_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:id="@+id/ivService4"
+                            android:layout_width="65dp"
+                            android:layout_height="65dp"
+                            android:layout_gravity="center"
+                            android:paddingStart="2dip"
+                            android:paddingEnd="5dip"
+                            android:src="@drawable/m_status"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingStart="2dip"
+                            android:paddingEnd="5dip"
+                            android:textColor="#26A69A"
+                            android:text="@string/view_mutation_status" />
+
+                    </LinearLayout>
+
+                </TableRow>
+                <TableRow
+                    android:divider="@color/colorPrimary"
+                    android:showDividers="middle">
+
+                    <LinearLayout
+                        android:id="@+id/layout_restriction_land"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:id="@+id/ivService77"
+                            android:layout_width="65dp"
+                            android:layout_height="65dp"
+                            android:layout_gravity="center"
+                            android:paddingStart="2dip"
+                            android:paddingEnd="5dip"
+                            android:src="@drawable/view_rtc"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingStart="2dip"
+                            android:paddingEnd="5dip"
+                            android:textColor="#26A69A"
+                            android:text="@string/restriction_on_land" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        tools:ignore="UseCompoundDrawables">
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        tools:ignore="UseCompoundDrawables">
+                    </LinearLayout>
+
+                </TableRow>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_gravity="center"
+                        android:layout_weight=".5"
+                        android:background="@android:color/white" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="@string/mojini"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_gravity="center"
+                        android:layout_weight=".5"
+                        android:background="@android:color/white" />
+                </LinearLayout>
+
+                <TableRow
+                    android:divider="@color/colorPrimary"
+                    android:showDividers="middle">
+
+
+                    <LinearLayout
+                        android:id="@+id/layout_download_villageMap"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:id="@+id/iv_fservice4"
+                            android:layout_width="65dp"
+                            android:layout_height="65dp"
+                            android:layout_gravity="center"
+                            android:paddingStart="2dip"
+                            android:paddingEnd="5dip"
+                            android:src="@drawable/village_map"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingStart="2dip"
+                            android:paddingEnd="5dip"
+                            android:textColor="#26A69A"
+                            android:text="@string/downlaod_village_map" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_view_phody_sketch"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:id="@+id/ivService9"
+                            android:layout_width="65dp"
+                            android:layout_height="52dp"
+                            android:layout_gravity="center"
+                            android:paddingStart="2dip"
+                            android:paddingEnd="5dip"
+                            android:src="@drawable/view_phody"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingStart="2dip"
+                            android:paddingEnd="5dip"
+                            android:textColor="#26A69A"
+                            android:text="@string/view_phody_sketch" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/view_mojini_req_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:id="@+id/inService8"
+                            android:layout_width="65dp"
+                            android:layout_height="65dp"
+                            android:layout_gravity="center"
+                            android:paddingStart="2dip"
+                            android:paddingEnd="5dip"
+                            android:src="@drawable/s_status"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingStart="2dip"
+                            android:paddingEnd="5dip"
+                            android:textColor="#26A69A"
+                            android:text="@string/view_mojini_request_status" />
+                    </LinearLayout>
+                </TableRow>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_gravity="center"
+                        android:layout_weight=".5"
+                        android:background="@android:color/white" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="@string/land_conversion"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_gravity="center"
+                        android:layout_weight=".5"
+                        android:background="@android:color/white" />
+                </LinearLayout>
+
+
+                <TableRow
+                    android:divider="@color/colorPrimary"
+                    android:showDividers="middle"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:id="@+id/view_land_conversion"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:id="@+id/inService99"
+                            android:layout_width="65dp"
+                            android:layout_height="65dp"
+                            android:layout_gravity="center"
+                            android:paddingStart="2dip"
+                            android:paddingEnd="5dip"
+                            android:src="@drawable/landconv_request_status"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingStart="2dip"
+                            android:paddingEnd="5dip"
+                            android:textColor="#26A69A"
+                            android:text="@string/land_conversion_request_status" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/download_Conversion_order"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:id="@+id/inService_99"
+                            android:layout_width="65dp"
+                            android:layout_height="65dp"
+                            android:layout_gravity="center"
+                            android:paddingStart="2dip"
+                            android:paddingEnd="5dip"
+                            android:src="@drawable/land_conversion"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingStart="2dip"
+                            android:paddingEnd="5dip"
+                            android:textColor="#26A69A"
+                            android:text="@string/land_conversion_final_orders" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        tools:ignore="UseCompoundDrawables,UselessLeaf" />
+
+                </TableRow>
+
+                <include layout="@layout/content_bhoomi_one"/>
+
+            </TableLayout>
 
         </LinearLayout>
-
-        <TableLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:divider="#000000"
-            android:orientation="vertical"
-            android:padding="5dip"
-            android:showDividers="middle"
-            android:stretchColumns="*">
-
-            <TableRow
-                android:divider="@color/colorPrimary"
-                android:showDividers="middle">
-
-                <LinearLayout
-                    android:id="@+id/layout_viewRtc"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:id="@+id/iv_view_rtc"
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:src="@drawable/view_rtc"
-                        tools:ignore="ContentDescription" />
-
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:textColor="#26A69A"
-                        android:text="@string/view_rtc_information" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_rtc_verify"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/iv_rtc_verify"
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:src="@drawable/rtc_xml_verify"
-                        tools:ignore="ContentDescription,InefficientWeight" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:textColor="#26A69A"
-                        android:text="@string/rtc_xml_verification" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_view_rtc_ownerName"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/iv_view_rtc_owner_name"
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:src="@drawable/view_rtc_owner"
-                        tools:ignore="ContentDescription,InefficientWeight" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:textColor="#26A69A"
-                        android:text="@string/view_rtc_by_ownername" />
-                </LinearLayout>
-            </TableRow>
-
-            <TableRow
-                android:divider="@color/colorPrimary"
-                android:showDividers="middle">
-
-                <LinearLayout
-                    android:id="@+id/layout_mutation_pendency"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:id="@+id/ivService5"
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:src="@drawable/mut_pend"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:textColor="#26A69A"
-                        android:text="@string/mutation_pendencey_details" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_mut_summery"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:id="@+id/inService5"
-                        android:layout_width="65dp"
-                        android:layout_height="54dp"
-                        android:layout_gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:src="@drawable/mut_sum"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:textColor="#26A69A"
-                        android:text="@string/mutation_sum_report" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_mutation_status"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:id="@+id/ivService4"
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:src="@drawable/m_status"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:textColor="#26A69A"
-                        android:text="@string/view_mutation_status" />
-
-                </LinearLayout>
-
-            </TableRow>
-            <TableRow
-                android:divider="@color/colorPrimary"
-                android:showDividers="middle">
-
-                <LinearLayout
-                    android:id="@+id/layout_restriction_land"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:id="@+id/ivService77"
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:src="@drawable/view_rtc"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:textColor="#26A69A"
-                        android:text="@string/restriction_on_land" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-                </LinearLayout>
-
-            </TableRow>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:orientation="horizontal">
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_gravity="center"
-                    android:layout_weight=".5"
-                    android:background="@android:color/white" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:text="@string/clws_services"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_gravity="center"
-                    android:layout_weight=".5"
-                    android:background="@android:color/white" />
-            </LinearLayout>
-
-
-            <TableRow
-                android:divider="@color/colorPrimary"
-                android:showDividers="middle">
-
-                <LinearLayout
-                    android:id="@+id/layout_clws_status"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/img_clws_status"
-                        android:layout_width="65dp"
-                        android:layout_height="63dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:src="@drawable/farmer"
-                        tools:ignore="ContentDescription,InefficientWeight" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:textColor="#26A69A"
-                        android:text="@string/clws_status" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_certificate_pacs"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/img_certificate_pacs"
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:src="@drawable/signpacs"
-                        tools:ignore="ContentDescription,InefficientWeight" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:textColor="#26A69A"
-                        android:text="@string/citizen_payment_certificate_for_pacs" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_certificate_banks"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-
-                    <ImageView
-                        android:id="@+id/img_certificate_banks"
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:src="@drawable/signbanks"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:textColor="#26A69A"
-                        android:text="@string/citizen_payment_certificate_for_banks" />
-                </LinearLayout>
-            </TableRow>
-
-            <TableRow
-                android:divider="@color/colorPrimary"
-                android:showDividers="middle">
-
-                <LinearLayout
-                    android:id="@+id/layout_loan_w_bank"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:id="@+id/iv_fservice5"
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:src="@drawable/l_w_bank"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:textColor="#26A69A"
-                        android:text="@string/loan_waiver_report" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_loan_w_farmer_wise"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:id="@+id/inService4"
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:src="@drawable/b_status"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:textColor="#26A69A"
-                        android:text="@string/loan_waiver_farmer_report" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_loan_w_branch_wise"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:id="@+id/ivService7"
-                        android:layout_width="63dp"
-                        android:layout_height="65dp"
-                        android:layout_gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:src="@drawable/loan_branch_wise"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:textColor="#26A69A"
-                        android:text="@string/loan_waiver_report_branch_wise" />
-
-                </LinearLayout>
-
-            </TableRow>
-
-            <TableRow
-                android:divider="@color/colorPrimary"
-                android:showDividers="middle">
-
-                <LinearLayout
-                    android:id="@+id/layout_pacs_bank_wise"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:src="@drawable/pacs_img"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:textColor="#26A69A"
-                        android:text="@string/loan_waiver_report_pacs" />
-                </LinearLayout>
-
-
-
-                <LinearLayout
-                    android:id="@+id/layout_pacs_report_branchwise"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:src="@drawable/pacs1"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:textColor="#26A69A"
-                        android:text="@string/loan_waiver_report_pacs_branch" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_pacs_farmer_wise"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:src="@drawable/pacs22"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:textColor="#26A69A"
-                        android:text="@string/loan_waiver_report_pacs_farmer" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:visibility="gone"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:src="@drawable/mut_pend"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:textColor="#26A69A"
-                        android:text="@string/mutation_pendencey_details" />
-
-                </LinearLayout>
-
-            </TableRow>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:orientation="horizontal">
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_gravity="center"
-                    android:layout_weight=".5"
-                    android:background="@android:color/white" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:text="@string/parihara"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_gravity="center"
-                    android:layout_weight=".5"
-                    android:background="@android:color/white" />
-            </LinearLayout>
-
-
-            <TableRow
-                android:divider="@color/colorPrimary"
-                android:showDividers="middle"
-                tools:ignore="TooManyViews">
-
-                <LinearLayout
-                    android:id="@+id/layout_parihara_individual"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:id="@+id/ivService2"
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:src="@drawable/individual"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:textColor="#26A69A"
-                        android:text="@string/parihara_details_individual" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_parihara_benificary"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:id="@+id/inService2"
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:src="@drawable/p_ben_details_vlgwise"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:textColor="#26A69A"
-                        android:text="@string/p_benificary_details_vlg_wise" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_benificiary_land_report"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:id="@+id/iv_fservice6"
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:src="@drawable/p_crop_loss_report"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:textColor="#26A69A"
-                        android:text="@string/p_benificary_details_land_wise" />
-                </LinearLayout>
-            </TableRow>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:orientation="horizontal">
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_gravity="center"
-                    android:layout_weight=".5"
-                    android:background="@android:color/white" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:text="@string/mojini"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_gravity="center"
-                    android:layout_weight=".5"
-                    android:background="@android:color/white" />
-            </LinearLayout>
-
-            <TableRow
-                android:divider="@color/colorPrimary"
-                android:showDividers="middle">
-
-
-                <LinearLayout
-                    android:id="@+id/layout_download_villageMap"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:id="@+id/iv_fservice4"
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:src="@drawable/village_map"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:textColor="#26A69A"
-                        android:text="@string/downlaod_village_map" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_view_phody_sketch"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:id="@+id/ivService9"
-                        android:layout_width="65dp"
-                        android:layout_height="52dp"
-                        android:layout_gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:src="@drawable/view_phody"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:textColor="#26A69A"
-                        android:text="@string/view_phody_sketch" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/view_mojini_req_status"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:id="@+id/inService8"
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:src="@drawable/s_status"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:textColor="#26A69A"
-                        android:text="@string/view_mojini_request_status" />
-                </LinearLayout>
-            </TableRow>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:orientation="horizontal">
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_gravity="center"
-                    android:layout_weight=".5"
-                    android:background="@android:color/white" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:text="@string/land_conversion"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_gravity="center"
-                    android:layout_weight=".5"
-                    android:background="@android:color/white" />
-            </LinearLayout>
-
-
-            <TableRow
-                android:divider="@color/colorPrimary"
-                android:showDividers="middle"
-                android:visibility="visible">
-
-                <LinearLayout
-                    android:id="@+id/view_land_conversion"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:id="@+id/inService99"
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:src="@drawable/landconv_request_status"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:textColor="#26A69A"
-                        android:text="@string/land_conversion_request_status" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/download_Conversion_order"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:id="@+id/inService_99"
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:src="@drawable/land_conversion"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="2dip"
-                        android:paddingEnd="5dip"
-                        android:textColor="#26A69A"
-                        android:text="@string/land_conversion_final_orders" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables,UselessLeaf" />
-
-            </TableRow>
-
-        </TableLayout>
-
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>
