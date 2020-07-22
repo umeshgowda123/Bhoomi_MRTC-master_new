@@ -1,6 +1,5 @@
 package app.bmc.com.BHOOMI_MRTC.screens;
 
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.room.Room;
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +16,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -27,7 +25,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
 import com.google.android.play.core.appupdate.AppUpdateManager;
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
-import com.google.android.play.core.install.InstallState;
 import com.google.android.play.core.install.InstallStateUpdatedListener;
 import com.google.android.play.core.install.model.AppUpdateType;
 import com.google.android.play.core.install.model.InstallStatus;
@@ -38,13 +35,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.Callable;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper;
-import app.bmc.com.BHOOMI_MRTC.model.AppUpdateChecker;
 import app.bmc.com.BHOOMI_MRTC.model.CalamityDetails;
 import app.bmc.com.BHOOMI_MRTC.model.SeasonDetails;
 import app.bmc.com.BHOOMI_MRTC.model.YearDetails;
@@ -75,7 +71,6 @@ public class BhoomiHomePage extends AppCompatActivity {
     LinearLayout layout_loan_w_bank;
 
     LinearLayout layout_mutation_status;
-    LinearLayout layout_loan_b_layout;
     LinearLayout layout_loan_w_farmer_wise;
 
     LinearLayout layout_pacs_bank_wise;
@@ -86,6 +81,7 @@ public class BhoomiHomePage extends AppCompatActivity {
     LinearLayout view_mojini_req_status;
     LinearLayout view_land_conversion, download_Conversion_order;
     LinearLayout layout_restriction_land;
+    LinearLayout layout_citizen_portal;
 
     private static final int REQ_CODE_VERSION_UPDATE = 530;
     private AppUpdateManager appUpdateManager;
@@ -122,6 +118,7 @@ public class BhoomiHomePage extends AppCompatActivity {
         layout_rtc_verify =  findViewById(R.id.layout_rtc_verify);
         layout_view_rtc_ownerName =  findViewById(R.id.layout_view_rtc_ownerName);
         layout_restriction_land = findViewById(R.id.layout_restriction_land);
+        layout_citizen_portal = findViewById(R.id.layout_citizen_portal);
 
         layout_clws_status =  findViewById(R.id.layout_clws_status);
         layout_certificate_pacs =  findViewById(R.id.layout_certificate_pacs);
@@ -158,220 +155,153 @@ public class BhoomiHomePage extends AppCompatActivity {
         loadCalamityMasterData();
 
 
-        layout_viewRtc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BhoomiHomePage.this, ViewRtcInformation.class);
-                startActivity(intent);
-            }
+        layout_viewRtc.setOnClickListener(v -> {
+            Intent intent = new Intent(BhoomiHomePage.this, ViewRtcInformation.class);
+            startActivity(intent);
         });
 
-        layout_rtc_verify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BhoomiHomePage.this, RtcVerification.class);
-                startActivity(intent);
-            }
+        layout_rtc_verify.setOnClickListener(v -> {
+            Intent intent = new Intent(BhoomiHomePage.this, RtcVerification.class);
+            startActivity(intent);
         });
 
 
-        layout_view_rtc_ownerName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BhoomiHomePage.this, ViewRtcInformationByOwnerName.class);
-                startActivity(intent);
-            }
+        layout_view_rtc_ownerName.setOnClickListener(v -> {
+            Intent intent = new Intent(BhoomiHomePage.this, ViewRtcInformationByOwnerName.class);
+            startActivity(intent);
         });
 
-        layout_restriction_land.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent in = new Intent(BhoomiHomePage.this,RestrictionOnLand.class);
-                startActivity(in);
-            }
+        layout_restriction_land.setOnClickListener(v -> {
+            Intent in = new Intent(BhoomiHomePage.this,RestrictionOnLand.class);
+            startActivity(in);
         });
 
-        layout_clws_status.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(BhoomiHomePage.this, ClwsStatus.class);
-                startActivity(intent);
-            }
+        layout_citizen_portal.setOnClickListener(v -> {
+            Intent in = new Intent(BhoomiHomePage.this,LoginCitizenPortal.class);
+            startActivity(in);
         });
 
-        layout_certificate_pacs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent  = new Intent(BhoomiHomePage.this,CitizenPaymentCertificatePacsActivity.class);
-                startActivity(intent);
-            }
+        layout_clws_status.setOnClickListener(v -> {
+            Intent intent=new Intent(BhoomiHomePage.this, ClwsStatus.class);
+            startActivity(intent);
+        });
+
+        layout_certificate_pacs.setOnClickListener(v -> {
+            Intent intent  = new Intent(BhoomiHomePage.this,CitizenPaymentCertificatePacsActivity.class);
+            startActivity(intent);
         });
 
 
 
-        layout_certificate_banks.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent  = new Intent(BhoomiHomePage.this,CitizenPaymentCertificateBanksActivity.class);
-                startActivity(intent);
-            }
+        layout_certificate_banks.setOnClickListener(v -> {
+            Intent intent  = new Intent(BhoomiHomePage.this,CitizenPaymentCertificateBanksActivity.class);
+            startActivity(intent);
         });
 
 
 
-        layout_parihara_individual.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent  = new Intent(BhoomiHomePage.this,PariharaDetailsIndividual.class);
-                startActivity(intent);
-            }
+        layout_parihara_individual.setOnClickListener(v -> {
+            Intent intent  = new Intent(BhoomiHomePage.this,PariharaDetailsIndividual.class);
+            startActivity(intent);
         });
 
-        layout_parihara_benificary.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent  = new Intent(BhoomiHomePage.this,PariharaBenificiaryReportVillageWise.class);
-                startActivity(intent);
-            }
+        layout_parihara_benificary.setOnClickListener(v -> {
+            Intent intent  = new Intent(BhoomiHomePage.this,PariharaBenificiaryReportVillageWise.class);
+            startActivity(intent);
         });
 
-        layout_benificiary_land_report.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent  = new Intent(BhoomiHomePage.this,PariharaBenificiaryReportLandWise.class);
-                startActivity(intent);
-            }
+        layout_benificiary_land_report.setOnClickListener(v -> {
+            Intent intent  = new Intent(BhoomiHomePage.this,PariharaBenificiaryReportLandWise.class);
+            startActivity(intent);
         });
 
 
-        layout_download_villageMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent  = new Intent(BhoomiHomePage.this,DownloadVillageMap.class);
-                startActivity(intent);
+        layout_download_villageMap.setOnClickListener(v -> {
+            Intent intent  = new Intent(BhoomiHomePage.this,DownloadVillageMap.class);
+            startActivity(intent);
 
-            }
         });
 
 
-        layout_mutation_pendency.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BhoomiHomePage.this,MutationPendencyDetails.class);
-                startActivity(intent);
-            }
+        layout_mutation_pendency.setOnClickListener(v -> {
+            Intent intent = new Intent(BhoomiHomePage.this,MutationPendencyDetails.class);
+            startActivity(intent);
         });
 
 
-        layout_mut_summery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BhoomiHomePage.this,ViewMutationSummeryReport.class);
-                startActivity(intent);
-            }
+        layout_mut_summery.setOnClickListener(v -> {
+            Intent intent = new Intent(BhoomiHomePage.this,ViewMutationSummeryReport.class);
+            startActivity(intent);
         });
 
 
 
-        layout_mutation_status.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        layout_mutation_status.setOnClickListener(v -> {
 
-                Intent intent = new Intent(BhoomiHomePage.this,ViewMutationStatusInformation.class);
-                startActivity(intent);
-            }
+            Intent intent = new Intent(BhoomiHomePage.this,ViewMutationStatusInformation.class);
+            startActivity(intent);
         });
 
 
-        layout_loan_w_bank.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        layout_loan_w_bank.setOnClickListener(v -> {
 
-                Intent intent = new Intent(BhoomiHomePage.this, LoanWaiverReportForCommercialBankWise.class);
-                startActivity(intent);
-            }
+            Intent intent = new Intent(BhoomiHomePage.this, LoanWaiverReportForCommercialBankWise.class);
+            startActivity(intent);
         });
 
 
-        layout_loan_w_farmer_wise.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        layout_loan_w_farmer_wise.setOnClickListener(v -> {
 
-                Intent intent = new Intent(BhoomiHomePage.this, LoanWaiverReportForCommercialFramerWise.class);
-                startActivity(intent);
-            }
+            Intent intent = new Intent(BhoomiHomePage.this, LoanWaiverReportForCommercialFramerWise.class);
+            startActivity(intent);
         });
 
-        layout_loan_w_branch_wise.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        layout_loan_w_branch_wise.setOnClickListener(v -> {
 
-                Intent intent = new Intent(BhoomiHomePage.this,LoanWaiverReportForCommercialBranchWise.class);
-                startActivity(intent);
-            }
+            Intent intent = new Intent(BhoomiHomePage.this,LoanWaiverReportForCommercialBranchWise.class);
+            startActivity(intent);
         });
 
-        layout_pacs_bank_wise.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BhoomiHomePage.this, LoanWaiverReportForPacsBankWise.class);
-                startActivity(intent);
-            }
+        layout_pacs_bank_wise.setOnClickListener(v -> {
+            Intent intent = new Intent(BhoomiHomePage.this, LoanWaiverReportForPacsBankWise.class);
+            startActivity(intent);
         });
 
-        layout_pacs_report_branchwise.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BhoomiHomePage.this,LoanWaiverReportForPacsBranchWsie.class);
-                startActivity(intent);
-            }
+        layout_pacs_report_branchwise.setOnClickListener(v -> {
+            Intent intent = new Intent(BhoomiHomePage.this,LoanWaiverReportForPacsBranchWsie.class);
+            startActivity(intent);
         });
 
-        layout_pacs_farmer_wise.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BhoomiHomePage.this,LoanWaiverReportForPacsFarmerWise.class);
-                startActivity(intent);
-            }
+        layout_pacs_farmer_wise.setOnClickListener(v -> {
+            Intent intent = new Intent(BhoomiHomePage.this,LoanWaiverReportForPacsFarmerWise.class);
+            startActivity(intent);
         });
 
 
 
-        layout_view_phody_sketch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        layout_view_phody_sketch.setOnClickListener(v -> {
 //                String url = "http://202.138.101.171/service18";
 //                Intent i = new Intent(Intent.ACTION_VIEW);
 //                i.setData(Uri.parse(url));
 //                startActivity(i);
-                Intent intent = new Intent(BhoomiHomePage.this,MojiniPhodySketch.class);
-                startActivity(intent);
-            }
+            Intent intent = new Intent(BhoomiHomePage.this,MojiniPhodySketch.class);
+            startActivity(intent);
         });
 
 
-        view_mojini_req_status.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(BhoomiHomePage.this, MojiniRequestStatus.class);
-                startActivity(i);
-            }
+        view_mojini_req_status.setOnClickListener(v -> {
+            Intent i = new Intent(BhoomiHomePage.this, MojiniRequestStatus.class);
+            startActivity(i);
         });
 
-        view_land_conversion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BhoomiHomePage.this,LandConversion.class);
-                startActivity(intent);
-            }
+        view_land_conversion.setOnClickListener(v -> {
+            Intent intent = new Intent(BhoomiHomePage.this,LandConversion.class);
+            startActivity(intent);
         });
 
-        download_Conversion_order.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BhoomiHomePage.this, Download_Conversion_order.class);
-                startActivity(intent);
-            }
+        download_Conversion_order.setOnClickListener(v -> {
+            Intent intent = new Intent(BhoomiHomePage.this, Download_Conversion_order.class);
+            startActivity(intent);
         });
     }
 
@@ -410,13 +340,7 @@ public class BhoomiHomePage extends AppCompatActivity {
 
     private void loadCalamityMasterData() {
 
-        Observable<Integer> noOfRows = Observable.fromCallable(new Callable<Integer>() {
-
-            @Override
-            public Integer call() {
-                return dataBaseHelper.daoAccess().getNumberOfRowsFromCalamityMaster();
-            }
-        });
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumberOfRowsFromCalamityMaster());
         noOfRows
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -467,7 +391,7 @@ public class BhoomiHomePage extends AppCompatActivity {
             int i = 0;
             while ((mLine = reader.readLine()) != null) {
                 if (i > 0) {
-                    String data[] = mLine.split(",");
+                    String[] data = mLine.split(",");
                     CalamityDetails cal_type = new CalamityDetails();
                     cal_type.setMSTCTYPE_ID(Integer.valueOf(data[0]));
                     cal_type.setMSTCTYPE_VAL(Integer.valueOf(data[1]));
@@ -493,13 +417,7 @@ public class BhoomiHomePage extends AppCompatActivity {
     }
 
     public void createMasterData(final List<CalamityDetails> calamity_List) {
-        Observable<Long[]> insertMasterObservable = Observable.fromCallable(new Callable<Long[]>() {
-
-            @Override
-            public Long[] call() {
-                return dataBaseHelper.daoAccess().insertMasterCalamityData(calamity_List);
-            }
-        });
+        Observable<Long[]> insertMasterObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().insertMasterCalamityData(calamity_List));
         insertMasterObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -513,7 +431,7 @@ public class BhoomiHomePage extends AppCompatActivity {
 
                     @Override
                     public void onNext(Long[] longs) {
-                        Log.i("Inserted", longs + " ");
+                        Log.i("Inserted", Arrays.toString(longs) + " ");
                         List<SeasonDetails> season_list = loadSeasonDataFromCsv();
                         createSeasonMasterData(season_list);
                     }
@@ -543,7 +461,7 @@ public class BhoomiHomePage extends AppCompatActivity {
             int i = 0;
             while ((mLine = reader.readLine()) != null) {
                 if (i > 0) {
-                    String data[] = mLine.split(",");
+                    String[] data = mLine.split(",");
                     SeasonDetails season_type = new SeasonDetails();
                     season_type.setMSTSEASON_ID(Integer.valueOf(data[0]));
                     season_type.setMSTSEASON_VAL(Integer.valueOf(data[1]));
@@ -569,13 +487,7 @@ public class BhoomiHomePage extends AppCompatActivity {
     }
 
     public void createSeasonMasterData(final List<SeasonDetails> season_List) {
-        Observable<Long[]> insertMasterObservable = Observable.fromCallable(new Callable<Long[]>() {
-
-            @Override
-            public Long[] call() {
-                return dataBaseHelper.daoAccess().insertMasterSeasonData(season_List);
-            }
-        });
+        Observable<Long[]> insertMasterObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().insertMasterSeasonData(season_List));
         insertMasterObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -589,7 +501,7 @@ public class BhoomiHomePage extends AppCompatActivity {
 
                     @Override
                     public void onNext(Long[] longs) {
-                        Log.i("Inserted", longs + " ");
+                        Log.i("Inserted", Arrays.toString(longs) + " ");
                         List<YearDetails> year_list = loadYearDataFromCsv();
                         createYearMasterData(year_list);
                     }
@@ -621,7 +533,7 @@ public class BhoomiHomePage extends AppCompatActivity {
             int i = 0;
             while ((mLine = reader.readLine()) != null) {
                 if (i > 0) {
-                    String data[] = mLine.split(",");
+                    String[] data = mLine.split(",");
                     YearDetails year_type = new YearDetails();
                     year_type.setYear(data[0]);
                     year_type.setCode(Integer.valueOf(data[1]));
@@ -645,13 +557,7 @@ public class BhoomiHomePage extends AppCompatActivity {
     }
 
     public void createYearMasterData(final List<YearDetails> year_List) {
-        Observable<Long[]> insertMasterObservable = Observable.fromCallable(new Callable<Long[]>() {
-
-            @Override
-            public Long[] call() {
-                return dataBaseHelper.daoAccess().insertYearSeasonData(year_List);
-            }
-        });
+        Observable<Long[]> insertMasterObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().insertYearSeasonData(year_List));
         insertMasterObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -665,7 +571,7 @@ public class BhoomiHomePage extends AppCompatActivity {
 
                     @Override
                     public void onNext(Long[] longs) {
-                        Log.i("Inserted", longs + " ");
+                        Log.i("Inserted", Arrays.toString(longs) + " ");
 
                     }
 
@@ -723,16 +629,13 @@ public class BhoomiHomePage extends AppCompatActivity {
         Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
 
         // Create a listener to track request state updates.
-        installStateUpdatedListener = new InstallStateUpdatedListener() {
-            @Override
-            public void onStateUpdate(InstallState installState) {
-                // Show module progress, log state, or install the update.
-                Log.d("APP_UPDATE", ""+installState);
-                if (installState.installStatus() == InstallStatus.DOWNLOADED)
-                    // After the update is downloaded, show a notification
-                    // and request user confirmation to restart the app.
-                    popupSnackbarForCompleteUpdateAndUnregister();
-            }
+        installStateUpdatedListener = installState -> {
+            // Show module progress, log state, or install the update.
+            Log.d("APP_UPDATE", ""+installState);
+            if (installState.installStatus() == InstallStatus.DOWNLOADED)
+                // After the update is downloaded, show a notification
+                // and request user confirmation to restart the app.
+                popupSnackbarForCompleteUpdateAndUnregister();
         };
 
         // Checks that the platform will allow the specified type of update.

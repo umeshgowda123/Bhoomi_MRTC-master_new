@@ -91,7 +91,5 @@ public class Language extends AppCompatActivity {
         Intent refresh = new Intent(this, BhoomiHomePage.class);
         startActivity(refresh);
         finish();
-
-
     }
 }
