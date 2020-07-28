@@ -332,10 +332,6 @@
             android:name=".screens.RestrictionOnLandReport"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity
-            android:name=".screens.LoginCitizenPortal"
-            android:theme="@style/AppTheme.NoActionBar" />
-
     </application>
 
 </manifest>

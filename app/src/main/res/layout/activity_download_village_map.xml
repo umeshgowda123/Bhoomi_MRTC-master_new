@@ -82,7 +82,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="24dp"
-                        android:background="#5cb85c"
+                        android:background="@color/mild_green"
                         android:padding="8dp"
                         android:text="@string/downlaod_village_map"
                         android:textAlignment="center"
@@ -142,7 +142,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginRight="24dp"
                         android:layout_marginBottom="8dp"
-                        android:background="@color/btn_fetch"
+                        android:background="@color/btn_background_blue"
                         android:text="@string/submit"
                         android:textColor="@android:color/white" />
 

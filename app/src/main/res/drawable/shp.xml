@@ -7,7 +7,7 @@
 
                 <gradient
                     android:angle="90"
-                    android:endColor="#1480DF"
+                    android:endColor="@color/btn_background_blue"
                     android:startColor="#1BBC36"
                     android:type="linear"/>
                 <stroke android:color="#4ca6a6"

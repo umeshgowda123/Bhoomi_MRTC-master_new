@@ -81,7 +81,6 @@ public class BhoomiHomePage extends AppCompatActivity {
     LinearLayout view_mojini_req_status;
     LinearLayout view_land_conversion, download_Conversion_order;
     LinearLayout layout_restriction_land;
-    LinearLayout layout_citizen_portal;
 
     private static final int REQ_CODE_VERSION_UPDATE = 530;
     private AppUpdateManager appUpdateManager;
@@ -118,7 +117,6 @@ public class BhoomiHomePage extends AppCompatActivity {
         layout_rtc_verify =  findViewById(R.id.layout_rtc_verify);
         layout_view_rtc_ownerName =  findViewById(R.id.layout_view_rtc_ownerName);
         layout_restriction_land = findViewById(R.id.layout_restriction_land);
-        layout_citizen_portal = findViewById(R.id.layout_citizen_portal);
 
         layout_clws_status =  findViewById(R.id.layout_clws_status);
         layout_certificate_pacs =  findViewById(R.id.layout_certificate_pacs);
@@ -173,11 +171,6 @@ public class BhoomiHomePage extends AppCompatActivity {
 
         layout_restriction_land.setOnClickListener(v -> {
             Intent in = new Intent(BhoomiHomePage.this,RestrictionOnLand.class);
-            startActivity(in);
-        });
-
-        layout_citizen_portal.setOnClickListener(v -> {
-            Intent in = new Intent(BhoomiHomePage.this,LoginCitizenPortal.class);
             startActivity(in);
         });
 

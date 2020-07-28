@@ -118,9 +118,9 @@
                         android:id="@+id/btn_go"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
+                        android:layout_marginStart="4dp"
                         android:layout_weight="3"
-                        android:background="@color/btn_go"
+                        android:background="@color/btn_background_blue"
                         android:text="@string/btnGo"
                         android:textColor="@android:color/white" />
 
@@ -150,7 +150,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
                         android:layout_weight="3"
-                        android:background="@color/btn_fetch"
+                        android:background="@color/btn_background_blue"
                         android:text="@string/btnfetch"
                         android:textColor="@android:color/white" />
                 </LinearLayout>

@@ -1,36 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#1480DF</color>
+    <color name="colorPrimary">#428bca</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="banner_content1_background_color">#569dd9</color>
-    <color name="banner_content_text1_color">#efff00</color>
-    <color name="banner_content_text2_color">#620df9</color>
-    <color name="banner_content_header_text_color">#ffffff</color>
-    <color name="banner_content2_background_color">#24ba98</color>
-    <color name="banner_content3_background_color">#ffffff</color>
-    <color name="banner_content3_text3_color">#24ba98</color>
+    <color name="white">#ffffff</color>
     <color name="toolbartitle">#00d067</color>
-    <color name="navigationitemcolor">#000000</color>
-    <color name="primary_text">#212121</color>
-    <color name="secondary_text">#727272</color>
-    <color name="icons">#B6B6B6</color>
-    <color name="divider">#B6B6B6</color>
     <color name="hint_rtc">#31708f</color>
     <color name="hint_before_float_rtc">#9e9e9e</color>
-    <color name="btn_go">#428bca</color>
-    <color name="btn_fetch">#428bca</color>
-    <color name="btn_land_details">#f0ad4e</color>
-    <color name="btn_owner_details">#337ab7</color>
-    <color name="btn_cultivator_details">#5cb85c</color>
-    <color name="clws_heading_color">#26dad2</color>
-    <color name="clws_heading_background">#f7f7f7</color>
+    <color name="btn_background_blue">#428bca</color>
+    <color name="mild_green">#5cb85c</color>
     <color name="clws_heading_border_edit_text">#9e9e9e</color>
-    <color name="fragment_bg">#F5F5F5</color>
-    <color name="cardview_bg">#FFFFFF</color>
     <color name="reports_text_color">#000000</color>
     <color name="reports_text_underline_color">#FAFAFA</color>
-    <color name="rtc_verification_text_bg">#f5f5f5</color>
     <color name="layout_border_color">#f5f5f5</color>
     <color name="land_bcg">#ffe082</color>
     <color name="owner_bcg">#c5e1a5</color>
@@ -38,13 +19,9 @@
     <color name="language_selection_item_color">#191919</color>
     <color name="heading_bcg">#81d4fa</color>
     <color name="MAROON">#591007</color>
-
     <color name="colorGrey">#9E9E9E</color>
     <color name="colorLightGrey">#EEEEEE</color>
-
-
     <color name="color_Gray">#a6abae</color>
-
     <color name="colorBackroundWhite">#f0f2ea</color>
     <color name="colorTitleBackground">#FFFFFF</color>
     <color name="colorTitleForeground">#FF26D9D1</color>

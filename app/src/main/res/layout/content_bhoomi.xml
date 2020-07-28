@@ -18,7 +18,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/banner_content1_background_color"
+                android:background="@color/colorPrimary"
                 android:orientation="vertical">
 
                 <TextView
@@ -39,7 +39,7 @@
                     android:layout_margin="8dp"
                     android:text="@string/content_banner_text1"
                     android:textAlignment="center"
-                    android:textColor="@color/banner_content_text1_color"
+                    android:textColor="@color/white"
                     android:textSize="16sp" />
 
                 <!-- this is not requiered
@@ -60,7 +60,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/banner_content2_background_color"
+                android:background="@color/white"
                 android:orientation="vertical">
 
                 <ImageView
@@ -97,7 +97,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/banner_content3_background_color"
+                android:background="@color/white"
                 android:orientation="vertical">
 
                 <TextView
@@ -126,7 +126,7 @@
                     android:layout_margin="16sp"
                     android:text="@string/content3_banner_text2"
                     android:textAlignment="center"
-                    android:textColor="@color/banner_content3_text3_color"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="16sp" />
 
             </LinearLayout>

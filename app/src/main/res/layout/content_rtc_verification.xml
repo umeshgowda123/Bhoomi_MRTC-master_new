@@ -40,7 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:background="#5cb85c"
+                    android:background="@color/mild_green"
                     android:textSize="24sp"
                     android:text="@string/rtc_xml_verification"
                     android:textAlignment="center"
@@ -77,7 +77,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
-                        android:background="@color/btn_fetch"
+                        android:background="@color/btn_background_blue"
                         android:text="@string/rtc_verification_btn1"
                         android:textAlignment="center"
                         android:textColor="@android:color/white" />
@@ -87,7 +87,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
-                        android:background="@color/btn_fetch"
+                        android:background="@color/btn_background_blue"
                         android:text="@string/rtc_verification_btn2"
                         android:textAlignment="center"
                         android:textColor="@android:color/white" />

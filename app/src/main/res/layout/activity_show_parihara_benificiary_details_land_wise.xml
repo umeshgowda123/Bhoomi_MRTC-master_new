@@ -40,40 +40,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
-    <!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="10dp"-->
-<!--        android:layout_marginLeft="10dp"-->
-<!--        android:layout_marginRight="10dp"-->
-<!--        android:background="@drawable/linear_layout_boarder"-->
-<!--        android:orientation="vertical">-->
-
-<!--        <TextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:gravity="center"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:textSize="17sp"-->
-<!--            android:textStyle="bold"-->
-<!--            android:background="#5cb85c"-->
-<!--            android:textColor="@android:color/black"-->
-<!--            android:textAppearance="@style/TextAppearance.AppCompat.Medium"-->
-<!--            android:text="@string/parihara_benificary_details"/>-->
-
-<!--        <TextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="34dp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:text="@string/land_wise"-->
-<!--            android:textStyle="bold"-->
-<!--            android:gravity="center"-->
-<!--            android:background="#5cb85c"-->
-<!--            android:textColor="@android:color/black" />-->
-
-<!--    </LinearLayout>-->
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

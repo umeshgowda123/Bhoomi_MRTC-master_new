@@ -39,19 +39,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
-<!--    <TextView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="24dp"-->
-<!--        android:background="#5cb85c"-->
-<!--        android:padding="8dp"-->
-<!--        android:text="@string/loan_waiver_report_for_bank_wise"-->
-<!--        android:textAlignment="center"-->
-<!--        android:textColor="@android:color/white"-->
-<!--        android:textSize="17sp" />-->
-
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

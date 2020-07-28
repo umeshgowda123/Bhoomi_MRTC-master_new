@@ -23,8 +23,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
+                android:layout_height="match_parent">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -382,26 +381,6 @@
                         android:layout_weight="1"
                         android:orientation="vertical"
                         tools:ignore="UseCompoundDrawables">
-
-                        <ImageView
-                            android:id="@+id/ivServiceCitizenPortal"
-                            android:layout_width="65dp"
-                            android:layout_height="65dp"
-                            android:layout_gravity="center"
-                            android:paddingStart="2dip"
-                            android:paddingEnd="5dip"
-                            android:src="@drawable/citizen_portal"
-                            tools:ignore="ContentDescription" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:paddingStart="2dip"
-                            android:paddingEnd="5dip"
-                            android:textColor="#26A69A"
-                            android:text="@string/citizen_portal" />
-
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="0dp"
