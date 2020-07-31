@@ -12,7 +12,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -114,7 +113,6 @@ public class LandConversion extends AppCompatActivity {
                                         PariharaIndividualDetailsResponse result = response.body();
                                         assert result != null;
                                         String res = result.getGet_Afdvt_ReqSts_BasedOnAfdvtIdResult();
-                                        Log.d("AFFIDAVIT_ResponseData", ""+res);
 
                                         progressDialog.dismiss();
                                         if(res == null || res.contains("INVALID")) {
@@ -167,7 +165,6 @@ public class LandConversion extends AppCompatActivity {
                                         PariharaIndividualDetailsResponse result = response.body();
                                         assert result != null;
                                         String res = result.getGet_Afdvt_ReqSts_BasedOnUserIdResult();
-                                        Log.d("USERID_ResponseData", ""+res);
 
                                         progressDialog.dismiss();
                                         if(res == null || res.contains("INVALID")) {

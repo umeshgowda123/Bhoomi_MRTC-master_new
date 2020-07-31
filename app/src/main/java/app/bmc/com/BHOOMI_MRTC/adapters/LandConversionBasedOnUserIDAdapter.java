@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,7 +87,6 @@ public class LandConversionBasedOnUserIDAdapter extends RecyclerView.Adapter<Lan
                 if(pos != RecyclerView.NO_POSITION){
                     Afdvt_ReqSts_BasedOnAfdvtIdTable clickedDataItem = list.get(pos);
                     req_id = clickedDataItem.getREQ_ID();
-                    Log.d("IDDDDD",req_id);
                 }
                 Intent intent = new Intent(activity, Endorsement_ReportWebView.class);
                 intent.putExtra("REQ_ID",""+req_id);
@@ -101,7 +99,6 @@ public class LandConversionBasedOnUserIDAdapter extends RecyclerView.Adapter<Lan
                 if(pos != RecyclerView.NO_POSITION){
                     Afdvt_ReqSts_BasedOnAfdvtIdTable clickedDataItem = list.get(pos);
                     req_Aid = clickedDataItem.getREQ_AID();
-                    Log.d("IDDDDD",req_Aid);
                 }
                 Intent intent = new Intent(activity, Endorsement_ReportWebView.class);
                 intent.putExtra("REQ_ID",""+req_Aid);

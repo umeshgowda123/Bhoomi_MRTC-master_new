@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -358,10 +357,8 @@ public class DownloadVillageMap extends AppCompatActivity {
                                     String s = result.getDownloadVillageMapResult();
 
                                     s =  s.replace("<Details","");
-                                    Log.d("MAP_RESPONSE_DATA", s);
                                     s =  s.replace("</Details","");
 
-                                    Log.d("MAP_RESPONSE_DATA", s);
                                     Intent intent = new Intent(DownloadVillageMap.this, ShowVillageMapDetails.class);
                                     intent.putExtra("map_response_data",s);
                                     startActivity(intent);

@@ -1,6 +1,5 @@
 package app.bmc.com.BHOOMI_MRTC.screens;
 
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,7 +9,6 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -88,11 +86,11 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
     DataBaseHelper dataBaseHelper;
     TextView tvSetTite;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restriction_on_land);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
@@ -146,7 +144,7 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
                     public void onNext(List<? extends DistrictModelInterface> mst_vlmList) {
 
                         districtData = (List<DistrictModelInterface>) mst_vlmList;
-                        ArrayAdapter<DistrictModelInterface> districtArrayAdapter = new ArrayAdapter<DistrictModelInterface>(getApplicationContext(),
+                        ArrayAdapter<DistrictModelInterface> districtArrayAdapter = new ArrayAdapter<>(getApplicationContext(),
                                 android.R.layout.simple_list_item_single_choice, districtData);
                         spinner_district.setAdapter(districtArrayAdapter);
                     }
@@ -368,10 +366,7 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
                 intent.putExtra("s_No", surveyNo + "");
                 intent.putExtra("s_c", suroc + "");
                 intent.putExtra("hi_no", hissa + "");
-                Log.d("INTENT : ", district_id + " " + taluk_id + " " + hobli_id + " " + village_id + " " + surveyNo
-                        + " " + suroc + " " + hissa);
                 startActivity(intent);
-
             }
         });
     }
@@ -399,7 +394,7 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
             object = documentElement.get("DS_RTC");
             JSONArray ds_rtc = new JSONArray();
             if (object instanceof JSONObject) {
-                ds_rtc.put((JSONObject) object);
+                ds_rtc.put(object);
             } else {
                 ds_rtc = (JSONArray) object;
             }

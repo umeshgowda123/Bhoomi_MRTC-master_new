@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
-import android.util.Log;
+
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -68,7 +68,6 @@ public class ClwsStatusDetails extends AppCompatActivity {
             window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
 
-        Log.d("Entered","Entered");
         TextView tvCBLD = findViewById(R.id.tvCBLD);
         TextView tvBPD = findViewById(R.id.tvBPD);
         TextView tvPLD = findViewById(R.id.tvPLD);
@@ -82,18 +81,13 @@ public class ClwsStatusDetails extends AppCompatActivity {
         String aadharno = (String) Objects.requireNonNull(getIntent().getExtras()).getSerializable("UID");
         String aadharResponsedata = (String) getIntent().getExtras().getSerializable("Aadhaar_ResponseData");
 
-        Log.d("aadharno", ""+aadharno);
-        Log.d("aadharResponsedata", ""+aadharResponsedata);
 
         if(aadharResponsedata != null) {
             try {
 
                 JSONObject object1 = new JSONObject(aadharResponsedata);
-                Log.d("aadharResponsedata", String.valueOf(object1));
 
                 JSONObject object = new JSONObject(aadharResponsedata);
-
-                Log.d("aadharResponsedata", String.valueOf(object));
 
                 String getalldetailsObject = object.getString("NewDataSet");
                 JSONObject objdata = new JSONObject(getalldetailsObject);
@@ -101,61 +95,43 @@ public class ClwsStatusDetails extends AppCompatActivity {
                 String bankPaymentDetailsAadharNumber = objdata.getString("CitizenBankPaymentDetails");
                 String pacsLoanDetailsAadharNumber = objdata.getString("CitizenPacsDetails");
                 String pacsPaymentDetailsAadharNumber = objdata.getString("CitizenPacsPaymentDetails");
-                Log.d("bankLoanDetails",bankLoanDetailsAadharNumber);
-                Log.d("bankPaymentDetails",bankPaymentDetailsAadharNumber);
-                Log.d("pacsLoanDetails",pacsLoanDetailsAadharNumber);
-                Log.d("pacsPaymentDetails",pacsPaymentDetailsAadharNumber);
 
                 // Data For BankLoanDetailsAadharNumber
                 JSONObject bankloanTabledata = new JSONObject(bankLoanDetailsAadharNumber);
-                Log.d("bankLoanDetails", String.valueOf(bankloanTabledata));
 
                 String form = String.valueOf(bankloanTabledata);
                 form = form.replace("{", "[{");
-                Log.d("form_1",""+form);
                 form = form.replace("}", "}]");
-                Log.d("form_2",""+form);
 
                 Gson gson = new Gson();
                 bankloanadata = gson.fromJson(form, new TypeToken<List<BankLoanTableData>>() {}.getType());
-                Log.d("SIZESUS", bankloanadata.size() + "");
                 // Data For BankPaymentDetailsAadhaarNumber
                 JSONObject bankPaymentTabledata = new JSONObject(bankPaymentDetailsAadharNumber);
 
                 form = String.valueOf(bankPaymentTabledata);
                 form = form.replace("{", "[{");
-                Log.d("form_1",""+form);
                 form = form.replace("}", "}]");
-                Log.d("form_2",""+form);
 
                 paymentList = gson.fromJson(form, new TypeToken<List<BankPaymentTableData>>() {}.getType());
-                Log.d("SIZESUS", paymentList.size() + "");
                 // Data For PacsLoanDetails AadhaarNumber
                 JSONObject pacsloanTabledata = new JSONObject(pacsLoanDetailsAadharNumber);
 
                 form = String.valueOf(pacsloanTabledata);
                 form = form.replace("{", "[{");
-                Log.d("form_1",""+form);
                 form = form.replace("}", "}]");
-                Log.d("form_2",""+form);
 
                 pacsLoanList = gson.fromJson(form, new TypeToken<List<PacsLoanTableData>>() {}.getType());
-                Log.d("SIZESUS", pacsLoanList.size() + "");
                 // Data For PacsPaymentDetails AadharNumber
                 JSONObject pacsPaymentTabledata = new JSONObject(pacsPaymentDetailsAadharNumber);
 
                 form = String.valueOf(pacsPaymentTabledata);
                 form = form.replace("{", "[{");
-                Log.d("form_1",""+form);
                 form = form.replace("}", "}]");
-                Log.d("form_2",""+form);
 
                 pacsPaymentList = gson.fromJson(form, new TypeToken<List<PacsPaymentTableData>>() {}.getType());
-                Log.d("SIZESUS", pacsPaymentList.size() + "");
 
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.d("ExceptionSUS", e + "");
             }
 
             if (bankloanadata.size() == 0 && paymentList.size() == 0 && pacsLoanList.size() == 0 && pacsPaymentList.size() == 0) {

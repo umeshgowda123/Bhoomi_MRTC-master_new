@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -53,17 +52,14 @@ public class LandConversionBasedOnAffidavit extends AppCompatActivity {
 
         String AFFIDAVIT_Id = (String) Objects.requireNonNull(getIntent().getExtras()).getSerializable("AFFIDAVIT_ID");
         String AFFIDAVIT_ResponseData = (String) getIntent().getExtras().getSerializable("AFFIDAVIT_ResponseData");
-        Log.d("LandConversionAffidavit", AFFIDAVIT_Id+" &&&&&"+AFFIDAVIT_ResponseData);
 
         if(AFFIDAVIT_ResponseData != null) {
             try {
 
                 JSONArray jsonArray = new JSONArray(AFFIDAVIT_ResponseData);
-                Log.d("jsonArray", String.valueOf(jsonArray));
 
                 Gson gson = new Gson();
                 AfdvtBasedOnAfdvtIdData = gson.fromJson(String.valueOf(jsonArray), new TypeToken<List<Afdvt_ReqSts_BasedOnAfdvtIdTable>>() {}.getType());
-                Log.d("SIZESUS", AfdvtBasedOnAfdvtIdData.size() + "");
 
                 if (AfdvtBasedOnAfdvtIdData.size() == 0) {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(LandConversionBasedOnAffidavit.this, R.style.MyDialogTheme);
@@ -79,7 +75,6 @@ public class LandConversionBasedOnAffidavit extends AppCompatActivity {
                     AfdvtBasedOnAfdvtIdData.size();
                     tvAffidavit.setVisibility(View.VISIBLE);
                     rvAffidavit.setVisibility(View.VISIBLE);
-                    Log.d("AfdvtBasedOnAfdvtIdData",AfdvtBasedOnAfdvtIdData.size()+"");
                     LandConversionBasedOnAffidavitAdapter adapter = new LandConversionBasedOnAffidavitAdapter(AfdvtBasedOnAfdvtIdData,this);
                     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                     rvAffidavit.setLayoutManager(mLayoutManager);
@@ -88,7 +83,6 @@ public class LandConversionBasedOnAffidavit extends AppCompatActivity {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.d("ExceptionSUS", e + "");
             }
         } else {
             Toast.makeText(getApplicationContext(), "Null", Toast.LENGTH_SHORT).show();

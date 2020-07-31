@@ -12,7 +12,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -36,6 +35,7 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.Callable;
 
 import app.bmc.com.BHOOMI_MRTC.R;
@@ -94,9 +94,9 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_rtc_information);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -185,7 +185,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
             fm.beginTransaction().add(mTaskFragment, RtcViewInfoBackGroundTaskFragment.TAG_HEADLESS_FRAGMENT).commit();
         }
         if (mTaskFragment.isTaskExecuting) {
-            progressBar = (ProgressBar) findViewById(R.id.progress_circular);
+            progressBar = findViewById(R.id.progress_circular);
             if (progressBar != null)
                 progressBar.setVisibility(View.VISIBLE);
         }
@@ -194,147 +194,120 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
     private void onClickAction() {
 
-        spinner_district.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                spinner_taluk.setText("");
-                spinner_hobli.setText("");
-                spinner_village.setText("");
-                spinner_hissa.setText("");
-                district_id = districtData.get(position).getVLM_DST_ID();
-                Observable<List<? extends TalukModelInterface>> talukDataObservable = Observable.fromCallable(new Callable<List<? extends TalukModelInterface>>() {
-
-                    @Override
-                    public List<? extends TalukModelInterface> call() {
-                        return language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getTalukByDistrictId(String.valueOf(district_id)) : dataBaseHelper.daoAccess().getTalukByDistrictIdKannada(String.valueOf(district_id));
-                    }
-                });
-                talukDataObservable
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Observer<List<? extends TalukModelInterface>>() {
+        spinner_district.setOnItemClickListener((parent, view, position, id) -> {
+            spinner_taluk.setText("");
+            spinner_hobli.setText("");
+            spinner_village.setText("");
+            spinner_hissa.setText("");
+            district_id = districtData.get(position).getVLM_DST_ID();
+            Observable<List<? extends TalukModelInterface>> talukDataObservable = Observable.fromCallable(() -> language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getTalukByDistrictId(String.valueOf(district_id)) : dataBaseHelper.daoAccess().getTalukByDistrictIdKannada(String.valueOf(district_id)));
+            talukDataObservable
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<List<? extends TalukModelInterface>>() {
 
 
-                            @Override
-                            public void onSubscribe(Disposable d) {
+                        @Override
+                        public void onSubscribe(Disposable d) {
 
-                            }
+                        }
 
-                            @Override
-                            public void onNext(List<? extends TalukModelInterface> talukDataList) {
-                                talukData = (List<TalukModelInterface>) talukDataList;
-                                ArrayAdapter<TalukModelInterface> talukArrayAdapter = new ArrayAdapter<TalukModelInterface>(ViewMutationStatusInformation.this,
-                                        android.R.layout.simple_list_item_single_choice, talukData);
-                                spinner_taluk.setAdapter(talukArrayAdapter);
-                            }
+                        @Override
+                        public void onNext(List<? extends TalukModelInterface> talukDataList) {
+                            talukData = (List<TalukModelInterface>) talukDataList;
+                            ArrayAdapter<TalukModelInterface> talukArrayAdapter = new ArrayAdapter<>(ViewMutationStatusInformation.this,
+                                    android.R.layout.simple_list_item_single_choice, talukData);
+                            spinner_taluk.setAdapter(talukArrayAdapter);
+                        }
 
-                            @Override
-                            public void onError(Throwable e) {
+                        @Override
+                        public void onError(Throwable e) {
 
-                            }
+                        }
 
-                            @Override
-                            public void onComplete() {
+                        @Override
+                        public void onComplete() {
 
-                            }
-                        });
+                        }
+                    });
 
 
-            }
         });
 
 
-        spinner_taluk.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                spinner_hobli.setText("");
-                spinner_village.setText("");
-                spinner_hissa.setText("");
-                taluk_id = talukData.get(position).getVLM_TLK_ID();
-                Observable<List<? extends HobliModelInterface>> noOfRows = Observable.fromCallable(new Callable<List<? extends HobliModelInterface>>() {
-
-                    @Override
-                    public List<? extends HobliModelInterface> call() {
-                        return language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getHobliByTalukId_and_DistrictId(String.valueOf(taluk_id), String.valueOf(district_id)) : dataBaseHelper.daoAccess().getHobliByTalukId_and_DistrictIdKannada(String.valueOf(taluk_id), String.valueOf(district_id));
-                    }
-                });
-                noOfRows
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Observer<List<? extends HobliModelInterface>>() {
+        spinner_taluk.setOnItemClickListener((parent, view, position, id) -> {
+            spinner_hobli.setText("");
+            spinner_village.setText("");
+            spinner_hissa.setText("");
+            taluk_id = talukData.get(position).getVLM_TLK_ID();
+            Observable<List<? extends HobliModelInterface>> noOfRows = Observable.fromCallable(() -> language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getHobliByTalukId_and_DistrictId(String.valueOf(taluk_id), String.valueOf(district_id)) : dataBaseHelper.daoAccess().getHobliByTalukId_and_DistrictIdKannada(String.valueOf(taluk_id), String.valueOf(district_id)));
+            noOfRows
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<List<? extends HobliModelInterface>>() {
 
 
-                            @Override
-                            public void onSubscribe(Disposable d) {
+                        @Override
+                        public void onSubscribe(Disposable d) {
 
-                            }
+                        }
 
-                            @Override
-                            public void onNext(List<? extends HobliModelInterface> hobliDataList) {
-                                hobliData = (List<HobliModelInterface>) hobliDataList;
-                                ArrayAdapter<HobliModelInterface> hobliArrayAdapter = new ArrayAdapter<HobliModelInterface>(ViewMutationStatusInformation.this,
-                                        android.R.layout.simple_list_item_single_choice, hobliData);
-                                spinner_hobli.setAdapter(hobliArrayAdapter);
-                            }
+                        @Override
+                        public void onNext(List<? extends HobliModelInterface> hobliDataList) {
+                            hobliData = (List<HobliModelInterface>) hobliDataList;
+                            ArrayAdapter<HobliModelInterface> hobliArrayAdapter = new ArrayAdapter<>(ViewMutationStatusInformation.this,
+                                    android.R.layout.simple_list_item_single_choice, hobliData);
+                            spinner_hobli.setAdapter(hobliArrayAdapter);
+                        }
 
-                            @Override
-                            public void onError(Throwable e) {
+                        @Override
+                        public void onError(Throwable e) {
 
-                            }
+                        }
 
-                            @Override
-                            public void onComplete() {
+                        @Override
+                        public void onComplete() {
 
-                            }
-                        });
+                        }
+                    });
 
-            }
         });
 
-        spinner_hobli.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                spinner_village.setText("");
-                spinner_hissa.setText("");
-                hobli_id = hobliData.get(position).getVLM_HBL_ID();
-                Observable<List<? extends VillageModelInterface>> noOfRows = Observable.fromCallable(new Callable<List<? extends VillageModelInterface>>() {
-
-                    @Override
-                    public List<? extends VillageModelInterface> call() {
-                        return language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getVillageByHobliId_and_TalukId_and_DistrictId(String.valueOf(hobli_id), String.valueOf(taluk_id), String.valueOf(district_id)) : dataBaseHelper.daoAccess().getVillageByHobliId_and_TalukId_and_DistrictIdKannada(String.valueOf(hobli_id), String.valueOf(taluk_id), String.valueOf(district_id));
-                    }
-                });
-                noOfRows
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Observer<List<? extends VillageModelInterface>>() {
+        spinner_hobli.setOnItemClickListener((parent, view, position, id) -> {
+            spinner_village.setText("");
+            spinner_hissa.setText("");
+            hobli_id = hobliData.get(position).getVLM_HBL_ID();
+            Observable<List<? extends VillageModelInterface>> noOfRows = Observable.fromCallable(() -> language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getVillageByHobliId_and_TalukId_and_DistrictId(String.valueOf(hobli_id), String.valueOf(taluk_id), String.valueOf(district_id)) : dataBaseHelper.daoAccess().getVillageByHobliId_and_TalukId_and_DistrictIdKannada(String.valueOf(hobli_id), String.valueOf(taluk_id), String.valueOf(district_id)));
+            noOfRows
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<List<? extends VillageModelInterface>>() {
 
 
-                            @Override
-                            public void onSubscribe(Disposable d) {
+                        @Override
+                        public void onSubscribe(Disposable d) {
 
-                            }
+                        }
 
-                            @Override
-                            public void onNext(List<? extends VillageModelInterface> villageDataList) {
-                                villageData = (List<VillageModelInterface>) villageDataList;
-                                ArrayAdapter<VillageModelInterface> villageArrayAdapter = new ArrayAdapter<VillageModelInterface>(ViewMutationStatusInformation.this,
-                                        android.R.layout.simple_list_item_single_choice, villageData);
-                                spinner_village.setAdapter(villageArrayAdapter);
-                            }
+                        @Override
+                        public void onNext(List<? extends VillageModelInterface> villageDataList) {
+                            villageData = (List<VillageModelInterface>) villageDataList;
+                            ArrayAdapter<VillageModelInterface> villageArrayAdapter = new ArrayAdapter<>(ViewMutationStatusInformation.this,
+                                    android.R.layout.simple_list_item_single_choice, villageData);
+                            spinner_village.setAdapter(villageArrayAdapter);
+                        }
 
-                            @Override
-                            public void onError(Throwable e) {
+                        @Override
+                        public void onError(Throwable e) {
 
-                            }
+                        }
 
-                            @Override
-                            public void onComplete() {
+                        @Override
+                        public void onComplete() {
 
-                            }
-                        });
+                        }
+                    });
 
-            }
         });
         spinner_village.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -354,57 +327,50 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
             }
         });*/
 
-        spinner_hissa.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                 @Override
-                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                     land_no = hissa_responseList.get(position).getLand_code();
-                     hissa = hissa_responseList.get(position).getHissa_no();
-                     suroc = hissa_responseList.get(position).getSurnoc();
-                 }
-             }
+        spinner_hissa.setOnItemClickListener((parent, view, position, id) -> {
+            land_no = hissa_responseList.get(position).getLand_code();
+            hissa = hissa_responseList.get(position).getHissa_no();
+            suroc = hissa_responseList.get(position).getSurnoc();
+        }
         );
-        btn_go.setOnClickListener(new View.OnClickListener() {
+        btn_go.setOnClickListener(v -> {
+            String districtName = spinner_district.getText().toString().trim();
+            String talukName = spinner_taluk.getText().toString().trim();
+            String hobliName = spinner_hobli.getText().toString().trim();
+            String villageName = spinner_village.getText().toString().trim();
+            String surveyno = edittext_survey.getText().toString().trim();
 
-            @Override
-            public void onClick(View v) {
-                String districtName = spinner_district.getText().toString().trim();
-                String talukName = spinner_taluk.getText().toString().trim();
-                String hobliName = spinner_hobli.getText().toString().trim();
-                String villageName = spinner_village.getText().toString().trim();
-                String surveyno = edittext_survey.getText().toString().trim();
-
-                View focus = null;
-                boolean status = false;
-                if (TextUtils.isEmpty(districtName)) {
-                    focus = spinner_district;
-                    status = true;
-                    spinner_district.setError(getString(R.string.district_err));
-                } else if (TextUtils.isEmpty(talukName)) {
-                    focus = spinner_taluk;
-                    status = true;
-                    spinner_taluk.setError(getString(R.string.taluk_err));
-                } else if (TextUtils.isEmpty(hobliName)) {
-                    focus = spinner_hobli;
-                    status = true;
-                    spinner_hobli.setError(getString(R.string.hobli_err));
-                } else if (TextUtils.isEmpty(villageName)) {
-                    focus = spinner_village;
-                    status = true;
-                    spinner_village.setError(getString(R.string.village_err));
-                } else if (TextUtils.isEmpty(surveyno)) {
-                    focus = edittext_survey;
-                    status = true;
-                    edittext_survey.setError(getString(R.string.survey_no_err));
-                }
-                if (status) {
-                    focus.requestFocus();
-                } else {
-                    surveyNo = Integer.valueOf(edittext_survey.getText().toString().trim());
-                    if (isNetworkAvailable())
-                        mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo);
-                    else
-                        Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
-                }
+            View focus = null;
+            boolean status = false;
+            if (TextUtils.isEmpty(districtName)) {
+                focus = spinner_district;
+                status = true;
+                spinner_district.setError(getString(R.string.district_err));
+            } else if (TextUtils.isEmpty(talukName)) {
+                focus = spinner_taluk;
+                status = true;
+                spinner_taluk.setError(getString(R.string.taluk_err));
+            } else if (TextUtils.isEmpty(hobliName)) {
+                focus = spinner_hobli;
+                status = true;
+                spinner_hobli.setError(getString(R.string.hobli_err));
+            } else if (TextUtils.isEmpty(villageName)) {
+                focus = spinner_village;
+                status = true;
+                spinner_village.setError(getString(R.string.village_err));
+            } else if (TextUtils.isEmpty(surveyno)) {
+                focus = edittext_survey;
+                status = true;
+                edittext_survey.setError(getString(R.string.survey_no_err));
+            }
+            if (status) {
+                focus.requestFocus();
+            } else {
+                surveyNo = Integer.parseInt(edittext_survey.getText().toString().trim());
+                if (isNetworkAvailable())
+                    mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo);
+                else
+                    Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
             }
         });
         btn_fetch.setOnClickListener(new View.OnClickListener() {
@@ -435,7 +401,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
     @Override
     public void onPreExecute1() {
-        progressBar = (ProgressBar) findViewById(R.id.progress_circular);
+        progressBar = findViewById(R.id.progress_circular);
         if (progressBar != null)
             progressBar.setVisibility(View.VISIBLE);
     }
@@ -477,7 +443,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
     @Override
     public void onPreExecute3() {
 
-        progressBar = (ProgressBar) findViewById(R.id.progress_circular);
+        progressBar = findViewById(R.id.progress_circular);
         if (progressBar != null)
             progressBar.setVisibility(View.VISIBLE);
     }
@@ -491,7 +457,6 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
 //        formatted = formatted.replace("</Details", "");
 
-        Log.d("DATA", formatted);
         if (formatted.contains("Details not found")) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.MyDialogTheme);
             builder.setTitle("Mutation Status")
@@ -506,10 +471,8 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
             try {
 
                 XmlToJson xmlToJson = new XmlToJson.Builder(formatted).build();
-                Log.d("xmlToJson", String.valueOf(xmlToJson));
 
                 formatted = xmlToJson.toFormattedString();
-                Log.d("MAP_RESPONSE_DATA", formatted);
 
                 JSONObject obj1 = new JSONObject(formatted);
                 obj1 = obj1.getJSONObject("Details");

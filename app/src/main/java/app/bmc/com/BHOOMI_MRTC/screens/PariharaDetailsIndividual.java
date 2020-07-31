@@ -12,11 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,7 +53,7 @@ public class PariharaDetailsIndividual extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parihara_details_individual);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -85,108 +83,90 @@ public class PariharaDetailsIndividual extends AppCompatActivity {
         sp_calamity_type.setAdapter(calamityTypeDefaultAdapter);
 
 
-        sp_year.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        sp_year.setOnItemClickListener((parent, view, position, id) -> financial_year =  sp_year.getText().toString().trim());
 
-                financial_year =  sp_year.getText().toString().trim();
+        sp_calamity_type.setOnItemClickListener((parent, view, position, id) -> calamity_type =  sp_year.getText().toString().trim());
 
+
+
+        btn_GetDetails.setOnClickListener(v -> {
+            String financialYear1 = sp_year.getText().toString().trim();
+            String calamityType1 = sp_calamity_type.getText().toString().trim();
+            String adhaarNumber = etAadharNumber.getText().toString().trim();
+
+            View focus = null;
+            boolean status = false;
+            if (TextUtils.isEmpty(financialYear1)) {
+                focus = sp_year;
+                status = true;
+                sp_year.setError(getString(R.string.year_err));
+            } else if (TextUtils.isEmpty(calamityType1)) {
+                focus = sp_calamity_type;
+                status = true;
+                sp_calamity_type.setError(getString(R.string.calamity_err));
+            } else if (TextUtils.isEmpty(adhaarNumber)) {
+                focus = etAadharNumber;
+                status = true;
+                etAadharNumber.setError(getString(R.string.aadhaar_err));
             }
-        });
-
-        sp_calamity_type.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                calamity_type =  sp_year.getText().toString().trim();
-
+            //------------------SUSMITA--------------------------
+            else if (etAadharNumber.length() != 12){
+                focus = etAadharNumber;
+                status = true;
+                etAadharNumber.setError("Aadhar Number should be 12 Digit");
             }
-        });
+            //---------------------------------------------------
+            if (status) {
+                focus.requestFocus();
+            }else
+            {
+                if (isNetworkAvailable()) {
 
+                    progressDialog = new ProgressDialog(PariharaDetailsIndividual.this);
+                    progressDialog.setMessage("Please Wait");
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
 
+                    apiInterface = PariharaIndividualreportClient.getClient(getResources().getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
+                    Call<PariharaIndividualDetailsResponse> call = apiInterface.getPariharaPaymentDetails(Constants.REPORT_SERVICE_USER_NAME,
+                            Constants.REPORT_SERVICE_PASSWORD,adhaarNumber, calamityType1, financialYear1);
+                    call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+                        @Override
+                        public void onResponse(Call<PariharaIndividualDetailsResponse> call, Response<PariharaIndividualDetailsResponse> response) {
 
-        btn_GetDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String financialYear = sp_year.getText().toString().trim();
-                String calamityType = sp_calamity_type.getText().toString().trim();
-                String adhaarNumber = etAadharNumber.getText().toString().trim();
-
-                View focus = null;
-                boolean status = false;
-                if (TextUtils.isEmpty(financialYear)) {
-                    focus = sp_year;
-                    status = true;
-                    sp_year.setError(getString(R.string.year_err));
-                } else if (TextUtils.isEmpty(calamityType)) {
-                    focus = sp_calamity_type;
-                    status = true;
-                    sp_calamity_type.setError(getString(R.string.calamity_err));
-                } else if (TextUtils.isEmpty(adhaarNumber)) {
-                    focus = etAadharNumber;
-                    status = true;
-                    etAadharNumber.setError(getString(R.string.aadhaar_err));
-                }
-                //------------------SUSMITA--------------------------
-                else if (etAadharNumber.length() != 12){
-                    focus = etAadharNumber;
-                    status = true;
-                    etAadharNumber.setError("Aadhar Number should be 12 Digit");
-                }
-                //---------------------------------------------------
-                if (status) {
-                    focus.requestFocus();
-                }else
-                {
-                    if (isNetworkAvailable()) {
-
-                        progressDialog = new ProgressDialog(PariharaDetailsIndividual.this);
-                        progressDialog.setMessage("Please Wait");
-                        progressDialog.setCancelable(false);
-                        progressDialog.show();
-
-                        apiInterface = PariharaIndividualreportClient.getClient(getResources().getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
-                        Call<PariharaIndividualDetailsResponse> call = apiInterface.getPariharaPaymentDetails(Constants.REPORT_SERVICE_USER_NAME,
-                                Constants.REPORT_SERVICE_PASSWORD,adhaarNumber,calamityType,financialYear);
-                        call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
-                            @Override
-                            public void onResponse(Call<PariharaIndividualDetailsResponse> call, Response<PariharaIndividualDetailsResponse> response) {
-
-                                if(response.isSuccessful())
-                                {
-                                    PariharaIndividualDetailsResponse result = response.body();
-                                    progressDialog.dismiss();
-                                    assert result != null;
-                                    String str = result.getGetPariharaPaymentDetailsResult();
-                                    Log.d("Result_11",""+str);
-                                    if (str.contains("No Details Found for This Record")){
-                                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(PariharaDetailsIndividual.this, R.style.MyDialogTheme);
-                                        builder.setTitle("STATUS")
-                                                .setMessage("No Details Found for This Record")
-                                                .setIcon(R.drawable.ic_notifications_black_24dp)
-                                                .setCancelable(false)
-                                                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
-                                        final android.app.AlertDialog alert = builder.create();
-                                        alert.show();
-                                        alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-                                    } else {
-                                        Intent intent = new Intent(PariharaDetailsIndividual.this, ShowIndividualPariharaDetailsReport.class);
-                                        intent.putExtra("response_data", result.getGetPariharaPaymentDetailsResult());
-                                        startActivity(intent);
-                                    }
+                            if(response.isSuccessful())
+                            {
+                                PariharaIndividualDetailsResponse result = response.body();
+                                progressDialog.dismiss();
+                                assert result != null;
+                                String str = result.getGetPariharaPaymentDetailsResult();
+                                if (str.contains("No Details Found for This Record")){
+                                    final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(PariharaDetailsIndividual.this, R.style.MyDialogTheme);
+                                    builder.setTitle("STATUS")
+                                            .setMessage("No Details Found for This Record")
+                                            .setIcon(R.drawable.ic_notifications_black_24dp)
+                                            .setCancelable(false)
+                                            .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                    final android.app.AlertDialog alert = builder.create();
+                                    alert.show();
+                                    alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                } else {
+                                    Intent intent = new Intent(PariharaDetailsIndividual.this, ShowIndividualPariharaDetailsReport.class);
+                                    intent.putExtra("response_data", result.getGetPariharaPaymentDetailsResult());
+                                    startActivity(intent);
                                 }
                             }
-                            @Override
-                            public void onFailure(Call<PariharaIndividualDetailsResponse> call, Throwable t) {
-                                call.cancel();
-                                progressDialog.dismiss();
-                            }
-                        });
+                        }
+                        @Override
+                        public void onFailure(Call<PariharaIndividualDetailsResponse> call, Throwable t) {
+                            call.cancel();
+                            progressDialog.dismiss();
+                        }
+                    });
 
-                    }else
-                    {
-                        selfDestruct();
-                    }
+                }else
+                {
+                    selfDestruct();
                 }
             }
         });

@@ -12,12 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -30,7 +27,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.api.PariharaIndividualReportInteface;
@@ -74,7 +70,7 @@ public class LoanWaiverReportForPacsBranchWsie extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loan_waiver_report_for_pacs_branch_wsie);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -104,13 +100,7 @@ public class LoanWaiverReportForPacsBranchWsie extends AppCompatActivity {
 
         loadBankMasterData();
 
-        Observable<List<? extends DistrictModelInterface>> districtDataObservable = Observable.fromCallable(new Callable<List<? extends DistrictModelInterface>>() {
-
-            @Override
-            public List<? extends DistrictModelInterface> call() {
-                return dataBaseHelper.daoAccess().getDistinctDistricts();
-            }
-        });
+        Observable<List<? extends DistrictModelInterface>> districtDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getDistinctDistricts());
         districtDataObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -157,13 +147,7 @@ public class LoanWaiverReportForPacsBranchWsie extends AppCompatActivity {
 
     private void loadBankMasterData() {
 
-        Observable<Integer> noOfRows = Observable.fromCallable(new Callable<Integer>() {
-
-            @Override
-            public Integer call() {
-                return dataBaseHelper.daoAccess().getNumberOfROwsFromBankMaster();
-            }
-        });
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumberOfROwsFromBankMaster());
         noOfRows
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -182,7 +166,6 @@ public class LoanWaiverReportForPacsBranchWsie extends AppCompatActivity {
                             createMasterData(bank_master_list);
 
                         } else {
-                            Log.i("Loaded", "Already Loaded");
 
                         }
                     }
@@ -203,14 +186,7 @@ public class LoanWaiverReportForPacsBranchWsie extends AppCompatActivity {
         dataBaseHelper = Room.databaseBuilder(getApplicationContext(),
                 DataBaseHelper.class, getString(R.string.db_name)).build();
 
-        Observable<List<String>> noOfRows = Observable.fromCallable(new Callable<List<String>>() {
-
-            @Override
-            public List<String> call() {
-                return dataBaseHelper.daoAccess().getPacsBankNames(district_id);
-
-            }
-        });
+        Observable<List<String>> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getPacsBankNames(district_id));
         noOfRows
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -296,13 +272,7 @@ public class LoanWaiverReportForPacsBranchWsie extends AppCompatActivity {
     }
 
     public void createMasterData(final List<PacsBankMasterData> bankMasterList) {
-        Observable<Long[]> insertMasterObservable = Observable.fromCallable(new Callable<Long[]>() {
-
-            @Override
-            public Long[] call() {
-                return dataBaseHelper.daoAccess().insertPacsBankMasterData(bankMasterList);
-            }
-        });
+        Observable<Long[]> insertMasterObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().insertPacsBankMasterData(bankMasterList));
         insertMasterObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -316,7 +286,6 @@ public class LoanWaiverReportForPacsBranchWsie extends AppCompatActivity {
 
                     @Override
                     public void onNext(Long[] longs) {
-                        Log.i("Inserted", longs + " ");
 
 
                     }
@@ -341,13 +310,7 @@ public class LoanWaiverReportForPacsBranchWsie extends AppCompatActivity {
                 Room.databaseBuilder(getApplicationContext(),
                         DataBaseHelper.class, getString(R.string.db_name)).build();
 
-        Observable<List<? extends BranchNameModelInterface>> districtDataObservable = Observable.fromCallable(new Callable<List<? extends BranchNameModelInterface>>() {
-
-            @Override
-            public List<? extends BranchNameModelInterface> call() {
-                return dataBaseHelper.daoAccess().getPacsBranchNameList(district_id, bank_name);
-            }
-        });
+        Observable<List<? extends BranchNameModelInterface>> districtDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getPacsBranchNameList(district_id, bank_name));
         districtDataObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -385,89 +348,68 @@ public class LoanWaiverReportForPacsBranchWsie extends AppCompatActivity {
 
     private void onClickAction() {
 
-        sp_pacs_dist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        sp_pacs_dist.setOnItemClickListener((parent, view, position, id) -> {
 
-                district_id = districtData.get(position).getVLM_DST_ID();
-                Log.d("district_id",""+district_id);
-                getBankDetailsList(district_id);
-                sp_pacs_bank.setText("");
-            }
+            district_id = districtData.get(position).getVLM_DST_ID();
+            getBankDetailsList(district_id);
+            sp_pacs_bank.setText("");
         });
 
 
-        sp_pacs_bank.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                bank_name =  sp_pacs_bank.getText().toString().trim();
-                Log.d("bank_name",""+bank_name);
-                getBranchNameDetails(district_id, bank_name);
-            }
+        sp_pacs_bank.setOnItemClickListener((parent, view, position, id) -> {
+            bank_name =  sp_pacs_bank.getText().toString().trim();
+            getBranchNameDetails(district_id, bank_name);
         });
 
-        etPacsBranchName.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                etPacsBranchName.showDropDown();
-                return false;
-            }
+        etPacsBranchName.setOnTouchListener((v, event) -> {
+            etPacsBranchName.showDropDown();
+            return false;
         });
 
-        etPacsBranchName.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                branch_name =  etPacsBranchName.getText().toString().trim();
-                branch_code = branchData.get(position).getBNK_BRNCH_CDE();
-                Log.d("branch_name",""+branch_name);
-                Log.d("branch_code",""+branch_code);
-            }
+        etPacsBranchName.setOnItemClickListener((parent, view, position, id) -> {
+            branch_name =  etPacsBranchName.getText().toString().trim();
+            branch_code = branchData.get(position).getBNK_BRNCH_CDE();
         });
 
 
-        btnShowPacsDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnShowPacsDetails.setOnClickListener(v -> {
 
-                String  d_name =  sp_pacs_dist.getText().toString().trim();
-                String  b_name = sp_pacs_bank.getText().toString().trim();
-                String bran_name =  etPacsBranchName.getText().toString().trim();
-                View focus = null;
-                boolean status = false;
-                if (TextUtils.isEmpty(d_name)) {
-                    focus = sp_pacs_dist;
-                    status = true;
-                    sp_pacs_dist.setError(getString(R.string.district_err));
-                } else if (TextUtils.isEmpty(b_name)) {
-                    focus = sp_pacs_bank;
-                    status = true;
-                    sp_pacs_bank.setError(getString(R.string.bnk_error));
-                }else if (TextUtils.isEmpty(bran_name)) {
-                    focus = etPacsBranchName;
-                    status = true;
-                    etPacsBranchName.setError(getString(R.string.bank_branch_err_name));
+            String  d_name =  sp_pacs_dist.getText().toString().trim();
+            String  b_name = sp_pacs_bank.getText().toString().trim();
+            String bran_name =  etPacsBranchName.getText().toString().trim();
+            View focus = null;
+            boolean status = false;
+            if (TextUtils.isEmpty(d_name)) {
+                focus = sp_pacs_dist;
+                status = true;
+                sp_pacs_dist.setError(getString(R.string.district_err));
+            } else if (TextUtils.isEmpty(b_name)) {
+                focus = sp_pacs_bank;
+                status = true;
+                sp_pacs_bank.setError(getString(R.string.bnk_error));
+            }else if (TextUtils.isEmpty(bran_name)) {
+                focus = etPacsBranchName;
+                status = true;
+                etPacsBranchName.setError(getString(R.string.bank_branch_err_name));
+            }
+            if (status) {
+                focus.requestFocus();
+            } else {
+                if (isNetworkAvailable()) {
+
+                    if (bank_name.equals("Karnataka State Co.oparative Agriculture & Rural Development Bank Ltd")){
+                        bank_name = "Karnataka State Co.oparative Agriculture & Rural Development Bank Ltd.,";
+                    }
+
+                    ClsLoanWaiverReportPacs_Branchwise cobj =  new ClsLoanWaiverReportPacs_Branchwise();
+                    cobj.setDISTRICT_CODE(district_id);
+                    cobj.setBANK_NAME(bank_name);
+                    cobj.setBRANCH_CODE(String.valueOf(branch_code));
+                    getLoanReportDataFromBankDetails(cobj);
+
                 }
-                if (status) {
-                    focus.requestFocus();
-                } else {
-                    if (isNetworkAvailable()) {
-
-                        Log.d("bank_name",""+bank_name);
-                        if (bank_name.equals("Karnataka State Co.oparative Agriculture & Rural Development Bank Ltd")){
-                            bank_name = "Karnataka State Co.oparative Agriculture & Rural Development Bank Ltd.,";
-                            Log.d("bank_name",""+bank_name);
-                        }
-
-                        ClsLoanWaiverReportPacs_Branchwise cobj =  new ClsLoanWaiverReportPacs_Branchwise();
-                        cobj.setDISTRICT_CODE(district_id);
-                        cobj.setBANK_NAME(bank_name);
-                        cobj.setBRANCH_CODE(String.valueOf(branch_code));
-                        getLoanReportDataFromBankDetails(cobj);
-
-                    }
-                    else {
-                        Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
-                    }
+                else {
+                    Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -493,7 +435,6 @@ public class LoanWaiverReportForPacsBranchWsie extends AppCompatActivity {
                     etPacsBranchName.setText("");
                     PariharaIndividualDetailsResponse result = response.body();
                     String s = result.getGetLoanWaiverReportPACS_BranchwiseResult();
-                    Log.d("response_data", s);
 
                     if (s.equals("<NewDataSet />")) {
                         final AlertDialog.Builder builder = new AlertDialog.Builder(LoanWaiverReportForPacsBranchWsie.this, R.style.MyDialogTheme);

@@ -3,7 +3,6 @@ package app.bmc.com.BHOOMI_MRTC.screens;
 import android.app.AlertDialog;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -52,17 +51,14 @@ public class Mojini_Allotment_Details_BasedOnAppNo extends AppCompatActivity {
         rvAllotmentDetail = findViewById(R.id.rvAllotmentDetail);
 
         allotment_ResponseData = getIntent().getStringExtra("allotment_ResponseData");
-        Log.d("res",allotment_ResponseData+"");
 
         if(allotment_ResponseData != null) {
             try {
 
                 JSONArray jsonArray = new JSONArray(allotment_ResponseData);
-                Log.d("jsonArray", String.valueOf(jsonArray));
 
                 Gson gson = new Gson();
                 allotementDetailsTableList = gson.fromJson(String.valueOf(jsonArray), new TypeToken<List<MojiniAllotementDetailsTable>>() {}.getType());
-                Log.d("SIZESUS", allotementDetailsTableList.size() + "");
 
                 if (allotementDetailsTableList.size() == 0) {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(Mojini_Allotment_Details_BasedOnAppNo.this, R.style.MyDialogTheme);
@@ -76,7 +72,6 @@ public class Mojini_Allotment_Details_BasedOnAppNo extends AppCompatActivity {
                     alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
                 } else {
                     allotementDetailsTableList.size();
-                    Log.d("allotementDetailslist",allotementDetailsTableList.size()+"");
                     MojiniAllotmentDetailsAdapter adapter = new MojiniAllotmentDetailsAdapter(allotementDetailsTableList);
                     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                     rvAllotmentDetail.setLayoutManager(mLayoutManager);
@@ -85,7 +80,6 @@ public class Mojini_Allotment_Details_BasedOnAppNo extends AppCompatActivity {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.d("ExceptionSUS", e + "");
             }
         } else {
             Toast.makeText(getApplicationContext(), "No Details Found", Toast.LENGTH_SHORT).show();

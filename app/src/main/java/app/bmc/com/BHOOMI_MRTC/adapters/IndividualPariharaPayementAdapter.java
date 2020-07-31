@@ -3,7 +3,6 @@ package app.bmc.com.BHOOMI_MRTC.adapters;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -94,25 +92,19 @@ public class IndividualPariharaPayementAdapter extends RecyclerView.Adapter<Indi
         }else {
 
             String payDate = clist.get(position).getPaymentDate();
-            Log.d("payDate", ""+payDate);
             SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
             Date date;
             String finalDate = null;
             try {
                 date = format.parse(payDate);
-                Log.d("FormattedDate", ""+date);
-
                 assert date != null;
                 finalDate = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(date);
-                Log.d("finalDate", ""+finalDate);
             } catch (ParseException | NullPointerException e) {
                 e.printStackTrace();
             }
 
             String AccNo = clist.get(position).getBankAccountNumber();
             AccNo = MaskAcc(AccNo);
-            Log.d("MaskedAccNo", ""+AccNo);
-
             holder.tvPSerialNo.setText(clist.get(position).getSlNo());
             holder.tvPDistCode.setText(clistEntry.get(1).getDistrictName());
             holder.tvPBankName.setText(clist.get(position).getBankName());

@@ -7,9 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import android.util.Log;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -68,11 +66,7 @@ public class Endorsement_ReportWebView extends AppCompatActivity {
                                      final android.webkit.JsResult result) {
                 new AlertDialog.Builder(view.getContext()).setTitle("JS Dialog")
                         .setMessage(message).setPositiveButton(android.R.string.ok,
-                        new AlertDialog.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                result.confirm();
-                            }
-                        }).setCancelable(false).create().show();
+                        (dialog, which) -> result.confirm()).setCancelable(false).create().show();
                 return true;
             }
 
@@ -87,27 +81,23 @@ public class Endorsement_ReportWebView extends AppCompatActivity {
         if (!mbURLLoaded)
 
             resultUrl = baseUrl + REQ_ID ;
-        Log.d("resultUrl",""+resultUrl);
 
         if (REQ_ID != null) {
             progressBar = ProgressDialog.show(Endorsement_ReportWebView.this, "Loading...", "Please Wait, Do not Interrupt");
 
             webViewEndorsement_Report.setWebViewClient(new WebViewClient() {
                 public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                    Log.i("TAG", "Processing webview url click...");
                     view.loadUrl(url);
                     return true;
                 }
 
                 public void onPageFinished(WebView view, String url) {
-                    Log.i("TAG", "Finished loading URL: " + url);
                     if (progressBar.isShowing()) {
                         progressBar.dismiss();
                     }
                 }
 
                 public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                    Log.e("TAG", "Error: " + description);
                     Toast.makeText(Endorsement_ReportWebView.this, "Oh no! " + description, Toast.LENGTH_SHORT).show();
 
                     final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Endorsement_ReportWebView.this, R.style.MyDialogTheme);

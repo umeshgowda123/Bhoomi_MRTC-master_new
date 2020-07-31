@@ -13,7 +13,6 @@ import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -88,7 +87,7 @@ public class LoanWaiverReportForCommercialBranchWise extends AppCompatActivity {
         btnShowBankDetails =  findViewById(R.id.btnShowBankDetails);
         etBranchName =  findViewById(R.id.etBranchName);
 
-        ArrayAdapter<String> defaultArrayAdapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> defaultArrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_single_choice, new String[]{});
         sp_district.setAdapter(defaultArrayAdapter);
         sp_bank.setAdapter(defaultArrayAdapter);
@@ -101,13 +100,7 @@ public class LoanWaiverReportForCommercialBranchWise extends AppCompatActivity {
 
         loadBankMasterData();
 
-        Observable<List<? extends DistrictModelInterface>> districtDataObservable = Observable.fromCallable(new Callable<List<? extends DistrictModelInterface>>() {
-
-            @Override
-            public List<? extends DistrictModelInterface> call() {
-                return dataBaseHelper.daoAccess().getDistinctDistricts();
-            }
-        });
+        Observable<List<? extends DistrictModelInterface>> districtDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getDistinctDistricts());
         districtDataObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -147,24 +140,16 @@ public class LoanWaiverReportForCommercialBranchWise extends AppCompatActivity {
 
     private void onClickAction() {
 
-        sp_district.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                district_id = districtData.get(position).getVLM_DST_ID();
-                Log.d("district_id",""+district_id);
-                getBankDetailsList(district_id);
-                sp_bank.setText("");
-            }
+        sp_district.setOnItemClickListener((parent, view, position, id) -> {
+            district_id = districtData.get(position).getVLM_DST_ID();
+            getBankDetailsList(district_id);
+            sp_bank.setText("");
         });
 
 
-        sp_bank.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                bank_name =  sp_bank.getText().toString().trim();
-                Log.d("bank_name",""+bank_name);
-                getBranchNameDetails(district_id, bank_name);
-            }
+        sp_bank.setOnItemClickListener((parent, view, position, id) -> {
+            bank_name =  sp_bank.getText().toString().trim();
+            getBranchNameDetails(district_id, bank_name);
         });
 
       /*  sp_branchName.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -175,58 +160,46 @@ public class LoanWaiverReportForCommercialBranchWise extends AppCompatActivity {
         });*/
 
 
-        etBranchName.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                etBranchName.showDropDown();
-                return false;
-            }
+        etBranchName.setOnTouchListener((v, event) -> {
+            etBranchName.showDropDown();
+            return false;
         });
-        etBranchName.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                branch_name = (String) parent.getItemAtPosition(position);
-                Log.d("branch_name",""+branch_name);
+        etBranchName.setOnItemClickListener((parent, view, position, id) -> branch_name = (String) parent.getItemAtPosition(position));
+
+        btnShowBankDetails.setOnClickListener(v -> {
+
+            String  d_name =  sp_district.getText().toString().trim();
+            String  b_name = sp_bank.getText().toString().trim();
+            String bran_name =  etBranchName.getText().toString().trim();
+            View focus = null;
+            boolean status = false;
+            if (TextUtils.isEmpty(d_name)) {
+                focus = sp_district;
+                status = true;
+                sp_district.setError(getString(R.string.district_err));
+            } else if (TextUtils.isEmpty(b_name)) {
+                focus = sp_bank;
+                status = true;
+                sp_bank.setError(getString(R.string.bnk_error));
+            }else if (TextUtils.isEmpty(bran_name)) {
+                focus = etBranchName;
+                status = true;
+                etBranchName.setError(getString(R.string.bank_branch_err_name));
             }
-        });
+            if (status) {
+                focus.requestFocus();
+            } else {
+                if (isNetworkAvailable()) {
 
-        btnShowBankDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                    ClsLoanWaiverReportBANK_Branchwise cobj =  new ClsLoanWaiverReportBANK_Branchwise();
+                    cobj.setDISTRICT_CODE(district_id);
+                    cobj.setBANK_NAME(bank_name);
+                    cobj.setBRANCH_CODE(bran_name);
+                    getLoanReportDataFromBankDetails(cobj);
 
-                String  d_name =  sp_district.getText().toString().trim();
-                String  b_name = sp_bank.getText().toString().trim();
-                String bran_name =  etBranchName.getText().toString().trim();
-                View focus = null;
-                boolean status = false;
-                if (TextUtils.isEmpty(d_name)) {
-                    focus = sp_district;
-                    status = true;
-                    sp_district.setError(getString(R.string.district_err));
-                } else if (TextUtils.isEmpty(b_name)) {
-                    focus = sp_bank;
-                    status = true;
-                    sp_bank.setError(getString(R.string.bnk_error));
-                }else if (TextUtils.isEmpty(bran_name)) {
-                    focus = etBranchName;
-                    status = true;
-                    etBranchName.setError(getString(R.string.bank_branch_err_name));
                 }
-                if (status) {
-                    focus.requestFocus();
-                } else {
-                    if (isNetworkAvailable()) {
-
-                        ClsLoanWaiverReportBANK_Branchwise cobj =  new ClsLoanWaiverReportBANK_Branchwise();
-                        cobj.setDISTRICT_CODE(district_id);
-                        cobj.setBANK_NAME(bank_name);
-                        cobj.setBRANCH_CODE(bran_name);
-                        getLoanReportDataFromBankDetails(cobj);
-
-                    }
-                    else {
-                        Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
-                    }
+                else {
+                    Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -252,7 +225,6 @@ public class LoanWaiverReportForCommercialBranchWise extends AppCompatActivity {
                     etBranchName.setText("");
                     PariharaIndividualDetailsResponse result = response.body();
                     String s = result.getGetLoanWaiverReportBANK_BranchwiseResult();
-                    Log.d("RESPONSE_DATA", s);
                     if (s.equals("<NewDataSet />")) {
                         final AlertDialog.Builder builder = new AlertDialog.Builder(LoanWaiverReportForCommercialBranchWise.this, R.style.MyDialogTheme);
                         builder.setTitle("STATUS")
@@ -289,13 +261,7 @@ public class LoanWaiverReportForCommercialBranchWise extends AppCompatActivity {
 
     private void loadBankMasterData() {
 
-        Observable<Integer> noOfRows = Observable.fromCallable(new Callable<Integer>() {
-
-            @Override
-            public Integer call() {
-                return dataBaseHelper.daoAccess().getNumberOfROwsFromBankMaster();
-            }
-        });
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumberOfROwsFromBankMaster());
         noOfRows
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -314,7 +280,6 @@ public class LoanWaiverReportForCommercialBranchWise extends AppCompatActivity {
                             createMasterData(bank_master_list);
 
                         } else {
-                            Log.i("Loaded", "Already Loaded");
 
                         }
                     }
@@ -335,14 +300,7 @@ public class LoanWaiverReportForCommercialBranchWise extends AppCompatActivity {
         dataBaseHelper = Room.databaseBuilder(getApplicationContext(),
                 DataBaseHelper.class, getString(R.string.db_name)).build();
 
-        Observable<List<String>> noOfRows = Observable.fromCallable(new Callable<List<String>>() {
-
-            @Override
-            public List<String> call() {
-                return dataBaseHelper.daoAccess().getBankNames(district_id);
-
-            }
-        });
+        Observable<List<String>> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getBankNames(district_id));
         noOfRows
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -367,7 +325,7 @@ public class LoanWaiverReportForCommercialBranchWise extends AppCompatActivity {
                         }
 
 
-                        ArrayAdapter<String> bankArrayAdapter = new ArrayAdapter<String>(getApplicationContext(),
+                        ArrayAdapter<String> bankArrayAdapter = new ArrayAdapter<>(getApplicationContext(),
                                 android.R.layout.simple_list_item_single_choice, clist);
                         sp_bank.setAdapter(bankArrayAdapter);
                     }
@@ -431,13 +389,7 @@ public class LoanWaiverReportForCommercialBranchWise extends AppCompatActivity {
     }
 
     public void createMasterData(final List<BankMasterData> bankMasterList) {
-        Observable<Long[]> insertMasterObservable = Observable.fromCallable(new Callable<Long[]>() {
-
-            @Override
-            public Long[] call() {
-                return dataBaseHelper.daoAccess().insertBankMasterData(bankMasterList);
-            }
-        });
+        Observable<Long[]> insertMasterObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().insertBankMasterData(bankMasterList));
         insertMasterObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

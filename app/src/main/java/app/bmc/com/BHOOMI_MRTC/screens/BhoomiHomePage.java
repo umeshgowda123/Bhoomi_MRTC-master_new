@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -353,7 +352,6 @@ public class BhoomiHomePage extends AppCompatActivity {
 
                         }else
                         {
-                            Log.i("Loaded","Already Loaded");
                         }
                     }
 
@@ -424,7 +422,6 @@ public class BhoomiHomePage extends AppCompatActivity {
 
                     @Override
                     public void onNext(Long[] longs) {
-                        Log.i("Inserted", Arrays.toString(longs) + " ");
                         List<SeasonDetails> season_list = loadSeasonDataFromCsv();
                         createSeasonMasterData(season_list);
                     }
@@ -494,7 +491,6 @@ public class BhoomiHomePage extends AppCompatActivity {
 
                     @Override
                     public void onNext(Long[] longs) {
-                        Log.i("Inserted", Arrays.toString(longs) + " ");
                         List<YearDetails> year_list = loadYearDataFromCsv();
                         createYearMasterData(year_list);
                     }
@@ -564,7 +560,6 @@ public class BhoomiHomePage extends AppCompatActivity {
 
                     @Override
                     public void onNext(Long[] longs) {
-                        Log.i("Inserted", Arrays.toString(longs) + " ");
 
                     }
 
@@ -584,18 +579,15 @@ public class BhoomiHomePage extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("APP_UPDATE", "onResume Entered");
         checkNewAppVersionState();
     }
 
     @Override
     public void onActivityResult(int requestCode, final int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-        Log.d("APP_UPDATE", "onActivityResult Entered");
         switch (requestCode) {
             case REQ_CODE_VERSION_UPDATE:
                 if (resultCode != RESULT_OK) { //RESULT_OK / RESULT_CANCELED / RESULT_IN_APP_UPDATE_FAILED
-                    Log.d("APP_UPDATE", "Update flow failed! Result code: " + resultCode);
                     // If the update is cancelled or fails,
                     // you can request to start the update again.
                     unregisterInstallStateUpdListener();
@@ -607,14 +599,12 @@ public class BhoomiHomePage extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Log.d("APP_UPDATE", " onDestroy Entered");
         unregisterInstallStateUpdListener();
         super.onDestroy();
     }
 
 
     private void checkForAppUpdate() {
-        Log.d("APP_UPDATE", "checkForAppUpdate Entered");
         // Creates instance of the manager.
         appUpdateManager = AppUpdateManagerFactory.create(getApplicationContext());
 
@@ -624,7 +614,6 @@ public class BhoomiHomePage extends AppCompatActivity {
         // Create a listener to track request state updates.
         installStateUpdatedListener = installState -> {
             // Show module progress, log state, or install the update.
-            Log.d("APP_UPDATE", ""+installState);
             if (installState.installStatus() == InstallStatus.DOWNLOADED)
                 // After the update is downloaded, show a notification
                 // and request user confirmation to restart the app.
@@ -633,18 +622,14 @@ public class BhoomiHomePage extends AppCompatActivity {
 
         // Checks that the platform will allow the specified type of update.
         appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
-            Log.d("APP_UPDATE", "appUpdateInfo"+appUpdateInfo);
             if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
-                Log.d("APP_UPDATE", "appUpdateInfo_updateAvailability"+appUpdateInfo.updateAvailability());
                 // Request the update.
                 if (appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
-                    Log.d("APP_UPDATE", "appUpdateInfo_FLEXIBLE"+appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE));
                     // Before starting an update, register a listener for updates.
                     appUpdateManager.registerListener(installStateUpdatedListener);
                     // Start an update.
                     startAppUpdateFlexible(appUpdateInfo);
                 } else if (appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE) ) {
-                    Log.d("APP_UPDATE", "appUpdateInfo_IMMEDIATE"+appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE));
                     // Start an update.
                     startAppUpdateImmediate(appUpdateInfo);
                 }
@@ -653,7 +638,6 @@ public class BhoomiHomePage extends AppCompatActivity {
     }
 
     private void startAppUpdateImmediate(AppUpdateInfo appUpdateInfo) {
-        Log.d("APP_UPDATE", "startAppUpdateIm Entered");
         try {
             appUpdateManager.startUpdateFlowForResult(
                     appUpdateInfo,
@@ -668,7 +652,6 @@ public class BhoomiHomePage extends AppCompatActivity {
     }
 
     private void startAppUpdateFlexible(AppUpdateInfo appUpdateInfo) {
-        Log.d("APP_UPDATE", "startAppUpdateFl Entered");
         try {
             appUpdateManager.startUpdateFlowForResult(
                     appUpdateInfo,
@@ -688,7 +671,6 @@ public class BhoomiHomePage extends AppCompatActivity {
      * Needed only for Flexible app update
      */
     private void popupSnackbarForCompleteUpdateAndUnregister() {
-        Log.d("APP_UPDATE", "popupSnackbarForC Entered");
         Snackbar snackbar = Snackbar.make(linearLayout_bhoomi, "Update Downloaded", Snackbar.LENGTH_INDEFINITE);
         snackbar.setAction("Restart", view -> appUpdateManager.completeUpdate());
         snackbar.show();
@@ -703,14 +685,11 @@ public class BhoomiHomePage extends AppCompatActivity {
      * However, you should execute this check at all app entry points.
      */
     private void checkNewAppVersionState() {
-        Log.d("APP_UPDATE", "checkNewAppVersionState Entered");
         appUpdateManager.getAppUpdateInfo().addOnSuccessListener(appUpdateInfo -> {
-            Log.d("APP_UPDATE", "appUpdateInfo_Ver"+appUpdateInfo);
             //FLEXIBLE:
             // If the update is downloaded but not installed,
             // notify the user to complete the update.
             if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
-                Log.d("APP_UPDATE", "appUpdateInfo_Ver"+appUpdateInfo.installStatus());
                 popupSnackbarForCompleteUpdateAndUnregister();
             }
             //Toast.makeText(getApplicationContext(), "UpdateAvailability: "+appUpdateInfo.updateAvailability(), Toast.LENGTH_SHORT).show();
@@ -718,7 +697,6 @@ public class BhoomiHomePage extends AppCompatActivity {
             if (appUpdateInfo.updateAvailability()
                     == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
                 // If an in-app update is already running, resume the update.
-                Log.d("APP_UPDATE", "appUpdateInfo_Ver"+appUpdateInfo.updateAvailability());
                 startAppUpdateImmediate(appUpdateInfo);
             }
         });
@@ -729,7 +707,6 @@ public class BhoomiHomePage extends AppCompatActivity {
      * Needed only for FLEXIBLE update
      */
     private void unregisterInstallStateUpdListener() {
-        Log.d("APP_UPDATE", "unregisterInstall Entered");
         if (appUpdateManager != null && installStateUpdatedListener != null)
             appUpdateManager.unregisterListener(installStateUpdatedListener);
     }

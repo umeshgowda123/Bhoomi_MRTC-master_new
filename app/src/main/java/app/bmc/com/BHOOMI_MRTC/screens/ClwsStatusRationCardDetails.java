@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -89,7 +88,6 @@ public class ClwsStatusRationCardDetails extends AppCompatActivity {
         {
             rationCardNo = (String) bundle.getSerializable("RATION_CARD");
             rasonResponsedata = bundle.getString("Ration_ResponseData");
-            Log.d("Ration_ResponseData",""+rasonResponsedata);
 
         }
 
@@ -106,12 +104,9 @@ public class ClwsStatusRationCardDetails extends AppCompatActivity {
 
                 // Data For BankLoanDetailsRationCardNumber
                 JSONObject bankloanTabledata = new JSONObject(bankLoanDetailsRationCardNumber);
-                Log.d("bankLoanDetails", String.valueOf(bankloanTabledata));
                 String form = String.valueOf(bankloanTabledata);
                 form = form.replace("{", "[{");
-                Log.d("form_1",""+form);
                 form = form.replace("}", "}]");
-                Log.d("form_2",""+form);
 
                 Gson gson = new Gson();
                 bankloanrationdata = gson.fromJson(form, new TypeToken<List<BankLoanRationTableData>>() {
@@ -119,38 +114,28 @@ public class ClwsStatusRationCardDetails extends AppCompatActivity {
 
                 // Data For BankPaymentDetailsRationCardNumber
                 JSONObject bankPaymentTabledata = new JSONObject(bankPaymentDetailsRationCardNumber);
-                Log.d("bankPaymentTabledata", String.valueOf(bankPaymentTabledata));
                 form = String.valueOf(bankPaymentTabledata);
                 form = form.replace("{", "[{");
-                Log.d("form_1",""+form);
                 form = form.replace("}", "}]");
-                Log.d("form_2",""+form);
                 paymentRclist = gson.fromJson(form, new TypeToken<List<BankPaymentRationTableData>>() {
                 }.getType());
 
                 // Data For PacsLoanDetails AadhaarNumber
                 JSONObject pacsloanTabledata = new JSONObject(pacsLoanDetailsRationCardNumber);
-                Log.d("pacsloanTabledata", String.valueOf(pacsloanTabledata));
                 form = String.valueOf(pacsloanTabledata);
                 form = form.replace("{", "[{");
-                Log.d("form_1",""+form);
                 form = form.replace("}", "}]");
-                Log.d("form_2",""+form);
                 pacsloanRcNolist = gson.fromJson(form, new TypeToken<List<PacsLoanRationTableData>>() {
                 }.getType());
 
 
                 // Data For PacsPaymentDetails AadharNumber
                 JSONObject pacsPaymentTabledata = new JSONObject(pacsPaymentDetailsRationCardNumber);
-                Log.d("pacsPaymentTabledata", String.valueOf(pacsPaymentTabledata));
                 form = String.valueOf(pacsPaymentTabledata);
                 form = form.replace("{", "[{");
-                Log.d("form_1",""+form);
                 form = form.replace("}", "}]");
-                Log.d("form_2",""+form);
                 pacsRationPaymentList = gson.fromJson(form, new TypeToken<List<PacsPaymentRationTableData>>() {
                 }.getType());
-                Log.d("SIZE", bankloanrationdata.size() + " " + paymentRclist.size() + " " + pacsloanRcNolist.size() + " " + pacsRationPaymentList.size());
 
 
             } catch (Exception e) {

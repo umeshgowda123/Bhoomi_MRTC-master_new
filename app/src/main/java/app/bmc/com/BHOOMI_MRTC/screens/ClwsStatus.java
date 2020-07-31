@@ -14,7 +14,6 @@ import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.text.InputFilter;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -138,11 +137,9 @@ public class ClwsStatus extends AppCompatActivity {
                                             PariharaIndividualDetailsResponse result = response.body();
                                             assert result != null;
                                             String res = result.getGetDownloadCLWSSTATUS_AadhaarResult();
-                                            Log.d("CLWSSTATUS_Aadhaar", ""+res);
 
                                             XmlToJson xmlToJson = new XmlToJson.Builder(res.replace("\\r\\n", "").trim()).build();
                                             String formatted = xmlToJson.toFormattedString().replace("\n", "");
-                                            Log.d("CLWSSTATUS_formatted", ""+formatted);
 
                                             progressDialog.dismiss();
 
@@ -195,11 +192,9 @@ public class ClwsStatus extends AppCompatActivity {
                                             PariharaIndividualDetailsResponse result = response.body();
                                             assert result != null;
                                             String res = result.getGetDownloadCLWSSTATUS_RationCardResult();
-                                            Log.d("CLWSSTATUS_RationCard", ""+res);
 
                                             XmlToJson xmlToJson = new XmlToJson.Builder(res.replace("\\r\\n", "").trim()).build();
                                             String formatted = xmlToJson.toFormattedString().replace("\n", "");
-                                            Log.d("CLWSSTATUS_formatted", ""+formatted);
 
                                             progressDialog.dismiss();
 
@@ -310,7 +305,6 @@ public class ClwsStatus extends AppCompatActivity {
             progressDialog.dismiss();
             if (data != null || !data.isEmpty()) {
 //            if (data != "") {  // SUSMITA
-                Log.d("Datatopass",data);
                 Intent intent = new Intent(ClwsStatus.this, ClwsStatusDetails.class);
                 intent.putExtra("Aadhar_ResponseData", data);
                 intent.putExtra("UID", aadharNumber);
@@ -384,7 +378,6 @@ public class ClwsStatus extends AppCompatActivity {
             }catch(IOException e){
                 e.printStackTrace();
                 response = null;
-                Log.d("response : ",response+" "+e.toString());
             }
             return response;
         }
@@ -393,11 +386,8 @@ public class ClwsStatus extends AppCompatActivity {
         @Override
         protected void onPostExecute(String data) {
             super.onPostExecute(data);
-//            Log.d("Datatopass",data);
             progressDialog.dismiss();
             if (data != null || !data.isEmpty()) {
-//            if (data != "") { // SUSMITA
-                Log.d("DATA",data);
                 Intent intent = new Intent(ClwsStatus.this, ClwsStatusRationCardDetails.class);
                 intent.putExtra("Ration_ResponseData", data);
                 intent.putExtra("RATION_CARD",rationcard);

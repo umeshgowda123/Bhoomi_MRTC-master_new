@@ -9,7 +9,6 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -112,7 +111,6 @@ public class MojiniRequestStatus extends AppCompatActivity {
                                         PariharaIndividualDetailsResponse result = response.body();
                                         assert result != null;
                                         String res = result.getGetApplicationStatusBasedonAppNoResult();
-                                        Log.d("app_Status_ResponseData", ""+res);
 
                                         progressDialog.dismiss();
                                         if(res == null || res.contains("Details not found") || res.equals("")) {
@@ -163,7 +161,6 @@ public class MojiniRequestStatus extends AppCompatActivity {
                                         PariharaIndividualDetailsResponse result = response.body();
                                         assert result != null;
                                         String res = result.getGetAllotmentDetailsBasedOnAppNoResult();
-                                        Log.d("allotment_ResponseData", ""+res);
 
                                         progressDialog.dismiss();
                                         if(res == null || res.contains("Details not found") || res.equals("")) {

@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -48,7 +47,7 @@ public class ShowLoanWaiverPacsReportBranchWise extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_loan_waiver_pacs_report_branch_wise);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -61,7 +60,7 @@ public class ShowLoanWaiverPacsReportBranchWise extends AppCompatActivity {
 
         rvLoanWaiverPacsBranchReport =  findViewById(R.id.rvLoanWaiverPacsBranchReport);
 
-        branchPacsDataResponse =  (String) getIntent().getStringExtra("pacs_branch_response_data");
+        branchPacsDataResponse = getIntent().getStringExtra("pacs_branch_response_data");
         showData(branchPacsDataResponse);
     }
 
@@ -73,14 +72,10 @@ public class ShowLoanWaiverPacsReportBranchWise extends AppCompatActivity {
             String formatted = xmlToJson.toFormattedString().replace("\n", "");
             JSONObject responseObject = new JSONObject(formatted);
             JSONObject rtc1 = responseObject.getJSONObject("NewDataSet");
-            Log.d("rtc_rtc",""+rtc1);
             String form = rtc1.toString();
             form = form.replace("{\"Table\":{", "{\"Table\":[{");
-            Log.d("form_1",""+form);
             form = form.replace("}}", "}]}");
-            Log.d("form_2",""+form);
             JSONObject rtc = new JSONObject(form);
-            Log.d("rtc",""+rtc);
             JSONArray tableEntries = null;
 
             if(formatted.contains("Table"))

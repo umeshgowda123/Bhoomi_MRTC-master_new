@@ -1,21 +1,15 @@
 package app.bmc.com.BHOOMI_MRTC.adapters;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
-
 import app.bmc.com.BHOOMI_MRTC.R;
-
 import app.bmc.com.BHOOMI_MRTC.model.GetLandConversionFinalOrders_Table;
 import app.bmc.com.BHOOMI_MRTC.screens.ConversionFinalOrders_BasedOnReq_ID;
 import app.bmc.com.BHOOMI_MRTC.screens.Endorsement_ReportWebView;
@@ -49,11 +43,7 @@ public class LandConversionFinalOrdersAdapter extends RecyclerView.Adapter<LandC
 
             req_id = list.get(i).getREQ_ID();
             returnPage = list.get(0).getReturnPage();
-            Log.d("returnPage",""+returnPage);
-            Log.d("IDDDDD",""+req_id);
-
             baseUrl = "https://landrecords.karnataka.gov.in/service99/"+returnPage+"?ReqId=";
-            Log.d("baseUrl",""+baseUrl);
 
             Intent intent = new Intent(activity, Endorsement_ReportWebView.class);
             intent.putExtra("REQ_ID",""+ req_id);
@@ -94,7 +84,6 @@ public class LandConversionFinalOrdersAdapter extends RecyclerView.Adapter<LandC
             tvTypeOfConverSion = itemView.findViewById(R.id.tvTypeOfConverSion);
             tvStatus = itemView.findViewById(R.id.tvStatus);
             tvReturnPage = itemView.findViewById(R.id.tvReturnPage);
-
         }
     }
 

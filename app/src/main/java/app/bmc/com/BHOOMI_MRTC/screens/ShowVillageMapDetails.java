@@ -5,7 +5,6 @@ import android.os.Build;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -35,7 +34,7 @@ public class ShowVillageMapDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_village_map_details);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -53,7 +52,7 @@ public class ShowVillageMapDetails extends AppCompatActivity {
         imgPdfMap =  findViewById(R.id.imgPdfMap);
 
 
-        mapResponseData = (String) getIntent().getStringExtra("map_response_data");
+        mapResponseData = getIntent().getStringExtra("map_response_data");
 
         showData(mapResponseData);
     }
@@ -68,7 +67,6 @@ public class ShowVillageMapDetails extends AppCompatActivity {
 
             JSONObject mapDetails =  responseObject.getJSONObject("MAPDETAILS");
 
-            Log.d("DATA",mapDetails.toString());
 
             String districtName =  mapDetails.getString("DISTRICT_NAME");
             String talukName =  mapDetails.getString("TALUKA_NAME");
@@ -91,14 +89,11 @@ public class ShowVillageMapDetails extends AppCompatActivity {
             }
 
 
-            imgPdfMap.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            imgPdfMap.setOnClickListener(v -> {
 
-                    Intent intent = new Intent(ShowVillageMapDetails.this,ViewMapInPdfActivity.class);
-                    intent.putExtra("MAP_PDF_URL",pdfUrl);
-                    startActivity(intent);
-                }
+                Intent intent = new Intent(ShowVillageMapDetails.this,ViewMapInPdfActivity.class);
+                intent.putExtra("MAP_PDF_URL",pdfUrl);
+                startActivity(intent);
             });
 
 

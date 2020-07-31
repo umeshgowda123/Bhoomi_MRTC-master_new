@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -49,7 +48,7 @@ public class ShowLoanWaiverPacsReportBankWise extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_loan_waiver_pacs_report_bank_wise);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -61,7 +60,7 @@ public class ShowLoanWaiverPacsReportBankWise extends AppCompatActivity {
         }
 
         rvPacsLoanWaiverBankReport =  findViewById(R.id.rvPacsLoanWaiverBankReport);
-        pacsResponseData = (String) getIntent().getStringExtra("pacs_response_data");
+        pacsResponseData = getIntent().getStringExtra("pacs_response_data");
 
         showData(pacsResponseData);
     }
@@ -85,11 +84,8 @@ public class ShowLoanWaiverPacsReportBankWise extends AppCompatActivity {
             {
                 String form = String.valueOf(mutationDetails);
                 form = form.replace("{\"Table\":{", "{\"Table\":[{");
-                Log.d("form_1",""+form);
                 form = form.replace("}}", "}]}");
-                Log.d("form_2",""+form);
                 mutationDetails =  new JSONObject(form);
-                Log.d("mutationDetails",""+mutationDetails);
 
                 mutationEntries = mutationDetails.getJSONArray("Table");
                 Type listType = new TypeToken<List<PacsWaiverBankResponseData>>() {
@@ -156,17 +152,12 @@ public class ShowLoanWaiverPacsReportBankWise extends AppCompatActivity {
             @Override
             public void run() {
                 rowsArrayList.remove(rowsArrayList.size() - 1);
-                Log.d("CHECKING","rowsArrayList : "+rowsArrayList.size()+"");
                 int scrollPosition = rowsArrayList.size();
-                Log.d("CHECKING","scrollPosition : "+scrollPosition+"");
                 cadapter.notifyItemRemoved(scrollPosition);
                 int currentSize = scrollPosition;
-                Log.d("CHECKING","currentSize : "+currentSize+"");
                 int nextLimit = currentSize + 10;
-                Log.d("CHECKING","nextLimit : "+nextLimit+"");
 
                 while (currentSize - 1 < nextLimit) {
-                    Log.d("CHECKING","Entered");
                     rowsArrayList.add(mypacsDataList.get(currentSize));
                     currentSize++;
                 }

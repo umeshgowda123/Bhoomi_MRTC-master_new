@@ -3,7 +3,6 @@ package app.bmc.com.BHOOMI_MRTC.screens;
 import android.app.AlertDialog;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -52,18 +51,15 @@ public class ConversionFinalOrders_BasedOnReq_ID extends AppCompatActivity {
         rvReqID = findViewById(R.id.rvReqID);
 
         String LandConversionFinalOrders = getIntent().getStringExtra("LandConversionFinalOrders");
-        Log.d("LandConFinalOrders", ""+LandConversionFinalOrders);
 
         if (LandConversionFinalOrders!=null){
 
             try {
                 JSONArray jsonArray = new JSONArray(LandConversionFinalOrders);
-                Log.d("jsonArray", String.valueOf(jsonArray));
 
                 Gson gson = new Gson();
                 list = gson.fromJson(String.valueOf(jsonArray), new TypeToken<List<GetLandConversionFinalOrders_Table>>() {
                 }.getType());
-                Log.d("SIZESUS", list.size() + "");
 
                 if (list.size() == 0) {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(ConversionFinalOrders_BasedOnReq_ID.this, R.style.MyDialogTheme);

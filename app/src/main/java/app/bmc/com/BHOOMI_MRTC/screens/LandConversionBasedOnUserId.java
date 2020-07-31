@@ -2,7 +2,6 @@ package app.bmc.com.BHOOMI_MRTC.screens;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
@@ -11,8 +10,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
-import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -64,7 +61,6 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
         tvUserId = findViewById(R.id.tvUserId);
 
         String userId = (String) Objects.requireNonNull(getIntent().getExtras()).getSerializable("USER_ID");
-        Log.d("LandConversionUserId : ", userId);
 
         if (userId!= null || userId != "") {
             progressDialog = new ProgressDialog(LandConversionBasedOnUserId.this);
@@ -85,7 +81,6 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
                         PariharaIndividualDetailsResponse result = response.body();
                         assert result != null;
                         res = result.getGet_Afdvt_ReqSts_BasedOnUserIdResult();
-                        Log.d("USERID_ResponseData", ""+res);
 
                         progressDialog.dismiss();
                         if(res == null || res.contains("INVALID")) {
@@ -101,11 +96,10 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
                         }else {
                             try {
                                 JSONArray jsonArray = new JSONArray(res);
-                                Log.d("jsonArray", String.valueOf(jsonArray));
                                 Gson gson = new Gson();
                                 AfdvtBasedOnUserIdData = gson.fromJson(String.valueOf(jsonArray), new TypeToken<List<Afdvt_ReqSts_BasedOnAfdvtIdTable>>() {
                                 }.getType());
-                                Log.d("SIZESUS", AfdvtBasedOnUserIdData.size() + "");
+
 
                                 if (AfdvtBasedOnUserIdData.size() == 0) {
                                     final AlertDialog.Builder builder = new AlertDialog.Builder(LandConversionBasedOnUserId.this, R.style.MyDialogTheme);
@@ -118,7 +112,6 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
                                     alert.show();
                                     alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
                                 } else {
-                                    Log.d("AfdvtBasedOnUserIdData", AfdvtBasedOnUserIdData.size() + "");
                                     LandConversionBasedOnUserIDAdapter adapter = new LandConversionBasedOnUserIDAdapter(AfdvtBasedOnUserIdData,LandConversionBasedOnUserId.this);
                                     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                                     rvUserId.setLayoutManager(mLayoutManager);
@@ -128,7 +121,6 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
 
                             } catch (Exception e) {
                                 e.printStackTrace();
-                                Log.d("ExceptionSUS", e + "");
                             }
                         }
                     }

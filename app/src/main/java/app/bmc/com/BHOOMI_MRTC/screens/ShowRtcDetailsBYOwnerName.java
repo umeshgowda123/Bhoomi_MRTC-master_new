@@ -12,7 +12,6 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -92,11 +91,6 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
             hblId = intent.getStringExtra("hblId");
             village_id = intent.getStringExtra("village_id");
 
-            Log.d("distId", distId);
-            Log.d("talkId", talkId);
-            Log.d("hblId", hblId);
-            Log.d("village_id", village_id);
-
 
             if (isNetworkAvailable()){
                 new GetAllOwnerDetailsBasedOnDTHVId(distId,talkId,hblId,village_id).execute();
@@ -145,13 +139,11 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
             request.addProperty("pHobliCode", hblId);
             request.addProperty("pVillageCode", vlgId);
 
-            Log.d("request", ": " + request);
 
             envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
             envelope.dotNet = true;
             envelope.setOutputSoapObject(request);
             androidHttpTransport = new HttpTransportSE(SOAP_ADDRESS2);
-            Log.d("URL", "URL: " + SOAP_ADDRESS2);
 
             try {
 
@@ -159,10 +151,7 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
                 resultString = (SoapPrimitive) envelope.getResponse();
                 resultFromServer = String.valueOf(resultString);
 
-                Log.i("Result", resultFromServer);
-
                 JSONArray jsonArray = new JSONArray(resultFromServer);
-                Log.d("jsonArray_", "str: " + jsonArray);
 
 //              Type listType = new TypeToken<ArrayList<RTCByOwnerNameResponse>>() {
 //              }.getType();
@@ -178,12 +167,10 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
 
         protected void onProgressUpdate(Integer... a) {
             super.onProgressUpdate(a);
-            Log.d(TAG + " onProgressUpdate", "You are in progress update ... " + a[0]);
         }
 
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            Log.d(TAG + " onPostExecute", "" + result);
 
             if (result == null) {
                 progressDialog.dismiss();
@@ -193,12 +180,10 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
                 JSONArray jsonArray = null;
                 try {
                     jsonArray = new JSONArray(resultFromServer);
-                    Log.d("jsonArray_", "str: " + jsonArray);
 
                     Type listType = new TypeToken<ArrayList<RTCByOwnerNameResponse>>() {
                     }.getType();
                     rtcByOwnerNameResponseList = new Gson().fromJson(jsonArray.toString(), listType);
-                    Log.d("rtcByOwnerName", "" + rtcByOwnerNameResponseList);
 
                     distId_array.clear();
                     talkId_array.clear();
@@ -212,12 +197,6 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
                         village_id_array.add(village_id);
                     }
 
-                    Log.d("rtcByOwner_array", ""+rtcByOwnerNameResponseList.size());
-                    Log.d("distId_array", ""+distId_array.size());
-                    Log.d("talkId_array", ""+talkId_array.size());
-                    Log.d("hblId_array", ""+hblId_array.size());
-                    Log.d("village_id_array", ""+village_id_array.size());
-
                     adapter= new ShowRtcOwnerReportAdapter(rtcByOwnerNameResponseList,getApplicationContext(), distId_array, talkId_array, hblId_array, village_id_array);
 
                     lv_OwnerDetails.setAdapter(adapter);
@@ -226,7 +205,6 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
                     progressDialog.dismiss();
                     e.printStackTrace();
                     String throwab = e.toString();
-                    Log.d("Throwable_e", "" + throwab);
                     if (throwab.contains("Failure from system")) {
                         final AlertDialog.Builder builder = new AlertDialog.Builder(ShowRtcDetailsBYOwnerName.this, R.style.MyDialogTheme);
                         builder.setTitle("Alert")

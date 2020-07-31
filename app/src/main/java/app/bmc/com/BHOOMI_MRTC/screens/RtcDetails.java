@@ -13,7 +13,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -91,14 +90,6 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
         survey = i.getStringExtra("survey");
         RTC = i.getStringExtra("RTC");
 
-        Log.d("survey_no",""+survey);
-        Log.d("land_code_int",""+land_no);
-        Log.d("distId1",""+distId);
-        Log.d("talkId1",""+talkId);
-        Log.d("hblId1",""+hblId);
-        Log.d("villId1",""+villId);
-        Log.d("hissa_no", ""+hblId);
-
         FragmentManager fm = getSupportFragmentManager();
         mTaskFragment = (RtcViewInfoBackGroundTaskFragment) fm.findFragmentByTag(RtcViewInfoBackGroundTaskFragment.TAG_HEADLESS_FRAGMENT);
 
@@ -119,7 +110,6 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                 if (isNetworkAvailable()) {
                     progressBar.setVisibility(View.VISIBLE);
                     mTaskFragment.startBackgroundTask2(distId, talkId, hblId, villId, land_no);
-                    Log.d("land_no", "" + land_no);
                 } else
                     Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
             } else {
@@ -177,7 +167,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
             object = ownerdetails.get("jointowners");
             JSONArray jointOwners = new JSONArray();
             if (object instanceof JSONObject) {
-                jointOwners.put((JSONObject) object);
+                jointOwners.put(object);
             } else {
                 jointOwners = (JSONArray) object;
             }
@@ -208,9 +198,6 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
             survey_new = survey;
             OwnerDetailsFragment = jointOwners.toString();
             CultivatorDetailsFragment = cultivatordetails.toString();
-            Log.d("LandDetailsFragment",""+LandDetailsFragment);
-            Log.d("OwnerDetailsFragment",""+OwnerDetailsFragment);
-            Log.d("CultivatorDetails",""+CultivatorDetailsFragment);
 
             viewPager = findViewById(R.id.viewPager);
             ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());

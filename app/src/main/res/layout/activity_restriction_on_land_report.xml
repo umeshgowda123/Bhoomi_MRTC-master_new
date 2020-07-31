@@ -42,17 +42,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:orientation="horizontal">
-
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="34dp"
-            android:layout_weight="1"
-            android:text="@string/restriction_on_land_report"
-            android:textStyle="bold"
+            android:id="@+id/tvAffidavit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
             android:gravity="center"
-            android:textColor="@android:color/black" />
+            android:text="@string/restriction_on_land_report"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+
 
     </LinearLayout>
 
@@ -80,7 +81,6 @@
                 android:id="@+id/rvRestrictionReport"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:scrollbars="vertical"/>
 
 

@@ -13,11 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,7 +23,6 @@ import android.widget.EditText;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.api.PariharaIndividualReportInteface;
@@ -79,7 +76,7 @@ public class PariharaBenificiaryReportLandWise extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parihara_benificiary_report_land_wise);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -102,7 +99,7 @@ public class PariharaBenificiaryReportLandWise extends AppCompatActivity {
         btnFetchLandDetails = findViewById(R.id.btnFetchLandDetails);
         etLAadharNumber = findViewById(R.id.etLAadharNumber);
 
-        ArrayAdapter<String> defaultArrayAdapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> defaultArrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_single_choice, new String[]{});
         sp_financial_year.setAdapter(defaultArrayAdapter);
         sp_season.setAdapter(defaultArrayAdapter);
@@ -111,139 +108,126 @@ public class PariharaBenificiaryReportLandWise extends AppCompatActivity {
         loadFinancialYearList();
 
 
-        sp_financial_year.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                sp_season.setText("");
-                sp_calamity.setText("");
-                etLAadharNumber.setText("");
-                year_id = financialYearData.get(position).getCode();
-                financial_year = sp_financial_year.getText().toString().trim();
-                loadSeasonYearList();
+        sp_financial_year.setOnItemClickListener((parent, view, position, id) -> {
+            sp_season.setText("");
+            sp_calamity.setText("");
+            etLAadharNumber.setText("");
+            year_id = financialYearData.get(position).getCode();
+            financial_year = sp_financial_year.getText().toString().trim();
+            loadSeasonYearList();
 
-            }
         });
 
 
-        sp_season.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                sp_calamity.setText("");
-                season_id = seasonData.get(position).getMSTSEASON_VAL();
-                season = sp_season.getText().toString().trim();
-                loadCalamityList();
+        sp_season.setOnItemClickListener((parent, view, position, id) -> {
+            sp_calamity.setText("");
+            season_id = seasonData.get(position).getMSTSEASON_VAL();
+            season = sp_season.getText().toString().trim();
+            loadCalamityList();
 
-            }
         });
 
-        sp_calamity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        sp_calamity.setOnItemClickListener((parent, view, position, id) -> {
 
-                calamity = sp_calamity.getText().toString().trim();
-                calamity_id = calamityData.get(position).getMSTCTYPE_ID();
+            calamity = sp_calamity.getText().toString().trim();
+            calamity_id = calamityData.get(position).getMSTCTYPE_ID();
 
-            }
         });
 
 
-        btnFetchLandDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnFetchLandDetails.setOnClickListener(v -> {
 
-                String financialYear = sp_financial_year.getText().toString().trim();
-                String season = sp_season.getText().toString().trim();
-                String calamity = sp_calamity.getText().toString().trim();
-                aadhar_no = etLAadharNumber.getText().toString().trim();
+            String financialYear = sp_financial_year.getText().toString().trim();
+            String season = sp_season.getText().toString().trim();
+            String calamity = sp_calamity.getText().toString().trim();
+            aadhar_no = etLAadharNumber.getText().toString().trim();
 
-                View focus = null;
-                boolean status = false;
-                if (TextUtils.isEmpty(financialYear)) {
-                    focus = sp_financial_year;
-                    status = true;
-                    sp_financial_year.setError(getString(R.string.financial_year_error));
-                } else if (TextUtils.isEmpty(season)) {
-                    focus = sp_season;
-                    status = true;
-                    sp_season.setError(getString(R.string.season_error));
-                } else if (TextUtils.isEmpty(calamity)) {
-                    focus = sp_calamity;
-                    status = true;
-                    sp_calamity.setError(getString(R.string.calamity_error));
-                }
+            View focus = null;
+            boolean status = false;
+            if (TextUtils.isEmpty(financialYear)) {
+                focus = sp_financial_year;
+                status = true;
+                sp_financial_year.setError(getString(R.string.financial_year_error));
+            } else if (TextUtils.isEmpty(season)) {
+                focus = sp_season;
+                status = true;
+                sp_season.setError(getString(R.string.season_error));
+            } else if (TextUtils.isEmpty(calamity)) {
+                focus = sp_calamity;
+                status = true;
+                sp_calamity.setError(getString(R.string.calamity_error));
+            }
 //                else if (TextUtils.isEmpty(aadhar_no) && aadhar_no.length() != 12)
-                else if (TextUtils.isEmpty(aadhar_no))
-                {
-                    focus = etLAadharNumber;
-                    status = true;
-                    etLAadharNumber.setError(getString(R.string.aadhaar_number_err));
-                }
-                //------------------SUSMITA--------------------------
-                else if (aadhar_no.length() != 12){
-                    focus = etLAadharNumber;
-                    status = true;
-                    etLAadharNumber.setError("Aadhar Number should be 12 Digit");
-                }
-                //---------------------------------------------------
-                if (status) {
-                    focus.requestFocus();
-                } else {
+            else if (TextUtils.isEmpty(aadhar_no))
+            {
+                focus = etLAadharNumber;
+                status = true;
+                etLAadharNumber.setError(getString(R.string.aadhaar_number_err));
+            }
+            //------------------SUSMITA--------------------------
+            else if (aadhar_no.length() != 12){
+                focus = etLAadharNumber;
+                status = true;
+                etLAadharNumber.setError("Aadhar Number should be 12 Digit");
+            }
+            //---------------------------------------------------
+            if (status) {
+                focus.requestFocus();
+            } else {
 
-                    if (isNetworkAvailable()) {
-                        progressDialog = new ProgressDialog(PariharaBenificiaryReportLandWise.this);
-                        progressDialog.setMessage("Please Wait");
-                        progressDialog.setCancelable(false);
-                        progressDialog.show();
+                if (isNetworkAvailable()) {
+                    progressDialog = new ProgressDialog(PariharaBenificiaryReportLandWise.this);
+                    progressDialog.setMessage("Please Wait");
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
 
-                        apiInterface = PariharaIndividualreportClient.getClient(getResources().getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
-                        Call<PariharaIndividualDetailsResponse> call = apiInterface.getBenificiaryDetailsLandWise(Constants.REPORT_SERVICE_USER_NAME,
-                                Constants.REPORT_SERVICE_PASSWORD, aadhar_no, year_id, season_id, calamity_id);
-                        call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
-                            @Override
-                            public void onResponse(Call<PariharaIndividualDetailsResponse> call, Response<PariharaIndividualDetailsResponse> response) {
+                    apiInterface = PariharaIndividualreportClient.getClient(getResources().getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
+                    Call<PariharaIndividualDetailsResponse> call = apiInterface.getBenificiaryDetailsLandWise(Constants.REPORT_SERVICE_USER_NAME,
+                            Constants.REPORT_SERVICE_PASSWORD, aadhar_no, year_id, season_id, calamity_id);
+                    call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+                        @Override
+                        public void onResponse(Call<PariharaIndividualDetailsResponse> call, Response<PariharaIndividualDetailsResponse> response) {
 
-                                if (response.isSuccessful()) {
-                                    PariharaIndividualDetailsResponse result = response.body();
-                                    progressDialog.dismiss();
-
-                                    sp_financial_year.setText("");
-                                    sp_season.setText("");
-                                    sp_calamity.setText("");
-                                    etLAadharNumber.setText("");
-                                    String s = result.getGetPariharaBeneficiaryPaymentDetailsResult();
-                                    Log.d("RESPONSE_DATA", s);
-
-                                    if(s.contains("DistrictName"))
-                                    {
-                                        Intent intent = new Intent(PariharaBenificiaryReportLandWise.this, ShowPariharaBenificiaryDetailsLandWise.class);
-                                        intent.putExtra("response_data", result.getGetPariharaBeneficiaryPaymentDetailsResult());
-                                        startActivity(intent);
-                                    }else
-                                    {
-                                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(PariharaBenificiaryReportLandWise.this, R.style.MyDialogTheme);
-                                        builder.setTitle("STATUS")
-                                                .setMessage("No Data Found")
-                                                .setIcon(R.drawable.ic_notifications_black_24dp)
-                                                .setCancelable(false)
-                                                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
-                                        final android.app.AlertDialog alert = builder.create();
-                                        alert.show();
-                                        alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-                                    }
-
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<PariharaIndividualDetailsResponse> call, Throwable t) {
-                                call.cancel();
+                            if (response.isSuccessful()) {
+                                PariharaIndividualDetailsResponse result = response.body();
                                 progressDialog.dismiss();
-                            }
-                        });
 
-                    } else {
-                        selfDestruct();
-                    }
+                                sp_financial_year.setText("");
+                                sp_season.setText("");
+                                sp_calamity.setText("");
+                                etLAadharNumber.setText("");
+                                String s = result.getGetPariharaBeneficiaryPaymentDetailsResult();
+
+                                if(s.contains("DistrictName"))
+                                {
+                                    Intent intent = new Intent(PariharaBenificiaryReportLandWise.this, ShowPariharaBenificiaryDetailsLandWise.class);
+                                    intent.putExtra("response_data", result.getGetPariharaBeneficiaryPaymentDetailsResult());
+                                    startActivity(intent);
+                                }else
+                                {
+                                    final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(PariharaBenificiaryReportLandWise.this, R.style.MyDialogTheme);
+                                    builder.setTitle("STATUS")
+                                            .setMessage("No Data Found")
+                                            .setIcon(R.drawable.ic_notifications_black_24dp)
+                                            .setCancelable(false)
+                                            .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                    final android.app.AlertDialog alert = builder.create();
+                                    alert.show();
+                                    alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                }
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<PariharaIndividualDetailsResponse> call, Throwable t) {
+                            call.cancel();
+                            progressDialog.dismiss();
+                        }
+                    });
+
+                } else {
+                    selfDestruct();
                 }
             }
         });
@@ -251,13 +235,7 @@ public class PariharaBenificiaryReportLandWise extends AppCompatActivity {
 
     private void loadFinancialYearList() {
 
-        Observable<List<? extends FinancialYearInterface>> districtDataObservable = Observable.fromCallable(new Callable<List<? extends FinancialYearInterface>>() {
-
-            @Override
-            public List<? extends FinancialYearInterface> call() {
-                return dataBaseHelper.daoAccess().getDistinctYears();
-            }
-        });
+        Observable<List<? extends FinancialYearInterface>> districtDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getDistinctYears());
         districtDataObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -273,7 +251,7 @@ public class PariharaBenificiaryReportLandWise extends AppCompatActivity {
                     public void onNext(List<? extends FinancialYearInterface> mst_yearList) {
 
                         financialYearData = (List<FinancialYearInterface>) mst_yearList;
-                        ArrayAdapter<FinancialYearInterface> yearArrayAdapter = new ArrayAdapter<FinancialYearInterface>(getApplicationContext(),
+                        ArrayAdapter<FinancialYearInterface> yearArrayAdapter = new ArrayAdapter<>(getApplicationContext(),
                                 android.R.layout.simple_list_item_single_choice, financialYearData);
                         sp_financial_year.setAdapter(yearArrayAdapter);
                     }
@@ -292,13 +270,7 @@ public class PariharaBenificiaryReportLandWise extends AppCompatActivity {
 
     private void loadSeasonYearList() {
 
-        Observable<List<? extends SeasonInterface>> districtDataObservable = Observable.fromCallable(new Callable<List<? extends SeasonInterface>>() {
-
-            @Override
-            public List<? extends SeasonInterface> call() {
-                return dataBaseHelper.daoAccess().getDistinctSeasons();
-            }
-        });
+        Observable<List<? extends SeasonInterface>> districtDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getDistinctSeasons());
         districtDataObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -314,7 +286,7 @@ public class PariharaBenificiaryReportLandWise extends AppCompatActivity {
                     public void onNext(List<? extends SeasonInterface> mst_season_List) {
 
                         seasonData = (List<SeasonInterface>) mst_season_List;
-                        ArrayAdapter<SeasonInterface> seasonArrayAdapter = new ArrayAdapter<SeasonInterface>(getApplicationContext(),
+                        ArrayAdapter<SeasonInterface> seasonArrayAdapter = new ArrayAdapter<>(getApplicationContext(),
                                 android.R.layout.simple_list_item_single_choice, seasonData);
                         sp_season.setAdapter(seasonArrayAdapter);
                     }
@@ -334,13 +306,7 @@ public class PariharaBenificiaryReportLandWise extends AppCompatActivity {
 
     private void loadCalamityList() {
 
-        Observable<List<? extends CalamityInterface>> districtDataObservable = Observable.fromCallable(new Callable<List<? extends CalamityInterface>>() {
-
-            @Override
-            public List<? extends CalamityInterface> call() {
-                return dataBaseHelper.daoAccess().getDistinctCalamity();
-            }
-        });
+        Observable<List<? extends CalamityInterface>> districtDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getDistinctCalamity());
         districtDataObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -356,7 +322,7 @@ public class PariharaBenificiaryReportLandWise extends AppCompatActivity {
                     public void onNext(List<? extends CalamityInterface> mst_calamity_List) {
 
                         calamityData = (List<CalamityInterface>) mst_calamity_List;
-                        ArrayAdapter<CalamityInterface> seasonArrayAdapter = new ArrayAdapter<CalamityInterface>(getApplicationContext(),
+                        ArrayAdapter<CalamityInterface> seasonArrayAdapter = new ArrayAdapter<>(getApplicationContext(),
                                 android.R.layout.simple_list_item_single_choice, calamityData);
                         sp_calamity.setAdapter(seasonArrayAdapter);
                     }
@@ -387,10 +353,8 @@ public class PariharaBenificiaryReportLandWise extends AppCompatActivity {
         AlertDialog alertDialog = new AlertDialog.Builder(PariharaBenificiaryReportLandWise.this).create();
         // alertDialog.setTitle("Reset...");
         alertDialog.setMessage("Please Enable Internet Connection");
-        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "OK", (dialog, which) -> {
 
-            }
         });
         alertDialog.show();
     }

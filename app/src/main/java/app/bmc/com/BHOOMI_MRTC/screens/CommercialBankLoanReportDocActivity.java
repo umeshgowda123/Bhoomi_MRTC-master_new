@@ -1,10 +1,8 @@
 package app.bmc.com.BHOOMI_MRTC.screens;
 
-import android.content.DialogInterface;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -68,11 +66,7 @@ public class CommercialBankLoanReportDocActivity extends AppCompatActivity {
                                      final android.webkit.JsResult result) {
                 new AlertDialog.Builder(view.getContext()).setTitle("JS Dialog")
                         .setMessage(message).setPositiveButton(android.R.string.ok,
-                        new AlertDialog.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                result.confirm();
-                            }
-                        }).setCancelable(false).create().show();
+                        (dialog, which) -> result.confirm()).setCancelable(false).create().show();
                 return true;
             }
 
@@ -85,7 +79,6 @@ public class CommercialBankLoanReportDocActivity extends AppCompatActivity {
     private void loadURL() {
         if (!mbURLLoaded)
             resultUrl = "https://clws.karnataka.gov.in/clws/Bank/Affidavite/ACK_BANK.aspx?" + "rp_CoustmerBankID=" + bankIdValue + "&rp_CLW_APPGUID=" + appValue + "&rp_CoustmerID=" + custIdValue;
-            Log.d("resultUrl",""+resultUrl);
             if (appValue != null && custIdValue!=null &&  bankIdValue!= null) {
                 webViewBankLoanReport.loadUrl(resultUrl);
             }

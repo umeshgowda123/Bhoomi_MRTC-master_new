@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -45,7 +44,7 @@ public class ShowMutationPendencyDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_mutation_pendency_details);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -58,7 +57,7 @@ public class ShowMutationPendencyDetails extends AppCompatActivity {
 
         rvMutationPendency =  findViewById(R.id.rvMutationPendency);
 
-        pending_data_response  = (String) getIntent().getStringExtra("ped_response_data");
+        pending_data_response  = getIntent().getStringExtra("ped_response_data");
 
         showData(pending_data_response);
 
@@ -70,28 +69,20 @@ public class ShowMutationPendencyDetails extends AppCompatActivity {
         try {
 
             XmlToJson xmlToJson = new XmlToJson.Builder(pendingResponseData.replace("\\r\\n", "").trim()).build();
-            Log.d("xmlToJson_Formatted", ""+xmlToJson.toFormattedString());
             String formatted = xmlToJson.toFormattedString().replace("\n", "");
-            Log.d("formatted",""+formatted);
 
             JSONObject responseObject = new JSONObject(formatted);
-            Log.d("responseObject",""+responseObject);
             JSONObject mutationDetails =  responseObject.getJSONObject("NewDataSet");
-            Log.d("mutation_NewDataSet",""+mutationDetails);
             JSONArray mutationEntries = null;
 
             if(formatted.contains("Table"))
             {
                 String form = String.valueOf(mutationDetails);
                 form = form.replace("{\"Table\":{", "{\"Table\":[{");
-                Log.d("form_1",""+form);
                 form = form.replace("}}", "}]}");
-                Log.d("form_2",""+form);
                 mutationDetails =  new JSONObject(form);
-                Log.d("mutationDetails",""+mutationDetails);
 
                 mutationEntries = mutationDetails.getJSONArray("Table");
-                Log.d("mutationEntries",""+mutationEntries);
                 Type listType = new TypeToken<List<MutualPendacyData>>() {
                 }.getType();
                 myPendingDataList = new Gson().fromJson(mutationEntries.toString(), listType);

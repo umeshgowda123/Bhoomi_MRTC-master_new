@@ -3,7 +3,6 @@ package app.bmc.com.BHOOMI_MRTC.screens;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -41,7 +40,6 @@ public class Mojini_Application_Status_BasedOnAppNo extends AppCompatActivity {
 
         tvAppStatus = findViewById(R.id.tvAppStatus);
         app_Status_ResponseData = getIntent().getStringExtra("app_Status_ResponseData");
-        Log.d("ressss",""+app_Status_ResponseData);
 
         if(app_Status_ResponseData != null) {
             tvAppStatus.setText(app_Status_ResponseData);

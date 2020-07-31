@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -51,7 +50,7 @@ public class ShowIndividualPariharaDetailsReport extends AppCompatActivity {
         setContentView(R.layout.activity_show_individual_parihara_details_report);
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -65,7 +64,7 @@ public class ShowIndividualPariharaDetailsReport extends AppCompatActivity {
         rvPariharaDetails = findViewById(R.id.rvPariharaDetails);
         rvPaymentDetails = findViewById(R.id.rvPaymentDetails);
 
-        pariharaqResponsedata = (String) getIntent().getStringExtra("response_data");
+        pariharaqResponsedata = getIntent().getStringExtra("response_data");
 
         showData(pariharaqResponsedata);
     }
@@ -73,7 +72,6 @@ public class ShowIndividualPariharaDetailsReport extends AppCompatActivity {
     private void showData(String pariharaqResponsedata) {
         try {
 
-            Log.d("Result_11",""+pariharaqResponsedata);
             XmlToJson xmlToJson = new XmlToJson.Builder(pariharaqResponsedata.replace("\\r\\n", "").trim()).build();
             String formatted = xmlToJson.toFormattedString().replace("\n", "");
             JSONObject responseObject = new JSONObject(formatted);
@@ -85,11 +83,8 @@ public class ShowIndividualPariharaDetailsReport extends AppCompatActivity {
             {
                 String form = String.valueOf(rtc);
                 form = form.replace("{\"PariharaEntries\":{", "{\"PariharaEntries\":[{");
-                Log.d("form_1",""+form);
                 form = form.replace("}}", "}]}");
-                Log.d("form_2",""+form);
                 rtc =  new JSONObject(form);
-                Log.d("rtc",""+rtc);
 
                 pariharaEntries = rtc.getJSONArray("PariharaEntries");
                 Type listType = new TypeToken<List<PariharaEntry>>() {
@@ -99,11 +94,8 @@ public class ShowIndividualPariharaDetailsReport extends AppCompatActivity {
             {
                 String form1 = String.valueOf(rtc);
                 form1 = form1.replace("{\"PaymentDetails\":{", "{\"PaymentDetails\":[{");
-                Log.d("form_1",""+form1);
                 form1 = form1.replace("}}", "}]}");
-                Log.d("form_2",""+form1);
                 rtc =  new JSONObject(form1);
-                Log.d("rtc",""+rtc);
 
                 paymentEntries = rtc.getJSONArray("PaymentDetails");
                 Type paymentlistType = new TypeToken<List<PaymentDetail>>() {

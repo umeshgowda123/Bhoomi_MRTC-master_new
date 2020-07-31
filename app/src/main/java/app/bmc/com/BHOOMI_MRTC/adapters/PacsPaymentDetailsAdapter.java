@@ -2,17 +2,12 @@ package app.bmc.com.BHOOMI_MRTC.adapters;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-
 import java.util.List;
-
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.model.PacsPaymentTableData;
 
@@ -92,7 +87,6 @@ public class PacsPaymentDetailsAdapter extends RecyclerView.Adapter<PacsPaymentD
 
     @Override
     public int getItemCount() {
-        Log.d("pacPayDetaillist",pacPayDetaillist.size()+"");
         return pacPayDetaillist.size();
     }
 

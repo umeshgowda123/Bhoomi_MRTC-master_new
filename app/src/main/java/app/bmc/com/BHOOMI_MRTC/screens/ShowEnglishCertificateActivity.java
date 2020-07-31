@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -90,13 +89,11 @@ public class ShowEnglishCertificateActivity extends AppCompatActivity {
             if (elanguage != null) {
                 eurl = "https://clws.karnataka.gov.in/clws/paydment/pacscertview/ReportBasedOnId.aspx?" + "language=" + elanguage + "&CustID=" + certificateRequestParamter;
 //                eurl = "https://clws.karnataka.gov.in/clws/paydment/pacscertview/ReportBasedOnId.aspx?" + "language=" + elanguage + "&CustID=" + certificateRequestParamter;//SUSMITA  4:28.P.M.
-                Log.d("resultUrl",""+eurl);
                 webViewCrop.loadUrl(eurl);
             }
         if (klanaguage != null) {
             kandaurl = "https://clws.karnataka.gov.in/clws/payment/pacscertview/ReportBasedOnId.aspx?" + "language=" + klanaguage + "&CustID=" + certificateRequestParamter;
 //            kandaurl = "https://clws.karnataka.gov.in/clws/payment/pacscertview/ReportBasedOnId.aspx?" + "language=" + klanaguage + "&CustID=" + certificateRequestParamter;//SUSMITA  4:28.P.M.
-            Log.d("resultUrl",""+kandaurl);
             webViewCrop.loadUrl(kandaurl);
         }
 

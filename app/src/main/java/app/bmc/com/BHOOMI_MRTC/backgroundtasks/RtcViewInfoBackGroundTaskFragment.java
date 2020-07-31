@@ -7,7 +7,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import android.util.Log;
 
 import com.google.gson.JsonObject;
 
@@ -226,9 +225,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Call<Get_ViewMutationStatusResult> call, @NonNull Throwable error) {
                 isTaskExecuting = false;
-
                 String errorResponse = error.getLocalizedMessage();
-                Log.d("errorResponse",""+errorResponse);
                 backgroundCallBack.onPostResponseError(errorResponse);
             }
         });
@@ -269,7 +266,6 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
                 isTaskExecuting = false;
 
                 String errorResponse = error.getLocalizedMessage();
-                Log.d("errorResponse",""+errorResponse);
                 backgroundCallBack.onPostResponseError(errorResponse);
             }
         });

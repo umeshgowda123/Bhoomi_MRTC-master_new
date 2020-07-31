@@ -9,7 +9,6 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -34,7 +33,7 @@ public class ShowFullOwnerAllDetails extends AppCompatActivity {
         setContentView(R.layout.activity_show_full_owner_all_details);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -46,7 +45,6 @@ public class ShowFullOwnerAllDetails extends AppCompatActivity {
         String owner = getIntent().getStringExtra("owner");
         String surnoc = getIntent().getStringExtra("surnoc");
         String hissa_no = getIntent().getStringExtra("hissa_no");
-        Log.d("DATA : ", land_code+" "+main_owner_no+" "+owner_no+" "+owner+" "+surnoc+" "+hissa_no);
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

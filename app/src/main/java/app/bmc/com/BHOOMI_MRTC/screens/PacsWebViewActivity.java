@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -87,7 +86,6 @@ public class PacsWebViewActivity extends AppCompatActivity {
         if (!mbURLLoaded)
             if (custIdValue != null && appIdValue != null) {
                 url = baseurl + "appId=" + appIdValue + "&CustID=" + custIdValue;
-                Log.d("url_pacs",""+url);
                 webViewPacsPaymentCertificate.loadUrl(url);
             }
 

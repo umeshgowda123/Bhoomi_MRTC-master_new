@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,7 +95,6 @@ public class LandDetailsFragment extends Fragment {
         Villagedetails villagedetails = new Villagedetails();
         Gson gson = new Gson();
         ArrayList<Landdetails> landdetailsArrayList = new ArrayList<>();
-        Log.d("landdetailsArrayList",landdetailsArrayList.size()+"");//SUSMITA
         JSONObject rtc = new JSONObject(data);
 
 

@@ -13,18 +13,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.api.PariharaIndividualReportInteface;
@@ -74,7 +71,7 @@ public class LoanWaiverReportForPacsFarmerWise extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loan_waiver_report_for_pacs_farmer_wise);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -102,13 +99,7 @@ public class LoanWaiverReportForPacsFarmerWise extends AppCompatActivity {
         sp_pacs_hbl.setAdapter(defaultArrayAdapter);
         sp_pacs_vlg.setAdapter(defaultArrayAdapter);
 
-        Observable<List<? extends DistrictModelInterface>> districtDataObservable = Observable.fromCallable(new Callable<List<? extends DistrictModelInterface>>() {
-
-            @Override
-            public List<? extends DistrictModelInterface> call() {
-                return dataBaseHelper.daoAccess().getDistinctDistricts();
-            }
-        });
+        Observable<List<? extends DistrictModelInterface>> districtDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getDistinctDistricts());
         districtDataObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -146,239 +137,202 @@ public class LoanWaiverReportForPacsFarmerWise extends AppCompatActivity {
 
     private void onClickAction() {
 
-        sp_pacsdist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                sp_pacstlk.setText("");
-                sp_pacs_hbl.setText("");
-                sp_pacs_vlg.setText("");
-                district_id = districtData.get(position).getVLM_DST_ID();
-                Observable<List<? extends TalukModelInterface>> talukDataObservable = Observable.fromCallable(new Callable<List<? extends TalukModelInterface>>() {
-
-                    @Override
-                    public List<? extends TalukModelInterface> call() {
-                        return dataBaseHelper.daoAccess().getTalukByDistrictId(String.valueOf(district_id));
-                    }
-                });
-                talukDataObservable
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Observer<List<? extends TalukModelInterface>>() {
+        sp_pacsdist.setOnItemClickListener((parent, view, position, id) -> {
+            sp_pacstlk.setText("");
+            sp_pacs_hbl.setText("");
+            sp_pacs_vlg.setText("");
+            district_id = districtData.get(position).getVLM_DST_ID();
+            Observable<List<? extends TalukModelInterface>> talukDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getTalukByDistrictId(String.valueOf(district_id)));
+            talukDataObservable
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<List<? extends TalukModelInterface>>() {
 
 
-                            @Override
-                            public void onSubscribe(Disposable d) {
+                        @Override
+                        public void onSubscribe(Disposable d) {
 
-                            }
+                        }
 
-                            @Override
-                            public void onNext(List<? extends TalukModelInterface> talukDataList) {
-                                talukData = (List<TalukModelInterface>) talukDataList;
-                                ArrayAdapter<TalukModelInterface> talukArrayAdapter = new ArrayAdapter<TalukModelInterface>(LoanWaiverReportForPacsFarmerWise.this,
-                                        android.R.layout.simple_list_item_single_choice, talukData);
-                                sp_pacstlk.setAdapter(talukArrayAdapter);
-                            }
+                        @Override
+                        public void onNext(List<? extends TalukModelInterface> talukDataList) {
+                            talukData = (List<TalukModelInterface>) talukDataList;
+                            ArrayAdapter<TalukModelInterface> talukArrayAdapter = new ArrayAdapter<>(LoanWaiverReportForPacsFarmerWise.this,
+                                    android.R.layout.simple_list_item_single_choice, talukData);
+                            sp_pacstlk.setAdapter(talukArrayAdapter);
+                        }
 
-                            @Override
-                            public void onError(Throwable e) {
+                        @Override
+                        public void onError(Throwable e) {
 
-                            }
+                        }
 
-                            @Override
-                            public void onComplete() {
+                        @Override
+                        public void onComplete() {
 
-                            }
-                        });
+                        }
+                    });
 
 
-            }
         });
 
 
-        sp_pacstlk.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                sp_pacs_hbl.setText("");
-                sp_pacs_vlg.setText("");
-                taluk_id = talukData.get(position).getVLM_TLK_ID();
-                Observable<List<? extends HobliModelInterface>> noOfRows = Observable.fromCallable(new Callable<List<? extends HobliModelInterface>>() {
-
-                    @Override
-                    public List<? extends HobliModelInterface> call() {
-                        return dataBaseHelper.daoAccess().getHobliByTalukId_and_DistrictId(String.valueOf(taluk_id), String.valueOf(district_id));
-                    }
-                });
-                noOfRows
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Observer<List<? extends HobliModelInterface>>() {
+        sp_pacstlk.setOnItemClickListener((parent, view, position, id) -> {
+            sp_pacs_hbl.setText("");
+            sp_pacs_vlg.setText("");
+            taluk_id = talukData.get(position).getVLM_TLK_ID();
+            Observable<List<? extends HobliModelInterface>> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getHobliByTalukId_and_DistrictId(String.valueOf(taluk_id), String.valueOf(district_id)));
+            noOfRows
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<List<? extends HobliModelInterface>>() {
 
 
-                            @Override
-                            public void onSubscribe(Disposable d) {
+                        @Override
+                        public void onSubscribe(Disposable d) {
 
-                            }
+                        }
 
-                            @Override
-                            public void onNext(List<? extends HobliModelInterface> hobliDataList) {
-                                hobliData = (List<HobliModelInterface>) hobliDataList;
-                                ArrayAdapter<HobliModelInterface> hobliArrayAdapter = new ArrayAdapter<HobliModelInterface>(LoanWaiverReportForPacsFarmerWise.this,
-                                        android.R.layout.simple_list_item_single_choice, hobliData);
-                                sp_pacs_hbl.setAdapter(hobliArrayAdapter);
-                            }
+                        @Override
+                        public void onNext(List<? extends HobliModelInterface> hobliDataList) {
+                            hobliData = (List<HobliModelInterface>) hobliDataList;
+                            ArrayAdapter<HobliModelInterface> hobliArrayAdapter = new ArrayAdapter<>(LoanWaiverReportForPacsFarmerWise.this,
+                                    android.R.layout.simple_list_item_single_choice, hobliData);
+                            sp_pacs_hbl.setAdapter(hobliArrayAdapter);
+                        }
 
-                            @Override
-                            public void onError(Throwable e) {
+                        @Override
+                        public void onError(Throwable e) {
 
-                            }
+                        }
 
-                            @Override
-                            public void onComplete() {
+                        @Override
+                        public void onComplete() {
 
-                            }
-                        });
+                        }
+                    });
 
-            }
         });
 
-        sp_pacs_hbl.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                sp_pacs_vlg.setText("");
-                hobli_id = hobliData.get(position).getVLM_HBL_ID();
-                Observable<List<? extends VillageModelInterface>> noOfRows = Observable.fromCallable(new Callable<List<? extends VillageModelInterface>>() {
-
-                    @Override
-                    public List<? extends VillageModelInterface> call() {
-                        return dataBaseHelper.daoAccess().getVillageByHobliId_and_TalukId_and_DistrictId(String.valueOf(hobli_id), String.valueOf(taluk_id), String.valueOf(district_id));
-                    }
-                });
-                noOfRows
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Observer<List<? extends VillageModelInterface>>() {
+        sp_pacs_hbl.setOnItemClickListener((parent, view, position, id) -> {
+            sp_pacs_vlg.setText("");
+            hobli_id = hobliData.get(position).getVLM_HBL_ID();
+            Observable<List<? extends VillageModelInterface>> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getVillageByHobliId_and_TalukId_and_DistrictId(String.valueOf(hobli_id), String.valueOf(taluk_id), String.valueOf(district_id)));
+            noOfRows
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<List<? extends VillageModelInterface>>() {
 
 
-                            @Override
-                            public void onSubscribe(Disposable d) {
+                        @Override
+                        public void onSubscribe(Disposable d) {
 
-                            }
+                        }
 
-                            @Override
-                            public void onNext(List<? extends VillageModelInterface> villageDataList) {
-                                villageData = (List<VillageModelInterface>) villageDataList;
-                                ArrayAdapter<VillageModelInterface> villageArrayAdapter = new ArrayAdapter<VillageModelInterface>(LoanWaiverReportForPacsFarmerWise.this,
-                                        android.R.layout.simple_list_item_single_choice, villageData);
-                                sp_pacs_vlg.setAdapter(villageArrayAdapter);
-                            }
+                        @Override
+                        public void onNext(List<? extends VillageModelInterface> villageDataList) {
+                            villageData = (List<VillageModelInterface>) villageDataList;
+                            ArrayAdapter<VillageModelInterface> villageArrayAdapter = new ArrayAdapter<>(LoanWaiverReportForPacsFarmerWise.this,
+                                    android.R.layout.simple_list_item_single_choice, villageData);
+                            sp_pacs_vlg.setAdapter(villageArrayAdapter);
+                        }
 
-                            @Override
-                            public void onError(Throwable e) {
+                        @Override
+                        public void onError(Throwable e) {
 
-                            }
+                        }
 
-                            @Override
-                            public void onComplete() {
+                        @Override
+                        public void onComplete() {
 
-                            }
-                        });
+                        }
+                    });
 
-            }
         });
 
-        sp_pacs_vlg.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                village_id = villageData.get(position).getVLM_VLG_ID();
+        sp_pacs_vlg.setOnItemClickListener((parent, view, position, id) -> village_id = villageData.get(position).getVLM_VLG_ID());
 
+        btn_pacs_submit.setOnClickListener(v -> {
+            String districtName = sp_pacsdist.getText().toString().trim();
+            String talukName = sp_pacstlk.getText().toString().trim();
+            String hobliName = sp_pacs_hbl.getText().toString().trim();
+            String villageName = sp_pacs_vlg.getText().toString().trim();
+
+            View focus = null;
+            boolean status = false;
+            if (TextUtils.isEmpty(districtName)) {
+                focus = sp_pacsdist;
+                status = true;
+                sp_pacsdist.setError(getString(R.string.district_err));
+            } else if (TextUtils.isEmpty(talukName)) {
+                focus = sp_pacstlk;
+                status = true;
+                sp_pacstlk.setError(getString(R.string.taluk_err));
+            } else if (TextUtils.isEmpty(hobliName)) {
+                focus = sp_pacs_hbl;
+                status = true;
+                sp_pacs_hbl.setError(getString(R.string.hobli_err));
+            } else if (TextUtils.isEmpty(villageName)) {
+                focus = sp_pacs_vlg;
+                status = true;
+                sp_pacs_vlg.setError(getString(R.string.village_err));
             }
-        });
+            if (status) {
+                focus.requestFocus();
+            } else {
 
-        btn_pacs_submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String districtName = sp_pacsdist.getText().toString().trim();
-                String talukName = sp_pacstlk.getText().toString().trim();
-                String hobliName = sp_pacs_hbl.getText().toString().trim();
-                String villageName = sp_pacs_vlg.getText().toString().trim();
+                if (isNetworkAvailable()) {
+                    progressDialog = new ProgressDialog(LoanWaiverReportForPacsFarmerWise.this);
+                    progressDialog.setMessage("Please Wait");
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
 
-                View focus = null;
-                boolean status = false;
-                if (TextUtils.isEmpty(districtName)) {
-                    focus = sp_pacsdist;
-                    status = true;
-                    sp_pacsdist.setError(getString(R.string.district_err));
-                } else if (TextUtils.isEmpty(talukName)) {
-                    focus = sp_pacstlk;
-                    status = true;
-                    sp_pacstlk.setError(getString(R.string.taluk_err));
-                } else if (TextUtils.isEmpty(hobliName)) {
-                    focus = sp_pacs_hbl;
-                    status = true;
-                    sp_pacs_hbl.setError(getString(R.string.hobli_err));
-                } else if (TextUtils.isEmpty(villageName)) {
-                    focus = sp_pacs_vlg;
-                    status = true;
-                    sp_pacs_vlg.setError(getString(R.string.village_err));
-                }
-                if (status) {
-                    focus.requestFocus();
-                } else {
+                    apiInterface = PariharaIndividualreportClient.getClient(getResources().getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
+                    Call<PariharaIndividualDetailsResponse> call = apiInterface.getPacsLoanWaiverReportFramerWise(Constants.REPORT_SERVICE_USER_NAME,
+                            Constants.REPORT_SERVICE_PASSWORD, district_id, taluk_id, hobli_id, village_id);
+                    call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+                        @Override
+                        public void onResponse(Call<PariharaIndividualDetailsResponse> call, Response<PariharaIndividualDetailsResponse> response) {
 
-                    if (isNetworkAvailable()) {
-                        progressDialog = new ProgressDialog(LoanWaiverReportForPacsFarmerWise.this);
-                        progressDialog.setMessage("Please Wait");
-                        progressDialog.setCancelable(false);
-                        progressDialog.show();
-
-                        apiInterface = PariharaIndividualreportClient.getClient(getResources().getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
-                        Call<PariharaIndividualDetailsResponse> call = apiInterface.getPacsLoanWaiverReportFramerWise(Constants.REPORT_SERVICE_USER_NAME,
-                                Constants.REPORT_SERVICE_PASSWORD, district_id, taluk_id, hobli_id, village_id);
-                        call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
-                            @Override
-                            public void onResponse(Call<PariharaIndividualDetailsResponse> call, Response<PariharaIndividualDetailsResponse> response) {
-
-                                if (response.isSuccessful()) {
-                                    PariharaIndividualDetailsResponse result = response.body();
-                                    progressDialog.dismiss();
-
-                                    sp_pacsdist.setText("");
-                                    sp_pacstlk.setText("");
-                                    sp_pacs_hbl.setText("");
-                                    sp_pacs_vlg.setText("");
-                                    String s = result.getGetLoanWaiverReportPACS_FarmerwiseResult();
-                                    Log.d("RESPONSE_DATA",s);
-
-                                    if (s.equals("<NewDataSet />")) {
-                                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LoanWaiverReportForPacsFarmerWise.this, R.style.MyDialogTheme);
-                                        builder.setTitle("STATUS")
-                                                .setMessage("No Report Found For this Record")
-                                                .setIcon(R.drawable.ic_notifications_black_24dp)
-                                                .setCancelable(false)
-                                                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
-                                        final android.app.AlertDialog alert = builder.create();
-                                        alert.show();
-                                        alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-                                    } else {
-                                        PacsThreadSafeSingletonFarmerWiseClass.getInstance().setResponse(result.getGetLoanWaiverReportPACS_FarmerwiseResult());
-                                        Intent intent = new Intent(LoanWaiverReportForPacsFarmerWise.this, ShowLoanWaiverReportPacsFarmerWise.class);
-                                        startActivity(intent);
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<PariharaIndividualDetailsResponse> call, Throwable t) {
-                                call.cancel();
+                            if (response.isSuccessful()) {
+                                PariharaIndividualDetailsResponse result = response.body();
                                 progressDialog.dismiss();
 
+                                sp_pacsdist.setText("");
+                                sp_pacstlk.setText("");
+                                sp_pacs_hbl.setText("");
+                                sp_pacs_vlg.setText("");
+                                String s = result.getGetLoanWaiverReportPACS_FarmerwiseResult();
 
+                                if (s.equals("<NewDataSet />")) {
+                                    final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LoanWaiverReportForPacsFarmerWise.this, R.style.MyDialogTheme);
+                                    builder.setTitle("STATUS")
+                                            .setMessage("No Report Found For this Record")
+                                            .setIcon(R.drawable.ic_notifications_black_24dp)
+                                            .setCancelable(false)
+                                            .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                    final android.app.AlertDialog alert = builder.create();
+                                    alert.show();
+                                    alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                } else {
+                                    PacsThreadSafeSingletonFarmerWiseClass.getInstance().setResponse(result.getGetLoanWaiverReportPACS_FarmerwiseResult());
+                                    Intent intent = new Intent(LoanWaiverReportForPacsFarmerWise.this, ShowLoanWaiverReportPacsFarmerWise.class);
+                                    startActivity(intent);
+                                }
                             }
-                        });
+                        }
 
-                    } else {
-                        selfDestruct();
-                    }
+                        @Override
+                        public void onFailure(Call<PariharaIndividualDetailsResponse> call, Throwable t) {
+                            call.cancel();
+                            progressDialog.dismiss();
+
+
+                        }
+                    });
+
+                } else {
+                    selfDestruct();
                 }
             }
         });

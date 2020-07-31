@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -88,7 +87,6 @@ public class PacsLoanAffidavitView extends AppCompatActivity {
     {
         affidavitUrl = "https://clws.karnataka.gov.in/clws/pacs/pacsAffidavite/AFDVT_PRINT_PACS.aspx?" + "rp_CoustmerBankID=" + bankId + "&rp_CLW_APPGUID=" + appId + "&rp_CoustmerID=" + customerId + "&rp_CLW_UserID=" + "";
 //        affidavitUrl = "https://clws.karnataka.gov.in/clws/pacs/pacsAffidavite/AFDVT_PRINT_PACS.aspx?" + "rp_CoustmerBankID=" + bankId + "&rp_CLW_APPGUID=" + appId + "&rp_CoustmerID=" + customerId + "&rp_CLW_UserID=" + "";//SUSMITA  4:26.P.M.
-        Log.d("resultUrl",""+affidavitUrl);
         if(bankId != null && appId!=null &&  customerId!= null)
         {
             webViewPacsAffidavit.loadUrl(affidavitUrl);

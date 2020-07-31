@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -75,7 +74,6 @@ public class ShowPariharaBenificiaryDetailsVlgWise extends AppCompatActivity {
 
 
         showData(phraBenificaryDataResponse);
-        Log.d("RES : ", phraBenificaryDataResponse);
 
 
     }
@@ -95,11 +93,8 @@ public class ShowPariharaBenificiaryDetailsVlgWise extends AppCompatActivity {
             {
                 String form = String.valueOf(rtc);
                 form = form.replace("{\"Table\":{", "{\"Table\":[{");
-                Log.d("form_1",""+form);
                 form = form.replace("}}", "}]}");
-                Log.d("form_2",""+form);
                 rtc =  new JSONObject(form);
-                Log.d("rtc",""+rtc);
 
                 tableEntries = rtc.getJSONArray("Table");
                 Type listType = new TypeToken<List<BenificaryDataVlgWise>>() {
@@ -109,35 +104,29 @@ public class ShowPariharaBenificiaryDetailsVlgWise extends AppCompatActivity {
 
         } catch (JSONException ex) {
             ex.printStackTrace();
-            Log.d("Exception", Objects.requireNonNull(ex.getMessage()));
         }
 
         final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
+        handler.postDelayed(() -> {
 
-        if (myBenificaryList.size() > 0) {
-            populateData();
-            cadapter = new VillageWiseBenificaryAdapter(rowsArrayList, ShowPariharaBenificiaryDetailsVlgWise.this);
-            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-            rvBenificaryDetailsVlgWise.setLayoutManager(mLayoutManager);
-            rvBenificaryDetailsVlgWise.setItemAnimator(new DefaultItemAnimator());
-            rvBenificaryDetailsVlgWise.setAdapter(cadapter);
-            initScrollListener();
-        }else
-            {
-            Toast.makeText(getApplicationContext(), "No Data Found!", Toast.LENGTH_SHORT).show();
-            }
+    if (myBenificaryList.size() > 0) {
+        populateData();
+        cadapter = new VillageWiseBenificaryAdapter(rowsArrayList, ShowPariharaBenificiaryDetailsVlgWise.this);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        rvBenificaryDetailsVlgWise.setLayoutManager(mLayoutManager);
+        rvBenificaryDetailsVlgWise.setItemAnimator(new DefaultItemAnimator());
+        rvBenificaryDetailsVlgWise.setAdapter(cadapter);
+        initScrollListener();
+    }else
+        {
+        Toast.makeText(getApplicationContext(), "No Data Found!", Toast.LENGTH_SHORT).show();
         }
-
-        }, 2000);
+    }, 2000);
 
 
     }
 
     private void populateData() {
-        Log.d("myBenificaryList",myBenificaryList.size()+"");
         int i = 0;
         while (i < myBenificaryList.size()) { //----SUSMITA
             rowsArrayList.add(myBenificaryList.get(i));

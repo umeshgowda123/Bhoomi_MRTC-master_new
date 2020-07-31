@@ -13,11 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
@@ -29,7 +27,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.api.PariharaIndividualReportInteface;
@@ -130,7 +127,7 @@ public class PariharaBenificiaryReportVillageWise extends AppCompatActivity {
 
         btn_submit = findViewById(R.id.btn_submit);
 
-        ArrayAdapter<String> defaultArrayAdapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> defaultArrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_single_choice, new String[]{});
         spinner_district.setAdapter(defaultArrayAdapter);
         spinner_taluk.setAdapter(defaultArrayAdapter);
@@ -140,13 +137,7 @@ public class PariharaBenificiaryReportVillageWise extends AppCompatActivity {
         spinner_season.setAdapter(defaultArrayAdapter);
         spinner_calamity.setAdapter(defaultArrayAdapter);
 
-        Observable<List<? extends DistrictModelInterface>> districtDataObservable = Observable.fromCallable(new Callable<List<? extends DistrictModelInterface>>() {
-
-            @Override
-            public List<? extends DistrictModelInterface> call() {
-                return dataBaseHelper.daoAccess().getDistinctDistricts();
-            }
-        });
+        Observable<List<? extends DistrictModelInterface>> districtDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getDistinctDistricts());
         districtDataObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -162,7 +153,7 @@ public class PariharaBenificiaryReportVillageWise extends AppCompatActivity {
                     public void onNext(List<? extends DistrictModelInterface> mst_vlmList) {
 
                         districtData = (List<DistrictModelInterface>) mst_vlmList;
-                        ArrayAdapter<DistrictModelInterface> districtArrayAdapter = new ArrayAdapter<DistrictModelInterface>(getApplicationContext(),
+                        ArrayAdapter<DistrictModelInterface> districtArrayAdapter = new ArrayAdapter<>(getApplicationContext(),
                                 android.R.layout.simple_list_item_single_choice, districtData);
                         spinner_district.setAdapter(districtArrayAdapter);
                     }
@@ -184,13 +175,7 @@ public class PariharaBenificiaryReportVillageWise extends AppCompatActivity {
 
     private void loadCalamityMasterData() {
 
-        Observable<Integer> noOfRows = Observable.fromCallable(new Callable<Integer>() {
-
-            @Override
-            public Integer call() {
-                return dataBaseHelper.daoAccess().getNumberOfRowsFromCalamityMaster();
-            }
-        });
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumberOfRowsFromCalamityMaster());
         noOfRows
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -210,7 +195,6 @@ public class PariharaBenificiaryReportVillageWise extends AppCompatActivity {
 
                         }else
                         {
-                            Log.i("Loaded","Already Loaded");
                         }
                     }
 
@@ -229,304 +213,260 @@ public class PariharaBenificiaryReportVillageWise extends AppCompatActivity {
 
     private void onClickAction() {
 
-        spinner_district.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                spinner_taluk.setText("");
-                spinner_hobli.setText("");
-                spinner_village.setText("");
-                spinner_financial_year.setText("");
-                spinner_season.setText("");
-                spinner_calamity.setText("");
-                district_id = districtData.get(position).getVLM_DST_ID();
-                Observable<List<? extends TalukModelInterface>> talukDataObservable = Observable.fromCallable(new Callable<List<? extends TalukModelInterface>>() {
-
-                    @Override
-                    public List<? extends TalukModelInterface> call() {
-                        return dataBaseHelper.daoAccess().getTalukByDistrictId(String.valueOf(district_id));
-                    }
-                });
-                talukDataObservable
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Observer<List<? extends TalukModelInterface>>() {
+        spinner_district.setOnItemClickListener((parent, view, position, id) -> {
+            spinner_taluk.setText("");
+            spinner_hobli.setText("");
+            spinner_village.setText("");
+            spinner_financial_year.setText("");
+            spinner_season.setText("");
+            spinner_calamity.setText("");
+            district_id = districtData.get(position).getVLM_DST_ID();
+            Observable<List<? extends TalukModelInterface>> talukDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getTalukByDistrictId(String.valueOf(district_id)));
+            talukDataObservable
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<List<? extends TalukModelInterface>>() {
 
 
-                            @Override
-                            public void onSubscribe(Disposable d) {
+                        @Override
+                        public void onSubscribe(Disposable d) {
 
-                            }
+                        }
 
-                            @Override
-                            public void onNext(List<? extends TalukModelInterface> talukDataList) {
-                                talukData = (List<TalukModelInterface>) talukDataList;
-                                ArrayAdapter<TalukModelInterface> talukArrayAdapter = new ArrayAdapter<TalukModelInterface>(PariharaBenificiaryReportVillageWise.this,
-                                        android.R.layout.simple_list_item_single_choice, talukData);
-                                spinner_taluk.setAdapter(talukArrayAdapter);
-                            }
+                        @Override
+                        public void onNext(List<? extends TalukModelInterface> talukDataList) {
+                            talukData = (List<TalukModelInterface>) talukDataList;
+                            ArrayAdapter<TalukModelInterface> talukArrayAdapter = new ArrayAdapter<>(PariharaBenificiaryReportVillageWise.this,
+                                    android.R.layout.simple_list_item_single_choice, talukData);
+                            spinner_taluk.setAdapter(talukArrayAdapter);
+                        }
 
-                            @Override
-                            public void onError(Throwable e) {
+                        @Override
+                        public void onError(Throwable e) {
 
-                            }
+                        }
 
-                            @Override
-                            public void onComplete() {
+                        @Override
+                        public void onComplete() {
 
-                            }
-                        });
+                        }
+                    });
 
 
-            }
         });
 
 
-        spinner_taluk.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                spinner_hobli.setText("");
-                spinner_village.setText("");
-                spinner_financial_year.setText("");
-                spinner_season.setText("");
-                spinner_calamity.setText("");
-                taluk_id = talukData.get(position).getVLM_TLK_ID();
-                Observable<List<? extends HobliModelInterface>> noOfRows = Observable.fromCallable(new Callable<List<? extends HobliModelInterface>>() {
-
-                    @Override
-                    public List<? extends HobliModelInterface> call() {
-                        return dataBaseHelper.daoAccess().getHobliByTalukId_and_DistrictId(String.valueOf(taluk_id), String.valueOf(district_id));
-                    }
-                });
-                noOfRows
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Observer<List<? extends HobliModelInterface>>() {
+        spinner_taluk.setOnItemClickListener((parent, view, position, id) -> {
+            spinner_hobli.setText("");
+            spinner_village.setText("");
+            spinner_financial_year.setText("");
+            spinner_season.setText("");
+            spinner_calamity.setText("");
+            taluk_id = talukData.get(position).getVLM_TLK_ID();
+            Observable<List<? extends HobliModelInterface>> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getHobliByTalukId_and_DistrictId(String.valueOf(taluk_id), String.valueOf(district_id)));
+            noOfRows
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<List<? extends HobliModelInterface>>() {
 
 
-                            @Override
-                            public void onSubscribe(Disposable d) {
+                        @Override
+                        public void onSubscribe(Disposable d) {
 
-                            }
+                        }
 
-                            @Override
-                            public void onNext(List<? extends HobliModelInterface> hobliDataList) {
-                                hobliData = (List<HobliModelInterface>) hobliDataList;
-                                ArrayAdapter<HobliModelInterface> hobliArrayAdapter = new ArrayAdapter<HobliModelInterface>(PariharaBenificiaryReportVillageWise.this,
-                                        android.R.layout.simple_list_item_single_choice, hobliData);
-                                spinner_hobli.setAdapter(hobliArrayAdapter);
-                            }
+                        @Override
+                        public void onNext(List<? extends HobliModelInterface> hobliDataList) {
+                            hobliData = (List<HobliModelInterface>) hobliDataList;
+                            ArrayAdapter<HobliModelInterface> hobliArrayAdapter = new ArrayAdapter<>(PariharaBenificiaryReportVillageWise.this,
+                                    android.R.layout.simple_list_item_single_choice, hobliData);
+                            spinner_hobli.setAdapter(hobliArrayAdapter);
+                        }
 
-                            @Override
-                            public void onError(Throwable e) {
+                        @Override
+                        public void onError(Throwable e) {
 
-                            }
+                        }
 
-                            @Override
-                            public void onComplete() {
+                        @Override
+                        public void onComplete() {
 
-                            }
-                        });
+                        }
+                    });
 
-            }
         });
 
-        spinner_hobli.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                spinner_village.setText("");
-                spinner_financial_year.setText("");
-                spinner_season.setText("");
-                spinner_calamity.setText("");
-                hobli_id = hobliData.get(position).getVLM_HBL_ID();
-                Observable<List<? extends VillageModelInterface>> noOfRows = Observable.fromCallable(new Callable<List<? extends VillageModelInterface>>() {
-
-                    @Override
-                    public List<? extends VillageModelInterface> call() {
-                        return dataBaseHelper.daoAccess().getVillageByHobliId_and_TalukId_and_DistrictId(String.valueOf(hobli_id), String.valueOf(taluk_id), String.valueOf(district_id));
-                    }
-                });
-                noOfRows
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Observer<List<? extends VillageModelInterface>>() {
+        spinner_hobli.setOnItemClickListener((parent, view, position, id) -> {
+            spinner_village.setText("");
+            spinner_financial_year.setText("");
+            spinner_season.setText("");
+            spinner_calamity.setText("");
+            hobli_id = hobliData.get(position).getVLM_HBL_ID();
+            Observable<List<? extends VillageModelInterface>> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getVillageByHobliId_and_TalukId_and_DistrictId(String.valueOf(hobli_id), String.valueOf(taluk_id), String.valueOf(district_id)));
+            noOfRows
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<List<? extends VillageModelInterface>>() {
 
 
-                            @Override
-                            public void onSubscribe(Disposable d) {
+                        @Override
+                        public void onSubscribe(Disposable d) {
 
-                            }
+                        }
 
-                            @Override
-                            public void onNext(List<? extends VillageModelInterface> villageDataList) {
-                                villageData = (List<VillageModelInterface>) villageDataList;
-                                ArrayAdapter<VillageModelInterface> villageArrayAdapter = new ArrayAdapter<VillageModelInterface>(PariharaBenificiaryReportVillageWise.this,
-                                        android.R.layout.simple_list_item_single_choice, villageData);
-                                spinner_village.setAdapter(villageArrayAdapter);
-                            }
+                        @Override
+                        public void onNext(List<? extends VillageModelInterface> villageDataList) {
+                            villageData = (List<VillageModelInterface>) villageDataList;
+                            ArrayAdapter<VillageModelInterface> villageArrayAdapter = new ArrayAdapter<>(PariharaBenificiaryReportVillageWise.this,
+                                    android.R.layout.simple_list_item_single_choice, villageData);
+                            spinner_village.setAdapter(villageArrayAdapter);
+                        }
 
-                            @Override
-                            public void onError(Throwable e) {
+                        @Override
+                        public void onError(Throwable e) {
 
-                            }
+                        }
 
-                            @Override
-                            public void onComplete() {
+                        @Override
+                        public void onComplete() {
 
-                            }
-                        });
+                        }
+                    });
 
-            }
         });
 
-        spinner_village.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                spinner_financial_year.setText("");
-                spinner_season.setText("");
-                spinner_calamity.setText("");
-                village_id = villageData.get(position).getVLM_VLG_ID();
-                loadFinancialYearList();
-            }
+        spinner_village.setOnItemClickListener((parent, view, position, id) -> {
+            spinner_financial_year.setText("");
+            spinner_season.setText("");
+            spinner_calamity.setText("");
+            village_id = villageData.get(position).getVLM_VLG_ID();
+            loadFinancialYearList();
         });
 
 
-        spinner_financial_year.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                spinner_season.setText("");
-                spinner_calamity.setText("");
-                year_id =  financialYearData.get(position).getCode();
-                financial_year = spinner_financial_year.getText().toString().trim();
-                loadSeasonYearList();
+        spinner_financial_year.setOnItemClickListener((parent, view, position, id) -> {
+            spinner_season.setText("");
+            spinner_calamity.setText("");
+            year_id =  financialYearData.get(position).getCode();
+            financial_year = spinner_financial_year.getText().toString().trim();
+            loadSeasonYearList();
 
-            }
         });
 
-        spinner_season.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                spinner_calamity.setText("");
-                season_id = seasonData.get(position).getMSTSEASON_VAL();
-                season = spinner_season.getText().toString().trim();
-                loadCalamityList();
+        spinner_season.setOnItemClickListener((parent, view, position, id) -> {
+            spinner_calamity.setText("");
+            season_id = seasonData.get(position).getMSTSEASON_VAL();
+            season = spinner_season.getText().toString().trim();
+            loadCalamityList();
 
-            }
         });
 
-        spinner_calamity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        spinner_calamity.setOnItemClickListener((parent, view, position, id) -> {
 
-                calamity = spinner_calamity.getText().toString().trim();
-                calamity_id =  calamityData.get(position).getMSTCTYPE_ID();
+            calamity = spinner_calamity.getText().toString().trim();
+            calamity_id =  calamityData.get(position).getMSTCTYPE_ID();
 
-            }
         });
 
 
-        btn_submit.setOnClickListener(new View.OnClickListener() {
+        btn_submit.setOnClickListener(v -> {
+            String districtName = spinner_district.getText().toString().trim();
+            String talukName = spinner_taluk.getText().toString().trim();
+            String hobliName = spinner_hobli.getText().toString().trim();
+            String villageName = spinner_village.getText().toString().trim();
+            String financialYear = spinner_financial_year.getText().toString().trim();
+            String season = spinner_season.getText().toString().trim();
+            String calamity = spinner_calamity.getText().toString().trim();
 
-            @Override
-            public void onClick(View v) {
-                String districtName = spinner_district.getText().toString().trim();
-                String talukName = spinner_taluk.getText().toString().trim();
-                String hobliName = spinner_hobli.getText().toString().trim();
-                String villageName = spinner_village.getText().toString().trim();
-                String financialYear = spinner_financial_year.getText().toString().trim();
-                String season = spinner_season.getText().toString().trim();
-                String calamity = spinner_calamity.getText().toString().trim();
+            View focus = null;
+            boolean status = false;
+            if (TextUtils.isEmpty(districtName)) {
+                focus = spinner_district;
+                status = true;
+                spinner_district.setError(getString(R.string.district_err));
+            } else if (TextUtils.isEmpty(talukName)) {
+                focus = spinner_taluk;
+                status = true;
+                spinner_taluk.setError(getString(R.string.taluk_err));
+            } else if (TextUtils.isEmpty(hobliName)) {
+                focus = spinner_hobli;
+                status = true;
+                spinner_hobli.setError(getString(R.string.hobli_err));
+            } else if (TextUtils.isEmpty(villageName)) {
+                focus = spinner_village;
+                status = true;
+                spinner_village.setError(getString(R.string.village_err));
+            } else if (TextUtils.isEmpty(financialYear)) {
+                focus = spinner_financial_year;
+                status = true;
+                spinner_financial_year.setError(getString(R.string.financial_year_error));
+            } else if (TextUtils.isEmpty(season)) {
+                focus = spinner_season;
+                status = true;
+                spinner_season.setError(getString(R.string.season_error));
+            } else if (TextUtils.isEmpty(calamity)) {
+                focus = spinner_calamity;
+                status = true;
+                spinner_calamity.setError(getString(R.string.calamity_error));
+            }
+            if (status) {
+                focus.requestFocus();
+            } else {
 
-                View focus = null;
-                boolean status = false;
-                if (TextUtils.isEmpty(districtName)) {
-                    focus = spinner_district;
-                    status = true;
-                    spinner_district.setError(getString(R.string.district_err));
-                } else if (TextUtils.isEmpty(talukName)) {
-                    focus = spinner_taluk;
-                    status = true;
-                    spinner_taluk.setError(getString(R.string.taluk_err));
-                } else if (TextUtils.isEmpty(hobliName)) {
-                    focus = spinner_hobli;
-                    status = true;
-                    spinner_hobli.setError(getString(R.string.hobli_err));
-                } else if (TextUtils.isEmpty(villageName)) {
-                    focus = spinner_village;
-                    status = true;
-                    spinner_village.setError(getString(R.string.village_err));
-                } else if (TextUtils.isEmpty(financialYear)) {
-                    focus = spinner_financial_year;
-                    status = true;
-                    spinner_financial_year.setError(getString(R.string.financial_year_error));
-                } else if (TextUtils.isEmpty(season)) {
-                    focus = spinner_season;
-                    status = true;
-                    spinner_season.setError(getString(R.string.season_error));
-                } else if (TextUtils.isEmpty(calamity)) {
-                    focus = spinner_calamity;
-                    status = true;
-                    spinner_calamity.setError(getString(R.string.calamity_error));
-                }
-                if (status) {
-                    focus.requestFocus();
-                } else {
+                if (isNetworkAvailable()) {
+                    progressDialog = new ProgressDialog(PariharaBenificiaryReportVillageWise.this);
+                    progressDialog.setMessage("Please Wait");
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
 
-                    if (isNetworkAvailable()) {
-                        progressDialog = new ProgressDialog(PariharaBenificiaryReportVillageWise.this);
-                        progressDialog.setMessage("Please Wait");
-                        progressDialog.setCancelable(false);
-                        progressDialog.show();
+                    apiInterface = PariharaIndividualreportClient.getClient(getResources().getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
+                    Call<PariharaIndividualDetailsResponse> call = apiInterface.getVillageWisePariharaDetails(Constants.REPORT_SERVICE_USER_NAME,
+                            Constants.REPORT_SERVICE_PASSWORD, district_id, taluk_id, hobli_id, village_id, year_id, season_id, calamity_id);
+                    call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+                        @Override
+                        public void onResponse(Call<PariharaIndividualDetailsResponse> call, Response<PariharaIndividualDetailsResponse> response) {
 
-                        apiInterface = PariharaIndividualreportClient.getClient(getResources().getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
-                        Call<PariharaIndividualDetailsResponse> call = apiInterface.getVillageWisePariharaDetails(Constants.REPORT_SERVICE_USER_NAME,
-                                Constants.REPORT_SERVICE_PASSWORD, district_id, taluk_id, hobli_id, village_id, year_id, season_id, calamity_id);
-                        call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
-                            @Override
-                            public void onResponse(Call<PariharaIndividualDetailsResponse> call, Response<PariharaIndividualDetailsResponse> response) {
+                            if (response.isSuccessful()) {
+                                PariharaIndividualDetailsResponse result = response.body();
+                                progressDialog.dismiss();
 
-                                if (response.isSuccessful()) {
-                                    PariharaIndividualDetailsResponse result = response.body();
-                                    progressDialog.dismiss();
+                                spinner_district.setText("");
+                                spinner_taluk.setText("");
+                                spinner_hobli.setText("");
+                                spinner_village.setText("");
+                                spinner_financial_year.setText("");
+                                spinner_season.setText("");
+                                spinner_calamity.setText("");
 
-                                    spinner_district.setText("");
-                                    spinner_taluk.setText("");
-                                    spinner_hobli.setText("");
-                                    spinner_village.setText("");
-                                    spinner_financial_year.setText("");
-                                    spinner_season.setText("");
-                                    spinner_calamity.setText("");
-
-                                    String s = result.getGetPariharaBeneficiaryResult();
-                                    Log.d("RESPONSE_DATA", s);
-                                    if (s.equals("<NewDataSet />")) {
-                                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(PariharaBenificiaryReportVillageWise.this, R.style.MyDialogTheme);
-                                        builder.setTitle("STATUS")
-                                                .setMessage("No Report Found For this Record")
-                                                .setIcon(R.drawable.ic_notifications_black_24dp)
-                                                .setCancelable(false)
-                                                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
-                                        final android.app.AlertDialog alert = builder.create();
-                                        alert.show();
-                                        alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-                                    } else {
-                                        ThreadSafeSingletonClass.getInstance().setResponse(result.getGetPariharaBeneficiaryResult());
-                                        Intent intent = new Intent(PariharaBenificiaryReportVillageWise.this, ShowPariharaBenificiaryDetailsVlgWise.class);
-                                        //  intent.putExtra("response_data", result.getGetPariharaBeneficiaryResult());
-                                        startActivity(intent);
-                                    }
+                                String s = result.getGetPariharaBeneficiaryResult();
+                                if (s.equals("<NewDataSet />")) {
+                                    final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(PariharaBenificiaryReportVillageWise.this, R.style.MyDialogTheme);
+                                    builder.setTitle("STATUS")
+                                            .setMessage("No Report Found For this Record")
+                                            .setIcon(R.drawable.ic_notifications_black_24dp)
+                                            .setCancelable(false)
+                                            .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                    final android.app.AlertDialog alert = builder.create();
+                                    alert.show();
+                                    alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                } else {
+                                    ThreadSafeSingletonClass.getInstance().setResponse(result.getGetPariharaBeneficiaryResult());
+                                    Intent intent = new Intent(PariharaBenificiaryReportVillageWise.this, ShowPariharaBenificiaryDetailsVlgWise.class);
+                                    //  intent.putExtra("response_data", result.getGetPariharaBeneficiaryResult());
+                                    startActivity(intent);
                                 }
                             }
+                        }
 
-                            @Override
-                            public void onFailure(Call<PariharaIndividualDetailsResponse> call, Throwable t) {
-                                call.cancel();
-                                progressDialog.dismiss();
-                            }
-                        });
+                        @Override
+                        public void onFailure(Call<PariharaIndividualDetailsResponse> call, Throwable t) {
+                            call.cancel();
+                            progressDialog.dismiss();
+                        }
+                    });
 
-                    } else {
-                        selfDestruct();
-                    }
+                } else {
+                    selfDestruct();
                 }
             }
         });
@@ -535,13 +475,7 @@ public class PariharaBenificiaryReportVillageWise extends AppCompatActivity {
 
     private void loadCalamityList() {
 
-        Observable<List<? extends CalamityInterface>> districtDataObservable = Observable.fromCallable(new Callable<List<? extends CalamityInterface>>() {
-
-            @Override
-            public List<? extends CalamityInterface> call() {
-                return dataBaseHelper.daoAccess().getDistinctCalamity();
-            }
-        });
+        Observable<List<? extends CalamityInterface>> districtDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getDistinctCalamity());
         districtDataObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -557,7 +491,7 @@ public class PariharaBenificiaryReportVillageWise extends AppCompatActivity {
                     public void onNext(List<? extends CalamityInterface> mst_calamity_List) {
 
                         calamityData = (List<CalamityInterface>) mst_calamity_List;
-                        ArrayAdapter<CalamityInterface> seasonArrayAdapter = new ArrayAdapter<CalamityInterface>(getApplicationContext(),
+                        ArrayAdapter<CalamityInterface> seasonArrayAdapter = new ArrayAdapter<>(getApplicationContext(),
                                 android.R.layout.simple_list_item_single_choice, calamityData);
                         spinner_calamity.setAdapter(seasonArrayAdapter);
                     }
@@ -576,13 +510,7 @@ public class PariharaBenificiaryReportVillageWise extends AppCompatActivity {
 
     private void loadSeasonYearList() {
 
-        Observable<List<? extends SeasonInterface>> districtDataObservable = Observable.fromCallable(new Callable<List<? extends SeasonInterface>>() {
-
-            @Override
-            public List<? extends SeasonInterface> call() {
-                return dataBaseHelper.daoAccess().getDistinctSeasons();
-            }
-        });
+        Observable<List<? extends SeasonInterface>> districtDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getDistinctSeasons());
         districtDataObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -598,7 +526,7 @@ public class PariharaBenificiaryReportVillageWise extends AppCompatActivity {
                     public void onNext(List<? extends SeasonInterface> mst_season_List) {
 
                         seasonData = (List<SeasonInterface>) mst_season_List;
-                        ArrayAdapter<SeasonInterface> seasonArrayAdapter = new ArrayAdapter<SeasonInterface>(getApplicationContext(),
+                        ArrayAdapter<SeasonInterface> seasonArrayAdapter = new ArrayAdapter<>(getApplicationContext(),
                                 android.R.layout.simple_list_item_single_choice, seasonData);
                         spinner_season.setAdapter(seasonArrayAdapter);
                     }
@@ -617,13 +545,7 @@ public class PariharaBenificiaryReportVillageWise extends AppCompatActivity {
 
     private void loadFinancialYearList() {
 
-        Observable<List<? extends FinancialYearInterface>> districtDataObservable = Observable.fromCallable(new Callable<List<? extends FinancialYearInterface>>() {
-
-            @Override
-            public List<? extends FinancialYearInterface> call() {
-                return dataBaseHelper.daoAccess().getDistinctYears();
-            }
-        });
+        Observable<List<? extends FinancialYearInterface>> districtDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getDistinctYears());
         districtDataObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -639,7 +561,7 @@ public class PariharaBenificiaryReportVillageWise extends AppCompatActivity {
                     public void onNext(List<? extends FinancialYearInterface> mst_yearList) {
 
                         financialYearData = (List<FinancialYearInterface>) mst_yearList;
-                        ArrayAdapter<FinancialYearInterface> yearArrayAdapter = new ArrayAdapter<FinancialYearInterface>(getApplicationContext(),
+                        ArrayAdapter<FinancialYearInterface> yearArrayAdapter = new ArrayAdapter<>(getApplicationContext(),
                                 android.R.layout.simple_list_item_single_choice, financialYearData);
                         spinner_financial_year.setAdapter(yearArrayAdapter);
                     }
@@ -669,10 +591,8 @@ public class PariharaBenificiaryReportVillageWise extends AppCompatActivity {
         AlertDialog alertDialog = new AlertDialog.Builder(PariharaBenificiaryReportVillageWise.this).create();
         // alertDialog.setTitle("Reset...");
         alertDialog.setMessage("Please Enable Internet Connection");
-        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "OK", (dialog, which) -> {
 
-            }
         });
         alertDialog.show();
     }
@@ -718,13 +638,7 @@ public class PariharaBenificiaryReportVillageWise extends AppCompatActivity {
     }
 
     public void createMasterData(final List<CalamityDetails> calamity_List) {
-        Observable<Long[]> insertMasterObservable = Observable.fromCallable(new Callable<Long[]>() {
-
-            @Override
-            public Long[] call() {
-                return dataBaseHelper.daoAccess().insertMasterCalamityData(calamity_List);
-            }
-        });
+        Observable<Long[]> insertMasterObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().insertMasterCalamityData(calamity_List));
         insertMasterObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -738,7 +652,6 @@ public class PariharaBenificiaryReportVillageWise extends AppCompatActivity {
 
                     @Override
                     public void onNext(Long[] longs) {
-                        Log.i("Inserted", longs + " ");
                         List<SeasonDetails> season_list = loadSeasonDataFromCsv();
                         createSeasonMasterData(season_list);
                     }
@@ -796,13 +709,7 @@ public class PariharaBenificiaryReportVillageWise extends AppCompatActivity {
     }
 
     public void createSeasonMasterData(final List<SeasonDetails> season_List) {
-        Observable<Long[]> insertMasterObservable = Observable.fromCallable(new Callable<Long[]>() {
-
-            @Override
-            public Long[] call() {
-                return dataBaseHelper.daoAccess().insertMasterSeasonData(season_List);
-            }
-        });
+        Observable<Long[]> insertMasterObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().insertMasterSeasonData(season_List));
         insertMasterObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -816,7 +723,6 @@ public class PariharaBenificiaryReportVillageWise extends AppCompatActivity {
 
                     @Override
                     public void onNext(Long[] longs) {
-                        Log.i("Inserted", longs + " ");
                         List<YearDetails> year_list = loadYearDataFromCsv();
                         createYearMasterData(year_list);
                     }
@@ -872,13 +778,7 @@ public class PariharaBenificiaryReportVillageWise extends AppCompatActivity {
     }
 
     public void createYearMasterData(final List<YearDetails> year_List) {
-        Observable<Long[]> insertMasterObservable = Observable.fromCallable(new Callable<Long[]>() {
-
-            @Override
-            public Long[] call() {
-                return dataBaseHelper.daoAccess().insertYearSeasonData(year_List);
-            }
-        });
+        Observable<Long[]> insertMasterObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().insertYearSeasonData(year_List));
         insertMasterObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -892,7 +792,6 @@ public class PariharaBenificiaryReportVillageWise extends AppCompatActivity {
 
                     @Override
                     public void onNext(Long[] longs) {
-                        Log.i("Inserted", longs + " ");
 
                     }
 

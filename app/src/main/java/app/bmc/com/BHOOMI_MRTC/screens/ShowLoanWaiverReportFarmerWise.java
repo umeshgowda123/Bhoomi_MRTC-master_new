@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -48,7 +47,7 @@ public class ShowLoanWaiverReportFarmerWise extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_loan_waiver_report_farmer_wise);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -61,7 +60,7 @@ public class ShowLoanWaiverReportFarmerWise extends AppCompatActivity {
 
         rvLoanWaiverFarmerReport =  findViewById(R.id.rvLoanWaiverFarmerReport);
 
-        farmerDataResponse =  (String) getIntent().getStringExtra("farmer_response_data");
+        farmerDataResponse = getIntent().getStringExtra("farmer_response_data");
         showData(farmerDataResponse);
     }
 
@@ -79,11 +78,8 @@ public class ShowLoanWaiverReportFarmerWise extends AppCompatActivity {
             {
                 String form = String.valueOf(rtc);
                 form = form.replace("{\"Table\":{", "{\"Table\":[{");
-                Log.d("form_1",""+form);
                 form = form.replace("}}", "}]}");
-                Log.d("form_2",""+form);
                 rtc =  new JSONObject(form);
-                Log.d("rtc",""+rtc);
 
                 tableEntries = rtc.getJSONArray("Table");
                 Type listType = new TypeToken<List<LoanWaiverFramerWiseResponseData>>() {
@@ -117,7 +113,6 @@ public class ShowLoanWaiverReportFarmerWise extends AppCompatActivity {
 
     private void populateData() {
         int i = 0;
-        Log.d("myBankFarmerDataList",""+myBankFarmerDataList.size());
         while (i < myBankFarmerDataList.size()) {
             rowsArrayList.add(myBankFarmerDataList.get(i));
             i++;

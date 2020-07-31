@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -86,7 +85,6 @@ public class PacsLoanReportView extends AppCompatActivity {
     private void loadURL() {
         if (!mbURLLoaded)
             reportUrl = "https://clws.karnataka.gov.in/clws/pacs/pacsAffidavite/ACK_PACS.aspx?" + "rp_CoustmerBankID="  + bankId + "&rp_CLW_APPGUID=" + appId + "&rp_CoustmerID=" + customerId;
-            Log.d("reportUrl",""+reportUrl);
         if(bankId != null && appId!=null &&  customerId!= null)
         {
             webViewPacsReport.loadUrl(reportUrl);

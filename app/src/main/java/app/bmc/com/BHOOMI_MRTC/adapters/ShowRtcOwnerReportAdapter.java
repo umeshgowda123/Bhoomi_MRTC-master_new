@@ -4,20 +4,14 @@ package app.bmc.com.BHOOMI_MRTC.adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
-
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.model.RTCByOwnerNameResponse;
 import app.bmc.com.BHOOMI_MRTC.screens.RtcDetails;
@@ -76,16 +70,6 @@ public class ShowRtcOwnerReportAdapter extends ArrayAdapter<RTCByOwnerNameRespon
             survey_no = dataModel.survey_no;
             surnoc = dataModel.surnoc;
             hissa_no = dataModel.hissa_no;
-
-            Log.d("owner",""+owner);
-            Log.d("surnoc",""+surnoc);
-            Log.d("survey_no",""+survey_no);
-            Log.d("land_code_int",""+land_code_int);
-            Log.d("distId1",""+distId_int);
-            Log.d("talkId1",""+talkId_int);
-            Log.d("hblId1",""+hblId_int);
-            Log.d("villId1",""+villId_int);
-            Log.d("hissa_no", ""+hissa_no);
 
             Intent intent = new Intent(getContext(), RtcDetails.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("distId",""+distId_int);

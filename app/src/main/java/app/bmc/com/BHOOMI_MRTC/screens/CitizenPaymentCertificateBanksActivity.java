@@ -15,7 +15,6 @@ import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.text.InputFilter;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -144,7 +143,6 @@ public class CitizenPaymentCertificateBanksActivity extends AppCompatActivity {
                                     progressDialog.dismiss();
                                     assert result != null;
                                     String res = result.getGetPayMentCertificateForBankByAadharNumberResult();
-                                    Log.d("Result_1","res: "+res);
                                     if (res.equals("[]")){
                                         final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(CitizenPaymentCertificateBanksActivity.this, R.style.MyDialogTheme);
                                         builder.setTitle("STATUS")
@@ -198,7 +196,6 @@ public class CitizenPaymentCertificateBanksActivity extends AppCompatActivity {
                                     progressDialog.dismiss();
                                     assert result != null;
                                     String res = result.getGetPayMentCertificateForBankByRationCardNumberResult();
-                                    Log.d("Result_1","res: "+res);
                                     if (res.equals("[]")){
                                         final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(CitizenPaymentCertificateBanksActivity.this, R.style.MyDialogTheme);
                                         builder.setTitle("STATUS")
@@ -250,7 +247,6 @@ public class CitizenPaymentCertificateBanksActivity extends AppCompatActivity {
                                     progressDialog.dismiss();
                                     assert result != null;
                                     String res = result.getGetPayMentCertificateForBankByFsdIdNumberResult();
-                                    Log.d("Result_1","res: "+res);
                                     if (res.equals("[]")){
                                         final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(CitizenPaymentCertificateBanksActivity.this, R.style.MyDialogTheme);
                                         builder.setTitle("STATUS")

@@ -8,12 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.List;
-
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.model.BenificaryDataVlgWise;
-
 import app.bmc.com.BHOOMI_MRTC.screens.ShowPariharaBenificiaryDetailsVlgWise;
 
 public class VillageWiseBenificaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

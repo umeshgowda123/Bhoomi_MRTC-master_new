@@ -4,10 +4,8 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +21,7 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONArray;
 
 import java.util.List;
+import java.util.Objects;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.adapters.SkatchAdapter;
@@ -47,9 +46,9 @@ public class Sketch extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sketch);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -60,7 +59,6 @@ public class Sketch extends AppCompatActivity {
 
         etAppId = getIntent().getStringExtra("etAppId");
         sp_AppType = getIntent().getStringExtra("sp_AppType");
-        Log.d("Extras", etAppId + "   " + sp_AppType + "");
 
         rvSketch = findViewById(R.id.rvSketch);
 
@@ -80,7 +78,6 @@ public class Sketch extends AppCompatActivity {
                     PariharaIndividualDetailsResponse result = response.body();
                     assert result != null;
                     res = result.getGetSketchDetailsDetailsBasedOnAppNoResult();
-                    Log.d("SketchDetails", "" + res);
 
                     progressDialog.dismiss();
                     if (res==null || res.contains("Details not found")){
@@ -96,11 +93,9 @@ public class Sketch extends AppCompatActivity {
                     } else  {
                         try {
                             JSONArray jsonArray = new JSONArray(res);
-                            Log.d("jsonArray", String.valueOf(jsonArray));
 
                             Gson gson = new Gson();
                             PhodySketch = gson.fromJson(String.valueOf(jsonArray),new TypeToken<List<PhodySketch>>(){}.getType());
-                                Log.d("SIZESUS", PhodySketch.size() + "");
 
 
                             if (PhodySketch.size() == 0) {
@@ -123,7 +118,6 @@ public class Sketch extends AppCompatActivity {
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            Log.d("ExceptionSUS", e + "");
                         }
                     }
                 }

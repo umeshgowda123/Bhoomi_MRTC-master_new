@@ -7,7 +7,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -74,16 +73,11 @@ public class ShowMutationStatusDetails extends AppCompatActivity {
 //            JSONArray mutationEntries = null;
 
             JSONObject obj1 = new JSONObject(status_data_response);
-            Log.d("mutationStatusObj1", String.valueOf(obj1));
-
             String form = String.valueOf(obj1);
             form = form.replace("{\"MutationStatus\":{", "{\"MutationStatus\":[{");
-            Log.d("form_1",""+form);
             form = form.replace("}}", "}]}");
-            Log.d("form_2",""+form);
 
             JSONObject obj = new JSONObject(form);
-            Log.d("mutationStatusObj", String.valueOf(obj));
 
             JSONArray tableEntries;
 

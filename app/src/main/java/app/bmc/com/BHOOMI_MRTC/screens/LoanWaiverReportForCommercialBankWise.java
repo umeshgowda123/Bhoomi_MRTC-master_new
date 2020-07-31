@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -68,7 +67,7 @@ public class LoanWaiverReportForCommercialBankWise extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loan_waiver_report_for_commercial_bank);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -82,7 +81,7 @@ public class LoanWaiverReportForCommercialBankWise extends AppCompatActivity {
         sp_bank = findViewById(R.id.sp_bank);
         btnShowBankDetails =  findViewById(R.id.btnShowBankDetails);
 
-        ArrayAdapter<String> defaultArrayAdapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> defaultArrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_single_choice, new String[]{});
         sp_district.setAdapter(defaultArrayAdapter);
         sp_bank.setAdapter(defaultArrayAdapter);
@@ -93,13 +92,7 @@ public class LoanWaiverReportForCommercialBankWise extends AppCompatActivity {
 
         loadBankMasterData();
 
-        Observable<List<? extends DistrictModelInterface>> districtDataObservable = Observable.fromCallable(new Callable<List<? extends DistrictModelInterface>>() {
-
-            @Override
-            public List<? extends DistrictModelInterface> call() {
-                return dataBaseHelper.daoAccess().getDistinctDistricts();
-            }
-        });
+        Observable<List<? extends DistrictModelInterface>> districtDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getDistinctDistricts());
         districtDataObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -115,7 +108,7 @@ public class LoanWaiverReportForCommercialBankWise extends AppCompatActivity {
                     public void onNext(List<? extends DistrictModelInterface> mst_vlmList) {
 
                         districtData = (List<DistrictModelInterface>) mst_vlmList;
-                        ArrayAdapter<DistrictModelInterface> districtArrayAdapter = new ArrayAdapter<DistrictModelInterface>(getApplicationContext(),
+                        ArrayAdapter<DistrictModelInterface> districtArrayAdapter = new ArrayAdapter<>(getApplicationContext(),
                                 android.R.layout.simple_list_item_single_choice, districtData);
                         sp_district.setAdapter(districtArrayAdapter);
                     }
@@ -139,64 +132,52 @@ public class LoanWaiverReportForCommercialBankWise extends AppCompatActivity {
 
 
     private void onClickAction() {
-        sp_district.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        sp_district.setOnItemClickListener((parent, view, position, id) -> {
 
-                district_id = districtData.get(position).getVLM_DST_ID();
-                getBankDetailsList(district_id);
-                sp_bank.setText("");
-            }
+            district_id = districtData.get(position).getVLM_DST_ID();
+            getBankDetailsList(district_id);
+            sp_bank.setText("");
         });
 
 
-       sp_bank.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-           @Override
-           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               bank_name =  sp_bank.getText().toString().trim();
-           }
-       });
+       sp_bank.setOnItemClickListener((parent, view, position, id) -> bank_name =  sp_bank.getText().toString().trim());
 
 
-        btnShowBankDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnShowBankDetails.setOnClickListener(v -> {
 
-               String  d_name =  sp_district.getText().toString().trim();
-               String  b_name = sp_bank.getText().toString().trim();
-                View focus = null;
-                boolean status = false;
-                if (TextUtils.isEmpty(d_name)) {
-                    focus = sp_district;
-                    status = true;
-                    sp_district.setError(getString(R.string.district_err));
-                } else if (TextUtils.isEmpty(b_name)) {
-                    focus = sp_bank;
-                    status = true;
-                    sp_bank.setError(getString(R.string.bnk_error));
+           String  d_name =  sp_district.getText().toString().trim();
+           String  b_name = sp_bank.getText().toString().trim();
+            View focus = null;
+            boolean status = false;
+            if (TextUtils.isEmpty(d_name)) {
+                focus = sp_district;
+                status = true;
+                sp_district.setError(getString(R.string.district_err));
+            } else if (TextUtils.isEmpty(b_name)) {
+                focus = sp_bank;
+                status = true;
+                sp_bank.setError(getString(R.string.bnk_error));
+            }
+            if (status) {
+                focus.requestFocus();
+            } else {
+                if (isNetworkAvailable()) {
+
+                    String values1;
+                    values1 = "{" + "\"DISTRICT_CODE\":" + district_id + ","
+                            + "\"BANK_NAME\":\"" + bank_name + "\""
+                            + "}";
+                    try
+                    {
+                        JsonObject jsonObject = new JsonParser().parse(values1).getAsJsonObject();
+                        getLoanReportDataFromBankDetails(jsonObject);
+                    }catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
                 }
-                if (status) {
-                    focus.requestFocus();
-                } else {
-                    if (isNetworkAvailable()) {
-
-                        String values1;
-                        values1 = "{" + "\"DISTRICT_CODE\":" + district_id + ","
-                                + "\"BANK_NAME\":\"" + bank_name + "\""
-                                + "}";
-                        try
-                        {
-                            JsonObject jsonObject = new JsonParser().parse(values1).getAsJsonObject();
-                            Log.d("jsonObject", "" + jsonObject);
-                            getLoanReportDataFromBankDetails(jsonObject);
-                        }catch (Exception ex) {
-                            ex.printStackTrace();
-                        }
-
-                    }
-                    else {
-                        Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
-                    }
+                else {
+                    Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -248,13 +229,7 @@ public class LoanWaiverReportForCommercialBankWise extends AppCompatActivity {
 
     private void loadBankMasterData() {
 
-        Observable<Integer> noOfRows = Observable.fromCallable(new Callable<Integer>() {
-
-            @Override
-            public Integer call() {
-                return dataBaseHelper.daoAccess().getNumberOfROwsFromBankMaster();
-            }
-        });
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumberOfROwsFromBankMaster());
         noOfRows
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -273,8 +248,6 @@ public class LoanWaiverReportForCommercialBankWise extends AppCompatActivity {
                             createMasterData(bank_master_list);
 
                         } else {
-                            Log.i("Loaded", "Already Loaded");
-
                         }
                     }
 
@@ -294,14 +267,7 @@ public class LoanWaiverReportForCommercialBankWise extends AppCompatActivity {
         dataBaseHelper = Room.databaseBuilder(getApplicationContext(),
                 DataBaseHelper.class, getString(R.string.db_name)).build();
 
-        Observable<List<String>> noOfRows = Observable.fromCallable(new Callable<List<String>>() {
-
-            @Override
-            public List<String> call() {
-                return dataBaseHelper.daoAccess().getBankNames(dist_id);
-
-            }
-        });
+        Observable<List<String>> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getBankNames(dist_id));
         noOfRows
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -326,7 +292,7 @@ public class LoanWaiverReportForCommercialBankWise extends AppCompatActivity {
                         }
 
 
-                        ArrayAdapter<String> bankArrayAdapter = new ArrayAdapter<String>(getApplicationContext(),
+                        ArrayAdapter<String> bankArrayAdapter = new ArrayAdapter<>(getApplicationContext(),
                                 android.R.layout.simple_list_item_single_choice, clist);
                         sp_bank.setAdapter(bankArrayAdapter);
                     }
@@ -409,8 +375,6 @@ public class LoanWaiverReportForCommercialBankWise extends AppCompatActivity {
 
                     @Override
                     public void onNext(Long[] longs) {
-                        Log.i("Inserted", longs + " ");
-
 
                     }
 

@@ -45,15 +45,12 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
         // alertDialog.setTitle("Reset...");
         alertDialog.setMessage("This Service is Still Under Maintenance");
         alertDialog.setCancelable(false);
-        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE,"OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                onBackPressed();
-            } });
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE,"OK", (dialog, which) -> onBackPressed());
 
         alertDialog.show();
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -77,7 +74,7 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
             fm.beginTransaction().add(mTaskFragment, RtcXmlverificationBackGroundTask.TAG_HEADLESS_FRAGMENT).commit();
         }
         if (mTaskFragment.isTaskExecuting) {
-            progressBar = (ProgressBar) findViewById(R.id.progress_circular);
+            progressBar = findViewById(R.id.progress_circular);
             if (progressBar != null)
                 progressBar.setVisibility(View.VISIBLE);
         }
@@ -85,36 +82,28 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
     }
 
     private void onButtonClickActions() {
-        getRtcDataBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                View focus = null;
-                boolean status = false;
-                String referenceNo = referenceNumber.getText().toString().trim();
-                if (TextUtils.isEmpty(referenceNo)) {
-                    focus = referenceNumber;
-                    status = true;
-                    referenceNumber.setError("Enter Reference Number");
-                }
-                if (status) {
-                    focus.requestFocus();
+        getRtcDataBtn.setOnClickListener(v -> {
+            View focus = null;
+            boolean status = false;
+            String referenceNo = referenceNumber.getText().toString().trim();
+            if (TextUtils.isEmpty(referenceNo)) {
+                focus = referenceNumber;
+                status = true;
+                referenceNumber.setError("Enter Reference Number");
+            }
+            if (status) {
+                focus.requestFocus();
+            } else {
+                if (isNetworkAvailable()) {
+                    mTaskFragment.startBackgroundTask(referenceNo);
                 } else {
-                    if (isNetworkAvailable()) {
-                        mTaskFragment.startBackgroundTask(referenceNo);
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Internet Not Available", Toast.LENGTH_LONG).show();
-                    }
-
-
+                    Toast.makeText(getApplicationContext(), "Internet Not Available", Toast.LENGTH_LONG).show();
                 }
+
+
             }
         });
-        clearReferenceNoBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                referenceNumber.setText("");
-            }
-        });
+        clearReferenceNoBtn.setOnClickListener(v -> referenceNumber.setText(""));
     }
 
 
@@ -133,7 +122,7 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
 
     @Override
     public void onPreExecute1() {
-        progressBar = (ProgressBar) findViewById(R.id.progress_circular);
+        progressBar = findViewById(R.id.progress_circular);
         if (progressBar != null)
             progressBar.setVisibility(View.VISIBLE);
     }
