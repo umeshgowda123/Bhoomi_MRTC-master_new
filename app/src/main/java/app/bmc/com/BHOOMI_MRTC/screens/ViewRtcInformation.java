@@ -130,7 +130,6 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
                         DataBaseHelper.class, getString(R.string.db_name)).build();
 
         Observable<List<? extends DistrictModelInterface>> districtDataObservable = Observable.fromCallable(new Callable<List<? extends DistrictModelInterface>>() {
-
             @Override
             public List<? extends DistrictModelInterface> call() {
                 return language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getDistinctDistricts() : dataBaseHelper.daoAccess().getDistinctDistrictsKannada();
@@ -140,8 +139,6 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<? extends DistrictModelInterface>>() {
-
-
                     @Override
                     public void onSubscribe(Disposable d) {
 
@@ -166,8 +163,6 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
 
                     }
                 });
-
-
         onClickAction();
         FragmentManager fm = getSupportFragmentManager();
         mTaskFragment = (RtcViewInfoBackGroundTaskFragment) fm.findFragmentByTag(RtcViewInfoBackGroundTaskFragment.TAG_HEADLESS_FRAGMENT);
@@ -207,13 +202,10 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Observer<List<? extends TalukModelInterface>>() {
-
-
                             @Override
                             public void onSubscribe(Disposable d) {
 
                             }
-
                             @Override
                             public void onNext(List<? extends TalukModelInterface> talukDataList) {
                                 talukData = (List<TalukModelInterface>) talukDataList;
@@ -221,19 +213,15 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
                                         android.R.layout.simple_list_item_single_choice, talukData);
                                 spinner_taluk.setAdapter(talukArrayAdapter);
                             }
-
                             @Override
                             public void onError(Throwable e) {
 
                             }
-
                             @Override
                             public void onComplete() {
 
                             }
                         });
-
-
             }
         });
 
