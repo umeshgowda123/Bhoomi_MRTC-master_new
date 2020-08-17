@@ -19,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
@@ -317,11 +318,24 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
                                 sp_sum_hobli.setText("");
                                 sp_sum_village.setText("");
                                 etSurveyNumber.setText("");
-
+                                assert result != null;
                                 String s = result.getGetMutationSummaryReportResult();
-                                Intent intent = new Intent(ViewMutationSummeryReport.this, ShowMutationSummeryReport.class);
-                                intent.putExtra("html_response_data", result.getGetMutationSummaryReportResult());
-                                startActivity(intent);
+                                if (s.equals("")) {
+                                    final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ViewMutationSummeryReport.this, R.style.MyDialogTheme);
+                                    builder.setTitle("STATUS")
+                                            .setMessage("No Data Found")
+                                            .setIcon(R.drawable.ic_notifications_black_24dp)
+                                            .setCancelable(false)
+                                            .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                    final android.app.AlertDialog alert = builder.create();
+                                    alert.show();
+                                    alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                } else {
+
+                                    Intent intent = new Intent(ViewMutationSummeryReport.this, ShowMutationSummeryReport.class);
+                                    intent.putExtra("html_response_data", result.getGetMutationSummaryReportResult());
+                                    startActivity(intent);
+                                }
                             }
                         }
 
@@ -329,6 +343,7 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
                         public void onFailure(Call<PariharaIndividualDetailsResponse> call, Throwable t) {
                             call.cancel();
                             progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     });
 
