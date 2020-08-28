@@ -356,12 +356,23 @@ public class DownloadVillageMap extends AppCompatActivity {
 
                                     String s = result.getDownloadVillageMapResult();
 
-                                    s =  s.replace("<Details","");
-                                    s =  s.replace("</Details","");
-
-                                    Intent intent = new Intent(DownloadVillageMap.this, ShowVillageMapDetails.class);
-                                    intent.putExtra("map_response_data",s);
-                                    startActivity(intent);
+                                    if (s.contains("Details not found")){
+                                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(DownloadVillageMap.this, R.style.MyDialogTheme);
+                                        builder.setTitle("STATUS")
+                                                .setMessage("Details not Found For this Record")
+                                                .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                .setCancelable(false)
+                                                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                        final android.app.AlertDialog alert = builder.create();
+                                        alert.show();
+                                        alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                    } else {
+                                        s =  s.replace("<Details","");
+                                        s =  s.replace("</Details","");
+                                        Intent intent = new Intent(DownloadVillageMap.this, ShowVillageMapDetails.class);
+                                        intent.putExtra("map_response_data", s);
+                                        startActivity(intent);
+                                    }
                                 }
                             }
 
