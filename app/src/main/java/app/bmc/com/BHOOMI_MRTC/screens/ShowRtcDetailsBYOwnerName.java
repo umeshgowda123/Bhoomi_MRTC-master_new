@@ -44,16 +44,14 @@ import app.bmc.com.BHOOMI_MRTC.adapters.ShowRtcOwnerReportAdapter;
 import app.bmc.com.BHOOMI_MRTC.model.RTCByOwnerNameResponse;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
 
+import static java.util.Comparator.comparing;
+
 public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
 
-    private LinearLayout lv_show_details;
     private ListView lv_OwnerDetails;
 
     ArrayList<RTCByOwnerNameResponse> rtcByOwnerNameResponseList;
-    ArrayList<RTCByOwnerNameResponse> rte11;
-    ListView listView;
-    private static ShowRtcOwnerReportAdapter adapter;
-    RTCByOwnerNameResponse rtcByOwnerNameResponse;
+    private ShowRtcOwnerReportAdapter adapter;
 
     ProgressDialog progressDialog;
     String SOAP_ACTION2 = "http://tempuri.org/GetDetails_VillageWise_JSON";
@@ -66,7 +64,7 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
     SoapPrimitive resultString;
     String resultFromServer;
 
-    private  String response_result, distId, talkId, hblId, village_id;
+    private  String distId, talkId, hblId, village_id;
     ArrayList<String> distId_array = new ArrayList<>(), talkId_array = new ArrayList<>(), hblId_array = new ArrayList<>(), village_id_array = new ArrayList<>();
     Intent intent;
 
@@ -90,7 +88,6 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
 
         intent = getIntent();
         rtcByOwnerNameResponseList = new ArrayList<>();
-        rte11 = new ArrayList<>();
 
         if (intent != null) {
 
@@ -189,6 +186,7 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
                 JSONArray jsonArray = null;
                 try {
                     jsonArray = new JSONArray(resultFromServer);
+                    Log.d("jsonArray_out",""+jsonArray);
 
                     Type listType = new TypeToken<ArrayList<RTCByOwnerNameResponse>>() {
                     }.getType();
@@ -205,6 +203,9 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
                         hblId_array.add(hblId);
                         village_id_array.add(village_id);
                     }
+
+                    Collections.sort(rtcByOwnerNameResponseList, comparing(RTCByOwnerNameResponse::getSurvey_no));
+
                     adapter= new ShowRtcOwnerReportAdapter(rtcByOwnerNameResponseList,getApplicationContext(), distId_array, talkId_array, hblId_array, village_id_array);
 
                     lv_OwnerDetails.setAdapter(adapter);
