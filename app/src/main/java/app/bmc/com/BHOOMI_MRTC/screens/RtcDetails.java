@@ -13,6 +13,8 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -52,7 +54,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
     String LandDetailsFragment;
     String survey_new;
     String OwnerDetailsFragment;
-    String CultivatorDetailsFragment;
+    //String CultivatorDetailsFragment;
 
 
     private ViewPager viewPager;
@@ -162,18 +164,27 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
         try {
             JSONObject obj = new JSONObject(formatted);
             JSONObject rtc = obj.getJSONObject("rtc");
+            Log.d("rtc", rtc+"");
 
             JSONObject ownerdetails = rtc.getJSONObject("ownerdetails");
+
             object = ownerdetails.get("jointowners");
+
             JSONArray jointOwners = new JSONArray();
+            Log.d("jointOwners",jointOwners+"");
+
             if (object instanceof JSONObject) {
                 jointOwners.put(object);
+
             } else {
                 jointOwners = (JSONArray) object;
+
             }
-            JSONObject cultivatordetails = rtc.getJSONObject("cultivatordetails");
+//            JSONObject cultivatordetails = rtc.getJSONObject("cultivatordetails");
+//            Log.d("cultivatordetails", cultivatordetails+"");
 
             LandDetailsFragment = rtc.toString();
+            Log.d("LandDetailsFragment", LandDetailsFragment+"");
             Gson gson = new Gson();
             JSONObject object1 = new JSONObject(LandDetailsFragment);
             if (object1.has("villagedetails")) {
@@ -197,7 +208,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
             }
             survey_new = survey;
             OwnerDetailsFragment = jointOwners.toString();
-            CultivatorDetailsFragment = cultivatordetails.toString();
+            //CultivatorDetailsFragment = cultivatordetails.toString();
 
             viewPager = findViewById(R.id.viewPager);
             ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -285,26 +296,27 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                 bundle.putString("Valid", staticinfopahani.getValidfrom().replace("Valid from", ""));
 
                 fragment.setArguments(bundle);
-            } else if (position == 2) {
-                String data = CultivatorDetailsFragment;
-                fragment = new CultivatorDetailsFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("CultivatorDetailsFragment", data);
-                bundle.putString("Taluk", villagedetails.getTalukname());
-                bundle.putString("Hobli", villagedetails.getHobliname());
-                bundle.putString("Village", villagedetails.getVillagename());
-                bundle.putString("Survey", survey_new);
-                bundle.putString("Valid", staticinfopahani.getValidfrom().replace("Valid from", ""));
-
-                fragment.setArguments(bundle);
             }
+//            else if (position == 2) {
+//                String data = CultivatorDetailsFragment;
+//                fragment = new CultivatorDetailsFragment();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("CultivatorDetailsFragment", data);
+//                bundle.putString("Taluk", villagedetails.getTalukname());
+//                bundle.putString("Hobli", villagedetails.getHobliname());
+//                bundle.putString("Village", villagedetails.getVillagename());
+//                bundle.putString("Survey", survey_new);
+//                bundle.putString("Valid", staticinfopahani.getValidfrom().replace("Valid from", ""));
+//
+//                fragment.setArguments(bundle);
+//            }
 
             return fragment;
         }
 
         @Override
         public int getCount() {
-            return 3;
+            return 2;
         }
 
         @Override
@@ -314,9 +326,10 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                 title = getString(R.string.land_details);
             } else if (position == 1) {
                 title = getString(R.string.owner_details);
-            } else if (position == 2) {
-                title = getString(R.string.cultivator_details);
             }
+//            else if (position == 2) {
+//                title = getString(R.string.cultivator_details);
+//            }
 
             return title;
         }

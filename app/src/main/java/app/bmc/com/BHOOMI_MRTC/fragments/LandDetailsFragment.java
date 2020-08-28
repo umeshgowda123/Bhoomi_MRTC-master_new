@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,6 +84,9 @@ public class LandDetailsFragment extends Fragment {
             valid_from_textview.setText(bundle.getString("Valid", ""));
             displayData(data, view);
 
+
+            Log.d("taluk_textview", taluk_textview+" "+hobli_textview+" "+village_textview+" "+survey_no_textview
+                    +" "+valid_from_textview);
 
         } catch (Exception e) {
             e.printStackTrace();

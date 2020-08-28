@@ -64,7 +64,7 @@ public interface DataBaseAccess {
     int getNumberOfROwsFromPacsBankMaster();
 //-------------------------------------------------
 
-    @Query("SELECT VLM_DST_ID,VLM_DKN_NM,VLM_DST_NM FROM MST_VLM  group by VLM_DST_NM")
+    @Query("SELECT DISTINCT VLM_DST_NM, VLM_DST_ID FROM MST_VLM ORDER BY LOWER(VLM_DST_NM)")
     List<DistrictData> getDistinctDistricts();
 
 
@@ -90,29 +90,29 @@ public interface DataBaseAccess {
     @Query("SELECT MSTCTYPE_ID,MSTCTYPE_VAL,MSTCTYPE_DESC FROM CalamityDetails")
     List<CalamityData> getDistinctCalamity();
 
-    @Query("SELECT VLM_DST_ID,VLM_DKN_NM,VLM_DST_NM FROM MST_VLM  group by VLM_DST_ID")
+    @Query("SELECT VLM_DST_ID,VLM_DKN_NM FROM MST_VLM  group by VLM_DKN_NM")
     List<DistrictDataKannada> getDistinctDistrictsKannada();
 
-    @Query("SELECT VLM_TLK_NM,VLM_TLK_ID,VLM_TKN_NM FROM MST_VLM WHERE VLM_DST_ID = :VLM_DST_ID group by VLM_TLK_ID")
+    @Query("SELECT VLM_TLK_NM,VLM_TLK_ID FROM MST_VLM WHERE VLM_DST_ID = :VLM_DST_ID group by LOWER(VLM_TLK_NM)")
     List<TalukData> getTalukByDistrictId(String VLM_DST_ID);
 
-    @Query("SELECT VLM_TLK_NM,VLM_TLK_ID,VLM_TKN_NM FROM MST_VLM WHERE VLM_DST_ID = :VLM_DST_ID group by VLM_TLK_ID")
+    @Query("SELECT VLM_TLK_ID,VLM_TKN_NM FROM MST_VLM WHERE VLM_DST_ID = :VLM_DST_ID group by VLM_TKN_NM")
     List<TalukDataKannda> getTalukByDistrictIdKannada(String VLM_DST_ID);
 
 
-    @Query("SELECT VLM_HBL_NM,VLM_HBL_ID,VLM_HKN_NM FROM MST_VLM WHERE VLM_DST_ID = :VLM_DST_ID AND VLM_TLK_ID = :VLM_TLK_ID  group by VLM_HBL_ID")
+    @Query("SELECT VLM_HBL_NM,VLM_HBL_ID FROM MST_VLM WHERE VLM_DST_ID = :VLM_DST_ID AND VLM_TLK_ID = :VLM_TLK_ID  group by LOWER(VLM_HBL_NM)")
     List<HobliData> getHobliByTalukId_and_DistrictId(String VLM_TLK_ID, String VLM_DST_ID);
 
 
-    @Query("SELECT VLM_HBL_NM,VLM_HBL_ID,VLM_HKN_NM FROM MST_VLM WHERE VLM_DST_ID = :VLM_DST_ID AND VLM_TLK_ID = :VLM_TLK_ID  group by VLM_HBL_ID")
+    @Query("SELECT VLM_HBL_ID,VLM_HKN_NM FROM MST_VLM WHERE VLM_DST_ID = :VLM_DST_ID AND VLM_TLK_ID = :VLM_TLK_ID  group by VLM_HKN_NM")
     List<HobliDataKannada> getHobliByTalukId_and_DistrictIdKannada(String VLM_TLK_ID, String VLM_DST_ID);
 
 
-    @Query("SELECT VLM_VLG_NM,VLM_VLG_ID,VLM_VKN_NM FROM MST_VLM WHERE VLM_DST_ID = :VLM_DST_ID AND VLM_TLK_ID = :VLM_TLK_ID and VLM_HBL_ID = :VLM_HBL_ID  group by VLM_VLG_ID ORDER BY VLM_VLG_NM ASC")
+    @Query("SELECT VLM_VLG_NM,VLM_VLG_ID FROM MST_VLM WHERE VLM_DST_ID = :VLM_DST_ID AND VLM_TLK_ID = :VLM_TLK_ID and VLM_HBL_ID = :VLM_HBL_ID  group by VLM_VLG_ID ORDER BY LOWER(VLM_VLG_NM) ASC")
     List<VillageData> getVillageByHobliId_and_TalukId_and_DistrictId(String VLM_HBL_ID, String VLM_TLK_ID, String VLM_DST_ID);
 
 
-    @Query("SELECT VLM_VLG_NM,VLM_VLG_ID,VLM_VKN_NM FROM MST_VLM WHERE VLM_DST_ID = :VLM_DST_ID AND VLM_TLK_ID = :VLM_TLK_ID and VLM_HBL_ID = :VLM_HBL_ID  group by VLM_VLG_ID")
+    @Query("SELECT VLM_VLG_ID,VLM_VKN_NM FROM MST_VLM WHERE VLM_DST_ID = :VLM_DST_ID AND VLM_TLK_ID = :VLM_TLK_ID and VLM_HBL_ID = :VLM_HBL_ID  group by VLM_VKN_NM")
     List<VillageDataKannada> getVillageByHobliId_and_TalukId_and_DistrictIdKannada(String VLM_HBL_ID, String VLM_TLK_ID, String VLM_DST_ID);
 
 }

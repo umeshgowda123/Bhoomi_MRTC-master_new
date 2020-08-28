@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -12,6 +14,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -33,6 +36,8 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.adapters.ShowRtcOwnerReportAdapter;
@@ -45,8 +50,10 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
     private ListView lv_OwnerDetails;
 
     ArrayList<RTCByOwnerNameResponse> rtcByOwnerNameResponseList;
+    ArrayList<RTCByOwnerNameResponse> rte11;
     ListView listView;
     private static ShowRtcOwnerReportAdapter adapter;
+    RTCByOwnerNameResponse rtcByOwnerNameResponse;
 
     ProgressDialog progressDialog;
     String SOAP_ACTION2 = "http://tempuri.org/GetDetails_VillageWise_JSON";
@@ -83,6 +90,7 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
 
         intent = getIntent();
         rtcByOwnerNameResponseList = new ArrayList<>();
+        rte11 = new ArrayList<>();
 
         if (intent != null) {
 
@@ -169,6 +177,7 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
             super.onProgressUpdate(a);
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.N)
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
@@ -196,7 +205,6 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
                         hblId_array.add(hblId);
                         village_id_array.add(village_id);
                     }
-
                     adapter= new ShowRtcOwnerReportAdapter(rtcByOwnerNameResponseList,getApplicationContext(), distId_array, talkId_array, hblId_array, village_id_array);
 
                     lv_OwnerDetails.setAdapter(adapter);
