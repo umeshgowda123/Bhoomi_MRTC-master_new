@@ -340,7 +340,7 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
             } else {
                 surveyNo = Integer.parseInt(edittext_survey.getText().toString().trim());
                 if (isNetworkAvailable())
-                    mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo);
+                    mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo, getString(R.string.rtc_view_info_url));
                 else
                     Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
 

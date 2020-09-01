@@ -121,7 +121,7 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
             {
                 JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
                 progressBar.setVisibility(View.VISIBLE);
-                mTaskFragment.startBackgroundTask4(jsonObject);
+                mTaskFragment.startBackgroundTask4(jsonObject, getString(R.string.server_report_url));
             }catch (Exception ex) {
                 ex.printStackTrace();
             }

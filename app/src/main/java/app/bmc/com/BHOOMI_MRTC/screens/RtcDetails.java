@@ -111,7 +111,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
             if (distId != null && talkId != null && hblId != null && villId != null && land_no != null) {
                 if (isNetworkAvailable()) {
                     progressBar.setVisibility(View.VISIBLE);
-                    mTaskFragment.startBackgroundTask2(distId, talkId, hblId, villId, land_no);
+                    mTaskFragment.startBackgroundTask2(distId, talkId, hblId, villId, land_no, getString(R.string.rtc_view_info_url));
                 } else
                     Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
             } else {

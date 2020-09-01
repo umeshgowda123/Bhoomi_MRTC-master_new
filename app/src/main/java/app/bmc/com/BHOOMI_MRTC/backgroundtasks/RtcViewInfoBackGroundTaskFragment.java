@@ -85,42 +85,42 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
     }
 
 
-    public void startBackgroundTask1(int district_id, int taluk_id, int hobli_id, int village_id, int surveyNo) {
+    public void startBackgroundTask1(int district_id, int taluk_id, int hobli_id, int village_id, int surveyNo, String url) {
         if (!isTaskExecuting) {
-            getSurnocHissaResponse(String.valueOf(district_id), String.valueOf(taluk_id), String.valueOf(hobli_id), String.valueOf(village_id), String.valueOf(surveyNo));
+            getSurnocHissaResponse(String.valueOf(district_id), String.valueOf(taluk_id), String.valueOf(hobli_id), String.valueOf(village_id), String.valueOf(surveyNo), url);
 
         }
     }
 
 
-    public void startBackgroundTask2(String district_id, String taluk_id, String hobli_id, String village_id, String land_no) {
+    public void startBackgroundTask2(String district_id, String taluk_id, String hobli_id, String village_id, String land_no, String url) {
         if (!isTaskExecuting) {
-            getRtcResponse(district_id, taluk_id, hobli_id, village_id, land_no);
+            getRtcResponse(district_id, taluk_id, hobli_id, village_id, land_no, url);
 
 
         }
     }
 
-    public void startBackgroundTask3(int district_id, int taluk_id, int hobli_id, int village_id, int land_no) {
+    public void startBackgroundTask3(int district_id, int taluk_id, int hobli_id, int village_id, int land_no, String url) {
         if (!isTaskExecuting) {
-            getMutationStatusResponse(String.valueOf(district_id), String.valueOf(taluk_id), String.valueOf(hobli_id), String.valueOf(village_id), String.valueOf(land_no));
+            getMutationStatusResponse(String.valueOf(district_id), String.valueOf(taluk_id), String.valueOf(hobli_id), String.valueOf(village_id), String.valueOf(land_no), url);
 
         }
     }
 
-    public void startBackgroundTask4(JsonObject input) {
+    public void startBackgroundTask4(JsonObject input, String url) {
         if (!isTaskExecuting) {
-            getLandRestrictionResult(input);
+            getLandRestrictionResult(input, url);
 
         }
     }
 
-    private void getRtcResponse(String district_id, String taluk_id, String hobli_id, String village_id, String land_no) {
+    private void getRtcResponse(String district_id, String taluk_id, String hobli_id, String village_id, String land_no, String url) {
         isTaskExecuting = true;
         if (backgroundCallBack != null)
             backgroundCallBack.onPreExecute2();
 
-        Retrofit retrofit = RtcViewInfoClient.getClient(getString(R.string.rtc_view_info_url));
+        Retrofit retrofit = RtcViewInfoClient.getClient(url);
         RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
         Call<Get_Rtc_Data_Result> get_rtc_data_resultCall = service.getRtcResponse(district_id, taluk_id, hobli_id, village_id, land_no);
         get_rtc_data_resultCall.enqueue(new Callback<Get_Rtc_Data_Result>() {
@@ -155,12 +155,12 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
 
     }
 
-    private void getSurnocHissaResponse(String district_id, String taluk_id, String hobli_id, String village_id, String surveyNo) {
+    private void getSurnocHissaResponse(String district_id, String taluk_id, String hobli_id, String village_id, String surveyNo, String url) {
         isTaskExecuting = true;
         if (backgroundCallBack != null)
             backgroundCallBack.onPreExecute1();
 
-        Retrofit retrofit = RtcViewInfoClient.getClient(getString(R.string.rtc_view_info_url));
+        Retrofit retrofit = RtcViewInfoClient.getClient(url);
         RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
         Call<Get_Surnoc_HissaResult> get_surnoc_hissaResultCall = service.getSurnocHissaResponse(district_id, taluk_id, hobli_id, village_id, surveyNo);
         get_surnoc_hissaResultCall.enqueue(new Callback<Get_Surnoc_HissaResult>() {
@@ -194,12 +194,12 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
 
     }
 
-    private void getMutationStatusResponse(String district_id, String taluk_id, String hobli_id, String village_id, String land_no) {
+    private void getMutationStatusResponse(String district_id, String taluk_id, String hobli_id, String village_id, String land_no, String url) {
         isTaskExecuting = true;
         if (backgroundCallBack != null)
             backgroundCallBack.onPreExecute3();
 
-        Retrofit retrofit = RtcViewInfoClient.getClient("https://clws.karnataka.gov.in/Service4/BHOOMI/");
+        Retrofit retrofit = RtcViewInfoClient.getClient(url);
         RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
         Call<Get_ViewMutationStatusResult> get_rtc_data_resultCall = service.getMutationStatusResponse(Constants.REPORT_SERVICE_USER_NAME,Constants.REPORT_SERVICE_PASSWORD,Integer.parseInt(district_id),Integer.parseInt(taluk_id),Integer.parseInt(hobli_id),Integer.parseInt(village_id),Integer.parseInt(land_no));
         get_rtc_data_resultCall.enqueue(new Callback<Get_ViewMutationStatusResult>() {
@@ -233,12 +233,12 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
 
     }
 
-    private void getLandRestrictionResult(JsonObject input){
+    private void getLandRestrictionResult(JsonObject input, String url){
         isTaskExecuting = true;
         if (backgroundCallBack != null)
             backgroundCallBack.onPreExecute4();
 
-        Retrofit retrofit = RtcViewInfoClient.getClient("https://clws.karnataka.gov.in/Service4/BHOOMI/");
+        Retrofit retrofit = RtcViewInfoClient.getClient(url);
         PariharaIndividualReportInteface service = retrofit.create(PariharaIndividualReportInteface.class);
         Call<PariharaIndividualDetailsResponse> get_rtc_data_resultCall = service.fnGetLandRestrictionResult(Constants.REPORT_SERVICE_USER_NAME,Constants.REPORT_SERVICE_PASSWORD, input);
         get_rtc_data_resultCall.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
