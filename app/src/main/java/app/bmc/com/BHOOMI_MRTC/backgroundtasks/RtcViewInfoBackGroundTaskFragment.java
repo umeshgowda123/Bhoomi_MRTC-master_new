@@ -120,7 +120,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         if (backgroundCallBack != null)
             backgroundCallBack.onPreExecute2();
 
-        Retrofit retrofit = RtcViewInfoClient.getClient("https://www.landrecords.karnataka.gov.in/RWSROR/GETBhoomiCode/");
+        Retrofit retrofit = RtcViewInfoClient.getClient(getString(R.string.rtc_view_info_url));
         RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
         Call<Get_Rtc_Data_Result> get_rtc_data_resultCall = service.getRtcResponse(district_id, taluk_id, hobli_id, village_id, land_no);
         get_rtc_data_resultCall.enqueue(new Callback<Get_Rtc_Data_Result>() {

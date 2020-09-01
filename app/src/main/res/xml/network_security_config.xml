@@ -11,6 +11,7 @@
 
         <domain includeSubdomains="true">parihara.karnataka.gov.in</domain>
         <domain includeSubdomains="true">https://parihara.karnataka.gov.in/</domain>
+        <domain includeSubdomains="true">202.138.105.17</domain>
 
     </domain-config>
 </network-security-config>
