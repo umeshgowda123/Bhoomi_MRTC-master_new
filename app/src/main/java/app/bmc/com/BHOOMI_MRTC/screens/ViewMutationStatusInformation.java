@@ -500,6 +500,16 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
     }
 
     @Override
+    public void onPostResponseErrorCultivator(String errorResponse) {
+
+    }
+
+    @Override
+    public void onPostResponseSuccessCultivator(String gettcDataResult) {
+
+    }
+
+    @Override
     public void onPostResponseError(String data) {
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);

@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -130,6 +132,7 @@ public class CultivatorDetailsFragment extends Fragment {
                             for (int k = 0; k < cultivatorArray.length(); k++) {
                                 Gson gson = new Gson();
                                 JSONObject cultivator = cultivatorArray.getJSONObject(k);
+//                                Log.d("cultivator",cultivator+"");
                                 Mixedcropdetails mixedcropdetails = new Mixedcropdetails();
                                 if (cultivator.has("mixedcropdetails")) {
                                     Object mixedcropdetailsObject = cultivator.get("mixedcropdetails");
@@ -180,7 +183,6 @@ public class CultivatorDetailsFragment extends Fragment {
                                         landutilisation = gson.fromJson(landutilisationObject.toString(), Landutilisation.class);
                                     } else if (landutilisationObject instanceof String) {
                                         landutilisation = gson.fromJson((new JSONObject()).toString(), Landutilisation.class);
-
                                     }
                                 }
                                 Cultivator cultivatorDetails = new Cultivator();
@@ -201,8 +203,6 @@ public class CultivatorDetailsFragment extends Fragment {
                         }
                         seasonListTotal.addAll(seasonList);
                     }
-
-
                 }
             }
 
@@ -213,20 +213,35 @@ public class CultivatorDetailsFragment extends Fragment {
                         CultivatorDisplay cultivatorDisplay = new CultivatorDisplay();
                         cultivatorDisplay.setYear_season(season1.getYear() + "&" + season1.getSeasonname());
                         cultivatorDisplay.setCultivator_name(cultivator.getCultivatorname().getName());
+//                        Log.d("CHECKKKKK",""+cultivator.getCultivatorname().getName());
                         cultivatorDisplay.setCult_type(cultivator.getCultivationtype());
+//                        Log.d("setCult_type",""+cultivator.getCultivationtype());
                         cultivatorDisplay.setTenancy_extent(cultivator.getCultivationextent());
+//                        Log.d("setTenancy_extent",""+cultivator.getCultivationextent());
                         cultivatorDisplay.setTenancy_rent(cultivator.getTenantamount());
+//                        Log.d("setTenancy_rent",""+cultivator.getTenantamount());
                         cultivatorDisplay.setLand_utilisation_cls(cultivator.getLandutilisation().getClassification());
+//                        Log.d("setLand_utilisation_cls",""+cultivator.getLandutilisation().getClassification());
                         cultivatorDisplay.setLand_utilisation_rent(cultivator.getLandutilisation().getUtilisationextents());
+//                        Log.d("setLand_rent",""+cultivator.getLandutilisation().getUtilisationextents());
                         cultivatorDisplay.setDry_wet_garden(cropdetails.getLandclassification());
+//                        Log.d("setDry_wet_garden",""+cropdetails.getLandclassification());
                         cultivatorDisplay.setCrop_name(cropdetails.getCropname());
+//                        Log.d("setCrop_name",""+cropdetails.getCropname());
                         cultivatorDisplay.setSingle_crop_extents(cropdetails.getSinglecropextents());
+//                        Log.d("setSingle_crop_extents",""+cropdetails.getSinglecropextents());
                         cultivatorDisplay.setMixed_crop_extents(cropdetails.getMixedcropextent());
+//                        Log.d("CHECKKKKK",""+cropdetails.getMixedcropextent());
                         cultivatorDisplay.setTotal_crop_extents(cropdetails.getTotalcropextents());
+//                        Log.d("setTotal_crop_extents",""+cropdetails.getTotalcropextents());
                         cultivatorDisplay.setWater_source(cropdetails.getWatersource());
+//                        Log.d("setWater_source",""+cropdetails.getWatersource());
                         cultivatorDisplay.setYield(cropdetails.getYieldperacre());
+//                        Log.d("setYield",""+cropdetails.getYieldperacre());
                         cultivatorDisplay.setMixed_crop_name(cultivator.getMixedcropdetails().getMixedcropname());
+//                        Log.d("setMixed_crop_name",""+cultivator.getMixedcropdetails().getMixedcropname());
                         cultivatorDisplay.setMixed_crop_name_extents(cultivator.getMixedcropdetails().getMixedcropextents());
+//                        Log.d("name_extents",""+cultivator.getMixedcropdetails().getMixedcropextents());
                         cultivatorDisplayArrayList.add(cultivatorDisplay);
 
                     }

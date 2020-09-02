@@ -167,6 +167,16 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
     }
 
     @Override
+    public void onPostResponseErrorCultivator(String errorResponse) {
+
+    }
+
+    @Override
+    public void onPostResponseSuccessCultivator(String gettcDataResult) {
+
+    }
+
+    @Override
     public void onPostResponseSuccess4(String data) {
         progressBar.setVisibility(View.GONE);
         if (data==null || data.equals("")){

@@ -28,4 +28,12 @@ public interface RtcViewInformationApi {
     @Headers({"content-type: text/json; charset=utf-8"})
     @POST("ViewMutationStatus/{pstrUserName}/{pStrPassword}/{District_Code}/{Taluk_Code}/{Hobli_Code}/{Village_Code}/{Land_Code}")
     Call<Get_ViewMutationStatusResult> getMutationStatusResponse(@Path("pstrUserName") String pstrUserName, @Path("pStrPassword") String pStrPassword, @Path("District_Code") int District_Code, @Path("Taluk_Code") int Taluk_Code, @Path("Hobli_Code") int Hobli_Code, @Path("Village_Code") int Village_Code, @Path("Land_Code") int Land_Code);
+
+
+    @Headers({"content-type: text/json; charset=utf-8"})
+    @POST("get_tc_data/{BHM_DIST_CODE},{BHM_TALUK_CODE},{BHM_HOBLI_CODE},{VILLAGE_CODE},{LAND_CODE}")
+    Call<Get_Rtc_Data_Result> getRtcCultivator(@Path("BHM_DIST_CODE") String BHM_DIST_CODE, @Path("BHM_TALUK_CODE") String BHM_TALUK_CODE, @Path("BHM_HOBLI_CODE") String BHM_HOBLI_CODE, @Path("VILLAGE_CODE") String VILLAGE_CODE, @Path("LAND_CODE") String LAND_CODE);
+
+
+
 }

@@ -15,6 +15,10 @@ public class Get_Rtc_Data_Result {
     @Expose
     private String getRtcDataResult;
 
+    @SerializedName("get_tc_dataResult")
+    @Expose
+    private String gettcDataResult;
+
     public String getGetRtcDataResult() {
         return getRtcDataResult;
     }
@@ -23,4 +27,11 @@ public class Get_Rtc_Data_Result {
         this.getRtcDataResult = getRtcDataResult;
     }
 
+    public String getGettcDataResult() {
+        return gettcDataResult;
+    }
+
+    public void setGettcDataResult(String gettcDataResult) {
+        this.gettcDataResult = gettcDataResult;
+    }
 }

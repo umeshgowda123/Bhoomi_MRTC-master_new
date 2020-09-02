@@ -4,7 +4,6 @@ package app.bmc.com.BHOOMI_MRTC.backgroundtasks;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -92,12 +91,9 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         }
     }
 
-
     public void startBackgroundTask2(String district_id, String taluk_id, String hobli_id, String village_id, String land_no, String url) {
         if (!isTaskExecuting) {
             getRtcResponse(district_id, taluk_id, hobli_id, village_id, land_no, url);
-
-
         }
     }
 
@@ -113,6 +109,51 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
             getLandRestrictionResult(input, url);
 
         }
+    }
+
+    public void startBackgroundTaskCultivatorData(String district_id, String taluk_id, String hobli_id, String village_id, String land_no, String url) {
+        if (!isTaskExecuting) {
+            getCultivatorResponse(district_id, taluk_id, hobli_id, village_id, land_no, url);
+        }
+    }
+
+    private void getCultivatorResponse(String district_id, String taluk_id, String hobli_id, String village_id, String land_no, String url) {
+        isTaskExecuting = true;
+        if (backgroundCallBack != null)
+            backgroundCallBack.onPreExecute2();
+
+        Retrofit retrofit = RtcViewInfoClient.getClient(url);
+        RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
+        Call<Get_Rtc_Data_Result> get_rtc_data_resultCall = service.getRtcCultivator(district_id, taluk_id, hobli_id, village_id, land_no);
+        get_rtc_data_resultCall.enqueue(new Callback<Get_Rtc_Data_Result>() {
+            @Override
+            public void onResponse(@NonNull Call<Get_Rtc_Data_Result> call, @NonNull Response<Get_Rtc_Data_Result> response) {
+                if (response.isSuccessful()) {
+                    Get_Rtc_Data_Result get_rtc_data_result = response.body();
+                    isTaskExecuting = false;
+                    if (backgroundCallBack != null) {
+                        assert get_rtc_data_result != null;
+                        backgroundCallBack.onPostResponseSuccessCultivator(get_rtc_data_result.getGettcDataResult());
+
+                    }
+                } else {
+                    isTaskExecuting = false;
+
+                    String errorResponse = response.message();
+                    backgroundCallBack.onPostResponseErrorCultivator(errorResponse);
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Get_Rtc_Data_Result> call, @NonNull Throwable error) {
+                isTaskExecuting = false;
+
+                String errorResponse = error.getLocalizedMessage();
+
+                backgroundCallBack.onPostResponseError(errorResponse);
+            }
+        });
     }
 
     private void getRtcResponse(String district_id, String taluk_id, String hobli_id, String village_id, String land_no, String url) {
@@ -291,5 +332,8 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
 
         void onPreExecute4();
 
+        void onPostResponseErrorCultivator(String errorResponse);
+
+        void onPostResponseSuccessCultivator(String gettcDataResult);
     }
 }

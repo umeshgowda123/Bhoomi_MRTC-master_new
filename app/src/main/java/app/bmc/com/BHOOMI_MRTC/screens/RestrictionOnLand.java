@@ -433,6 +433,16 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
     }
 
     @Override
+    public void onPostResponseErrorCultivator(String errorResponse) {
+
+    }
+
+    @Override
+    public void onPostResponseSuccessCultivator(String gettcDataResult) {
+
+    }
+
+    @Override
     public void onPostResponseError(String data) {
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);

@@ -7,6 +7,8 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import com.google.android.material.tabs.TabLayout;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -54,7 +56,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
     String LandDetailsFragment;
     String survey_new;
     String OwnerDetailsFragment;
-    //String CultivatorDetailsFragment;
+    String CultivatorDetailsFragment;
 
 
     private ViewPager viewPager;
@@ -180,9 +182,6 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                 jointOwners = (JSONArray) object;
 
             }
-//            JSONObject cultivatordetails = rtc.getJSONObject("cultivatordetails");
-//            Log.d("cultivatordetails", cultivatordetails+"");
-
             LandDetailsFragment = rtc.toString();
             Log.d("LandDetailsFragment", LandDetailsFragment+"");
             Gson gson = new Gson();
@@ -206,15 +205,11 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                     staticinfopahani = new Staticinfopahani();
                 }
             }
+            mTaskFragment.startBackgroundTaskCultivatorData(distId, talkId, hblId, villId, land_no, getString(R.string.rtc_view_info_url));
+
             survey_new = survey;
             OwnerDetailsFragment = jointOwners.toString();
-            //CultivatorDetailsFragment = cultivatordetails.toString();
 
-            viewPager = findViewById(R.id.viewPager);
-            ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-            viewPager.setAdapter(viewPagerAdapter);
-            tabLayout = findViewById(R.id.tabs);
-            tabLayout.setupWithViewPager(viewPager);
 
 
         } catch (Exception e) {
@@ -239,6 +234,48 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
 
     @Override
     public void onPreExecute4() {
+
+    }
+
+    @Override
+    public void onPostResponseErrorCultivator(String errorResponse) {
+        if (progressBar != null)
+            progressBar.setVisibility(View.GONE);
+        Toast.makeText(getApplicationContext(), errorResponse, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onPostResponseSuccessCultivator(String gettcDataResult) {
+        if (progressBar!=null)
+            progressBar.setVisibility(View.GONE);
+        XmlToJson xmlToJson = new XmlToJson.Builder(gettcDataResult.replace("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>", "").trim()).build();
+        // convert to a JSONObject
+        JSONObject jsonObject = xmlToJson.toJson();
+        Object object = new Object();
+
+        // convert to a formatted Json String
+        String formatted = xmlToJson.toFormattedString().replace("\n", "");
+        Log.d("formatted : ",""+formatted);
+        try {
+                JSONObject obj = new JSONObject(formatted);
+                JSONObject rtc = obj.getJSONObject("rtc");
+                Log.d("rtc", rtc+"");
+
+            JSONObject cultivatordetails = rtc.getJSONObject("cultivatordetails");
+            Log.d("cultivatordetails", cultivatordetails+"");
+
+            CultivatorDetailsFragment = cultivatordetails.toString();
+
+            viewPager = findViewById(R.id.viewPager);
+            ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+            viewPager.setAdapter(viewPagerAdapter);
+            tabLayout = findViewById(R.id.tabs);
+            tabLayout.setupWithViewPager(viewPager);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -268,6 +305,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
             super(fm);
         }
 
+        @NonNull
         @Override
         public Fragment getItem(int position) {
             Fragment fragment = null;
@@ -297,26 +335,28 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
 
                 fragment.setArguments(bundle);
             }
-//            else if (position == 2) {
-//                String data = CultivatorDetailsFragment;
-//                fragment = new CultivatorDetailsFragment();
-//                Bundle bundle = new Bundle();
-//                bundle.putString("CultivatorDetailsFragment", data);
-//                bundle.putString("Taluk", villagedetails.getTalukname());
-//                bundle.putString("Hobli", villagedetails.getHobliname());
-//                bundle.putString("Village", villagedetails.getVillagename());
-//                bundle.putString("Survey", survey_new);
-//                bundle.putString("Valid", staticinfopahani.getValidfrom().replace("Valid from", ""));
-//
-//                fragment.setArguments(bundle);
-//            }
+            else if (position == 2) {
+                String data = CultivatorDetailsFragment;
+                Log.d("CultivatorDetails",CultivatorDetailsFragment+"");
+                fragment = new CultivatorDetailsFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("CultivatorDetailsFragment", data);
+                bundle.putString("Taluk", villagedetails.getTalukname());
+                bundle.putString("Hobli", villagedetails.getHobliname());
+                bundle.putString("Village", villagedetails.getVillagename());
+                bundle.putString("Survey", survey_new);
+                bundle.putString("Valid", staticinfopahani.getValidfrom().replace("Valid from", ""));
 
+                fragment.setArguments(bundle);
+            }
+
+            assert fragment != null;
             return fragment;
         }
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
 
         @Override
@@ -327,9 +367,9 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
             } else if (position == 1) {
                 title = getString(R.string.owner_details);
             }
-//            else if (position == 2) {
-//                title = getString(R.string.cultivator_details);
-//            }
+            else if (position == 2) {
+                title = getString(R.string.cultivator_details);
+            }
 
             return title;
         }
