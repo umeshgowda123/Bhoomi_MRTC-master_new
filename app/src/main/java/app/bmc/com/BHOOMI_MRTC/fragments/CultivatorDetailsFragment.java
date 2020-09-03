@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -243,7 +242,6 @@ public class CultivatorDetailsFragment extends Fragment {
                         cultivatorDisplay.setMixed_crop_name_extents(cultivator.getMixedcropdetails().getMixedcropextents());
 //                        Log.d("name_extents",""+cultivator.getMixedcropdetails().getMixedcropextents());
                         cultivatorDisplayArrayList.add(cultivatorDisplay);
-
                     }
                 }
             }

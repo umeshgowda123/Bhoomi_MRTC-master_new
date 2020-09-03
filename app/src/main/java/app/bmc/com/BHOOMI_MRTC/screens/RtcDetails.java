@@ -68,7 +68,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rtc_details);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -144,12 +144,15 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
         Toast.makeText(getApplicationContext(), data, Toast.LENGTH_LONG).show();
+        mTaskFragment.startBackgroundTask2(distId, talkId, hblId, villId, land_no, getString(R.string.rtc_view_info_url_parihara));
+
     }
 
     @Override
     public void onPreExecute2() {
         if (progressBar!=null)
             progressBar.setVisibility(View.VISIBLE);
+
     }
 
     @Override
@@ -242,6 +245,8 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
         Toast.makeText(getApplicationContext(), errorResponse, Toast.LENGTH_LONG).show();
+        mTaskFragment.startBackgroundTaskCultivatorData(distId, talkId, hblId, villId, land_no, getString(R.string.rtc_view_info_url_parihara));
+
     }
 
     @Override

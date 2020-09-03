@@ -227,34 +227,34 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
             taluk_id = talukData.get(position).getVLM_TLK_ID();
             Observable<List<? extends HobliModelInterface>> noOfRows = Observable.fromCallable(() -> language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getHobliByTalukId_and_DistrictId(String.valueOf(taluk_id), String.valueOf(district_id)) : dataBaseHelper.daoAccess().getHobliByTalukId_and_DistrictIdKannada(String.valueOf(taluk_id), String.valueOf(district_id)));
             noOfRows
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<List<? extends HobliModelInterface>>() {
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<? extends HobliModelInterface>>() {
 
 
-                        @Override
-                        public void onSubscribe(Disposable d) {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onNext(List<? extends HobliModelInterface> hobliDataList) {
-                            hobliData = (List<HobliModelInterface>) hobliDataList;
-                            ArrayAdapter<HobliModelInterface> hobliArrayAdapter = new ArrayAdapter<>(RestrictionOnLand.this,
-                                    android.R.layout.simple_list_item_single_choice, hobliData);
-                            spinner_hobli.setAdapter(hobliArrayAdapter);
-                        }
+                    @Override
+                    public void onNext(List<? extends HobliModelInterface> hobliDataList) {
+                        hobliData = (List<HobliModelInterface>) hobliDataList;
+                        ArrayAdapter<HobliModelInterface> hobliArrayAdapter = new ArrayAdapter<>(RestrictionOnLand.this,
+                                android.R.layout.simple_list_item_single_choice, hobliData);
+                        spinner_hobli.setAdapter(hobliArrayAdapter);
+                    }
 
-                        @Override
-                        public void onError(Throwable e) {
+                    @Override
+                    public void onError(Throwable e) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onComplete() {
+                    @Override
+                    public void onComplete() {
 
-                        }
-                    });
+                    }
+                });
 
         });
 
@@ -446,7 +446,8 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
     public void onPostResponseError(String data) {
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
-        Toast.makeText(getApplicationContext(), data, Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), data, Toast.LENGTH_LONG).show();
+        mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo, getString(R.string.rtc_view_info_url_parihara));
     }
 
     @Override

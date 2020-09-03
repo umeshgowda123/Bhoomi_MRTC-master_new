@@ -134,7 +134,6 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
                     if (backgroundCallBack != null) {
                         assert get_rtc_data_result != null;
                         backgroundCallBack.onPostResponseSuccessCultivator(get_rtc_data_result.getGettcDataResult());
-
                     }
                 } else {
                     isTaskExecuting = false;
@@ -142,7 +141,6 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
                     String errorResponse = response.message();
                     backgroundCallBack.onPostResponseErrorCultivator(errorResponse);
                 }
-
             }
 
             @Override
@@ -151,7 +149,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
 
                 String errorResponse = error.getLocalizedMessage();
 
-                backgroundCallBack.onPostResponseError(errorResponse);
+                backgroundCallBack.onPostResponseErrorCultivator(errorResponse);
             }
         });
     }

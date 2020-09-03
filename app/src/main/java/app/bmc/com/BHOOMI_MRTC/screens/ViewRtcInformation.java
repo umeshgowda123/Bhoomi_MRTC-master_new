@@ -450,7 +450,9 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
     public void onPostResponseError(String data) {
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
-        Toast.makeText(getApplicationContext(), data, Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), data, Toast.LENGTH_LONG).show();
+        mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo, getString(R.string.rtc_view_info_url_parihara));
+
     }
 
     @Override
