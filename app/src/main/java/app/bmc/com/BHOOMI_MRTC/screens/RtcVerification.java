@@ -41,13 +41,13 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rtc_verification);
 
-        AlertDialog alertDialog = new AlertDialog.Builder(RtcVerification.this).create();
-        // alertDialog.setTitle("Reset...");
-        alertDialog.setMessage("This Service is Still Under Maintenance");
-        alertDialog.setCancelable(false);
-        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE,"OK", (dialog, which) -> onBackPressed());
-
-        alertDialog.show();
+//        AlertDialog alertDialog = new AlertDialog.Builder(RtcVerification.this).create();
+//        // alertDialog.setTitle("Reset...");
+//        alertDialog.setMessage("This Service is Still Under Maintenance");
+//        alertDialog.setCancelable(false);
+//        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE,"OK", (dialog, which) -> onBackPressed());
+//
+//        alertDialog.show();
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);

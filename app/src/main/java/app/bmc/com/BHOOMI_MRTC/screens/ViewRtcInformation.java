@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
@@ -78,6 +79,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
     private int village_id;
     private int land_no;
     private String hissa;
+    private String hissa_str;
     private String suroc;
     private List<Hissa_Response> hissa_responseList;
     private int surveyNo;
@@ -123,7 +125,6 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
         spinner_village.setAdapter(defaultArrayAdapter);
         spinner_hissa.setAdapter(defaultArrayAdapter);
         spinner_district.setAdapter(defaultArrayAdapter);
-
 
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
@@ -344,7 +345,8 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
             }
         });
         btn_fetch.setOnClickListener(v -> {
-            String hissa = spinner_hissa.getText().toString().trim();
+            hissa_str = spinner_hissa.getText().toString().trim();
+            surveyNo = Integer.parseInt(edittext_survey.getText().toString().trim());
             View focus = null;
             boolean status = false;
             if (TextUtils.isEmpty(hissa)) {
@@ -367,6 +369,8 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
                 intent.putExtra("villId",""+village_id);
                 intent.putExtra("land_code",""+land_no);
                 intent.putExtra("survey", surveyNo + "/" + suroc + "/" + hissa);
+                intent.putExtra("surveyNo",surveyNo+"");
+                intent.putExtra("hissa_str",hissa_str);
                 intent.putExtra("RTC", "RTC");
                 startActivity(intent);
 

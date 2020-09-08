@@ -1,6 +1,7 @@
 package app.bmc.com.BHOOMI_MRTC.database;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -20,6 +21,8 @@ import app.bmc.com.BHOOMI_MRTC.model.SeasonData;
 import app.bmc.com.BHOOMI_MRTC.model.SeasonDetails;
 import app.bmc.com.BHOOMI_MRTC.model.TalukData;
 import app.bmc.com.BHOOMI_MRTC.model.TalukDataKannda;
+import app.bmc.com.BHOOMI_MRTC.model.VR_RES_Data;
+import app.bmc.com.BHOOMI_MRTC.model.VR_INFO;
 import app.bmc.com.BHOOMI_MRTC.model.VillageData;
 import app.bmc.com.BHOOMI_MRTC.model.VillageDataKannada;
 import app.bmc.com.BHOOMI_MRTC.model.YearData;
@@ -115,4 +118,23 @@ public interface DataBaseAccess {
     @Query("SELECT VLM_VLG_ID,VLM_VKN_NM FROM MST_VLM WHERE VLM_DST_ID = :VLM_DST_ID AND VLM_TLK_ID = :VLM_TLK_ID and VLM_HBL_ID = :VLM_HBL_ID  group by VLM_VKN_NM")
     List<VillageDataKannada> getVillageByHobliId_and_TalukId_and_DistrictIdKannada(String VLM_HBL_ID, String VLM_TLK_ID, String VLM_DST_ID);
 
+    //----------------------------------------DB Fun for View RTC Information ----------------------------------------------
+
+    @Insert
+    Long[] insertViewRTCInfoData(List<VR_INFO> vr_info_List);
+
+    @Query("SELECT COUNT(id) FROM VR_INFO ")
+    int getNumOfRows();
+
+
+    @Query("SELECT VR_LAND_OWNER_RES,VR_CULT_RES FROM VR_INFO WHERE VR_DST_ID = :VR_DST_ID AND VR_TLK_ID = :VR_TLK_ID AND VR_HBL_ID = :VR_HBL_ID AND VR_VLG_ID = :VR_VLG_ID " +
+            "AND VR_SNO = :VR_SNO AND VR_HISSA_NM = :VR_HISSA_NM")
+    List<VR_RES_Data> getVR_RES(String VR_DST_ID, String VR_TLK_ID, String VR_HBL_ID, String VR_VLG_ID, String VR_SNO, String VR_HISSA_NM);
+
+
+
+    @Query("DELETE FROM VR_INFO where id =:id")
+    int deleteById(int id);
+    @Query("DELETE FROM VR_INFO")
+    int deleteUserDataResponse();
 }

@@ -592,7 +592,6 @@ public class BhoomiHomePage extends AppCompatActivity {
                     // you can request to start the update again.
                     unregisterInstallStateUpdListener();
                 }
-
                 break;
         }
     }
