@@ -18,12 +18,10 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -34,7 +32,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.backgroundtasks.RtcViewInfoBackGroundTaskFragment;
@@ -142,7 +139,6 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(new Observer<List<? extends VR_RES_Interface>>() {
 
-
                                 @Override
                                 public void onSubscribe(Disposable d) {
 
@@ -226,7 +222,6 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                                             }catch (Exception e) {
                                                 e.printStackTrace();
                                             }
-
                                         }
                                     }
                                     else {
@@ -258,6 +253,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connectivityManager != null;
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
@@ -437,12 +433,9 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                                 Log.d("intValueIN",integer+"");
                                 List<VR_INFO> vr_info_List = loadData();
                                 createVRTCData(vr_info_List);
-//                                Toast.makeText(RtcDetails.this, "INSERTED", Toast.LENGTH_SHORT).show();
                             } else {
                                 Log.d("intValueELSE",integer+"");
-
                                 deleteByID(0);
-
                             }
                         }
 
@@ -468,7 +461,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
        /* outState.putString(GAME_STATE_KEY, mGameState);
         outState.putString(TEXT_VIEW_KEY, mTextView.getText());
 */
@@ -477,7 +470,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
     }
 
     @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
+    public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         //  mTextView.setText(savedInstanceState.getString(TEXT_VIEW_KEY));
     }
 
@@ -561,8 +554,6 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
 
             return title;
         }
-
-
     }
 
     //______________________________________________________________________DB____________________________________________________
@@ -633,18 +624,13 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                     }
                 });
     }
+
     private void deleteByID(final int id) {
 
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
                         DataBaseHelper.class, getString(R.string.db_name)).build();
-        Observable<Integer> noOfRows = Observable.fromCallable(new Callable<Integer>() {
-
-            @Override
-            public Integer call() {
-                return dataBaseHelper.daoAccess().deleteById(id);
-            }
-        });
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteById(id));
         noOfRows
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -660,7 +646,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                     public void onNext(Integer integer) {
 
                         Log.i("delete", integer + "");
-                        deleteUserDataResponseByID();
+                        deleteResponseByID();
 
                     }
 
@@ -677,18 +663,12 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
 
     }
 
-    private void deleteUserDataResponseByID() {
+    private void deleteResponseByID() {
 
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
                         DataBaseHelper.class, getString(R.string.db_name)).build();
-        Observable<Integer> noOfRows = Observable.fromCallable(new Callable<Integer>() {
-
-            @Override
-            public Integer call() {
-                return dataBaseHelper.daoAccess().deleteUserDataResponse();
-            }
-        });
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteResponseRow());
         noOfRows
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

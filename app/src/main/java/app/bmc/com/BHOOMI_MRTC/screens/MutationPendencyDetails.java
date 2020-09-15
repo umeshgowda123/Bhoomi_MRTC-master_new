@@ -1,6 +1,8 @@
 package app.bmc.com.BHOOMI_MRTC.screens;
 
 import android.app.ProgressDialog;
+
+import androidx.annotation.NonNull;
 import androidx.room.Room;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,23 +15,31 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.api.PariharaIndividualReportInteface;
 import app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper;
 import app.bmc.com.BHOOMI_MRTC.interfaces.DistrictModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.HobliModelInterface;
+import app.bmc.com.BHOOMI_MRTC.interfaces.MPD_RES_Interface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.TalukModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.VillageModelInterface;
+import app.bmc.com.BHOOMI_MRTC.model.MPD_RES_Data;
+import app.bmc.com.BHOOMI_MRTC.model.MPD_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
 import app.bmc.com.BHOOMI_MRTC.retrofit.PariharaIndividualreportClient;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
@@ -69,6 +79,8 @@ public class MutationPendencyDetails extends AppCompatActivity {
 
     private Button btn_ped_submit;
 
+    String res;
+    private List<MPD_RES_Data> MPD_RES_Data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +89,7 @@ public class MutationPendencyDetails extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -182,7 +194,6 @@ public class MutationPendencyDetails extends AppCompatActivity {
 
         });
 
-
         sp_ped_taluk.setOnItemClickListener((parent, view, position, id) -> {
             sp_ped_hobli.setText("");
             sp_ped_village.setText("");
@@ -259,7 +270,6 @@ public class MutationPendencyDetails extends AppCompatActivity {
 
         sp_ped_village.setOnItemClickListener((parent, view, position, id) -> pvillage_id = villageData.get(position).getVLM_VLG_ID());
 
-
         btn_ped_submit.setOnClickListener(v -> {
             String districtName = sp_ped_district.getText().toString().trim();
             String talukName = sp_ped_taluk.getText().toString().trim();
@@ -300,20 +310,16 @@ public class MutationPendencyDetails extends AppCompatActivity {
                             Constants.REPORT_SERVICE_PASSWORD, pdistrict_id, ptaluk_id, phobli_id, pvillage_id);
                     call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
                         @Override
-                        public void onResponse(Call<PariharaIndividualDetailsResponse> call, Response<PariharaIndividualDetailsResponse> response) {
+                        public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {
 
                             if (response.isSuccessful()) {
                                 PariharaIndividualDetailsResponse result = response.body();
                                 progressDialog.dismiss();
 
-                               /* sp_ped_district.setText("");
-                                sp_ped_taluk.setText("");
-                                sp_ped_hobli.setText("");
-                                sp_ped_village.setText("");*/
+                                assert result != null;
+                                res = result.getGetMutationPendencyDetailsResult();
 
-                                String s = result.getGetMutationPendencyDetailsResult();
-
-                                if (s.equals("<NewDataSet />")) {
+                                if (res.equals("<NewDataSet />")) {
                                     final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(MutationPendencyDetails.this, R.style.MyDialogTheme);
                                     builder.setTitle("STATUS")
                                             .setMessage("No Report Found For this Record")
@@ -324,15 +330,106 @@ public class MutationPendencyDetails extends AppCompatActivity {
                                     alert.show();
                                     alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
                                 } else {
-                                    Intent intent = new Intent(MutationPendencyDetails.this, ShowMutationPendencyDetails.class);
-                                    intent.putExtra("ped_response_data", result.getGetMutationPendencyDetailsResult());
-                                    startActivity(intent);
+
+                                    //---------DB INSERT-------
+                                    dataBaseHelper =
+                                            Room.databaseBuilder(getApplicationContext(),
+                                                    DataBaseHelper.class, getString(R.string.db_name)).build();
+                                    Observable<Integer> noOfRows;
+                                    noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumOfRowsMPDTbl());
+                                    noOfRows
+                                            .subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .subscribe(new Observer<Integer>() {
+
+
+                                                @Override
+                                                public void onSubscribe(Disposable d) {
+
+                                                }
+
+                                                @Override
+                                                public void onNext(Integer integer) {
+                                                    Log.d("intValue",integer+"");
+                                                    if (integer < 3) {
+                                                        Log.d("intValueIN",integer+"");
+                                                        List<MPD_TABLE> MPD_List = loadData();
+                                                        createMPDData(MPD_List);
+                                                    } else {
+                                                        Log.d("intValueELSE", integer + "");
+                                                        deleteByID(0);
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onError(Throwable e) {
+                                                    Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                                }
+
+                                                @Override
+                                                public void onComplete() {
+
+                                                }
+                                            });
+                                    //---------------------------------------------------------------------------------------------
+                                    //----------------------------------LOCAl DB DATA PRESENT CHECK-----------------------------------------------------------
+                                    dataBaseHelper =
+                                            Room.databaseBuilder(getApplicationContext(),
+                                                    DataBaseHelper.class, getString(R.string.db_name)).build();
+                                    Observable<List<? extends MPD_RES_Interface>> districtDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getMPD_RES(pdistrict_id,ptaluk_id,phobli_id,pvillage_id));
+                                    districtDataObservable
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe(new Observer<List<? extends MPD_RES_Interface>>() {
+
+                                           @Override
+                                           public void onSubscribe(Disposable d) {
+
+                                           }
+
+                                           @Override
+                                           public void onNext(List<? extends MPD_RES_Interface> mpd_res_interfaces_List) {
+
+                                               Log.d("mpd_res_interfaces",mpd_res_interfaces_List.size()+"");
+
+                                               MPD_RES_Data = (List<MPD_RES_Data>) mpd_res_interfaces_List;
+                                               if (mpd_res_interfaces_List.size()!=0) {
+                                                   Log.d("CHECK","Fetching from local");
+                                                   for (int i = 0; i <= mpd_res_interfaces_List.size(); i++) {
+
+                                                       String MPD_RES = MPD_RES_Data.get(0).getMDP_RES();
+                                                       Log.d("MPD_RES",MPD_RES+"");
+                                                       Intent intent = new Intent(MutationPendencyDetails.this, ShowMutationPendencyDetails.class);
+                                                       intent.putExtra("ped_response_data", MPD_RES);
+                                                       startActivity(intent);
+                                                   }
+                                               }
+                                               else {
+                                                   Log.d("MPD_RES","Fetching From Server");
+                                                   Intent intent = new Intent(MutationPendencyDetails.this, ShowMutationPendencyDetails.class);
+                                                   intent.putExtra("ped_response_data", result.getGetMutationPendencyDetailsResult());
+                                                   startActivity(intent);
+                                               }
+                                           }
+
+                                           @Override
+                                           public void onError(Throwable e) {
+
+                                           }
+
+                                           @Override
+                                           public void onComplete() {
+
+                                           }
+                                    });
+                                //---------------------------------------------------------------------------------------------
+
                                 }
                             }
                         }
 
                         @Override
-                        public void onFailure(Call<PariharaIndividualDetailsResponse> call, Throwable t) {
+                        public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable t) {
                             call.cancel();
                             progressDialog.dismiss();
                         }
@@ -350,6 +447,7 @@ public class MutationPendencyDetails extends AppCompatActivity {
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connectivityManager != null;
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
@@ -371,6 +469,131 @@ public class MutationPendencyDetails extends AppCompatActivity {
         onBackPressed();
         return true;
     }
+    //______________________________________________________________________DB____________________________________________________
+
+    public List<MPD_TABLE> loadData() {
+        Toast.makeText(this, "LoadData", Toast.LENGTH_SHORT).show();
+        List<MPD_TABLE> mpd_tables_arr = new ArrayList<>();
+
+        try {
+            MPD_TABLE mpd_table = new MPD_TABLE();
+            mpd_table.setMPD_DST_ID(pdistrict_id);
+            mpd_table.setMPD_TLK_ID(ptaluk_id);
+            mpd_table.setMPD_HBL_ID(phobli_id);
+            mpd_table.setMPD_VLG_ID(pvillage_id);
+            mpd_table.setMPD_RES(res);
+            mpd_tables_arr.add(mpd_table);
+
+        } catch (Exception e) {
+            Log.d("Exception", e + "");
+        }
+
+        return mpd_tables_arr;
+    }
 
 
+    public void createMPDData(final List<MPD_TABLE> MPD_List) {
+        Observable<Long[]> insertMPDData = Observable.fromCallable(() -> dataBaseHelper.daoAccess().insertMPDData(MPD_List));
+        insertMPDData
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Long[]>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Long[] longs) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+    private void deleteByID(final int id) {
+
+        dataBaseHelper =
+                Room.databaseBuilder(getApplicationContext(),
+                        DataBaseHelper.class, getString(R.string.db_name)).build();
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteByIdMPD(id));
+        noOfRows
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+
+                        Log.i("delete", integer + "");
+                        deleteResponseByID();
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
+
+    private void deleteResponseByID() {
+
+        dataBaseHelper =
+                Room.databaseBuilder(getApplicationContext(),
+                        DataBaseHelper.class, getString(R.string.db_name)).build();
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteResponseMPDRow());
+        noOfRows
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+
+                        Log.i("delete", integer + "");
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
 }

@@ -1,7 +1,6 @@
 package app.bmc.com.BHOOMI_MRTC.database;
 
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -15,6 +14,8 @@ import app.bmc.com.BHOOMI_MRTC.model.DistrictData;
 import app.bmc.com.BHOOMI_MRTC.model.DistrictDataKannada;
 import app.bmc.com.BHOOMI_MRTC.model.HobliData;
 import app.bmc.com.BHOOMI_MRTC.model.HobliDataKannada;
+import app.bmc.com.BHOOMI_MRTC.model.MPD_RES_Data;
+import app.bmc.com.BHOOMI_MRTC.model.MPD_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.MST_VLM;
 import app.bmc.com.BHOOMI_MRTC.model.PacsBankMasterData;
 import app.bmc.com.BHOOMI_MRTC.model.SeasonData;
@@ -126,15 +127,29 @@ public interface DataBaseAccess {
     @Query("SELECT COUNT(id) FROM VR_INFO ")
     int getNumOfRows();
 
-
     @Query("SELECT VR_LAND_OWNER_RES,VR_CULT_RES FROM VR_INFO WHERE VR_DST_ID = :VR_DST_ID AND VR_TLK_ID = :VR_TLK_ID AND VR_HBL_ID = :VR_HBL_ID AND VR_VLG_ID = :VR_VLG_ID " +
             "AND VR_SNO = :VR_SNO AND VR_HISSA_NM = :VR_HISSA_NM")
     List<VR_RES_Data> getVR_RES(String VR_DST_ID, String VR_TLK_ID, String VR_HBL_ID, String VR_VLG_ID, String VR_SNO, String VR_HISSA_NM);
 
-
-
     @Query("DELETE FROM VR_INFO where id =:id")
     int deleteById(int id);
+
     @Query("DELETE FROM VR_INFO")
-    int deleteUserDataResponse();
+    int deleteResponseRow();
+
+    //----------------------------------------DB Fun for Mutation Pendency Details  ----------------------------------------------
+    @Insert
+    Long[] insertMPDData(List<MPD_TABLE> MPD_List);
+
+    @Query("SELECT COUNT(id) FROM MPD_TABLE ")
+    int getNumOfRowsMPDTbl();
+
+    @Query("SELECT MPD_RES FROM MPD_TABLE WHERE MPD_DST_ID = :MPD_DST_ID AND MPD_TLK_ID = :MPD_TLK_ID AND MPD_HBL_ID = :MPD_HBL_ID AND MPD_VLG_ID = :MPD_VLG_ID")
+    List<MPD_RES_Data> getMPD_RES(int MPD_DST_ID, int MPD_TLK_ID, int MPD_HBL_ID, int MPD_VLG_ID);
+
+    @Query("DELETE FROM MPD_TABLE where id =:id")
+    int deleteByIdMPD(int id);
+
+    @Query("DELETE FROM MPD_TABLE")
+    int deleteResponseMPDRow();
 }
