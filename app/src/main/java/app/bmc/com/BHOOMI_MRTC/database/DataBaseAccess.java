@@ -192,4 +192,5 @@ public interface DataBaseAccess {
 
     @Query("DELETE FROM R_LAND_REPORT_TABLE")
     int deleteAllRLRResponse();
+
 }
