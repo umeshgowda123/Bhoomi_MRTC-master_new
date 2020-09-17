@@ -9,6 +9,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -22,6 +23,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -38,15 +40,25 @@ import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.adapters.RestrictionOnLandReportAdapter;
 import app.bmc.com.BHOOMI_MRTC.backgroundtasks.RtcViewInfoBackGroundTaskFragment;
+import app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper;
+import app.bmc.com.BHOOMI_MRTC.interfaces.RLR_RES_Interface;
+import app.bmc.com.BHOOMI_MRTC.model.RLR_RES_Data;
+import app.bmc.com.BHOOMI_MRTC.model.R_LAND_REPORT_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.RestrictionOnLandReportTable;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
 import fr.arnaudguyon.xmltojsonlib.XmlToJson;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class RestrictionOnLandReport extends AppCompatActivity implements RtcViewInfoBackGroundTaskFragment.BackgroundCallBackRtcViewInfo {
     RecyclerView rvRestrictionReport;
@@ -66,6 +78,10 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
     String resultFromServer;
     RtcViewInfoBackGroundTaskFragment mTaskFragment;
     private ProgressBar progressBar;
+
+    private DataBaseHelper dataBaseHelper;
+    String strValueOfJSONArrayResponse;
+    List<RLR_RES_Data> RLR_RES_Data;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -119,9 +135,85 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                     "}";
             try
             {
-                JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
-                progressBar.setVisibility(View.VISIBLE);
-                mTaskFragment.startBackgroundTask4(jsonObject, getString(R.string.server_report_url));
+                dataBaseHelper =
+                        Room.databaseBuilder(getApplicationContext(),
+                                DataBaseHelper.class, getString(R.string.db_name)).build();
+                Observable<List<? extends RLR_RES_Interface>> districtDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getRLR_RES(district_id,
+                        taluk_id,hobli_id,village_id,surveyNo,suroc,hissa));
+                districtDataObservable
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Observer<List<? extends RLR_RES_Interface>>() {
+
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(List<? extends RLR_RES_Interface> rlr_res_interfaces_list) {
+                                progressBar.setVisibility(View.GONE);
+                                Log.d("rlr_res_interfaces_list",rlr_res_interfaces_list.size()+"");
+
+                                RLR_RES_Data = (List<app.bmc.com.BHOOMI_MRTC.model.RLR_RES_Data>) rlr_res_interfaces_list;
+//                                RLR_RES_Data = (List<RLR_RES_Interface>) rlr_res_interfaces_list;
+                                if (rlr_res_interfaces_list.size()!=0) {
+                                    Log.d("CHECK","Fetching from local");
+                                    for (int i = 0; i <= rlr_res_interfaces_list.size(); i++) {
+
+                                        String Response = RLR_RES_Data.get(0).getRLR_RES();
+                                        Log.d("CHECK",Response);
+                                        try {
+                                            Gson gson = new Gson();
+                                            restrictionOnLandReportTableList = gson.fromJson(Response, new TypeToken<List<RestrictionOnLandReportTable>>() {
+                                            }.getType());
+
+                                            if (restrictionOnLandReportTableList.size() == 0) {
+                                                final AlertDialog.Builder builder = new AlertDialog.Builder(RestrictionOnLandReport.this, R.style.MyDialogTheme);
+                                                builder.setTitle("STATUS")
+                                                        .setMessage("No Data Found For this Record")
+                                                        .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                        .setCancelable(false)
+                                                        .setPositiveButton("OK", (dialog, id) -> {
+                                                            dialog.cancel();
+                                                            finish();
+                                                        });
+                                                final AlertDialog alert = builder.create();
+                                                alert.show();
+                                                alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                            } else {
+                                                restrictionOnLandReportTableList.size();
+                                                RestrictionOnLandReportAdapter adapter = new RestrictionOnLandReportAdapter(restrictionOnLandReportTableList);
+                                                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+                                                rvRestrictionReport.setLayoutManager(mLayoutManager);
+                                                rvRestrictionReport.setItemAnimator(new DefaultItemAnimator());
+                                                rvRestrictionReport.setAdapter(adapter);
+                                            }
+                                        }catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+                                else {
+                                    JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
+                                    progressBar.setVisibility(View.VISIBLE);
+                                    mTaskFragment.startBackgroundTask4(jsonObject, getString(R.string.server_report_url));
+                                }
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        });
+
+
+
             }catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -212,6 +304,56 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                 strJsonArray = strJsonArray.replace("},\"EXTENT\"", ",\"EXTENT\"");
 
                 JSONArray final_JsonArray = new JSONArray(strJsonArray);
+
+                Log.d("RESPONSE : ", String.valueOf(final_JsonArray));
+
+                strValueOfJSONArrayResponse = String.valueOf(final_JsonArray);
+                //---------DB INSERT-------
+
+                dataBaseHelper =
+                        Room.databaseBuilder(getApplicationContext(),
+                                DataBaseHelper.class, getString(R.string.db_name)).build();
+                Observable<Integer> noOfRows;
+                noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumOfRowsRLR());
+                noOfRows
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Observer<Integer>() {
+
+
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(Integer integer) {
+                                Log.d("intValue",integer+"");
+
+                                if (integer < 2) {
+                                    Log.d("intValueIN",integer+"");
+                                    List<R_LAND_REPORT_TABLE> RLR_list = loadData();
+                                    createRLRTABLE_Data(RLR_list);
+                                } else {
+                                    Log.d("intValueELSE",integer+"");
+                                    deleteByID(0);
+//                                    deleteResponseByID();
+                                }
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        });
+
+
+                //---------------------------------------------------------------------------------------------
 
                 Gson gson = new Gson();
                 restrictionOnLandReportTableList = gson.fromJson(String.valueOf(final_JsonArray), new TypeToken<List<RestrictionOnLandReportTable>>() {
@@ -381,4 +523,137 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
         return true;
     }
 
+    //______________________________________________________________________DB____________________________________________________
+
+    public List<R_LAND_REPORT_TABLE> loadData() {
+        Toast.makeText(this, "LoadData", Toast.LENGTH_SHORT).show();
+        List<R_LAND_REPORT_TABLE> r_land_report_tables_arr = new ArrayList<>();
+        try {
+            R_LAND_REPORT_TABLE land_report_table = new R_LAND_REPORT_TABLE();
+            land_report_table.setRLR_DST_ID(district_id);
+            land_report_table.setRLR_TLK_ID(taluk_id);
+            land_report_table.setRLR_HBL_ID(hobli_id);
+            land_report_table.setRLR_VLG_ID(village_id);
+            land_report_table.setRLR_SNO(surveyNo);
+            land_report_table.setRLR_SUROC(suroc);
+            land_report_table.setRLR_HISSA(hissa);
+            land_report_table.setRLR_RES(strValueOfJSONArrayResponse);
+            r_land_report_tables_arr.add(land_report_table);
+
+        } catch (Exception e) {
+            Log.d("Exception", e + "");
+        }
+
+        return r_land_report_tables_arr;
+    }
+
+
+    public void createRLRTABLE_Data(final List<R_LAND_REPORT_TABLE> r_land_report_tables_list) {
+        Observable<Long[]> insertMasterObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().insertRestrictionOnLandReportData(r_land_report_tables_list));
+        insertMasterObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Long[]>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Long[] longs) {
+//                        Intent intent = new Intent(ViewRtcInformation.this, BhoomiHomePage.class);
+//                        startActivity(intent);
+//                        finish();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    private void deleteByID(final int id) {
+
+        dataBaseHelper =
+                Room.databaseBuilder(getApplicationContext(),
+                        DataBaseHelper.class, getString(R.string.db_name)).build();
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteByIdRLR(id));
+        noOfRows
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+
+                        Log.i("delete", integer + "");
+                        deleteResponseByID();
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
+
+    private void deleteResponseByID() {
+
+        dataBaseHelper =
+                Room.databaseBuilder(getApplicationContext(),
+                        DataBaseHelper.class, getString(R.string.db_name)).build();
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteAllRLRResponse());
+        noOfRows
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+
+                        Log.i("delete", integer + "");
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
 }

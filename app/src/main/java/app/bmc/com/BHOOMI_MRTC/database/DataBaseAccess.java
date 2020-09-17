@@ -16,8 +16,12 @@ import app.bmc.com.BHOOMI_MRTC.model.HobliData;
 import app.bmc.com.BHOOMI_MRTC.model.HobliDataKannada;
 import app.bmc.com.BHOOMI_MRTC.model.MPD_RES_Data;
 import app.bmc.com.BHOOMI_MRTC.model.MPD_TABLE;
+import app.bmc.com.BHOOMI_MRTC.model.MSR_RES_Data;
 import app.bmc.com.BHOOMI_MRTC.model.MST_VLM;
+import app.bmc.com.BHOOMI_MRTC.model.MS_REPORT_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.PacsBankMasterData;
+import app.bmc.com.BHOOMI_MRTC.model.RLR_RES_Data;
+import app.bmc.com.BHOOMI_MRTC.model.R_LAND_REPORT_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.SeasonData;
 import app.bmc.com.BHOOMI_MRTC.model.SeasonDetails;
 import app.bmc.com.BHOOMI_MRTC.model.TalukData;
@@ -151,5 +155,41 @@ public interface DataBaseAccess {
     int deleteByIdMPD(int id);
 
     @Query("DELETE FROM MPD_TABLE")
-    int deleteResponseMPDRow();
+    int deleteResponse();
+
+    //----------------------------------------DB Fun for Mutation Pendency Details  ----------------------------------------------
+
+    @Insert
+    Long[] insertMSRTable_Data(List<MS_REPORT_TABLE> MSR_Table);
+
+    @Query("SELECT COUNT(id) FROM MS_REPORT_TABLE ")
+    int getNumOfRowsMSR();
+
+    @Query("SELECT MSR_RES FROM MS_REPORT_TABLE WHERE MSR_DST_ID = :MSR_DST_ID AND MSR_TLK_ID = :MSR_TLK_ID AND MSR_HBL_ID = :MSR_HBL_ID AND MSR_VLG_ID = :MSR_VLG_ID AND MSR_SNO = :MSR_SNO")
+    List<MSR_RES_Data> getMSR_RES(int MSR_DST_ID, int MSR_TLK_ID, int MSR_HBL_ID, int MSR_VLG_ID, String MSR_SNO);
+
+    @Query("DELETE FROM MS_REPORT_TABLE where id =:id")
+    int deleteByIdMSR(int id);
+
+    @Query("DELETE FROM MS_REPORT_TABLE")
+    int deleteAllResponse();
+
+    //----------------------------------------DB Fun for RestrictionOnLandReport ----------------------------------------------
+
+    @Insert
+    Long[] insertRestrictionOnLandReportData(List<R_LAND_REPORT_TABLE> RLR_Table);
+
+    @Query("SELECT COUNT(id) FROM R_LAND_REPORT_TABLE ")
+    int getNumOfRowsRLR();
+
+    @Query("SELECT RLR_RES FROM R_LAND_REPORT_TABLE WHERE RLR_DST_ID = :RLR_DST_ID AND RLR_TLK_ID = :RLR_TLK_ID AND RLR_HBL_ID = :RLR_HBL_ID" +
+            " AND RLR_VLG_ID = :RLR_VLG_ID AND RLR_SNO = :RLR_SNO AND RLR_SUROC = :RLR_SUROC AND RLR_HISSA = :RLR_HISSA")
+    List<RLR_RES_Data> getRLR_RES(String RLR_DST_ID, String RLR_TLK_ID, String RLR_HBL_ID, String RLR_VLG_ID,
+                                  String RLR_SNO, String RLR_SUROC, String RLR_HISSA);
+
+    @Query("DELETE FROM R_LAND_REPORT_TABLE where id =:id")
+    int deleteByIdRLR(int id);
+
+    @Query("DELETE FROM R_LAND_REPORT_TABLE")
+    int deleteAllRLRResponse();
 }

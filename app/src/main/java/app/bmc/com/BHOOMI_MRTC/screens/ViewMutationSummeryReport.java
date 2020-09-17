@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import app.bmc.com.BHOOMI_MRTC.R;
@@ -30,8 +32,11 @@ import app.bmc.com.BHOOMI_MRTC.api.PariharaIndividualReportInteface;
 import app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper;
 import app.bmc.com.BHOOMI_MRTC.interfaces.DistrictModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.HobliModelInterface;
+import app.bmc.com.BHOOMI_MRTC.interfaces.MSR_RES_Interface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.TalukModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.VillageModelInterface;
+import app.bmc.com.BHOOMI_MRTC.model.MSR_RES_Data;
+import app.bmc.com.BHOOMI_MRTC.model.MS_REPORT_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
 import app.bmc.com.BHOOMI_MRTC.retrofit.PariharaIndividualreportClient;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
@@ -72,7 +77,8 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
 
     PariharaIndividualReportInteface apiInterface;
 
-
+    String s;
+    private List<MSR_RES_Data> MSR_RES_Data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -298,54 +304,153 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
             } else {
 
                 if (isNetworkAvailable()) {
-                    progressDialog = new ProgressDialog(ViewMutationSummeryReport.this);
-                    progressDialog.setMessage("Please Wait");
-                    progressDialog.setCancelable(false);
-                    progressDialog.show();
-                    apiInterface = PariharaIndividualreportClient.getClient(getResources().getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
-                    Call<PariharaIndividualDetailsResponse> call = apiInterface.getMutationSummeryReportDetails(Constants.REPORT_SERVICE_USER_NAME,
-                            Constants.REPORT_SERVICE_PASSWORD, district_id, taluk_id, hobli_id, village_id,Integer.parseInt(surveyNumber));
-                    call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
-                        @Override
-                        public void onResponse(Call<PariharaIndividualDetailsResponse> call, Response<PariharaIndividualDetailsResponse> response) {
+                    //----------------------------------LOCAl DB DATA PRESENT CHECK-----------------------------------------------------------
+                    dataBaseHelper =
+                            Room.databaseBuilder(getApplicationContext(),
+                                    DataBaseHelper.class, getString(R.string.db_name)).build();
+                    Observable<List<? extends MSR_RES_Interface>> districtDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getMSR_RES(district_id,taluk_id,hobli_id,village_id,surveyNumber));
+                    districtDataObservable
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Observer<List<? extends MSR_RES_Interface>>() {
 
-                            if (response.isSuccessful()) {
-                                PariharaIndividualDetailsResponse result = response.body();
-                                progressDialog.dismiss();
+                                @Override
+                                public void onSubscribe(Disposable d) {
 
-                                sp_sum_district.setText("");
-                                sp_sum_taluk.setText("");
-                                sp_sum_hobli.setText("");
-                                sp_sum_village.setText("");
-                                etSurveyNumber.setText("");
-                                assert result != null;
-                                String s = result.getGetMutationSummaryReportResult();
-                                if (s.equals("")) {
-                                    final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ViewMutationSummeryReport.this, R.style.MyDialogTheme);
-                                    builder.setTitle("STATUS")
-                                            .setMessage("No Data Found")
-                                            .setIcon(R.drawable.ic_notifications_black_24dp)
-                                            .setCancelable(false)
-                                            .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
-                                    final android.app.AlertDialog alert = builder.create();
-                                    alert.show();
-                                    alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-                                } else {
-
-                                    Intent intent = new Intent(ViewMutationSummeryReport.this, ShowMutationSummeryReport.class);
-                                    intent.putExtra("html_response_data", result.getGetMutationSummaryReportResult());
-                                    startActivity(intent);
                                 }
-                            }
-                        }
 
-                        @Override
-                        public void onFailure(Call<PariharaIndividualDetailsResponse> call, Throwable t) {
-                            call.cancel();
-                            progressDialog.dismiss();
-                            Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    });
+                                @Override
+                                public void onNext(List<? extends MSR_RES_Interface> msr_res_interfaces_List) {
+
+                                    Log.d("msr_res_interfaces",msr_res_interfaces_List.size()+"");
+
+                                    MSR_RES_Data = (List<MSR_RES_Data>) msr_res_interfaces_List;
+                                    if (msr_res_interfaces_List.size()!=0) {
+                                        Log.d("CHECK","Fetching from local");
+                                        for (int i = 0; i <= msr_res_interfaces_List.size()-1; i++) {
+
+                                            String MSR_RES = MSR_RES_Data.get(0).getMSR_RES();
+                                            Log.d("MSR_RES",MSR_RES+"");
+
+                                            Intent intent = new Intent(ViewMutationSummeryReport.this, ShowMutationSummeryReport.class);
+                                            intent.putExtra("html_response_data", MSR_RES);
+                                            startActivity(intent);
+                                        }
+                                    }
+                                    else {
+                                        Log.d("MSR_RES","Fetching From Server");
+
+                                        progressDialog = new ProgressDialog(ViewMutationSummeryReport.this);
+                                        progressDialog.setMessage("Please Wait");
+                                        progressDialog.setCancelable(false);
+                                        progressDialog.show();
+                                        apiInterface = PariharaIndividualreportClient.getClient(getResources().getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
+                                        Call<PariharaIndividualDetailsResponse> call = apiInterface.getMutationSummeryReportDetails(Constants.REPORT_SERVICE_USER_NAME,
+                                                Constants.REPORT_SERVICE_PASSWORD, district_id, taluk_id, hobli_id, village_id,Integer.parseInt(surveyNumber));
+                                        call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+                                            @Override
+                                            public void onResponse(Call<PariharaIndividualDetailsResponse> call, Response<PariharaIndividualDetailsResponse> response) {
+
+                                                if (response.isSuccessful()) {
+                                                    PariharaIndividualDetailsResponse result = response.body();
+                                                    progressDialog.dismiss();
+
+                                                    sp_sum_district.setText("");
+                                                    sp_sum_taluk.setText("");
+                                                    sp_sum_hobli.setText("");
+                                                    sp_sum_village.setText("");
+                                                    etSurveyNumber.setText("");
+                                                    assert result != null;
+                                                    s = result.getGetMutationSummaryReportResult();
+                                                    if (s.equals("")) {
+                                                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ViewMutationSummeryReport.this, R.style.MyDialogTheme);
+                                                        builder.setTitle("STATUS")
+                                                                .setMessage("No Data Found")
+                                                                .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                                .setCancelable(false)
+                                                                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                                        final android.app.AlertDialog alert = builder.create();
+                                                        alert.show();
+                                                        alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                                    } else {
+
+                                                        //---------DB INSERT-------
+                                                        dataBaseHelper =
+                                                                Room.databaseBuilder(getApplicationContext(),
+                                                                        DataBaseHelper.class, getString(R.string.db_name)).build();
+                                                        Observable<Integer> noOfRows;
+                                                        noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumOfRowsMSR());
+                                                        noOfRows
+                                                                .subscribeOn(Schedulers.io())
+                                                                .observeOn(AndroidSchedulers.mainThread())
+                                                                .subscribe(new Observer<Integer>() {
+
+
+                                                                    @Override
+                                                                    public void onSubscribe(Disposable d) {
+
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onNext(Integer integer) {
+                                                                        Log.d("intValue",integer+"");
+                                                                        if (integer < 2) {
+                                                                            Log.d("intValueIN",integer+"");
+                                                                            List<MS_REPORT_TABLE> MPD_List = loadData();
+                                                                            createMSRTable_Data(MPD_List);
+
+                                                                        } else {
+                                                                            Log.d("intValueELSE", integer + "");
+                                                                            deleteByID(0);
+//                                                                          deleteByID(MPD_RES_Data.size()-1);
+                                                                        }
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onError(Throwable e) {
+                                                                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onComplete() {
+                                                                        progressDialog.dismiss();
+                                                                        Log.d("MPD_RES","Fetching From Server");
+                                                                        Intent intent = new Intent(ViewMutationSummeryReport.this, ShowMutationSummeryReport.class);
+                                                                        intent.putExtra("html_response_data", result.getGetMutationSummaryReportResult());
+                                                                        startActivity(intent);
+                                                                    }
+                                                                });
+                                                        //---------------------------------------------------------------------------------------------
+
+                                                    }
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<PariharaIndividualDetailsResponse> call, Throwable t) {
+                                                call.cancel();
+                                                progressDialog.dismiss();
+                                                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                                            }
+                                        });
+//
+//                                        Intent intent = new Intent(ViewMutationSummeryReport.this, ShowMutationSummeryReport.class);
+//                                        intent.putExtra("html_response_data", result.getGetMutationSummaryReportResult());
+//                                        startActivity(intent);
+                                    }
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+
+                                @Override
+                                public void onComplete() {
+
+                                }
+                            });
+                    //---------------------------------------------------------------------------------------------
 
                 } else {
                     selfDestruct();
@@ -378,5 +483,133 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+
+    //______________________________________________________________________DB____________________________________________________
+
+    public List<MS_REPORT_TABLE> loadData() {
+        Toast.makeText(this, "LoadData", Toast.LENGTH_SHORT).show();
+        List<MS_REPORT_TABLE> ms_report_tables_arr = new ArrayList<>();
+
+        try {
+            MS_REPORT_TABLE ms_report_table = new MS_REPORT_TABLE();
+            ms_report_table.setMSR_DST_ID(district_id);
+            ms_report_table.setMSR_TLK_ID(taluk_id);
+            ms_report_table.setMSR_HBL_ID(hobli_id);
+            ms_report_table.setMSR_VLG_ID(village_id);
+            ms_report_table.setMSR_SNO(surveyNumber);
+            ms_report_table.setMSR_RES(s);
+            ms_report_tables_arr.add(ms_report_table);
+
+        } catch (Exception e) {
+            Log.d("Exception", e + "");
+        }
+
+        return ms_report_tables_arr;
+    }
+    public void createMSRTable_Data(final List<MS_REPORT_TABLE> MSR_Table) {
+        Observable<Long[]> insertMPDData = Observable.fromCallable(() -> dataBaseHelper.daoAccess().insertMSRTable_Data(MSR_Table));
+        insertMPDData
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Long[]>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Long[] longs) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+    private void deleteByID(final int id) {
+
+        dataBaseHelper =
+                Room.databaseBuilder(getApplicationContext(),
+                        DataBaseHelper.class, getString(R.string.db_name)).build();
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteByIdMSR(id));
+        noOfRows
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+
+                        Log.i("delete", integer + "");
+                        deleteAllResponse();
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
+
+    private void deleteAllResponse() {
+
+        dataBaseHelper =
+                Room.databaseBuilder(getApplicationContext(),
+                        DataBaseHelper.class, getString(R.string.db_name)).build();
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteAllResponse());
+        noOfRows
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+
+                        Log.i("delete", integer + "");
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 }
