@@ -386,7 +386,7 @@ public class MutationPendencyDetails extends AppCompatActivity {
                                                                     @Override
                                                                     public void onNext(Integer integer) {
                                                                         Log.d("intValue",integer+"");
-                                                                        if (integer < 3) {
+                                                                        if (integer < 6) {
                                                                             Log.d("intValueIN",integer+"");
                                                                             List<MPD_TABLE> MPD_List = loadData();
                                                                             createMPDData(MPD_List);

@@ -26,8 +26,10 @@ import app.bmc.com.BHOOMI_MRTC.model.SeasonData;
 import app.bmc.com.BHOOMI_MRTC.model.SeasonDetails;
 import app.bmc.com.BHOOMI_MRTC.model.TalukData;
 import app.bmc.com.BHOOMI_MRTC.model.TalukDataKannda;
+import app.bmc.com.BHOOMI_MRTC.model.VMS_RES_Data;
 import app.bmc.com.BHOOMI_MRTC.model.VR_RES_Data;
 import app.bmc.com.BHOOMI_MRTC.model.VR_INFO;
+import app.bmc.com.BHOOMI_MRTC.model.V_MUTATION_STATUS_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.VillageData;
 import app.bmc.com.BHOOMI_MRTC.model.VillageDataKannada;
 import app.bmc.com.BHOOMI_MRTC.model.YearData;
@@ -193,4 +195,21 @@ public interface DataBaseAccess {
     @Query("DELETE FROM R_LAND_REPORT_TABLE")
     int deleteAllRLRResponse();
 
+    //----------------------------------------DB Fun for RestrictionOnLandReport ----------------------------------------------
+
+    @Insert
+    Long[] insertViewMutationStatusTableData(List<V_MUTATION_STATUS_TABLE> VMS_Table);
+
+    @Query("SELECT COUNT(id) FROM V_MUTATION_STATUS_TABLE ")
+    int getNumOfRowsVMS();
+
+    @Query("SELECT VMS_RES FROM V_MUTATION_STATUS_TABLE WHERE VMS_DST_ID = :VMS_DST_ID AND VMS_TLK_ID = :VMS_TLK_ID " +
+            "AND VMS_HBL_ID = :VMS_HBL_ID AND VMS_VLG_ID = :VMS_VLG_ID AND VMS_LAND_NO = :VMS_LAND_NO")
+    List<VMS_RES_Data> getVMS_RES(int VMS_DST_ID, int VMS_TLK_ID, int VMS_HBL_ID, int VMS_VLG_ID, int VMS_LAND_NO);
+
+    @Query("DELETE FROM V_MUTATION_STATUS_TABLE where id =:id")
+    int deleteByIdVMS(int id);
+
+    @Query("DELETE FROM V_MUTATION_STATUS_TABLE")
+    int deleteAllVMSResponse();
 }

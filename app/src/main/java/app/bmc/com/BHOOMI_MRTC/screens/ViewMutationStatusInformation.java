@@ -1,6 +1,8 @@
 package app.bmc.com.BHOOMI_MRTC.screens;
 
 import android.app.AlertDialog;
+
+import androidx.annotation.NonNull;
 import androidx.room.Room;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +14,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -44,8 +47,10 @@ import app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper;
 import app.bmc.com.BHOOMI_MRTC.interfaces.DistrictModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.HobliModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.TalukModelInterface;
+import app.bmc.com.BHOOMI_MRTC.interfaces.VMS_RES_Interface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.VillageModelInterface;
 import app.bmc.com.BHOOMI_MRTC.model.Hissa_Response;
+import app.bmc.com.BHOOMI_MRTC.model.V_MUTATION_STATUS_TABLE;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
 import fr.arnaudguyon.xmltojsonlib.XmlToJson;
 import io.reactivex.Observable;
@@ -89,6 +94,8 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
     private DataBaseHelper dataBaseHelper;
     private TextView txtMutationStatust;
 
+    String restostoreinDBandSMSD;
+    List<VMS_RES_Interface> VMS_RES_Data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -233,7 +240,6 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
 
         });
-
 
         spinner_taluk.setOnItemClickListener((parent, view, position, id) -> {
             spinner_hobli.setText("");
@@ -387,11 +393,67 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                 if (status) {
                     focus.requestFocus();
                 } else {
-                    if (isNetworkAvailable())
-                        //5/6/5/1/1714
-                        mTaskFragment.startBackgroundTask3(district_id, taluk_id, hobli_id, village_id, land_no, getString(R.string.server_report_url));
-                        //mTaskFragment.startBackgroundTask3(5, 6, 5, 1, 1714);
-                    else
+                    if (isNetworkAvailable()) {
+
+
+                        //---------------------------------------------------------------------------
+                        dataBaseHelper =
+                                Room.databaseBuilder(getApplicationContext(),
+                                        DataBaseHelper.class, getString(R.string.db_name)).build();
+                        Observable<List<? extends VMS_RES_Interface>> districtDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getVMS_RES(district_id,
+                                taluk_id, hobli_id, village_id, land_no));
+                        districtDataObservable
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Observer<List<? extends VMS_RES_Interface>>() {
+
+                                    @Override
+                                    public void onSubscribe(Disposable d) {
+
+                                    }
+
+                                    @Override
+                                    public void onNext(List<? extends VMS_RES_Interface> vms_res_interfaces_list) {
+                                        progressBar.setVisibility(View.GONE);
+                                        Log.d("rlr_res_interfaces_list", vms_res_interfaces_list.size() + "");
+
+                                        VMS_RES_Data = (List<VMS_RES_Interface>) vms_res_interfaces_list;
+                                        if (vms_res_interfaces_list.size() != 0) {
+                                            Log.d("CHECK", "Fetching from local");
+                                            for (int i = 0; i <= vms_res_interfaces_list.size()-1; i++) {
+
+                                                String Response = VMS_RES_Data.get(0).getVMS_RES();
+                                                Log.d("CHECK", Response);
+                                                try {
+
+                                                    Intent intent = new Intent(ViewMutationStatusInformation.this, ShowMutationStatusDetails.class);
+                                                    intent.putExtra("status_response_data",""+Response);
+                                                    startActivity(intent);
+                                                } catch (Exception e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                            } else {
+                                                //5/6/5/1/1714
+                                                mTaskFragment.startBackgroundTask3(district_id, taluk_id, hobli_id, village_id, land_no, getString(R.string.server_report_url));
+                                                //mTaskFragment.startBackgroundTask3(5, 6, 5, 1, 1714);
+                                            }
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e) {
+
+                                    }
+
+                                    @Override
+                                    public void onComplete() {
+
+                                    }
+                                });
+
+                        //---------------------------------------------------------------------------
+
+                    } else
                         Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
 
                 }
@@ -477,8 +539,57 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                 JSONObject obj1 = new JSONObject(formatted);
                 obj1 = obj1.getJSONObject("Details");
 
+                restostoreinDBandSMSD = String.valueOf(obj1);
+//---------DB INSERT-------
+
+                dataBaseHelper =
+                        Room.databaseBuilder(getApplicationContext(),
+                                DataBaseHelper.class, getString(R.string.db_name)).build();
+                Observable<Integer> noOfRows;
+                noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumOfRowsVMS());
+                noOfRows
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Observer<Integer>() {
+
+
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(Integer integer) {
+                                Log.d("intValue",integer+"");
+
+                                if (integer < 6) {
+                                    Log.d("intValueIN",integer+"");
+                                    List<V_MUTATION_STATUS_TABLE> VMS_list = loadData();
+                                    createVMSTABLE_Data(VMS_list);
+                                } else {
+                                    Log.d("intValueELSE",integer+"");
+                                    deleteByID(0);
+                                    deleteResponseByID();
+                                }
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        });
+
+
+                //---------------------------------------------------------------------------------------------
+
+                Log.d("obj1",restostoreinDBandSMSD+"");
                 Intent intent = new Intent(ViewMutationStatusInformation.this, ShowMutationStatusDetails.class);
-                intent.putExtra("status_response_data",""+obj1);
+                intent.putExtra("status_response_data",""+restostoreinDBandSMSD);
                 startActivity(intent);
 
             } catch (Exception e) {
@@ -531,13 +642,14 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connectivityManager != null;
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
 
     @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
+    public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         // Save UI state changes to the savedInstanceState.
         // This bundle will be passed to onCreate if the process is
@@ -558,7 +670,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
     }
 
     @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
+    public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         // Restore UI state from the savedInstanceState.
         // This bundle has also been passed to onCreate.
@@ -582,7 +694,134 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
         onBackPressed();
         return true;
     }
+    //______________________________________________________________________DB____________________________________________________
 
+    public List<V_MUTATION_STATUS_TABLE> loadData() {
+        Toast.makeText(this, "LoadData", Toast.LENGTH_SHORT).show();
+        List<V_MUTATION_STATUS_TABLE> v_mutation_status_tables_arr = new ArrayList<>();
+        try {
+            V_MUTATION_STATUS_TABLE v_mutation_status_table = new V_MUTATION_STATUS_TABLE();
+            v_mutation_status_table.setVMS_DST_ID(district_id);
+            v_mutation_status_table.setVMS_TLK_ID(taluk_id);
+            v_mutation_status_table.setVMS_HBL_ID(hobli_id);
+            v_mutation_status_table.setVMS_VLG_ID(village_id);
+            v_mutation_status_table.setVMS_LAND_NO(land_no);
+            v_mutation_status_table.setVMS_RES(restostoreinDBandSMSD);
+            v_mutation_status_tables_arr.add(v_mutation_status_table);
+
+        } catch (Exception e) {
+            Log.d("Exception", e + "");
+        }
+
+        return v_mutation_status_tables_arr;
+    }
+
+
+    public void createVMSTABLE_Data(final List<V_MUTATION_STATUS_TABLE> v_mutation_status_tableList) {
+        Observable<Long[]> insertMasterObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().insertViewMutationStatusTableData(v_mutation_status_tableList));
+        insertMasterObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Long[]>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Long[] longs) {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        Toast.makeText(ViewMutationStatusInformation.this, "Insert Successful", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void deleteByID(final int id) {
+
+        dataBaseHelper =
+                Room.databaseBuilder(getApplicationContext(),
+                        DataBaseHelper.class, getString(R.string.db_name)).build();
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteByIdVMS(id));
+        noOfRows
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+
+                        Log.i("delete", integer + "");
+                        deleteResponseByID();
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
+
+    private void deleteResponseByID() {
+
+        dataBaseHelper =
+                Room.databaseBuilder(getApplicationContext(),
+                        DataBaseHelper.class, getString(R.string.db_name)).build();
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteAllVMSResponse());
+        noOfRows
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+
+                        Log.i("delete", integer + "");
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
 
 }
 

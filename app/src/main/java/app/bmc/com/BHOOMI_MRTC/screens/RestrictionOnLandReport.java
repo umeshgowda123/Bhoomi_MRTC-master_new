@@ -81,7 +81,7 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
 
     private DataBaseHelper dataBaseHelper;
     String strValueOfJSONArrayResponse;
-    List<RLR_RES_Data> RLR_RES_Data;
+    List<RLR_RES_Interface> RLR_RES_Data;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -155,7 +155,7 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                                 progressBar.setVisibility(View.GONE);
                                 Log.d("rlr_res_interfaces_list",rlr_res_interfaces_list.size()+"");
 
-                                RLR_RES_Data = (List<app.bmc.com.BHOOMI_MRTC.model.RLR_RES_Data>) rlr_res_interfaces_list;
+                                RLR_RES_Data = (List<RLR_RES_Interface>) rlr_res_interfaces_list;
 //                                RLR_RES_Data = (List<RLR_RES_Interface>) rlr_res_interfaces_list;
                                 if (rlr_res_interfaces_list.size()!=0) {
                                     Log.d("CHECK","Fetching from local");
@@ -330,7 +330,7 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                             public void onNext(Integer integer) {
                                 Log.d("intValue",integer+"");
 
-                                if (integer < 2) {
+                                if (integer < 6) {
                                     Log.d("intValueIN",integer+"");
                                     List<R_LAND_REPORT_TABLE> RLR_list = loadData();
                                     createRLRTABLE_Data(RLR_list);

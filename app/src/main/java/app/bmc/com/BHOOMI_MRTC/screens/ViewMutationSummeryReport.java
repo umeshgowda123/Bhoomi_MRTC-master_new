@@ -394,7 +394,7 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
                                                                     @Override
                                                                     public void onNext(Integer integer) {
                                                                         Log.d("intValue",integer+"");
-                                                                        if (integer < 2) {
+                                                                        if (integer < 6) {
                                                                             Log.d("intValueIN",integer+"");
                                                                             List<MS_REPORT_TABLE> MPD_List = loadData();
                                                                             createMSRTable_Data(MPD_List);

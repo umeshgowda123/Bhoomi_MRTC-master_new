@@ -78,6 +78,8 @@ public class ShowRtcOwnerReportAdapter extends ArrayAdapter<RTCByOwnerNameRespon
             intent.putExtra("villId",""+villId_int);
             intent.putExtra("land_code",""+land_code_int);
             intent.putExtra("survey", survey_no + "/" + surnoc + "/" + hissa_no);
+            intent.putExtra("surveyNo",survey_no+"");
+            intent.putExtra("hissa_str",hissa_no);
             intent.putExtra("RTC", "RTC");
             getContext().startActivity(intent);
 
