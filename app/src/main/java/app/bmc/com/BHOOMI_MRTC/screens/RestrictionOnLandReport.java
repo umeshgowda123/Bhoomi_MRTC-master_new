@@ -526,7 +526,7 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
     //______________________________________________________________________DB____________________________________________________
 
     public List<R_LAND_REPORT_TABLE> loadData() {
-        Toast.makeText(this, "LoadData", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "LoadData", Toast.LENGTH_SHORT).show();
         List<R_LAND_REPORT_TABLE> r_land_report_tables_arr = new ArrayList<>();
         try {
             R_LAND_REPORT_TABLE land_report_table = new R_LAND_REPORT_TABLE();

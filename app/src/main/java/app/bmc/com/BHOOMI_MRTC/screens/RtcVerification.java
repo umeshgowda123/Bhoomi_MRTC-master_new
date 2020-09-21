@@ -285,7 +285,7 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
     //______________________________________________________________________DB____________________________________________________
 
     public List<RTC_VERIFICATION_TABLE> loadData() {
-        Toast.makeText(this, "LoadData", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "LoadData", Toast.LENGTH_SHORT).show();
         List<RTC_VERIFICATION_TABLE> rtc_verification_tables_arr = new ArrayList<>();
         try {
             RTC_VERIFICATION_TABLE rtc_verification_table = new RTC_VERIFICATION_TABLE();

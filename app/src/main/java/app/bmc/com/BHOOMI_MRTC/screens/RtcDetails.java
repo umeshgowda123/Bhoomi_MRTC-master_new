@@ -559,7 +559,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
     //______________________________________________________________________DB____________________________________________________
 
     public List<VR_INFO> loadData() {
-        Toast.makeText(this, "LoadData", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "LoadData", Toast.LENGTH_SHORT).show();
         List<VR_INFO> vr_info_arr = new ArrayList<>();
         try {
             VR_INFO vr_info = new VR_INFO();

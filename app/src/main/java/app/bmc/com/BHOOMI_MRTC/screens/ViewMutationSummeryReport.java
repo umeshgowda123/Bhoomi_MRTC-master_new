@@ -489,7 +489,7 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
     //______________________________________________________________________DB____________________________________________________
 
     public List<MS_REPORT_TABLE> loadData() {
-        Toast.makeText(this, "LoadData", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "LoadData", Toast.LENGTH_SHORT).show();
         List<MS_REPORT_TABLE> ms_report_tables_arr = new ArrayList<>();
 
         try {

@@ -519,7 +519,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
 //        formatted = formatted.replace("</Details", "");
 
-        if (formatted.contains("Details not found")) {
+        if (formatted.contains("Details not found") || formatted.isEmpty()) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.MyDialogTheme);
             builder.setTitle("Mutation Status")
                     .setMessage("No Mutations are pending in this Survey Number")
@@ -697,7 +697,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
     //______________________________________________________________________DB____________________________________________________
 
     public List<V_MUTATION_STATUS_TABLE> loadData() {
-        Toast.makeText(this, "LoadData", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "LoadData", Toast.LENGTH_SHORT).show();
         List<V_MUTATION_STATUS_TABLE> v_mutation_status_tables_arr = new ArrayList<>();
         try {
             V_MUTATION_STATUS_TABLE v_mutation_status_table = new V_MUTATION_STATUS_TABLE();

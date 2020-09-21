@@ -477,7 +477,7 @@ public class MutationPendencyDetails extends AppCompatActivity {
     //______________________________________________________________________DB____________________________________________________
 
     public List<MPD_TABLE> loadData() {
-        Toast.makeText(this, "LoadData", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "LoadData", Toast.LENGTH_SHORT).show();
         List<MPD_TABLE> mpd_tables_arr = new ArrayList<>();
 
         try {
