@@ -21,6 +21,7 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.adapters.CultivatorCustomAdapter;
@@ -61,7 +62,7 @@ public class RtcVerificationData extends AppCompatActivity {
         setContentView(R.layout.activity_rtc_verification_data);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -73,6 +74,7 @@ public class RtcVerificationData extends AppCompatActivity {
         hobli_textview = findViewById(R.id.verification_textview_hobli);
         village_textview = findViewById(R.id.verification_textview_village);
         String displayData = getIntent().getStringExtra("xml_data");
+        assert displayData != null;
         displayData(displayData);
     }
 
@@ -80,8 +82,7 @@ public class RtcVerificationData extends AppCompatActivity {
 
         XmlToJson xmlToJson = new XmlToJson.Builder(displayData.replace("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>", "").trim()).build();
         // convert to a JSONObject
-        JSONObject output = xmlToJson.toJson();
-
+//        JSONObject output = xmlToJson.toJson();
 
         try {
             String formatted = xmlToJson.toFormattedString().replace("\n", "");
@@ -95,7 +96,7 @@ public class RtcVerificationData extends AppCompatActivity {
                 Object object = ownerdetails.get("jointowners");
                 JSONArray jointOwners = new JSONArray();
                 if (object instanceof JSONObject) {
-                    jointOwners.put((JSONObject) object);
+                    jointOwners.put(object);
                 } else {
                     jointOwners = (JSONArray) object;
                 }
@@ -127,14 +128,14 @@ public class RtcVerificationData extends AppCompatActivity {
             Pahanidetails pahanidetails = new Pahanidetails();
             Villagedetails villagedetails = new Villagedetails();
             Gson gson = new Gson();
-            ArrayList<Landdetails> landdetailsArrayList = new ArrayList<Landdetails>();
+            ArrayList<Landdetails> landdetailsArrayList = new ArrayList<>();
             JSONObject rtc = new JSONObject(data);
 
 
             if (rtc.has("staticinfopahani")) {
                 Object staticinfopahaniObject = rtc.get("staticinfopahani");
                 if (staticinfopahaniObject instanceof JSONObject) {
-                    JSONObject jsonObject = (JSONObject) staticinfopahaniObject;
+//                    JSONObject jsonObject = (JSONObject) staticinfopahaniObject;
                     staticinfopahani = gson.fromJson(staticinfopahaniObject.toString(), Staticinfopahani.class);
 
                 } else if (staticinfopahaniObject instanceof String) {
@@ -164,7 +165,7 @@ public class RtcVerificationData extends AppCompatActivity {
                             jsonArray = (JSONArray) treeObj;
 
                         } else if (treeObj instanceof JSONObject) {
-                            jsonArray.put((JSONObject) treeObj);
+                            jsonArray.put(treeObj);
                         } else if (treeObj instanceof String) {
                             jsonArray.put(new JSONObject());
                         }
@@ -186,7 +187,7 @@ public class RtcVerificationData extends AppCompatActivity {
 
                 Object villagedetailsObject = rtc.get("villagedetails");
                 if (villagedetailsObject instanceof JSONObject) {
-                    JSONObject jsonObject = (JSONObject) villagedetailsObject;
+//                    JSONObject jsonObject = (JSONObject) villagedetailsObject;
                     villagedetails = gson.fromJson(villagedetailsObject.toString(), Villagedetails.class);
                     taluk_textview.setText(villagedetails.getTalukname());
                     hobli_textview.setText(villagedetails.getHobliname());
@@ -212,7 +213,7 @@ public class RtcVerificationData extends AppCompatActivity {
                     if (irrigationObject instanceof JSONArray) {
                         irrigationArray = (JSONArray) irrigationObject;
                     } else if (irrigationObject instanceof JSONObject) {
-                        irrigationArray.put((JSONObject) irrigationObject);
+                        irrigationArray.put(irrigationObject);
                     } else if (irrigationObject instanceof String) {
                         irrigationArray.put(new JSONObject());
                     }
@@ -232,7 +233,7 @@ public class RtcVerificationData extends AppCompatActivity {
             }
 
 
-            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rtc_verification_land_recycler_view);
+            RecyclerView recyclerView = findViewById(R.id.rtc_verification_land_recycler_view);
             recyclerView.setHasFixedSize(true);
 
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -256,7 +257,7 @@ public class RtcVerificationData extends AppCompatActivity {
                 Object object = jointOwnerObject.get("owner");
 
                 if (object instanceof JSONObject) {
-                    owersArray.put((JSONObject) object);
+                    owersArray.put(object);
                 } else if (object instanceof JSONArray) {
                     owersArray = (JSONArray) object;
                 } else if (object instanceof String) {
@@ -268,7 +269,7 @@ public class RtcVerificationData extends AppCompatActivity {
                 allOwnerList.addAll(ownerList);
             }
 
-            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rtc_verification_owner_recycler_view);
+            RecyclerView recyclerView = findViewById(R.id.rtc_verification_owner_recycler_view);
             recyclerView.setHasFixedSize(true);
 
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -291,7 +292,7 @@ public class RtcVerificationData extends AppCompatActivity {
                 if (object instanceof JSONArray) {
                     jsonArray = (JSONArray) object;
                 } else if (object instanceof JSONObject) {
-                    jsonArray.put((JSONObject) object);
+                    jsonArray.put(object);
                 } else if (object instanceof String) {
                     jsonArray.put(new JSONObject());
                 }
@@ -308,7 +309,7 @@ public class RtcVerificationData extends AppCompatActivity {
                         if (season instanceof JSONArray) {
                             seasonArray = (JSONArray) season;
                         } else if (season instanceof JSONObject) {
-                            seasonArray.put((JSONObject) season);
+                            seasonArray.put(season);
 
                         } else if (season instanceof String) {
                             seasonArray.put(new JSONObject());
@@ -322,7 +323,7 @@ public class RtcVerificationData extends AppCompatActivity {
                             Object cultivatorobject = seasonObject.get("cultivator");
                             JSONArray cultivatorArray = new JSONArray();
                             if (cultivatorobject instanceof JSONObject) {
-                                cultivatorArray.put((JSONObject) cultivatorobject);
+                                cultivatorArray.put(cultivatorobject);
                             } else if (cultivatorobject instanceof JSONArray) {
                                 cultivatorArray = (JSONArray) cultivatorobject;
                             } else if (cultivatorobject instanceof String) {
@@ -335,7 +336,7 @@ public class RtcVerificationData extends AppCompatActivity {
                                 if (cultivator.has("mixedcropdetails")) {
                                     Object mixedcropdetailsObject = cultivator.get("mixedcropdetails");
                                     if (mixedcropdetailsObject instanceof JSONObject) {
-                                        mixedcropdetails = gson.fromJson(((JSONObject) mixedcropdetailsObject).toString(), Mixedcropdetails.class);
+                                        mixedcropdetails = gson.fromJson(mixedcropdetailsObject.toString(), Mixedcropdetails.class);
 
                                     } else if (mixedcropdetailsObject instanceof String) {
                                         mixedcropdetails = gson.fromJson((new JSONObject()).toString(), Mixedcropdetails.class);
@@ -358,7 +359,7 @@ public class RtcVerificationData extends AppCompatActivity {
                                     Object cropdetailsObject = cultivator.get("cropdetails");
                                     JSONArray cropdetailsjsonArray = new JSONArray();
                                     if (cropdetailsObject instanceof JSONObject) {
-                                        cropdetailsjsonArray.put((JSONObject) cropdetailsObject);
+                                        cropdetailsjsonArray.put(cropdetailsObject);
                                     } else if (cropdetailsObject instanceof JSONArray) {
                                         cropdetailsjsonArray = (JSONArray) cropdetailsObject;
                                     } else if (cropdetailsObject instanceof String) {
@@ -378,7 +379,7 @@ public class RtcVerificationData extends AppCompatActivity {
                                 if (cultivator.has("landutilisation")) {
                                     Object landutilisationObject = cultivator.get("landutilisation");
                                     if (landutilisationObject instanceof JSONObject) {
-                                        landutilisation = gson.fromJson(((JSONObject) landutilisationObject).toString(), Landutilisation.class);
+                                        landutilisation = gson.fromJson(landutilisationObject.toString(), Landutilisation.class);
                                     } else if (landutilisationObject instanceof String) {
                                         landutilisation = gson.fromJson((new JSONObject()).toString(), Landutilisation.class);
 
@@ -435,7 +436,7 @@ public class RtcVerificationData extends AppCompatActivity {
                 }
             }
 
-            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rtc_verification_cultivator_recycler_view);
+            RecyclerView recyclerView = findViewById(R.id.rtc_verification_cultivator_recycler_view);
             recyclerView.setHasFixedSize(true);
 
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());

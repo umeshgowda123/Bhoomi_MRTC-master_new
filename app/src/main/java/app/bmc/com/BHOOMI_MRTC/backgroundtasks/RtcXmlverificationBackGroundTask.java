@@ -3,9 +3,12 @@ package app.bmc.com.BHOOMI_MRTC.backgroundtasks;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import com.google.gson.JsonObject;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -13,6 +16,7 @@ import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.api.RtcXmlVerificationApi;
 import app.bmc.com.BHOOMI_MRTC.model.GETRTCXMLDATAResult;
 import app.bmc.com.BHOOMI_MRTC.retrofit.RtcVerificationClient;
+import app.bmc.com.BHOOMI_MRTC.util.Constants;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -75,28 +79,32 @@ public class RtcXmlverificationBackGroundTask extends Fragment {
     }
 
 
-    public void startBackgroundTask(String referenceNo) {
+//    public void startBackgroundTask(String referenceNo) {
+//        if (!isTaskExecuting) {
+//            getRtcVerificationResponse(referenceNo);
+//        }
+//    }
+    public void startBackgroundTask(JsonObject jsonObject) {
         if (!isTaskExecuting) {
-            getRtcVerificationResponse(referenceNo);
+            getRtcVerificationResponse(jsonObject);
         }
     }
 
-    private void getRtcVerificationResponse(String referenceNo) {
+    private void getRtcVerificationResponse(JsonObject jsonObject) {
         try {
             isTaskExecuting = true;
             if (backgroundCallBack != null)
                 backgroundCallBack.onPreExecute1();
-            String passcode = getString(R.string.passcode);
-            String saltkey = getString(R.string.saltkey);
             Retrofit retrofit = RtcVerificationClient.getClient(getString(R.string.rtc_xml_verification_url));
-
+            Log.d("jsonObject",jsonObject+"");
             RtcXmlVerificationApi rtcXmlVerificationApi = retrofit.create(RtcXmlVerificationApi.class);
-            Call<GETRTCXMLDATAResult> stringCall = rtcXmlVerificationApi.getStringResponse(referenceNo, passcode, saltkey);
+            Call<GETRTCXMLDATAResult> stringCall = rtcXmlVerificationApi.getStringResponse(Constants.REPORT_SERVICE_USER_NAME,Constants.REPORT_SERVICE_PASSWORD,jsonObject);
             stringCall.enqueue(new Callback<GETRTCXMLDATAResult>() {
                 @Override
                 public void onResponse(@NonNull Call<GETRTCXMLDATAResult> call, @NonNull Response<GETRTCXMLDATAResult> response) {
                     if (response.isSuccessful()) {
                         GETRTCXMLDATAResult getrtcxmldataResult = response.body();
+                        Log.d("getrtcxmldataResult",getrtcxmldataResult+"");
                         isTaskExecuting = false;
                         assert getrtcxmldataResult != null;
                         backgroundCallBack.onPostResponseSuccess1(getrtcxmldataResult.getGETRTCXMLDATAResult());
@@ -106,6 +114,7 @@ public class RtcXmlverificationBackGroundTask extends Fragment {
                         isTaskExecuting = false;
 
                         String errorResponse = response.message();
+                        Log.d("errorResponse",errorResponse);
                         backgroundCallBack.onPostResponseError(errorResponse);
                     }
 

@@ -21,6 +21,8 @@ import app.bmc.com.BHOOMI_MRTC.model.MST_VLM;
 import app.bmc.com.BHOOMI_MRTC.model.MS_REPORT_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.PacsBankMasterData;
 import app.bmc.com.BHOOMI_MRTC.model.RLR_RES_Data;
+import app.bmc.com.BHOOMI_MRTC.model.RTCV_Data;
+import app.bmc.com.BHOOMI_MRTC.model.RTC_VERIFICATION_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.R_LAND_REPORT_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.SeasonData;
 import app.bmc.com.BHOOMI_MRTC.model.SeasonDetails;
@@ -212,4 +214,21 @@ public interface DataBaseAccess {
 
     @Query("DELETE FROM V_MUTATION_STATUS_TABLE")
     int deleteAllVMSResponse();
+
+    //----------------------------------------DB Fun for RTCVerification ----------------------------------------------
+
+    @Insert
+    Long[] insertRTCVerificationData(List<RTC_VERIFICATION_TABLE> VMS_Table);
+
+    @Query("SELECT COUNT(id) FROM RTC_VERIFICATION_TABLE ")
+    int getNumOfRowsRTCV();
+
+    @Query("SELECT REFF_RES FROM RTC_VERIFICATION_TABLE WHERE REFF_NO = :REFF_NO")
+    List<RTCV_Data> getREFF_RES(String REFF_NO);
+
+    @Query("DELETE FROM RTC_VERIFICATION_TABLE where id =:id")
+    int deleteByIdRTCV(int id);
+
+    @Query("DELETE FROM RTC_VERIFICATION_TABLE")
+    int deleteAllRTCVResponse();
 }

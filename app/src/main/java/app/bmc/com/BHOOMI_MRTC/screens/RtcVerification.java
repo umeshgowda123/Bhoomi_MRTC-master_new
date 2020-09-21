@@ -1,16 +1,15 @@
 package app.bmc.com.BHOOMI_MRTC.screens;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,9 +19,27 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.fragment.app.FragmentManager;
+import androidx.room.Room;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.backgroundtasks.RtcXmlverificationBackGroundTask;
+import app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper;
+import app.bmc.com.BHOOMI_MRTC.interfaces.RTCV_RES_Interface;
+import app.bmc.com.BHOOMI_MRTC.model.RTC_VERIFICATION_TABLE;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Author Name:Venkat Purimitla
@@ -35,6 +52,11 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
     private EditText referenceNumber;
     private RtcXmlverificationBackGroundTask mTaskFragment;
     private ProgressBar progressBar;
+
+    private DataBaseHelper dataBaseHelper;
+    String referenceNo;
+    String responseData;
+    List<RTCV_RES_Interface> RTCV_data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +74,7 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -85,7 +107,19 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
         getRtcDataBtn.setOnClickListener(v -> {
             View focus = null;
             boolean status = false;
-            String referenceNo = referenceNumber.getText().toString().trim();
+            referenceNo = referenceNumber.getText().toString().trim();
+
+            String passcode = getString(R.string.passcode);
+            String saltkey = getString(R.string.saltkey);
+            String values1;
+            values1 = "{" + "\"pReferenceNo\":" + referenceNo + ","
+                          + "\"pPasscode\":" + passcode + ","
+                          + "\"pSaltkey\":\"" + saltkey + "\""
+                    + "}";
+            JsonObject jsonObject = new JsonParser().parse(values1).getAsJsonObject();
+            Log.d("jsonOBJECT", String.valueOf(jsonObject));
+
+
             if (TextUtils.isEmpty(referenceNo)) {
                 focus = referenceNumber;
                 status = true;
@@ -95,12 +129,64 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
                 focus.requestFocus();
             } else {
                 if (isNetworkAvailable()) {
-                    mTaskFragment.startBackgroundTask(referenceNo);
+
+                    //---------------------------------------------------------------------------
+                    dataBaseHelper =
+                            Room.databaseBuilder(getApplicationContext(),
+                                    DataBaseHelper.class, getString(R.string.db_name)).build();
+                    Observable<List<? extends RTCV_RES_Interface>> districtDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getREFF_RES(referenceNo));
+                    districtDataObservable
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Observer<List<? extends RTCV_RES_Interface>>() {
+
+                                @Override
+                                public void onSubscribe(Disposable d) {
+
+                                }
+
+                                @Override
+                                public void onNext(List<? extends RTCV_RES_Interface> rtcv_res_interfaces_list) {
+                                    progressBar.setVisibility(View.GONE);
+                                    Log.d("rlr_res_interfaces_list", rtcv_res_interfaces_list.size() + "");
+
+                                    RTCV_data = (List<RTCV_RES_Interface>) rtcv_res_interfaces_list;
+                                    if (rtcv_res_interfaces_list.size() != 0) {
+                                        Log.d("CHECK", "Fetching from local");
+                                        for (int i = 0; i <= rtcv_res_interfaces_list.size(); i++) {
+
+                                            String Response = RTCV_data.get(0).getREFF_RES();
+                                            try {
+                                                JsonObject json = new Gson().fromJson(Response, JsonObject.class);
+                                                Log.d("CHECK", json.toString());
+                                                mTaskFragment.startBackgroundTask(json);
+
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    } else {
+                                        mTaskFragment.startBackgroundTask(jsonObject);
+
+                                    }
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+
+                                @Override
+                                public void onComplete() {
+
+                                }
+                            });
+
+                    //---------------------------------------------------------------------------
+                    mTaskFragment.startBackgroundTask(jsonObject);
                 } else {
                     Toast.makeText(getApplicationContext(), "Internet Not Available", Toast.LENGTH_LONG).show();
                 }
-
-
             }
         });
         clearReferenceNoBtn.setOnClickListener(v -> referenceNumber.setText(""));
@@ -116,6 +202,7 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connectivityManager != null;
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
@@ -131,6 +218,53 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
     public void onPostResponseSuccess1(String data) {
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
+        responseData = data;
+        Log.d("DATA",data);
+        //---------DB INSERT-------
+
+        dataBaseHelper =
+                Room.databaseBuilder(getApplicationContext(),
+                        DataBaseHelper.class, getString(R.string.db_name)).build();
+        Observable<Integer> noOfRows;
+        noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumOfRowsRTCV());
+        noOfRows
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+                        Log.d("intValue",integer+"");
+
+                        if (integer < 6) {
+                            Log.d("intValueIN",integer+"");
+                            List<RTC_VERIFICATION_TABLE> rtc_verification_tableList = loadData();
+                            createRTCVTABLE_Data(rtc_verification_tableList);
+                        } else {
+                            Log.d("intValueELSE",integer+"");
+                            deleteByID(0);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+        //---------------------------------------------------------------------------------------------
+
         Intent intent = new Intent(RtcVerification.this, RtcVerificationData.class);
         intent.putExtra("xml_data", data);
         startActivity(intent);
@@ -148,4 +282,129 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
         super.onBackPressed();
         finish();
     }
+    //______________________________________________________________________DB____________________________________________________
+
+    public List<RTC_VERIFICATION_TABLE> loadData() {
+        Toast.makeText(this, "LoadData", Toast.LENGTH_SHORT).show();
+        List<RTC_VERIFICATION_TABLE> rtc_verification_tables_arr = new ArrayList<>();
+        try {
+            RTC_VERIFICATION_TABLE rtc_verification_table = new RTC_VERIFICATION_TABLE();
+            rtc_verification_table.setREF_NO(referenceNo);
+            rtc_verification_table.setREFF_RES(responseData);
+            rtc_verification_tables_arr.add(rtc_verification_table);
+
+        } catch (Exception e) {
+            Log.d("Exception", e + "");
+        }
+
+        return rtc_verification_tables_arr;
+    }
+
+
+    public void createRTCVTABLE_Data(final List<RTC_VERIFICATION_TABLE> rtc_verification_tables) {
+        Observable<Long[]> insertMasterObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().insertRTCVerificationData(rtc_verification_tables));
+        insertMasterObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Long[]>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Long[] longs) {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+//                        Toast.makeText(RtcVerification.this, "Insert Successful", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void deleteByID(final int id) {
+
+        dataBaseHelper =
+                Room.databaseBuilder(getApplicationContext(),
+                        DataBaseHelper.class, getString(R.string.db_name)).build();
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteByIdRTCV(id));
+        noOfRows
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+
+                        Log.i("delete", integer + "");
+                        deleteResponseByID();
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
+
+    private void deleteResponseByID() {
+
+        dataBaseHelper =
+                Room.databaseBuilder(getApplicationContext(),
+                        DataBaseHelper.class, getString(R.string.db_name)).build();
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteAllRTCVResponse());
+        noOfRows
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+
+                        Log.i("delete", integer + "");
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
+
 }

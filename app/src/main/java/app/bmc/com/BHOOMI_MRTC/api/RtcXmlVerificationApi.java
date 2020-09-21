@@ -1,7 +1,10 @@
 package app.bmc.com.BHOOMI_MRTC.api;
 
+import com.google.gson.JsonObject;
+
 import app.bmc.com.BHOOMI_MRTC.model.GETRTCXMLDATAResult;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -14,8 +17,12 @@ import retrofit2.http.Path;
  */
 public interface RtcXmlVerificationApi {
     @Headers({"content-type: text/json; charset=utf-8"})
-    @POST("RTCXML/{pReferenceNo}/{pPasscode}/{pSaltkey}")
-    Call<GETRTCXMLDATAResult> getStringResponse(@Path("pReferenceNo") String pReferenceNo, @Path("pPasscode") String pPasscode, @Path("pSaltkey") String pSaltkey);
+//    @POST("RTCXML/{pReferenceNo}/{pPasscode}/{pSaltkey}")
+    @POST("RTCXML/{pstrUserName}/{pStrPassword}/")
+    Call<GETRTCXMLDATAResult> getStringResponse(
+            @Path("pstrUserName") String username,
+            @Path("pStrPassword") String password,
+            @Body JsonObject input);
 
 
 }

@@ -4,7 +4,8 @@
     <string name="rtc_view_info_url">http://202.138.105.17/RWSROR/GETBhoomiCode/</string>
 <!--    <string name="rtc_view_info_url">https://parihara.karnataka.gov.in/RWSROR/GETBhoomiCode/</string>-->
 <!--    <string name="rtc_view_info_url_parihara">http://202.138.105.17/RWSROR/GETBhoomiCode/</string>-->
-    <string name="rtc_xml_verification_url">https://landrecords.karnataka.gov.in/Service76/RTCXML.svc/</string>
+<!--    <string name="rtc_xml_verification_url">https://landrecords.karnataka.gov.in/Service76/RTCXML.svc/</string>-->
+    <string name="rtc_xml_verification_url">https://clws.karnataka.gov.in/Service4/BHOOMI/</string>
     <string name="server_report_url">https://clws.karnataka.gov.in/Service4/BHOOMI/</string>
     <string name="app_name">Bhoomi</string>
     <string name="navigation_drawer_open">ನ್ಯಾವಿಗೇಷನ್ ಡ್ರಾಯರ್ ತೆರೆಯಿರಿ</string>
