@@ -7,7 +7,6 @@
             <item
                 android:id="@+id/view_rtc_information"
                 android:title="@string/viewrtcinformation" />
-
         </menu>
     </item>
 

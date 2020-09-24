@@ -49,7 +49,6 @@ import app.bmc.com.BHOOMI_MRTC.adapters.RestrictionOnLandReportAdapter;
 import app.bmc.com.BHOOMI_MRTC.backgroundtasks.RtcViewInfoBackGroundTaskFragment;
 import app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper;
 import app.bmc.com.BHOOMI_MRTC.interfaces.RLR_RES_Interface;
-import app.bmc.com.BHOOMI_MRTC.model.RLR_RES_Data;
 import app.bmc.com.BHOOMI_MRTC.model.R_LAND_REPORT_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.RestrictionOnLandReportTable;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
@@ -287,6 +286,7 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
         } else {
             XmlToJson xmlToJson = new XmlToJson.Builder(data).build();
             String formatted = xmlToJson.toFormattedString();
+            Log.d("formatted", "str: " + formatted);
             try {
                 JSONObject obj = new JSONObject(formatted.replace("\n", ""));
                 JSONObject OwnerDetails_Obj = obj.getJSONObject("OwnerDetails");
@@ -294,20 +294,27 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                 formatted = OwnerDetails_Obj.toString();
                 formatted = formatted.replace("\"JOINT_OWNERS\":{", "\"JOINT_OWNERS\":[{");
                 formatted = formatted.replace("}}", "}]}");
+                Log.d("SUS",formatted);
                 OwnerDetails_Obj = new JSONObject(formatted);
-//            OwnerDetails_Obj = OwnerDetails_Obj.getJSONObject("JOINT_OWNERS");
-//            Log.d("JOINT_OWNERS", "str: " + OwnerDetails_Obj);
+//              OwnerDetails_Obj = OwnerDetails_Obj.getJSONObject("JOINT_OWNERS");
+//              Log.d("JOINT_OWNERS", "str: " + OwnerDetails_Obj);
                 JSONArray JOINT_OWNERS_jsonArray = OwnerDetails_Obj.getJSONArray("JOINT_OWNERS");
 
                 String strJsonArray = JOINT_OWNERS_jsonArray.toString();
                 strJsonArray = strJsonArray.replace("{\"OWNER\":", "");
                 strJsonArray = strJsonArray.replace("},\"EXTENT\"", ",\"EXTENT\"");
+//                strJsonArray = strJsonArray.replace("{\"OWNER\":{", "\"OWNER\":[{");
+//                strJsonArray = strJsonArray.replace("},\"EXTENT\"", "}],\"EXTENT\"");
+                Log.d("SUS",strJsonArray);
+                JSONArray finalOWNER_JsonArray = new JSONArray(strJsonArray);
 
-                JSONArray final_JsonArray = new JSONArray(strJsonArray);
+                for (int i = 0; i < finalOWNER_JsonArray.length(); i++) {
+                    JSONObject Object = finalOWNER_JsonArray.getJSONObject(i);
+                    Log.d("Object", String.valueOf(Object));
+                }
+                Log.d("RESPONSE : ", String.valueOf(finalOWNER_JsonArray));
 
-                Log.d("RESPONSE : ", String.valueOf(final_JsonArray));
-
-                strValueOfJSONArrayResponse = String.valueOf(final_JsonArray);
+                strValueOfJSONArrayResponse = String.valueOf(finalOWNER_JsonArray);
                 //---------DB INSERT-------
 
                 dataBaseHelper =
@@ -356,7 +363,7 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                 //---------------------------------------------------------------------------------------------
 
                 Gson gson = new Gson();
-                restrictionOnLandReportTableList = gson.fromJson(String.valueOf(final_JsonArray), new TypeToken<List<RestrictionOnLandReportTable>>() {
+                restrictionOnLandReportTableList = gson.fromJson(String.valueOf(finalOWNER_JsonArray), new TypeToken<List<RestrictionOnLandReportTable>>() {
                 }.getType());
 
                 if (restrictionOnLandReportTableList.size() == 0) {
@@ -514,6 +521,7 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connectivityManager != null;
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
@@ -546,7 +554,6 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
 
         return r_land_report_tables_arr;
     }
-
 
     public void createRLRTABLE_Data(final List<R_LAND_REPORT_TABLE> r_land_report_tables_list) {
         Observable<Long[]> insertMasterObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().insertRestrictionOnLandReportData(r_land_report_tables_list));

@@ -1,5 +1,6 @@
 package app.bmc.com.BHOOMI_MRTC.screens;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -264,10 +265,23 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
                 });
 
         //---------------------------------------------------------------------------------------------
+        if (responseData.contains("No Information Found")) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(RtcVerification.this, R.style.MyDialogTheme);
+            builder.setTitle("Information Status")
+                    .setMessage("No Information Found")
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+            final AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        }
+        else {
 
-        Intent intent = new Intent(RtcVerification.this, RtcVerificationData.class);
-        intent.putExtra("xml_data", data);
-        startActivity(intent);
+            Intent intent = new Intent(RtcVerification.this, RtcVerificationData.class);
+            intent.putExtra("xml_data", data);
+            startActivity(intent);
+        }
     }
 
     @Override
