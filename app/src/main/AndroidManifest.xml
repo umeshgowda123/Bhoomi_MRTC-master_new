@@ -18,7 +18,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:fullBackupContent="true"
+        android:usesCleartextTraffic="true"
         tools:targetApi="n">
+        <activity android:name=".screens.AppLancher">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".screens.ViewMutationStatusReport"
             android:configChanges="orientation|keyboardHidden"
@@ -112,13 +120,6 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-        <activity android:name=".screens.AppLancher">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".screens.RtcVerificationData"
             android:theme="@style/AppTheme.NoActionBar" />

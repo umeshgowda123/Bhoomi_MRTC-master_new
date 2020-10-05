@@ -115,7 +115,7 @@ public class LandConversion extends AppCompatActivity {
                                         String res = result.getGet_Afdvt_ReqSts_BasedOnAfdvtIdResult();
 
                                         progressDialog.dismiss();
-                                        if(res == null || res.contains("INVALID")) {
+                                        if(res == null || res.contains("INVALID") || res.contains("Details not found")) {
                                             final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversion.this, R.style.MyDialogTheme);
                                             builder.setTitle("STATUS")
                                                     .setMessage("Invalid Affidavit ID")
@@ -177,7 +177,7 @@ public class LandConversion extends AppCompatActivity {
                                         String res = result.getGet_Afdvt_ReqSts_BasedOnUserIdResult();
 
                                         progressDialog.dismiss();
-                                        if(res == null || res.contains("INVALID")) {
+                                        if(res == null || res.contains("INVALID") || res.contains("Details not found")) {
                                             final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversion.this, R.style.MyDialogTheme);
                                             builder.setTitle("STATUS")
                                                     .setMessage("Invalid User ID")
