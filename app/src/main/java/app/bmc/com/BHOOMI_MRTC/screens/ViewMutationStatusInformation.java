@@ -569,7 +569,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                                 } else {
                                     Log.d("intValueELSE",integer+"");
                                     deleteByID(0);
-                                    deleteResponseByID();
+//                                    deleteResponseByID();
                                 }
                             }
 

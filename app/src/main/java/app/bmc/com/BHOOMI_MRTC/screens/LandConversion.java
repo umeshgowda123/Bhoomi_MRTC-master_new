@@ -125,6 +125,16 @@ public class LandConversion extends AppCompatActivity {
                                             final android.app.AlertDialog alert = builder.create();
                                             alert.show();
                                             alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                        }else if(res.contains("Details not found")) {
+                                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversion.this, R.style.MyDialogTheme);
+                                        builder.setTitle("STATUS")
+                                                .setMessage("Details not found")
+                                                .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                .setCancelable(false)
+                                                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                        final android.app.AlertDialog alert = builder.create();
+                                        alert.show();
+                                        alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
                                         } else {
                                             Intent intent = new Intent(LandConversion.this, LandConversionBasedOnAffidavit.class);
                                             intent.putExtra("AFFIDAVIT_ResponseData", res);
@@ -171,6 +181,16 @@ public class LandConversion extends AppCompatActivity {
                                             final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversion.this, R.style.MyDialogTheme);
                                             builder.setTitle("STATUS")
                                                     .setMessage("Invalid User ID")
+                                                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                    .setCancelable(false)
+                                                    .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                            final android.app.AlertDialog alert = builder.create();
+                                            alert.show();
+                                            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                        }else if(res.contains("Details not found")) {
+                                            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversion.this, R.style.MyDialogTheme);
+                                            builder.setTitle("STATUS")
+                                                    .setMessage("Details not found")
                                                     .setIcon(R.drawable.ic_notifications_black_24dp)
                                                     .setCancelable(false)
                                                     .setPositiveButton("OK", (dialog, id) -> dialog.cancel());

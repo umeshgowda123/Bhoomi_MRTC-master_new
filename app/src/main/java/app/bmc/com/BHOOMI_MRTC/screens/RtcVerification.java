@@ -265,7 +265,7 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
                 });
 
         //---------------------------------------------------------------------------------------------
-        if (responseData.contains("No Information Found")) {
+        if (responseData.contains("No Information Found")||responseData.contains("Incorrect syntax near the keyword")) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(RtcVerification.this, R.style.MyDialogTheme);
             builder.setTitle("Information Status")
                     .setMessage("No Information Found")

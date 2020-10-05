@@ -17,8 +17,8 @@ public class APIClient {
 
      //  http://parihara.karnataka.gov.in/CLWSTEST/LoaneeReportService/Service1.svc
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://218.248.32.25/PacsCertificatePayment/Service1.svc/")
-//                .baseUrl("http://192.168.0.139/PacsCertificatePayment/Service1.svc/") //SUSMITA 4:20.P.M
+//                .baseUrl("http://218.248.32.25/PacsCertificatePayment/Service1.svc/")
+                .baseUrl("http://192.168.0.139/PacsCertificatePayment/Service1.svc/") //SUSMITA 4:20.P.M
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();

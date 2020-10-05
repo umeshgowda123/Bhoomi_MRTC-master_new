@@ -34,7 +34,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -55,29 +54,9 @@ public class BhoomiHomePage extends AppCompatActivity {
     LinearLayout layout_viewRtc;
     LinearLayout layout_rtc_verify;
     LinearLayout layout_view_rtc_ownerName;
-    LinearLayout layout_clws_status;
-    LinearLayout layout_certificate_pacs;
-    LinearLayout layout_certificate_banks;
-    LinearLayout layout_parihara_individual;
-    LinearLayout layout_parihara_benificary;
-    LinearLayout layout_benificiary_land_report;
-    LinearLayout layout_download_villageMap;
     LinearLayout layout_mutation_pendency;
-    LinearLayout layout_loan_w_branch_wise;
-
     LinearLayout layout_mut_summery;
-
-    LinearLayout layout_loan_w_bank;
-
     LinearLayout layout_mutation_status;
-    LinearLayout layout_loan_w_farmer_wise;
-
-    LinearLayout layout_pacs_bank_wise;
-    LinearLayout layout_pacs_report_branchwise;
-    LinearLayout layout_pacs_farmer_wise;
-
-    LinearLayout layout_view_phody_sketch;
-    LinearLayout view_mojini_req_status;
     LinearLayout view_land_conversion, download_Conversion_order;
     LinearLayout layout_restriction_land;
 
@@ -116,34 +95,38 @@ public class BhoomiHomePage extends AppCompatActivity {
         layout_rtc_verify =  findViewById(R.id.layout_rtc_verify);
         layout_view_rtc_ownerName =  findViewById(R.id.layout_view_rtc_ownerName);
         layout_restriction_land = findViewById(R.id.layout_restriction_land);
-
-        layout_clws_status =  findViewById(R.id.layout_clws_status);
-        layout_certificate_pacs =  findViewById(R.id.layout_certificate_pacs);
-        layout_certificate_banks =  findViewById(R.id.layout_certificate_banks);
-
-        layout_parihara_individual =  findViewById(R.id.layout_parihara_individual);
-        layout_parihara_benificary =  findViewById(R.id.layout_parihara_benificary);
-        layout_benificiary_land_report =  findViewById(R.id.layout_benificiary_land_report);
-        layout_download_villageMap =  findViewById(R.id.layout_download_villageMap);
-
-        layout_mutation_pendency =  findViewById(R.id.layout_mutation_pendency);
-        layout_loan_w_branch_wise =  findViewById(R.id.layout_loan_w_branch_wise);
-
         layout_mut_summery =  findViewById(R.id.layout_mut_summery);
-        layout_loan_w_bank =  findViewById(R.id.layout_loan_w_bank);
-
+        layout_mutation_pendency =  findViewById(R.id.layout_mutation_pendency);
         layout_mutation_status =  findViewById(R.id.layout_mutation_status);
-        layout_loan_w_farmer_wise =  findViewById(R.id.layout_loan_w_farmer_wise);
-
-        layout_pacs_bank_wise = findViewById(R.id.layout_pacs_bank_wise);
-        layout_pacs_report_branchwise = findViewById(R.id.layout_pacs_report_branchwise);
-        layout_pacs_farmer_wise = findViewById(R.id.layout_pacs_farmer_wise);
-
-        layout_view_phody_sketch =  findViewById(R.id.layout_view_phody_sketch);
-        view_mojini_req_status =  findViewById(R.id.view_mojini_req_status);
-
         view_land_conversion = findViewById(R.id.view_land_conversion);
         download_Conversion_order = findViewById(R.id.download_Conversion_order);
+
+
+
+//        layout_download_villageMap =  findViewById(R.id.layout_download_villageMap);
+
+//        layout_view_phody_sketch =  findViewById(R.id.layout_view_phody_sketch);
+//        view_mojini_req_status =  findViewById(R.id.view_mojini_req_status);
+
+
+//        layout_clws_status =  findViewById(R.id.layout_clws_status);
+//        layout_certificate_pacs =  findViewById(R.id.layout_certificate_pacs);
+//        layout_certificate_banks =  findViewById(R.id.layout_certificate_banks);
+//        layout_parihara_individual =  findViewById(R.id.layout_parihara_individual);
+//        layout_parihara_benificary =  findViewById(R.id.layout_parihara_benificary);
+//        layout_benificiary_land_report =  findViewById(R.id.layout_benificiary_land_report);
+//        layout_loan_w_branch_wise =  findViewById(R.id.layout_loan_w_branch_wise);
+//
+//
+//        layout_loan_w_bank =  findViewById(R.id.layout_loan_w_bank);
+//
+//
+//        layout_loan_w_farmer_wise =  findViewById(R.id.layout_loan_w_farmer_wise);
+//
+//        layout_pacs_bank_wise = findViewById(R.id.layout_pacs_bank_wise);
+//        layout_pacs_report_branchwise = findViewById(R.id.layout_pacs_report_branchwise);
+//        layout_pacs_farmer_wise = findViewById(R.id.layout_pacs_farmer_wise);
+
 
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
@@ -173,46 +156,46 @@ public class BhoomiHomePage extends AppCompatActivity {
             startActivity(in);
         });
 
-        layout_clws_status.setOnClickListener(v -> {
-            Intent intent=new Intent(BhoomiHomePage.this, ClwsStatus.class);
-            startActivity(intent);
-        });
+//        layout_clws_status.setOnClickListener(v -> {
+//            Intent intent=new Intent(BhoomiHomePage.this, ClwsStatus.class);
+//            startActivity(intent);
+//        });
 
-        layout_certificate_pacs.setOnClickListener(v -> {
-            Intent intent  = new Intent(BhoomiHomePage.this,CitizenPaymentCertificatePacsActivity.class);
-            startActivity(intent);
-        });
-
-
-
-        layout_certificate_banks.setOnClickListener(v -> {
-            Intent intent  = new Intent(BhoomiHomePage.this,CitizenPaymentCertificateBanksActivity.class);
-            startActivity(intent);
-        });
+//        layout_certificate_pacs.setOnClickListener(v -> {
+//            Intent intent  = new Intent(BhoomiHomePage.this,CitizenPaymentCertificatePacsActivity.class);
+//            startActivity(intent);
+//        });
 
 
 
-        layout_parihara_individual.setOnClickListener(v -> {
-            Intent intent  = new Intent(BhoomiHomePage.this,PariharaDetailsIndividual.class);
-            startActivity(intent);
-        });
-
-        layout_parihara_benificary.setOnClickListener(v -> {
-            Intent intent  = new Intent(BhoomiHomePage.this,PariharaBenificiaryReportVillageWise.class);
-            startActivity(intent);
-        });
-
-        layout_benificiary_land_report.setOnClickListener(v -> {
-            Intent intent  = new Intent(BhoomiHomePage.this,PariharaBenificiaryReportLandWise.class);
-            startActivity(intent);
-        });
+//        layout_certificate_banks.setOnClickListener(v -> {
+//            Intent intent  = new Intent(BhoomiHomePage.this,CitizenPaymentCertificateBanksActivity.class);
+//            startActivity(intent);
+//        });
 
 
-        layout_download_villageMap.setOnClickListener(v -> {
-            Intent intent  = new Intent(BhoomiHomePage.this,DownloadVillageMap.class);
-            startActivity(intent);
 
-        });
+//        layout_parihara_individual.setOnClickListener(v -> {
+//            Intent intent  = new Intent(BhoomiHomePage.this,PariharaDetailsIndividual.class);
+//            startActivity(intent);
+//        });
+
+//        layout_parihara_benificary.setOnClickListener(v -> {
+//            Intent intent  = new Intent(BhoomiHomePage.this,PariharaBenificiaryReportVillageWise.class);
+//            startActivity(intent);
+//        });
+
+//        layout_benificiary_land_report.setOnClickListener(v -> {
+//            Intent intent  = new Intent(BhoomiHomePage.this,PariharaBenificiaryReportLandWise.class);
+//            startActivity(intent);
+//        });
+
+
+//        layout_download_villageMap.setOnClickListener(v -> {
+//            Intent intent  = new Intent(BhoomiHomePage.this,DownloadVillageMap.class);
+//            startActivity(intent);
+//
+//        });
 
 
         layout_mutation_pendency.setOnClickListener(v -> {
@@ -235,56 +218,56 @@ public class BhoomiHomePage extends AppCompatActivity {
         });
 
 
-        layout_loan_w_bank.setOnClickListener(v -> {
-
-            Intent intent = new Intent(BhoomiHomePage.this, LoanWaiverReportForCommercialBankWise.class);
-            startActivity(intent);
-        });
-
-
-        layout_loan_w_farmer_wise.setOnClickListener(v -> {
-
-            Intent intent = new Intent(BhoomiHomePage.this, LoanWaiverReportForCommercialFramerWise.class);
-            startActivity(intent);
-        });
-
-        layout_loan_w_branch_wise.setOnClickListener(v -> {
-
-            Intent intent = new Intent(BhoomiHomePage.this,LoanWaiverReportForCommercialBranchWise.class);
-            startActivity(intent);
-        });
-
-        layout_pacs_bank_wise.setOnClickListener(v -> {
-            Intent intent = new Intent(BhoomiHomePage.this, LoanWaiverReportForPacsBankWise.class);
-            startActivity(intent);
-        });
-
-        layout_pacs_report_branchwise.setOnClickListener(v -> {
-            Intent intent = new Intent(BhoomiHomePage.this,LoanWaiverReportForPacsBranchWsie.class);
-            startActivity(intent);
-        });
-
-        layout_pacs_farmer_wise.setOnClickListener(v -> {
-            Intent intent = new Intent(BhoomiHomePage.this,LoanWaiverReportForPacsFarmerWise.class);
-            startActivity(intent);
-        });
+//        layout_loan_w_bank.setOnClickListener(v -> {
+//
+//            Intent intent = new Intent(BhoomiHomePage.this, LoanWaiverReportForCommercialBankWise.class);
+//            startActivity(intent);
+//        });
 
 
+//        layout_loan_w_farmer_wise.setOnClickListener(v -> {
+//
+//            Intent intent = new Intent(BhoomiHomePage.this, LoanWaiverReportForCommercialFramerWise.class);
+//            startActivity(intent);
+//        });
 
-        layout_view_phody_sketch.setOnClickListener(v -> {
-//                String url = "http://202.138.101.171/service18";
-//                Intent i = new Intent(Intent.ACTION_VIEW);
-//                i.setData(Uri.parse(url));
-//                startActivity(i);
-            Intent intent = new Intent(BhoomiHomePage.this,MojiniPhodySketch.class);
-            startActivity(intent);
-        });
+//        layout_loan_w_branch_wise.setOnClickListener(v -> {
+//
+//            Intent intent = new Intent(BhoomiHomePage.this,LoanWaiverReportForCommercialBranchWise.class);
+//            startActivity(intent);
+//        });
+
+//        layout_pacs_bank_wise.setOnClickListener(v -> {
+//            Intent intent = new Intent(BhoomiHomePage.this, LoanWaiverReportForPacsBankWise.class);
+//            startActivity(intent);
+//        });
+
+//        layout_pacs_report_branchwise.setOnClickListener(v -> {
+//            Intent intent = new Intent(BhoomiHomePage.this,LoanWaiverReportForPacsBranchWsie.class);
+//            startActivity(intent);
+//        });
+
+//        layout_pacs_farmer_wise.setOnClickListener(v -> {
+//            Intent intent = new Intent(BhoomiHomePage.this,LoanWaiverReportForPacsFarmerWise.class);
+//            startActivity(intent);
+//        });
 
 
-        view_mojini_req_status.setOnClickListener(v -> {
-            Intent i = new Intent(BhoomiHomePage.this, MojiniRequestStatus.class);
-            startActivity(i);
-        });
+
+//        layout_view_phody_sketch.setOnClickListener(v -> {
+////                String url = "http://202.138.101.171/service18";
+////                Intent i = new Intent(Intent.ACTION_VIEW);
+////                i.setData(Uri.parse(url));
+////                startActivity(i);
+//            Intent intent = new Intent(BhoomiHomePage.this,MojiniPhodySketch.class);
+//            startActivity(intent);
+//        });
+
+
+//        view_mojini_req_status.setOnClickListener(v -> {
+//            Intent i = new Intent(BhoomiHomePage.this, MojiniRequestStatus.class);
+//            startActivity(i);
+//        });
 
         view_land_conversion.setOnClickListener(v -> {
             Intent intent = new Intent(BhoomiHomePage.this,LandConversion.class);

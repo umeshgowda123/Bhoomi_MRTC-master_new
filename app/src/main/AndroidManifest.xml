@@ -20,67 +20,7 @@
         android:fullBackupContent="true"
         tools:targetApi="n">
         <activity
-            android:name=".screens.ShowLoanWaiverReportPacsFarmerWise"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".screens.LoanWaiverReportForPacsFarmerWise"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".screens.ShowLoanWaiverPacsReportBranchWise"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".screens.LoanWaiverReportForPacsBranchWsie"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".screens.ShowLoanWaiverPacsReportBankWise"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".screens.LoanWaiverReportForPacsBankWise"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".screens.ShowLoanWaiverReportBranchWise"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".screens.LoanWaiverReportForCommercialBranchWise"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".screens.ShowLoanWaiverReportFarmerWise"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".screens.LoanWaiverReportForCommercialFramerWise"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".screens.ShowLoanWaiverReportBankWise"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
             android:name=".screens.ViewMutationStatusReport"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".screens.LoanWaiverReportForCommercialBankWise"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
@@ -108,72 +48,12 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.ViewMapInPdfActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".screens.ShowVillageMapDetails"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".screens.DownloadVillageMap"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".screens.ShowPariharaBenificiaryDetailsLandWise"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".screens.PariharaBenificiaryReportLandWise"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".screens.ShowPariharaBenificiaryDetailsVlgWise"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".screens.PariharaBenificiaryReportVillageWise"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".screens.ShowIndividualPariharaDetailsReport"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".screens.PariharaDetailsIndividual"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
             android:name=".screens.ShowEnglishCertificateActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".screens.PaymentBankCertificateDetails"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".screens.PacsCertificateDataNotPresent"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
             android:name=".screens.PacsWebViewActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".screens.PaymentCertifiacteDetails"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
@@ -194,36 +74,6 @@
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".screens.PacsLoanReportView"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".screens.ClwsStatusRationCardDetails"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".screens.ClwsStatusDetails"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".screens.CitizenPaymentCertificateBanksActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".screens.CitizenPaymentCertificatePacsActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".screens.ClwsStatus"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".screens.DashBoardActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
@@ -305,23 +155,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".screens.MojiniPhodySketch"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
-            android:name=".screens.Sketch"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
-            android:name=".screens.MojiniRequestStatus"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
             android:name=".screens.Mojini_Allotment_Details_BasedOnAppNo"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
-            android:name=".screens.Mojini_Application_Status_BasedOnAppNo"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity

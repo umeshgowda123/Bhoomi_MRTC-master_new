@@ -637,7 +637,6 @@
 
                 </TableRow>
 
-                <include layout="@layout/content_bhoomi_one"/>
 
             </TableLayout>
 
