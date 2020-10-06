@@ -22,7 +22,6 @@ import android.widget.Toast;
 import androidx.fragment.app.FragmentManager;
 import androidx.room.Room;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -85,7 +84,7 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
         }
         getRtcDataBtn = findViewById(R.id.btn_get_rtc_data);
         clearReferenceNoBtn = findViewById(R.id.btn_clear_reference_no);
-        referenceNumber = findViewById(R.id.edittext_reference_number);
+        referenceNumber = findViewById(R.id.etRefNum);
         onButtonClickActions();
         FragmentManager fm = getSupportFragmentManager();
         mTaskFragment = (RtcXmlverificationBackGroundTask) fm.findFragmentByTag(RtcXmlverificationBackGroundTask.TAG_HEADLESS_FRAGMENT);
@@ -148,20 +147,21 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
 
                                 @Override
                                 public void onNext(List<? extends RTCV_RES_Interface> rtcv_res_interfaces_list) {
-                                    progressBar.setVisibility(View.GONE);
+//                                    progressBar.setVisibility(View.GONE);
                                     Log.d("rlr_res_interfaces_list", rtcv_res_interfaces_list.size() + "");
 
                                     RTCV_data = (List<RTCV_RES_Interface>) rtcv_res_interfaces_list;
                                     if (rtcv_res_interfaces_list.size() != 0) {
                                         Log.d("CHECK", "Fetching from local");
-                                        for (int i = 0; i <= rtcv_res_interfaces_list.size(); i++) {
+                                        for (int i = 0; i <= rtcv_res_interfaces_list.size()-1; i++) {
 
                                             String Response = RTCV_data.get(0).getREFF_RES();
                                             try {
-                                                JsonObject json = new Gson().fromJson(Response, JsonObject.class);
-                                                Log.d("CHECK", json.toString());
-                                                mTaskFragment.startBackgroundTask(json);
-
+//                                                JsonObject json = new Gson().fromJson(Response, JsonObject.class);
+//                                                Log.d("CHECK", json.toString());
+                                                Intent intent = new Intent(RtcVerification.this, RtcVerificationData.class);
+                                                intent.putExtra("xml_data", Response);
+                                                startActivity(intent);
                                             } catch (Exception e) {
                                                 e.printStackTrace();
                                             }
@@ -184,7 +184,7 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
                             });
 
                     //---------------------------------------------------------------------------
-                    mTaskFragment.startBackgroundTask(jsonObject);
+//                    mTaskFragment.startBackgroundTask(jsonObject);
                 } else {
                     Toast.makeText(getApplicationContext(), "Internet Not Available", Toast.LENGTH_LONG).show();
                 }

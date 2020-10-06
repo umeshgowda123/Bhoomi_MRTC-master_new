@@ -56,20 +56,20 @@
 
 
                     <EditText
-                        android:id="@+id/edittext_reference_number"
+                        android:id="@+id/etRefNum"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         android:background="@drawable/edittext_rtc_verification_border"
                         android:drawableStart="@drawable/ic_mode_edit_black_24dp"
                         android:hint="@string/rtc_verification_et_hint"
-                        android:inputType="textNoSuggestions|textCapCharacters"
+                        android:inputType="textCapCharacters"
                         android:maxLines="1"
                         android:padding="8dp"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:autofillHints="@string/rtc_verification_et_hint"
-                        tools:ignore="TextFields" />
+                        android:digits="1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ"/>
 
 
                     <Button

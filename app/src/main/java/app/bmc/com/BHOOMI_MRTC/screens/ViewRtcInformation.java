@@ -88,6 +88,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
     private String language;
     private DataBaseHelper dataBaseHelper;
     private TextView tvSetTite;
+    ArrayAdapter<String> defaultArrayAdapter;
 
 
     @Override
@@ -118,7 +119,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
         btn_go = findViewById(R.id.btn_go);
         btn_fetch = findViewById(R.id.btn_fetch);
         tvSetTite = findViewById(R.id.tvSetTite);
-        ArrayAdapter<String> defaultArrayAdapter = new ArrayAdapter<>(this,
+        defaultArrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_single_choice, new String[]{});
         spinner_taluk.setAdapter(defaultArrayAdapter);
         spinner_hobli.setAdapter(defaultArrayAdapter);
@@ -184,6 +185,11 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
             spinner_hobli.setText("");
             spinner_village.setText("");
             spinner_hissa.setText("");
+            spinner_taluk.setAdapter(defaultArrayAdapter);
+            spinner_hobli.setAdapter(defaultArrayAdapter);
+            spinner_village.setAdapter(defaultArrayAdapter);
+            spinner_hissa.setAdapter(defaultArrayAdapter);
+            edittext_survey.setText("");
             district_id = districtData.get(position).getVLM_DST_ID();
             Observable<List<? extends TalukModelInterface>> talukDataObservable = Observable.fromCallable(() -> language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getTalukByDistrictId(String.valueOf(district_id)) : dataBaseHelper.daoAccess().getTalukByDistrictIdKannada(String.valueOf(district_id)));
             talukDataObservable
@@ -217,6 +223,10 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
             spinner_hobli.setText("");
             spinner_village.setText("");
             spinner_hissa.setText("");
+            spinner_hobli.setAdapter(defaultArrayAdapter);
+            spinner_village.setAdapter(defaultArrayAdapter);
+            spinner_hissa.setAdapter(defaultArrayAdapter);
+            edittext_survey.setText("");
             taluk_id = talukData.get(position).getVLM_TLK_ID();
             Observable<List<? extends HobliModelInterface>> noOfRows = Observable.fromCallable(() -> language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getHobliByTalukId_and_DistrictId(String.valueOf(taluk_id), String.valueOf(district_id)) : dataBaseHelper.daoAccess().getHobliByTalukId_and_DistrictIdKannada(String.valueOf(taluk_id), String.valueOf(district_id)));
             noOfRows
@@ -254,6 +264,9 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
         spinner_hobli.setOnItemClickListener((parent, view, position, id) -> {
             spinner_village.setText("");
             spinner_hissa.setText("");
+            spinner_village.setAdapter(defaultArrayAdapter);
+            spinner_hissa.setAdapter(defaultArrayAdapter);
+            edittext_survey.setText("");
             hobli_id = hobliData.get(position).getVLM_HBL_ID();
             Observable<List<? extends VillageModelInterface>> noOfRows = Observable.fromCallable(() -> language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getVillageByHobliId_and_TalukId_and_DistrictId(String.valueOf(hobli_id), String.valueOf(taluk_id), String.valueOf(district_id)) : dataBaseHelper.daoAccess().getVillageByHobliId_and_TalukId_and_DistrictIdKannada(String.valueOf(hobli_id), String.valueOf(taluk_id), String.valueOf(district_id)));
             noOfRows
@@ -289,6 +302,8 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
         });
         spinner_village.setOnItemClickListener((parent, view, position, id) -> {
             spinner_hissa.setText("");
+            spinner_hissa.setAdapter(defaultArrayAdapter);
+            edittext_survey.setText("");
             village_id = villageData.get(position).getVLM_VLG_ID();
         });
 
@@ -345,11 +360,36 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
             }
         });
         btn_fetch.setOnClickListener(v -> {
+            String districtName = spinner_district.getText().toString().trim();
+            String talukName = spinner_taluk.getText().toString().trim();
+            String hobliName = spinner_hobli.getText().toString().trim();
+            String villageName = spinner_village.getText().toString().trim();
+            String surveyno = edittext_survey.getText().toString().trim();
             hissa_str = spinner_hissa.getText().toString().trim();
-            surveyNo = Integer.parseInt(edittext_survey.getText().toString().trim());
+
             View focus = null;
             boolean status = false;
-            if (TextUtils.isEmpty(hissa)) {
+            if (TextUtils.isEmpty(districtName)) {
+                focus = spinner_district;
+                status = true;
+                spinner_district.setError(getString(R.string.district_err));
+            } else if (TextUtils.isEmpty(talukName)) {
+                focus = spinner_taluk;
+                status = true;
+                spinner_taluk.setError(getString(R.string.taluk_err));
+            } else if (TextUtils.isEmpty(hobliName)) {
+                focus = spinner_hobli;
+                status = true;
+                spinner_hobli.setError(getString(R.string.hobli_err));
+            } else if (TextUtils.isEmpty(villageName)) {
+                focus = spinner_village;
+                status = true;
+                spinner_village.setError(getString(R.string.village_err));
+            } else if (TextUtils.isEmpty(surveyno)) {
+                focus = edittext_survey;
+                status = true;
+                edittext_survey.setError(getString(R.string.survey_no_err));
+            } else if (TextUtils.isEmpty(hissa)) {
                 focus = spinner_hissa;
                 status = true;
                 spinner_hissa.setError("Hissa is required");
@@ -357,6 +397,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
             if (status) {
                 focus.requestFocus();
             } else {
+                surveyNo = Integer.parseInt(edittext_survey.getText().toString().trim());
 //                    if (isNetworkAvailable())
 //                        mTaskFragment.startBackgroundTask2(district_id, taluk_id, hobli_id, village_id, land_no);
 //                    else
@@ -396,26 +437,39 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
         // convert to a formatted Json String
         String formatted = xmlToJson.toFormattedString();
         Object object;
-        try {
-            JSONObject obj = new JSONObject(formatted.replace("\n", ""));
-            JSONObject documentElement = obj.getJSONObject("DocumentElement");
-            object = documentElement.get("DS_RTC");
-            JSONArray ds_rtc = new JSONArray();
-            if (object instanceof JSONObject) {
-                ds_rtc.put(object);
-            } else {
-                ds_rtc = (JSONArray) object;
-            }
-            Type listType = new TypeToken<ArrayList<Hissa_Response>>() {
-            }.getType();
-            hissa_responseList = new Gson().fromJson(ds_rtc.toString(), listType);
-            ArrayAdapter<Hissa_Response> villageArrayAdapter = new ArrayAdapter<>(ViewRtcInformation.this,
-                    android.R.layout.simple_list_item_single_choice, hissa_responseList);
-            spinner_hissa.setAdapter(villageArrayAdapter);
+        if (formatted.contains("No Data Found")) {
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ViewRtcInformation.this, R.style.MyDialogTheme);
+            builder.setTitle("STATUS")
+                    .setMessage("No Data Found For this Survey No")
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+            final android.app.AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        }else {
+            try {
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(getApplicationContext(), Constants.ERR_MSG, Toast.LENGTH_LONG).show();
+                JSONObject obj = new JSONObject(formatted.replace("\n", ""));
+                JSONObject documentElement = obj.getJSONObject("DocumentElement");
+                object = documentElement.get("DS_RTC");
+                JSONArray ds_rtc = new JSONArray();
+                if (object instanceof JSONObject) {
+                    ds_rtc.put(object);
+                } else {
+                    ds_rtc = (JSONArray) object;
+                }
+                Type listType = new TypeToken<ArrayList<Hissa_Response>>() {
+                }.getType();
+                hissa_responseList = new Gson().fromJson(ds_rtc.toString(), listType);
+                ArrayAdapter<Hissa_Response> villageArrayAdapter = new ArrayAdapter<>(ViewRtcInformation.this,
+                        android.R.layout.simple_list_item_single_choice, hissa_responseList);
+                spinner_hissa.setAdapter(villageArrayAdapter);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+            }
         }
     }
 

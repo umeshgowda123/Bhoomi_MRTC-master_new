@@ -421,7 +421,6 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
                                                                     }
                                                                 });
                                                         //---------------------------------------------------------------------------------------------
-
                                                     }
                                                 }
                                             }
