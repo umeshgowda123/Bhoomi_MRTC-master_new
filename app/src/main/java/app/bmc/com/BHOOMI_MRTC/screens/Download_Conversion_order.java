@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -29,6 +30,7 @@ import android.widget.Toast;
 
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -39,6 +41,9 @@ import app.bmc.com.BHOOMI_MRTC.interfaces.DistrictModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.HobliModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.TalukModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.VillageModelInterface;
+import app.bmc.com.BHOOMI_MRTC.model.LandConversion_Final_Order_TABLE;
+import app.bmc.com.BHOOMI_MRTC.model.LandConversion_TABLE;
+import app.bmc.com.BHOOMI_MRTC.model.MPD_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
 import app.bmc.com.BHOOMI_MRTC.retrofit.PariharaIndividualreportClient;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
@@ -80,6 +85,10 @@ public class Download_Conversion_order extends AppCompatActivity {
     private int village_id;
 
     private ProgressDialog progressDialog;
+
+    private  String requestID_RES;
+    private  String surveyNumber_RES;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -365,6 +374,63 @@ public class Download_Conversion_order extends AppCompatActivity {
                                             alert.show();
                                             alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
                                         } else {
+
+
+
+                                            //---------DB INSERT-------
+                                            dataBaseHelper =
+                                                    Room.databaseBuilder(getApplicationContext(),
+                                                            DataBaseHelper.class, getString(R.string.db_name)).build();
+                                            Observable<Integer> noOfRows;
+                                            noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumOfRowsLandConversionTbl());
+                                            noOfRows
+                                                    .subscribeOn(Schedulers.io())
+                                                    .observeOn(AndroidSchedulers.mainThread())
+                                                    .subscribe(new Observer<Integer>() {
+
+
+                                                        @Override
+                                                        public void onSubscribe(Disposable d) {
+
+                                                        }
+
+                                                        @Override
+                                                        public void onNext(Integer integer) {
+                                                            Log.d("intValue",integer+"");
+                                                            if (integer < 6) {
+                                                                Log.d("intValueIN",integer+"");
+//                                                                List<LandConversion_TABLE> LandConversion_list = loadData();
+//                                                                createLandConversion_Data(LandConversion_list);
+
+
+                                                            } else {
+                                                                Log.d("intValueELSE", integer + "");
+//                                                                deleteByID(0);
+                                                            }
+                                                        }
+
+                                                        @Override
+                                                        public void onError(Throwable e) {
+                                                            Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                                        }
+
+                                                        @Override
+                                                        public void onComplete() {
+                                                            progressDialog.dismiss();
+                                                            Log.d("CHECK","Fetching From Server");
+
+//                                                            Intent intent = new Intent(LandConversion.this, LandConversionBasedOnAffidavit.class);
+//                                                            intent.putExtra("AFFIDAVIT_ResponseData", Affidavit_res);
+//                                                            intent.putExtra("AFFIDAVIT_ID", affidavitID);
+//                                                            startActivity(intent);
+                                                        }
+                                                    });
+                                            //---------------------------------------------------------------------------------------------
+
+
+
+
+
                                             Intent intent = new Intent(Download_Conversion_order.this, ConversionFinalOrders_BasedOnReq_ID.class);
                                             intent.putExtra("LandConversionFinalOrders", "" + res);
                                             startActivity(intent);
@@ -474,4 +540,139 @@ public class Download_Conversion_order extends AppCompatActivity {
         onBackPressed();
         return true;
     }
+
+
+    //______________________________________________________________________DB____________________________________________________
+
+    public List<LandConversion_Final_Order_TABLE> loadData() {
+        List<LandConversion_Final_Order_TABLE> landConversion_final_order_tables_arr = new ArrayList<>();
+
+        try {
+            LandConversion_Final_Order_TABLE landConversion_final_order_table = new LandConversion_Final_Order_TABLE();
+            landConversion_final_order_table.setREQUEST_ID(requestID);
+            landConversion_final_order_table.setREQUEST_ID_RES(requestID_RES);
+            landConversion_final_order_table.setDST_ID(district_id);
+            landConversion_final_order_table.setTLK_ID(taluk_id);
+            landConversion_final_order_table.setHBL_ID(hobli_id);
+            landConversion_final_order_table.setVLG_ID(village_id);
+            landConversion_final_order_table.setS_NO(surveyNumber);
+            landConversion_final_order_table.setSNO_RES(surveyNumber_RES);
+            landConversion_final_order_tables_arr.add(landConversion_final_order_table);
+
+        } catch (Exception e) {
+            Log.d("Exception", e + "");
+        }
+
+        return landConversion_final_order_tables_arr;
+    }
+
+
+//    public void createLCFOData(final List<LandConversion_Final_Order_TABLE> LCFO_List) {
+//        Observable<Long[]> insertLCFOData = Observable.fromCallable(() -> dataBaseHelper.daoAccess().insertLandConversion_Final_Order_Data(LCFO_List));
+//        insertLCFOData
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Observer<Long[]>() {
+//
+//
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(Long[] longs) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+//
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//
+//                    }
+//                });
+//    }
+//    private void deleteByID(final int id) {
+//
+//        dataBaseHelper =
+//                Room.databaseBuilder(getApplicationContext(),
+//                        DataBaseHelper.class, getString(R.string.db_name)).build();
+//        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteByIdLandConversion_Final_Order(id));
+//        noOfRows
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Observer<Integer>() {
+//
+//
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(Integer integer) {
+//
+//                        Log.i("delete", integer + "");
+//                        deleteAllResponse();
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//
+//                    }
+//                });
+//
+//    }
+//
+//    private void deleteAllResponse() {
+//
+//        dataBaseHelper =
+//                Room.databaseBuilder(getApplicationContext(),
+//                        DataBaseHelper.class, getString(R.string.db_name)).build();
+//        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteLandConversion_Final_Order_Response());
+//        noOfRows
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Observer<Integer>() {
+//
+//
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(Integer integer) {
+//
+//                        Log.i("delete", integer + "");
+//
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//
+//                    }
+//                });
+//    }
+
+
+
+
 }
