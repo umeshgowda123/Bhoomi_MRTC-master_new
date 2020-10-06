@@ -156,10 +156,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".screens.Mojini_Allotment_Details_BasedOnAppNo"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
             android:name=".screens.RestrictionOnLand"
             android:theme="@style/AppTheme.NoActionBar" />
 
