@@ -79,12 +79,13 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
     String hissa;
     String suroc;
     List<Hissa_Response> hissa_responseList;
-    int surveyNo;
+    String surveyNo;
     RtcViewInfoBackGroundTaskFragment mTaskFragment;
     ProgressBar progressBar;
     String language;
     DataBaseHelper dataBaseHelper;
     TextView tvSetTite;
+    ArrayAdapter<String> defaultArrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +116,7 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
         btn_go = findViewById(R.id.btn_go);
         btn_go_hissa = findViewById(R.id.btn_go_hissa);
         tvSetTite = findViewById(R.id.tvSetTite);
-        ArrayAdapter<String> defaultArrayAdapter = new ArrayAdapter<>(this,
+        defaultArrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_single_choice, new String[]{});
         spinner_taluk.setAdapter(defaultArrayAdapter);
         spinner_hobli.setAdapter(defaultArrayAdapter);
@@ -184,6 +185,12 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
             spinner_hobli.setText("");
             spinner_village.setText("");
             spinner_hissa.setText("");
+            spinner_taluk.setAdapter(defaultArrayAdapter);
+            spinner_hobli.setAdapter(defaultArrayAdapter);
+            spinner_village.setAdapter(defaultArrayAdapter);
+            spinner_hissa.setAdapter(defaultArrayAdapter);
+            edittext_survey.setText("");
+
             district_id = districtData.get(position).getVLM_DST_ID();
             Observable<List<? extends TalukModelInterface>> talukDataObservable = Observable.fromCallable(() -> language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getTalukByDistrictId(String.valueOf(district_id)) : dataBaseHelper.daoAccess().getTalukByDistrictIdKannada(String.valueOf(district_id)));
             talukDataObservable
@@ -224,6 +231,11 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
             spinner_hobli.setText("");
             spinner_village.setText("");
             spinner_hissa.setText("");
+            spinner_hobli.setAdapter(defaultArrayAdapter);
+            spinner_village.setAdapter(defaultArrayAdapter);
+            spinner_hissa.setAdapter(defaultArrayAdapter);
+            edittext_survey.setText("");
+
             taluk_id = talukData.get(position).getVLM_TLK_ID();
             Observable<List<? extends HobliModelInterface>> noOfRows = Observable.fromCallable(() -> language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getHobliByTalukId_and_DistrictId(String.valueOf(taluk_id), String.valueOf(district_id)) : dataBaseHelper.daoAccess().getHobliByTalukId_and_DistrictIdKannada(String.valueOf(taluk_id), String.valueOf(district_id)));
             noOfRows
@@ -261,6 +273,10 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
         spinner_hobli.setOnItemClickListener((parent, view, position, id) -> {
             spinner_village.setText("");
             spinner_hissa.setText("");
+            spinner_village.setAdapter(defaultArrayAdapter);
+            spinner_hissa.setAdapter(defaultArrayAdapter);
+            edittext_survey.setText("");
+
             hobli_id = hobliData.get(position).getVLM_HBL_ID();
             Observable<List<? extends VillageModelInterface>> noOfRows = Observable.fromCallable(() -> language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getVillageByHobliId_and_TalukId_and_DistrictId(String.valueOf(hobli_id), String.valueOf(taluk_id), String.valueOf(district_id)) : dataBaseHelper.daoAccess().getVillageByHobliId_and_TalukId_and_DistrictIdKannada(String.valueOf(hobli_id), String.valueOf(taluk_id), String.valueOf(district_id)));
             noOfRows
@@ -296,6 +312,8 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
         });
         spinner_village.setOnItemClickListener((parent, view, position, id) -> {
             spinner_hissa.setText("");
+            spinner_hissa.setAdapter(defaultArrayAdapter);
+
             village_id = villageData.get(position).getVLM_VLG_ID();
         });
 
@@ -310,8 +328,49 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
             String talukName = spinner_taluk.getText().toString().trim();
             String hobliName = spinner_hobli.getText().toString().trim();
             String villageName = spinner_village.getText().toString().trim();
-            String surveyno = edittext_survey.getText().toString().trim();
+            surveyNo = edittext_survey.getText().toString().trim();
 
+            View focus = null;
+            boolean status = false;
+            if (TextUtils.isEmpty(districtName)) {
+                focus = spinner_district;
+                status = true;
+                spinner_district.setError(getString(R.string.district_err));
+            } else if (TextUtils.isEmpty(talukName)) {
+                focus = spinner_taluk;
+                status = true;
+                spinner_taluk.setError(getString(R.string.taluk_err));
+            } else if (TextUtils.isEmpty(hobliName)) {
+                focus = spinner_hobli;
+                status = true;
+                spinner_hobli.setError(getString(R.string.hobli_err));
+            } else if (TextUtils.isEmpty(villageName)) {
+                focus = spinner_village;
+                status = true;
+                spinner_village.setError(getString(R.string.village_err));
+            } else if (TextUtils.isEmpty(surveyNo)) {
+                focus = edittext_survey;
+                status = true;
+                edittext_survey.setError(getString(R.string.survey_no_err));
+            }
+            if (status) {
+                focus.requestFocus();
+            } else {
+//                surveyNo = Integer.parseInt(edittext_survey.getText().toString().trim());
+                if (isNetworkAvailable())
+                    mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo, getString(R.string.rtc_view_info_url));
+                else
+                    Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
+
+            }
+        });
+        btn_go_hissa.setOnClickListener(v -> {
+            String districtName = spinner_district.getText().toString().trim();
+            String talukName = spinner_taluk.getText().toString().trim();
+            String hobliName = spinner_hobli.getText().toString().trim();
+            String villageName = spinner_village.getText().toString().trim();
+            String surveyno = edittext_survey.getText().toString().trim();
+            String hissa = spinner_hissa.getText().toString().trim();
             View focus = null;
             boolean status = false;
             if (TextUtils.isEmpty(districtName)) {
@@ -334,26 +393,10 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
                 focus = edittext_survey;
                 status = true;
                 edittext_survey.setError(getString(R.string.survey_no_err));
-            }
-            if (status) {
-                focus.requestFocus();
-            } else {
-                surveyNo = Integer.parseInt(edittext_survey.getText().toString().trim());
-                if (isNetworkAvailable())
-                    mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo, getString(R.string.rtc_view_info_url));
-                else
-                    Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
-
-            }
-        });
-        btn_go_hissa.setOnClickListener(v -> {
-            String hissa = spinner_hissa.getText().toString().trim();
-            View focus = null;
-            boolean status = false;
-            if (TextUtils.isEmpty(hissa)) {
+            }else if (TextUtils.isEmpty(hissa)) {
                 focus = spinner_hissa;
                 status = true;
-                spinner_hissa.setError("Hissa is required");
+                spinner_hissa.setError(getString(R.string.hissa_err));
             }
             if (status) {
                 focus.requestFocus();
@@ -381,33 +424,50 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
     public void onPostResponseSuccess1(String data) {
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
-        //progressDoalog.dismiss();
-        XmlToJson xmlToJson = new XmlToJson.Builder(data).build();
+
+        if (TextUtils.isEmpty(data) || data.contains("No Data Found")) {
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(RestrictionOnLand.this, R.style.MyDialogTheme);
+            builder.setTitle("STATUS")
+                    .setMessage("No Data Found For This Survey No.")
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", (dialog, id) -> {
+                        dialog.cancel();
+                        edittext_survey.setText("");
+                    });
+            final android.app.AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        }else {
+
+            //progressDoalog.dismiss();
+            XmlToJson xmlToJson = new XmlToJson.Builder(data).build();
 
 
-        // convert to a formatted Json String
-        String formatted = xmlToJson.toFormattedString();
-        Object object;
-        try {
-            JSONObject obj = new JSONObject(formatted.replace("\n", ""));
-            JSONObject documentElement = obj.getJSONObject("DocumentElement");
-            object = documentElement.get("DS_RTC");
-            JSONArray ds_rtc = new JSONArray();
-            if (object instanceof JSONObject) {
-                ds_rtc.put(object);
-            } else {
-                ds_rtc = (JSONArray) object;
+            // convert to a formatted Json String
+            String formatted = xmlToJson.toFormattedString();
+            Object object;
+            try {
+                JSONObject obj = new JSONObject(formatted.replace("\n", ""));
+                JSONObject documentElement = obj.getJSONObject("DocumentElement");
+                object = documentElement.get("DS_RTC");
+                JSONArray ds_rtc = new JSONArray();
+                if (object instanceof JSONObject) {
+                    ds_rtc.put(object);
+                } else {
+                    ds_rtc = (JSONArray) object;
+                }
+                Type listType = new TypeToken<ArrayList<Hissa_Response>>() {
+                }.getType();
+                hissa_responseList = new Gson().fromJson(ds_rtc.toString(), listType);
+                ArrayAdapter<Hissa_Response> villageArrayAdapter = new ArrayAdapter<>(RestrictionOnLand.this,
+                        android.R.layout.simple_list_item_single_choice, hissa_responseList);
+                spinner_hissa.setAdapter(villageArrayAdapter);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
             }
-            Type listType = new TypeToken<ArrayList<Hissa_Response>>() {
-            }.getType();
-            hissa_responseList = new Gson().fromJson(ds_rtc.toString(), listType);
-            ArrayAdapter<Hissa_Response> villageArrayAdapter = new ArrayAdapter<>(RestrictionOnLand.this,
-                    android.R.layout.simple_list_item_single_choice, hissa_responseList);
-            spinner_hissa.setAdapter(villageArrayAdapter);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(getApplicationContext(), Constants.ERR_MSG, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -464,6 +524,7 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connectivityManager != null;
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }

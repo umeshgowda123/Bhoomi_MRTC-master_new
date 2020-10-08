@@ -84,7 +84,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
     }
 
 
-    public void startBackgroundTask1(int district_id, int taluk_id, int hobli_id, int village_id, int surveyNo, String url) {
+    public void startBackgroundTask1(int district_id, int taluk_id, int hobli_id, int village_id, String surveyNo, String url) {
         if (!isTaskExecuting) {
             getSurnocHissaResponse(String.valueOf(district_id), String.valueOf(taluk_id), String.valueOf(hobli_id), String.valueOf(village_id), String.valueOf(surveyNo), url);
 

@@ -82,6 +82,8 @@ public class MutationPendencyDetails extends AppCompatActivity {
     String res;
     private List<MPD_RES_Data> MPD_RES_Data;
 
+    ArrayAdapter<String> defaultArrayAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,7 +111,7 @@ public class MutationPendencyDetails extends AppCompatActivity {
                 Room.databaseBuilder(getApplicationContext(),
                         DataBaseHelper.class, getString(R.string.db_name)).build();
 
-        ArrayAdapter<String> defaultArrayAdapter = new ArrayAdapter<>(this,
+        defaultArrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_single_choice, new String[]{});
         sp_ped_district.setAdapter(defaultArrayAdapter);
         sp_ped_taluk.setAdapter(defaultArrayAdapter);
@@ -159,6 +161,10 @@ public class MutationPendencyDetails extends AppCompatActivity {
             sp_ped_taluk.setText("");
             sp_ped_hobli.setText("");
             sp_ped_village.setText("");
+            sp_ped_taluk.setAdapter(defaultArrayAdapter);
+            sp_ped_hobli.setAdapter(defaultArrayAdapter);
+            sp_ped_village.setAdapter(defaultArrayAdapter);
+
             pdistrict_id = districtData.get(position).getVLM_DST_ID();
             Observable<List<? extends TalukModelInterface>> talukDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getTalukByDistrictId(String.valueOf(pdistrict_id)));
             talukDataObservable
@@ -197,6 +203,9 @@ public class MutationPendencyDetails extends AppCompatActivity {
         sp_ped_taluk.setOnItemClickListener((parent, view, position, id) -> {
             sp_ped_hobli.setText("");
             sp_ped_village.setText("");
+            sp_ped_hobli.setAdapter(defaultArrayAdapter);
+            sp_ped_village.setAdapter(defaultArrayAdapter);
+
             ptaluk_id = talukData.get(position).getVLM_TLK_ID();
             Observable<List<? extends HobliModelInterface>> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getHobliByTalukId_and_DistrictId(String.valueOf(ptaluk_id), String.valueOf(pdistrict_id)));
             noOfRows
@@ -233,6 +242,7 @@ public class MutationPendencyDetails extends AppCompatActivity {
 
         sp_ped_hobli.setOnItemClickListener((parent, view, position, id) -> {
             sp_ped_village.setText("");
+            sp_ped_village.setAdapter(defaultArrayAdapter);
 
             phobli_id = hobliData.get(position).getVLM_HBL_ID();
             Observable<List<? extends VillageModelInterface>> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getVillageByHobliId_and_TalukId_and_DistrictId(String.valueOf(phobli_id), String.valueOf(ptaluk_id), String.valueOf(pdistrict_id)));
@@ -327,12 +337,24 @@ public class MutationPendencyDetails extends AppCompatActivity {
                                         Log.d("CHECK","Fetching from local");
                                         for (int i = 0; i <= mpd_res_interfaces_List.size()-1; i++) {
 
-
                                             String MPD_RES = MPD_RES_Data.get(0).getMDP_RES();
-                                            Log.d("MPD_RES",MPD_RES+"");
-                                            Intent intent = new Intent(MutationPendencyDetails.this, ShowMutationPendencyDetails.class);
-                                            intent.putExtra("ped_response_data", MPD_RES);
-                                            startActivity(intent);
+                                            Log.d("MPD_RES", MPD_RES + "");
+                                            if (MPD_RES.equals("<NewDataSet />")) {
+                                                final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(MutationPendencyDetails.this, R.style.MyDialogTheme);
+                                                builder.setTitle("STATUS")
+                                                        .setMessage("No Report Found For this Record")
+                                                        .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                        .setCancelable(false)
+                                                        .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                                final android.app.AlertDialog alert = builder.create();
+                                                alert.show();
+                                                alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+
+                                            }else {
+                                                Intent intent = new Intent(MutationPendencyDetails.this, ShowMutationPendencyDetails.class);
+                                                intent.putExtra("ped_response_data", MPD_RES);
+                                                startActivity(intent);
+                                            }
                                         }
                                     }
                                     else {
@@ -407,7 +429,7 @@ public class MutationPendencyDetails extends AppCompatActivity {
                                                                     @Override
                                                                     public void onComplete() {
                                                                         progressDialog.dismiss();
-                                                                        Log.d("MPD_RES","Fetching From Server");
+                                                                        Log.d("CHECK","Fetching From Server");
                                                                         Intent intent = new Intent(MutationPendencyDetails.this, ShowMutationPendencyDetails.class);
                                                                         intent.putExtra("ped_response_data", result.getGetMutationPendencyDetailsResult());
                                                                         startActivity(intent);

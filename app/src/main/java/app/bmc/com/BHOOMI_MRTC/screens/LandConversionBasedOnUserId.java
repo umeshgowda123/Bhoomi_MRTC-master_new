@@ -107,38 +107,61 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
                                 Log.d("CHECK","Fetching from local");
                                 for (int i = 0; i <= landConversion_interfaces_list.size()-1; i++) {
 
-
                                     String userid_res = LandConversion_Data.get(0).getUSER_RES();
                                     Log.d("userid_res",userid_res+"");
-                                    try {
-                                        JSONArray jsonArray = new JSONArray(userid_res);
-                                        Gson gson = new Gson();
-                                        AfdvtBasedOnUserIdData = gson.fromJson(String.valueOf(jsonArray), new TypeToken<List<Afdvt_ReqSts_BasedOnAfdvtIdTable>>() {
-                                        }.getType());
 
-
-                                        if (AfdvtBasedOnUserIdData.size() == 0) {
-                                            final AlertDialog.Builder builder = new AlertDialog.Builder(LandConversionBasedOnUserId.this, R.style.MyDialogTheme);
-                                            builder.setTitle("STATUS")
-                                                    .setMessage("No Data Found For this Record")
-                                                    .setIcon(R.drawable.ic_notifications_black_24dp)
-                                                    .setCancelable(false)
-                                                    .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
-                                            final AlertDialog alert = builder.create();
-                                            alert.show();
-                                            alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-                                        } else {
-                                            LandConversionBasedOnUserIDAdapter adapter = new LandConversionBasedOnUserIDAdapter(AfdvtBasedOnUserIdData,LandConversionBasedOnUserId.this);
-                                            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-                                            rvUserId.setLayoutManager(mLayoutManager);
-                                            rvUserId.setItemAnimator(new DefaultItemAnimator());
-                                            rvUserId.setAdapter(adapter);
-                                        }
-
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
+                                    if(userid_res.equals("") || userid_res.contains("INVALID")) {
+                                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversionBasedOnUserId.this, R.style.MyDialogTheme);
+                                        builder.setTitle("STATUS")
+                                                .setMessage("Invalid User ID")
+                                                .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                .setCancelable(false)
+                                                .setPositiveButton("OK", (dialog, which) -> {
+                                                    dialog.cancel();
+                                                    finish();
+                                                });
+                                        final android.app.AlertDialog alert = builder.create();
+                                        alert.show();
+                                        alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                    }else if(userid_res.contains("Details not found")) {
+                                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversionBasedOnUserId.this, R.style.MyDialogTheme);
+                                        builder.setTitle("STATUS")
+                                                .setMessage("Details not found")
+                                                .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                .setCancelable(false)
+                                                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                        final android.app.AlertDialog alert = builder.create();
+                                        alert.show();
+                                        alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
                                     }
+                                    else {
+                                        try {
+                                            JSONArray jsonArray = new JSONArray(userid_res);
+                                            Gson gson = new Gson();
+                                            AfdvtBasedOnUserIdData = gson.fromJson(String.valueOf(jsonArray), new TypeToken<List<Afdvt_ReqSts_BasedOnAfdvtIdTable>>() {
+                                            }.getType());
+                                            if (AfdvtBasedOnUserIdData.size() == 0) {
+                                                final AlertDialog.Builder builder = new AlertDialog.Builder(LandConversionBasedOnUserId.this, R.style.MyDialogTheme);
+                                                builder.setTitle("STATUS")
+                                                        .setMessage("No Data Found For This Record")
+                                                        .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                        .setCancelable(false)
+                                                        .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                                final AlertDialog alert = builder.create();
+                                                alert.show();
+                                                alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                            } else {
+                                                LandConversionBasedOnUserIDAdapter adapter = new LandConversionBasedOnUserIDAdapter(AfdvtBasedOnUserIdData, LandConversionBasedOnUserId.this);
+                                                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+                                                rvUserId.setLayoutManager(mLayoutManager);
+                                                rvUserId.setItemAnimator(new DefaultItemAnimator());
+                                                rvUserId.setAdapter(adapter);
+                                            }
 
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
 
                                 }
                             }
@@ -163,7 +186,7 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
                                             User_res = result.getGet_Afdvt_ReqSts_BasedOnUserIdResult();
 
                                             progressDialog.dismiss();
-                                            if(User_res == null || User_res.contains("INVALID")) {
+                                            if(User_res.equals("") || User_res.contains("INVALID")) {
                                                 final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversionBasedOnUserId.this, R.style.MyDialogTheme);
                                                 builder.setTitle("STATUS")
                                                         .setMessage("Invalid User ID")
@@ -195,7 +218,7 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
                                                     if (AfdvtBasedOnUserIdData.size() == 0) {
                                                         final AlertDialog.Builder builder = new AlertDialog.Builder(LandConversionBasedOnUserId.this, R.style.MyDialogTheme);
                                                         builder.setTitle("STATUS")
-                                                                .setMessage("No Data Found For this Record")
+                                                                .setMessage("No Data Found For This Record")
                                                                 .setIcon(R.drawable.ic_notifications_black_24dp)
                                                                 .setCancelable(false)
                                                                 .setPositiveButton("OK", (dialog, id) -> dialog.cancel());

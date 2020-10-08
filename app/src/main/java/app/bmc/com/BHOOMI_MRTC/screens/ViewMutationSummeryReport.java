@@ -1,6 +1,8 @@
 package app.bmc.com.BHOOMI_MRTC.screens;
 
 import android.app.ProgressDialog;
+
+import androidx.annotation.NonNull;
 import androidx.room.Room;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -26,6 +28,7 @@ import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.api.PariharaIndividualReportInteface;
@@ -77,6 +80,8 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
 
     PariharaIndividualReportInteface apiInterface;
 
+    ArrayAdapter<String> defaultArrayAdapter;
+
     String s;
     private List<MSR_RES_Data> MSR_RES_Data;
     @Override
@@ -86,7 +91,7 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -106,7 +111,7 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
                 Room.databaseBuilder(getApplicationContext(),
                         DataBaseHelper.class, getString(R.string.db_name)).build();
 
-        ArrayAdapter<String> defaultArrayAdapter = new ArrayAdapter<>(this,
+        defaultArrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_single_choice, new String[]{});
         sp_sum_district.setAdapter(defaultArrayAdapter);
         sp_sum_taluk.setAdapter(defaultArrayAdapter);
@@ -130,7 +135,7 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
                     public void onNext(List<? extends DistrictModelInterface> mst_vlmList) {
 
                         districtData = (List<DistrictModelInterface>) mst_vlmList;
-                        ArrayAdapter<DistrictModelInterface> districtArrayAdapter = new ArrayAdapter<DistrictModelInterface>(getApplicationContext(),
+                        ArrayAdapter<DistrictModelInterface> districtArrayAdapter = new ArrayAdapter<>(getApplicationContext(),
                                 android.R.layout.simple_list_item_single_choice, districtData);
                         sp_sum_district.setAdapter(districtArrayAdapter);
                     }
@@ -156,6 +161,11 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
             sp_sum_taluk.setText("");
             sp_sum_hobli.setText("");
             sp_sum_village.setText("");
+            sp_sum_taluk.setAdapter(defaultArrayAdapter);
+            sp_sum_hobli.setAdapter(defaultArrayAdapter);
+            sp_sum_village.setAdapter(defaultArrayAdapter);
+            etSurveyNumber.setText("");
+
             district_id = districtData.get(position).getVLM_DST_ID();
             Observable<List<? extends TalukModelInterface>> talukDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getTalukByDistrictId(String.valueOf(district_id)));
             talukDataObservable
@@ -195,6 +205,10 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
         sp_sum_taluk.setOnItemClickListener((parent, view, position, id) -> {
             sp_sum_hobli.setText("");
             sp_sum_village.setText("");
+            sp_sum_hobli.setAdapter(defaultArrayAdapter);
+            sp_sum_village.setAdapter(defaultArrayAdapter);
+            etSurveyNumber.setText("");
+
             taluk_id = talukData.get(position).getVLM_TLK_ID();
             Observable<List<? extends HobliModelInterface>> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getHobliByTalukId_and_DistrictId(String.valueOf(taluk_id), String.valueOf(district_id)));
             noOfRows
@@ -231,6 +245,9 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
 
         sp_sum_hobli.setOnItemClickListener((parent, view, position, id) -> {
             sp_sum_village.setText("");
+            etSurveyNumber.setText("");
+            sp_sum_village.setAdapter(defaultArrayAdapter);
+
             hobli_id = hobliData.get(position).getVLM_HBL_ID();
             Observable<List<? extends VillageModelInterface>> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getVillageByHobliId_and_TalukId_and_DistrictId(String.valueOf(hobli_id), String.valueOf(taluk_id), String.valueOf(district_id)));
             noOfRows
@@ -331,111 +348,139 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
 
                                             String MSR_RES = MSR_RES_Data.get(0).getMSR_RES();
                                             Log.d("MSR_RES",MSR_RES+"");
-
-                                            Intent intent = new Intent(ViewMutationSummeryReport.this, ShowMutationSummeryReport.class);
-                                            intent.putExtra("html_response_data", MSR_RES);
-                                            startActivity(intent);
+                                            if (MSR_RES.equals("")) {
+                                                final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ViewMutationSummeryReport.this, R.style.MyDialogTheme);
+                                                builder.setTitle("STATUS")
+                                                        .setMessage("No Data Found")
+                                                        .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                        .setCancelable(false)
+                                                        .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                                final android.app.AlertDialog alert = builder.create();
+                                                alert.show();
+                                                alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                            } else {
+                                                Intent intent = new Intent(ViewMutationSummeryReport.this, ShowMutationSummeryReport.class);
+                                                intent.putExtra("html_response_data", MSR_RES);
+                                                startActivity(intent);
+                                            }
                                         }
                                     }
                                     else {
-                                        Log.d("MSR_RES","Fetching From Server");
+                                        Log.d("CHECK", "Fetching From Server");
 
                                         progressDialog = new ProgressDialog(ViewMutationSummeryReport.this);
                                         progressDialog.setMessage("Please Wait");
                                         progressDialog.setCancelable(false);
                                         progressDialog.show();
                                         apiInterface = PariharaIndividualreportClient.getClient(getResources().getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
-                                        Call<PariharaIndividualDetailsResponse> call = apiInterface.getMutationSummeryReportDetails(Constants.REPORT_SERVICE_USER_NAME,
-                                                Constants.REPORT_SERVICE_PASSWORD, district_id, taluk_id, hobli_id, village_id,Integer.parseInt(surveyNumber));
-                                        call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
-                                            @Override
-                                            public void onResponse(Call<PariharaIndividualDetailsResponse> call, Response<PariharaIndividualDetailsResponse> response) {
+                                        try {
+                                            Call<PariharaIndividualDetailsResponse> call = apiInterface.getMutationSummeryReportDetails(Constants.REPORT_SERVICE_USER_NAME,
+                                                    Constants.REPORT_SERVICE_PASSWORD, district_id, taluk_id, hobli_id, village_id, Integer.parseInt(surveyNumber));
+                                            call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+                                                @Override
+                                                public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {
 
-                                                if (response.isSuccessful()) {
-                                                    PariharaIndividualDetailsResponse result = response.body();
-                                                    progressDialog.dismiss();
+                                                    if (response.isSuccessful()) {
+                                                        PariharaIndividualDetailsResponse result = response.body();
+                                                        progressDialog.dismiss();
 
-                                                    sp_sum_district.setText("");
-                                                    sp_sum_taluk.setText("");
-                                                    sp_sum_hobli.setText("");
-                                                    sp_sum_village.setText("");
-                                                    etSurveyNumber.setText("");
-                                                    assert result != null;
-                                                    s = result.getGetMutationSummaryReportResult();
-                                                    if (s.equals("")) {
-                                                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ViewMutationSummeryReport.this, R.style.MyDialogTheme);
-                                                        builder.setTitle("STATUS")
-                                                                .setMessage("No Data Found")
-                                                                .setIcon(R.drawable.ic_notifications_black_24dp)
-                                                                .setCancelable(false)
-                                                                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
-                                                        final android.app.AlertDialog alert = builder.create();
-                                                        alert.show();
-                                                        alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-                                                    } else {
+                                                        sp_sum_district.setText("");
+                                                        sp_sum_taluk.setText("");
+                                                        sp_sum_hobli.setText("");
+                                                        sp_sum_village.setText("");
+                                                        etSurveyNumber.setText("");
+                                                        assert result != null;
+                                                        s = result.getGetMutationSummaryReportResult();
+                                                        if (s.equals("")) {
+                                                            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ViewMutationSummeryReport.this, R.style.MyDialogTheme);
+                                                            builder.setTitle("STATUS")
+                                                                    .setMessage("No Data Found")
+                                                                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                                    .setCancelable(false)
+                                                                    .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                                            final android.app.AlertDialog alert = builder.create();
+                                                            alert.show();
+                                                            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                                        } else {
 
-                                                        //---------DB INSERT-------
-                                                        dataBaseHelper =
-                                                                Room.databaseBuilder(getApplicationContext(),
-                                                                        DataBaseHelper.class, getString(R.string.db_name)).build();
-                                                        Observable<Integer> noOfRows;
-                                                        noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumOfRowsMSR());
-                                                        noOfRows
-                                                                .subscribeOn(Schedulers.io())
-                                                                .observeOn(AndroidSchedulers.mainThread())
-                                                                .subscribe(new Observer<Integer>() {
+                                                            //---------DB INSERT-------
+                                                            dataBaseHelper =
+                                                                    Room.databaseBuilder(getApplicationContext(),
+                                                                            DataBaseHelper.class, getString(R.string.db_name)).build();
+                                                            Observable<Integer> noOfRows;
+                                                            noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumOfRowsMSR());
+                                                            noOfRows
+                                                                    .subscribeOn(Schedulers.io())
+                                                                    .observeOn(AndroidSchedulers.mainThread())
+                                                                    .subscribe(new Observer<Integer>() {
 
 
-                                                                    @Override
-                                                                    public void onSubscribe(Disposable d) {
+                                                                        @Override
+                                                                        public void onSubscribe(Disposable d) {
 
-                                                                    }
-
-                                                                    @Override
-                                                                    public void onNext(Integer integer) {
-                                                                        Log.d("intValue",integer+"");
-                                                                        if (integer < 6) {
-                                                                            Log.d("intValueIN",integer+"");
-                                                                            List<MS_REPORT_TABLE> MPD_List = loadData();
-                                                                            createMSRTable_Data(MPD_List);
-
-                                                                        } else {
-                                                                            Log.d("intValueELSE", integer + "");
-                                                                            deleteByID(0);
-//                                                                          deleteByID(MPD_RES_Data.size()-1);
                                                                         }
-                                                                    }
 
-                                                                    @Override
-                                                                    public void onError(Throwable e) {
-                                                                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                                                    }
+                                                                        @Override
+                                                                        public void onNext(Integer integer) {
+                                                                            Log.d("intValue", integer + "");
+                                                                            if (integer < 6) {
+                                                                                Log.d("intValueIN", integer + "");
+                                                                                List<MS_REPORT_TABLE> MPD_List = loadData();
+                                                                                createMSRTable_Data(MPD_List);
 
-                                                                    @Override
-                                                                    public void onComplete() {
-                                                                        progressDialog.dismiss();
-                                                                        Log.d("MPD_RES","Fetching From Server");
-                                                                        Intent intent = new Intent(ViewMutationSummeryReport.this, ShowMutationSummeryReport.class);
-                                                                        intent.putExtra("html_response_data", result.getGetMutationSummaryReportResult());
-                                                                        startActivity(intent);
-                                                                    }
-                                                                });
-                                                        //---------------------------------------------------------------------------------------------
+                                                                            } else {
+                                                                                Log.d("intValueELSE", integer + "");
+                                                                                deleteByID(0);
+//                                                                          deleteByID(MPD_RES_Data.size()-1);
+                                                                            }
+                                                                        }
+
+                                                                        @Override
+                                                                        public void onError(Throwable e) {
+                                                                            Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                                                        }
+
+                                                                        @Override
+                                                                        public void onComplete() {
+                                                                            progressDialog.dismiss();
+                                                                            Log.d("MPD_RES", "Fetching From Server");
+                                                                            Intent intent = new Intent(ViewMutationSummeryReport.this, ShowMutationSummeryReport.class);
+                                                                            intent.putExtra("html_response_data", result.getGetMutationSummaryReportResult());
+                                                                            startActivity(intent);
+                                                                        }
+                                                                    });
+                                                            //---------------------------------------------------------------------------------------------
+                                                        }
                                                     }
                                                 }
-                                            }
 
-                                            @Override
-                                            public void onFailure(Call<PariharaIndividualDetailsResponse> call, Throwable t) {
-                                                call.cancel();
-                                                progressDialog.dismiss();
-                                                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-                                            }
-                                        });
+                                                @Override
+                                                public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable t) {
+                                                    call.cancel();
+                                                    progressDialog.dismiss();
+                                                    Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                                                }
+                                            });
 //
 //                                        Intent intent = new Intent(ViewMutationSummeryReport.this, ShowMutationSummeryReport.class);
 //                                        intent.putExtra("html_response_data", result.getGetMutationSummaryReportResult());
 //                                        startActivity(intent);
+                                        }
+                                        catch (NumberFormatException e) {
+                                            progressDialog.dismiss();
+                                            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ViewMutationSummeryReport.this, R.style.MyDialogTheme);
+                                            builder.setTitle("STATUS")
+                                                    .setMessage("Invalid Survey No.")
+                                                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                    .setCancelable(false)
+                                                    .setPositiveButton("OK", (dialog, id) -> {
+                                                        dialog.cancel();
+                                                        etSurveyNumber.setText("");
+                                                    });
+                                            final android.app.AlertDialog alert = builder.create();
+                                            alert.show();
+                                            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                        }
                                     }
                                 }
 
@@ -463,6 +508,7 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connectivityManager != null;
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }

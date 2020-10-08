@@ -83,7 +83,7 @@
             android:background="@drawable/edit_text_bg"
             android:hint="@string/enter_request_id"
             android:imeOptions="actionDone"
-            android:maxLength="20"
+            android:maxLength="10"
             android:lines="1"
             android:inputType="number"
             android:textAllCaps="true"
@@ -181,6 +181,7 @@
                                 android:imeOptions="actionDone"
                                 android:inputType="number"
                                 android:maxLines="1"
+                                android:maxLength="10"
                                 android:textColorHint="@color/hint_before_float_rtc"
                                 android:autofillHints="@string/survey_no" />
                         </com.google.android.material.textfield.TextInputLayout>

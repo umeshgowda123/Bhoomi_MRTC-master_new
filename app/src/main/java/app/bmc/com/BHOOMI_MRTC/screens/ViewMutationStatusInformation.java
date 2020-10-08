@@ -18,7 +18,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,7 +38,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.Callable;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.backgroundtasks.RtcViewInfoBackGroundTaskFragment;
@@ -72,7 +70,6 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
     private MaterialBetterSpinner spinner_village;
     private EditText edittext_survey;
     private Button btn_go;
-    private MaterialBetterSpinner spinner_sumoc;
     private MaterialBetterSpinner spinner_hissa;
     private Button btn_fetch;
     private List<DistrictModelInterface> districtData;
@@ -87,15 +84,17 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
     private String hissa;
     private String suroc;
     private List<Hissa_Response> hissa_responseList;
-    private int surveyNo;
     private RtcViewInfoBackGroundTaskFragment mTaskFragment;
     private ProgressBar progressBar;
     private String language;
     private DataBaseHelper dataBaseHelper;
     private TextView txtMutationStatust;
+    String surveyno;
 
     String restostoreinDBandSMSD;
     List<VMS_RES_Interface> VMS_RES_Data;
+
+    ArrayAdapter<String> defaultArrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,7 +126,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
         btn_go = findViewById(R.id.btn_go);
         btn_fetch = findViewById(R.id.btn_fetch);
         txtMutationStatust = findViewById(R.id.txtMutationStatust);
-        ArrayAdapter<String> defaultArrayAdapter = new ArrayAdapter<String>(this,
+        defaultArrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_single_choice, new String[]{});
         spinner_taluk.setAdapter(defaultArrayAdapter);
         spinner_hobli.setAdapter(defaultArrayAdapter);
@@ -142,13 +141,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                 Room.databaseBuilder(getApplicationContext(),
                         DataBaseHelper.class, getString(R.string.db_name)).build();
 
-        Observable<List<? extends DistrictModelInterface>> districtDataObservable = Observable.fromCallable(new Callable<List<? extends DistrictModelInterface>>() {
-
-            @Override
-            public List<? extends DistrictModelInterface> call() {
-                return language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getDistinctDistricts() : dataBaseHelper.daoAccess().getDistinctDistrictsKannada();
-            }
-        });
+        Observable<List<? extends DistrictModelInterface>> districtDataObservable = Observable.fromCallable(() -> language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getDistinctDistricts() : dataBaseHelper.daoAccess().getDistinctDistrictsKannada());
         districtDataObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -164,7 +157,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                     public void onNext(List<? extends DistrictModelInterface> mst_vlmList) {
 
                         districtData = (List<DistrictModelInterface>) mst_vlmList;
-                        ArrayAdapter<DistrictModelInterface> districtArrayAdapter = new ArrayAdapter<DistrictModelInterface>(getApplicationContext(),
+                        ArrayAdapter<DistrictModelInterface> districtArrayAdapter = new ArrayAdapter<>(getApplicationContext(),
                                 android.R.layout.simple_list_item_single_choice, districtData);
                         spinner_district.setAdapter(districtArrayAdapter);
                     }
@@ -206,6 +199,12 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
             spinner_hobli.setText("");
             spinner_village.setText("");
             spinner_hissa.setText("");
+            spinner_taluk.setAdapter(defaultArrayAdapter);
+            spinner_hobli.setAdapter(defaultArrayAdapter);
+            spinner_village.setAdapter(defaultArrayAdapter);
+            spinner_hissa.setAdapter(defaultArrayAdapter);
+            edittext_survey.setText("");
+
             district_id = districtData.get(position).getVLM_DST_ID();
             Observable<List<? extends TalukModelInterface>> talukDataObservable = Observable.fromCallable(() -> language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getTalukByDistrictId(String.valueOf(district_id)) : dataBaseHelper.daoAccess().getTalukByDistrictIdKannada(String.valueOf(district_id)));
             talukDataObservable
@@ -245,6 +244,11 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
             spinner_hobli.setText("");
             spinner_village.setText("");
             spinner_hissa.setText("");
+            spinner_hobli.setAdapter(defaultArrayAdapter);
+            spinner_village.setAdapter(defaultArrayAdapter);
+            spinner_hissa.setAdapter(defaultArrayAdapter);
+            edittext_survey.setText("");
+
             taluk_id = talukData.get(position).getVLM_TLK_ID();
             Observable<List<? extends HobliModelInterface>> noOfRows = Observable.fromCallable(() -> language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getHobliByTalukId_and_DistrictId(String.valueOf(taluk_id), String.valueOf(district_id)) : dataBaseHelper.daoAccess().getHobliByTalukId_and_DistrictIdKannada(String.valueOf(taluk_id), String.valueOf(district_id)));
             noOfRows
@@ -282,6 +286,10 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
         spinner_hobli.setOnItemClickListener((parent, view, position, id) -> {
             spinner_village.setText("");
             spinner_hissa.setText("");
+            spinner_village.setAdapter(defaultArrayAdapter);
+            spinner_hissa.setAdapter(defaultArrayAdapter);
+            edittext_survey.setText("");
+
             hobli_id = hobliData.get(position).getVLM_HBL_ID();
             Observable<List<? extends VillageModelInterface>> noOfRows = Observable.fromCallable(() -> language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getVillageByHobliId_and_TalukId_and_DistrictId(String.valueOf(hobli_id), String.valueOf(taluk_id), String.valueOf(district_id)) : dataBaseHelper.daoAccess().getVillageByHobliId_and_TalukId_and_DistrictIdKannada(String.valueOf(hobli_id), String.valueOf(taluk_id), String.valueOf(district_id)));
             noOfRows
@@ -315,12 +323,11 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                     });
 
         });
-        spinner_village.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                spinner_hissa.setText("");
-                village_id = villageData.get(position).getVLM_VLG_ID();
-            }
+        spinner_village.setOnItemClickListener((parent, view, position, id) -> {
+            spinner_hissa.setText("");
+            spinner_hissa.setAdapter(defaultArrayAdapter);
+
+            village_id = villageData.get(position).getVLM_VLG_ID();
         });
 
 
@@ -344,7 +351,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
             String talukName = spinner_taluk.getText().toString().trim();
             String hobliName = spinner_hobli.getText().toString().trim();
             String villageName = spinner_village.getText().toString().trim();
-            String surveyno = edittext_survey.getText().toString().trim();
+            surveyno = edittext_survey.getText().toString().trim();
 
             View focus = null;
             boolean status = false;
@@ -372,91 +379,125 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
             if (status) {
                 focus.requestFocus();
             } else {
-                surveyNo = Integer.parseInt(edittext_survey.getText().toString().trim());
                 if (isNetworkAvailable())
-                    mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo, getString(R.string.rtc_view_info_url));
+                    mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyno, getString(R.string.rtc_view_info_url));
                 else
                     Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
             }
         });
-        btn_fetch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String hissa = spinner_hissa.getText().toString().trim();
-                View focus = null;
-                boolean status = false;
-                if (TextUtils.isEmpty(hissa)) {
-                    focus = spinner_hissa;
-                    status = true;
-                    spinner_hissa.setError("Hissa is required");
-                }
-                if (status) {
-                    focus.requestFocus();
-                } else {
-                    if (isNetworkAvailable()) {
+        btn_fetch.setOnClickListener(v -> {
+            String districtName = spinner_district.getText().toString().trim();
+            String talukName = spinner_taluk.getText().toString().trim();
+            String hobliName = spinner_hobli.getText().toString().trim();
+            String villageName = spinner_village.getText().toString().trim();
+            String surveyno = edittext_survey.getText().toString().trim();
+            String hissa = spinner_hissa.getText().toString().trim();
+
+            View focus = null;
+            boolean status = false;
+            if (TextUtils.isEmpty(districtName)) {
+                focus = spinner_district;
+                status = true;
+                spinner_district.setError(getString(R.string.district_err));
+            } else if (TextUtils.isEmpty(talukName)) {
+                focus = spinner_taluk;
+                status = true;
+                spinner_taluk.setError(getString(R.string.taluk_err));
+            } else if (TextUtils.isEmpty(hobliName)) {
+                focus = spinner_hobli;
+                status = true;
+                spinner_hobli.setError(getString(R.string.hobli_err));
+            } else if (TextUtils.isEmpty(villageName)) {
+                focus = spinner_village;
+                status = true;
+                spinner_village.setError(getString(R.string.village_err));
+            } else if (TextUtils.isEmpty(surveyno)) {
+                focus = edittext_survey;
+                status = true;
+                edittext_survey.setError(getString(R.string.survey_no_err));
+            }else if (TextUtils.isEmpty(hissa)) {
+                focus = spinner_hissa;
+                status = true;
+                spinner_hissa.setError(getString(R.string.hissa_err));
+            }
+            if (status) {
+                focus.requestFocus();
+            } else {
+                if (isNetworkAvailable()) {
 
 
-                        //---------------------------------------------------------------------------
-                        dataBaseHelper =
-                                Room.databaseBuilder(getApplicationContext(),
-                                        DataBaseHelper.class, getString(R.string.db_name)).build();
-                        Observable<List<? extends VMS_RES_Interface>> districtDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getVMS_RES(district_id,
-                                taluk_id, hobli_id, village_id, land_no));
-                        districtDataObservable
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(new Observer<List<? extends VMS_RES_Interface>>() {
+                    //---------------------------------------------------------------------------
+                    dataBaseHelper =
+                            Room.databaseBuilder(getApplicationContext(),
+                                    DataBaseHelper.class, getString(R.string.db_name)).build();
+                    Observable<List<? extends VMS_RES_Interface>> districtDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getVMS_RES(district_id,
+                            taluk_id, hobli_id, village_id, land_no));
 
-                                    @Override
-                                    public void onSubscribe(Disposable d) {
+                    districtDataObservable
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Observer<List<? extends VMS_RES_Interface>>() {
 
-                                    }
+                                @Override
+                                public void onSubscribe(Disposable d) {
 
-                                    @Override
-                                    public void onNext(List<? extends VMS_RES_Interface> vms_res_interfaces_list) {
-                                        progressBar.setVisibility(View.GONE);
-                                        Log.d("rlr_res_interfaces_list", vms_res_interfaces_list.size() + "");
+                                }
 
-                                        VMS_RES_Data = (List<VMS_RES_Interface>) vms_res_interfaces_list;
-                                        if (vms_res_interfaces_list.size() != 0) {
-                                            Log.d("CHECK", "Fetching from local");
-                                            for (int i = 0; i <= vms_res_interfaces_list.size()-1; i++) {
+                                @Override
+                                public void onNext(List<? extends VMS_RES_Interface> vms_res_interfaces_list) {
+                                    progressBar.setVisibility(View.GONE);
+                                    Log.d("rlr_res_interfaces_list", vms_res_interfaces_list.size() + "");
 
-                                                String Response = VMS_RES_Data.get(0).getVMS_RES();
-                                                Log.d("CHECK", Response);
+                                    VMS_RES_Data = (List<VMS_RES_Interface>) vms_res_interfaces_list;
+                                    if (vms_res_interfaces_list.size() != 0) {
+                                        Log.d("CHECK", "Fetching from local");
+                                        for (int i = 0; i <= vms_res_interfaces_list.size()-1; i++) {
+
+                                            String Response = VMS_RES_Data.get(0).getVMS_RES();
+                                            Log.d("CHECK", Response);
+                                            if (Response.contains("Details not found") || Response.isEmpty()) {
+                                                final AlertDialog.Builder builder = new AlertDialog.Builder(ViewMutationStatusInformation.this, R.style.MyDialogTheme);
+                                                builder.setTitle("Mutation Status")
+                                                        .setMessage("No Mutations are pending in this Survey Number")
+                                                        .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                        .setCancelable(false)
+                                                        .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                                final AlertDialog alert = builder.create();
+                                                alert.show();
+                                                alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                            } else {
                                                 try {
-
                                                     Intent intent = new Intent(ViewMutationStatusInformation.this, ShowMutationStatusDetails.class);
-                                                    intent.putExtra("status_response_data",""+Response);
+                                                    intent.putExtra("status_response_data", "" + Response);
                                                     startActivity(intent);
                                                 } catch (Exception e) {
                                                     e.printStackTrace();
                                                 }
                                             }
-                                            } else {
-                                                //5/6/5/1/1714
-                                                mTaskFragment.startBackgroundTask3(district_id, taluk_id, hobli_id, village_id, land_no, getString(R.string.server_report_url));
-                                                //mTaskFragment.startBackgroundTask3(5, 6, 5, 1, 1714);
-                                            }
-                                    }
+                                        }
+                                        } else {
+                                            //5/6/5/1/1714
+                                            mTaskFragment.startBackgroundTask3(district_id, taluk_id, hobli_id, village_id, land_no, getString(R.string.server_report_url));
+                                            //mTaskFragment.startBackgroundTask3(5, 6, 5, 1, 1714);
+                                        }
+                                }
 
-                                    @Override
-                                    public void onError(Throwable e) {
+                                @Override
+                                public void onError(Throwable e) {
 
-                                    }
+                                }
 
-                                    @Override
-                                    public void onComplete() {
+                                @Override
+                                public void onComplete() {
 
-                                    }
-                                });
+                                }
+                            });
 
-                        //---------------------------------------------------------------------------
+                    //---------------------------------------------------------------------------
 
-                    } else
-                        Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
+                } else
+                    Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
 
-                }
             }
         });
     }
@@ -473,32 +514,48 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
         //progressDoalog.dismiss();
-        XmlToJson xmlToJson = new XmlToJson.Builder(data).build();
+        if (TextUtils.isEmpty(data) || data.contains("No Data Found")) {
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ViewMutationStatusInformation.this, R.style.MyDialogTheme);
+            builder.setTitle("STATUS")
+                    .setMessage("No Data Found For This Survey No.")
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", (dialog, id) -> {
+                        dialog.cancel();
+                        edittext_survey.setText("");
+                    });
+            final android.app.AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        }else {
 
+            XmlToJson xmlToJson = new XmlToJson.Builder(data).build();
+            // convert to a formatted Json String
+            String formatted = xmlToJson.toFormattedString();
+            Log.d("formatted", formatted);
 
-        // convert to a formatted Json String
-        String formatted = xmlToJson.toFormattedString();
-        Object object = null;
-        try {
-            JSONObject obj = new JSONObject(formatted.replace("\n", ""));
-            JSONObject documentElement = obj.getJSONObject("DocumentElement");
-            object = documentElement.get("DS_RTC");
-            JSONArray ds_rtc = new JSONArray();
-            if (object instanceof JSONObject) {
-                ds_rtc.put((JSONObject) object);
-            } else {
-                ds_rtc = (JSONArray) object;
+            Object object = null;
+            try {
+                JSONObject obj = new JSONObject(formatted.replace("\n", ""));
+                JSONObject documentElement = obj.getJSONObject("DocumentElement");
+                object = documentElement.get("DS_RTC");
+                JSONArray ds_rtc = new JSONArray();
+                if (object instanceof JSONObject) {
+                    ds_rtc.put(object);
+                } else {
+                    ds_rtc = (JSONArray) object;
+                }
+                Type listType = new TypeToken<ArrayList<Hissa_Response>>() {
+                }.getType();
+                hissa_responseList = new Gson().fromJson(ds_rtc.toString(), listType);
+                ArrayAdapter<Hissa_Response> villageArrayAdapter = new ArrayAdapter<Hissa_Response>(ViewMutationStatusInformation.this,
+                        android.R.layout.simple_list_item_single_choice, hissa_responseList);
+                spinner_hissa.setAdapter(villageArrayAdapter);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+//                Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
             }
-            Type listType = new TypeToken<ArrayList<Hissa_Response>>() {
-            }.getType();
-            hissa_responseList = new Gson().fromJson(ds_rtc.toString(), listType);
-            ArrayAdapter<Hissa_Response> villageArrayAdapter = new ArrayAdapter<Hissa_Response>(ViewMutationStatusInformation.this,
-                    android.R.layout.simple_list_item_single_choice, hissa_responseList);
-            spinner_hissa.setAdapter(villageArrayAdapter);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(getApplicationContext(), Constants.ERR_MSG, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -518,7 +575,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
         String formatted = data;
 
 //        formatted = formatted.replace("</Details", "");
-
+        Log.d("formatted",formatted);
         if (formatted.contains("Details not found") || formatted.isEmpty()) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.MyDialogTheme);
             builder.setTitle("Mutation Status")
@@ -540,6 +597,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                 obj1 = obj1.getJSONObject("Details");
 
                 restostoreinDBandSMSD = String.valueOf(obj1);
+                Log.d("restostoreinDBandSMSD",restostoreinDBandSMSD);
 //---------DB INSERT-------
 
                 dataBaseHelper =
@@ -581,16 +639,16 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                             @Override
                             public void onComplete() {
 
+                                Log.d("obj1",restostoreinDBandSMSD+"");
+                                Intent intent = new Intent(ViewMutationStatusInformation.this, ShowMutationStatusDetails.class);
+                                intent.putExtra("status_response_data",""+restostoreinDBandSMSD);
+                                startActivity(intent);
                             }
                         });
 
 
                 //---------------------------------------------------------------------------------------------
 
-                Log.d("obj1",restostoreinDBandSMSD+"");
-                Intent intent = new Intent(ViewMutationStatusInformation.this, ShowMutationStatusDetails.class);
-                intent.putExtra("status_response_data",""+restostoreinDBandSMSD);
-                startActivity(intent);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -625,7 +683,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
 //        Toast.makeText(getApplicationContext(), data, Toast.LENGTH_LONG).show();
-        mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo, getString(R.string.rtc_view_info_url_parihara));
+        mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyno, getString(R.string.rtc_view_info_url_parihara));
     }
 
     @Override
@@ -660,7 +718,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
         savedInstanceState.putInt(Constants.TALUK_ID, taluk_id);
         savedInstanceState.putString(Constants.HOBLI_NAME, spinner_hobli.getText().toString().trim());
         savedInstanceState.putInt(Constants.HOBLI_ID, hobli_id);
-        savedInstanceState.putInt(Constants.SURVEY_NUMBER, surveyNo);
+        savedInstanceState.putString(Constants.SURVEY_NUMBER, surveyno);
         savedInstanceState.putInt(Constants.LAND_NUMBER, land_no);
         savedInstanceState.putString(Constants.HISSA_NAME, spinner_hissa.getText().toString().trim());
         savedInstanceState.putInt(Constants.VILLAGE_ID, village_id);
@@ -684,7 +742,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
         district_id = savedInstanceState.getInt(Constants.DISTRICT_ID, 0);
         taluk_id = savedInstanceState.getInt(Constants.TALUK_ID, 0);
         hobli_id = savedInstanceState.getInt(Constants.HOBLI_ID, 0);
-        surveyNo = savedInstanceState.getInt(Constants.SURVEY_NUMBER, 0);
+        surveyno = savedInstanceState.getString(Constants.SURVEY_NUMBER, "");
         village_id = savedInstanceState.getInt(Constants.VILLAGE_ID, 0);
 
     }
@@ -706,7 +764,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
             v_mutation_status_table.setVMS_HBL_ID(hobli_id);
             v_mutation_status_table.setVMS_VLG_ID(village_id);
             v_mutation_status_table.setVMS_LAND_NO(land_no);
-            v_mutation_status_table.setVMS_RES(restostoreinDBandSMSD);
+            v_mutation_status_table.setVMS_RES(restostoreinDBandSMSD+"");
             v_mutation_status_tables_arr.add(v_mutation_status_table);
 
         } catch (Exception e) {
@@ -742,7 +800,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
                     @Override
                     public void onComplete() {
-//                        Toast.makeText(ViewMutationStatusInformation.this, "Insert Successful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ViewMutationStatusInformation.this, "Insert Successful", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

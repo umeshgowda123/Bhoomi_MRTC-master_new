@@ -33,6 +33,7 @@ import com.google.android.play.core.tasks.Task;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -102,32 +103,6 @@ public class BhoomiHomePage extends AppCompatActivity {
         download_Conversion_order = findViewById(R.id.download_Conversion_order);
 
 
-
-//        layout_download_villageMap =  findViewById(R.id.layout_download_villageMap);
-
-//        layout_view_phody_sketch =  findViewById(R.id.layout_view_phody_sketch);
-//        view_mojini_req_status =  findViewById(R.id.view_mojini_req_status);
-
-
-//        layout_clws_status =  findViewById(R.id.layout_clws_status);
-//        layout_certificate_pacs =  findViewById(R.id.layout_certificate_pacs);
-//        layout_certificate_banks =  findViewById(R.id.layout_certificate_banks);
-//        layout_parihara_individual =  findViewById(R.id.layout_parihara_individual);
-//        layout_parihara_benificary =  findViewById(R.id.layout_parihara_benificary);
-//        layout_benificiary_land_report =  findViewById(R.id.layout_benificiary_land_report);
-//        layout_loan_w_branch_wise =  findViewById(R.id.layout_loan_w_branch_wise);
-//
-//
-//        layout_loan_w_bank =  findViewById(R.id.layout_loan_w_bank);
-//
-//
-//        layout_loan_w_farmer_wise =  findViewById(R.id.layout_loan_w_farmer_wise);
-//
-//        layout_pacs_bank_wise = findViewById(R.id.layout_pacs_bank_wise);
-//        layout_pacs_report_branchwise = findViewById(R.id.layout_pacs_report_branchwise);
-//        layout_pacs_farmer_wise = findViewById(R.id.layout_pacs_farmer_wise);
-
-
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
                         DataBaseHelper.class, getString(R.string.db_name)).build();
@@ -151,53 +126,6 @@ public class BhoomiHomePage extends AppCompatActivity {
             startActivity(intent);
         });
 
-        layout_restriction_land.setOnClickListener(v -> {
-            Intent in = new Intent(BhoomiHomePage.this,RestrictionOnLand.class);
-            startActivity(in);
-        });
-
-//        layout_clws_status.setOnClickListener(v -> {
-//            Intent intent=new Intent(BhoomiHomePage.this, ClwsStatus.class);
-//            startActivity(intent);
-//        });
-
-//        layout_certificate_pacs.setOnClickListener(v -> {
-//            Intent intent  = new Intent(BhoomiHomePage.this,CitizenPaymentCertificatePacsActivity.class);
-//            startActivity(intent);
-//        });
-
-
-
-//        layout_certificate_banks.setOnClickListener(v -> {
-//            Intent intent  = new Intent(BhoomiHomePage.this,CitizenPaymentCertificateBanksActivity.class);
-//            startActivity(intent);
-//        });
-
-
-
-//        layout_parihara_individual.setOnClickListener(v -> {
-//            Intent intent  = new Intent(BhoomiHomePage.this,PariharaDetailsIndividual.class);
-//            startActivity(intent);
-//        });
-
-//        layout_parihara_benificary.setOnClickListener(v -> {
-//            Intent intent  = new Intent(BhoomiHomePage.this,PariharaBenificiaryReportVillageWise.class);
-//            startActivity(intent);
-//        });
-
-//        layout_benificiary_land_report.setOnClickListener(v -> {
-//            Intent intent  = new Intent(BhoomiHomePage.this,PariharaBenificiaryReportLandWise.class);
-//            startActivity(intent);
-//        });
-
-
-//        layout_download_villageMap.setOnClickListener(v -> {
-//            Intent intent  = new Intent(BhoomiHomePage.this,DownloadVillageMap.class);
-//            startActivity(intent);
-//
-//        });
-
-
         layout_mutation_pendency.setOnClickListener(v -> {
             Intent intent = new Intent(BhoomiHomePage.this,MutationPendencyDetails.class);
             startActivity(intent);
@@ -218,56 +146,11 @@ public class BhoomiHomePage extends AppCompatActivity {
         });
 
 
-//        layout_loan_w_bank.setOnClickListener(v -> {
-//
-//            Intent intent = new Intent(BhoomiHomePage.this, LoanWaiverReportForCommercialBankWise.class);
-//            startActivity(intent);
-//        });
+        layout_restriction_land.setOnClickListener(v -> {
+            Intent in = new Intent(BhoomiHomePage.this,RestrictionOnLand.class);
+            startActivity(in);
+        });
 
-
-//        layout_loan_w_farmer_wise.setOnClickListener(v -> {
-//
-//            Intent intent = new Intent(BhoomiHomePage.this, LoanWaiverReportForCommercialFramerWise.class);
-//            startActivity(intent);
-//        });
-
-//        layout_loan_w_branch_wise.setOnClickListener(v -> {
-//
-//            Intent intent = new Intent(BhoomiHomePage.this,LoanWaiverReportForCommercialBranchWise.class);
-//            startActivity(intent);
-//        });
-
-//        layout_pacs_bank_wise.setOnClickListener(v -> {
-//            Intent intent = new Intent(BhoomiHomePage.this, LoanWaiverReportForPacsBankWise.class);
-//            startActivity(intent);
-//        });
-
-//        layout_pacs_report_branchwise.setOnClickListener(v -> {
-//            Intent intent = new Intent(BhoomiHomePage.this,LoanWaiverReportForPacsBranchWsie.class);
-//            startActivity(intent);
-//        });
-
-//        layout_pacs_farmer_wise.setOnClickListener(v -> {
-//            Intent intent = new Intent(BhoomiHomePage.this,LoanWaiverReportForPacsFarmerWise.class);
-//            startActivity(intent);
-//        });
-
-
-
-//        layout_view_phody_sketch.setOnClickListener(v -> {
-////                String url = "http://202.138.101.171/service18";
-////                Intent i = new Intent(Intent.ACTION_VIEW);
-////                i.setData(Uri.parse(url));
-////                startActivity(i);
-//            Intent intent = new Intent(BhoomiHomePage.this,MojiniPhodySketch.class);
-//            startActivity(intent);
-//        });
-
-
-//        view_mojini_req_status.setOnClickListener(v -> {
-//            Intent i = new Intent(BhoomiHomePage.this, MojiniRequestStatus.class);
-//            startActivity(i);
-//        });
 
         view_land_conversion.setOnClickListener(v -> {
             Intent intent = new Intent(BhoomiHomePage.this,LandConversion.class);
@@ -290,15 +173,13 @@ public class BhoomiHomePage extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                Intent intent = new Intent(BhoomiHomePage.this, Language.class);
-                startActivity(intent);
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.action_settings) {
+            Intent intent = new Intent(BhoomiHomePage.this, Language.class);
+            startActivity(intent);
+            finish();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
 
@@ -332,9 +213,6 @@ public class BhoomiHomePage extends AppCompatActivity {
                         if (integer == 0) {
                             List<CalamityDetails> calmity_List = loadDataFromCsv();
                             createMasterData(calmity_List);
-
-                        }else
-                        {
                         }
                     }
 
@@ -360,15 +238,15 @@ public class BhoomiHomePage extends AppCompatActivity {
 
 
             reader = new BufferedReader(
-                    new InputStreamReader(getApplicationContext().getAssets().open("calamity_master.csv"), "UTF-8"));
+                    new InputStreamReader(getApplicationContext().getAssets().open("calamity_master.csv"), StandardCharsets.UTF_8));
 
             int i = 0;
             while ((mLine = reader.readLine()) != null) {
                 if (i > 0) {
                     String[] data = mLine.split(",");
                     CalamityDetails cal_type = new CalamityDetails();
-                    cal_type.setMSTCTYPE_ID(Integer.valueOf(data[0]));
-                    cal_type.setMSTCTYPE_VAL(Integer.valueOf(data[1]));
+                    cal_type.setMSTCTYPE_ID(Integer.parseInt(data[0]));
+                    cal_type.setMSTCTYPE_VAL(Integer.parseInt(data[1]));
                     cal_type.setMSTCTYPE_DESC(data[2]);
                     cal_list.add(cal_type);
 
@@ -429,15 +307,15 @@ public class BhoomiHomePage extends AppCompatActivity {
         try {
             String mLine;
             reader = new BufferedReader(
-                    new InputStreamReader(getApplicationContext().getAssets().open("season_master.csv"), "UTF-8"));
+                    new InputStreamReader(getApplicationContext().getAssets().open("season_master.csv"), StandardCharsets.UTF_8));
 
             int i = 0;
             while ((mLine = reader.readLine()) != null) {
                 if (i > 0) {
                     String[] data = mLine.split(",");
                     SeasonDetails season_type = new SeasonDetails();
-                    season_type.setMSTSEASON_ID(Integer.valueOf(data[0]));
-                    season_type.setMSTSEASON_VAL(Integer.valueOf(data[1]));
+                    season_type.setMSTSEASON_ID(Integer.parseInt(data[0]));
+                    season_type.setMSTSEASON_VAL(Integer.parseInt(data[1]));
                     season_type.setMSTSEASON_DESC(data[2]);
                     season_list.add(season_type);
 
@@ -500,7 +378,7 @@ public class BhoomiHomePage extends AppCompatActivity {
 
 
             reader = new BufferedReader(
-                    new InputStreamReader(getApplicationContext().getAssets().open("year_master.csv"), "UTF-8"));
+                    new InputStreamReader(getApplicationContext().getAssets().open("year_master.csv"), StandardCharsets.UTF_8));
 
             int i = 0;
             while ((mLine = reader.readLine()) != null) {
@@ -508,7 +386,7 @@ public class BhoomiHomePage extends AppCompatActivity {
                     String[] data = mLine.split(",");
                     YearDetails year_type = new YearDetails();
                     year_type.setYear(data[0]);
-                    year_type.setCode(Integer.valueOf(data[1]));
+                    year_type.setCode(Integer.parseInt(data[1]));
                     year_list.add(year_type);
 
                 }
@@ -568,14 +446,12 @@ public class BhoomiHomePage extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, final int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-        switch (requestCode) {
-            case REQ_CODE_VERSION_UPDATE:
-                if (resultCode != RESULT_OK) { //RESULT_OK / RESULT_CANCELED / RESULT_IN_APP_UPDATE_FAILED
-                    // If the update is cancelled or fails,
-                    // you can request to start the update again.
-                    unregisterInstallStateUpdListener();
-                }
-                break;
+        if (requestCode == REQ_CODE_VERSION_UPDATE) {
+            if (resultCode != RESULT_OK) { //RESULT_OK / RESULT_CANCELED / RESULT_IN_APP_UPDATE_FAILED
+                // If the update is cancelled or fails,
+                // you can request to start the update again.
+                unregisterInstallStateUpdListener();
+            }
         }
     }
 

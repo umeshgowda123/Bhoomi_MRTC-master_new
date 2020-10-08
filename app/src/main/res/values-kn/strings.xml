@@ -241,12 +241,12 @@
     <string name="calamity_err">ವಿಪತ್ತು ಆಯ್ಕೆಮಾಡಿ</string>
 
     <string-array name="select_calamity_type">
-        <item>Drought</item>
-        <item>Flood</item>
-        <item>PEST</item>
-        <item>Desilting</item>
-        <item>Landslide</item>
-        <item>HailstormOrHeavryRains</item>
+        <item>ಬರ</item>
+        <item>ಪ್ರವಾಹ</item>
+        <item>ಪಿ ಯಿ ಎಸ್ ಟಿ</item>
+        <item>ಡೆಸಿಲ್ಟಿಂಗ್</item>
+        <item>ಭೂಕುಸಿತ</item>
+        <item>ಆಲಿಕಲ್ಲು ಅಥವಾ ಅಧಿಕ ಮಳೆ</item>
     </string-array>
 
     <string name="downlaod_village_map"> ಗ್ರಾಮ ನಕ್ಷೆ ಡೌನ್‌ಲಾಡ್ ಮಾಡಿ</string>
@@ -261,7 +261,7 @@
     <string name="aadhar_number">ಆಧಾರ್ ಸಂಖ್ಯೆ</string>
     <string name="crop_category">ಬೆಳೆ ವರ್ಗ</string>
     <string name="crop_name">ಬೆಳೆ ಹೆಸರು</string>
-    <string name="crop_lost_extent_in">Crop Loss Extent in(Acre-Gunta-Fgunta)</string>
+    <string name="crop_lost_extent_in">ಬೆಳೆ ನಷ್ಟ ವಿಸ್ತೀರ್ಣ (ಎಕರೆ-ಗುಂಟೆ-ಎಫ್ ಗುಂಟೆ)</string>
     <string name="aadhaar_err">ಆಧಾರ್ ದೋಷ</string>
     <string name="dist_code">ಜಿಲ್ಲಾ ಕೋಡ್</string>
     <string name="payment_date">ಪಾವತಿ ದಿನಾಂಕ</string>
@@ -373,16 +373,18 @@
     <string name="completion_date">ಪೂರ್ಣಗೊಳ್ಳುವ ದಿನಾಂಕ</string>
     <string name="type_of_application_num">ಅರ್ಜಿ ಸಂಖ್ಯೆಯ ವಿಧ</string>
     <string name="application_created_date">ಅರ್ಜಿ ಸೃಜನೆಯಾದ ದಿನಾಂಕ</string>
-    <string name="check_for_update">Check For Update</string>
-    <string name="restart">Restart</string>
-    <string name="restriction_on_land">Restriction on Land</string>
-    <string name="view_restriction_on_land">View Restriction On Land</string>
-    <string name="restriction_on_land_report">Restriction On Land Report</string>
-    <string name="extent">Extent</string>
-    <string name="is_he_main_owner">Is he main owner?</string>
-    <string name="land_type">Land Type?</string>
-    <string name="is_land_govt_restricted">Is Land Govt. restricted?</string>
-    <string name="is_there_a_court_stay">Is there a Court stay?</string>
-    <string name="is_land_alienated">Is Land Alienated?</string>
-    <string name="any_trnsc_running">Any Trnsc Running?</string>
+
+
+    <string name="check_for_update">ನವೀಕರಣಕ್ಕಾಗಿ ಪರಿಶೀಲಿಸಿ</string>
+    <string name="restart">ಪುನರಾರಂಭ</string>
+    <string name="restriction_on_land">ಭೂಮಿಯಲ್ಲಿ ನಿರ್ಬಂಧ</string>
+    <string name="view_restriction_on_land">ಭೂಮಿಯಲ್ಲಿ ನಿರ್ಬಂಧವನ್ನು ವೀಕ್ಷಿಸಿ</string>
+    <string name="restriction_on_land_report">ಭೂ ವರದಿಯಲ್ಲಿ ನಿರ್ಬಂಧ</string>
+    <string name="extent">ವಿಸ್ತೀರ್ಣ</string>
+    <string name="is_he_main_owner">ಅವನು ಮುಖ್ಯ ಮಾಲೀಕನೇ?</string>
+    <string name="land_type">ಜಮೀನಿನ ರೀತಿ?</string>
+    <string name="is_land_govt_restricted">ಜಮೀನಿನ ಮೇಲೆ ಸರ್ಕಾರದ ನಿಭಂದನೆಯಿದೆಯೇ?</string>
+    <string name="is_there_a_court_stay">ಕೋರ್ಟ್ ತಡೆ ಇದೆಯೇ?</string>
+    <string name="is_land_alienated">ಭೂಪರಿವರ್ತನೆಯಾಗಿದೆಯೇ?</string>
+    <string name="any_trnsc_running">ಯಾವುದಾದರೂ ವಹಿವಾಟು ಚಾಲನೆಯಲ್ಲಿದೆಯೇ?</string>
 </resources>

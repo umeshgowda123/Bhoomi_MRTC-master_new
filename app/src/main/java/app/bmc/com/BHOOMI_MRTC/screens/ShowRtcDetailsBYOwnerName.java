@@ -27,6 +27,7 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.ksoap2.SoapEnvelope;
+import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
@@ -38,6 +39,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Objects;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.adapters.ShowRtcOwnerReportAdapter;
@@ -108,6 +110,7 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connectivityManager != null;
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
@@ -144,11 +147,15 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
             request.addProperty("pHobliCode", hblId);
             request.addProperty("pVillageCode", vlgId);
 
+            Log.d("INTVALUES", distId+" "+talkId+" "+hblId+" "+vlgId);
 
             envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
             envelope.dotNet = true;
             envelope.setOutputSoapObject(request);
             androidHttpTransport = new HttpTransportSE(SOAP_ADDRESS2);
+
+
+                Log.d("envelope", envelope+""+envelope.headerIn);
 
             try {
 

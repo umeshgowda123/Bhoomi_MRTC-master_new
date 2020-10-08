@@ -256,22 +256,22 @@ public interface DataBaseAccess {
     int deleteLandConversionResponse();
 
     //----------------------------------------DB Fun for  LandConversionFinalORDER  ----------------------------------------------
-//    @Insert
-//    Long[] insertLandConversion_Final_Order_Data(List<LandConversion_Final_Order_TABLE> LandConversion_List);
-//
-//    @Query("SELECT COUNT(id) FROM LandConversion_Final_Order_TABLE ")
-//    int getNumOfRowsLandConversion_Final_Order_Tbl();
-//
-//    @Query("SELECT REQUEST_ID_RES FROM LandConversion_Final_Order_TABLE WHERE REQUEST_ID = :REQUEST_ID")
-//    List<LandConversion_Final_Order_RES_Data> getREQUEST_ID_RES(String REQUEST_ID);
-//
-//    @Query("SELECT SNO_RES FROM LandConversion_Final_Order_TABLE WHERE DST_ID = :DST_ID AND TLK_ID = :TLK_ID " +
-//            "AND HBL_ID = :HBL_ID AND VLG_ID = :VLG_ID AND S_NO = :S_NO")
-//    List<LandConversion_RES_Data> getSNO_RES(int DST_ID, int TLK_ID, int HBL_ID, int VLG_ID, int S_NO);
-//
-//    @Query("DELETE FROM LandConversion_Final_Order_TABLE where id =:id")
-//    int deleteByIdLandConversion_Final_Order(int id);
-//
-//    @Query("DELETE FROM LandConversion_Final_Order_TABLE")
-//    int deleteLandConversion_Final_Order_Response();
+    @Insert
+    Long[] insertLandConversion_Final_Order_Data(List<LandConversion_Final_Order_TABLE> LCFO_List);
+
+    @Query("SELECT COUNT(id) FROM LandConversion_Final_Order_TABLE ")
+    int getNumOfRowsLandConversion_Final_Order_Tbl();
+
+    @Query("SELECT REQUEST_ID_RES FROM LandConversion_Final_Order_TABLE WHERE REQUEST_ID = :REQUEST_ID")
+    List<LandConversion_Final_Order_RES_Data> getREQUEST_ID_RES(String REQUEST_ID);
+
+    @Query("SELECT SNO_RES FROM LandConversion_Final_Order_TABLE WHERE DST_ID = :DST_ID AND TLK_ID = :TLK_ID " +
+            "AND HBL_ID = :HBL_ID AND VLG_ID = :VLG_ID AND S_NO = :S_NO")
+    List<LandConversion_Final_Order_RES_Data> getSNO_RES(String DST_ID, String TLK_ID, String HBL_ID, String VLG_ID, String S_NO);
+
+    @Query("DELETE FROM LandConversion_Final_Order_TABLE where id =:id")
+    int deleteByIdLandConversion_Final_Order(int id);
+
+    @Query("DELETE FROM LandConversion_Final_Order_TABLE")
+    int deleteLandConversion_Final_Order_Response();
 }

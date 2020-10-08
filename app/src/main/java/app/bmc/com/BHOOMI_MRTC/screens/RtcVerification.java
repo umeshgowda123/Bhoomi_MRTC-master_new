@@ -105,20 +105,9 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
 
     private void onButtonClickActions() {
         getRtcDataBtn.setOnClickListener(v -> {
+            referenceNo = referenceNumber.getText().toString().trim();
             View focus = null;
             boolean status = false;
-            referenceNo = referenceNumber.getText().toString().trim();
-
-            String passcode = getString(R.string.passcode);
-            String saltkey = getString(R.string.saltkey);
-            String values1;
-            values1 = "{" + "\"pReferenceNo\":" + referenceNo + ","
-                          + "\"pPasscode\":" + passcode + ","
-                          + "\"pSaltkey\":\"" + saltkey + "\""
-                    + "}";
-            JsonObject jsonObject = new JsonParser().parse(values1).getAsJsonObject();
-            Log.d("jsonOBJECT", String.valueOf(jsonObject));
-
 
             if (TextUtils.isEmpty(referenceNo)) {
                 focus = referenceNumber;
@@ -129,6 +118,16 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
                 focus.requestFocus();
             } else {
                 if (isNetworkAvailable()) {
+
+                    String passcode = getString(R.string.passcode);
+                    String saltkey = getString(R.string.saltkey);
+                    String values1;
+                    values1 = "{" + "\"pReferenceNo\":" + referenceNo + ","
+                            + "\"pPasscode\":" + passcode + ","
+                            + "\"pSaltkey\":\"" + saltkey + "\""
+                            + "}";
+                    JsonObject jsonObject = new JsonParser().parse(values1).getAsJsonObject();
+                    Log.d("jsonOBJECT", String.valueOf(jsonObject));
 
                     //---------------------------------------------------------------------------
                     dataBaseHelper =
@@ -158,10 +157,23 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
                                             String Response = RTCV_data.get(0).getREFF_RES();
                                             try {
 //                                                JsonObject json = new Gson().fromJson(Response, JsonObject.class);
-//                                                Log.d("CHECK", json.toString());
-                                                Intent intent = new Intent(RtcVerification.this, RtcVerificationData.class);
-                                                intent.putExtra("xml_data", Response);
-                                                startActivity(intent);
+                                                Log.d("CHECK", Response);
+
+                                                if (Response.contains("No Information Found")||Response.contains("SqlException")) {
+                                                    final AlertDialog.Builder builder = new AlertDialog.Builder(RtcVerification.this, R.style.MyDialogTheme);
+                                                    builder.setTitle("Information Status")
+                                                            .setMessage("No Information Found")
+                                                            .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                            .setCancelable(false)
+                                                            .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                                    final AlertDialog alert = builder.create();
+                                                    alert.show();
+                                                    alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                                }else {
+                                                    Intent intent = new Intent(RtcVerification.this, RtcVerificationData.class);
+                                                    intent.putExtra("xml_data", Response);
+                                                    startActivity(intent);
+                                                }
                                             } catch (Exception e) {
                                                 e.printStackTrace();
                                             }
@@ -265,7 +277,7 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
                 });
 
         //---------------------------------------------------------------------------------------------
-        if (responseData.contains("No Information Found")||responseData.contains("Incorrect syntax near the keyword")) {
+        if (responseData.contains("No Information Found")||responseData.contains("SqlException")) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(RtcVerification.this, R.style.MyDialogTheme);
             builder.setTitle("Information Status")
                     .setMessage("No Information Found")

@@ -1,6 +1,5 @@
 package app.bmc.com.BHOOMI_MRTC.screens;
 
-import android.app.ProgressDialog;
 import androidx.room.Room;
 import android.content.Context;
 import android.content.Intent;
@@ -25,12 +24,9 @@ import android.widget.Toast;
 
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
-import org.ksoap2.serialization.SoapPrimitive;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
+import java.util.Objects;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper;
@@ -71,12 +67,12 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
     private String language;
     private DataBaseHelper dataBaseHelper;
 
-    private ProgressDialog progressDialog;
+    ArrayAdapter<String> defaultArrayAdapter;
 
-    HttpTransportSE androidHttpTransport;
-    SoapSerializationEnvelope envelope;
-    SoapPrimitive resultString;
-    String resultFromServer;
+//    HttpTransportSE androidHttpTransport;
+//    SoapSerializationEnvelope envelope;
+//    SoapPrimitive resultString;
+//    String resultFromServer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +81,7 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -102,7 +98,7 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
         sp_village = findViewById(R.id.sp_village);
         btn_ViewDetails =  findViewById(R.id.btn_ViewDetails);
 
-        ArrayAdapter<String> defaultArrayAdapter = new ArrayAdapter<String>(this,
+        defaultArrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_single_choice, new String[]{});
         sp_district.setAdapter(defaultArrayAdapter);
         sp_taluk.setAdapter(defaultArrayAdapter);
@@ -114,13 +110,7 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
                 Room.databaseBuilder(getApplicationContext(),
                         DataBaseHelper.class, getString(R.string.db_name)).build();
 
-        Observable<List<? extends DistrictModelInterface>> districtDataObservable = Observable.fromCallable(new Callable<List<? extends DistrictModelInterface>>() {
-
-            @Override
-            public List<? extends DistrictModelInterface> call() {
-                return language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getDistinctDistricts() : dataBaseHelper.daoAccess().getDistinctDistrictsKannada();
-            }
-        });
+        Observable<List<? extends DistrictModelInterface>> districtDataObservable = Observable.fromCallable(() -> language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getDistinctDistricts() : dataBaseHelper.daoAccess().getDistinctDistrictsKannada());
         districtDataObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -136,7 +126,7 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
                     public void onNext(List<? extends DistrictModelInterface> mst_vlmList) {
 
                         districtData = (List<DistrictModelInterface>) mst_vlmList;
-                        ArrayAdapter<DistrictModelInterface> districtArrayAdapter = new ArrayAdapter<DistrictModelInterface>(getApplicationContext(),
+                        ArrayAdapter<DistrictModelInterface> districtArrayAdapter = new ArrayAdapter<>(getApplicationContext(),
                                 android.R.layout.simple_list_item_single_choice, districtData);
                         sp_district.setAdapter(districtArrayAdapter);
                     }
@@ -163,14 +153,12 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
             sp_taluk.setText("");
             sp_hobli.setText("");
             sp_village.setText("");
-            district_id = districtData.get(position).getVLM_DST_ID();
-            Observable<List<? extends TalukModelInterface>> talukDataObservable = Observable.fromCallable(new Callable<List<? extends TalukModelInterface>>() {
+            sp_taluk.setAdapter(defaultArrayAdapter);
+            sp_hobli.setAdapter(defaultArrayAdapter);
+            sp_village.setAdapter(defaultArrayAdapter);
 
-                @Override
-                public List<? extends TalukModelInterface> call() {
-                    return language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getTalukByDistrictId(String.valueOf(district_id)) : dataBaseHelper.daoAccess().getTalukByDistrictIdKannada(String.valueOf(district_id));
-                }
-            });
+            district_id = districtData.get(position).getVLM_DST_ID();
+            Observable<List<? extends TalukModelInterface>> talukDataObservable = Observable.fromCallable(() -> language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getTalukByDistrictId(String.valueOf(district_id)) : dataBaseHelper.daoAccess().getTalukByDistrictIdKannada(String.valueOf(district_id)));
             talukDataObservable
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -185,7 +173,7 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
                         @Override
                         public void onNext(List<? extends TalukModelInterface> talukDataList) {
                             talukData = (List<TalukModelInterface>) talukDataList;
-                            ArrayAdapter<TalukModelInterface> talukArrayAdapter = new ArrayAdapter<TalukModelInterface>(ViewRtcInformationByOwnerName.this,
+                            ArrayAdapter<TalukModelInterface> talukArrayAdapter = new ArrayAdapter<>(ViewRtcInformationByOwnerName.this,
                                     android.R.layout.simple_list_item_single_choice, talukData);
                             sp_taluk.setAdapter(talukArrayAdapter);
                         }
@@ -208,14 +196,11 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
         sp_taluk.setOnItemClickListener((parent, view, position, id) -> {
             sp_hobli.setText("");
             sp_village.setText("");
-            taluk_id = talukData.get(position).getVLM_TLK_ID();
-            Observable<List<? extends HobliModelInterface>> noOfRows = Observable.fromCallable(new Callable<List<? extends HobliModelInterface>>() {
+            sp_hobli.setAdapter(defaultArrayAdapter);
+            sp_village.setAdapter(defaultArrayAdapter);
 
-                @Override
-                public List<? extends HobliModelInterface> call() {
-                    return language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getHobliByTalukId_and_DistrictId(String.valueOf(taluk_id), String.valueOf(district_id)) : dataBaseHelper.daoAccess().getHobliByTalukId_and_DistrictIdKannada(String.valueOf(taluk_id), String.valueOf(district_id));
-                }
-            });
+            taluk_id = talukData.get(position).getVLM_TLK_ID();
+            Observable<List<? extends HobliModelInterface>> noOfRows = Observable.fromCallable(() -> language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getHobliByTalukId_and_DistrictId(String.valueOf(taluk_id), String.valueOf(district_id)) : dataBaseHelper.daoAccess().getHobliByTalukId_and_DistrictIdKannada(String.valueOf(taluk_id), String.valueOf(district_id)));
             noOfRows
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -230,7 +215,7 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
                         @Override
                         public void onNext(List<? extends HobliModelInterface> hobliDataList) {
                             hobliData = (List<HobliModelInterface>) hobliDataList;
-                            ArrayAdapter<HobliModelInterface> hobliArrayAdapter = new ArrayAdapter<HobliModelInterface>(ViewRtcInformationByOwnerName.this,
+                            ArrayAdapter<HobliModelInterface> hobliArrayAdapter = new ArrayAdapter<>(ViewRtcInformationByOwnerName.this,
                                     android.R.layout.simple_list_item_single_choice, hobliData);
                             sp_hobli.setAdapter(hobliArrayAdapter);
                         }
@@ -249,14 +234,9 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
 
         sp_hobli.setOnItemClickListener((parent, view, position, id) -> {
             sp_village.setText("");
+            sp_village.setAdapter(defaultArrayAdapter);
             hobli_id = hobliData.get(position).getVLM_HBL_ID();
-            Observable<List<? extends VillageModelInterface>> noOfRows = Observable.fromCallable(new Callable<List<? extends VillageModelInterface>>() {
-
-                @Override
-                public List<? extends VillageModelInterface> call() {
-                    return language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getVillageByHobliId_and_TalukId_and_DistrictId(String.valueOf(hobli_id), String.valueOf(taluk_id), String.valueOf(district_id)) : dataBaseHelper.daoAccess().getVillageByHobliId_and_TalukId_and_DistrictIdKannada(String.valueOf(hobli_id), String.valueOf(taluk_id), String.valueOf(district_id));
-                }
-            });
+            Observable<List<? extends VillageModelInterface>> noOfRows = Observable.fromCallable(() -> language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getVillageByHobliId_and_TalukId_and_DistrictId(String.valueOf(hobli_id), String.valueOf(taluk_id), String.valueOf(district_id)) : dataBaseHelper.daoAccess().getVillageByHobliId_and_TalukId_and_DistrictIdKannada(String.valueOf(hobli_id), String.valueOf(taluk_id), String.valueOf(district_id)));
             noOfRows
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -271,7 +251,7 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
                         @Override
                         public void onNext(List<? extends VillageModelInterface> villageDataList) {
                             villageData = (List<VillageModelInterface>) villageDataList;
-                            ArrayAdapter<VillageModelInterface> villageArrayAdapter = new ArrayAdapter<VillageModelInterface>(ViewRtcInformationByOwnerName.this,
+                            ArrayAdapter<VillageModelInterface> villageArrayAdapter = new ArrayAdapter<>(ViewRtcInformationByOwnerName.this,
                                     android.R.layout.simple_list_item_single_choice, villageData);
                             sp_village.setAdapter(villageArrayAdapter);
                         }
@@ -347,6 +327,7 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connectivityManager != null;
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }

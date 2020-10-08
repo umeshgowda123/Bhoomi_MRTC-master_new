@@ -20,7 +20,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.FragmentManager;
@@ -66,7 +65,6 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
     private MaterialBetterSpinner spinner_village;
     private EditText edittext_survey;
     private Button btn_go;
-    private MaterialBetterSpinner spinner_sumoc;
     private MaterialBetterSpinner spinner_hissa;
     private Button btn_fetch;
     private List<DistrictModelInterface> districtData;
@@ -82,12 +80,11 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
     private String hissa_str;
     private String suroc;
     private List<Hissa_Response> hissa_responseList;
-    private int surveyNo;
+    private String surveyNo;
     private RtcViewInfoBackGroundTaskFragment mTaskFragment;
     private ProgressBar progressBar;
     private String language;
     private DataBaseHelper dataBaseHelper;
-    private TextView tvSetTite;
     ArrayAdapter<String> defaultArrayAdapter;
 
 
@@ -118,7 +115,6 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
         edittext_survey = findViewById(R.id.edittext_survey);
         btn_go = findViewById(R.id.btn_go);
         btn_fetch = findViewById(R.id.btn_fetch);
-        tvSetTite = findViewById(R.id.tvSetTite);
         defaultArrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_single_choice, new String[]{});
         spinner_taluk.setAdapter(defaultArrayAdapter);
@@ -307,12 +303,6 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
             village_id = villageData.get(position).getVLM_VLG_ID();
         });
 
-
-        btn_fetch.setOnClickListener(v -> {
-
-            Intent intent = new Intent(ViewRtcInformation.this, RtcDetails.class);
-            startActivity(intent);
-        });
         spinner_hissa.setOnItemClickListener((parent, view, position, id) -> {
             land_no = hissa_responseList.get(position).getLand_code();
             hissa = hissa_responseList.get(position).getHissa_no();
@@ -324,7 +314,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
             String talukName = spinner_taluk.getText().toString().trim();
             String hobliName = spinner_hobli.getText().toString().trim();
             String villageName = spinner_village.getText().toString().trim();
-            String surveyno = edittext_survey.getText().toString().trim();
+            surveyNo = edittext_survey.getText().toString().trim();
 
             View focus = null;
             boolean status = false;
@@ -344,7 +334,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
                 focus = spinner_village;
                 status = true;
                 spinner_village.setError(getString(R.string.village_err));
-            } else if (TextUtils.isEmpty(surveyno)) {
+            } else if (TextUtils.isEmpty(surveyNo)) {
                 focus = edittext_survey;
                 status = true;
                 edittext_survey.setError(getString(R.string.survey_no_err));
@@ -352,7 +342,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
             if (status) {
                 focus.requestFocus();
             } else {
-                surveyNo = Integer.parseInt(edittext_survey.getText().toString().trim());
+//                surveyNo = Integer.parseInt(edittext_survey.getText().toString().trim());
                 if (isNetworkAvailable())
                     mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo, getString(R.string.rtc_view_info_url));
                 else
@@ -389,7 +379,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
                 focus = edittext_survey;
                 status = true;
                 edittext_survey.setError(getString(R.string.survey_no_err));
-            } else if (TextUtils.isEmpty(hissa)) {
+            } else if (TextUtils.isEmpty(hissa_str)) {
                 focus = spinner_hissa;
                 status = true;
                 spinner_hissa.setError("Hissa is required");
@@ -397,7 +387,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
             if (status) {
                 focus.requestFocus();
             } else {
-                surveyNo = Integer.parseInt(edittext_survey.getText().toString().trim());
+                int surveyNo = Integer.parseInt(edittext_survey.getText().toString().trim());
 //                    if (isNetworkAvailable())
 //                        mTaskFragment.startBackgroundTask2(district_id, taluk_id, hobli_id, village_id, land_no);
 //                    else
@@ -430,24 +420,28 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
     public void onPostResponseSuccess1(String data) {
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
-        //progressDoalog.dismiss();
-        XmlToJson xmlToJson = new XmlToJson.Builder(data).build();
 
-
-        // convert to a formatted Json String
-        String formatted = xmlToJson.toFormattedString();
-        Object object;
-        if (formatted.contains("No Data Found")) {
+        if (data.contains("No Data Found")) {
             final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ViewRtcInformation.this, R.style.MyDialogTheme);
             builder.setTitle("STATUS")
-                    .setMessage("No Data Found For this Survey No")
+                    .setMessage("No Data Found For This Survey No.")
                     .setIcon(R.drawable.ic_notifications_black_24dp)
                     .setCancelable(false)
-                    .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                    .setPositiveButton("OK", (dialog, id) -> {
+                        dialog.cancel();
+                        edittext_survey.setText("");
+                    });
             final android.app.AlertDialog alert = builder.create();
             alert.show();
             alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
         }else {
+        //progressDoalog.dismiss();
+        XmlToJson xmlToJson = new XmlToJson.Builder(data).build();
+
+        // convert to a formatted Json String
+        String formatted = xmlToJson.toFormattedString();
+        Object object;
+
             try {
 
                 JSONObject obj = new JSONObject(formatted.replace("\n", ""));
@@ -527,6 +521,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connectivityManager != null;
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
@@ -544,7 +539,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
         savedInstanceState.putInt(Constants.TALUK_ID, taluk_id);
         savedInstanceState.putString(Constants.HOBLI_NAME, spinner_hobli.getText().toString().trim());
         savedInstanceState.putInt(Constants.HOBLI_ID, hobli_id);
-        savedInstanceState.putInt(Constants.SURVEY_NUMBER, surveyNo);
+        savedInstanceState.putString(Constants.SURVEY_NUMBER, surveyNo);
         savedInstanceState.putInt(Constants.LAND_NUMBER, land_no);
         savedInstanceState.putString(Constants.HISSA_NAME, spinner_hissa.getText().toString().trim());
         savedInstanceState.putInt(Constants.VILLAGE_ID, village_id);
@@ -568,7 +563,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
         district_id = savedInstanceState.getInt(Constants.DISTRICT_ID, 0);
         taluk_id = savedInstanceState.getInt(Constants.TALUK_ID, 0);
         hobli_id = savedInstanceState.getInt(Constants.HOBLI_ID, 0);
-        surveyNo = savedInstanceState.getInt(Constants.SURVEY_NUMBER, 0);
+        surveyNo = savedInstanceState.getString(Constants.SURVEY_NUMBER, "");
         village_id = savedInstanceState.getInt(Constants.VILLAGE_ID, 0);
 
     }

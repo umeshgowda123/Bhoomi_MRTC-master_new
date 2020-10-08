@@ -64,7 +64,7 @@ public class LandConversionBasedOnAffidavit extends AppCompatActivity {
                 if (AfdvtBasedOnAfdvtIdData.size() == 0) {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(LandConversionBasedOnAffidavit.this, R.style.MyDialogTheme);
                     builder.setTitle("STATUS")
-                            .setMessage("No Data Found For this Record")
+                            .setMessage("No Data Found For This Record")
                             .setIcon(R.drawable.ic_notifications_black_24dp)
                             .setCancelable(false)
                             .setPositiveButton("OK", (dialog, id) -> dialog.cancel());

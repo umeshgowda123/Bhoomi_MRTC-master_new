@@ -17,7 +17,7 @@ public class LandConversion_Final_Order_RES_Data implements LandConversion_Final
     }
 
     @Override
-    public String setSNO_RES() {
+    public String getSNO_RES() {
         return SNO_RES;
     }
 
