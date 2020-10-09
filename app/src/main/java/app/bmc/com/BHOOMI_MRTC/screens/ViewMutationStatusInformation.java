@@ -576,7 +576,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
 //        formatted = formatted.replace("</Details", "");
         Log.d("formatted",formatted);
-        if (formatted.contains("Details not found") || formatted.isEmpty()) {
+        if (formatted.contains(getString(R.string.details_not_found)) || formatted.isEmpty()) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.MyDialogTheme);
             builder.setTitle("Mutation Status")
                     .setMessage("No Mutations are pending in this Survey Number")

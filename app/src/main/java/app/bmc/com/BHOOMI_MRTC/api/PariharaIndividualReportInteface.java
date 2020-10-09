@@ -155,10 +155,21 @@ public interface PariharaIndividualReportInteface {
                                                                                 @Path("pApplicationNo") String pApplicationNo);
 
 
+//    @Headers({"content-type: text/json; charset=utf-8"})
+//    @POST("GetLandRestriction/{pstr_UserName}/{pStr_Password}/")
+//    Call<PariharaIndividualDetailsResponse> fnGetLandRestrictionResult(
+//            @Path("pstr_UserName") String username,
+//            @Path("pStr_Password") String password,
+//            @Body JsonObject input);
+
+
+
     @Headers({"content-type: text/json; charset=utf-8"})
-    @POST("GetLandRestriction/{pstr_UserName}/{pStr_Password}/")
+    @POST("GetLandRestriction_RAW/{pstrUserName}/{pStrPassword}/")
     Call<PariharaIndividualDetailsResponse> fnGetLandRestrictionResult(
-            @Path("pstr_UserName") String username,
-            @Path("pStr_Password") String password,
+            @Path("pstrUserName") String username,
+            @Path("pStrPassword") String password,
             @Body JsonObject input);
+
+
 }

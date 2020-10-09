@@ -2,7 +2,6 @@ package app.bmc.com.BHOOMI_MRTC.screens;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
@@ -14,11 +13,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -30,13 +28,13 @@ import java.util.List;
 import java.util.Objects;
 
 import app.bmc.com.BHOOMI_MRTC.R;
-import app.bmc.com.BHOOMI_MRTC.adapters.LandConversionBasedOnAffidavitAdapter;
+
 import app.bmc.com.BHOOMI_MRTC.adapters.LandConversionBasedOnUserIDAdapter;
 import app.bmc.com.BHOOMI_MRTC.api.PariharaIndividualReportInteface;
 import app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper;
 import app.bmc.com.BHOOMI_MRTC.interfaces.LandConversion_Interface;
 import app.bmc.com.BHOOMI_MRTC.model.Afdvt_ReqSts_BasedOnAfdvtIdTable;
-import app.bmc.com.BHOOMI_MRTC.model.LandConversion_TABLE;
+
 import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
 import app.bmc.com.BHOOMI_MRTC.retrofit.PariharaIndividualreportClient;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
@@ -110,7 +108,7 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
                                     String userid_res = LandConversion_Data.get(0).getUSER_RES();
                                     Log.d("userid_res",userid_res+"");
 
-                                    if(userid_res.equals("") || userid_res.contains("INVALID")) {
+                                    if(userid_res == null || userid_res.equals("") || userid_res.contains("INVALID")) {
                                         final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversionBasedOnUserId.this, R.style.MyDialogTheme);
                                         builder.setTitle("STATUS")
                                                 .setMessage("Invalid User ID")
@@ -126,7 +124,7 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
                                     }else if(userid_res.contains("Details not found")) {
                                         final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversionBasedOnUserId.this, R.style.MyDialogTheme);
                                         builder.setTitle("STATUS")
-                                                .setMessage("Details not found")
+                                                .setMessage(getString(R.string.details_not_found))
                                                 .setIcon(R.drawable.ic_notifications_black_24dp)
                                                 .setCancelable(false)
                                                 .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
@@ -186,7 +184,7 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
                                             User_res = result.getGet_Afdvt_ReqSts_BasedOnUserIdResult();
 
                                             progressDialog.dismiss();
-                                            if(User_res.equals("") || User_res.contains("INVALID")) {
+                                            if(User_res == null || User_res.equals("") || User_res.contains("INVALID")) {
                                                 final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversionBasedOnUserId.this, R.style.MyDialogTheme);
                                                 builder.setTitle("STATUS")
                                                         .setMessage("Invalid User ID")
@@ -199,7 +197,7 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
                                             }else if(User_res.contains("Details not found")) {
                                                 final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversionBasedOnUserId.this, R.style.MyDialogTheme);
                                                 builder.setTitle("STATUS")
-                                                        .setMessage("Details not found")
+                                                        .setMessage(getString(R.string.details_not_found))
                                                         .setIcon(R.drawable.ic_notifications_black_24dp)
                                                         .setCancelable(false)
                                                         .setPositiveButton("OK", (dialog, id) -> dialog.cancel());

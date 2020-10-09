@@ -437,54 +437,54 @@ public class Download_Conversion_order extends AppCompatActivity {
                                                     } else {
 
 
-                                                        //---------DB INSERT-------
-                                                        dataBaseHelper =
-                                                                Room.databaseBuilder(getApplicationContext(),
-                                                                        DataBaseHelper.class, getString(R.string.db_name)).build();
-                                                        Observable<Integer> noOfRows;
-                                                        noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumOfRowsLandConversion_Final_Order_Tbl());
-                                                        noOfRows
-                                                                .subscribeOn(Schedulers.io())
-                                                                .observeOn(AndroidSchedulers.mainThread())
-                                                                .subscribe(new Observer<Integer>() {
+                                                    //---------DB INSERT-------
+                                                    dataBaseHelper =
+                                                            Room.databaseBuilder(getApplicationContext(),
+                                                                    DataBaseHelper.class, getString(R.string.db_name)).build();
+                                                    Observable<Integer> noOfRows;
+                                                    noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumOfRowsLandConversion_Final_Order_Tbl());
+                                                    noOfRows
+                                                        .subscribeOn(Schedulers.io())
+                                                        .observeOn(AndroidSchedulers.mainThread())
+                                                        .subscribe(new Observer<Integer>() {
 
 
-                                                                    @Override
-                                                                    public void onSubscribe(Disposable d) {
+                                                            @Override
+                                                            public void onSubscribe(Disposable d) {
 
-                                                                    }
+                                                            }
 
-                                                                    @Override
-                                                                    public void onNext(Integer integer) {
-                                                                        Log.d("intValue",integer+"");
-                                                                        if (integer < 6) {
-                                                                            Log.d("intValueIN",integer+"");
-                                                                            List<LandConversion_Final_Order_TABLE> LCFO_List = loadData();
-                                                                            createLandConversion_Final_Order_TABLEData(LCFO_List);
+                                                            @Override
+                                                            public void onNext(Integer integer) {
+                                                                Log.d("intValue",integer+"");
+                                                                if (integer < 6) {
+                                                                    Log.d("intValueIN",integer+"");
+                                                                    List<LandConversion_Final_Order_TABLE> LCFO_List = loadData();
+                                                                    createLandConversion_Final_Order_TABLEData(LCFO_List);
 
 
-                                                                        } else {
-                                                                            Log.d("intValueELSE", integer + "");
-                                                                            deleteByID(0);
-                                                                        }
-                                                                    }
+                                                                } else {
+                                                                    Log.d("intValueELSE", integer + "");
+                                                                    deleteByID(0);
+                                                                }
+                                                            }
 
-                                                                    @Override
-                                                                    public void onError(Throwable e) {
-                                                                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                                                    }
+                                                            @Override
+                                                            public void onError(Throwable e) {
+                                                                Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                                            }
 
-                                                                    @Override
-                                                                    public void onComplete() {
-                                                                        progressDialog.dismiss();
-                                                                        Log.d("CHECK","Fetching From Server");
+                                                            @Override
+                                                            public void onComplete() {
+                                                                progressDialog.dismiss();
+                                                                Log.d("CHECK","Fetching From Server");
 
-                                                                        Intent intent = new Intent(Download_Conversion_order.this, ConversionFinalOrders_BasedOnReq_ID.class);
-                                                                        intent.putExtra("LandConversionFinalOrders", "" + SNO_RES);
-                                                                        startActivity(intent);
-                                                                    }
-                                                                });
-                                                        //---------------------------------------------------------------------------------------------
+                                                                Intent intent = new Intent(Download_Conversion_order.this, ConversionFinalOrders_BasedOnReq_ID.class);
+                                                                intent.putExtra("LandConversionFinalOrders", "" + SNO_RES);
+                                                                startActivity(intent);
+                                                            }
+                                                        });
+                                                    //---------------------------------------------------------------------------------------------
 
                                                     }
 

@@ -274,4 +274,21 @@ public interface DataBaseAccess {
 
     @Query("DELETE FROM LandConversion_Final_Order_TABLE")
     int deleteLandConversion_Final_Order_Response();
+
+
+    //----------------------------------------------------------------------------------------------
+    @Query("SELECT VLM_DST_NM FROM MST_VLM WHERE VLM_DST_ID = :VLM_DST_ID")
+    String getDistrictByDistrictName(String VLM_DST_ID);
+
+    @Query("SELECT VLM_TLK_NM FROM MST_VLM WHERE VLM_TLK_ID = :VLM_TLK_ID")
+    String getTalukByTalukName(String VLM_TLK_ID);
+
+    @Query("SELECT VLM_HBL_NM FROM MST_VLM WHERE VLM_HBL_ID = :VLM_HBL_ID")
+    String getHobliByHobliName(String VLM_HBL_ID);
+
+    @Query("SELECT VLM_VLG_NM FROM MST_VLM WHERE VLM_VLG_ID = :VLM_VLG_ID")
+    String getVillByVillName(String VLM_VLG_ID);
+
+
+
 }

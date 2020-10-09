@@ -108,218 +108,266 @@ public class LandConversion extends AppCompatActivity {
 
         btnFetchReports.setOnClickListener(v -> {
 
-            if (isNetworkAvailable()) {
-                if (rb_AffidavitID.isChecked() || rb_UserID.isChecked()) {
-                    if (rb_AffidavitID.isChecked()) {
-                        affidavitID = etRadioText.getText().toString().trim();
-                        if (TextUtils.isEmpty(affidavitID)) {
-                            etRadioText.setError(getString(R.string.enter_affidavit_id));
-                            etRadioText.requestFocus();
-                        }else {
-                            if (!affidavitID.isEmpty()) {
+        if (isNetworkAvailable()) {
+            if (rb_AffidavitID.isChecked() || rb_UserID.isChecked()) {
+                if (rb_AffidavitID.isChecked()) {
+                    affidavitID = etRadioText.getText().toString().trim();
+                    if (TextUtils.isEmpty(affidavitID)) {
+                        etRadioText.setError(getString(R.string.enter_affidavit_id));
+                        etRadioText.requestFocus();
+                    }else {
+                        if (!affidavitID.isEmpty()) {
 
-                            dataBaseHelper =
-                                    Room.databaseBuilder(getApplicationContext(),
-                                            DataBaseHelper.class, getString(R.string.db_name)).build();
-                            Observable<List<? extends LandConversion_Interface>> LandConversionObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getAFFIDAVIT_RES(affidavitID));
-                            LandConversionObservable
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(new Observer<List<? extends LandConversion_Interface>>() {
-                                    @Override
-                                    public void onSubscribe(Disposable d) {
+                        dataBaseHelper =
+                                Room.databaseBuilder(getApplicationContext(),
+                                        DataBaseHelper.class, getString(R.string.db_name)).build();
+                        Observable<List<? extends LandConversion_Interface>> LandConversionObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getAFFIDAVIT_RES(affidavitID));
+                        LandConversionObservable
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Observer<List<? extends LandConversion_Interface>>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
 
-                                    }
+                                }
 
-                                    @Override
-                                    public void onNext(List<? extends LandConversion_Interface> landConversion_interfaces_list) {
-                                        Log.d("mpd_res_interfaces", landConversion_interfaces_list.size() + "");
+                                @Override
+                                public void onNext(List<? extends LandConversion_Interface> landConversion_interfaces_list) {
+                                    Log.d("mpd_res_interfaces", landConversion_interfaces_list.size() + "");
 
-                                        LandConversion_Data = (List<LandConversion_Interface>) landConversion_interfaces_list;
-                                        if (landConversion_interfaces_list.size() != 0) {
-                                            Log.d("CHECK", "Fetching from local");
-                                            for (int i = 0; i <= landConversion_interfaces_list.size() - 1; i++) {
-                                                String affidavit_res = LandConversion_Data.get(0).getAFFIDAVIT_RES();
-                                                Log.d("affidavit_res", affidavit_res + "");
-                                                if (affidavit_res == null || affidavit_res.contains("INVALID")) {
-                                                    final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversion.this, R.style.MyDialogTheme);
-                                                    builder.setTitle("STATUS")
-                                                            .setMessage("Invalid Affidavit ID")
-                                                            .setIcon(R.drawable.ic_notifications_black_24dp)
-                                                            .setCancelable(false)
-                                                            .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
-                                                    final android.app.AlertDialog alert = builder.create();
-                                                    alert.show();
-                                                    alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-                                                } else if (affidavit_res.contains("Details not found")) {
-                                                    final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversion.this, R.style.MyDialogTheme);
-                                                    builder.setTitle("STATUS")
-                                                            .setMessage("Details not found")
-                                                            .setIcon(R.drawable.ic_notifications_black_24dp)
-                                                            .setCancelable(false)
-                                                            .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
-                                                    final android.app.AlertDialog alert = builder.create();
-                                                    alert.show();
-                                                    alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-                                                } else {
-                                                    Intent intent = new Intent(LandConversion.this, LandConversionBasedOnAffidavit.class);
-                                                    intent.putExtra("AFFIDAVIT_ResponseData", affidavit_res);
-                                                    intent.putExtra("AFFIDAVIT_ID", affidavitID);
-                                                    startActivity(intent);
-                                                }
+                                    LandConversion_Data = (List<LandConversion_Interface>) landConversion_interfaces_list;
+                                    if (landConversion_interfaces_list.size() != 0) {
+                                        Log.d("CHECK", "Fetching from local");
+                                        for (int i = 0; i <= landConversion_interfaces_list.size() - 1; i++) {
+                                            String affidavit_res = LandConversion_Data.get(0).getAFFIDAVIT_RES();
+                                            Log.d("affidavit_res", affidavit_res + "");
+                                            if (affidavit_res == null || affidavit_res.equals("") || affidavit_res.contains("INVALID")) {
+                                                final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversion.this, R.style.MyDialogTheme);
+                                                builder.setTitle("STATUS")
+                                                        .setMessage("Invalid Affidavit ID")
+                                                        .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                        .setCancelable(false)
+                                                        .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                                final android.app.AlertDialog alert = builder.create();
+                                                alert.show();
+                                                alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                            } else if (affidavit_res.contains("Details not found")) {
+                                                final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversion.this, R.style.MyDialogTheme);
+                                                builder.setTitle("STATUS")
+                                                        .setMessage(getString(R.string.details_not_found))
+                                                        .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                        .setCancelable(false)
+                                                        .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                                final android.app.AlertDialog alert = builder.create();
+                                                alert.show();
+                                                alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                            } else {
+                                                Intent intent = new Intent(LandConversion.this, LandConversionBasedOnAffidavit.class);
+                                                intent.putExtra("AFFIDAVIT_ResponseData", affidavit_res);
+                                                intent.putExtra("AFFIDAVIT_ID", affidavitID);
+                                                startActivity(intent);
                                             }
-                                        } else {
-                                            progressDialog = new ProgressDialog(LandConversion.this);
-                                            progressDialog.setMessage("Please Wait");
-                                            progressDialog.setCancelable(false);
-                                            progressDialog.show();
+                                        }
+                                    } else {
+                                        progressDialog = new ProgressDialog(LandConversion.this);
+                                        progressDialog.setMessage("Please Wait");
+                                        progressDialog.setCancelable(false);
+                                        progressDialog.show();
 
-                                            PariharaIndividualReportInteface apiInterface = PariharaIndividualreportClient.getClient("https://clws.karnataka.gov.in/Service4/BHOOMI/").create(PariharaIndividualReportInteface.class);
-                                            Call<PariharaIndividualDetailsResponse> call = apiInterface.getLandConversionBasedOnAffidavitID(Constants.REPORT_SERVICE_USER_NAME,
-                                                    Constants.REPORT_SERVICE_PASSWORD, affidavitID);
-                                            call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
-                                                @Override
-                                                public void onResponse(@NotNull Call<PariharaIndividualDetailsResponse> call, @NotNull Response<PariharaIndividualDetailsResponse> response) {
+                                        PariharaIndividualReportInteface apiInterface = PariharaIndividualreportClient.getClient("https://clws.karnataka.gov.in/Service4/BHOOMI/").create(PariharaIndividualReportInteface.class);
+                                        Call<PariharaIndividualDetailsResponse> call = apiInterface.getLandConversionBasedOnAffidavitID(Constants.REPORT_SERVICE_USER_NAME,
+                                                Constants.REPORT_SERVICE_PASSWORD, affidavitID);
+                                        call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+                                            @Override
+                                            public void onResponse(@NotNull Call<PariharaIndividualDetailsResponse> call, @NotNull Response<PariharaIndividualDetailsResponse> response) {
 
-                                                    if (response.isSuccessful()) {
-                                                        PariharaIndividualDetailsResponse result = response.body();
-                                                        assert result != null;
-                                                        Affidavit_res = result.getGet_Afdvt_ReqSts_BasedOnAfdvtIdResult();
+                                                if (response.isSuccessful()) {
+                                                    PariharaIndividualDetailsResponse result = response.body();
+                                                    assert result != null;
+                                                    Affidavit_res = result.getGet_Afdvt_ReqSts_BasedOnAfdvtIdResult();
 
-                                                        progressDialog.dismiss();
-                                                        if (Affidavit_res == null || Affidavit_res.contains("INVALID")) {
-                                                            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversion.this, R.style.MyDialogTheme);
-                                                            builder.setTitle("STATUS")
-                                                                    .setMessage("Invalid Affidavit ID")
-                                                                    .setIcon(R.drawable.ic_notifications_black_24dp)
-                                                                    .setCancelable(false)
-                                                                    .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
-                                                            final android.app.AlertDialog alert = builder.create();
-                                                            alert.show();
-                                                            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-                                                        } else if (Affidavit_res.contains("Details not found")) {
-                                                            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversion.this, R.style.MyDialogTheme);
-                                                            builder.setTitle("STATUS")
-                                                                    .setMessage("Details not found")
-                                                                    .setIcon(R.drawable.ic_notifications_black_24dp)
-                                                                    .setCancelable(false)
-                                                                    .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
-                                                            final android.app.AlertDialog alert = builder.create();
-                                                            alert.show();
-                                                            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-                                                        } else {
-
-
-                                                            //---------DB INSERT-------
-                                                            dataBaseHelper =
-                                                                    Room.databaseBuilder(getApplicationContext(),
-                                                                            DataBaseHelper.class, getString(R.string.db_name)).build();
-                                                            Observable<Integer> noOfRows;
-                                                            noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumOfRowsLandConversionTbl());
-                                                            noOfRows
-                                                                    .subscribeOn(Schedulers.io())
-                                                                    .observeOn(AndroidSchedulers.mainThread())
-                                                                    .subscribe(new Observer<Integer>() {
+                                                    progressDialog.dismiss();
+                                                    if (Affidavit_res == null || Affidavit_res.equals("") || Affidavit_res.contains("INVALID")) {
+                                                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversion.this, R.style.MyDialogTheme);
+                                                        builder.setTitle("STATUS")
+                                                                .setMessage("Invalid Affidavit ID")
+                                                                .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                                .setCancelable(false)
+                                                                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                                        final android.app.AlertDialog alert = builder.create();
+                                                        alert.show();
+                                                        alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                                    } else if (Affidavit_res.contains("Details not found")) {
+                                                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversion.this, R.style.MyDialogTheme);
+                                                        builder.setTitle("STATUS")
+                                                                .setMessage(getString(R.string.details_not_found))
+                                                                .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                                .setCancelable(false)
+                                                                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                                        final android.app.AlertDialog alert = builder.create();
+                                                        alert.show();
+                                                        alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                                    } else {
 
 
-                                                                        @Override
-                                                                        public void onSubscribe(Disposable d) {
+                                                        //---------DB INSERT-------
+                                                        dataBaseHelper =
+                                                                Room.databaseBuilder(getApplicationContext(),
+                                                                        DataBaseHelper.class, getString(R.string.db_name)).build();
+                                                        Observable<Integer> noOfRows;
+                                                        noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumOfRowsLandConversionTbl());
+                                                        noOfRows
+                                                                .subscribeOn(Schedulers.io())
+                                                                .observeOn(AndroidSchedulers.mainThread())
+                                                                .subscribe(new Observer<Integer>() {
 
-                                                                        }
 
-                                                                        @Override
-                                                                        public void onNext(Integer integer) {
-                                                                            Log.d("intValue", integer + "");
-                                                                            if (integer < 6) {
-                                                                                Log.d("intValueIN", integer + "");
+                                                                    @Override
+                                                                    public void onSubscribe(Disposable d) {
+
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onNext(Integer integer) {
+                                                                        Log.d("intValue", integer + "");
+                                                                        if (integer < 6) {
+                                                                            Log.d("intValueIN", integer + "");
 //                                                                                    if ()
-                                                                                List<LandConversion_TABLE> LandConversion_list = loadData();
-                                                                                createLandConversion_Data(LandConversion_list);
+                                                                            List<LandConversion_TABLE> LandConversion_list = loadData();
+                                                                            createLandConversion_Data(LandConversion_list);
 
 
-                                                                            } else {
-                                                                                Log.d("intValueELSE", integer + "");
-                                                                                deleteByID(0);
-                                                                            }
+                                                                        } else {
+                                                                            Log.d("intValueELSE", integer + "");
+                                                                            deleteByID(0);
                                                                         }
+                                                                    }
 
-                                                                        @Override
-                                                                        public void onError(Throwable e) {
-                                                                            Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                                                        }
+                                                                    @Override
+                                                                    public void onError(Throwable e) {
+                                                                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                                                    }
 
-                                                                        @Override
-                                                                        public void onComplete() {
-                                                                            progressDialog.dismiss();
-                                                                            Log.d("CHECK", "Fetching From Server");
+                                                                    @Override
+                                                                    public void onComplete() {
+                                                                        progressDialog.dismiss();
+                                                                        Log.d("CHECK", "Fetching From Server");
 
-                                                                            Intent intent = new Intent(LandConversion.this, LandConversionBasedOnAffidavit.class);
-                                                                            intent.putExtra("AFFIDAVIT_ResponseData", Affidavit_res);
-                                                                            intent.putExtra("AFFIDAVIT_ID", affidavitID);
-                                                                            startActivity(intent);
-                                                                        }
-                                                                    });
-                                                            //---------------------------------------------------------------------------------------------
+                                                                        Intent intent = new Intent(LandConversion.this, LandConversionBasedOnAffidavit.class);
+                                                                        intent.putExtra("AFFIDAVIT_ResponseData", Affidavit_res);
+                                                                        intent.putExtra("AFFIDAVIT_ID", affidavitID);
+                                                                        startActivity(intent);
+                                                                    }
+                                                                });
+                                                        //---------------------------------------------------------------------------------------------
 
-                                                        }
                                                     }
                                                 }
+                                            }
 
-                                                @Override
-                                                public void onFailure(@NotNull Call<PariharaIndividualDetailsResponse> call, @NotNull Throwable t) {
-                                                    call.cancel();
-                                                    progressDialog.dismiss();
-                                                }
-                                            });
+                                            @Override
+                                            public void onFailure(@NotNull Call<PariharaIndividualDetailsResponse> call, @NotNull Throwable t) {
+                                                call.cancel();
+                                                progressDialog.dismiss();
+                                            }
+                                        });
+                                    }
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+
+                                @Override
+                                public void onComplete() {
+
+                                }
+                            });
+                        }
+                    }
+                } else {
+                    userID = etRadioText.getText().toString().trim();
+                    if (TextUtils.isEmpty(userID)) {
+                        etRadioText.setError(getString(R.string.enter_user_ID));
+                        etRadioText.requestFocus();
+                    } else {
+
+                    if (!userID.isEmpty()) {
+
+                        dataBaseHelper =
+                                Room.databaseBuilder(getApplicationContext(),
+                                        DataBaseHelper.class, getString(R.string.db_name)).build();
+                        Observable<List<? extends LandConversion_Interface>> LandConversionObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getUSER_RES(userID));
+                        LandConversionObservable
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Observer<List<? extends LandConversion_Interface>>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+
+                                }
+
+                                @Override
+                                public void onNext(List<? extends LandConversion_Interface> landConversion_interfaces_list) {
+                                    Log.d("landConversion_res",landConversion_interfaces_list.size()+"");
+
+                                    LandConversion_Data = (List<LandConversion_Interface>) landConversion_interfaces_list;
+                                    if (landConversion_interfaces_list.size()!=0) {
+                                        Log.d("CHECK","Fetching from local");
+                                        for (int i = 0; i <= landConversion_interfaces_list.size()-1; i++) {
+
+                                        String userid_res = LandConversion_Data.get(0).getUSER_RES();
+                                        Log.d("userid_res",userid_res+"");
+                                        if( userid_res == null || userid_res.equals("") || userid_res.contains("INVALID")) {
+                                            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversion.this, R.style.MyDialogTheme);
+                                            builder.setTitle("STATUS")
+                                                    .setMessage("Invalid User ID")
+                                                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                    .setCancelable(false)
+                                                    .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                            final android.app.AlertDialog alert = builder.create();
+                                            alert.show();
+                                            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                        }else if(userid_res.contains("Details not found")) {
+                                            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversion.this, R.style.MyDialogTheme);
+                                            builder.setTitle("STATUS")
+                                                    .setMessage(getString(R.string.details_not_found))
+                                                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                    .setCancelable(false)
+                                                    .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                            final android.app.AlertDialog alert = builder.create();
+                                            alert.show();
+                                            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                        } else {
+
+                                            Intent intent = new Intent(LandConversion.this, LandConversionBasedOnUserId.class);
+                                            intent.putExtra("USER_ID", userID);
+                                            startActivity(intent);
+                                        }
                                         }
                                     }
+                                    else {
+                                        progressDialog = new ProgressDialog(LandConversion.this);
+                                        progressDialog.setMessage("Please Wait");
+                                        progressDialog.setCancelable(false);
+                                        progressDialog.show();
 
-                                    @Override
-                                    public void onError(Throwable e) {
+                                        PariharaIndividualReportInteface apiInterface = PariharaIndividualreportClient.getClient("https://clws.karnataka.gov.in/Service4/BHOOMI/").create(PariharaIndividualReportInteface.class);
+                                        Call<PariharaIndividualDetailsResponse> call = apiInterface.getLandConversionBasedOnUserID(Constants.REPORT_SERVICE_USER_NAME,
+                                                Constants.REPORT_SERVICE_PASSWORD,userID);
+                                        call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+                                            @Override
+                                            public void onResponse(@NotNull Call<PariharaIndividualDetailsResponse>  call, @NotNull Response<PariharaIndividualDetailsResponse> response)
+                                            {
+                                            if(response.isSuccessful())
+                                            {
+                                                PariharaIndividualDetailsResponse result = response.body();
+                                                assert result != null;
+                                                User_res = result.getGet_Afdvt_ReqSts_BasedOnUserIdResult();
 
-                                    }
-
-                                    @Override
-                                    public void onComplete() {
-
-                                    }
-                                });
-                            }
-                        }
-                    } else {
-                        userID = etRadioText.getText().toString().trim();
-                        if (TextUtils.isEmpty(userID)) {
-                            etRadioText.setError(getString(R.string.enter_user_ID));
-                            etRadioText.requestFocus();
-                        } else {
-
-                        if (!userID.isEmpty()) {
-
-                            dataBaseHelper =
-                                    Room.databaseBuilder(getApplicationContext(),
-                                            DataBaseHelper.class, getString(R.string.db_name)).build();
-                            Observable<List<? extends LandConversion_Interface>> LandConversionObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getUSER_RES(userID));
-                            LandConversionObservable
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(new Observer<List<? extends LandConversion_Interface>>() {
-                                    @Override
-                                    public void onSubscribe(Disposable d) {
-
-                                    }
-
-                                    @Override
-                                    public void onNext(List<? extends LandConversion_Interface> landConversion_interfaces_list) {
-                                        Log.d("landConversion_res",landConversion_interfaces_list.size()+"");
-
-                                        LandConversion_Data = (List<LandConversion_Interface>) landConversion_interfaces_list;
-                                        if (landConversion_interfaces_list.size()!=0) {
-                                            Log.d("CHECK","Fetching from local");
-                                            for (int i = 0; i <= landConversion_interfaces_list.size()-1; i++) {
-
-                                                String userid_res = LandConversion_Data.get(0).getUSER_RES();
-                                                Log.d("userid_res",userid_res+"");
-                                                if(userid_res.equals("") || userid_res.contains("INVALID")) {
+                                                progressDialog.dismiss();
+                                                if(User_res == null || User_res.equals("") || User_res.contains("INVALID")) {
                                                     final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversion.this, R.style.MyDialogTheme);
                                                     builder.setTitle("STATUS")
                                                             .setMessage("Invalid User ID")
@@ -329,10 +377,10 @@ public class LandConversion extends AppCompatActivity {
                                                     final android.app.AlertDialog alert = builder.create();
                                                     alert.show();
                                                     alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-                                                }else if(userid_res.contains("Details not found")) {
+                                                }else if(User_res.contains("Details not found")) {
                                                     final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversion.this, R.style.MyDialogTheme);
                                                     builder.setTitle("STATUS")
-                                                            .setMessage("Details not found")
+                                                            .setMessage(getString(R.string.details_not_found))
                                                             .setIcon(R.drawable.ic_notifications_black_24dp)
                                                             .setCancelable(false)
                                                             .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
@@ -341,141 +389,93 @@ public class LandConversion extends AppCompatActivity {
                                                     alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
                                                 } else {
 
-                                                    Intent intent = new Intent(LandConversion.this, LandConversionBasedOnUserId.class);
-                                                    intent.putExtra("USER_ID", userID);
-                                                    startActivity(intent);
-                                                }
-                                            }
-                                        }
-                                        else {
-                                            progressDialog = new ProgressDialog(LandConversion.this);
-                                            progressDialog.setMessage("Please Wait");
-                                            progressDialog.setCancelable(false);
-                                            progressDialog.show();
 
-                                            PariharaIndividualReportInteface apiInterface = PariharaIndividualreportClient.getClient("https://clws.karnataka.gov.in/Service4/BHOOMI/").create(PariharaIndividualReportInteface.class);
-                                            Call<PariharaIndividualDetailsResponse> call = apiInterface.getLandConversionBasedOnUserID(Constants.REPORT_SERVICE_USER_NAME,
-                                                    Constants.REPORT_SERVICE_PASSWORD,userID);
-                                            call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
-                                                @Override
-                                                public void onResponse(@NotNull Call<PariharaIndividualDetailsResponse>  call, @NotNull Response<PariharaIndividualDetailsResponse> response)
-                                                {
-
-                                                    if(response.isSuccessful())
-                                                    {
-                                                        PariharaIndividualDetailsResponse result = response.body();
-                                                        assert result != null;
-                                                        User_res = result.getGet_Afdvt_ReqSts_BasedOnUserIdResult();
-
-                                                        progressDialog.dismiss();
-                                                        if(User_res.equals("") || User_res.contains("INVALID")) {
-                                                            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversion.this, R.style.MyDialogTheme);
-                                                            builder.setTitle("STATUS")
-                                                                    .setMessage("Invalid User ID")
-                                                                    .setIcon(R.drawable.ic_notifications_black_24dp)
-                                                                    .setCancelable(false)
-                                                                    .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
-                                                            final android.app.AlertDialog alert = builder.create();
-                                                            alert.show();
-                                                            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-                                                        }else if(User_res.contains("Details not found")) {
-                                                            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversion.this, R.style.MyDialogTheme);
-                                                            builder.setTitle("STATUS")
-                                                                    .setMessage("Details not found")
-                                                                    .setIcon(R.drawable.ic_notifications_black_24dp)
-                                                                    .setCancelable(false)
-                                                                    .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
-                                                            final android.app.AlertDialog alert = builder.create();
-                                                            alert.show();
-                                                            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-                                                        } else {
+                                                    //---------DB INSERT-------
+                                                    dataBaseHelper =
+                                                            Room.databaseBuilder(getApplicationContext(),
+                                                                    DataBaseHelper.class, getString(R.string.db_name)).build();
+                                                    Observable<Integer> noOfRows;
+                                                    noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumOfRowsLandConversionTbl());
+                                                    noOfRows
+                                                        .subscribeOn(Schedulers.io())
+                                                        .observeOn(AndroidSchedulers.mainThread())
+                                                        .subscribe(new Observer<Integer>() {
 
 
-                                                            //---------DB INSERT-------
-                                                            dataBaseHelper =
-                                                                    Room.databaseBuilder(getApplicationContext(),
-                                                                            DataBaseHelper.class, getString(R.string.db_name)).build();
-                                                            Observable<Integer> noOfRows;
-                                                            noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumOfRowsLandConversionTbl());
-                                                            noOfRows
-                                                                    .subscribeOn(Schedulers.io())
-                                                                    .observeOn(AndroidSchedulers.mainThread())
-                                                                    .subscribe(new Observer<Integer>() {
+                                                            @Override
+                                                            public void onSubscribe(Disposable d) {
+
+                                                            }
+
+                                                            @Override
+                                                            public void onNext(Integer integer) {
+                                                                Log.d("intValue",integer+"");
+                                                                if (integer < 6) {
+                                                                    Log.d("intValueIN",integer+"");
+                                                                    List<LandConversion_TABLE> LandConversion_list = loadData();
+                                                                    createLandConversion_Data(LandConversion_list);
 
 
-                                                                        @Override
-                                                                        public void onSubscribe(Disposable d) {
+                                                                } else {
+                                                                    Log.d("intValueELSE", integer + "");
+                                                                    deleteByID(0);
+                                                                }
+                                                            }
 
-                                                                        }
+                                                            @Override
+                                                            public void onError(Throwable e) {
+                                                                Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                                            }
 
-                                                                        @Override
-                                                                        public void onNext(Integer integer) {
-                                                                            Log.d("intValue",integer+"");
-                                                                            if (integer < 6) {
-                                                                                Log.d("intValueIN",integer+"");
-                                                                                List<LandConversion_TABLE> LandConversion_list = loadData();
-                                                                                createLandConversion_Data(LandConversion_list);
+                                                            @Override
+                                                            public void onComplete() {
+                                                                progressDialog.dismiss();
+                                                                Log.d("CHECK","Fetching From Server");
 
-
-                                                                            } else {
-                                                                                Log.d("intValueELSE", integer + "");
-                                                                                deleteByID(0);
-                                                                            }
-                                                                        }
-
-                                                                        @Override
-                                                                        public void onError(Throwable e) {
-                                                                            Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                                                        }
-
-                                                                        @Override
-                                                                        public void onComplete() {
-                                                                            progressDialog.dismiss();
-                                                                            Log.d("CHECK","Fetching From Server");
-
-                                                                            Intent intent = new Intent(LandConversion.this, LandConversionBasedOnUserId.class);
+                                                                Intent intent = new Intent(LandConversion.this, LandConversionBasedOnUserId.class);
 //                                                                                intent.putExtra("UserID_ResponseData", User_res);
-                                                                            intent.putExtra("USER_ID", userID);
-                                                                            startActivity(intent);
-                                                                        }
-                                                                    });
-                                                            //---------------------------------------------------------------------------------------------
+                                                                intent.putExtra("USER_ID", userID);
+                                                                startActivity(intent);
+                                                            }
+                                                        });
+                                                    //---------------------------------------------------------------------------------------------
 
-                                                        }
                                                     }
                                                 }
+                                            }
 
-                                                @Override
-                                                public void onFailure(@NotNull Call<PariharaIndividualDetailsResponse> call, @NotNull Throwable t) {
-                                                    call.cancel();
-                                                    progressDialog.dismiss();
-                                                }
-                                            });
-                                        }
+                                            @Override
+                                            public void onFailure(@NotNull Call<PariharaIndividualDetailsResponse> call, @NotNull Throwable t) {
+                                                call.cancel();
+                                                progressDialog.dismiss();
+                                            }
+                                        });
                                     }
+                                }
 
-                                    @Override
-                                    public void onError(Throwable e) {
+                                @Override
+                                public void onError(Throwable e) {
 
-                                    }
+                                }
 
-                                    @Override
-                                    public void onComplete() {
+                                @Override
+                                public void onComplete() {
 
-                                    }
-                                });
-                            }
+                                }
+                            });
                         }
                     }
-                } else {
-                    Toast.makeText(LandConversion.this, "Please Select Any Radio Button", Toast.LENGTH_SHORT).show();
                 }
+            } else {
+                Toast.makeText(LandConversion.this, "Please Select Any Radio Button", Toast.LENGTH_SHORT).show();
             }
-            else{
-                selfDestruct();
-            }
+        }
+        else{
+            selfDestruct();
+        }
         });
     }
+
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -499,13 +499,10 @@ public class LandConversion extends AppCompatActivity {
         return true;
     }
 
-
     //______________________________________________________________________DB____________________________________________________
 
     public List<LandConversion_TABLE> loadData() {
-//        Toast.makeText(this, "LoadData", Toast.LENGTH_SHORT).show();
         List<LandConversion_TABLE> LandConversion_tables_arr = new ArrayList<>();
-
         try {
             LandConversion_TABLE LandConversion_table = new LandConversion_TABLE();
             LandConversion_table.setAFFIDAVIT_ID(affidavitID+"");
@@ -525,32 +522,32 @@ public class LandConversion extends AppCompatActivity {
     public void createLandConversion_Data(final List<LandConversion_TABLE> LandConversion_List) {
         Observable<Long[]> insertMPDData = Observable.fromCallable(() -> dataBaseHelper.daoAccess().insertLandConversionData(LandConversion_List));
         insertMPDData
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Long[]>() {
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Observer<Long[]>() {
 
 
-                    @Override
-                    public void onSubscribe(Disposable d) {
+                @Override
+                public void onSubscribe(Disposable d) {
 
-                    }
+                }
 
-                    @Override
-                    public void onNext(Long[] longs) {
+                @Override
+                public void onNext(Long[] longs) {
 
-                    }
+                }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                @Override
+                public void onError(Throwable e) {
+                    Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
 
-                    }
+                }
 
-                    @Override
-                    public void onComplete() {
+                @Override
+                public void onComplete() {
 
-                    }
-                });
+                }
+            });
     }
     private void deleteByID(final int id) {
 
@@ -559,34 +556,34 @@ public class LandConversion extends AppCompatActivity {
                         DataBaseHelper.class, getString(R.string.db_name)).build();
         Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteByIdLandConversion(id));
         noOfRows
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Integer>() {
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Observer<Integer>() {
 
 
-                    @Override
-                    public void onSubscribe(Disposable d) {
+                @Override
+                public void onSubscribe(Disposable d) {
 
-                    }
+                }
 
-                    @Override
-                    public void onNext(Integer integer) {
+                @Override
+                public void onNext(Integer integer) {
 
-                        Log.i("delete", integer + "");
-                        deleteAllResponse();
+                    Log.i("delete", integer + "");
+                    deleteAllResponse();
 
-                    }
+                }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                    }
+                @Override
+                public void onError(Throwable e) {
+                    Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                }
 
-                    @Override
-                    public void onComplete() {
+                @Override
+                public void onComplete() {
 
-                    }
-                });
+                }
+            });
 
     }
 
@@ -597,33 +594,33 @@ public class LandConversion extends AppCompatActivity {
                         DataBaseHelper.class, getString(R.string.db_name)).build();
         Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteLandConversionResponse());
         noOfRows
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Integer>() {
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Observer<Integer>() {
 
 
-                    @Override
-                    public void onSubscribe(Disposable d) {
+                @Override
+                public void onSubscribe(Disposable d) {
 
-                    }
+                }
 
-                    @Override
-                    public void onNext(Integer integer) {
+                @Override
+                public void onNext(Integer integer) {
 
-                        Log.i("delete", integer + "");
+                    Log.i("delete", integer + "");
 
 
-                    }
+                }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                    }
+                @Override
+                public void onError(Throwable e) {
+                    Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                }
 
-                    @Override
-                    public void onComplete() {
+                @Override
+                public void onComplete() {
 
-                    }
-                });
+                }
+            });
     }
 }

@@ -57,6 +57,20 @@
 
     </LinearLayout>
 
+
+
+
+    <androidx.cardview.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="10dp"
+        card_view:cardElevation="5dp"
+        android:layout_margin="5dp">
+
+
+    </androidx.cardview.widget.CardView>
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -77,6 +91,109 @@
                 android:layout_gravity="center" />
 
 
+
+
+            <androidx.cardview.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="10dp"
+                card_view:cardElevation="5dp"
+                android:layout_margin="5dp">
+
+
+<!--                <TableLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content">-->
+
+<!--                    <TableRow-->
+<!--                        android:background="@android:color/white"-->
+<!--                        android:padding="2dp">-->
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="@string/district"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:layout_margin="2dp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:textColor="@android:color/black" />-->
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvD"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:maxLines="1"-->
+<!--                            android:layout_margin="2dp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:textColor="@android:color/black" />-->
+<!--                    </TableRow>-->
+<!--                    <TableRow-->
+<!--                        android:background="@android:color/white"-->
+<!--                        android:padding="2dp">-->
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="@string/taluk"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:layout_margin="2dp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:textColor="@android:color/black" />-->
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvT"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:maxLines="1"-->
+<!--                            android:layout_margin="2dp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:textColor="@android:color/black" />-->
+<!--                    </TableRow>-->
+<!--                    <TableRow-->
+<!--                        android:background="@android:color/white"-->
+<!--                        android:padding="2dp">-->
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="@string/hobli"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:layout_margin="2dp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:textColor="@android:color/black" />-->
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvH"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:maxLines="1"-->
+<!--                            android:layout_margin="2dp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:textColor="@android:color/black" />-->
+<!--                    </TableRow>-->
+<!--                    <TableRow-->
+<!--                        android:background="@android:color/white"-->
+<!--                        android:padding="2dp">-->
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="@string/village"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:layout_margin="2dp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:textColor="@android:color/black" />-->
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvV"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:maxLines="1"-->
+<!--                            android:layout_margin="2dp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:textColor="@android:color/black" />-->
+<!--                    </TableRow>-->
+
+<!--                </TableLayout>-->
+            </androidx.cardview.widget.CardView>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvRestrictionReport"
                 android:layout_width="match_parent"
@@ -85,6 +202,7 @@
 
 
         </LinearLayout>
+
 
     </androidx.core.widget.NestedScrollView>
 

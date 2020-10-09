@@ -1,6 +1,7 @@
 package app.bmc.com.BHOOMI_MRTC.adapters;
 
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,16 +28,24 @@ public class RestrictionOnLandReportAdapter extends RecyclerView.Adapter<Restric
         return new ViewHolder(v);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tvOwnerName.setText(list.get(position).getNAME());
-        holder.tvExtent.setText(list.get(position).getEXTENT());
-        holder.tvMainOwner.setText(list.get(position).getISMAINOWNER());
+        holder.tvOwnerName.setText(list.get(position).getOwner());
+        holder.tvExtent.setText(list.get(position).getExtent());
+        String owner_no = list.get(position).getOwner_no();
+        String main_owner_no = list.get(position).getMain_owner_no();
+        if (owner_no.equals(main_owner_no)){
+            holder.tvMainOwner.setText("YES");
+        }else {
+            holder.tvMainOwner.setText("NO");
+        }
         holder.tvLandType.setText(list.get(position).getGovt_Private_Land());
         holder.tvlandGovtRestricted.setText(list.get(position).getGovtRestrict());
         holder.tvCourtStay.setText(list.get(position).getCourtStay());
         holder.tvLandAlienated.setText(list.get(position).getAlienation());
         holder.tvTrnscRunning.setText(list.get(position).getTransactionRunning());
+        holder.tvPyki.setText(list.get(position).getPyki());
 
     }
 
@@ -54,6 +63,8 @@ public class RestrictionOnLandReportAdapter extends RecyclerView.Adapter<Restric
          TextView tvCourtStay;
          TextView tvLandAlienated;
          TextView tvTrnscRunning;
+         TextView tvPyki;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -65,6 +76,8 @@ public class RestrictionOnLandReportAdapter extends RecyclerView.Adapter<Restric
             tvCourtStay = itemView.findViewById(R.id.tvCourtStay);
             tvLandAlienated = itemView.findViewById(R.id.tvLandAlienated);
             tvTrnscRunning = itemView.findViewById(R.id.tvTrnscRunning);
+            tvPyki = itemView.findViewById(R.id.tvPyki);
+
         }
     }
     public RestrictionOnLandReportAdapter(List<RestrictionOnLandReportTable> list){
