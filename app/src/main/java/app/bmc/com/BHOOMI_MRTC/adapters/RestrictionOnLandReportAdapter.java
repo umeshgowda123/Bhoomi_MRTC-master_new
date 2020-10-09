@@ -28,9 +28,9 @@ public class RestrictionOnLandReportAdapter extends RecyclerView.Adapter<Restric
         return new ViewHolder(v);
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.tvSurveyNum.setText(list.get(position).getSurveyNumber());
         holder.tvOwnerName.setText(list.get(position).getOwner());
         holder.tvExtent.setText(list.get(position).getExtent());
         String owner_no = list.get(position).getOwner_no();
@@ -55,6 +55,7 @@ public class RestrictionOnLandReportAdapter extends RecyclerView.Adapter<Restric
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+         TextView tvSurveyNum;
          TextView tvOwnerName;
          TextView tvExtent;
          TextView tvMainOwner;
@@ -68,6 +69,7 @@ public class RestrictionOnLandReportAdapter extends RecyclerView.Adapter<Restric
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvSurveyNum = itemView.findViewById(R.id.tvSurveyNumberrrr);
             tvOwnerName = itemView.findViewById(R.id.tvOwnerName);
             tvExtent = itemView.findViewById(R.id.tvExtent);
             tvMainOwner = itemView.findViewById(R.id.tvMainOwner);

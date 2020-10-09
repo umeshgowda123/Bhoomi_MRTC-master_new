@@ -9,12 +9,12 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -82,10 +82,6 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
     String strData;
     List<RLR_RES_Interface> RLR_RES_Data;
 
-//    TextView tvD;
-//    TextView tvT;
-//    TextView tvH;
-//    TextView tvV;
 
 
 
@@ -106,10 +102,6 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
             window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
 
-//        tvD = findViewById(R.id.tvD);
-//        tvT = findViewById(R.id.tvT);
-//        tvH = findViewById(R.id.tvH);
-//        tvV = findViewById(R.id.tvV);
 
         FragmentManager fm = getSupportFragmentManager();
         mTaskFragment = (RtcViewInfoBackGroundTaskFragment) fm.findFragmentByTag(RtcViewInfoBackGroundTaskFragment.TAG_HEADLESS_FRAGMENT);
@@ -134,11 +126,6 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
             suroc = intent.getStringExtra("s_c");
             hissa = intent.getStringExtra("hi_no");
 
-//            dataBaseHelper =
-//                    Room.databaseBuilder(getApplicationContext(),
-//                            DataBaseHelper.class, getString(R.string.db_name)).build();
-//            Observable<String>  district = Observable.fromCallable(() ->dataBaseHelper.daoAccess().getDistrictByDistrictName("20")
-//            Log.d("District", district+"");
         }
         if (isNetworkAvailable()){
             String input = "{" +
@@ -199,11 +186,6 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                                                 alert.show();
                                                 alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
                                             } else {
-//                                                Observable <String> district= Observable.fromCallable(() ->dataBaseHelper.daoAccess().getDistrictByDistrictName(district_id));
-//
-//                                                Log.d("District", district+"");
-//                                                tvD.setText((CharSequence) district);
-
                                                 restrictionOnLandReportTableList.size();
                                                 RestrictionOnLandReportAdapter adapter = new RestrictionOnLandReportAdapter(restrictionOnLandReportTableList);
                                                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -252,7 +234,22 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
 
     @Override
     public void onPostResponseSuccess1(String data) {
+        if (progressBar != null)
+            progressBar.setVisibility(View.GONE);
 
+        if (TextUtils.isEmpty(data) || data.contains("No Data Found")) {
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(RestrictionOnLandReport.this, R.style.MyDialogTheme);
+            builder.setTitle("STATUS")
+                    .setMessage("No Data Found For This Survey No.")
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", (dialog, id) -> {
+                        dialog.cancel();
+                    });
+            final android.app.AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        }
     }
 
     @Override
@@ -308,32 +305,10 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
             alert.show();
             alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
         } else {
-//            XmlToJson xmlToJson = new XmlToJson.Builder(data).build();
-//            String formatted = xmlToJson.toFormattedString();
             Log.d("formatted", data);
             try {
                 JSONArray jsonArray = new JSONArray(data.replace("\n", ""));
                 Log.d("JSONARR", jsonArray.toString());
-
-
-
-//                JSONObject OwnerDetails_Obj = obj.getJSONObject("OwnerDetails");
-//                OwnerDetails_Obj = OwnerDetails_Obj.getJSONObject("OWNERS");
-//                formatted = OwnerDetails_Obj.toString();
-//                formatted = formatted.replace("\"JOINT_OWNERS\":{", "\"JOINT_OWNERS\":[{");
-//                formatted = formatted.replace("}}", "}]}");
-//                //Log.d("SUS",formatted);
-//                OwnerDetails_Obj = new JSONObject(formatted);
-//                JSONArray JOINT_OWNERS_jsonArray = OwnerDetails_Obj.getJSONArray("JOINT_OWNERS");
-//
-//                String strJsonArray = JOINT_OWNERS_jsonArray.toString();
-//                Log.d("SUS2",strJsonArray);
-//                strJsonArray = strJsonArray.replace("{\"OWNER\":", "");
-//                strJsonArray = strJsonArray.replace("},\"EXTENT\"", ",\"EXTENT\"");
-
-//                JSONArray finalOWNER_JsonArray = new JSONArray(strJsonArray);
-
-//                strValueOfJSONArrayResponse = String.valueOf(finalOWNER_JsonArray);
                 //---------DB INSERT-------
 
                 dataBaseHelper =
@@ -399,10 +374,6 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                     alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
                 } else {
 
-//                    Observable<String>  district= Observable.fromCallable(() ->dataBaseHelper.daoAccess().getDistrictByDistrictName(district_id));
-//
-//                    Log.d("District", district+"");
-//                    tvD.setText((CharSequence) district);
                     restrictionOnLandReportTableList.size();
                     Log.d("EXTENT",restrictionOnLandReportTableList.get(0).getExtent());
                     RestrictionOnLandReportAdapter adapter = new RestrictionOnLandReportAdapter(restrictionOnLandReportTableList);
@@ -435,7 +406,22 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
     public void onPostResponseError(String data) {
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
-        Toast.makeText(getApplicationContext(), data, Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), data, Toast.LENGTH_LONG).show();
+        if (data.contains("timeout")){
+            final AlertDialog.Builder builder = new AlertDialog.Builder(RestrictionOnLandReport.this, R.style.MyDialogTheme);
+            builder.setTitle("STATUS")
+                    .setMessage("Timeout")
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", (dialog, id) -> {
+                        dialog.cancel();
+                        finish();
+                    });
+            final AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+
+        }
     }
 
     private class GetRestrictionOnLandReport extends AsyncTask<String, Integer, String> {
@@ -607,9 +593,6 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
 
                     @Override
                     public void onNext(Long[] longs) {
-//                        Intent intent = new Intent(ViewRtcInformation.this, BhoomiHomePage.class);
-//                        startActivity(intent);
-//                        finish();
                     }
 
                     @Override
