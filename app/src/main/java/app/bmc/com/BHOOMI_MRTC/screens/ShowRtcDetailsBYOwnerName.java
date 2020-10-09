@@ -146,6 +146,8 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
             request.addProperty("pTalukCode", talkId);
             request.addProperty("pHobliCode", hblId);
             request.addProperty("pVillageCode", vlgId);
+            Log.d("request", ""+request);
+            Log.d("SOAP_ADDRESS", ""+SOAP_ADDRESS2);
 
             Log.d("INTVALUES", distId+" "+talkId+" "+hblId+" "+vlgId);
 
@@ -188,6 +190,20 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
             if (result == null) {
                 progressDialog.dismiss();
                 Toast.makeText(ShowRtcDetailsBYOwnerName.this, "Error", Toast.LENGTH_SHORT).show();
+            } else if (result.contains("500 | JSON ERROR")){
+                Log.d("result", ""+result);
+                final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ShowRtcDetailsBYOwnerName.this, R.style.MyDialogTheme);
+                builder.setTitle("STATUS")
+                        .setMessage("No data available for this village. Please contact support team for further clarification.")
+                        .setIcon(R.drawable.ic_notifications_black_24dp)
+                        .setCancelable(false)
+                        .setPositiveButton("OK", (dialog, id) -> {
+                            dialog.cancel();
+                            onBackPressed();
+                        });
+                final android.app.AlertDialog alert = builder.create();
+                alert.show();
+                alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
             } else {
                 progressDialog.dismiss();
                 JSONArray jsonArray = null;

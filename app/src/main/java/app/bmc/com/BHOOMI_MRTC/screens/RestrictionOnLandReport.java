@@ -288,7 +288,6 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
             XmlToJson xmlToJson = new XmlToJson.Builder(data).build();
             String formatted = xmlToJson.toFormattedString();
             String formatted_old = xmlToJson.toFormattedString();
-            //Log.d("formatted", "str: " + formatted);
             try {
                 JSONObject obj = new JSONObject(formatted.replace("\n", ""));
                 JSONObject OwnerDetails_Obj = obj.getJSONObject("OwnerDetails");
@@ -298,8 +297,6 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                 formatted = formatted.replace("}}", "}]}");
                 //Log.d("SUS",formatted);
                 OwnerDetails_Obj = new JSONObject(formatted);
-//              OwnerDetails_Obj = OwnerDetails_Obj.getJSONObject("JOINT_OWNERS");
-//              Log.d("JOINT_OWNERS", "str: " + OwnerDetails_Obj);
                 JSONArray JOINT_OWNERS_jsonArray = OwnerDetails_Obj.getJSONArray("JOINT_OWNERS");
 
                 String strJsonArray = JOINT_OWNERS_jsonArray.toString();
@@ -307,25 +304,7 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                 strJsonArray = strJsonArray.replace("{\"OWNER\":", "");
                 strJsonArray = strJsonArray.replace("},\"EXTENT\"", ",\"EXTENT\"");
 
-//                strJsonArray = strJsonArray.replace("\"OWNER\":{", "\"OWNER\":[{");
-//                strJsonArray = strJsonArray.replace("},\"EXTENT\":", "}],\"EXTENT\":");
-
-//                strJsonArray = strJsonArray.replace("}],\"EXTENT\":\"0 : 17 : 8\",\"MAIN_OWNER_CODE\":\"7\"},{\"OWNER\":", "},");
-//                strJsonArray = strJsonArray.replace("\"MAIN_OWNER_CODE\":\"9\"}", "\"MAIN_OWNER_CODE\":\"9\"]}");
-//                Log.d("SUSstrJsonwithOWNER",strJsonArray);
-//                strJsonArray = strJsonArray.replace("[{\"OWNER\":", " ");
-//                strJsonArray = strJsonArray.replace("},\"EXTENT\"", ",\"EXTENT\"");
-//                strJsonArray = strJsonArray.replace("]}]", "}]");
-
-                //Log.d("SUSstrJsonArray",strJsonArray);
                 JSONArray finalOWNER_JsonArray = new JSONArray(strJsonArray);
-
-//                for (int i = 0; i < finalOWNER_JsonArray.length(); i++) {
-//                    JSONObject Object = finalOWNER_JsonArray.getJSONObject(i);
-//                    Log.d("Object", String.valueOf(Object));
-//                }
-                //Log.d("RESPONSE : ", String.valueOf(finalOWNER_JsonArray));
-
 
                 strValueOfJSONArrayResponse = String.valueOf(finalOWNER_JsonArray);
                 //---------DB INSERT-------
@@ -402,63 +381,21 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                     rvRestrictionReport.setAdapter(adapter);
                 }
             } catch (Exception e) {
-                //e.printStackTrace();
+                e.printStackTrace();
                 Log.d("Exception",""+e.getMessage());
-                try {
-                    JSONObject obj = new JSONObject(formatted_old.replace("\n", ""));
-                    JSONObject OwnerDetails_Obj = obj.getJSONObject("OwnerDetails");
-                    OwnerDetails_Obj = OwnerDetails_Obj.getJSONObject("OWNERS");
-                    formatted_old = OwnerDetails_Obj.toString();
-                    formatted_old = formatted_old.replace("\"JOINT_OWNERS\":{", "\"JOINT_OWNERS\":[{");
-                    formatted_old = formatted_old.replace("}}", "}]}");
-                    Log.d("SUS",formatted_old);
-                    OwnerDetails_Obj = new JSONObject(formatted_old);
-                    JSONArray JOINT_OWNERS_jsonArray = OwnerDetails_Obj.getJSONArray("JOINT_OWNERS");
-
-                    String strJsonArray = JOINT_OWNERS_jsonArray.toString();
-                    Log.d("SUS2",strJsonArray);
-
-                    strJsonArray = strJsonArray.replace("}],\"EXTENT\":\"0 : 17 : 8\",\"MAIN_OWNER_CODE\":\"7\"},{\"OWNER\":", "},");
-                    strJsonArray = strJsonArray.replace("\"MAIN_OWNER_CODE\":\"9\"}", "\"MAIN_OWNER_CODE\":\"9\"]}");
-                    Log.d("SUSstrJsonwithOWNER",strJsonArray);
-                    strJsonArray = strJsonArray.replace("[{\"OWNER\":", " ");
-                    strJsonArray = strJsonArray.replace("},\"EXTENT\"", ",\"EXTENT\"");
-                    strJsonArray = strJsonArray.replace("]}]", "}]");
-
-                    Log.d("SUSstrJsonArray",strJsonArray);
-                    JSONArray finalOWNER_JsonArray = new JSONArray(strJsonArray);
-                    strValueOfJSONArrayResponse = String.valueOf(finalOWNER_JsonArray);
-
-                    Gson gson = new Gson();
-                    restrictionOnLandReportTableList = gson.fromJson(String.valueOf(finalOWNER_JsonArray), new TypeToken<List<RestrictionOnLandReportTable>>() {
-                    }.getType());
-                    restrictionOnLandReportTableList.get(0).getEXTENT();
-                    if (restrictionOnLandReportTableList.size() == 0) {
-                        final AlertDialog.Builder builder = new AlertDialog.Builder(RestrictionOnLandReport.this, R.style.MyDialogTheme);
-                        builder.setTitle("STATUS")
-                                .setMessage("No Data Found For This Record")
-                                .setIcon(R.drawable.ic_notifications_black_24dp)
-                                .setCancelable(false)
-                                .setPositiveButton("OK", (dialog, id) -> {
-                                    dialog.cancel();
-                                    finish();
-                                });
-                        final AlertDialog alert = builder.create();
-                        alert.show();
-                        alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-                    } else {
-                        restrictionOnLandReportTableList.size();
-                        RestrictionOnLandReportAdapter adapter = new RestrictionOnLandReportAdapter(restrictionOnLandReportTableList);
-                        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-                        rvRestrictionReport.setLayoutManager(mLayoutManager);
-                        rvRestrictionReport.setItemAnimator(new DefaultItemAnimator());
-                        rvRestrictionReport.setAdapter(adapter);
-                    }
-                } catch (JSONException ex) {
-                    Toast.makeText(this, ex.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                    ex.printStackTrace();
-                }
-//                Toast.makeText(getApplicationContext(), Constants.ERR_MSG, Toast.LENGTH_LONG).show();
+                final AlertDialog.Builder builder = new AlertDialog.Builder(RestrictionOnLandReport.this, R.style.MyDialogTheme);
+                builder.setTitle("STATUS")
+                        .setMessage("Something went wrong, Please try again..!")
+                        .setIcon(R.drawable.ic_notifications_black_24dp)
+                        .setCancelable(false)
+                        .setPositiveButton("OK", (dialog, id) -> {
+                            dialog.cancel();
+                            finish();
+                        });
+                final AlertDialog alert = builder.create();
+                alert.show();
+                alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                //Toast.makeText(getApplicationContext(), "Something went wrong, Please try again", Toast.LENGTH_LONG).show();
             }
         }
     }

@@ -384,11 +384,6 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
                                                         PariharaIndividualDetailsResponse result = response.body();
                                                         progressDialog.dismiss();
 
-                                                        sp_sum_district.setText("");
-                                                        sp_sum_taluk.setText("");
-                                                        sp_sum_hobli.setText("");
-                                                        sp_sum_village.setText("");
-                                                        etSurveyNumber.setText("");
                                                         assert result != null;
                                                         s = result.getGetMutationSummaryReportResult();
                                                         if (s.equals("")) {
