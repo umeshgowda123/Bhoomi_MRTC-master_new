@@ -67,8 +67,7 @@ public class AppLauncher extends AppCompatActivity {
             window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
 
-        dataBaseHelper =
-                Room.databaseBuilder(getApplicationContext(),
+        dataBaseHelper = Room.databaseBuilder(AppLauncher.this,
                         DataBaseHelper.class, getString(R.string.db_name)).build();
         Observable<Integer> noOfRows;
         noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumberOfRows());
@@ -110,164 +109,6 @@ public class AppLauncher extends AppCompatActivity {
 
                     }
                 });
-
-        if (isNetworkAvailable()){
-            apiInterface = PariharaIndividualreportClient.getClient(getResources().getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
-            Call<PariharaIndividualDetailsResponse> call = apiInterface.FnGetServiceStatus(Constants.REPORT_SERVICE_USER_NAME,
-                    Constants.REPORT_SERVICE_PASSWORD);
-            call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
-                @Override
-                public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {
-                    if (response.isSuccessful()) {
-                        PariharaIndividualDetailsResponse result = response.body();
-                        assert result != null;
-                        String res = result.getFnGetServiceStatusResult();
-                        if (!TextUtils.isEmpty(res)){
-                            try {
-                                JSONArray jsonArray = new JSONArray(res);
-                                Log.d("jsonArray", ""+jsonArray);
-
-                                Gson gson = new Gson();
-                                maintenance_flagsList = gson.fromJson(String.valueOf(jsonArray), new TypeToken<List<Maintenance_Flags>>() {
-                                }.getType());
-
-                                deleteResponseByID(maintenance_flagsList);
-                            } catch (JSONException e){
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable t) {
-                    call.cancel();
-                }
-            });
-        } else {
-            dataBaseHelper =
-                    Room.databaseBuilder(getApplicationContext(),
-                            DataBaseHelper.class, getString(R.string.db_name)).build();
-            Observable<Integer> countOfRows;
-            countOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getCountMaintenance_Flags());
-            countOfRows
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<Integer>() {
-
-
-                        @Override
-                        public void onSubscribe(Disposable d) {
-
-                        }
-
-                        @Override
-                        public void onNext(Integer integer) {
-                            Log.d("CountInt", ""+integer);
-                            if (integer == 0) {
-                                AlertDialog alertDialog = new AlertDialog.Builder(AppLauncher.this).create();
-                                alertDialog.setMessage(getString(R.string.please_enable_internet_connection));
-                                alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.ok), (dialog, which) -> dialog.dismiss());
-                                alertDialog.show();
-                            } else {
-                                Toast.makeText(getApplicationContext(), "Internet Connection not available", Toast.LENGTH_SHORT).show();
-                                new Handler().postDelayed(() -> {
-                                    Intent intent = new Intent(AppLauncher.this, BhoomiHomePage.class);
-                                    startActivity(intent);
-                                    finish();
-                                }, 1000);
-
-                            }
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            e.printStackTrace();
-                            Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                        }
-
-                        @Override
-                        public void onComplete() {
-
-                        }
-                    });
-            Toast.makeText(getApplicationContext(), "Internet Connection not available", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void insertDataMainFlags(List<Maintenance_Flags> maintenance_flagsList){
-        dataBaseHelper =
-                Room.databaseBuilder(getApplicationContext(),
-                        DataBaseHelper.class, getString(R.string.db_name)).build();
-        Observable<Long[]> insertDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().insertMaintenance_Flags(maintenance_flagsList));
-        insertDataObservable
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Long[]>() {
-
-
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(Long[] longs) {
-                        Intent intent = new Intent(AppLauncher.this, BhoomiHomePage.class);
-                        startActivity(intent);
-                        finish();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-    }
-    private void deleteResponseByID(List<Maintenance_Flags> maintenance_flagsList) {
-
-        dataBaseHelper =
-                Room.databaseBuilder(getApplicationContext(),
-                        DataBaseHelper.class, getString(R.string.db_name)).build();
-        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteResMainFlags());
-        noOfRows
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Integer>() {
-
-
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(Integer integer) {
-
-                        Log.i("delete", integer + "");
-                        insertDataMainFlags(maintenance_flagsList);
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
     }
 
     private boolean isNetworkAvailable() {
@@ -348,6 +189,123 @@ public class AppLauncher extends AppCompatActivity {
 
                     @Override
                     public void onNext(Long[] longs) {
+                        createMaintenanceTbl();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    public void createMaintenanceTbl(){
+        if (isNetworkAvailable()){
+            apiInterface = PariharaIndividualreportClient.getClient(getResources().getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
+            Call<PariharaIndividualDetailsResponse> call = apiInterface.FnGetServiceStatus(Constants.REPORT_SERVICE_USER_NAME,
+                    Constants.REPORT_SERVICE_PASSWORD);
+            call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+                @Override
+                public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {
+                    if (response.isSuccessful()) {
+                        PariharaIndividualDetailsResponse result = response.body();
+                        assert result != null;
+                        String res = result.getFnGetServiceStatusResult();
+                        if (!TextUtils.isEmpty(res)){
+                            try {
+                                JSONArray jsonArray = new JSONArray(res);
+                                Log.d("jsonArray", ""+jsonArray);
+
+                                Gson gson = new Gson();
+                                maintenance_flagsList = gson.fromJson(String.valueOf(jsonArray), new TypeToken<List<Maintenance_Flags>>() {
+                                }.getType());
+
+                                deleteResponseByID(maintenance_flagsList);
+                            } catch (JSONException e){
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable t) {
+                    call.cancel();
+                }
+            });
+        } else {
+            Observable<Integer> countOfRows;
+            countOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getCountMaintenance_Flags());
+            countOfRows
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<Integer>() {
+
+
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(Integer integer) {
+                            Log.d("CountInt", ""+integer);
+                            if (integer == 0) {
+                                AlertDialog alertDialog = new AlertDialog.Builder(AppLauncher.this).create();
+                                alertDialog.setMessage(getString(R.string.please_enable_internet_connection));
+                                alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.ok), (dialog, which) -> {
+                                    onBackPressed();
+                                    dialog.dismiss();
+                                });
+                                alertDialog.show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Internet Connection not available", Toast.LENGTH_SHORT).show();
+                                new Handler().postDelayed(() -> {
+                                    Intent intent = new Intent(AppLauncher.this, BhoomiHomePage.class);
+                                    startActivity(intent);
+                                    finish();
+                                }, 1000);
+
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+            Toast.makeText(getApplicationContext(), "Internet Connection not available", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void insertDataMainFlags(List<Maintenance_Flags> maintenance_flagsList){
+        Observable<Long[]> insertDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().insertMaintenance_Flags(maintenance_flagsList));
+        insertDataObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Long[]>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Long[] longs) {
                         Intent intent = new Intent(AppLauncher.this, BhoomiHomePage.class);
                         startActivity(intent);
                         finish();
@@ -365,5 +323,46 @@ public class AppLauncher extends AppCompatActivity {
 
                     }
                 });
+    }
+    private void deleteResponseByID(List<Maintenance_Flags> maintenance_flagsList) {
+
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteResMainFlags());
+        noOfRows
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+
+                        Log.i("delete", integer + "");
+                        insertDataMainFlags(maintenance_flagsList);
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

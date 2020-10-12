@@ -221,6 +221,7 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
                                             }
                                         }
                                     } else {
+                                        progressBar.setVisibility(View.VISIBLE);
                                         mTaskFragment.startBackgroundTask(jsonObject);
 
                                     }
