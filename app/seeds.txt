@@ -3030,7 +3030,7 @@ com.google.android.material.chip.Chip: void setChipIconEnabledResource(int)
 androidx.appcompat.R$styleable: int AnimatedStateListDrawableCompat_android_enterFadeDuration
 okhttp3.internal.connection.RealConnection: int getRouteFailureCount$okhttp()
 app.bmc.com.BHOOMI_MRTC.model.PacsLoanTableData: java.lang.String BNK_BRNCH_NME
-app.bmc.com.BHOOMI_MRTC.screens.AppLancher
+app.bmc.com.BHOOMI_MRTC.screens.AppLauncher
 com.google.android.material.R$string: int mtrl_picker_toggle_to_year_selection
 org.jsoup.nodes.Element: org.jsoup.nodes.Node after(org.jsoup.nodes.Node)
 androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat: int getIntrinsicHeight()
@@ -10257,7 +10257,7 @@ androidx.core.view.accessibility.AccessibilityViewCommand$CommandArguments: void
 com.google.android.material.R$styleable: int TabItem_android_text
 app.bmc.com.BHOOMI_MRTC.model.ClsLoanWaiverReportBANK_Branchwise: void setBANK_NAME(java.lang.String)
 app.bmc.com.BHOOMI_MRTC.model.BenificaryDataLandWise: java.lang.String CropLossExtentAcre
-app.bmc.com.BHOOMI_MRTC.screens.AppLancher: AppLancher()
+app.bmc.com.BHOOMI_MRTC.screens.AppLauncher: AppLancher()
 app.bmc.com.BHOOMI_MRTC.model.BankLoanTableData: java.lang.String getFMLY_RCNO()
 androidx.coordinatorlayout.R$attr: int fontProviderFetchTimeout
 androidx.recyclerview.R$styleable: int GradientColor_android_type

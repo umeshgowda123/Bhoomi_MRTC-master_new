@@ -1,7 +1,10 @@
 package app.bmc.com.BHOOMI_MRTC.screens;
 
 import androidx.room.Room;
+
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -14,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.text.TextUtils;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -144,6 +148,47 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
 
 
         onClickAction();
+
+        dataBaseHelper =
+                Room.databaseBuilder(getApplicationContext(),
+                        DataBaseHelper.class, getString(R.string.db_name)).build();
+        Observable<String> stringObservable;
+        stringObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getMaintenanceStatus(3));
+        stringObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String str) {
+                        Log.d("valStr", ""+str);
+                        if (str.equals("false")){
+                            AlertDialog alertDialog = new AlertDialog.Builder(ViewRtcInformationByOwnerName.this).create();
+                            alertDialog.setTitle(getString(R.string.status));
+                            alertDialog.setMessage(getString(R.string.this_service_is_under_maintenance));
+                            alertDialog.setCancelable(false);
+                            alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE,getString(R.string.ok), (dialog, which) -> onBackPressed());
+                            alertDialog.show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
 
     }
 

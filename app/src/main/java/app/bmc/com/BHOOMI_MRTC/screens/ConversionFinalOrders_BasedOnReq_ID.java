@@ -63,11 +63,11 @@ public class ConversionFinalOrders_BasedOnReq_ID extends AppCompatActivity {
 
                 if (list.size() == 0) {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(ConversionFinalOrders_BasedOnReq_ID.this, R.style.MyDialogTheme);
-                    builder.setTitle("STATUS")
-                            .setMessage("No Data Found For This Record")
+                    builder.setTitle(getString(R.string.status))
+                            .setMessage(getString(R.string.no_data_found_for_this_record))
                             .setIcon(R.drawable.ic_notifications_black_24dp)
                             .setCancelable(false)
-                            .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                            .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
                     final AlertDialog alert = builder.create();
                     alert.show();
                     alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);

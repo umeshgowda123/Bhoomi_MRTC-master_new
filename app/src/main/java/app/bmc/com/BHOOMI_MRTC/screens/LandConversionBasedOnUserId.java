@@ -110,11 +110,11 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
 
                                     if(userid_res == null || userid_res.equals("") || userid_res.contains("INVALID")) {
                                         final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversionBasedOnUserId.this, R.style.MyDialogTheme);
-                                        builder.setTitle("STATUS")
-                                                .setMessage("Invalid User ID")
+                                        builder.setTitle(getString(R.string.status))
+                                                .setMessage(getString(R.string.invalid_user_id))
                                                 .setIcon(R.drawable.ic_notifications_black_24dp)
                                                 .setCancelable(false)
-                                                .setPositiveButton("OK", (dialog, which) -> {
+                                                .setPositiveButton(getString(R.string.ok), (dialog, which) -> {
                                                     dialog.cancel();
                                                     finish();
                                                 });
@@ -123,11 +123,11 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
                                         alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
                                     }else if(userid_res.contains("Details not found")) {
                                         final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversionBasedOnUserId.this, R.style.MyDialogTheme);
-                                        builder.setTitle("STATUS")
+                                        builder.setTitle(getString(R.string.status))
                                                 .setMessage(getString(R.string.details_not_found))
                                                 .setIcon(R.drawable.ic_notifications_black_24dp)
                                                 .setCancelable(false)
-                                                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                                .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
                                         final android.app.AlertDialog alert = builder.create();
                                         alert.show();
                                         alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
@@ -140,11 +140,11 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
                                             }.getType());
                                             if (AfdvtBasedOnUserIdData.size() == 0) {
                                                 final AlertDialog.Builder builder = new AlertDialog.Builder(LandConversionBasedOnUserId.this, R.style.MyDialogTheme);
-                                                builder.setTitle("STATUS")
-                                                        .setMessage("No Data Found For This Record")
+                                                builder.setTitle(getString(R.string.status))
+                                                        .setMessage(getString(R.string.no_data_found_for_this_record))
                                                         .setIcon(R.drawable.ic_notifications_black_24dp)
                                                         .setCancelable(false)
-                                                        .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                                        .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
                                                 final AlertDialog alert = builder.create();
                                                 alert.show();
                                                 alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
@@ -165,7 +165,7 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
                             }
                             else {
                                 progressDialog = new ProgressDialog(LandConversionBasedOnUserId.this);
-                                progressDialog.setMessage("Please Wait");
+                                progressDialog.setMessage(getString(R.string.please_wait));
                                 progressDialog.setCancelable(false);
                                 progressDialog.show();
 
@@ -186,21 +186,21 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
                                             progressDialog.dismiss();
                                             if(User_res == null || User_res.equals("") || User_res.contains("INVALID")) {
                                                 final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversionBasedOnUserId.this, R.style.MyDialogTheme);
-                                                builder.setTitle("STATUS")
-                                                        .setMessage("Invalid User ID")
+                                                builder.setTitle(getString(R.string.status))
+                                                        .setMessage(getString(R.string.invalid_user_id))
                                                         .setIcon(R.drawable.ic_notifications_black_24dp)
                                                         .setCancelable(false)
-                                                        .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                                        .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
                                                 final android.app.AlertDialog alert = builder.create();
                                                 alert.show();
                                                 alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
                                             }else if(User_res.contains("Details not found")) {
                                                 final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversionBasedOnUserId.this, R.style.MyDialogTheme);
-                                                builder.setTitle("STATUS")
+                                                builder.setTitle(getString(R.string.status))
                                                         .setMessage(getString(R.string.details_not_found))
                                                         .setIcon(R.drawable.ic_notifications_black_24dp)
                                                         .setCancelable(false)
-                                                        .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                                        .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
                                                 final android.app.AlertDialog alert = builder.create();
                                                 alert.show();
                                                 alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
@@ -215,11 +215,11 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
 
                                                     if (AfdvtBasedOnUserIdData.size() == 0) {
                                                         final AlertDialog.Builder builder = new AlertDialog.Builder(LandConversionBasedOnUserId.this, R.style.MyDialogTheme);
-                                                        builder.setTitle("STATUS")
-                                                                .setMessage("No Data Found For This Record")
+                                                        builder.setTitle(getString(R.string.status))
+                                                                .setMessage(getString(R.string.no_data_found_for_this_record))
                                                                 .setIcon(R.drawable.ic_notifications_black_24dp)
                                                                 .setCancelable(false)
-                                                                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                                                .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
                                                         final AlertDialog alert = builder.create();
                                                         alert.show();
                                                         alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);

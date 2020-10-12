@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import androidx.annotation.NonNull;
 import androidx.room.Room;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -189,6 +190,47 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
             if (progressBar != null)
                 progressBar.setVisibility(View.VISIBLE);
         }
+
+        dataBaseHelper =
+                Room.databaseBuilder(getApplicationContext(),
+                        DataBaseHelper.class, getString(R.string.db_name)).build();
+        Observable<String> stringObservable;
+        stringObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getMaintenanceStatus(6));
+        stringObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String str) {
+                        Log.d("valStr", ""+str);
+                        if (str.equals("false")){
+                            android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(ViewMutationStatusInformation.this).create();
+                            alertDialog.setTitle(getString(R.string.status));
+                            alertDialog.setMessage(getString(R.string.this_service_is_under_maintenance));
+                            alertDialog.setCancelable(false);
+                            alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE,getString(R.string.ok), (dialog, which) -> onBackPressed());
+                            alertDialog.show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
 
     }
 
@@ -457,11 +499,11 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                                             Log.d("CHECK", Response);
                                             if (Response.contains("Details not found") || Response.isEmpty()) {
                                                 final AlertDialog.Builder builder = new AlertDialog.Builder(ViewMutationStatusInformation.this, R.style.MyDialogTheme);
-                                                builder.setTitle("Mutation Status")
-                                                        .setMessage("No Mutations are pending in this Survey Number")
+                                                builder.setTitle(getString(R.string.mutation_status))
+                                                        .setMessage(getString(R.string.no_mutations_are_pending_in_this_survey_no))
                                                         .setIcon(R.drawable.ic_notifications_black_24dp)
                                                         .setCancelable(false)
-                                                        .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                                        .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
                                                 final AlertDialog alert = builder.create();
                                                 alert.show();
                                                 alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
@@ -516,11 +558,11 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
         //progressDoalog.dismiss();
         if (TextUtils.isEmpty(data) || data.contains("No Data Found")) {
             final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ViewMutationStatusInformation.this, R.style.MyDialogTheme);
-            builder.setTitle("STATUS")
-                    .setMessage("No Data Found For This Survey No.")
+            builder.setTitle(getString(R.string.status))
+                    .setMessage(getString(R.string.no_data_found_for_this_record))
                     .setIcon(R.drawable.ic_notifications_black_24dp)
                     .setCancelable(false)
-                    .setPositiveButton("OK", (dialog, id) -> {
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
                         dialog.cancel();
                         edittext_survey.setText("");
                     });
@@ -576,13 +618,13 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
 //        formatted = formatted.replace("</Details", "");
         Log.d("formatted",formatted);
-        if (formatted.contains(getString(R.string.details_not_found)) || formatted.isEmpty()) {
+        if (formatted.contains("Details not found") || formatted.isEmpty()) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.MyDialogTheme);
-            builder.setTitle("Mutation Status")
-                    .setMessage("No Mutations are pending in this Survey Number")
+            builder.setTitle(getString(R.string.mutation_status))
+                    .setMessage(getString(R.string.no_mutations_are_pending_in_this_survey_no))
                     .setIcon(R.drawable.ic_notifications_black_24dp)
                     .setCancelable(false)
-                    .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
             final AlertDialog alert = builder.create();
             alert.show();
             alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);

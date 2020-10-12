@@ -23,6 +23,7 @@ import app.bmc.com.BHOOMI_MRTC.model.MPD_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.MSR_RES_Data;
 import app.bmc.com.BHOOMI_MRTC.model.MST_VLM;
 import app.bmc.com.BHOOMI_MRTC.model.MS_REPORT_TABLE;
+import app.bmc.com.BHOOMI_MRTC.model.Maintenance_Flags;
 import app.bmc.com.BHOOMI_MRTC.model.PacsBankMasterData;
 import app.bmc.com.BHOOMI_MRTC.model.RLR_RES_Data;
 import app.bmc.com.BHOOMI_MRTC.model.RTCV_Data;
@@ -47,6 +48,9 @@ public interface DataBaseAccess {
     Long[] insertMasterData(List<MST_VLM> mst_vlmList);
 
     @Insert
+    Long[] insertMaintenance_Flags(List<Maintenance_Flags> mainFlagsList);
+
+    @Insert
     Long[] insertMasterCalamityData(List<CalamityDetails> calamity_list);
 
 
@@ -65,8 +69,17 @@ public interface DataBaseAccess {
     @Insert
     Long[] insertYearSeasonData(List<YearDetails> year_list);
 
-    @Query("SELECT COUNT(id) FROM MST_VLM ")
+    @Query("SELECT COUNT(id) FROM MST_VLM")
     int getNumberOfRows();
+
+    @Query("SELECT COUNT(ID) FROM Maintenance_Flags")
+    int getCountMaintenance_Flags();
+
+    @Query("SELECT SRVC_STATUS FROM Maintenance_Flags where ID = :ID")
+    String getMaintenanceStatus(int ID);
+
+    @Query("DELETE FROM Maintenance_Flags")
+    int deleteResMainFlags();
 
 
     @Query("SELECT COUNT(id) FROM CalamityDetails")

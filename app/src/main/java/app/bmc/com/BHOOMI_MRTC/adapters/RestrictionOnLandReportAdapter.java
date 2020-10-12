@@ -2,6 +2,7 @@ package app.bmc.com.BHOOMI_MRTC.adapters;
 
 
 import android.annotation.SuppressLint;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,11 @@ public class RestrictionOnLandReportAdapter extends RecyclerView.Adapter<Restric
         holder.tvCourtStay.setText(list.get(position).getCourtStay());
         holder.tvLandAlienated.setText(list.get(position).getAlienation());
         holder.tvTrnscRunning.setText(list.get(position).getTransactionRunning());
-        holder.tvPyki.setText(list.get(position).getPyki());
+        String str = list.get(position).getPyki_surveyor_desc();
+        if (TextUtils.isEmpty(str)){
+            str = "Pyki update not happened on the selected survey number";
+        }
+        holder.tvPyki.setText(str);
 
     }
 

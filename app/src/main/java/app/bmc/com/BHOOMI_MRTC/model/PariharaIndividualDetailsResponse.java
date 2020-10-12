@@ -27,6 +27,18 @@ public class PariharaIndividualDetailsResponse {
     @Expose
     public String getDownloadCLWSSTATUS_RationCardResult;
 
+    @SerializedName("FnGetServiceStatusResult")
+    @Expose
+    public String FnGetServiceStatusResult;
+
+    public String getFnGetServiceStatusResult() {
+        return FnGetServiceStatusResult;
+    }
+
+    public void setFnGetServiceStatusResult(String fnGetServiceStatusResult) {
+        FnGetServiceStatusResult = fnGetServiceStatusResult;
+    }
+
     public String getGetDownloadCLWSSTATUS_RationCardResult() {
         return getDownloadCLWSSTATUS_RationCardResult;
     }

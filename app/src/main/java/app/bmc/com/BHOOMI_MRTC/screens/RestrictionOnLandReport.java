@@ -174,11 +174,11 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
 
                                             if (restrictionOnLandReportTableList.size() == 0) {
                                                 final AlertDialog.Builder builder = new AlertDialog.Builder(RestrictionOnLandReport.this, R.style.MyDialogTheme);
-                                                builder.setTitle("STATUS")
-                                                        .setMessage("No Data Found For This Record")
+                                                builder.setTitle(getString(R.string.status))
+                                                        .setMessage(getString(R.string.no_data_found_for_this_record))
                                                         .setIcon(R.drawable.ic_notifications_black_24dp)
                                                         .setCancelable(false)
-                                                        .setPositiveButton("OK", (dialog, id) -> {
+                                                        .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
                                                             dialog.cancel();
                                                             finish();
                                                         });
@@ -239,11 +239,11 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
 
         if (TextUtils.isEmpty(data) || data.contains("No Data Found")) {
             final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(RestrictionOnLandReport.this, R.style.MyDialogTheme);
-            builder.setTitle("STATUS")
-                    .setMessage("No Data Found For This Survey No.")
+            builder.setTitle(getString(R.string.status))
+                    .setMessage(getString(R.string.no_data_found_for_this_survey_no))
                     .setIcon(R.drawable.ic_notifications_black_24dp)
                     .setCancelable(false)
-                    .setPositiveButton("OK", (dialog, id) -> {
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
                         dialog.cancel();
                     });
             final android.app.AlertDialog alert = builder.create();
@@ -293,11 +293,11 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
         strData = data;
         if (data==null || data.equals("")){
             final AlertDialog.Builder builder = new AlertDialog.Builder(RestrictionOnLandReport.this, R.style.MyDialogTheme);
-            builder.setTitle("STATUS")
-                    .setMessage("No Data Found For This Record")
+            builder.setTitle(getString(R.string.status))
+                    .setMessage(getString(R.string.no_data_found_for_this_record))
                     .setIcon(R.drawable.ic_notifications_black_24dp)
                     .setCancelable(false)
-                    .setPositiveButton("OK", (dialog, id) -> {
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
                         dialog.cancel();
                         finish();
                     });
@@ -361,11 +361,11 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
 
                 if (restrictionOnLandReportTableList.size() == 0) {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(RestrictionOnLandReport.this, R.style.MyDialogTheme);
-                    builder.setTitle("STATUS")
-                            .setMessage("No Data Found For This Record")
+                    builder.setTitle(getString(R.string.status))
+                            .setMessage(getString(R.string.no_data_found_for_this_record))
                             .setIcon(R.drawable.ic_notifications_black_24dp)
                             .setCancelable(false)
-                            .setPositiveButton("OK", (dialog, id) -> {
+                            .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
                                 dialog.cancel();
                                 finish();
                             });
@@ -386,11 +386,11 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                 e.printStackTrace();
                 Log.d("Exception",""+e.getMessage());
                 final AlertDialog.Builder builder = new AlertDialog.Builder(RestrictionOnLandReport.this, R.style.MyDialogTheme);
-                builder.setTitle("STATUS")
-                        .setMessage("Something went wrong, Please try again..!")
+                builder.setTitle(getString(R.string.status))
+                        .setMessage(getString(R.string.something_went_wrong_pls_try_again))
                         .setIcon(R.drawable.ic_notifications_black_24dp)
                         .setCancelable(false)
-                        .setPositiveButton("OK", (dialog, id) -> {
+                        .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
                             dialog.cancel();
                             finish();
                         });
@@ -409,11 +409,11 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
 //        Toast.makeText(getApplicationContext(), data, Toast.LENGTH_LONG).show();
         if (data.contains("timeout")){
             final AlertDialog.Builder builder = new AlertDialog.Builder(RestrictionOnLandReport.this, R.style.MyDialogTheme);
-            builder.setTitle("STATUS")
-                    .setMessage("Timeout")
+            builder.setTitle(getString(R.string.status))
+                    .setMessage(getString(R.string.timeout))
                     .setIcon(R.drawable.ic_notifications_black_24dp)
                     .setCancelable(false)
-                    .setPositiveButton("OK", (dialog, id) -> {
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
                         dialog.cancel();
                         finish();
                     });
@@ -514,11 +514,11 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
 
                     if (restrictionOnLandReportTableList.size() == 0) {
                         final AlertDialog.Builder builder = new AlertDialog.Builder(RestrictionOnLandReport.this, R.style.MyDialogTheme);
-                        builder.setTitle("STATUS")
-                                .setMessage("No Data Found For This Record")
+                        builder.setTitle(getString(R.string.status))
+                                .setMessage(getString(R.string.no_data_found_for_this_record))
                                 .setIcon(R.drawable.ic_notifications_black_24dp)
                                 .setCancelable(false)
-                                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
                         final AlertDialog alert = builder.create();
                         alert.show();
                         alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);

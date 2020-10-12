@@ -153,6 +153,47 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
 
         onClickAction();
 
+        dataBaseHelper =
+                Room.databaseBuilder(getApplicationContext(),
+                        DataBaseHelper.class, getString(R.string.db_name)).build();
+        Observable<String> stringObservable;
+        stringObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getMaintenanceStatus(5));
+        stringObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String str) {
+                        Log.d("valStr", ""+str);
+                        if (str.equals("false")){
+                            android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(ViewMutationSummeryReport.this).create();
+                            alertDialog.setTitle(getString(R.string.status));
+                            alertDialog.setMessage(getString(R.string.this_service_is_under_maintenance));
+                            alertDialog.setCancelable(false);
+                            alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE,getString(R.string.ok), (dialog, which) -> onBackPressed());
+                            alertDialog.show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
     }
 
     private void onClickAction() {
@@ -350,11 +391,11 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
                                             Log.d("MSR_RES",MSR_RES+"");
                                             if (MSR_RES.equals("")) {
                                                 final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ViewMutationSummeryReport.this, R.style.MyDialogTheme);
-                                                builder.setTitle("STATUS")
-                                                        .setMessage("No Data Found")
+                                                builder.setTitle(getString(R.string.status))
+                                                        .setMessage(getString(R.string.no_data_avilable))
                                                         .setIcon(R.drawable.ic_notifications_black_24dp)
                                                         .setCancelable(false)
-                                                        .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                                        .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
                                                 final android.app.AlertDialog alert = builder.create();
                                                 alert.show();
                                                 alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
@@ -388,11 +429,11 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
                                                         s = result.getGetMutationSummaryReportResult();
                                                         if (s.equals("")) {
                                                             final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ViewMutationSummeryReport.this, R.style.MyDialogTheme);
-                                                            builder.setTitle("STATUS")
-                                                                    .setMessage("No Data Found")
+                                                            builder.setTitle(getString(R.string.status))
+                                                                    .setMessage(getString(R.string.no_data_avilable))
                                                                     .setIcon(R.drawable.ic_notifications_black_24dp)
                                                                     .setCancelable(false)
-                                                                    .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                                                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
                                                             final android.app.AlertDialog alert = builder.create();
                                                             alert.show();
                                                             alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
@@ -464,11 +505,11 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
                                         catch (NumberFormatException e) {
                                             progressDialog.dismiss();
                                             final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ViewMutationSummeryReport.this, R.style.MyDialogTheme);
-                                            builder.setTitle("STATUS")
-                                                    .setMessage("Invalid Survey No.")
+                                            builder.setTitle(getString(R.string.status))
+                                                    .setMessage(getString(R.string.invalid_survey_no))
                                                     .setIcon(R.drawable.ic_notifications_black_24dp)
                                                     .setCancelable(false)
-                                                    .setPositiveButton("OK", (dialog, id) -> {
+                                                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
                                                         dialog.cancel();
                                                         etSurveyNumber.setText("");
                                                     });
@@ -514,7 +555,7 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
         // alertDialog.setTitle("Reset...");
         alertDialog.setMessage("Please Enable Internet Connection");
         alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "OK", (dialog, which) -> {
-
+            dialog.dismiss();
         });
         alertDialog.show();
     }

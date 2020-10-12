@@ -2,7 +2,10 @@ package app.bmc.com.BHOOMI_MRTC.screens;
 
 import androidx.annotation.NonNull;
 import androidx.room.Room;
+
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -13,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -171,6 +175,47 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
             if (progressBar != null)
                 progressBar.setVisibility(View.VISIBLE);
         }
+
+        dataBaseHelper =
+                Room.databaseBuilder(getApplicationContext(),
+                        DataBaseHelper.class, getString(R.string.db_name)).build();
+        Observable<String> stringObservable;
+        stringObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getMaintenanceStatus(1));
+        stringObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String str) {
+                        Log.d("valStr", ""+str);
+                        if (str.equals("false")){
+                            AlertDialog alertDialog = new AlertDialog.Builder(ViewRtcInformation.this).create();
+                            alertDialog.setTitle(getString(R.string.status));
+                            alertDialog.setMessage(getString(R.string.this_service_is_under_maintenance));
+                            alertDialog.setCancelable(false);
+                            alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE,getString(R.string.ok), (dialog, which) -> onBackPressed());
+                            alertDialog.show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
 
     }
 
@@ -423,11 +468,11 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
 
         if (data.contains("No Data Found")) {
             final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ViewRtcInformation.this, R.style.MyDialogTheme);
-            builder.setTitle("STATUS")
-                    .setMessage("No Data Found For This Survey No.")
+            builder.setTitle(getString(R.string.status))
+                    .setMessage(getString(R.string.no_data_found_for_this_record))
                     .setIcon(R.drawable.ic_notifications_black_24dp)
                     .setCancelable(false)
-                    .setPositiveButton("OK", (dialog, id) -> {
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
                         dialog.cancel();
                         edittext_survey.setText("");
                     });

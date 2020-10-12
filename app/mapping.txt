@@ -12699,12 +12699,12 @@ app.bmc.com.BHOOMI_MRTC.retrofit.RtcViewInfoClient -> ka.b:
     3:3:retrofit2.Retrofit getClient(java.lang.String):0 -> a
     4:4:retrofit2.Retrofit getClient(java.lang.String):0:0 -> a
 app.bmc.com.BHOOMI_MRTC.screens.-$$Lambda$AppLancher$1$E31oERk9kZB3s7TxQGQP85_k6bo -> la.a:
-    app.bmc.com.BHOOMI_MRTC.screens.AppLancher$1 f$0 -> a
+    app.bmc.com.BHOOMI_MRTC.screens.AppLauncher$1 f$0 -> a
 app.bmc.com.BHOOMI_MRTC.screens.-$$Lambda$AppLancher$amZttK2p9tmv9hzDLT-G7tJhExE -> la.b:
-    app.bmc.com.BHOOMI_MRTC.screens.AppLancher f$0 -> a
+    app.bmc.com.BHOOMI_MRTC.screens.AppLauncher f$0 -> a
 app.bmc.com.BHOOMI_MRTC.screens.-$$Lambda$AppLancher$h1okz7LZKTPFiGb4wha9y1B-z9g -> la.c:
     java.util.List f$1 -> b
-    app.bmc.com.BHOOMI_MRTC.screens.AppLancher f$0 -> a
+    app.bmc.com.BHOOMI_MRTC.screens.AppLauncher f$0 -> a
 app.bmc.com.BHOOMI_MRTC.screens.-$$Lambda$Bhoomi$LUJArfX_CXjJpwEDUaHVfnRpTsU -> la.d:
     app.bmc.com.BHOOMI_MRTC.screens.Bhoomi f$0 -> a
 app.bmc.com.BHOOMI_MRTC.screens.-$$Lambda$Bhoomi$Nwq0XCWL87Yz-hCho3Cjcj-zwq4 -> la.e:
@@ -13038,22 +13038,22 @@ app.bmc.com.BHOOMI_MRTC.screens.-$$Lambda$ViewRtcInformationByOwnerName$uf1XnpN_
     app.bmc.com.BHOOMI_MRTC.screens.ViewRtcInformationByOwnerName f$0 -> a
 app.bmc.com.BHOOMI_MRTC.screens.-$$Lambda$ViewRtcInformationByOwnerName$ycEH_f_YBmjEh0Cg57TSvoFpskk -> la.Tb:
     app.bmc.com.BHOOMI_MRTC.screens.ViewRtcInformationByOwnerName f$0 -> a
-app.bmc.com.BHOOMI_MRTC.screens.AppLancher -> app.bmc.com.BHOOMI_MRTC.screens.AppLancher:
+app.bmc.com.BHOOMI_MRTC.screens.AppLauncher -> app.bmc.com.BHOOMI_MRTC.screens.AppLauncher:
     app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper dataBaseHelper -> r
     void createMasterData(java.util.List) -> a
     java.lang.Long[] lambda$createMasterData$1(java.util.List) -> b
     java.lang.Integer lambda$onCreate$0() -> j
     java.util.List loadDataFromCsv() -> k
-app.bmc.com.BHOOMI_MRTC.screens.AppLancher$1 -> la.Ub:
-    app.bmc.com.BHOOMI_MRTC.screens.AppLancher this$0 -> a
+app.bmc.com.BHOOMI_MRTC.screens.AppLauncher$1 -> la.Ub:
+    app.bmc.com.BHOOMI_MRTC.screens.AppLauncher this$0 -> a
     void onComplete() -> a
     void onError(java.lang.Throwable) -> a
     1:1:void onNext(java.lang.Integer):0:0 -> a
     1:1:void onNext(java.lang.Object):0 -> a
     void onSubscribe(io.reactivex.disposables.Disposable) -> a
     void lambda$onNext$0() -> b
-app.bmc.com.BHOOMI_MRTC.screens.AppLancher$2 -> la.Vb:
-    app.bmc.com.BHOOMI_MRTC.screens.AppLancher this$0 -> a
+app.bmc.com.BHOOMI_MRTC.screens.AppLauncher$2 -> la.Vb:
+    app.bmc.com.BHOOMI_MRTC.screens.AppLauncher this$0 -> a
     void onComplete() -> a
     void onError(java.lang.Throwable) -> a
     1:1:void onNext(java.lang.Long[]):0:0 -> a

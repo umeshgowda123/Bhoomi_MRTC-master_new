@@ -45,4 +45,15 @@ public class Constants {
             return 0;
         }
     }
+
+    public static final String SHARED_PREF_MaintenanceFlags = "SHARED_PREF_MaintenanceFlags";
+    public static final String View_RTC_Info = "View_RTC_Info";
+    public static final String RTC_XML_Verify = "RTC_XML_Verify";
+    public static final String View_RTC_By_Owner = "View_RTC_By_Owner";
+    public static final String Mutation_Pendency = "Mutation_Pendency";
+    public static final String Mutation_Summary = "Mutation_Summary";
+    public static final String Mutation_Status = "Mutation_Status";
+    public static final String Restriction_On_Land = "Restriction_On_Land";
+    public static final String Land_Conversion_ReqStatus = "Land_Conversion_ReqStatus";
+    public static final String Land_Conversion_FinOrder = "Land_Conversion_FinOrder";
 }

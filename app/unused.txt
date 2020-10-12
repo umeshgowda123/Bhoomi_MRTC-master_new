@@ -18224,7 +18224,7 @@ okhttp3.Route
     public final okhttp3.Address address()
     public final java.net.Proxy proxy()
     public final java.net.InetSocketAddress socketAddress()
-app.bmc.com.BHOOMI_MRTC.screens.AppLancher$1
+app.bmc.com.BHOOMI_MRTC.screens.AppLauncher$1
     public void onNext(java.lang.Integer)
 androidx.cardview.widget.CardViewDelegate
     public abstract void setMinWidthHeightInternal(int,int)
@@ -19766,7 +19766,7 @@ okhttp3.internal.http2.Http2ExchangeCodec
     public static final synthetic java.util.List access$getHTTP_2_SKIPPED_RESPONSE_HEADERS$cp()
 androidx.appcompat.widget.AbsActionBarView$VisibilityAnimListener
     public androidx.appcompat.widget.AbsActionBarView$VisibilityAnimListener withFinalVisibility(androidx.core.view.ViewPropertyAnimatorCompat,int)
-app.bmc.com.BHOOMI_MRTC.screens.AppLancher$2
+app.bmc.com.BHOOMI_MRTC.screens.AppLauncher$2
     public void onNext(java.lang.Long[])
 app.bmc.com.BHOOMI_MRTC.database.DataBaseAccess_Impl$6
     public void bind(androidx.sqlite.db.SupportSQLiteStatement,app.bmc.com.BHOOMI_MRTC.model.YearDetails)

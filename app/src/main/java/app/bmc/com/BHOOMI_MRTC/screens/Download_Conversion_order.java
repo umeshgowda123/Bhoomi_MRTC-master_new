@@ -117,6 +117,47 @@ public class Download_Conversion_order extends AppCompatActivity {
         sp_sum_village  =  findViewById(R.id.sp_sum_village);
         etSurveyNumber = findViewById(R.id.etSurveyNumber);
 
+        dataBaseHelper =
+                Room.databaseBuilder(getApplicationContext(),
+                        DataBaseHelper.class, getString(R.string.db_name)).build();
+        Observable<String> stringObservable;
+        stringObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getMaintenanceStatus(9));
+        stringObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String str) {
+                        Log.d("valStr", ""+str);
+                        if (str.equals("false")){
+                            android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(Download_Conversion_order.this).create();
+                            alertDialog.setTitle(getString(R.string.status));
+                            alertDialog.setMessage(getString(R.string.this_service_is_under_maintenance));
+                            alertDialog.setCancelable(false);
+                            alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE,getString(R.string.ok), (dialog, which) -> onBackPressed());
+                            alertDialog.show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
         dataBaseHelper = Room.databaseBuilder(getApplicationContext(),
                 DataBaseHelper.class, getString(R.string.db_name)).build();
 
@@ -388,11 +429,11 @@ public class Download_Conversion_order extends AppCompatActivity {
                                                 Log.d("MPD_RES",sno_RES+"");
                                                 if(sno_RES == null || sno_RES.equals("") || sno_RES.equals("[{\"Result\":\"Details not found\"}]")) {
                                                     final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Download_Conversion_order.this, R.style.MyDialogTheme);
-                                                    builder.setTitle("STATUS")
-                                                            .setMessage("No Data Found For This Record")
+                                                    builder.setTitle(getString(R.string.status))
+                                                            .setMessage(getString(R.string.no_data_found_for_this_record))
                                                             .setIcon(R.drawable.ic_notifications_black_24dp)
                                                             .setCancelable(false)
-                                                            .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                                            .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
                                                     final android.app.AlertDialog alert = builder.create();
                                                     alert.show();
                                                     alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
@@ -407,7 +448,7 @@ public class Download_Conversion_order extends AppCompatActivity {
                                         else {
 
                                         progressDialog = new ProgressDialog(Download_Conversion_order.this);
-                                        progressDialog.setMessage("Please Wait");
+                                        progressDialog.setMessage(getString(R.string.please_wait));
                                         progressDialog.setCancelable(false);
                                         progressDialog.show();
 
@@ -426,11 +467,11 @@ public class Download_Conversion_order extends AppCompatActivity {
                                                     progressDialog.dismiss();
                                                     if(SNO_RES == null || SNO_RES.equals("") || SNO_RES.equals("[{\"Result\":\"Details not found\"}]")) {
                                                         final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Download_Conversion_order.this, R.style.MyDialogTheme);
-                                                        builder.setTitle("STATUS")
-                                                                .setMessage("No Data Found For This Record")
+                                                        builder.setTitle(getString(R.string.status))
+                                                                .setMessage(getString(R.string.no_data_found_for_this_record))
                                                                 .setIcon(R.drawable.ic_notifications_black_24dp)
                                                                 .setCancelable(false)
-                                                                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                                                .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
                                                         final android.app.AlertDialog alert = builder.create();
                                                         alert.show();
                                                         alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
@@ -554,11 +595,11 @@ public class Download_Conversion_order extends AppCompatActivity {
                                                 Log.d("req_RES",req_RES+"");
                                                 if(req_RES == null || req_RES.equals("") || req_RES.equals("[{\"Result\":\"Details not found\"}]")) {
                                                     final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Download_Conversion_order.this, R.style.MyDialogTheme);
-                                                    builder.setTitle("STATUS")
-                                                            .setMessage("No Data Found For This Record")
+                                                    builder.setTitle(getString(R.string.status))
+                                                            .setMessage(getString(R.string.no_data_found_for_this_record))
                                                             .setIcon(R.drawable.ic_notifications_black_24dp)
                                                             .setCancelable(false)
-                                                            .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                                            .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
                                                     final android.app.AlertDialog alert = builder.create();
                                                     alert.show();
                                                     alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
@@ -572,7 +613,7 @@ public class Download_Conversion_order extends AppCompatActivity {
                                         else {
 
                                         progressDialog = new ProgressDialog(Download_Conversion_order.this);
-                                        progressDialog.setMessage("Please Wait");
+                                        progressDialog.setMessage(getString(R.string.please_wait));
                                         progressDialog.setCancelable(false);
                                         progressDialog.show();
 
@@ -591,11 +632,11 @@ public class Download_Conversion_order extends AppCompatActivity {
                                                     progressDialog.dismiss();
                                                     if(ReqID_RES == null || ReqID_RES.equals("") || ReqID_RES.equals("[{\"Result\":\"Details not found\"}]")) {
                                                         final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Download_Conversion_order.this, R.style.MyDialogTheme);
-                                                        builder.setTitle("STATUS")
-                                                                .setMessage("No Data Found For This Record")
+                                                        builder.setTitle(getString(R.string.status))
+                                                                .setMessage(getString(R.string.no_data_found_for_this_record))
                                                                 .setIcon(R.drawable.ic_notifications_black_24dp)
                                                                 .setCancelable(false)
-                                                                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                                                                .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
                                                         final android.app.AlertDialog alert = builder.create();
                                                         alert.show();
                                                         alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
@@ -704,8 +745,8 @@ public class Download_Conversion_order extends AppCompatActivity {
     public void selfDestruct() {
         AlertDialog alertDialog = new AlertDialog.Builder(Download_Conversion_order.this).create();
         // alertDialog.setTitle("Reset...");
-        alertDialog.setMessage("Please Enable Internet Connection");
-        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "OK", (dialog, which) -> {
+        alertDialog.setMessage(getString(R.string.please_enable_internet_connection));
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.status), (dialog, which) -> {
 
         });
         alertDialog.show();

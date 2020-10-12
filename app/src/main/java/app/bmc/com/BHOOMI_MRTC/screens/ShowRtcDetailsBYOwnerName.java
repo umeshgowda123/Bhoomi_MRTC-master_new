@@ -193,11 +193,11 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
             } else if (result.contains("500 | JSON ERROR")){
                 Log.d("result", ""+result);
                 final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ShowRtcDetailsBYOwnerName.this, R.style.MyDialogTheme);
-                builder.setTitle("STATUS")
-                        .setMessage("No data available for this village. Please contact support team for further clarification.")
+                builder.setTitle(getString(R.string.status))
+                        .setMessage(getString(R.string.no_data_found_for_this_vill_pls_cont_support_team_for))
                         .setIcon(R.drawable.ic_notifications_black_24dp)
                         .setCancelable(false)
-                        .setPositiveButton("OK", (dialog, id) -> {
+                        .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
                             dialog.cancel();
                             onBackPressed();
                         });
