@@ -400,7 +400,7 @@ public class MutationPendencyDetails extends AppCompatActivity {
                                     }
                                     else {
                                         progressDialog = new ProgressDialog(MutationPendencyDetails.this);
-                                        progressDialog.setMessage("Please Wait");
+                                        progressDialog.setMessage(getString(R.string.please_wait));
                                         progressDialog.setCancelable(false);
                                         progressDialog.show();
                                         apiInterface = PariharaIndividualreportClient.getClient(getResources().getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
@@ -523,8 +523,8 @@ public class MutationPendencyDetails extends AppCompatActivity {
     public void selfDestruct() {
         AlertDialog alertDialog = new AlertDialog.Builder(MutationPendencyDetails.this).create();
         // alertDialog.setTitle("Reset...");
-        alertDialog.setMessage("Please Enable Internet Connection");
-        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "OK", (dialog, which) -> {
+        alertDialog.setMessage(getString(R.string.please_enable_internet_connection));
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.ok), (dialog, which) -> {
 
         });
         alertDialog.show();

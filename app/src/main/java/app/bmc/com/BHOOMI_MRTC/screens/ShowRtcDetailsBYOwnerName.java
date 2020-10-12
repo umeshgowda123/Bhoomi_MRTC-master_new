@@ -131,7 +131,7 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             progressDialog = new ProgressDialog(ShowRtcDetailsBYOwnerName.this);
-            progressDialog.setMessage("Please Wait");
+            progressDialog.setMessage(getString(R.string.please_wait));
             progressDialog.setCancelable(false);
             progressDialog.show();
         }

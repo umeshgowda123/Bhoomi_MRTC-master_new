@@ -373,8 +373,6 @@
     <string name="completion_date">ಪೂರ್ಣಗೊಳ್ಳುವ ದಿನಾಂಕ</string>
     <string name="type_of_application_num">ಅರ್ಜಿ ಸಂಖ್ಯೆಯ ವಿಧ</string>
     <string name="application_created_date">ಅರ್ಜಿ ಸೃಜನೆಯಾದ ದಿನಾಂಕ</string>
-
-
     <string name="check_for_update">ನವೀಕರಣಕ್ಕಾಗಿ ಪರಿಶೀಲಿಸಿ</string>
     <string name="restart">ಪುನರಾರಂಭ</string>
     <string name="restriction_on_land">ಭೂಮಿಯಲ್ಲಿ ನಿರ್ಬಂಧ</string>
@@ -413,4 +411,6 @@
     <string name="no_information_found">ಯಾವುದೇ ಮಾಹಿತಿ ಕಂಡುಬಂದಿಲ್ಲ</string>
     <string name="no_data_found_for_this_vill_pls_cont_support_team_for">ಈ ಗ್ರಾಮದ ಯಾವುದೇ ಡೇಟಾ ಲಭ್ಯವಿಲ್ಲ. ಹೆಚ್ಚಿನ ಸ್ಪಷ್ಟೀಕರಣಕ್ಕಾಗಿ ದಯವಿಟ್ಟು ಬೆಂಬಲ ತಂಡವನ್ನು ಸಂಪರ್ಕಿಸಿ.</string>
     <string name="invalid_survey_no">ಅಮಾನ್ಯ ಸರ್ವೇ ನಂಬರ್</string>
+    <string name="loading">ದಯಮಾಡಿ ನಿರೀಕ್ಷಿಸಿ…</string>
+    <string name="please_wait_do_not_interrupt">ದಯವಿಟ್ಟು ನಿರೀಕ್ಷಿಸಿ, ಅಡ್ಡಿಪಡಿಸಬೇಡಿ</string>
 </resources>

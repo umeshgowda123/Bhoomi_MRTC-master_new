@@ -746,7 +746,7 @@ public class Download_Conversion_order extends AppCompatActivity {
         AlertDialog alertDialog = new AlertDialog.Builder(Download_Conversion_order.this).create();
         // alertDialog.setTitle("Reset...");
         alertDialog.setMessage(getString(R.string.please_enable_internet_connection));
-        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.status), (dialog, which) -> {
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.ok), (dialog, which) -> {
 
         });
         alertDialog.show();

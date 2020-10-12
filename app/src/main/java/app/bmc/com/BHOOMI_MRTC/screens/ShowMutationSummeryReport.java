@@ -31,7 +31,7 @@ public class ShowMutationSummeryReport extends AppCompatActivity {
 
         try {
             final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setMessage("Loading Data...");
+            progressDialog.setMessage(getString(R.string.loading));
             progressDialog.setCancelable(false);
 
             if (htmlResponseData != null) {

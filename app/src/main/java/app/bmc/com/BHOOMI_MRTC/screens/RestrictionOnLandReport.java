@@ -442,7 +442,7 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
         protected void onPreExecute() {
             super.onPreExecute();
             progressDialog = new ProgressDialog(RestrictionOnLandReport.this);
-            progressDialog.setMessage("Please Wait");
+            progressDialog.setMessage(getString(R.string.please_wait));
             progressDialog.setCancelable(false);
             progressDialog.show();
         }

@@ -83,7 +83,8 @@ public class Endorsement_ReportWebView extends AppCompatActivity {
             resultUrl = baseUrl + REQ_ID ;
 
         if (REQ_ID != null) {
-            progressBar = ProgressDialog.show(Endorsement_ReportWebView.this, "Loading...", "Please Wait, Do not Interrupt");
+            progressBar = ProgressDialog.show(Endorsement_ReportWebView.this,
+                    getString(R.string.loading), getString(R.string.please_wait_do_not_interrupt));
 
             webViewEndorsement_Report.setWebViewClient(new WebViewClient() {
                 public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -101,11 +102,11 @@ public class Endorsement_ReportWebView extends AppCompatActivity {
                     Toast.makeText(Endorsement_ReportWebView.this, "Oh no! " + description, Toast.LENGTH_SHORT).show();
 
                     final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Endorsement_ReportWebView.this, R.style.MyDialogTheme);
-                    builder.setTitle("Error")
-                            .setMessage("description")
+                    builder.setTitle(getString(R.string.status))
+                            .setMessage(description)
                             .setIcon(R.drawable.ic_notifications_black_24dp)
                             .setCancelable(false)
-                            .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                            .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
                     final android.app.AlertDialog alert = builder.create();
                     alert.show();
                     alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
