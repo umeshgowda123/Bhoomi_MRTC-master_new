@@ -243,7 +243,7 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
                                 .setMessage("Transaction contains Too Large Data.")
                                 .setIcon(R.drawable.ic_error_black_24dp)
                                 .setCancelable(false)
-                                .setPositiveButton("OK", (dialog, id) -> onBackPressed());
+                                .setPositiveButton(getString(R.string.ok), (dialog, id) -> onBackPressed());
                         final AlertDialog alert = builder.create();
                         alert.show();
                         alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);

@@ -101,6 +101,7 @@ public class AppLauncher extends AppCompatActivity {
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
+                        Log.d("EXCEPTION",""+e);
                         Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                     }
 

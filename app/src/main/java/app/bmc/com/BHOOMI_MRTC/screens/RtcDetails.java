@@ -243,7 +243,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                 } else
                     Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(getApplicationContext(), "Something Went Wrong Please Try Again", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.something_went_wrong_pls_try_again), Toast.LENGTH_LONG).show();
             }
         }
 
