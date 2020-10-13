@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -16,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -38,6 +41,7 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import app.bmc.com.BHOOMI_MRTC.R;
@@ -109,6 +113,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
         }
         SharedPreferences sp = getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE);
         language = sp.getString(Constants.LANGUAGE, "en");
+        setLocale(language);
 
         //dbManager = new DBManager(ViewRtcInformation.this);
         spinner_district = findViewById(R.id.spinner_district);
@@ -611,6 +616,16 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
         surveyNo = savedInstanceState.getString(Constants.SURVEY_NUMBER, "");
         village_id = savedInstanceState.getInt(Constants.VILLAGE_ID, 0);
 
+    }
+
+    public void setLocale(String localeName) {
+
+        Locale myLocale = new Locale(localeName);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
     }
 
     @Override

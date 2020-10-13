@@ -88,14 +88,9 @@ public class AppLauncher extends AppCompatActivity {
                             List<MST_VLM> mst_vlmList = loadDataFromCsv();
                             createMasterData(mst_vlmList);
                         }
-//                        else {
-//                            new Handler().postDelayed(() -> {
-//                                Intent intent = new Intent(AppLauncher.this, BhoomiHomePage.class);
-//                                startActivity(intent);
-//                                finish();
-//                            }, 1000);
-//
-//                        }
+                        else {
+                            createMaintenanceTbl();
+                        }
                     }
 
                     @Override
