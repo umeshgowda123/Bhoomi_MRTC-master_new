@@ -83,6 +83,7 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
+        progressBar = findViewById(R.id.progress_circular);
         getRtcDataBtn = findViewById(R.id.btn_get_rtc_data);
         clearReferenceNoBtn = findViewById(R.id.btn_clear_reference_no);
         referenceNumber = findViewById(R.id.etRefNum);
@@ -97,7 +98,7 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
             fm.beginTransaction().add(mTaskFragment, RtcXmlverificationBackGroundTask.TAG_HEADLESS_FRAGMENT).commit();
         }
         if (mTaskFragment.isTaskExecuting) {
-            progressBar = findViewById(R.id.progress_circular);
+
             if (progressBar != null)
                 progressBar.setVisibility(View.VISIBLE);
         }
