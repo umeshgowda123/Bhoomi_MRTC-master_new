@@ -12,12 +12,6 @@ import java.util.ArrayList;
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.model.CultivatorDisplay;
 
-/**
- * Author Name:Venkat Purimitla
- * Date       :2019-01-31
- * Description : This class defined to create custom list to display data comming server which is
- * cultivator xml response
- */
 public class CultivatorCustomAdapter extends RecyclerView.Adapter<CultivatorCustomAdapter.MyViewHolder> {
 
     private ArrayList<CultivatorDisplay> dataSet;

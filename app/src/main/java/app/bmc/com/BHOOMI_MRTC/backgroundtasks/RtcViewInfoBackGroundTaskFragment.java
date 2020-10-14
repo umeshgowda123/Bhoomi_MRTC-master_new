@@ -26,12 +26,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-/**
- * Author Name:Venkat Purimitla
- * Date       :2019-01-31
- * Description : This class defined to use web service calling when orientation take place.
- * this is purpose  for Rtc View Information services access .
- */
 public class RtcViewInfoBackGroundTaskFragment extends Fragment {
     public static final String TAG_HEADLESS_FRAGMENT = "headless_fragment";
     public boolean isTaskExecuting = false;

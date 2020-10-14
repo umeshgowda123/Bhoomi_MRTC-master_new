@@ -5,11 +5,6 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-/**
- * Author Name:Venkat Purimitla
- * Date       :2019-01-31
- * Description : This is model class  defined for Master Data.
- */
 @Entity
 public class MST_VLM {
     @PrimaryKey(autoGenerate = true)

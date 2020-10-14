@@ -34,12 +34,6 @@ import app.bmc.com.BHOOMI_MRTC.model.Landutilisation;
 import app.bmc.com.BHOOMI_MRTC.model.Mixedcropdetails;
 import app.bmc.com.BHOOMI_MRTC.model.Season;
 
-
-/**
- * Author Name:Venkat Purimitla
- * Date       :2019-01-31
- * Description : This fragment defined to display cultivator details.
- */
 public class CultivatorDetailsFragment extends Fragment {
 
     public CultivatorDetailsFragment() {

@@ -8,11 +8,6 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Author Name:Venkat Purimitla
- * Date       :2019-01-31
- * Description : This class   defined for return retrogit object for Rtc View Info
- */
 public class RtcViewInfoClient {
     private static Retrofit retrofit = null;
 

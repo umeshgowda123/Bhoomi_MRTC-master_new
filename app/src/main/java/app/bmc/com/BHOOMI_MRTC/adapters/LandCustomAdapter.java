@@ -18,12 +18,6 @@ import app.bmc.com.BHOOMI_MRTC.model.Irrigation;
 import app.bmc.com.BHOOMI_MRTC.model.Landdetails;
 import app.bmc.com.BHOOMI_MRTC.model.Tree;
 
-/**
- * Author Name:Venkat Purimitla
- * Date       :2019-01-31
- * Description : This class defined to create custom list to display data comming server which is
- * Land xml response
- */
 public class LandCustomAdapter extends RecyclerView.Adapter<LandCustomAdapter.MyViewHolder> {
 
     private ArrayList<Landdetails> dataSet;

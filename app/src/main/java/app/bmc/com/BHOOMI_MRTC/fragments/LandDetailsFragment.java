@@ -35,12 +35,6 @@ import app.bmc.com.BHOOMI_MRTC.model.Tree;
 import app.bmc.com.BHOOMI_MRTC.model.Treedetails;
 import app.bmc.com.BHOOMI_MRTC.model.Villagedetails;
 
-
-/**
- * Author Name:Venkat Purimitla
- * Date       :2019-01-31
- * Description : This fragment defined to display land details.
- */
 public class LandDetailsFragment extends Fragment {
 
 

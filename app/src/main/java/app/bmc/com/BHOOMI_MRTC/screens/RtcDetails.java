@@ -49,11 +49,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-/**
- * Author Name:Venkat Purimitla
- * Date       :2019-01-31
- * Description : This class  for reprajents UI and RTc Detaisl service applications
- */
 public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGroundTaskFragment.BackgroundCallBackRtcViewInfo{
 
 

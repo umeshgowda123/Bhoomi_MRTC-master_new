@@ -1,10 +1,5 @@
 package app.bmc.com.BHOOMI_MRTC.model;
 
-/**
- * Author Name:Venkat Purimitla
- * Date       :2019-01-31
- * Description : This is model class  defined for Tree Data.
- */
 public class Tree {
     private String treename;
     private String numberoftrees;

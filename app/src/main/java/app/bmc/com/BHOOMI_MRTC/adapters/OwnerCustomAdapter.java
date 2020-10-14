@@ -14,12 +14,6 @@ import java.util.ArrayList;
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.model.Owner;
 
-/**
- * Author Name:Venkat Purimitla
- * Date       :2019-01-31
- * Description : This class defined to create custom list to display data comming server which is
- * Owner xml response.
- */
 public class OwnerCustomAdapter extends RecyclerView.Adapter<OwnerCustomAdapter.MyViewHolder> {
 
     private ArrayList<Owner> dataSet;

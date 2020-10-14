@@ -15,11 +15,6 @@ import java.util.Objects;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 
-/**
- * Author Name:Venkat Purimitla
- * Date       :2019-01-31
- * Description : This class defined to create custom list to display services in Navigation Bar in Application
- */
 public class ExpandListAdapter extends BaseExpandableListAdapter {
     private Context _context;
     private List<String> _listDataHeader; // header titles

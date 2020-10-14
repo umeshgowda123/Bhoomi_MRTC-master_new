@@ -17,11 +17,6 @@ import java.util.Locale;
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
 
-/**
- * Author Name:Venkat Purimitla
- * Date       :2019-01-31
- * Description : This class  settings activity for multiple langue selection
- */
 public class Settings extends AppCompatActivity {
 
     @Override

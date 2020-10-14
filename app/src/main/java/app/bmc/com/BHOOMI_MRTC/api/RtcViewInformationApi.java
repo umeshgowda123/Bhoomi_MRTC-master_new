@@ -8,12 +8,6 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-/**
- * Author Name:Venkat Purimitla
- * Date       :2019-01-31
- * Description : This interface defined to access web services using retrofit. here we calling rtc view information
- * services.
- */
 public interface RtcViewInformationApi {
 
     @Headers({"content-type: text/json; charset=utf-8"})

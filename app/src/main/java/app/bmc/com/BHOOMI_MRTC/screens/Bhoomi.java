@@ -32,12 +32,6 @@ import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.adapters.ExpandListAdapter;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
 
-
-/**
- * Author Name:Venkat Purimitla
- * Date       :2019-01-31
- * Description : This class  for reprajents UI and Bhoomi applications
- */
 public class Bhoomi extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 

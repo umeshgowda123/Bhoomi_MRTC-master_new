@@ -2,11 +2,6 @@ package app.bmc.com.BHOOMI_MRTC.model;
 
 import androidx.annotation.NonNull;
 
-/**
- * Author Name:Venkat Purimitla
- * Date       :2019-01-31
- * Description : This is model class  defined for Hissa Data response.
- */
 public class Hissa_Response {
     private String Hissa_no;
     private String Surnoc;

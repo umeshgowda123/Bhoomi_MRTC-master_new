@@ -45,11 +45,6 @@ import app.bmc.com.BHOOMI_MRTC.model.Treedetails;
 import app.bmc.com.BHOOMI_MRTC.model.Villagedetails;
 import fr.arnaudguyon.xmltojsonlib.XmlToJson;
 
-/**
- * Author Name:Venkat Purimitla
- * Date       :2019-01-31
- * Description : This class  for reprajents UI and display response from server i.e rtc xml verification
- */
 public class RtcVerificationData extends AppCompatActivity {
     private TextView taluk_textview;
     private TextView hobli_textview;

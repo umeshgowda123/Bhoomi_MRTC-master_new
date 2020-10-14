@@ -27,12 +27,6 @@ import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.adapters.OwnerCustomAdapter;
 import app.bmc.com.BHOOMI_MRTC.model.Owner;
 
-
-/**
- * Author Name:Venkat Purimitla
- * Date       :2019-01-31
- * Description : This fragment defined to display owner details.
- */
 public class OwnerDetailsFragment extends Fragment {
 
     public OwnerDetailsFragment() {
