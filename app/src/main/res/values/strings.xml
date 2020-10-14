@@ -32,15 +32,12 @@
     <string name="natural_services">Natural Calamity Crop Loss Payment Services</string>
 
 
-    <string name="cultivator_details">Cultivator </string>
-    <string name="owner_details">Owner </string>
-    <string name="land_details">Land </string>
-
+    <string name="cultivator_details">Cultivator</string>
+    <string name="owner_details">Owner</string>
+    <string name="land_details">Land</string>
     <string name="owner_details_heading">Owner Details</string>
     <string name="owner_name">Owner Name</string>
-    <string name="surnoc_no">Surnoc </string>
-
-
+    <string name="surnoc_no">Surnoc</string>
     <string name="language_selection">Please Select Preferred Language</string>
     <string name="toolbartitle_settings">settings</string>
     <string name="app_kannada">Kannada</string>
