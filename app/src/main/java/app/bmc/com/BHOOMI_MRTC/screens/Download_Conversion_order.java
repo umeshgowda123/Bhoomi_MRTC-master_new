@@ -429,7 +429,6 @@ public class Download_Conversion_order extends AppCompatActivity {
                                         if (nterfaces_List.size()!=0) {
                                             for (int i = 0; i <= nterfaces_List.size()-1; i++) {
 
-
                                                 String sno_RES = LCFO_DATA.get(0).getSNO_RES();
                                                 if(sno_RES == null || sno_RES.equals("") || sno_RES.equals("[{\"Result\":\"Details not found\"}]")) {
                                                     final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Download_Conversion_order.this, R.style.MyDialogTheme);
@@ -448,8 +447,7 @@ public class Download_Conversion_order extends AppCompatActivity {
                                                     startActivity(intent);
                                                 }
                                             }
-                                        }
-                                        else {
+                                        } else {
 
                                         progressDialog = new ProgressDialog(Download_Conversion_order.this);
                                         progressDialog.setMessage(getString(R.string.please_wait));
@@ -469,7 +467,7 @@ public class Download_Conversion_order extends AppCompatActivity {
                                                     SNO_RES = result.getGetLandConversionFinalOrders_BasedOnSurveyNoResult();
 
                                                     progressDialog.dismiss();
-                                                    if(SNO_RES == null || SNO_RES.equals("") || SNO_RES.equals("[{\"Result\":\"Details not found\"}]")) {
+                                                    if(SNO_RES == null || SNO_RES.equals("") || SNO_RES.contains("Details not found")) {
                                                         final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Download_Conversion_order.this, R.style.MyDialogTheme);
                                                         builder.setTitle(getString(R.string.status))
                                                                 .setMessage(getString(R.string.no_data_found_for_this_record))
@@ -501,13 +499,11 @@ public class Download_Conversion_order extends AppCompatActivity {
 
                                                             @Override
                                                             public void onNext(Integer integer) {
+                                                                List<LandConversion_Final_Order_TABLE> LCFO_List = loadData();
                                                                 if (integer < 6) {
-                                                                    List<LandConversion_Final_Order_TABLE> LCFO_List = loadData();
                                                                     createLandConversion_Final_Order_TABLEData(LCFO_List);
-
-
                                                                 } else {
-                                                                    deleteByID(0);
+                                                                    deleteAllResponse(LCFO_List);
                                                                 }
                                                             }
 
@@ -658,13 +654,11 @@ public class Download_Conversion_order extends AppCompatActivity {
 
                                                                     @Override
                                                                     public void onNext(Integer integer) {
+                                                                        List<LandConversion_Final_Order_TABLE> LCFO_List = loadData();
                                                                         if (integer < 6) {
-                                                                            List<LandConversion_Final_Order_TABLE> LCFO_List = loadData();
                                                                             createLandConversion_Final_Order_TABLEData(LCFO_List);
-
-
                                                                         } else {
-                                                                            deleteByID(0);
+                                                                            deleteAllResponse(LCFO_List);
                                                                         }
                                                                     }
 
@@ -806,44 +800,8 @@ public class Download_Conversion_order extends AppCompatActivity {
                     }
                 });
     }
-    private void deleteByID(final int id) {
 
-        dataBaseHelper =
-                Room.databaseBuilder(getApplicationContext(),
-                        DataBaseHelper.class, getString(R.string.db_name)).build();
-        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteByIdLandConversion_Final_Order(id));
-        noOfRows
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Integer>() {
-
-
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(Integer integer) {
-
-                        deleteAllResponse();
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
-    }
-
-    private void deleteAllResponse() {
+    private void deleteAllResponse(List<LandConversion_Final_Order_TABLE> LCFO_List) {
 
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
@@ -872,7 +830,7 @@ public class Download_Conversion_order extends AppCompatActivity {
 
                     @Override
                     public void onComplete() {
-
+                        createLandConversion_Final_Order_TABLEData(LCFO_List);
                     }
                 });
     }
