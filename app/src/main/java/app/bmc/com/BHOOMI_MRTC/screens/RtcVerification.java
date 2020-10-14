@@ -269,40 +269,6 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
                         DataBaseHelper.class, getString(R.string.db_name)).build();
-        Observable<Integer> noOfRows;
-        noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumOfRowsRTCV());
-        noOfRows
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Integer>() {
-
-
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(Integer integer) {
-
-                        if (integer < 6) {
-                            List<RTC_VERIFICATION_TABLE> rtc_verification_tableList = loadData();
-                            createRTCVTABLE_Data(rtc_verification_tableList);
-                        } else {
-                            deleteByID(0);
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
 
         //---------------------------------------------------------------------------------------------
         if (responseData.contains("No Information Found")||responseData.contains("SqlException")) {
@@ -318,9 +284,39 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
         }
         else {
 
-            Intent intent = new Intent(RtcVerification.this, RtcVerificationData.class);
-            intent.putExtra("xml_data", data);
-            startActivity(intent);
+            Observable<Integer> noOfRows;
+            noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumOfRowsRTCV());
+            noOfRows
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<Integer>() {
+
+
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(Integer integer) {
+                            List<RTC_VERIFICATION_TABLE> rtc_verification_tableList = loadData();
+                            if (integer < 6) {
+                                createRTCVTABLE_Data(rtc_verification_tableList, data);
+                            } else {
+                                deleteResponseByID(rtc_verification_tableList, data);
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
         }
     }
 
@@ -355,7 +351,7 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
     }
 
 
-    public void createRTCVTABLE_Data(final List<RTC_VERIFICATION_TABLE> rtc_verification_tables) {
+    public void createRTCVTABLE_Data(final List<RTC_VERIFICATION_TABLE> rtc_verification_tables, String data) {
         Observable<Long[]> insertMasterObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().insertRTCVerificationData(rtc_verification_tables));
         insertMasterObservable
                 .subscribeOn(Schedulers.io())
@@ -380,49 +376,15 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
 
                     @Override
                     public void onComplete() {
+                        Intent intent = new Intent(RtcVerification.this, RtcVerificationData.class);
+                        intent.putExtra("xml_data", data);
+                        startActivity(intent);
 //                        Toast.makeText(RtcVerification.this, "Insert Successful", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
-    private void deleteByID(final int id) {
-
-        dataBaseHelper =
-                Room.databaseBuilder(getApplicationContext(),
-                        DataBaseHelper.class, getString(R.string.db_name)).build();
-        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteByIdRTCV(id));
-        noOfRows
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Integer>() {
-
-
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(Integer integer) {
-
-                        deleteResponseByID();
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
-    }
-
-    private void deleteResponseByID() {
+    private void deleteResponseByID(final List<RTC_VERIFICATION_TABLE> rtc_verification_tableList, String data) {
 
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
@@ -451,7 +413,7 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
 
                     @Override
                     public void onComplete() {
-
+                        createRTCVTABLE_Data(rtc_verification_tableList, data);
                     }
                 });
 
