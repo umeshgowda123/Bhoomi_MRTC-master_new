@@ -406,12 +406,11 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
 
                         @Override
                         public void onNext(Integer integer) {
-
+                            List<VR_INFO> vr_info_List = loadData();
                             if (integer < 6) {
-                                List<VR_INFO> vr_info_List = loadData();
                                 createVRTCData(vr_info_List);
                             } else {
-                                deleteByID(0);
+                                deleteResponseByID(vr_info_List);
                             }
                         }
 
@@ -600,44 +599,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                 });
     }
 
-    private void deleteByID(final int id) {
-
-        dataBaseHelper =
-                Room.databaseBuilder(getApplicationContext(),
-                        DataBaseHelper.class, getString(R.string.db_name)).build();
-        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteById(id));
-        noOfRows
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Integer>() {
-
-
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(Integer integer) {
-
-                        deleteResponseByID();
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
-    }
-
-    private void deleteResponseByID() {
+    private void deleteResponseByID(List<VR_INFO> vr_info_List) {
 
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
@@ -666,7 +628,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
 
                     @Override
                     public void onComplete() {
-
+                        createVRTCData(vr_info_List);
                     }
                 });
 

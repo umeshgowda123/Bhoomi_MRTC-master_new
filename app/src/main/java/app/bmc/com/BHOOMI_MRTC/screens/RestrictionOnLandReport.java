@@ -323,12 +323,11 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
 
                             @Override
                             public void onNext(Integer integer) {
-
+                                List<R_LAND_REPORT_TABLE> RLR_list = loadData();
                                 if (integer < 6) {
-                                    List<R_LAND_REPORT_TABLE> RLR_list = loadData();
                                     createRLRTABLE_Data(RLR_list);
                                 } else {
-                                    deleteByID(0);
+                                    deleteResponseByID(RLR_list);
                                 }
                             }
 
@@ -597,43 +596,7 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                 });
     }
 
-    private void deleteByID(final int id) {
-
-        dataBaseHelper =
-                Room.databaseBuilder(getApplicationContext(),
-                        DataBaseHelper.class, getString(R.string.db_name)).build();
-        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteByIdRLR(id));
-        noOfRows
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Integer>() {
-
-
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(Integer integer) {
-                        deleteResponseByID();
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
-    }
-
-    private void deleteResponseByID() {
+    private void deleteResponseByID(List<R_LAND_REPORT_TABLE> RLR_list) {
 
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
@@ -662,7 +625,7 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
 
                     @Override
                     public void onComplete() {
-
+                        createRLRTABLE_Data(RLR_list);
                     }
                 });
 

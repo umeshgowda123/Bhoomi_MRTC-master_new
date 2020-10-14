@@ -156,7 +156,6 @@ public class LandConversion extends AppCompatActivity {
                         etRadioText.requestFocus();
                     }else {
                         if (!affidavitID.isEmpty()) {
-
                         dataBaseHelper =
                                 Room.databaseBuilder(getApplicationContext(),
                                         DataBaseHelper.class, getString(R.string.db_name)).build();
@@ -265,14 +264,11 @@ public class LandConversion extends AppCompatActivity {
 
                                                                     @Override
                                                                     public void onNext(Integer integer) {
+                                                                        List<LandConversion_TABLE> LandConversion_list = loadData();
                                                                         if (integer < 6) {
-//                                                                                    if ()
-                                                                            List<LandConversion_TABLE> LandConversion_list = loadData();
                                                                             createLandConversion_Data(LandConversion_list);
-
-
                                                                         } else {
-                                                                            deleteByID(0);
+                                                                            deleteAllResponse(LandConversion_list);
                                                                         }
                                                                     }
 
@@ -437,13 +433,11 @@ public class LandConversion extends AppCompatActivity {
 
                                                             @Override
                                                             public void onNext(Integer integer) {
+                                                                List<LandConversion_TABLE> LandConversion_list = loadData();
                                                                 if (integer < 6) {
-                                                                    List<LandConversion_TABLE> LandConversion_list = loadData();
                                                                     createLandConversion_Data(LandConversion_list);
-
-
                                                                 } else {
-                                                                    deleteByID(0);
+                                                                    deleteAllResponse(LandConversion_list);
                                                                 }
                                                             }
 
@@ -573,44 +567,8 @@ public class LandConversion extends AppCompatActivity {
                 }
             });
     }
-    private void deleteByID(final int id) {
 
-        dataBaseHelper =
-                Room.databaseBuilder(getApplicationContext(),
-                        DataBaseHelper.class, getString(R.string.db_name)).build();
-        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteByIdLandConversion(id));
-        noOfRows
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Observer<Integer>() {
-
-
-                @Override
-                public void onSubscribe(Disposable d) {
-
-                }
-
-                @Override
-                public void onNext(Integer integer) {
-
-                    deleteAllResponse();
-
-                }
-
-                @Override
-                public void onError(Throwable e) {
-                    Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                }
-
-                @Override
-                public void onComplete() {
-
-                }
-            });
-
-    }
-
-    private void deleteAllResponse() {
+    private void deleteAllResponse(List<LandConversion_TABLE> LandConversion_list) {
 
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
@@ -639,7 +597,7 @@ public class LandConversion extends AppCompatActivity {
 
                 @Override
                 public void onComplete() {
-
+                    createLandConversion_Data(LandConversion_list);
                 }
             });
     }

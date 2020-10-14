@@ -654,13 +654,11 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
                             @Override
                             public void onNext(Integer integer) {
-
+                                List<V_MUTATION_STATUS_TABLE> VMS_list = loadData();
                                 if (integer < 6) {
-                                    List<V_MUTATION_STATUS_TABLE> VMS_list = loadData();
                                     createVMSTABLE_Data(VMS_list);
                                 } else {
-                                    deleteByID(0);
-//                                    deleteResponseByID();
+                                    deleteResponseByID(VMS_list);
                                 }
                             }
 
@@ -837,44 +835,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                 });
     }
 
-    private void deleteByID(final int id) {
-
-        dataBaseHelper =
-                Room.databaseBuilder(getApplicationContext(),
-                        DataBaseHelper.class, getString(R.string.db_name)).build();
-        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteByIdVMS(id));
-        noOfRows
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Integer>() {
-
-
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(Integer integer) {
-
-                        deleteResponseByID();
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
-    }
-
-    private void deleteResponseByID() {
+    private void deleteResponseByID(List<V_MUTATION_STATUS_TABLE> VMS_list) {
 
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
@@ -903,7 +864,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
                     @Override
                     public void onComplete() {
-
+                        createVMSTABLE_Data(VMS_list);
                     }
                 });
 

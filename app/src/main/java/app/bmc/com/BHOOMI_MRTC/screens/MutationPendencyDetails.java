@@ -451,14 +451,11 @@ public class MutationPendencyDetails extends AppCompatActivity {
 
                                                                     @Override
                                                                     public void onNext(Integer integer) {
+                                                                        List<MPD_TABLE> MPD_List = loadData();
                                                                         if (integer < 6) {
-                                                                            List<MPD_TABLE> MPD_List = loadData();
                                                                             createMPDData(MPD_List);
-
-
                                                                         } else {
-                                                                            deleteByID(0);
-//                                                                            deleteByID(MPD_RES_Data.size()-1);
+                                                                            deleteAllResponse(MPD_List);
                                                                         }
                                                                     }
 
@@ -589,43 +586,8 @@ public class MutationPendencyDetails extends AppCompatActivity {
                     }
                 });
     }
-    private void deleteByID(final int id) {
 
-        dataBaseHelper =
-                Room.databaseBuilder(getApplicationContext(),
-                        DataBaseHelper.class, getString(R.string.db_name)).build();
-        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteByIdMPD(id));
-        noOfRows
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Integer>() {
-
-
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(Integer integer) {
-                        deleteAllResponse();
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
-    }
-
-    private void deleteAllResponse() {
+    private void deleteAllResponse(List<MPD_TABLE> MPD_List) {
 
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
@@ -654,7 +616,7 @@ public class MutationPendencyDetails extends AppCompatActivity {
 
                     @Override
                     public void onComplete() {
-
+                        createMPDData(MPD_List);
                     }
                 });
     }
