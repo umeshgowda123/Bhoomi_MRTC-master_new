@@ -20,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -144,7 +143,6 @@ public class Download_Conversion_order extends AppCompatActivity {
 
                     @Override
                     public void onNext(String str) {
-                        Log.d("valStr", ""+str);
                         if (str.equals("false")){
                             android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(Download_Conversion_order.this).create();
                             alertDialog.setTitle(getString(R.string.status));
@@ -426,16 +424,13 @@ public class Download_Conversion_order extends AppCompatActivity {
                                     @Override
                                     public void onNext(List<? extends LandConversion_Final_Order_Interface> nterfaces_List) {
 
-                                        Log.d("mpd_res_interfaces",nterfaces_List.size()+"");
 
                                         LCFO_DATA = (List<LandConversion_Final_Order_Interface>) nterfaces_List;
                                         if (nterfaces_List.size()!=0) {
-                                            Log.d("CHECK","Fetching from local");
                                             for (int i = 0; i <= nterfaces_List.size()-1; i++) {
 
 
                                                 String sno_RES = LCFO_DATA.get(0).getSNO_RES();
-                                                Log.d("MPD_RES",sno_RES+"");
                                                 if(sno_RES == null || sno_RES.equals("") || sno_RES.equals("[{\"Result\":\"Details not found\"}]")) {
                                                     final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Download_Conversion_order.this, R.style.MyDialogTheme);
                                                     builder.setTitle(getString(R.string.status))
@@ -506,15 +501,12 @@ public class Download_Conversion_order extends AppCompatActivity {
 
                                                             @Override
                                                             public void onNext(Integer integer) {
-                                                                Log.d("intValue",integer+"");
                                                                 if (integer < 6) {
-                                                                    Log.d("intValueIN",integer+"");
                                                                     List<LandConversion_Final_Order_TABLE> LCFO_List = loadData();
                                                                     createLandConversion_Final_Order_TABLEData(LCFO_List);
 
 
                                                                 } else {
-                                                                    Log.d("intValueELSE", integer + "");
                                                                     deleteByID(0);
                                                                 }
                                                             }
@@ -527,7 +519,6 @@ public class Download_Conversion_order extends AppCompatActivity {
                                                             @Override
                                                             public void onComplete() {
                                                                 progressDialog.dismiss();
-                                                                Log.d("CHECK","Fetching From Server");
 
                                                                 Intent intent = new Intent(Download_Conversion_order.this, ConversionFinalOrders_BasedOnReq_ID.class);
                                                                 intent.putExtra("LandConversionFinalOrders", "" + SNO_RES);
@@ -592,16 +583,13 @@ public class Download_Conversion_order extends AppCompatActivity {
                                     @Override
                                     public void onNext(List<? extends LandConversion_Final_Order_Interface> nterfaces_List) {
 
-                                        Log.d("mpd_res_interfaces",nterfaces_List.size()+"");
 
                                         LCFO_DATA = (List<LandConversion_Final_Order_Interface>) nterfaces_List;
                                         if (nterfaces_List.size()!=0) {
-                                            Log.d("CHECK","Fetching from local");
                                             for (int i = 0; i <= nterfaces_List.size()-1; i++) {
 
 
                                                 String req_RES = LCFO_DATA.get(0).getREQUEST_ID_RES();
-                                                Log.d("req_RES",req_RES+"");
                                                 if(req_RES == null || req_RES.equals("") || req_RES.equals("[{\"Result\":\"Details not found\"}]")) {
                                                     final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Download_Conversion_order.this, R.style.MyDialogTheme);
                                                     builder.setTitle(getString(R.string.status))
@@ -670,15 +658,12 @@ public class Download_Conversion_order extends AppCompatActivity {
 
                                                                     @Override
                                                                     public void onNext(Integer integer) {
-                                                                        Log.d("intValue",integer+"");
                                                                         if (integer < 6) {
-                                                                            Log.d("intValueIN",integer+"");
                                                                             List<LandConversion_Final_Order_TABLE> LCFO_List = loadData();
                                                                             createLandConversion_Final_Order_TABLEData(LCFO_List);
 
 
                                                                         } else {
-                                                                            Log.d("intValueELSE", integer + "");
                                                                             deleteByID(0);
                                                                         }
                                                                     }
@@ -691,7 +676,6 @@ public class Download_Conversion_order extends AppCompatActivity {
                                                                     @Override
                                                                     public void onComplete() {
                                                                         progressDialog.dismiss();
-                                                                        Log.d("CHECK","Fetching From Server");
 
                                                                         Intent intent = new Intent(Download_Conversion_order.this, ConversionFinalOrders_BasedOnReq_ID.class);
                                                                         intent.putExtra("LandConversionFinalOrders", "" + ReqID_RES);
@@ -785,7 +769,7 @@ public class Download_Conversion_order extends AppCompatActivity {
             tables_arr.add(table);
 
         } catch (Exception e) {
-            Log.d("Exception", e + "");
+            e.printStackTrace();
         }
 
         return tables_arr;
@@ -842,7 +826,6 @@ public class Download_Conversion_order extends AppCompatActivity {
                     @Override
                     public void onNext(Integer integer) {
 
-                        Log.i("delete", integer + "");
                         deleteAllResponse();
 
                     }
@@ -879,9 +862,6 @@ public class Download_Conversion_order extends AppCompatActivity {
 
                     @Override
                     public void onNext(Integer integer) {
-
-                        Log.i("delete", integer + "");
-
 
                     }
 

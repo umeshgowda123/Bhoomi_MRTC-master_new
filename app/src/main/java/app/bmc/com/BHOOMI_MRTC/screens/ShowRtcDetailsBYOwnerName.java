@@ -14,7 +14,6 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -146,18 +145,11 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
             request.addProperty("pTalukCode", talkId);
             request.addProperty("pHobliCode", hblId);
             request.addProperty("pVillageCode", vlgId);
-            Log.d("request", ""+request);
-            Log.d("SOAP_ADDRESS", ""+SOAP_ADDRESS2);
-
-            Log.d("INTVALUES", distId+" "+talkId+" "+hblId+" "+vlgId);
 
             envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
             envelope.dotNet = true;
             envelope.setOutputSoapObject(request);
             androidHttpTransport = new HttpTransportSE(SOAP_ADDRESS2);
-
-
-                Log.d("envelope", envelope+""+envelope.headerIn);
 
             try {
 
@@ -191,7 +183,6 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
                 progressDialog.dismiss();
                 Toast.makeText(ShowRtcDetailsBYOwnerName.this, "Error", Toast.LENGTH_SHORT).show();
             } else if (result.contains("500 | JSON ERROR")){
-                Log.d("result", ""+result);
                 final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ShowRtcDetailsBYOwnerName.this, R.style.MyDialogTheme);
                 builder.setTitle(getString(R.string.status))
                         .setMessage(getString(R.string.no_data_found_for_this_vill_pls_cont_support_team_for))
@@ -209,7 +200,6 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
                 JSONArray jsonArray = null;
                 try {
                     jsonArray = new JSONArray(resultFromServer);
-                    Log.d("jsonArray_out",""+jsonArray);
 
                     Type listType = new TypeToken<ArrayList<RTCByOwnerNameResponse>>() {
                     }.getType();

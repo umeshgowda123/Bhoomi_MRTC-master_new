@@ -3,7 +3,6 @@ package app.bmc.com.BHOOMI_MRTC.backgroundtasks;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -96,7 +95,6 @@ public class RtcXmlverificationBackGroundTask extends Fragment {
             if (backgroundCallBack != null)
                 backgroundCallBack.onPreExecute1();
             Retrofit retrofit = RtcVerificationClient.getClient(getString(R.string.rtc_xml_verification_url));
-            Log.d("jsonObject",jsonObject+"");
             RtcXmlVerificationApi rtcXmlVerificationApi = retrofit.create(RtcXmlVerificationApi.class);
             Call<GETRTCXMLDATAResult> stringCall = rtcXmlVerificationApi.getStringResponse(Constants.REPORT_SERVICE_USER_NAME,Constants.REPORT_SERVICE_PASSWORD,jsonObject);
             stringCall.enqueue(new Callback<GETRTCXMLDATAResult>() {
@@ -104,7 +102,6 @@ public class RtcXmlverificationBackGroundTask extends Fragment {
                 public void onResponse(@NonNull Call<GETRTCXMLDATAResult> call, @NonNull Response<GETRTCXMLDATAResult> response) {
                     if (response.isSuccessful()) {
                         GETRTCXMLDATAResult getrtcxmldataResult = response.body();
-                        Log.d("getrtcxmldataResult",getrtcxmldataResult+"");
                         isTaskExecuting = false;
                         assert getrtcxmldataResult != null;
                         backgroundCallBack.onPostResponseSuccess1(getrtcxmldataResult.getGETRTCXMLDATAResult());
@@ -114,7 +111,6 @@ public class RtcXmlverificationBackGroundTask extends Fragment {
                         isTaskExecuting = false;
 
                         String errorResponse = response.message();
-                        Log.d("errorResponse",errorResponse);
                         backgroundCallBack.onPostResponseError(errorResponse);
                     }
 

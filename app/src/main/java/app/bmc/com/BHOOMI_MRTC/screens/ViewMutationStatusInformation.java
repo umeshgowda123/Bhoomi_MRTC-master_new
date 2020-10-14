@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -212,7 +211,6 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
                     @Override
                     public void onNext(String str) {
-                        Log.d("valStr", ""+str);
                         if (str.equals("false")){
                             android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(ViewMutationStatusInformation.this).create();
                             alertDialog.setTitle(getString(R.string.status));
@@ -491,15 +489,12 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                                 @Override
                                 public void onNext(List<? extends VMS_RES_Interface> vms_res_interfaces_list) {
                                     progressBar.setVisibility(View.GONE);
-                                    Log.d("rlr_res_interfaces_list", vms_res_interfaces_list.size() + "");
 
                                     VMS_RES_Data = (List<VMS_RES_Interface>) vms_res_interfaces_list;
                                     if (vms_res_interfaces_list.size() != 0) {
-                                        Log.d("CHECK", "Fetching from local");
                                         for (int i = 0; i <= vms_res_interfaces_list.size()-1; i++) {
 
                                             String Response = VMS_RES_Data.get(0).getVMS_RES();
-                                            Log.d("CHECK", Response);
                                             if (Response.contains("Details not found") || Response.isEmpty()) {
                                                 final AlertDialog.Builder builder = new AlertDialog.Builder(ViewMutationStatusInformation.this, R.style.MyDialogTheme);
                                                 builder.setTitle(getString(R.string.mutation_status))
@@ -577,7 +572,6 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
             XmlToJson xmlToJson = new XmlToJson.Builder(data).build();
             // convert to a formatted Json String
             String formatted = xmlToJson.toFormattedString();
-            Log.d("formatted", formatted);
 
             Object object = null;
             try {
@@ -619,8 +613,6 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
         String formatted = data;
 
-//        formatted = formatted.replace("</Details", "");
-        Log.d("formatted",formatted);
         if (formatted.contains("Details not found") || formatted.isEmpty()) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.MyDialogTheme);
             builder.setTitle(getString(R.string.mutation_status))
@@ -642,7 +634,6 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                 obj1 = obj1.getJSONObject("Details");
 
                 restostoreinDBandSMSD = String.valueOf(obj1);
-                Log.d("restostoreinDBandSMSD",restostoreinDBandSMSD);
 //---------DB INSERT-------
 
                 dataBaseHelper =
@@ -663,14 +654,11 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
                             @Override
                             public void onNext(Integer integer) {
-                                Log.d("intValue",integer+"");
 
                                 if (integer < 6) {
-                                    Log.d("intValueIN",integer+"");
                                     List<V_MUTATION_STATUS_TABLE> VMS_list = loadData();
                                     createVMSTABLE_Data(VMS_list);
                                 } else {
-                                    Log.d("intValueELSE",integer+"");
                                     deleteByID(0);
 //                                    deleteResponseByID();
                                 }
@@ -684,7 +672,6 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                             @Override
                             public void onComplete() {
 
-                                Log.d("obj1",restostoreinDBandSMSD+"");
                                 Intent intent = new Intent(ViewMutationStatusInformation.this, ShowMutationStatusDetails.class);
                                 intent.putExtra("status_response_data",""+restostoreinDBandSMSD);
                                 startActivity(intent);
@@ -813,7 +800,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
             v_mutation_status_tables_arr.add(v_mutation_status_table);
 
         } catch (Exception e) {
-            Log.d("Exception", e + "");
+            e.printStackTrace();
         }
 
         return v_mutation_status_tables_arr;
@@ -845,7 +832,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
                     @Override
                     public void onComplete() {
-                        Toast.makeText(ViewMutationStatusInformation.this, "Insert Successful", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(ViewMutationStatusInformation.this, "Insert Successful", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -870,7 +857,6 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                     @Override
                     public void onNext(Integer integer) {
 
-                        Log.i("delete", integer + "");
                         deleteResponseByID();
 
                     }
@@ -907,9 +893,6 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
                     @Override
                     public void onNext(Integer integer) {
-
-                        Log.i("delete", integer + "");
-
 
                     }
 

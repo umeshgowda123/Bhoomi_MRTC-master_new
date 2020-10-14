@@ -11,7 +11,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -121,7 +120,6 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
 
                     @Override
                     public void onNext(String str) {
-                        Log.d("valStr", ""+str);
                         if (str.equals("false")){
                             android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(RtcVerification.this).create();
                             alertDialog.setTitle(getString(R.string.status));
@@ -170,7 +168,6 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
                             + "\"pSaltkey\":\"" + saltkey + "\""
                             + "}";
                     JsonObject jsonObject = new JsonParser().parse(values1).getAsJsonObject();
-                    Log.d("jsonOBJECT", String.valueOf(jsonObject));
 
                     //---------------------------------------------------------------------------
                     dataBaseHelper =
@@ -190,17 +187,13 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
                                 @Override
                                 public void onNext(List<? extends RTCV_RES_Interface> rtcv_res_interfaces_list) {
 //                                    progressBar.setVisibility(View.GONE);
-                                    Log.d("rlr_res_interfaces_list", rtcv_res_interfaces_list.size() + "");
 
                                     RTCV_data = (List<RTCV_RES_Interface>) rtcv_res_interfaces_list;
                                     if (rtcv_res_interfaces_list.size() != 0) {
-                                        Log.d("CHECK", "Fetching from local");
                                         for (int i = 0; i <= rtcv_res_interfaces_list.size()-1; i++) {
 
                                             String Response = RTCV_data.get(0).getREFF_RES();
                                             try {
-//                                                JsonObject json = new Gson().fromJson(Response, JsonObject.class);
-                                                Log.d("CHECK", Response);
 
                                                 if (Response.contains("No Information Found")||Response.contains("SqlException")) {
                                                     final AlertDialog.Builder builder = new AlertDialog.Builder(RtcVerification.this, R.style.MyDialogTheme);
@@ -276,7 +269,6 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
         responseData = data;
-        Log.d("DATA",data);
         //---------DB INSERT-------
 
         dataBaseHelper =
@@ -297,14 +289,11 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
 
                     @Override
                     public void onNext(Integer integer) {
-                        Log.d("intValue",integer+"");
 
                         if (integer < 6) {
-                            Log.d("intValueIN",integer+"");
                             List<RTC_VERIFICATION_TABLE> rtc_verification_tableList = loadData();
                             createRTCVTABLE_Data(rtc_verification_tableList);
                         } else {
-                            Log.d("intValueELSE",integer+"");
                             deleteByID(0);
                         }
                     }
@@ -364,7 +353,7 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
             rtc_verification_tables_arr.add(rtc_verification_table);
 
         } catch (Exception e) {
-            Log.d("Exception", e + "");
+            e.printStackTrace();
         }
 
         return rtc_verification_tables_arr;
@@ -421,7 +410,6 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
                     @Override
                     public void onNext(Integer integer) {
 
-                        Log.i("delete", integer + "");
                         deleteResponseByID();
 
                     }
@@ -458,9 +446,6 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
 
                     @Override
                     public void onNext(Integer integer) {
-
-                        Log.i("delete", integer + "");
-
 
                     }
 

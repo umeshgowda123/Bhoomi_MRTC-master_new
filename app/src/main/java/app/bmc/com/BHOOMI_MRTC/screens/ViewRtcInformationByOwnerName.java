@@ -20,7 +20,6 @@ import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -172,7 +171,6 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
 
                     @Override
                     public void onNext(String str) {
-                        Log.d("valStr", ""+str);
                         if (str.equals("false")){
                             AlertDialog alertDialog = new AlertDialog.Builder(ViewRtcInformationByOwnerName.this).create();
                             alertDialog.setTitle(getString(R.string.status));

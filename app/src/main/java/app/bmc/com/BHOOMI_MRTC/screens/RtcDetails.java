@@ -18,7 +18,6 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -147,31 +146,25 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                                 @Override
                                 public void onNext(List<? extends VR_RES_Interface> vrdistidList) {
 
-                                    Log.d("vrdistidList",vrdistidList+"");
 
                                     VR_RES_Data = (List<VR_RES_Interface>) vrdistidList;
                                     if (vrdistidList.size()!=0) {
-                                        Log.d("CHECK","Fetching from local");
                                         for (int i = 0; i <= vrdistidList.size(); i++) {
 
                                             String LansOwner = VR_RES_Data.get(0).getVR_LAND_OWNER_RES();
                                             String Cult = VR_RES_Data.get(0).getVR_CULT_RES();
 
-                                            Log.d("LandOwner", LansOwner);
-                                            Log.d("Cult", Cult);
                                             try {
                                                 Object object = new Object();
 
                                                 JSONObject obj = new JSONObject(LansOwner);
                                                 JSONObject rtc = obj.getJSONObject("rtc");
-                                                Log.d("rtc", rtc+"");
 
                                                 JSONObject ownerdetails = rtc.getJSONObject("ownerdetails");
 
                                                 object = ownerdetails.get("jointowners");
 
                                                 JSONArray jointOwners = new JSONArray();
-                                                Log.d("jointOwners",jointOwners+"");
 
                                                 if (object instanceof JSONObject) {
                                                     jointOwners.put(object);
@@ -181,7 +174,6 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
 
                                                 }
                                                 LandDetailsFragment = rtc.toString();
-                                                Log.d("LandDetailsFragment", LandDetailsFragment+"");
                                                 Gson gson = new Gson();
                                                 JSONObject object1 = new JSONObject(LandDetailsFragment);
                                                 if (object1.has("villagedetails")) {
@@ -206,10 +198,8 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
 
                                                 JSONObject ObjectCult = new JSONObject(Cult);
                                                 JSONObject rtcCult = ObjectCult.getJSONObject("rtc");
-                                                Log.d("rtcCult", rtcCult+"");
 
                                                 JSONObject cultivatordetails = rtcCult.getJSONObject("cultivatordetails");
-                                                Log.d("cultivatordetails", cultivatordetails+"");
 
                                                 CultivatorDetailsFragment = cultivatordetails.toString();
                                                 survey_new = survey;
@@ -298,14 +288,12 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
         try {
             JSONObject obj = new JSONObject(formattedLand);
             JSONObject rtc = obj.getJSONObject("rtc");
-            Log.d("rtc", rtc+"");
 
             JSONObject ownerdetails = rtc.getJSONObject("ownerdetails");
 
             object = ownerdetails.get("jointowners");
 
             JSONArray jointOwners = new JSONArray();
-            Log.d("jointOwners",jointOwners+"");
 
             if (object instanceof JSONObject) {
                 jointOwners.put(object);
@@ -315,7 +303,6 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
 
             }
             LandDetailsFragment = rtc.toString();
-            Log.d("LandDetailsFragment", LandDetailsFragment+"");
             Gson gson = new Gson();
             JSONObject object1 = new JSONObject(LandDetailsFragment);
             if (object1.has("villagedetails")) {
@@ -390,14 +377,11 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
 
         // convert to a formatted Json String
         formattedCult = xmlToJson.toFormattedString().replace("\n", "");
-        Log.d("formattedCult : ",""+formattedCult);
         try {
                 JSONObject obj = new JSONObject(formattedCult);
                 JSONObject rtc = obj.getJSONObject("rtc");
-                Log.d("rtc", rtc+"");
 
             JSONObject cultivatordetails = rtc.getJSONObject("cultivatordetails");
-            Log.d("cultivatordetails", cultivatordetails+"");
 
             CultivatorDetailsFragment = cultivatordetails.toString();
 
@@ -427,14 +411,11 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
 
                         @Override
                         public void onNext(Integer integer) {
-                            Log.d("intValue",integer+"");
 
                             if (integer < 6) {
-                                Log.d("intValueIN",integer+"");
                                 List<VR_INFO> vr_info_List = loadData();
                                 createVRTCData(vr_info_List);
                             } else {
-                                Log.d("intValueELSE",integer+"");
                                 deleteByID(0);
                             }
                         }
@@ -518,7 +499,6 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
             }
             else if (position == 2) {
                 String data = CultivatorDetailsFragment;
-                Log.d("CultivatorDetails",CultivatorDetailsFragment+"");
                 fragment = new CultivatorDetailsFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("CultivatorDetailsFragment", data);
@@ -575,7 +555,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
             vr_info_arr.add(vr_info);
 
         } catch (Exception e) {
-            Log.d("Exception", e + "");
+            e.printStackTrace();
         }
 //        vr_info.setVR_DST_ID(1);
 //        vr_info.setVR_TLK_ID(3);
@@ -645,7 +625,6 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                     @Override
                     public void onNext(Integer integer) {
 
-                        Log.i("delete", integer + "");
                         deleteResponseByID();
 
                     }
@@ -682,9 +661,6 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
 
                     @Override
                     public void onNext(Integer integer) {
-
-                        Log.i("delete", integer + "");
-
 
                     }
 

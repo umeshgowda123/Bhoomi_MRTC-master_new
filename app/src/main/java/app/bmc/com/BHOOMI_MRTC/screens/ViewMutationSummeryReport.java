@@ -19,7 +19,6 @@ import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -183,7 +182,6 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
 
                     @Override
                     public void onNext(String str) {
-                        Log.d("valStr", ""+str);
                         if (str.equals("false")){
                             android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(ViewMutationSummeryReport.this).create();
                             alertDialog.setTitle(getString(R.string.status));
@@ -392,15 +390,12 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
                                 @Override
                                 public void onNext(List<? extends MSR_RES_Interface> msr_res_interfaces_List) {
 
-                                    Log.d("msr_res_interfaces",msr_res_interfaces_List.size()+"");
 
                                     MSR_RES_Data = (List<MSR_RES_Data>) msr_res_interfaces_List;
                                     if (msr_res_interfaces_List.size()!=0) {
-                                        Log.d("CHECK","Fetching from local");
                                         for (int i = 0; i <= msr_res_interfaces_List.size()-1; i++) {
 
                                             String MSR_RES = MSR_RES_Data.get(0).getMSR_RES();
-                                            Log.d("MSR_RES",MSR_RES+"");
                                             if (MSR_RES.equals("")) {
                                                 final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ViewMutationSummeryReport.this, R.style.MyDialogTheme);
                                                 builder.setTitle(getString(R.string.status))
@@ -419,8 +414,6 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
                                         }
                                     }
                                     else {
-                                        Log.d("CHECK", "Fetching From Server");
-
                                         progressDialog = new ProgressDialog(ViewMutationSummeryReport.this);
                                         progressDialog.setMessage(getString(R.string.please_wait));
                                         progressDialog.setCancelable(false);
@@ -470,14 +463,11 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
 
                                                                         @Override
                                                                         public void onNext(Integer integer) {
-                                                                            Log.d("intValue", integer + "");
                                                                             if (integer < 6) {
-                                                                                Log.d("intValueIN", integer + "");
                                                                                 List<MS_REPORT_TABLE> MPD_List = loadData();
                                                                                 createMSRTable_Data(MPD_List);
 
                                                                             } else {
-                                                                                Log.d("intValueELSE", integer + "");
                                                                                 deleteByID(0);
 //                                                                          deleteByID(MPD_RES_Data.size()-1);
                                                                             }
@@ -491,7 +481,6 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
                                                                         @Override
                                                                         public void onComplete() {
                                                                             progressDialog.dismiss();
-                                                                            Log.d("MPD_RES", "Fetching From Server");
                                                                             Intent intent = new Intent(ViewMutationSummeryReport.this, ShowMutationSummeryReport.class);
                                                                             intent.putExtra("html_response_data", result.getGetMutationSummaryReportResult());
                                                                             startActivity(intent);
@@ -596,7 +585,7 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
             ms_report_tables_arr.add(ms_report_table);
 
         } catch (Exception e) {
-            Log.d("Exception", e + "");
+            e.printStackTrace();
         }
 
         return ms_report_tables_arr;
@@ -651,7 +640,6 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
                     @Override
                     public void onNext(Integer integer) {
 
-                        Log.i("delete", integer + "");
                         deleteAllResponse();
 
                     }
@@ -688,8 +676,6 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
 
                     @Override
                     public void onNext(Integer integer) {
-
-                        Log.i("delete", integer + "");
 
 
                     }

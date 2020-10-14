@@ -10,7 +10,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -157,16 +156,13 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                             @Override
                             public void onNext(List<? extends RLR_RES_Interface> rlr_res_interfaces_list) {
                                 progressBar.setVisibility(View.GONE);
-                                Log.d("rlr_res_interfaces_list",rlr_res_interfaces_list.size()+"");
 
                                 RLR_RES_Data = (List<RLR_RES_Interface>) rlr_res_interfaces_list;
 //                                RLR_RES_Data = (List<RLR_RES_Interface>) rlr_res_interfaces_list;
                                 if (rlr_res_interfaces_list.size()!=0) {
-                                    Log.d("CHECK","Fetching from local");
                                     for (int i = 0; i <= rlr_res_interfaces_list.size(); i++) {
 
                                         String Response = RLR_RES_Data.get(0).getRLR_RES();
-                                        Log.d("CHECK",Response);
                                         try {
                                             Gson gson = new Gson();
                                             restrictionOnLandReportTableList = gson.fromJson(Response, new TypeToken<List<RestrictionOnLandReportTable>>() {
@@ -305,10 +301,8 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
             alert.show();
             alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
         } else {
-            Log.d("formatted", data);
             try {
                 JSONArray jsonArray = new JSONArray(data.replace("\n", ""));
-                Log.d("JSONARR", jsonArray.toString());
                 //---------DB INSERT-------
 
                 dataBaseHelper =
@@ -329,14 +323,11 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
 
                             @Override
                             public void onNext(Integer integer) {
-                                Log.d("intValue",integer+"");
 
                                 if (integer < 6) {
-                                    Log.d("intValueIN",integer+"");
                                     List<R_LAND_REPORT_TABLE> RLR_list = loadData();
                                     createRLRTABLE_Data(RLR_list);
                                 } else {
-                                    Log.d("intValueELSE",integer+"");
                                     deleteByID(0);
                                 }
                             }
@@ -375,7 +366,6 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                 } else {
 
                     restrictionOnLandReportTableList.size();
-                    Log.d("EXTENT",restrictionOnLandReportTableList.get(0).getExtent());
                     RestrictionOnLandReportAdapter adapter = new RestrictionOnLandReportAdapter(restrictionOnLandReportTableList);
                     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                     rvRestrictionReport.setLayoutManager(mLayoutManager);
@@ -384,7 +374,6 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.d("Exception",""+e.getMessage());
                 final AlertDialog.Builder builder = new AlertDialog.Builder(RestrictionOnLandReport.this, R.style.MyDialogTheme);
                 builder.setTitle(getString(R.string.status))
                         .setMessage(getString(R.string.something_went_wrong_pls_try_again))
@@ -572,7 +561,7 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
             r_land_report_tables_arr.add(land_report_table);
 
         } catch (Exception e) {
-            Log.d("Exception", e + "");
+            e.printStackTrace();
         }
 
         return r_land_report_tables_arr;
@@ -627,8 +616,6 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
 
                     @Override
                     public void onNext(Integer integer) {
-
-                        Log.i("delete", integer + "");
                         deleteResponseByID();
 
                     }
@@ -665,9 +652,6 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
 
                     @Override
                     public void onNext(Integer integer) {
-
-                        Log.i("delete", integer + "");
-
 
                     }
 

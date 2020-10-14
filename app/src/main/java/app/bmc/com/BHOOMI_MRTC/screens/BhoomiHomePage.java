@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -584,7 +583,7 @@ public class BhoomiHomePage extends AppCompatActivity {
 
                     @Override
                     public void onNext(String s) {
-                        Log.d("district",s+"");
+
                     }
 
                     @Override

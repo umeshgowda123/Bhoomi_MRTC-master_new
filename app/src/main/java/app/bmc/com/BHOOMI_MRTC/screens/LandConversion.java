@@ -15,7 +15,6 @@ import androidx.room.Room;
 
 import android.text.InputType;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -103,7 +102,6 @@ public class LandConversion extends AppCompatActivity {
 
                     @Override
                     public void onNext(String str) {
-                        Log.d("valStr", ""+str);
                         if (str.equals("false")){
                             android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(LandConversion.this).create();
                             alertDialog.setTitle(getString(R.string.status));
@@ -174,14 +172,11 @@ public class LandConversion extends AppCompatActivity {
 
                                 @Override
                                 public void onNext(List<? extends LandConversion_Interface> landConversion_interfaces_list) {
-                                    Log.d("mpd_res_interfaces", landConversion_interfaces_list.size() + "");
 
                                     LandConversion_Data = (List<LandConversion_Interface>) landConversion_interfaces_list;
                                     if (landConversion_interfaces_list.size() != 0) {
-                                        Log.d("CHECK", "Fetching from local");
                                         for (int i = 0; i <= landConversion_interfaces_list.size() - 1; i++) {
                                             String affidavit_res = LandConversion_Data.get(0).getAFFIDAVIT_RES();
-                                            Log.d("affidavit_res", affidavit_res + "");
                                             if (affidavit_res == null || affidavit_res.equals("") || affidavit_res.contains("INVALID")) {
                                                 final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversion.this, R.style.MyDialogTheme);
                                                 builder.setTitle(getString(R.string.status))
@@ -270,16 +265,13 @@ public class LandConversion extends AppCompatActivity {
 
                                                                     @Override
                                                                     public void onNext(Integer integer) {
-                                                                        Log.d("intValue", integer + "");
                                                                         if (integer < 6) {
-                                                                            Log.d("intValueIN", integer + "");
 //                                                                                    if ()
                                                                             List<LandConversion_TABLE> LandConversion_list = loadData();
                                                                             createLandConversion_Data(LandConversion_list);
 
 
                                                                         } else {
-                                                                            Log.d("intValueELSE", integer + "");
                                                                             deleteByID(0);
                                                                         }
                                                                     }
@@ -292,8 +284,6 @@ public class LandConversion extends AppCompatActivity {
                                                                     @Override
                                                                     public void onComplete() {
                                                                         progressDialog.dismiss();
-                                                                        Log.d("CHECK", "Fetching From Server");
-
                                                                         Intent intent = new Intent(LandConversion.this, LandConversionBasedOnAffidavit.class);
                                                                         intent.putExtra("AFFIDAVIT_ResponseData", Affidavit_res);
                                                                         intent.putExtra("AFFIDAVIT_ID", affidavitID);
@@ -351,15 +341,12 @@ public class LandConversion extends AppCompatActivity {
 
                                 @Override
                                 public void onNext(List<? extends LandConversion_Interface> landConversion_interfaces_list) {
-                                    Log.d("landConversion_res",landConversion_interfaces_list.size()+"");
 
                                     LandConversion_Data = (List<LandConversion_Interface>) landConversion_interfaces_list;
                                     if (landConversion_interfaces_list.size()!=0) {
-                                        Log.d("CHECK","Fetching from local");
                                         for (int i = 0; i <= landConversion_interfaces_list.size()-1; i++) {
 
                                         String userid_res = LandConversion_Data.get(0).getUSER_RES();
-                                        Log.d("userid_res",userid_res+"");
                                         if( userid_res == null || userid_res.equals("") || userid_res.contains("INVALID")) {
                                             final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversion.this, R.style.MyDialogTheme);
                                             builder.setTitle(getString(R.string.status))
@@ -450,15 +437,12 @@ public class LandConversion extends AppCompatActivity {
 
                                                             @Override
                                                             public void onNext(Integer integer) {
-                                                                Log.d("intValue",integer+"");
                                                                 if (integer < 6) {
-                                                                    Log.d("intValueIN",integer+"");
                                                                     List<LandConversion_TABLE> LandConversion_list = loadData();
                                                                     createLandConversion_Data(LandConversion_list);
 
 
                                                                 } else {
-                                                                    Log.d("intValueELSE", integer + "");
                                                                     deleteByID(0);
                                                                 }
                                                             }
@@ -471,7 +455,6 @@ public class LandConversion extends AppCompatActivity {
                                                             @Override
                                                             public void onComplete() {
                                                                 progressDialog.dismiss();
-                                                                Log.d("CHECK","Fetching From Server");
 
                                                                 Intent intent = new Intent(LandConversion.this, LandConversionBasedOnUserId.class);
 //                                                                                intent.putExtra("UserID_ResponseData", User_res);
@@ -553,7 +536,7 @@ public class LandConversion extends AppCompatActivity {
             LandConversion_tables_arr.add(LandConversion_table);
 
         } catch (Exception e) {
-            Log.d("Exception", e + "");
+            e.printStackTrace();
         }
 
         return LandConversion_tables_arr;
@@ -610,7 +593,6 @@ public class LandConversion extends AppCompatActivity {
                 @Override
                 public void onNext(Integer integer) {
 
-                    Log.i("delete", integer + "");
                     deleteAllResponse();
 
                 }
@@ -647,9 +629,6 @@ public class LandConversion extends AppCompatActivity {
 
                 @Override
                 public void onNext(Integer integer) {
-
-                    Log.i("delete", integer + "");
-
 
                 }
 

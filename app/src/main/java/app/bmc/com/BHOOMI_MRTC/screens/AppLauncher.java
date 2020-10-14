@@ -15,7 +15,6 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -96,7 +95,6 @@ public class AppLauncher extends AppCompatActivity {
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
-                        Log.d("EXCEPTION",""+e);
                         Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                     }
 
@@ -217,7 +215,6 @@ public class AppLauncher extends AppCompatActivity {
                         if (!TextUtils.isEmpty(res)){
                             try {
                                 JSONArray jsonArray = new JSONArray(res);
-                                Log.d("jsonArray", ""+jsonArray);
 
                                 Gson gson = new Gson();
                                 maintenance_flagsList = gson.fromJson(String.valueOf(jsonArray), new TypeToken<List<Maintenance_Flags>>() {
@@ -252,7 +249,7 @@ public class AppLauncher extends AppCompatActivity {
 
                         @Override
                         public void onNext(Integer integer) {
-                            Log.d("CountInt", ""+integer);
+
                             if (integer == 0) {
                                 AlertDialog alertDialog = new AlertDialog.Builder(AppLauncher.this).create();
                                 alertDialog.setMessage(getString(R.string.please_enable_internet_connection));
@@ -337,7 +334,6 @@ public class AppLauncher extends AppCompatActivity {
                     @Override
                     public void onNext(Integer integer) {
 
-                        Log.i("delete", integer + "");
                         insertDataMainFlags(maintenance_flagsList);
 
                     }

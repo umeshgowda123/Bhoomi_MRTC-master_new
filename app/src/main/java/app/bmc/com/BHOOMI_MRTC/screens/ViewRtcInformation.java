@@ -19,7 +19,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -199,7 +198,6 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
 
                     @Override
                     public void onNext(String str) {
-                        Log.d("valStr", ""+str);
                         if (str.equals("false")){
                             AlertDialog alertDialog = new AlertDialog.Builder(ViewRtcInformation.this).create();
                             alertDialog.setTitle(getString(R.string.status));

@@ -19,7 +19,6 @@ import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -180,7 +179,6 @@ public class MutationPendencyDetails extends AppCompatActivity {
 
                     @Override
                     public void onNext(String str) {
-                        Log.d("valStr", ""+str);
                         if (str.equals("false")){
                             android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(MutationPendencyDetails.this).create();
                             alertDialog.setTitle(getString(R.string.status));
@@ -380,15 +378,11 @@ public class MutationPendencyDetails extends AppCompatActivity {
                                 @Override
                                 public void onNext(List<? extends MPD_RES_Interface> mpd_res_interfaces_List) {
 
-                                    Log.d("mpd_res_interfaces",mpd_res_interfaces_List.size()+"");
-
                                     MPD_RES_Data = (List<MPD_RES_Data>) mpd_res_interfaces_List;
                                     if (mpd_res_interfaces_List.size()!=0) {
-                                        Log.d("CHECK","Fetching from local");
                                         for (int i = 0; i <= mpd_res_interfaces_List.size()-1; i++) {
 
                                             String MPD_RES = MPD_RES_Data.get(0).getMDP_RES();
-                                            Log.d("MPD_RES", MPD_RES + "");
                                             if (MPD_RES.equals("<NewDataSet />")) {
                                                 final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(MutationPendencyDetails.this, R.style.MyDialogTheme);
                                                 builder.setTitle(getString(R.string.status))
@@ -457,15 +451,12 @@ public class MutationPendencyDetails extends AppCompatActivity {
 
                                                                     @Override
                                                                     public void onNext(Integer integer) {
-                                                                        Log.d("intValue",integer+"");
                                                                         if (integer < 6) {
-                                                                            Log.d("intValueIN",integer+"");
                                                                             List<MPD_TABLE> MPD_List = loadData();
                                                                             createMPDData(MPD_List);
 
 
                                                                         } else {
-                                                                            Log.d("intValueELSE", integer + "");
                                                                             deleteByID(0);
 //                                                                            deleteByID(MPD_RES_Data.size()-1);
                                                                         }
@@ -479,7 +470,6 @@ public class MutationPendencyDetails extends AppCompatActivity {
                                                                     @Override
                                                                     public void onComplete() {
                                                                         progressDialog.dismiss();
-                                                                        Log.d("CHECK","Fetching From Server");
                                                                         Intent intent = new Intent(MutationPendencyDetails.this, ShowMutationPendencyDetails.class);
                                                                         intent.putExtra("ped_response_data", result.getGetMutationPendencyDetailsResult());
                                                                         startActivity(intent);
@@ -562,7 +552,7 @@ public class MutationPendencyDetails extends AppCompatActivity {
             mpd_tables_arr.add(mpd_table);
 
         } catch (Exception e) {
-            Log.d("Exception", e + "");
+            e.printStackTrace();
         }
 
         return mpd_tables_arr;
@@ -618,8 +608,6 @@ public class MutationPendencyDetails extends AppCompatActivity {
 
                     @Override
                     public void onNext(Integer integer) {
-
-                        Log.i("delete", integer + "");
                         deleteAllResponse();
 
                     }
@@ -656,9 +644,6 @@ public class MutationPendencyDetails extends AppCompatActivity {
 
                     @Override
                     public void onNext(Integer integer) {
-
-                        Log.i("delete", integer + "");
-
 
                     }
 

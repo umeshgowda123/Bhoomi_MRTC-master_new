@@ -12,7 +12,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -200,7 +199,6 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
 
                     @Override
                     public void onNext(String str) {
-                        Log.d("valStr", ""+str);
                         if (str.equals("false")){
                             android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(RestrictionOnLand.this).create();
                             alertDialog.setTitle(getString(R.string.status));

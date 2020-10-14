@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -98,15 +97,12 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
 
                         @Override
                         public void onNext(List<? extends LandConversion_Interface> landConversion_interfaces_list) {
-                            Log.d("landConversion_res",landConversion_interfaces_list.size()+"");
 
                             LandConversion_Data = (List<LandConversion_Interface>) landConversion_interfaces_list;
                             if (landConversion_interfaces_list.size()!=0) {
-                                Log.d("CHECK","Fetching from local");
                                 for (int i = 0; i <= landConversion_interfaces_list.size()-1; i++) {
 
                                     String userid_res = LandConversion_Data.get(0).getUSER_RES();
-                                    Log.d("userid_res",userid_res+"");
 
                                     if(userid_res == null || userid_res.equals("") || userid_res.contains("INVALID")) {
                                         final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversionBasedOnUserId.this, R.style.MyDialogTheme);
