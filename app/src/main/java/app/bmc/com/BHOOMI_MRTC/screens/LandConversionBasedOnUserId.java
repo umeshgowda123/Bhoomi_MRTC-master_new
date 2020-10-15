@@ -15,6 +15,7 @@ import androidx.room.Room;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.google.gson.Gson;
@@ -238,6 +239,8 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
                                     public void onFailure(@NotNull Call<PariharaIndividualDetailsResponse> call, @NotNull Throwable t) {
                                         call.cancel();
                                         progressDialog.dismiss();
+                                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+
                                     }
                                 });
                             }
