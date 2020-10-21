@@ -15,6 +15,7 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -65,6 +66,7 @@ public class AppLauncher extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
+        Log.d("Status_AppLau", "enter1");
 
         dataBaseHelper = Room.databaseBuilder(AppLauncher.this,
                         DataBaseHelper.class, getString(R.string.db_name)).build();
@@ -86,8 +88,10 @@ public class AppLauncher extends AppCompatActivity {
                         if (integer == 0) {
                             List<MST_VLM> mst_vlmList = loadDataFromCsv();
                             createMasterData(mst_vlmList);
+                            Log.d("Status_AppLau", "enter2 Integer==0");
                         }
                         else {
+                            Log.d("Status_AppLau", "enter2 Integer>0");
                             createMaintenanceTbl();
                         }
                     }
@@ -183,6 +187,7 @@ public class AppLauncher extends AppCompatActivity {
 
                     @Override
                     public void onNext(Long[] longs) {
+                        Log.d("Status_AppLau", "enter3 CreatedMasterData");
                         createMaintenanceTbl();
                     }
 
@@ -201,6 +206,7 @@ public class AppLauncher extends AppCompatActivity {
     }
 
     public void createMaintenanceTbl(){
+        Log.d("Status_AppLau", "enter4 CreateMaintenanceTbl");
         if (isNetworkAvailable()){
             apiInterface = PariharaIndividualreportClient.getClient(getResources().getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
             Call<PariharaIndividualDetailsResponse> call = apiInterface.FnGetServiceStatus(Constants.REPORT_SERVICE_USER_NAME,
@@ -209,6 +215,7 @@ public class AppLauncher extends AppCompatActivity {
                 @Override
                 public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {
                     if (response.isSuccessful()) {
+                        Log.d("Status_AppLau", "enter4 Call<>");
                         PariharaIndividualDetailsResponse result = response.body();
                         assert result != null;
                         String res = result.getFnGetServiceStatusResult();
@@ -222,7 +229,10 @@ public class AppLauncher extends AppCompatActivity {
 
                                 deleteResponseByID(maintenance_flagsList);
                             } catch (JSONException e){
+                                Log.d("Status_AppLau", "enter4 catch1");
+                                Log.d("Status_AppLau", ""+e.getLocalizedMessage());
                                 e.printStackTrace();
+                                Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -231,6 +241,9 @@ public class AppLauncher extends AppCompatActivity {
                 @Override
                 public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable t) {
                     call.cancel();
+                    Log.d("Status_AppLau", "enter4 onFailure1");
+                    Log.d("Status_AppLau", ""+t.getLocalizedMessage());
+                    Toast.makeText(getApplicationContext(), ""+t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
@@ -251,6 +264,7 @@ public class AppLauncher extends AppCompatActivity {
                         public void onNext(Integer integer) {
 
                             if (integer == 0) {
+                                Log.d("Status_AppLau", "enter4 No Internet Integer==0");
                                 AlertDialog alertDialog = new AlertDialog.Builder(AppLauncher.this).create();
                                 alertDialog.setMessage(getString(R.string.please_enable_internet_connection));
                                 alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.ok), (dialog, which) -> {
@@ -259,6 +273,7 @@ public class AppLauncher extends AppCompatActivity {
                                 });
                                 alertDialog.show();
                             } else {
+                                Log.d("Status_AppLau", "enter4 No Internet Integer>0");
                                 Toast.makeText(getApplicationContext(), "Internet Connection not available", Toast.LENGTH_SHORT).show();
                                 new Handler().postDelayed(() -> {
                                     Intent intent = new Intent(AppLauncher.this, BhoomiHomePage.class);
@@ -285,6 +300,7 @@ public class AppLauncher extends AppCompatActivity {
     }
 
     public void insertDataMainFlags(List<Maintenance_Flags> maintenance_flagsList){
+        Log.d("Status_AppLau", "enter6 insertDataMainFlags");
         Observable<Long[]> insertDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().insertMaintenance_Flags(maintenance_flagsList));
         insertDataObservable
                 .subscribeOn(Schedulers.io())
@@ -299,6 +315,7 @@ public class AppLauncher extends AppCompatActivity {
 
                     @Override
                     public void onNext(Long[] longs) {
+                        Log.d("Status_AppLau", "enter6 insertedDataMainFlags");
                         Intent intent = new Intent(AppLauncher.this, BhoomiHomePage.class);
                         startActivity(intent);
                         finish();
@@ -318,7 +335,7 @@ public class AppLauncher extends AppCompatActivity {
                 });
     }
     private void deleteResponseByID(List<Maintenance_Flags> maintenance_flagsList) {
-
+        Log.d("Status_AppLau", "enter5 deleteResByID");
         Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteResMainFlags());
         noOfRows
                 .subscribeOn(Schedulers.io())
@@ -333,7 +350,7 @@ public class AppLauncher extends AppCompatActivity {
 
                     @Override
                     public void onNext(Integer integer) {
-
+                        Log.d("Status_AppLau", "enter5 deleteResByID");
                         insertDataMainFlags(maintenance_flagsList);
 
                     }

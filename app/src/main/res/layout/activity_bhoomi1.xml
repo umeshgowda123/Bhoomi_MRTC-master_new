@@ -71,7 +71,6 @@
                         app:civ_border_color="#616161"
                         app:civ_border_width="2dp" />
 
-
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

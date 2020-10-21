@@ -12200,6 +12200,14 @@ app.bmc.com.BHOOMI_MRTC.database.DataBaseAccess
     public abstract java.util.List getPacsBankNames(int)
     public abstract java.util.List getPacsBranchNameList(int,java.lang.String)
     public abstract java.util.List getBranchNameList(int,java.lang.String)
+    public abstract int deleteById(int)
+    public abstract int deleteByIdMPD(int)
+    public abstract int deleteByIdMSR(int)
+    public abstract int deleteByIdRLR(int)
+    public abstract int deleteByIdVMS(int)
+    public abstract int deleteByIdRTCV(int)
+    public abstract int deleteByIdLandConversion(int)
+    public abstract int deleteByIdLandConversion_Final_Order(int)
     public abstract java.lang.String getTalukByTalukName(int)
     public abstract java.lang.String getHobliByHobliName(int)
     public abstract java.lang.String getVillByVillName(int)
@@ -14994,6 +15002,14 @@ androidx.appcompat.widget.ScrollingTabContainerView$TabView
 app.bmc.com.BHOOMI_MRTC.database.DataBaseAccess_Impl
     public java.lang.Long[] insertBankMasterData(java.util.List)
     public java.lang.Long[] insertPacsBankMasterData(java.util.List)
+    public int deleteById(int)
+    public int deleteByIdMPD(int)
+    public int deleteByIdMSR(int)
+    public int deleteByIdRLR(int)
+    public int deleteByIdVMS(int)
+    public int deleteByIdRTCV(int)
+    public int deleteByIdLandConversion(int)
+    public int deleteByIdLandConversion_Final_Order(int)
     public java.util.List getBankNames(int)
     public java.util.List getPacsBankNames(int)
     public java.util.List getPacsBranchNameList(int,java.lang.String)
@@ -15637,8 +15653,7 @@ okhttp3.internal.http.ExchangeCodec
 app.bmc.com.BHOOMI_MRTC.screens.RestrictionOnLandReport
     static void <clinit>()
     public final boolean isNetworkAvailable()
-    public final void deleteByID(int)
-    public final void deleteResponseByID()
+    public final void deleteResponseByID(java.util.List)
     public final java.lang.String OPERATION_NAME2
     public final java.lang.String WSDL_TARGET_NAMESPACE2
     public java.lang.String SOAP_ACTION2
@@ -16304,8 +16319,6 @@ com.google.android.material.chip.ChipGroup
     public com.google.android.material.chip.ChipGroup$OnCheckedChangeListener onCheckedChangeListener
 androidx.recyclerview.widget.LinearSmoothScroller
     public final int clampApplyScroll(int,int)
-app.bmc.com.BHOOMI_MRTC.screens.MutationPendencyDetails$9
-    public void onNext(java.lang.Integer)
 retrofit2.CompletableFutureCallAdapterFactory$BodyCallAdapter
     public java.util.concurrent.CompletableFuture adapt(retrofit2.Call)
 androidx.appcompat.widget.Toolbar$1
@@ -16672,8 +16685,6 @@ com.google.android.play.core.assetpacks.w
 okhttp3.internal.http.RequestLine
 org.ksoap2.transport.HttpTransportSE
     public final java.io.InputStream getUnZippedInputStream(java.io.InputStream)
-app.bmc.com.BHOOMI_MRTC.screens.ViewMutationSummeryReport$9
-    public void onNext(java.lang.Integer)
 okhttp3.internal.tls.CertificateChainCleaner$Companion
 com.google.android.material.datepicker.DateValidatorPointForward$1
     public com.google.android.material.datepicker.DateValidatorPointForward createFromParcel(android.os.Parcel)
@@ -17294,8 +17305,7 @@ androidx.transition.ChangeBounds$ViewBounds
 app.bmc.com.BHOOMI_MRTC.screens.ViewMutationStatusInformation
     static void <clinit>()
     public final void onClickAction()
-    public final void deleteByID(int)
-    public final void deleteResponseByID()
+    public final void deleteResponseByID(java.util.List)
     public java.lang.String hissa
     public java.lang.String suroc
     public static final synthetic boolean $assertionsDisabled
@@ -17568,8 +17578,6 @@ com.google.android.material.shape.MaterialShapeDrawable
     public final void calculateStrokePath()
     public final android.graphics.PorterDuffColorFilter calculatePaintColorTintFilter(android.graphics.Paint,boolean)
     public final android.graphics.PorterDuffColorFilter calculateTintColorTintFilter(android.content.res.ColorStateList,android.graphics.PorterDuff$Mode,boolean)
-app.bmc.com.BHOOMI_MRTC.screens.ViewMutationStatusInformation$11
-    public void onNext(java.lang.Integer)
 app.bmc.com.BHOOMI_MRTC.screens.MutationPendencyDetails$3
     public void onNext(java.util.List)
 androidx.room.RoomDatabase$JournalMode
@@ -17864,8 +17872,6 @@ androidx.loader.app.LoaderManager
     public abstract void dump(java.lang.String,java.io.FileDescriptor,java.io.PrintWriter,java.lang.String[])
 androidx.core.provider.SelfDestructiveThread$2
     public final synthetic androidx.core.provider.SelfDestructiveThread this$0
-app.bmc.com.BHOOMI_MRTC.screens.RestrictionOnLandReport$6
-    public void onNext(java.lang.Integer)
 com.github.chrisbanes.photoview.PhotoViewAttacher$1
     public void onDrag(float,float)
     public void onFling(float,float,float,float)
@@ -18017,8 +18023,7 @@ androidx.media.VolumeProviderCompat$Callback
 app.bmc.com.BHOOMI_MRTC.screens.RtcDetails
     static void <clinit>()
     public final boolean isNetworkAvailable()
-    public final void deleteByID(int)
-    public final void deleteResponseByID()
+    public final void deleteResponseByID(java.util.List)
     public static final synthetic boolean $assertionsDisabled
 retrofit2.ParameterHandler$PartMap
     public void apply(retrofit2.RequestBuilder,java.util.Map)
@@ -18468,8 +18473,7 @@ com.google.android.play.core.assetpacks.dv
 app.bmc.com.BHOOMI_MRTC.screens.LandConversion
     static void <clinit>()
     public final boolean isNetworkAvailable()
-    public final void deleteByID(int)
-    public final void deleteAllResponse()
+    public final void deleteAllResponse(java.util.List)
     public static final synthetic boolean $assertionsDisabled
 androidx.core.util.Pools$Pool
 androidx.fragment.app.Fragment
@@ -18874,8 +18878,7 @@ app.bmc.com.BHOOMI_MRTC.screens.MutationPendencyDetails
     static void <clinit>()
     public final void onClickAction()
     public final boolean isNetworkAvailable()
-    public final void deleteByID(int)
-    public final void deleteAllResponse()
+    public final void deleteAllResponse(java.util.List)
     public static final synthetic boolean $assertionsDisabled
 app.bmc.com.BHOOMI_MRTC.screens.RestrictionOnLand$2
     public void onNext(java.lang.String)
@@ -19234,8 +19237,7 @@ androidx.core.text.BidiFormatter$DirectionalityEstimator
     public final byte skipEntityBackward()
 app.bmc.com.BHOOMI_MRTC.screens.Download_Conversion_order
     static void <clinit>()
-    public final void deleteByID(int)
-    public final void deleteAllResponse()
+    public final void deleteAllResponse(java.util.List)
     public android.widget.RadioButton rbRequestID
     public android.widget.RadioButton rbSurveyNo
     public static final synthetic boolean $assertionsDisabled
@@ -19495,8 +19497,7 @@ app.bmc.com.BHOOMI_MRTC.screens.ViewMutationSummeryReport
     static void <clinit>()
     public final void onClickAction()
     public final boolean isNetworkAvailable()
-    public final void deleteByID(int)
-    public final void deleteAllResponse()
+    public final void deleteAllResponse(java.util.List)
     public static final synthetic boolean $assertionsDisabled
 androidx.media.VolumeProviderCompat$1
     public void onSetVolumeTo(int)
@@ -19638,8 +19639,6 @@ org.jsoup.helper.W3CDom$W3CBuilder
     public final java.lang.String updateNamespaces(org.jsoup.nodes.Element)
 okhttp3.internal.http2.ErrorCode$Companion
     public void <init>()
-app.bmc.com.BHOOMI_MRTC.screens.RtcDetails$5
-    public void onNext(java.lang.Integer)
 okhttp3.internal.http2.Header
     public final okio.ByteString component1()
     public final okio.ByteString component2()
@@ -19854,8 +19853,6 @@ androidx.core.view.GravityCompat
 androidx.appcompat.graphics.drawable.DrawableContainer$DrawableContainerState
     public final android.graphics.drawable.Drawable prepareDrawable(android.graphics.drawable.Drawable)
 androidx.recyclerview.widget.ScrollbarHelper
-app.bmc.com.BHOOMI_MRTC.screens.Download_Conversion_order$11
-    public void onNext(java.lang.Integer)
 com.google.android.material.internal.StateListAnimator
     public final void start(com.google.android.material.internal.StateListAnimator$Tuple)
     public final void cancel()
@@ -19947,8 +19944,6 @@ com.google.android.material.navigation.NavigationView$SavedState$1
     public com.google.android.material.navigation.NavigationView$SavedState[] newArray(int)
 kotlin.collections.CollectionsKt__ReversedViewsKt
 com.google.gson.internal.bind.TypeAdapters$36
-app.bmc.com.BHOOMI_MRTC.screens.LandConversion$6
-    public void onNext(java.lang.Integer)
 com.google.android.play.core.install.InstallState
     public static com.google.android.play.core.install.InstallState a(int,long,long,int,java.lang.String)
     public abstract int installStatus()
@@ -20148,8 +20143,7 @@ app.bmc.com.BHOOMI_MRTC.screens.RtcVerification
     static void <clinit>()
     public final void onButtonClickActions()
     public final boolean isNetworkAvailable()
-    public final void deleteByID(int)
-    public final void deleteResponseByID()
+    public final void deleteResponseByID(java.util.List,java.lang.String)
     public static final synthetic boolean $assertionsDisabled
 com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton$4
     public void set(android.view.View,java.lang.Float)
@@ -20157,8 +20151,6 @@ com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton$4
 androidx.core.text.BidiFormatter
     public final java.lang.String markAfter(java.lang.CharSequence,androidx.core.text.TextDirectionHeuristicCompat)
     public final java.lang.String markBefore(java.lang.CharSequence,androidx.core.text.TextDirectionHeuristicCompat)
-app.bmc.com.BHOOMI_MRTC.screens.RtcVerification$6
-    public void onNext(java.lang.Integer)
 androidx.viewpager2.widget.AnimateLayoutChangeDetector$1
 android.support.v4.media.session.PlaybackStateCompatApi22
 androidx.appcompat.view.ViewPropertyAnimatorCompatSet$1
@@ -20393,6 +20385,14 @@ org.jsoup.nodes.Element$1
 app.bmc.com.BHOOMI_MRTC.database.DataBaseAccess_Impl
     public final androidx.room.EntityInsertionAdapter __insertionAdapterOfBankMasterData
     public final androidx.room.EntityInsertionAdapter __insertionAdapterOfPacsBankMasterData
+    public final androidx.room.SharedSQLiteStatement __preparedStmtOfDeleteById
+    public final androidx.room.SharedSQLiteStatement __preparedStmtOfDeleteByIdMPD
+    public final androidx.room.SharedSQLiteStatement __preparedStmtOfDeleteByIdMSR
+    public final androidx.room.SharedSQLiteStatement __preparedStmtOfDeleteByIdRLR
+    public final androidx.room.SharedSQLiteStatement __preparedStmtOfDeleteByIdVMS
+    public final androidx.room.SharedSQLiteStatement __preparedStmtOfDeleteByIdRTCV
+    public final androidx.room.SharedSQLiteStatement __preparedStmtOfDeleteByIdLandConversion
+    public final androidx.room.SharedSQLiteStatement __preparedStmtOfDeleteByIdLandConversion_Final_Order
 app.bmc.com.BHOOMI_MRTC.database.DataBaseAccess_Impl$15
     public void bind(androidx.sqlite.db.SupportSQLiteStatement,app.bmc.com.BHOOMI_MRTC.model.LandConversion_Final_Order_TABLE)
     public final synthetic app.bmc.com.BHOOMI_MRTC.database.DataBaseAccess_Impl this$0
