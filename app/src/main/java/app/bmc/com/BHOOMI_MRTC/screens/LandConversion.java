@@ -296,6 +296,8 @@ public class LandConversion extends AppCompatActivity {
                                             public void onFailure(@NotNull Call<PariharaIndividualDetailsResponse> call, @NotNull Throwable t) {
                                                 call.cancel();
                                                 progressDialog.dismiss();
+                                                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+
                                             }
                                         });
                                     }
@@ -466,6 +468,7 @@ public class LandConversion extends AppCompatActivity {
                                             public void onFailure(@NotNull Call<PariharaIndividualDetailsResponse> call, @NotNull Throwable t) {
                                                 call.cancel();
                                                 progressDialog.dismiss();
+                                                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                                             }
                                         });
                                     }

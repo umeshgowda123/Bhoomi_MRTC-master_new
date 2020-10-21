@@ -532,6 +532,7 @@ public class Download_Conversion_order extends AppCompatActivity {
                                             public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable t) {
                                                 call.cancel();
                                                 progressDialog.dismiss();
+                                                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                                             }
                                         });
                                         }
@@ -686,6 +687,8 @@ public class Download_Conversion_order extends AppCompatActivity {
                                             public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable t) {
                                                 call.cancel();
                                                 progressDialog.dismiss();
+                                                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+
                                             }
                                         });
                                         }
