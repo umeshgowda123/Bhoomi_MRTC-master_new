@@ -210,7 +210,7 @@ public class AppLauncher extends AppCompatActivity {
         if (isNetworkAvailable()){
             apiInterface = PariharaIndividualreportClient.getClient(getResources().getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
             Call<PariharaIndividualDetailsResponse> call = apiInterface.FnGetServiceStatus(Constants.REPORT_SERVICE_USER_NAME,
-                    Constants.REPORT_SERVICE_PASSWORD, 1);
+                    Constants.REPORT_SERVICE_PASSWORD,1);
             call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
                 @Override
                 public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {
@@ -229,6 +229,8 @@ public class AppLauncher extends AppCompatActivity {
 
                                 deleteResponseByID(maintenance_flagsList);
                             } catch (JSONException e){
+                                Log.d("Status_AppLau", "enter4 catch1");
+                                Log.d("Status_AppLau", ""+e.getLocalizedMessage());
                                 e.printStackTrace();
                                 Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                             }
@@ -239,6 +241,8 @@ public class AppLauncher extends AppCompatActivity {
                 @Override
                 public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable t) {
                     call.cancel();
+                    Log.d("Status_AppLau", "enter4 onFailure1");
+                    Log.d("Status_AppLau", ""+t.getLocalizedMessage());
                     Toast.makeText(getApplicationContext(), ""+t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 }
             });

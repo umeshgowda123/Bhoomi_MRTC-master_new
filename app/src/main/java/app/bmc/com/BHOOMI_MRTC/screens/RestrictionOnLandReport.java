@@ -284,6 +284,11 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
     }
 
     @Override
+    public void onPostResponseError_FORHISSA(String data, int count) {
+
+    }
+
+    @Override
     public void onPostResponseSuccess4(String data) {
         progressBar.setVisibility(View.GONE);
         strData = data;

@@ -436,6 +436,11 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
     }
 
     @Override
+    public void onPostResponseError_FORHISSA(String data, int count) {
+
+    }
+
+    @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
        /* outState.putString(GAME_STATE_KEY, mGameState);
         outState.putString(TEXT_VIEW_KEY, mTextView.getText());

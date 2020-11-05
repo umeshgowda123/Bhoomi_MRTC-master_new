@@ -569,6 +569,8 @@ public class BhoomiHomePage extends AppCompatActivity {
         if (appUpdateManager != null && installStateUpdatedListener != null)
             appUpdateManager.unregisterListener(installStateUpdatedListener);
     }
+
+
     private void DistName() {
 
         Observable<String> district = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getDistrictByDistrictName(20));

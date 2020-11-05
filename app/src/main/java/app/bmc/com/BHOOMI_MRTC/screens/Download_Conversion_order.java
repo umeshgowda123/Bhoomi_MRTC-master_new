@@ -424,7 +424,6 @@ public class Download_Conversion_order extends AppCompatActivity {
                                     @Override
                                     public void onNext(List<? extends LandConversion_Final_Order_Interface> nterfaces_List) {
 
-
                                         LCFO_DATA = (List<LandConversion_Final_Order_Interface>) nterfaces_List;
                                         if (nterfaces_List.size()!=0) {
                                             for (int i = 0; i <= nterfaces_List.size()-1; i++) {
@@ -522,9 +521,7 @@ public class Download_Conversion_order extends AppCompatActivity {
                                                             }
                                                         });
                                                     //---------------------------------------------------------------------------------------------
-
                                                     }
-
                                                 }
                                             }
 

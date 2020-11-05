@@ -4,6 +4,8 @@ package app.bmc.com.BHOOMI_MRTC.backgroundtasks;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
+
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -30,6 +32,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
     public static final String TAG_HEADLESS_FRAGMENT = "headless_fragment";
     public boolean isTaskExecuting = false;
     private BackgroundCallBackRtcViewInfo backgroundCallBack;
+    int count = 0;
 
     /**
      * Called when a fragment is first attached to its activity.
@@ -80,8 +83,17 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
 
     public void startBackgroundTask1(int district_id, int taluk_id, int hobli_id, int village_id, String surveyNo, String url) {
         if (!isTaskExecuting) {
-            getSurnocHissaResponse(String.valueOf(district_id), String.valueOf(taluk_id), String.valueOf(hobli_id), String.valueOf(village_id), String.valueOf(surveyNo), url);
 
+            if (url.contains(getString(R.string.rtc_view_info_url_parihara))) {
+                Log.d("url", url);
+                getSurnocHissaResponse(String.valueOf(district_id), String.valueOf(taluk_id), String.valueOf(hobli_id), String.valueOf(village_id), String.valueOf(surveyNo), url);
+                count = 2;
+            }
+            else {
+                count = 1;
+                getSurnocHissaResponse(String.valueOf(district_id), String.valueOf(taluk_id), String.valueOf(hobli_id), String.valueOf(village_id), String.valueOf(surveyNo), url);
+
+            }
         }
     }
 
@@ -208,7 +220,9 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
                     isTaskExecuting = false;
 
                     String errorResponse = response.message();
+
                     backgroundCallBack.onPostResponseError(errorResponse);
+
                 }
 
             }
@@ -218,11 +232,9 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
                 isTaskExecuting = false;
 
                 String errorResponse = error.getLocalizedMessage();
-
-                backgroundCallBack.onPostResponseError(errorResponse);
+                    Log.d("ERR_RES", "" + errorResponse);
+                    backgroundCallBack.onPostResponseError_FORHISSA(errorResponse,count);
             }
-
-
         });
 
     }
@@ -327,5 +339,10 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         void onPostResponseErrorCultivator(String errorResponse);
 
         void onPostResponseSuccessCultivator(String gettcDataResult);
+
+
+
+        void onPostResponseError_FORHISSA(String data, int count);
+
     }
 }

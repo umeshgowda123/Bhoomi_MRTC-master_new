@@ -19,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -386,10 +387,12 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
                 focus.requestFocus();
             } else {
 //                surveyNo = Integer.parseInt(edittext_survey.getText().toString().trim());
-                if (isNetworkAvailable())
+                if (isNetworkAvailable()) {
                     mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo, getString(R.string.rtc_view_info_url));
-                else
+                }
+                else {
                     Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
+                }
             }
         });
         btn_fetch.setOnClickListener(v -> {
@@ -543,10 +546,19 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
 
     @Override
     public void onPostResponseError(String data) {
+//        if (progressBar != null)
+//            progressBar.setVisibility(View.GONE);
+//            mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo, getString(R.string.rtc_view_info_url_parihara));
+    }
+    public void onPostResponseError_FORHISSA(String data, int count) {
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
-//        Toast.makeText(getApplicationContext(), data, Toast.LENGTH_LONG).show();
-        mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo, getString(R.string.rtc_view_info_url_parihara));
+        Log.d("count", count+"");
+        if (count != 2) {
+            mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo, getString(R.string.rtc_view_info_url_parihara));
+        }else {
+            Toast.makeText(this, "TimeOut", Toast.LENGTH_SHORT).show();
+        }
 
     }
 

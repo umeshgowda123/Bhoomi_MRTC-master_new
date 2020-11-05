@@ -709,6 +709,11 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
     }
 
     @Override
+    public void onPostResponseError_FORHISSA(String data, int count) {
+
+    }
+
+    @Override
     public void onPostResponseError(String data) {
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);

@@ -171,6 +171,11 @@ public interface PariharaIndividualReportInteface {
             @Path("pStrPassword") String password,
             @Body JsonObject input);
 
+//    @POST("FnGetServiceStatus/{pstrUserName}/{pStrPassword}/")
+//    Call<PariharaIndividualDetailsResponse> FnGetServiceStatus(
+//            @Path("pstrUserName") String username,
+//            @Path("pStrPassword") String password);\
+
     @POST("FnGetServiceStatus/{pstrUserName}/{pStrPassword}/{pStrApplicationType}/")
     Call<PariharaIndividualDetailsResponse> FnGetServiceStatus(
             @Path("pstrUserName") String username,
