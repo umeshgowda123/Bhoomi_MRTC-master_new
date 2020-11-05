@@ -104,8 +104,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Nischitha\Bhoomi_MRTC\Bhoomi_MRTC-master\app\src\main\res\drawable\gok.png" />
-                                                <entry key="scalingPercent" value="78" />
+                                                <entry key="imagePath" value="C:\Nischitha\Bhoomi_MRTC\Bhoomi_MRTC-master\app\src\main\res\drawable\bhoomilogo.png" />
+                                                <entry key="scalingPercent" value="87" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -140,6 +140,7 @@
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="ffffff" />
+                                      <entry key="outputName" value="ic_launcher_bhoomi" />
                                     </map>
                                   </option>
                                 </PersistentState>
