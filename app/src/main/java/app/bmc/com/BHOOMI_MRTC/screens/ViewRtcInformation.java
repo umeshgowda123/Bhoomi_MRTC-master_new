@@ -434,10 +434,6 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
                 focus.requestFocus();
             } else {
                 int surveyNo = Integer.parseInt(edittext_survey.getText().toString().trim());
-//                    if (isNetworkAvailable())
-//                        mTaskFragment.startBackgroundTask2(district_id, taluk_id, hobli_id, village_id, land_no);
-//                    else
-//                        Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(getApplicationContext(), RtcDetails.class);
                 intent.putExtra("distId",""+district_id);
@@ -525,7 +521,17 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
     }
 
     @Override
+    public void onPostResponseError_Task3(String data) {
+
+    }
+
+    @Override
     public void onPostResponseSuccess4(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_Task4(String data) {
 
     }
 
@@ -535,21 +541,15 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
     }
 
     @Override
-    public void onPostResponseErrorCultivator(String errorResponse) {
-
-    }
-
-    @Override
     public void onPostResponseSuccessCultivator(String gettcDataResult) {
 
     }
 
     @Override
-    public void onPostResponseError(String data) {
-//        if (progressBar != null)
-//            progressBar.setVisibility(View.GONE);
-//            mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo, getString(R.string.rtc_view_info_url_parihara));
+    public void onPostResponseErrorCultivator(String errorResponse, int count) {
+
     }
+
     public void onPostResponseError_FORHISSA(String data, int count) {
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
@@ -557,8 +557,21 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
         if (count != 2) {
             mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo, getString(R.string.rtc_view_info_url_parihara));
         }else {
-            Toast.makeText(this, ""+data, Toast.LENGTH_SHORT).show();
-        }
+//            Toast.makeText(this, ""+data, Toast.LENGTH_SHORT).show();
+                final AlertDialog.Builder builder = new AlertDialog.Builder(ViewRtcInformation.this, R.style.MyDialogTheme);
+                builder.setTitle(getString(R.string.status))
+                        .setMessage(""+data)
+                        .setIcon(R.drawable.ic_notifications_black_24dp)
+                        .setCancelable(false)
+                        .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
+                            dialog.cancel();
+
+                        });
+                final AlertDialog alert = builder.create();
+                alert.show();
+                alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+
+            }
 
     }
 
@@ -569,6 +582,11 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
 
     @Override
     public void onPostResponseSuccess2(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_Task2(String data, int count) {
 
     }
 
