@@ -85,7 +85,6 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         if (!isTaskExecuting) {
 
             if (url.contains(getString(R.string.rtc_view_info_url_parihara))) {
-                Log.d("url", url);
                 getSurnocHissaResponse(String.valueOf(district_id), String.valueOf(taluk_id), String.valueOf(hobli_id), String.valueOf(village_id), String.valueOf(surveyNo), url);
                 count = 2;
             }
@@ -221,7 +220,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
 
                     String errorResponse = response.message();
 
-                    backgroundCallBack.onPostResponseError(errorResponse);
+                    backgroundCallBack.onPostResponseError_FORHISSA(errorResponse,count);
 
                 }
 

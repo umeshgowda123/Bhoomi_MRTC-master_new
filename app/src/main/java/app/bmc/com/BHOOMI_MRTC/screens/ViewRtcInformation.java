@@ -557,7 +557,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
         if (count != 2) {
             mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo, getString(R.string.rtc_view_info_url_parihara));
         }else {
-            Toast.makeText(this, "TimeOut", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, ""+data, Toast.LENGTH_SHORT).show();
         }
 
     }
