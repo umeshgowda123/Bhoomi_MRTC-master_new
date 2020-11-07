@@ -239,9 +239,7 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                     .setMessage(getString(R.string.no_data_found_for_this_survey_no))
                     .setIcon(R.drawable.ic_notifications_black_24dp)
                     .setCancelable(false)
-                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
-                        dialog.cancel();
-                    });
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
             final android.app.AlertDialog alert = builder.create();
             alert.show();
             alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
@@ -259,6 +257,11 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
     }
 
     @Override
+    public void onPostResponseError_Task2(String data, int count) {
+
+    }
+
+    @Override
     public void onPreExecute3() {
 
     }
@@ -269,17 +272,23 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
     }
 
     @Override
+    public void onPostResponseError_Task3(String data) {
+
+    }
+
+    @Override
     public void onPreExecute4() {
         progressBar.setVisibility(View.VISIBLE);
     }
 
+
     @Override
-    public void onPostResponseErrorCultivator(String errorResponse) {
+    public void onPostResponseSuccessCultivator(String gettcDataResult) {
 
     }
 
     @Override
-    public void onPostResponseSuccessCultivator(String gettcDataResult) {
+    public void onPostResponseErrorCultivator(String errorResponse, int count) {
 
     }
 
@@ -300,7 +309,6 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                     .setCancelable(false)
                     .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
                         dialog.cancel();
-                        finish();
                     });
             final AlertDialog alert = builder.create();
             alert.show();
@@ -396,7 +404,7 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
     }
 
     @Override
-    public void onPostResponseError(String data) {
+    public void onPostResponseError_Task4(String data) {
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
 //        Toast.makeText(getApplicationContext(), data, Toast.LENGTH_LONG).show();
@@ -408,7 +416,6 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                     .setCancelable(false)
                     .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
                         dialog.cancel();
-                        finish();
                     });
             final AlertDialog alert = builder.create();
             alert.show();
@@ -416,6 +423,7 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
 
         }
     }
+
 
     private class GetRestrictionOnLandReport extends AsyncTask<String, Integer, String> {
         String TAG = getClass().getSimpleName();

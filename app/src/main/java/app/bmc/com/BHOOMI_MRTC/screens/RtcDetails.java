@@ -1,6 +1,7 @@
 package app.bmc.com.BHOOMI_MRTC.screens;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -18,6 +19,7 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -254,12 +256,31 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
     }
 
     @Override
-    public void onPostResponseError(String data) {
+    public void onPostResponseError_Task2(String data, int count) {
+//        if (progressBar != null)
+//            progressBar.setVisibility(View.GONE);
+//        Toast.makeText(getApplicationContext(), data, Toast.LENGTH_LONG).show();
+//        mTaskFragment.startBackgroundTask2(distId, talkId, hblId, villId, land_no, getString(R.string.rtc_view_info_url_parihara));
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
-//        Toast.makeText(getApplicationContext(), data, Toast.LENGTH_LONG).show();
-        mTaskFragment.startBackgroundTask2(distId, talkId, hblId, villId, land_no, getString(R.string.rtc_view_info_url_parihara));
+        Log.d("count", count+"");
+        if (count != 2) {
+            mTaskFragment.startBackgroundTask2(distId, talkId, hblId, villId, land_no, getString(R.string.rtc_view_info_url_parihara));
+        }else {
+//            Toast.makeText(this, "" + data, Toast.LENGTH_SHORT).show();
+            final AlertDialog.Builder builder = new AlertDialog.Builder(RtcDetails.this, R.style.MyDialogTheme);
+            builder.setTitle(getString(R.string.status))
+                    .setMessage(""+data)
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
+                        dialog.cancel();
+                    });
+            final AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
 
+        }
     }
 
     @Override
@@ -342,7 +363,17 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
     }
 
     @Override
+    public void onPostResponseError_Task3(String data) {
+
+    }
+
+    @Override
     public void onPostResponseSuccess4(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_Task4(String data) {
 
     }
 
@@ -352,12 +383,31 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
     }
 
     @Override
-    public void onPostResponseErrorCultivator(String errorResponse) {
+    public void onPostResponseErrorCultivator(String errorResponse, int count) {
+//        if (progressBar != null)
+//            progressBar.setVisibility(View.GONE);
+////        Toast.makeText(getApplicationContext(), errorResponse, Toast.LENGTH_LONG).show();
+//        mTaskFragment.startBackgroundTaskCultivatorData(distId, talkId, hblId, villId, land_no, getString(R.string.rtc_view_info_url_parihara));
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
-//        Toast.makeText(getApplicationContext(), errorResponse, Toast.LENGTH_LONG).show();
+        Log.d("count", count+"");
+        if (count != 2) {
         mTaskFragment.startBackgroundTaskCultivatorData(distId, talkId, hblId, villId, land_no, getString(R.string.rtc_view_info_url_parihara));
+        }else {
+//            Toast.makeText(this, ""+errorResponse, Toast.LENGTH_SHORT).show();
+            final AlertDialog.Builder builder = new AlertDialog.Builder(RtcDetails.this, R.style.MyDialogTheme);
+            builder.setTitle(getString(R.string.status))
+                    .setMessage(""+errorResponse)
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
+                        dialog.cancel();
+                    });
+            final AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
 
+        }
     }
 
     @SuppressLint("CheckResult")
@@ -570,8 +620,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
         return vr_info_arr;
     }
 
-
-        public void createVRTCData(final List<VR_INFO> vr_info_List) {
+    public void createVRTCData(final List<VR_INFO> vr_info_List) {
         Observable<Long[]> insertMasterObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().insertViewRTCInfoData(vr_info_List));
         insertMasterObservable
                 .subscribeOn(Schedulers.io())

@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -528,7 +529,17 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
     }
 
     @Override
+    public void onPostResponseError_Task3(String data) {
+
+    }
+
+    @Override
     public void onPostResponseSuccess4(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_Task4(String data) {
 
     }
 
@@ -538,26 +549,43 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
     }
 
     @Override
-    public void onPostResponseErrorCultivator(String errorResponse) {
-
-    }
-
-    @Override
     public void onPostResponseSuccessCultivator(String gettcDataResult) {
 
     }
 
     @Override
-    public void onPostResponseError_FORHISSA(String data, int count) {
+    public void onPostResponseErrorCultivator(String errorResponse, int count) {
 
     }
 
     @Override
-    public void onPostResponseError(String data) {
+    public void onPostResponseError_FORHISSA(String data, int count) {
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
-//        Toast.makeText(getApplicationContext(), data, Toast.LENGTH_LONG).show();
-        mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo, getString(R.string.rtc_view_info_url_parihara));
+        Log.d("count", count+"");
+        if (count != 2) {
+            mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo, getString(R.string.rtc_view_info_url_parihara));
+        }else {
+//            Toast.makeText(this, ""+data, Toast.LENGTH_SHORT).show();
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(RestrictionOnLand.this, R.style.MyDialogTheme);
+            builder.setTitle(getString(R.string.status))
+                    .setMessage(""+data)
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
+                        dialog.cancel();
+                    });
+            final android.app.AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        }
+    }
+
+    @Override
+    public void onPostResponseError_Task2(String data, int count) {
+//        if (progressBar != null)
+//            progressBar.setVisibility(View.GONE);
+//        mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo, getString(R.string.rtc_view_info_url_parihara));
     }
 
     @Override

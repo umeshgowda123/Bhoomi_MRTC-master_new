@@ -98,27 +98,41 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
 
     public void startBackgroundTask2(String district_id, String taluk_id, String hobli_id, String village_id, String land_no, String url) {
         if (!isTaskExecuting) {
-            getRtcResponse(district_id, taluk_id, hobli_id, village_id, land_no, url);
+            if (url.contains(getString(R.string.rtc_view_info_url_parihara))) {
+                getRtcResponse(district_id, taluk_id, hobli_id, village_id, land_no, url);
+                count = 2;
+            }
+            else {
+                count = 1;
+                getRtcResponse(district_id, taluk_id, hobli_id, village_id, land_no, url);
+            }
         }
     }
 
     public void startBackgroundTask3(int district_id, int taluk_id, int hobli_id, int village_id, int land_no, String url) {
         if (!isTaskExecuting) {
-            getMutationStatusResponse(String.valueOf(district_id), String.valueOf(taluk_id), String.valueOf(hobli_id), String.valueOf(village_id), String.valueOf(land_no), url);
-
+                getMutationStatusResponse(String.valueOf(district_id), String.valueOf(taluk_id), String.valueOf(hobli_id), String.valueOf(village_id), String.valueOf(land_no), url);
         }
     }
 
     public void startBackgroundTask4(JsonObject input, String url) {
         if (!isTaskExecuting) {
             getLandRestrictionResult(input, url);
-
         }
+
     }
 
     public void startBackgroundTaskCultivatorData(String district_id, String taluk_id, String hobli_id, String village_id, String land_no, String url) {
         if (!isTaskExecuting) {
-            getCultivatorResponse(district_id, taluk_id, hobli_id, village_id, land_no, url);
+//            getCultivatorResponse(district_id, taluk_id, hobli_id, village_id, land_no, url);
+            if (url.contains(getString(R.string.rtc_view_info_url_parihara))) {
+                getCultivatorResponse(district_id, taluk_id, hobli_id, village_id, land_no, url);
+                count = 2;
+            }
+            else {
+                count = 1;
+                getCultivatorResponse(district_id, taluk_id, hobli_id, village_id, land_no, url);
+            }
         }
     }
 
@@ -144,7 +158,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
                     isTaskExecuting = false;
 
                     String errorResponse = response.message();
-                    backgroundCallBack.onPostResponseErrorCultivator(errorResponse);
+                    backgroundCallBack.onPostResponseErrorCultivator(errorResponse, count);
                 }
             }
 
@@ -154,7 +168,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
 
                 String errorResponse = error.getLocalizedMessage();
 
-                backgroundCallBack.onPostResponseErrorCultivator(errorResponse);
+                backgroundCallBack.onPostResponseErrorCultivator(errorResponse, count);
             }
         });
     }
@@ -182,7 +196,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
                     isTaskExecuting = false;
 
                     String errorResponse = response.message();
-                    backgroundCallBack.onPostResponseError(errorResponse);
+                    backgroundCallBack.onPostResponseError_Task2(errorResponse, count);
                 }
 
             }
@@ -193,7 +207,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
 
                 String errorResponse = error.getLocalizedMessage();
 
-                backgroundCallBack.onPostResponseError(errorResponse);
+                backgroundCallBack.onPostResponseError_Task2(errorResponse, count);
             }
         });
 
@@ -261,7 +275,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
                     isTaskExecuting = false;
 
                     String errorResponse = response.message();
-                    backgroundCallBack.onPostResponseError(errorResponse);
+                    backgroundCallBack.onPostResponseError_Task3(errorResponse);
                 }
 
             }
@@ -271,7 +285,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
             public void onFailure(@NonNull Call<Get_ViewMutationStatusResult> call, @NonNull Throwable error) {
                 isTaskExecuting = false;
                 String errorResponse = error.getLocalizedMessage();
-                backgroundCallBack.onPostResponseError(errorResponse);
+                backgroundCallBack.onPostResponseError_Task3(errorResponse);
             }
         });
 
@@ -300,7 +314,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
                     isTaskExecuting = false;
 
                     String errorResponse = response.message();
-                    backgroundCallBack.onPostResponseError(errorResponse);
+                    backgroundCallBack.onPostResponseError_Task4(errorResponse);
                 }
 
             }
@@ -311,37 +325,37 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
                 isTaskExecuting = false;
 
                 String errorResponse = error.getLocalizedMessage();
-                backgroundCallBack.onPostResponseError(errorResponse);
+                backgroundCallBack.onPostResponseError_Task4(errorResponse);
             }
         });
     }
 
     public interface BackgroundCallBackRtcViewInfo {
+
         void onPreExecute1();
-
         void onPostResponseSuccess1(String data);
+        void onPostResponseError_FORHISSA(String data, int count);
 
-        void onPostResponseError(String data);
 
         void onPreExecute2();
-
         void onPostResponseSuccess2(String data);
+        void onPostResponseError_Task2(String data, int count);
+
+
 
         void onPreExecute3();
-
         void onPostResponseSuccess3(String data);
+        void onPostResponseError_Task3(String data);
 
-        void onPostResponseSuccess4(String data);
+
 
         void onPreExecute4();
+        void onPostResponseSuccess4(String data);
+        void onPostResponseError_Task4(String data);
 
-        void onPostResponseErrorCultivator(String errorResponse);
 
         void onPostResponseSuccessCultivator(String gettcDataResult);
-
-
-
-        void onPostResponseError_FORHISSA(String data, int count);
+        void onPostResponseErrorCultivator(String errorResponse, int count);
 
     }
 }

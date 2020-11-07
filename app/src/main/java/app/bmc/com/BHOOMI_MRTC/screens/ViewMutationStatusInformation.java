@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -694,12 +695,12 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
     }
 
     @Override
-    public void onPreExecute4() {
+    public void onPostResponseError_Task4(String data) {
 
     }
 
     @Override
-    public void onPostResponseErrorCultivator(String errorResponse) {
+    public void onPreExecute4() {
 
     }
 
@@ -709,16 +710,39 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
     }
 
     @Override
-    public void onPostResponseError_FORHISSA(String data, int count) {
+    public void onPostResponseErrorCultivator(String errorResponse, int count) {
 
     }
 
     @Override
-    public void onPostResponseError(String data) {
+    public void onPostResponseError_FORHISSA(String data, int count) {
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
-//        Toast.makeText(getApplicationContext(), data, Toast.LENGTH_LONG).show();
+        Log.d("count", count+"");
+        if (count != 2) {
         mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyno, getString(R.string.rtc_view_info_url_parihara));
+        }else {
+//            Toast.makeText(this, ""+data, Toast.LENGTH_SHORT).show();
+                final AlertDialog.Builder builder = new AlertDialog.Builder(ViewMutationStatusInformation.this, R.style.MyDialogTheme);
+                builder.setTitle(getString(R.string.status))
+                        .setMessage(""+data)
+                        .setIcon(R.drawable.ic_notifications_black_24dp)
+                        .setCancelable(false)
+                        .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
+                            dialog.cancel();
+                        });
+                final AlertDialog alert = builder.create();
+                alert.show();
+                alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+
+            }
+    }
+
+    @Override
+    public void onPostResponseError_Task3(String data) {
+//        if (progressBar != null)
+//            progressBar.setVisibility(View.GONE);
+//        mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyno, getString(R.string.rtc_view_info_url_parihara));
     }
 
     @Override
@@ -728,6 +752,11 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
     @Override
     public void onPostResponseSuccess2(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_Task2(String data, int count) {
 
     }
 
