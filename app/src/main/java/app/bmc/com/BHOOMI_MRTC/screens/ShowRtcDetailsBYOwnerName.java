@@ -22,6 +22,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -41,11 +42,10 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Objects;
 
 import app.bmc.com.BHOOMI_MRTC.R;
-import app.bmc.com.BHOOMI_MRTC.adapters.ShowRtcOwnerReportAdapter;
+import app.bmc.com.BHOOMI_MRTC.adapters.ViewRTCByOwnerNameNewAdapter;
 import app.bmc.com.BHOOMI_MRTC.model.RTCByOwnerNameResponse;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
 
@@ -54,11 +54,12 @@ import static java.util.Comparator.comparing;
 public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
 
     private ListView lv_OwnerDetails;
-    EditText etSearch;
+//    EditText etSearch;
 
+    SearchView searchView;
     ArrayList<RTCByOwnerNameResponse> rtcByOwnerNameResponseList;
-    private ShowRtcOwnerReportAdapter adapter;
-
+//    private ShowRtcOwnerReportAdapter adapter;
+    private ViewRTCByOwnerNameNewAdapter adapter;
     ProgressDialog progressDialog;
     String SOAP_ACTION2 = "http://tempuri.org/GetDetails_VillageWise_JSON";
     public final String OPERATION_NAME2 = "GetDetails_VillageWise_JSON";  //Method_name
@@ -72,6 +73,7 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
 
     private  String distId, talkId, hblId, village_id;
     ArrayList<String> distId_array = new ArrayList<>(), talkId_array = new ArrayList<>(), hblId_array = new ArrayList<>(), village_id_array = new ArrayList<>();
+
     Intent intent;
 
     @Override
@@ -81,7 +83,7 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -91,8 +93,8 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
         }
 
         lv_OwnerDetails = findViewById(R.id.lv_OwnerDetails);
-        etSearch = findViewById(R.id.etSearch);
-
+//        etSearch = findViewById(R.id.etSearch);
+        searchView = findViewById(R.id.s);
         intent = getIntent();
         rtcByOwnerNameResponseList = new ArrayList<>();
 
@@ -111,23 +113,35 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
             }
         }
 
-        etSearch.addTextChangedListener(new TextWatcher() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+            public boolean onQueryTextSubmit(String query) {
+                return false;
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.d("CharSequence", ""+s);
-                adapter.getFilter().filter(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
             }
         });
+//        etSearch.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                Log.d("CharSequence", ""+s);
+//                adapter.getFilter().filter(s.toString());
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
 
     }
     private boolean isNetworkAvailable() {
@@ -243,7 +257,7 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
 
                     Collections.sort(rtcByOwnerNameResponseList, comparing(RTCByOwnerNameResponse::getSurvey_no));
 
-                    adapter= new ShowRtcOwnerReportAdapter(rtcByOwnerNameResponseList,getApplicationContext(), distId_array, talkId_array, hblId_array, village_id_array);
+                    adapter= new ViewRTCByOwnerNameNewAdapter(rtcByOwnerNameResponseList,getApplicationContext(), distId_array, talkId_array, hblId_array, village_id_array);
 
                     lv_OwnerDetails.setAdapter(adapter);
 

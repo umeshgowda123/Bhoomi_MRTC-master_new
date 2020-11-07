@@ -56,26 +56,27 @@
         android:gravity="center"
         android:orientation="vertical">
 
-<!--        <SearchView-->
+        <SearchView
+            android:id="@+id/s"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/edit_text_bg"
+            android:queryHint="@string/search_by_owner_name_survey_no" />
+
+<!--        <EditText-->
+<!--            android:id="@+id/etSearch"-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="wrap_content"-->
 <!--            android:layout_marginLeft="30dp"-->
 <!--            android:layout_marginRight="30dp"-->
 <!--            android:background="@drawable/edit_text_bg"-->
-<!--            android:queryHint="@string/search_by_owner_name_survey_no" />-->
-
-        <EditText
-            android:id="@+id/etSearch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="@drawable/edit_text_bg"
-            android:hint="@string/search_by_owner_name_survey_no"
-            android:imeOptions="actionDone"
-            android:inputType="textPersonName"
-            android:padding="8dp"
-            android:autofillHints="@string/search_by_owner_name_survey_no" />
+<!--            android:hint="@string/search_by_owner_name_survey_no"-->
+<!--            android:imeOptions="actionDone"-->
+<!--            android:inputType="textPersonName"-->
+<!--            android:padding="8dp"-->
+<!--            android:autofillHints="@string/search_by_owner_name_survey_no" />-->
 
         <HorizontalScrollView
             android:layout_width="match_parent"

@@ -25,7 +25,7 @@ public class ShowRtcOwnerReportAdapter extends ArrayAdapter<RTCByOwnerNameRespon
     private String distId_int, talkId_int, hblId_int, villId_int;
     private String land_code_int;
     public String owner;
-    public int survey_no;
+    public String survey_no;
     public String surnoc;
     public String hissa_no;
 
@@ -96,7 +96,6 @@ public class ShowRtcOwnerReportAdapter extends ArrayAdapter<RTCByOwnerNameRespon
             tvShowSurveyNo = view.findViewById(R.id.tvShowSurveyNo);
             btnViewReport = view.findViewById(R.id.btnViewReport);
         }
-
     }
 
 }

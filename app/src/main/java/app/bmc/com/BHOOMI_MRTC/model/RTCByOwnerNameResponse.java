@@ -5,7 +5,7 @@ public class RTCByOwnerNameResponse {
     public String main_owner_no;
     public String owner_no;
     public String owner;
-    public int survey_no;
+    public String survey_no;
     public String surnoc;
     public String hissa_no;
     public String distId;
@@ -16,7 +16,7 @@ public class RTCByOwnerNameResponse {
     public RTCByOwnerNameResponse(){
 
     }
-    public RTCByOwnerNameResponse(String land_code, String main_owner_no, String owner_no, String owner, int survey_no, String surnoc, String hissa_no, String distId, String talkId, String hblId) {
+    public RTCByOwnerNameResponse(String land_code, String main_owner_no, String owner_no, String owner, String survey_no, String surnoc, String hissa_no, String distId, String talkId, String hblId) {
         this.land_code = land_code;
         this.main_owner_no = main_owner_no;
         this.owner_no = owner_no;
@@ -70,11 +70,11 @@ public class RTCByOwnerNameResponse {
         this.owner = owner;
     }
 
-    public int getSurvey_no() {
+    public String getSurvey_no() {
         return survey_no;
     }
 
-    public void setSurvey_no(int survey_no) {
+    public void setSurvey_no(String survey_no) {
         this.survey_no = survey_no;
     }
 
