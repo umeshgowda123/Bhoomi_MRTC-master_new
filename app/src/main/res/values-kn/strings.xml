@@ -413,4 +413,5 @@
     <string name="invalid_survey_no">ಅಮಾನ್ಯ ಸರ್ವೇ ನಂಬರ್</string>
     <string name="loading">ದಯಮಾಡಿ ನಿರೀಕ್ಷಿಸಿ…</string>
     <string name="please_wait_do_not_interrupt">ದಯವಿಟ್ಟು ನಿರೀಕ್ಷಿಸಿ, ಅಡ್ಡಿಪಡಿಸಬೇಡಿ</string>
+    <string name="search_by_owner_name_survey_no">Search By Owner Name/Survey No.</string>
 </resources>

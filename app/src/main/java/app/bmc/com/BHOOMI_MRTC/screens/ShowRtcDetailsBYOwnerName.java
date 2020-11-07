@@ -14,8 +14,12 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -50,6 +54,7 @@ import static java.util.Comparator.comparing;
 public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
 
     private ListView lv_OwnerDetails;
+    EditText etSearch;
 
     ArrayList<RTCByOwnerNameResponse> rtcByOwnerNameResponseList;
     private ShowRtcOwnerReportAdapter adapter;
@@ -86,6 +91,7 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
         }
 
         lv_OwnerDetails = findViewById(R.id.lv_OwnerDetails);
+        etSearch = findViewById(R.id.etSearch);
 
         intent = getIntent();
         rtcByOwnerNameResponseList = new ArrayList<>();
@@ -104,6 +110,24 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
             }
         }
+
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.d("CharSequence", ""+s);
+                adapter.getFilter().filter(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
     }
     private boolean isNetworkAvailable() {
@@ -204,13 +228,13 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
                     Type listType = new TypeToken<ArrayList<RTCByOwnerNameResponse>>() {
                     }.getType();
                     rtcByOwnerNameResponseList = new Gson().fromJson(jsonArray.toString(), listType);
-
                     distId_array.clear();
                     talkId_array.clear();
                     hblId_array.clear();
                     village_id_array.clear();
 
                     for (int i=1;i<=rtcByOwnerNameResponseList.size();i++) {
+                        //Log.d("rtcByOwnerNameResList", ""+rtcByOwnerNameResponseList.get(i));
                         distId_array.add(distId);
                         talkId_array.add(talkId);
                         hblId_array.add(hblId);
