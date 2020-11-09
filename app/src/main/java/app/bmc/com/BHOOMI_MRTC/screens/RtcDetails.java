@@ -33,6 +33,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.backgroundtasks.RtcViewInfoBackGroundTaskFragment;
@@ -83,7 +84,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
        /* getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -293,63 +294,79 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
 
     @Override
     public void onPostResponseSuccess2(String data) {
-        if (progressBar!=null)
-            progressBar.setVisibility(View.GONE);
-        XmlToJson xmlToJson = new XmlToJson.Builder(data.replace("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>", "").trim()).build();
-        // convert to a JSONObject
-        JSONObject jsonObject = xmlToJson.toJson();
-        Object object = new Object();
+        if (data.contains("No value for rtc") || data.contains("Please try again later")) {
+            if (progressBar != null)
+                progressBar.setVisibility(View.GONE);
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(RtcDetails.this, R.style.MyDialogTheme);
+            builder.setTitle(getString(R.string.status))
+                    .setMessage(data+"")
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
+                        dialog.cancel();
+                        finish();
+                    });
+            final android.app.AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        }else {
+            if (progressBar != null)
+                progressBar.setVisibility(View.GONE);
+            XmlToJson xmlToJson = new XmlToJson.Builder(data.replace("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>", "").trim()).build();
+            // convert to a JSONObject
+            JSONObject jsonObject = xmlToJson.toJson();
+            Object object = new Object();
 
-        // convert to a formatted Json String
-        formattedLand = xmlToJson.toFormattedString().replace("\n", "");
-        try {
-            JSONObject obj = new JSONObject(formattedLand);
-            JSONObject rtc = obj.getJSONObject("rtc");
+            // convert to a formatted Json String
+            formattedLand = xmlToJson.toFormattedString().replace("\n", "");
+            try {
+                JSONObject obj = new JSONObject(formattedLand);
+                JSONObject rtc = obj.getJSONObject("rtc");
 
-            JSONObject ownerdetails = rtc.getJSONObject("ownerdetails");
+                JSONObject ownerdetails = rtc.getJSONObject("ownerdetails");
 
-            object = ownerdetails.get("jointowners");
+                object = ownerdetails.get("jointowners");
 
-            JSONArray jointOwners = new JSONArray();
+                JSONArray jointOwners = new JSONArray();
 
-            if (object instanceof JSONObject) {
-                jointOwners.put(object);
+                if (object instanceof JSONObject) {
+                    jointOwners.put(object);
 
-            } else {
-                jointOwners = (JSONArray) object;
+                } else {
+                    jointOwners = (JSONArray) object;
 
-            }
-            LandDetailsFragment = rtc.toString();
-            Gson gson = new Gson();
-            JSONObject object1 = new JSONObject(LandDetailsFragment);
-            if (object1.has("villagedetails")) {
-                Object villagedetailsObject = object1.get("villagedetails");
-                if (villagedetailsObject instanceof JSONObject) {
-                    JSONObject villageJsonObj = (JSONObject) villagedetailsObject;
-                    villagedetails = gson.fromJson(villageJsonObj.toString(), Villagedetails.class);
-                } else if (villagedetailsObject instanceof String) {
-                    villagedetails = new Villagedetails();
                 }
-            }
-            if (object1.has("staticinfopahani")) {
-                Object staticinfopahaniObject = object1.get("staticinfopahani");
-                if (staticinfopahaniObject instanceof JSONObject) {
-                    JSONObject staticinfopahaniObj = (JSONObject) staticinfopahaniObject;
-                    staticinfopahani = gson.fromJson(staticinfopahaniObj.toString(), Staticinfopahani.class);
-
-                } else if (staticinfopahaniObject instanceof String) {
-                    staticinfopahani = new Staticinfopahani();
+                LandDetailsFragment = rtc.toString();
+                Gson gson = new Gson();
+                JSONObject object1 = new JSONObject(LandDetailsFragment);
+                if (object1.has("villagedetails")) {
+                    Object villagedetailsObject = object1.get("villagedetails");
+                    if (villagedetailsObject instanceof JSONObject) {
+                        JSONObject villageJsonObj = (JSONObject) villagedetailsObject;
+                        villagedetails = gson.fromJson(villageJsonObj.toString(), Villagedetails.class);
+                    } else if (villagedetailsObject instanceof String) {
+                        villagedetails = new Villagedetails();
+                    }
                 }
+                if (object1.has("staticinfopahani")) {
+                    Object staticinfopahaniObject = object1.get("staticinfopahani");
+                    if (staticinfopahaniObject instanceof JSONObject) {
+                        JSONObject staticinfopahaniObj = (JSONObject) staticinfopahaniObject;
+                        staticinfopahani = gson.fromJson(staticinfopahaniObj.toString(), Staticinfopahani.class);
+
+                    } else if (staticinfopahaniObject instanceof String) {
+                        staticinfopahani = new Staticinfopahani();
+                    }
+                }
+                mTaskFragment.startBackgroundTaskCultivatorData(distId, talkId, hblId, villId, land_no, getString(R.string.rtc_view_info_url));
+
+                survey_new = survey;
+                OwnerDetailsFragment = jointOwners.toString();
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            mTaskFragment.startBackgroundTaskCultivatorData(distId, talkId, hblId, villId, land_no, getString(R.string.rtc_view_info_url));
-
-            survey_new = survey;
-            OwnerDetailsFragment = jointOwners.toString();
-
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -590,7 +607,6 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
     //______________________________________________________________________DB____________________________________________________
 
     public List<VR_INFO> loadData() {
-//        Toast.makeText(this, "LoadData", Toast.LENGTH_SHORT).show();
         List<VR_INFO> vr_info_arr = new ArrayList<>();
         try {
             VR_INFO vr_info = new VR_INFO();

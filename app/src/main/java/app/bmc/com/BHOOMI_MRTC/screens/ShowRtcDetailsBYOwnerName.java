@@ -291,8 +291,6 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
-        Intent refresh = new Intent(this, ViewRtcInformationByOwnerName.class);
-        startActivity(refresh);
     }
 
     @Override
