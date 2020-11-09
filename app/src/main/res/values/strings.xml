@@ -503,7 +503,7 @@
     <string name="no_information_found">No Information Found</string>
     <string name="no_data_found_for_this_vill_pls_cont_support_team_for">No data available for this village. Please contact support team for further clarification.</string>
     <string name="invalid_survey_no">Invalid Survey No.</string>
-    <string name="loading">Loading...</string>
+    <string name="loading">Loading…</string>
     <string name="please_wait_do_not_interrupt">Please Wait, Do not Interrupt</string>
     <string name="search_by_owner_name_survey_no">Search By Owner Name/Survey No.</string>
 </resources>

@@ -275,6 +275,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                     .setCancelable(false)
                     .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
                         dialog.cancel();
+                        finish();
                     });
             final AlertDialog alert = builder.create();
             alert.show();
@@ -402,6 +403,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                     .setCancelable(false)
                     .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
                         dialog.cancel();
+                        finish();
                     });
             final AlertDialog alert = builder.create();
             alert.show();

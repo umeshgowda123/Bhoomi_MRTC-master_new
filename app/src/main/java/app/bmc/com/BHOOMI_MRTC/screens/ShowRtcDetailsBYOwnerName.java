@@ -14,13 +14,8 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -31,7 +26,6 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.ksoap2.SoapEnvelope;
-import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
@@ -71,7 +65,7 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
     SoapPrimitive resultString;
     String resultFromServer;
 
-    private  String distId, talkId, hblId, village_id;
+    String distId, talkId, hblId, village_id;
     ArrayList<String> distId_array = new ArrayList<>(), talkId_array = new ArrayList<>(), hblId_array = new ArrayList<>(), village_id_array = new ArrayList<>();
 
     Intent intent;
@@ -95,6 +89,10 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
         lv_OwnerDetails = findViewById(R.id.lv_OwnerDetails);
 //        etSearch = findViewById(R.id.etSearch);
         searchView = findViewById(R.id.s);
+        searchView.setIconified(false);
+        searchView.onActionViewExpanded();
+
+
         intent = getIntent();
         rtcByOwnerNameResponseList = new ArrayList<>();
 
@@ -293,5 +291,15 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+        Intent refresh = new Intent(this, ViewRtcInformationByOwnerName.class);
+        startActivity(refresh);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
     }
 }

@@ -66,13 +66,6 @@ public class ViewRTCByOwnerNameNewAdapter extends BaseAdapter implements Filtera
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewRTCByOwnerNameViewHolder) convertView.getTag();
-//        }
-//        if (convertView == null) {
-//            convertView= LayoutInflater.from(mContext).inflate(R.layout.list_owner_report,parent, false);
-//            viewHolder= new ViewRTCByOwnerNameViewHolder().ViewHolder(convertView);
-//            convertView.setTag(viewHolder);
-//        } else {
-//            viewHolder = (ViewRTCByOwnerNameViewHolder.ViewHolder) convertView.getTag();
         }
 
         viewHolder.tvShowOwnerName.setText(dataList.get(position).getOwner());
@@ -139,7 +132,7 @@ public class ViewRTCByOwnerNameNewAdapter extends BaseAdapter implements Filtera
                 ArrayList<RTCByOwnerNameResponse> filter = new ArrayList<>();
                 for (int i = 0; i < filterList.size(); i++)
                 {
-                    if (filterList.get(i).hissa_no.contains(constraint) || filterList.get(i).survey_no.contains(constraint)){
+                    if (filterList.get(i).owner.contains(constraint) || filterList.get(i).survey_no.contains(constraint)){
                         RTCByOwnerNameResponse rtcByOwnerNameResponse = new RTCByOwnerNameResponse(filterList.get(i).getLand_code(),
                                 filterList.get(i).getMain_owner_no(),filterList.get(i).getOwner_no(),filterList.get(i).getOwner(),filterList.get(i).getSurvey_no(),
                                 filterList.get(i).getSurnoc(),filterList.get(i).getHissa_no(),filterList.get(i).getDistId(),filterList.get(i).getTalkId(),filterList.get(i).getHblId());
