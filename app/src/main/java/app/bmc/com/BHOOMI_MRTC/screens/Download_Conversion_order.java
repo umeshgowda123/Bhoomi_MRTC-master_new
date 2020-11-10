@@ -94,6 +94,9 @@ public class Download_Conversion_order extends AppCompatActivity {
     List<LandConversion_Final_Order_Interface> LCFO_DATA;
     private String language;
 
+    PariharaIndividualReportInteface apiInterface;
+    Call<PariharaIndividualDetailsResponse> call, call2;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -453,8 +456,8 @@ public class Download_Conversion_order extends AppCompatActivity {
                                         progressDialog.setCancelable(false);
                                         progressDialog.show();
 
-                                        PariharaIndividualReportInteface apiInterface = PariharaIndividualreportClient.getClient("https://clws.karnataka.gov.in/Service4/BHOOMI/").create(PariharaIndividualReportInteface.class);
-                                        Call<PariharaIndividualDetailsResponse> call = apiInterface.getLandConversionFinalOrders_BasedOnSurveyNo(Constants.REPORT_SERVICE_USER_NAME,
+                                        apiInterface = PariharaIndividualreportClient.getClient("https://clws.karnataka.gov.in/Service4/BHOOMI/").create(PariharaIndividualReportInteface.class);
+                                        call = apiInterface.getLandConversionFinalOrders_BasedOnSurveyNo(Constants.REPORT_SERVICE_USER_NAME,
                                                 Constants.REPORT_SERVICE_PASSWORD, district_id, taluk_id, hobli_id, village_id, surveyNumber);
                                         call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
                                             @Override
@@ -608,10 +611,10 @@ public class Download_Conversion_order extends AppCompatActivity {
                                         progressDialog.setCancelable(false);
                                         progressDialog.show();
 
-                                        PariharaIndividualReportInteface apiInterface = PariharaIndividualreportClient.getClient("https://clws.karnataka.gov.in/Service4/BHOOMI/").create(PariharaIndividualReportInteface.class);
-                                        Call<PariharaIndividualDetailsResponse> call = apiInterface.getLandConversionFinalOrders_BasedOnReqId(Constants.REPORT_SERVICE_USER_NAME,
+                                        apiInterface = PariharaIndividualreportClient.getClient("https://clws.karnataka.gov.in/Service4/BHOOMI/").create(PariharaIndividualReportInteface.class);
+                                        call2 = apiInterface.getLandConversionFinalOrders_BasedOnReqId(Constants.REPORT_SERVICE_USER_NAME,
                                                 Constants.REPORT_SERVICE_PASSWORD, requestID);
-                                        call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+                                        call2.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
                                             @Override
                                             public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {
 
@@ -843,5 +846,15 @@ public class Download_Conversion_order extends AppCompatActivity {
         Configuration conf = res.getConfiguration();
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(call != null && call.isExecuted()) {
+            call.cancel();
+        }
+        if(call2 != null && call2.isExecuted()) {
+            call2.cancel();
+        }
     }
 }

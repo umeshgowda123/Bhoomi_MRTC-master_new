@@ -61,6 +61,8 @@ public class LandConversion extends AppCompatActivity {
 
     private DataBaseHelper dataBaseHelper;
     private List<LandConversion_Interface> LandConversion_Data;
+    Call<PariharaIndividualDetailsResponse> call, call2;
+    PariharaIndividualReportInteface apiInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +85,7 @@ public class LandConversion extends AppCompatActivity {
         btnFetchReports = findViewById(R.id.btnSubmit);
         rb_AffidavitID = findViewById(R.id.rb_AffidavitID);
         rb_UserID = findViewById(R.id.rb_UserID);
+
 
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
@@ -209,8 +212,8 @@ public class LandConversion extends AppCompatActivity {
                                         progressDialog.setCancelable(false);
                                         progressDialog.show();
 
-                                        PariharaIndividualReportInteface apiInterface = PariharaIndividualreportClient.getClient("https://clws.karnataka.gov.in/Service4/BHOOMI/").create(PariharaIndividualReportInteface.class);
-                                        Call<PariharaIndividualDetailsResponse> call = apiInterface.getLandConversionBasedOnAffidavitID(Constants.REPORT_SERVICE_USER_NAME,
+                                        apiInterface = PariharaIndividualreportClient.getClient("https://clws.karnataka.gov.in/Service4/BHOOMI/").create(PariharaIndividualReportInteface.class);
+                                        call = apiInterface.getLandConversionBasedOnAffidavitID(Constants.REPORT_SERVICE_USER_NAME,
                                                 Constants.REPORT_SERVICE_PASSWORD, affidavitID);
                                         call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
                                             @Override
@@ -379,10 +382,10 @@ public class LandConversion extends AppCompatActivity {
                                         progressDialog.setCancelable(false);
                                         progressDialog.show();
 
-                                        PariharaIndividualReportInteface apiInterface = PariharaIndividualreportClient.getClient("https://clws.karnataka.gov.in/Service4/BHOOMI/").create(PariharaIndividualReportInteface.class);
-                                        Call<PariharaIndividualDetailsResponse> call = apiInterface.getLandConversionBasedOnUserID(Constants.REPORT_SERVICE_USER_NAME,
+                                        apiInterface = PariharaIndividualreportClient.getClient("https://clws.karnataka.gov.in/Service4/BHOOMI/").create(PariharaIndividualReportInteface.class);
+                                        call2 = apiInterface.getLandConversionBasedOnUserID(Constants.REPORT_SERVICE_USER_NAME,
                                                 Constants.REPORT_SERVICE_PASSWORD,userID);
-                                        call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+                                        call2.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
                                             @Override
                                             public void onResponse(@NotNull Call<PariharaIndividualDetailsResponse>  call, @NotNull Response<PariharaIndividualDetailsResponse> response)
                                             {
@@ -539,7 +542,6 @@ public class LandConversion extends AppCompatActivity {
         return LandConversion_tables_arr;
     }
 
-
     public void createLandConversion_Data(final List<LandConversion_TABLE> LandConversion_List) {
         Observable<Long[]> insertMPDData = Observable.fromCallable(() -> dataBaseHelper.daoAccess().insertLandConversionData(LandConversion_List));
         insertMPDData
@@ -603,5 +605,16 @@ public class LandConversion extends AppCompatActivity {
                     createLandConversion_Data(LandConversion_list);
                 }
             });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(call != null && call.isExecuted()) {
+            call.cancel();
+        }
+        if(call2 != null && call2.isExecuted()) {
+            call2.cancel();
+        }
     }
 }

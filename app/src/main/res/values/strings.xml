@@ -2,9 +2,6 @@
 
     <string name="rtc_view_info_url_parihara">https://parihara.karnataka.gov.in/RWSROR/GETBhoomiCode/</string>
     <string name="rtc_view_info_url">http://202.138.105.17/RWSROR/GETBhoomiCode/</string>
-<!--    <string name="rtc_view_info_url">https://parihara.karnataka.gov.in/RWSROR/GETBhoomiCode/</string>-->
-<!--    <string name="rtc_view_info_url_parihara">http://202.138.105.17/RWSROR/GETBhoomiCode/</string>-->
-<!--    <string name="rtc_xml_verification_url">https://landrecords.karnataka.gov.in/Service76/RTCXML.svc/</string>-->
     <string name="rtc_xml_verification_url">https://clws.karnataka.gov.in/Service4/BHOOMI/</string>
     <string name="server_report_url">https://clws.karnataka.gov.in/Service4/BHOOMI/</string>
 
@@ -58,10 +55,10 @@
     <string name="validfrom">Valid From</string>
     <string name="land_code">Land Code</string>
 
-
     <string name="financial_year">Financial Year</string>
 
     <string name="year_err">Select Year</string>
+
     <string name="calamity_err">Select Calamity</string>
 
     <string name="calamity_type">Calamity Type</string>
@@ -169,7 +166,6 @@
 
 
     <string name="toolbar_title_clws">CLWS Online</string>
-
     <string name="clsw_toolbar_title">Crop Loan Waiver System</string>
     <string name="clws_heading"><![CDATA[Payment & Loan Status Report]]></string>
     <string name="clws_radio_btn_adhar">Aadhar Number</string>
@@ -186,14 +182,10 @@
     <string name="report_view">Report View</string>
     <string name="affidavit_view">Affidavit View</string>
 
-
     <string name="details_parihara_entires">Details of Parihara Entries</string>
     <string name="payment_details">Payment Details</string>
-
     <string name="serial_no">Sl No</string>
-
     <string name="entry_number">Entry Number</string>
-
     <string name="aadhar_number">Aadhar Number</string>
     <string name="crop_category">Crop Category</string>
     <string name="crop_name">Crop Name</string>
@@ -211,9 +203,7 @@
     <string name="croploss_extent_acre">Crop Loss ExtentAcre</string>
     <string name="croploss_extent_gunta">Crop Loss ExtentGunta</string>
     <string name="croploss_extent_fgunta">Crop Loss ExtentFGunta</string>
-
     <string name="district_name">District</string>
-
     <string name="taluka_name_one">Taluka Name</string>
     <string name="bank_name">Bank Name</string>
     <string name="ration_card_no">RationCard No</string>
@@ -227,7 +217,6 @@
     <string name="loan_amount_waiver">Loan Amount Eligible for Waiver</string>
     <string name="loan_waiver_amount_date">Total Waiver amount actually release as on report date</string>
     <string name="balance_waiver_amount_release">Balance Waiver amount to be release</string>
-
     <string name="clws_fsd_edit_text">Enter FSD ID</string>
     <string name="btn_text">Fetch Details</string>
 
@@ -252,18 +241,13 @@
     <string name="outstanding_amount_on_july">Outstanding Amount(on 10th July 2018)</string>
 
     <string name="bank_certificate_details_heading">Commercial Bank Loan Waiver Payment Details</string>
-
     <string name="english_language">English</string>
     <string name="kanada_language">Kannada</string>
-
     <string name="branch_name">Branch Name</string>
     <string name="loan_acc_no">Loan Acc No</string>
-
     <string name="bank_outstanding_amount">Outstanding Amount(on 30th December 2017)</string>
-
     <string name="clws_services">CLWS Services</string>
     <string name="rtc_services">RTC Services</string>
-
 
     <string name="parihara_details_individual">Parihara Details - Individual</string>
 
@@ -278,6 +262,7 @@
     <string name="crop_loss_report">Parihara Crop Loss Report</string>
 
     <string name="entry_id">Entry ID</string>
+
     <string name="hissa_number">Hissa Number</string>
 
 
@@ -312,83 +297,51 @@
 
 
     <string name="aadhaar_err">Aadhar Error</string>
-
     <string name="dist_code">District Code</string>
-
     <string name="amount_in_ruppes">Amount in Rupees (Rs.).</string>
-
     <string name="ac_holder_name">A/C Holder Name</string>
     <string name="bank_account_no">Bank Account Number</string>
-
     <string name="payment_status_column">Payment Status</string>
-
     <string name="payment_date">Payment Date</string>
     <string name="season">Season</string>
     <string name="year">Year</string>
-
     <string name="parihara_benificary_details">Parihara Beneficiary Details</string>
-
     <string name="beneficiray_name">Beneficiary Name</string>
     <string name="amount">Amount</string>
-
     <string name="beneficiary_details_land_details">Beneficiary Details Land Wise</string>
-
     <string name="downlaod_village_map">Downlaod Village Map</string>
-
     <string name="mutation_pendencey_details">Mutation Pendency Details</string>
-
     <string name="application_number">Application Number</string>
-
     <string name="transaction_number">Transaction Number</string>
-
     <string name="transaction_start_date">Transaction Start Date</string>
-
     <string name="mr_number">MR Number</string>
-
     <string name="mutation_registered_number">Mutation Registered Number</string>
     <string name="mutation_registered_date">Mutation Registered Date</string>
-
     <string name="mutation_type">Mutation Type</string>
-
     <string name="mutation_status">Mutation Status</string>
-
     <string name="acquatation_type">Acquisition Type</string>
-
     <string name="court_type">Court Type</string>
-
     <string name="report_genrated_date">Report Genrated Date</string>
-
-
     <string name="survey_no_included_transaction">Survey Number Included In The Transaction</string>
-
     <string name="mutation_sum_report">Mutation Summary Report</string>
-
     <string name="loan_waiver_report">Loan Waiver Report For Commercial Bank</string>
-
     <string name="loan_waiver_farmer_report">Loan Waiver Report For Commercial Bank- Farmer wise</string>
-
     <string name="view_mutation_status">View Mutation Status</string>
-
     <string name="btnSubmit">Submit</string>
     <string name="req_msg">Please Wait</string>
     <string name="bnk_error">Select Bank Name</string>
-
     <string name="total_no_of_lonee">Total No Of Loanees</string>
     <string name="loan_amount_lakh">Loan Amount(Lakhs)</string>
-
     <string name="eligible_loans">Eligible Loans</string>
     <string name="eligible_loan_amount_lakh">Eligible Loan Amount(Lakh)</string>
-
     <string name="green_list_loan">Green List Loans</string>
     <string name="green_list_amount">Green List Amount(Lakhs)</string>
     <string name="paid_loan">Paid Loans</string>
     <string name="paid_loan_amount">Paid Loan Amount(Lakhs)</string>
     <string name="percentage">Percentage</string>
     <string name="transactions_pending_due">Transaction Pending Due to Approval Of PACS, Manager,CDO\n or Pending due to submitted Ration Card issued after 5/4/2018 or TLC rejected Cases</string>
-
     <string name="loan_waiver_report_for_bank_wise">Loan Waiver Report for Commercial Bank - Bank wise</string>
     <string name="loan_waiver_report_for_farmer_wise">Loan Waiver Report for Commercial Bank - Farmer wise</string>
-
     <string name="ration_card_data_mismatch">Ration Card data mismatch,Aadhaar Authentication Failed and mismatch in land data</string>
     <string name="customer_name">Customer Name</string>
     <string name="customer_rel_name">Customer Relative Name</string>
@@ -454,8 +407,6 @@
     <string name="sketch_report_view">Sketch Report View</string>
     <string name="application_id">Application ID</string>
     <string name="application_type">Application Type</string>
-
-
     <string name="application_status">Application Status</string>
     <string name="allotment_details">Allotment Details</string>
     <string name="enter_application_number">Enter Application Number</string>

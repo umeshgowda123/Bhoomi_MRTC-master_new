@@ -194,10 +194,11 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
                     }
                 } else {
                     isTaskExecuting = false;
+                    if (backgroundCallBack != null) {
+                        String errorResponse = response.message();
 
-                    String errorResponse = response.message();
-
-                    backgroundCallBack.onPostResponseError_Task2(errorResponse, count);
+                        backgroundCallBack.onPostResponseError_Task2(errorResponse, count);
+                    }
 
                 }
 
@@ -206,11 +207,12 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Call<Get_Rtc_Data_Result> call, @NonNull Throwable error) {
                 isTaskExecuting = false;
+                if (backgroundCallBack != null) {
+                    String errorResponse = error.getMessage();
+                    Log.d("Err_msg", errorResponse + "");
 
-                String errorResponse = error.getMessage();
-                Log.d("Err_msg", errorResponse+"");
-
-                backgroundCallBack.onPostResponseError_Task2(errorResponse, count);
+                    backgroundCallBack.onPostResponseError_Task2(errorResponse, count);
+                }
             }
         });
 
@@ -248,8 +250,8 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
                 isTaskExecuting = false;
 
                 String errorResponse = error.getMessage();
-                    Log.d("ERR_RES", "" + errorResponse);
-                    backgroundCallBack.onPostResponseError_FORHISSA(errorResponse,count);
+                Log.d("ERR_RES", "" + errorResponse);
+                backgroundCallBack.onPostResponseError_FORHISSA(errorResponse,count);
             }
         });
 
