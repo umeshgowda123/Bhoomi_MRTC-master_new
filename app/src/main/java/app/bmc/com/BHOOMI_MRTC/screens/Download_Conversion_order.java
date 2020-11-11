@@ -456,7 +456,7 @@ public class Download_Conversion_order extends AppCompatActivity {
                                         progressDialog.setCancelable(false);
                                         progressDialog.show();
 
-                                        apiInterface = PariharaIndividualreportClient.getClient("https://clws.karnataka.gov.in/Service4/BHOOMI/").create(PariharaIndividualReportInteface.class);
+                                        apiInterface = PariharaIndividualreportClient.getClient(getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
                                         call = apiInterface.getLandConversionFinalOrders_BasedOnSurveyNo(Constants.REPORT_SERVICE_USER_NAME,
                                                 Constants.REPORT_SERVICE_PASSWORD, district_id, taluk_id, hobli_id, village_id, surveyNumber);
                                         call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
@@ -611,7 +611,7 @@ public class Download_Conversion_order extends AppCompatActivity {
                                         progressDialog.setCancelable(false);
                                         progressDialog.show();
 
-                                        apiInterface = PariharaIndividualreportClient.getClient("https://clws.karnataka.gov.in/Service4/BHOOMI/").create(PariharaIndividualReportInteface.class);
+                                        apiInterface = PariharaIndividualreportClient.getClient(getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
                                         call2 = apiInterface.getLandConversionFinalOrders_BasedOnReqId(Constants.REPORT_SERVICE_USER_NAME,
                                                 Constants.REPORT_SERVICE_PASSWORD, requestID);
                                         call2.enqueue(new Callback<PariharaIndividualDetailsResponse>() {

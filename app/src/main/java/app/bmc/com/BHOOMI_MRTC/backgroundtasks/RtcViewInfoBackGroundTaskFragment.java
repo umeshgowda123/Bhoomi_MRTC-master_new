@@ -34,6 +34,8 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
     private BackgroundCallBackRtcViewInfo backgroundCallBack;
     private int count = 0;
 
+    Call<Get_ViewMutationStatusResult> get_rtc_data_resultCall;
+    Call<Get_Surnoc_HissaResult> get_surnoc_hissaResultCall;
     /**
      * Called when a fragment is first attached to its activity.
      * onCreate(Bundle) will be called after this.
@@ -143,8 +145,8 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
 
         Retrofit retrofit = RtcViewInfoClient.getClient(url);
         RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
-        Call<Get_Rtc_Data_Result> get_rtc_data_resultCall = service.getRtcCultivator(district_id, taluk_id, hobli_id, village_id, land_no);
-        get_rtc_data_resultCall.enqueue(new Callback<Get_Rtc_Data_Result>() {
+        Call<Get_Rtc_Data_Result> get_rtc_data_Call = service.getRtcCultivator(district_id, taluk_id, hobli_id, village_id, land_no);
+        get_rtc_data_Call.enqueue(new Callback<Get_Rtc_Data_Result>() {
             @Override
             public void onResponse(@NonNull Call<Get_Rtc_Data_Result> call, @NonNull Response<Get_Rtc_Data_Result> response) {
                 if (response.isSuccessful()) {
@@ -156,19 +158,20 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
                     }
                 } else {
                     isTaskExecuting = false;
-
-                    String errorResponse = response.message();
-                    backgroundCallBack.onPostResponseErrorCultivator(errorResponse, count);
+                    if (backgroundCallBack != null) {
+                        String errorResponse = response.message();
+                        backgroundCallBack.onPostResponseErrorCultivator(errorResponse, count);
+                    }
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<Get_Rtc_Data_Result> call, @NonNull Throwable error) {
                 isTaskExecuting = false;
-
-                String errorResponse = error.getLocalizedMessage();
-
-                backgroundCallBack.onPostResponseErrorCultivator(errorResponse, count);
+                if (backgroundCallBack != null) {
+                    String errorResponse = error.getLocalizedMessage();
+                    backgroundCallBack.onPostResponseErrorCultivator(errorResponse, count);
+                }
             }
         });
     }
@@ -190,13 +193,11 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
                     if (backgroundCallBack != null) {
                         assert get_rtc_data_result != null;
                         backgroundCallBack.onPostResponseSuccess2(get_rtc_data_result.getGetRtcDataResult());
-
                     }
                 } else {
                     isTaskExecuting = false;
                     if (backgroundCallBack != null) {
                         String errorResponse = response.message();
-
                         backgroundCallBack.onPostResponseError_Task2(errorResponse, count);
                     }
 
@@ -210,7 +211,6 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
                 if (backgroundCallBack != null) {
                     String errorResponse = error.getMessage();
                     Log.d("Err_msg", errorResponse + "");
-
                     backgroundCallBack.onPostResponseError_Task2(errorResponse, count);
                 }
             }
@@ -225,7 +225,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
 
         Retrofit retrofit = RtcViewInfoClient.getClient(url);
         RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
-        Call<Get_Surnoc_HissaResult> get_surnoc_hissaResultCall = service.getSurnocHissaResponse(district_id, taluk_id, hobli_id, village_id, surveyNo);
+        get_surnoc_hissaResultCall = service.getSurnocHissaResponse(district_id, taluk_id, hobli_id, village_id, surveyNo);
         get_surnoc_hissaResultCall.enqueue(new Callback<Get_Surnoc_HissaResult>() {
             @Override
             public void onResponse(@NonNull Call<Get_Surnoc_HissaResult> call, @NonNull Response<Get_Surnoc_HissaResult> response) {
@@ -236,10 +236,12 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
                     backgroundCallBack.onPostResponseSuccess1(get_surnoc_hissaResult.getGetSurnocHissaResult());
                 } else {
                     isTaskExecuting = false;
+                    if (backgroundCallBack != null) {
 
-                    String errorResponse = response.message();
+                        String errorResponse = response.message();
 
-                    backgroundCallBack.onPostResponseError_FORHISSA(errorResponse,count);
+                        backgroundCallBack.onPostResponseError_FORHISSA(errorResponse, count);
+                    }
 
                 }
 
@@ -248,14 +250,26 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Call<Get_Surnoc_HissaResult> call, @NonNull Throwable error) {
                 isTaskExecuting = false;
+                if (backgroundCallBack != null) {
 
-                String errorResponse = error.getMessage();
-                Log.d("ERR_RES", "" + errorResponse);
-                backgroundCallBack.onPostResponseError_FORHISSA(errorResponse,count);
+                    String errorResponse = error.getMessage();
+                    Log.d("ERR_RES", "" + errorResponse);
+                    backgroundCallBack.onPostResponseError_FORHISSA(errorResponse, count);
+                }
             }
         });
 
     }
+    public void terminateExecutionOfBackgroundTask1(){
+        Log.d("Task1", "Entered");
+//        isTaskExecuting = false;
+//        if (backgroundCallBack != null) {
+            if (get_surnoc_hissaResultCall != null && get_surnoc_hissaResultCall.isExecuted()) {
+                get_surnoc_hissaResultCall.cancel();
+//            }
+        }
+    }
+
 
     private void getMutationStatusResponse(String district_id, String taluk_id, String hobli_id, String village_id, String land_no, String url) {
         isTaskExecuting = true;
@@ -264,7 +278,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
 
         Retrofit retrofit = RtcViewInfoClient.getClient(url);
         RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
-        Call<Get_ViewMutationStatusResult> get_rtc_data_resultCall = service.getMutationStatusResponse(Constants.REPORT_SERVICE_USER_NAME,Constants.REPORT_SERVICE_PASSWORD,Integer.parseInt(district_id),Integer.parseInt(taluk_id),Integer.parseInt(hobli_id),Integer.parseInt(village_id),Integer.parseInt(land_no));
+        get_rtc_data_resultCall = service.getMutationStatusResponse(Constants.REPORT_SERVICE_USER_NAME,Constants.REPORT_SERVICE_PASSWORD,Integer.parseInt(district_id),Integer.parseInt(taluk_id),Integer.parseInt(hobli_id),Integer.parseInt(village_id),Integer.parseInt(land_no));
         get_rtc_data_resultCall.enqueue(new Callback<Get_ViewMutationStatusResult>() {
             @Override
             public void onResponse(@NonNull Call<Get_ViewMutationStatusResult> call, @NonNull Response<Get_ViewMutationStatusResult> response) {
@@ -278,9 +292,10 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
                     }
                 } else {
                     isTaskExecuting = false;
-
-                    String errorResponse = response.message();
-                    backgroundCallBack.onPostResponseError_Task3(errorResponse);
+                    if (backgroundCallBack != null) {
+                        String errorResponse = response.message();
+                        backgroundCallBack.onPostResponseError_Task3(errorResponse);
+                    }
                 }
 
             }
@@ -289,12 +304,21 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Call<Get_ViewMutationStatusResult> call, @NonNull Throwable error) {
                 isTaskExecuting = false;
-                String errorResponse = error.getMessage();
-                Log.d("Err_msg", errorResponse+"");
-                backgroundCallBack.onPostResponseError_Task3(errorResponse);
+                if (backgroundCallBack != null) {
+                    String errorResponse = error.getMessage();
+                    Log.d("Err_msg", errorResponse + "");
+                    backgroundCallBack.onPostResponseError_Task3(errorResponse);
+                }
             }
         });
 
+    }
+
+    public void terminateExecutionOfBackgroundTask3(){
+        Log.d("Task3", "Entered");
+            if (get_rtc_data_resultCall != null && get_rtc_data_resultCall.isExecuted()) {
+                get_rtc_data_resultCall.cancel();
+        }
     }
 
     private void getLandRestrictionResult(JsonObject input, String url){
@@ -318,9 +342,10 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
                     }
                 } else {
                     isTaskExecuting = false;
-
-                    String errorResponse = response.message();
-                    backgroundCallBack.onPostResponseError_Task4(errorResponse);
+                    if (backgroundCallBack != null) {
+                        String errorResponse = response.message();
+                        backgroundCallBack.onPostResponseError_Task4(errorResponse);
+                    }
                 }
 
             }
@@ -329,10 +354,11 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable error) {
                 isTaskExecuting = false;
-
-                String errorResponse = error.getMessage();
-                Log.d("Err_msg", errorResponse+"");
-                backgroundCallBack.onPostResponseError_Task4(errorResponse);
+                if (backgroundCallBack != null) {
+                    String errorResponse = error.getMessage();
+                    Log.d("Err_msg", errorResponse + "");
+                    backgroundCallBack.onPostResponseError_Task4(errorResponse);
+                }
             }
         });
     }
@@ -363,6 +389,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
 
         void onPostResponseSuccessCultivator(String gettcDataResult);
         void onPostResponseErrorCultivator(String errorResponse, int count);
+
 
     }
 }

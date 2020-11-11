@@ -166,7 +166,7 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
                                 progressDialog.setCancelable(false);
                                 progressDialog.show();
 
-                                PariharaIndividualReportInteface apiInterface = PariharaIndividualreportClient.getClient("https://clws.karnataka.gov.in/Service4/BHOOMI/").create(PariharaIndividualReportInteface.class);
+                                PariharaIndividualReportInteface apiInterface = PariharaIndividualreportClient.getClient(getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
                                 Call<PariharaIndividualDetailsResponse> call = apiInterface.getLandConversionBasedOnUserID(Constants.REPORT_SERVICE_USER_NAME,
                                         Constants.REPORT_SERVICE_PASSWORD,userId);
                                 call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
@@ -256,11 +256,6 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
 
                         }
                     });
-
-
-
-
-
 //            progressDialog = new ProgressDialog(LandConversionBasedOnUserId.this);
 //            progressDialog.setMessage("Please Wait");
 //            progressDialog.setCancelable(false);

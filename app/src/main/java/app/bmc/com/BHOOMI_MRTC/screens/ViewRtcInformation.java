@@ -553,8 +553,8 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
     public void onPostResponseError_FORHISSA(String data, int count) {
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
-        Log.d("count", count+"");
-        if (count != 2) {
+        Log.d("count", count+""+data);
+        if (count != 2 && !data.contains("Socket closed")) {
             mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo, getString(R.string.rtc_view_info_url_parihara));
         }else {
 //            Toast.makeText(this, ""+data, Toast.LENGTH_SHORT).show();
@@ -657,6 +657,15 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
         return true;
     }
 
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mTaskFragment.terminateExecutionOfBackgroundTask1();
+    }
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        mTaskFragment.terminateExecutionOfBackgroundTask1();
+//    }
 }
 

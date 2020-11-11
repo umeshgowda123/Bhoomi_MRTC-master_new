@@ -88,7 +88,7 @@ public class RtcXmlverificationBackGroundTask extends Fragment {
             isTaskExecuting = true;
             if (backgroundCallBack != null)
                 backgroundCallBack.onPreExecute1();
-            Retrofit retrofit = RtcVerificationClient.getClient(getString(R.string.rtc_xml_verification_url));
+            Retrofit retrofit = RtcVerificationClient.getClient(getString(R.string.server_report_url));
             RtcXmlVerificationApi rtcXmlVerificationApi = retrofit.create(RtcXmlVerificationApi.class);
             Call<GETRTCXMLDATAResult> stringCall = rtcXmlVerificationApi.getStringResponse(Constants.REPORT_SERVICE_USER_NAME,Constants.REPORT_SERVICE_PASSWORD,jsonObject);
             stringCall.enqueue(new Callback<GETRTCXMLDATAResult>() {
