@@ -90,6 +90,8 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
     private List<MSR_RES_Data> MSR_RES_Data;
 
     private String language;
+    Call<PariharaIndividualDetailsResponse> call;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -420,7 +422,7 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
                                         progressDialog.show();
                                         apiInterface = PariharaIndividualreportClient.getClient(getResources().getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
                                         try {
-                                            Call<PariharaIndividualDetailsResponse> call = apiInterface.getMutationSummeryReportDetails(Constants.REPORT_SERVICE_USER_NAME,
+                                            call= apiInterface.getMutationSummeryReportDetails(Constants.REPORT_SERVICE_USER_NAME,
                                                     Constants.REPORT_SERVICE_PASSWORD, district_id, taluk_id, hobli_id, village_id, Integer.parseInt(surveyNumber));
                                             call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
                                                 @Override
@@ -662,5 +664,13 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
         Configuration conf = res.getConfiguration();
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (call != null && call.isExecuted()){
+            call.cancel();
+        }
     }
 }

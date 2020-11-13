@@ -57,6 +57,8 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
     private List<LandConversion_Interface> LandConversion_Data;
     String User_res;
 
+    Call<PariharaIndividualDetailsResponse> call;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -167,7 +169,7 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
                                 progressDialog.show();
 
                                 PariharaIndividualReportInteface apiInterface = PariharaIndividualreportClient.getClient(getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
-                                Call<PariharaIndividualDetailsResponse> call = apiInterface.getLandConversionBasedOnUserID(Constants.REPORT_SERVICE_USER_NAME,
+                                call = apiInterface.getLandConversionBasedOnUserID(Constants.REPORT_SERVICE_USER_NAME,
                                         Constants.REPORT_SERVICE_PASSWORD,userId);
                                 call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
                                     @Override
@@ -329,5 +331,13 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (call != null && call.isExecuted()){
+            call.cancel();
+        }
     }
 }

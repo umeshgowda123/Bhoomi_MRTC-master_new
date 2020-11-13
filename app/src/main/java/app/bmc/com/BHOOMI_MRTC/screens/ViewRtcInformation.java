@@ -554,13 +554,13 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
         Log.d("count", count+""+data);
-        if (count != 2 && !data.contains("Socket closed")) {
+        if (count != 2) {
             mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo, getString(R.string.rtc_view_info_url_parihara));
         }else {
 //            Toast.makeText(this, ""+data, Toast.LENGTH_SHORT).show();
                 final AlertDialog.Builder builder = new AlertDialog.Builder(ViewRtcInformation.this, R.style.MyDialogTheme);
                 builder.setTitle(getString(R.string.status))
-                        .setMessage(""+data)
+                        .setMessage("Server is busy, Please try after sometime")
                         .setIcon(R.drawable.ic_notifications_black_24dp)
                         .setCancelable(false)
                         .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
@@ -657,15 +657,15 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
         return true;
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mTaskFragment.terminateExecutionOfBackgroundTask1();
-    }
 //    @Override
-//    protected void onStop() {
-//        super.onStop();
+//    protected void onPause() {
+//        super.onPause();
 //        mTaskFragment.terminateExecutionOfBackgroundTask1();
 //    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mTaskFragment.terminateExecutionOfBackgroundTask1();
+    }
 }
 

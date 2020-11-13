@@ -569,7 +569,7 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
 //            Toast.makeText(this, ""+data, Toast.LENGTH_SHORT).show();
             final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(RestrictionOnLand.this, R.style.MyDialogTheme);
             builder.setTitle(getString(R.string.status))
-                    .setMessage(""+data)
+                    .setMessage("Server is busy, Please try after sometime")
                     .setIcon(R.drawable.ic_notifications_black_24dp)
                     .setCancelable(false)
                     .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
@@ -633,4 +633,9 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
         return true;
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mTaskFragment.terminateExecutionOfBackgroundTask1();
+    }
 }

@@ -271,7 +271,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
 //            Toast.makeText(this, "" + data, Toast.LENGTH_SHORT).show();
             final AlertDialog.Builder builder = new AlertDialog.Builder(RtcDetails.this, R.style.MyDialogTheme);
             builder.setTitle(getString(R.string.status))
-                    .setMessage(""+data)
+                    .setMessage("Server is busy, Please try after sometime")
                     .setIcon(R.drawable.ic_notifications_black_24dp)
                     .setCancelable(false)
                     .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
@@ -707,4 +707,10 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
     }
 
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mTaskFragment.terminateExecutionOfBackgroundTask2();
+        mTaskFragment.terminateExecutionOfGetCultivatorResponse();
+    }
 }

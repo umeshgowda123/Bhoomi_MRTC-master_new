@@ -89,6 +89,8 @@ public class MutationPendencyDetails extends AppCompatActivity {
     ArrayAdapter<String> defaultArrayAdapter;
     private String language;
 
+    Call<PariharaIndividualDetailsResponse> call;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -407,7 +409,7 @@ public class MutationPendencyDetails extends AppCompatActivity {
                                         progressDialog.setCancelable(false);
                                         progressDialog.show();
                                         apiInterface = PariharaIndividualreportClient.getClient(getResources().getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
-                                        Call<PariharaIndividualDetailsResponse> call = apiInterface.getMutationPendingDetails(Constants.REPORT_SERVICE_USER_NAME,
+                                        call = apiInterface.getMutationPendingDetails(Constants.REPORT_SERVICE_USER_NAME,
                                                 Constants.REPORT_SERVICE_PASSWORD, pdistrict_id, ptaluk_id, phobli_id, pvillage_id);
                                         call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
                                             @Override
@@ -630,5 +632,13 @@ public class MutationPendencyDetails extends AppCompatActivity {
         Configuration conf = res.getConfiguration();
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(call != null && call.isExecuted()) {
+            call.cancel();
+        }
     }
 }

@@ -725,7 +725,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 //            Toast.makeText(this, ""+data, Toast.LENGTH_SHORT).show();
                 final AlertDialog.Builder builder = new AlertDialog.Builder(ViewMutationStatusInformation.this, R.style.MyDialogTheme);
                 builder.setTitle(getString(R.string.status))
-                        .setMessage(""+data)
+                        .setMessage("Server is busy, Please try after sometime")
                         .setIcon(R.drawable.ic_notifications_black_24dp)
                         .setCancelable(false)
                         .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
@@ -737,6 +737,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
             }
     }
+
 
     @Override
     public void onPostResponseError_Task3(String data) {
@@ -912,6 +913,12 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
         Configuration conf = res.getConfiguration();
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mTaskFragment.terminateExecutionOfBackgroundTask3();
+        mTaskFragment.terminateExecutionOfBackgroundTask1();
     }
 
 }

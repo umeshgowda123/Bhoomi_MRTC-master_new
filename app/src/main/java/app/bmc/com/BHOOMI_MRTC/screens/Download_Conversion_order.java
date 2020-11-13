@@ -685,7 +685,7 @@ public class Download_Conversion_order extends AppCompatActivity {
 
                                             @Override
                                             public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable t) {
-                                                call.cancel();
+                                                call2.cancel();
                                                 progressDialog.dismiss();
                                                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
 
@@ -848,8 +848,8 @@ public class Download_Conversion_order extends AppCompatActivity {
         res.updateConfiguration(conf, dm);
     }
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onStop() {
+        super.onStop();
         if(call != null && call.isExecuted()) {
             call.cancel();
         }

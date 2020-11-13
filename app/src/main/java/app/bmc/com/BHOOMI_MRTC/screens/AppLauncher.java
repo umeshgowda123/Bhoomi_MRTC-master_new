@@ -54,6 +54,7 @@ public class AppLauncher extends AppCompatActivity {
     private DataBaseHelper dataBaseHelper;
     PariharaIndividualReportInteface apiInterface;
     List<Maintenance_Flags> maintenance_flagsList;
+    Call<PariharaIndividualDetailsResponse> call;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -209,7 +210,7 @@ public class AppLauncher extends AppCompatActivity {
         Log.d("Status_AppLau", "enter4 CreateMaintenanceTbl");
         if (isNetworkAvailable()){
             apiInterface = PariharaIndividualreportClient.getClient(getResources().getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
-            Call<PariharaIndividualDetailsResponse> call = apiInterface.FnGetServiceStatus(Constants.REPORT_SERVICE_USER_NAME,
+            call = apiInterface.FnGetServiceStatus(Constants.REPORT_SERVICE_USER_NAME,
                     Constants.REPORT_SERVICE_PASSWORD,1);
             call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
                 @Override
@@ -373,5 +374,13 @@ public class AppLauncher extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(call != null && call.isExecuted()) {
+            call.cancel();
+        }
     }
 }

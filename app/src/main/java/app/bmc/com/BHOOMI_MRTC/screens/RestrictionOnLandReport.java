@@ -643,4 +643,10 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                 });
 
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mTaskFragment.terminateExecutionOfBackgroundTask4();
+    }
 }
