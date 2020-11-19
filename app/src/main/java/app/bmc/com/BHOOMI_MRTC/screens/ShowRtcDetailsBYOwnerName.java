@@ -199,8 +199,9 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
 //              }.getType();
 //              rtcByOwnerNameResponsesList = new Gson().fromJson(jsonArray.toString(), listType);
 
-            } catch (IOException | XmlPullParserException | JSONException e) {
+            } catch (IOException | XmlPullParserException | JSONException | ClassCastException e) {
                 e.printStackTrace();
+                //Toast.makeText(ShowRtcDetailsBYOwnerName.this, ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
 
 

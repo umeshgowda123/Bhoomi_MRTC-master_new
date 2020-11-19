@@ -97,45 +97,45 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
                 progressBar.setVisibility(View.VISIBLE);
         }
 
-        dataBaseHelper =
-                Room.databaseBuilder(getApplicationContext(),
-                        DataBaseHelper.class, getString(R.string.db_name)).build();
-        Observable<String> stringObservable;
-        stringObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getMaintenanceStatus(2));
-        stringObservable
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<String>() {
-
-
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(String str) {
-                        if (str.equals("false")){
-                            android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(RtcVerification.this).create();
-                            alertDialog.setTitle(getString(R.string.status));
-                            alertDialog.setMessage(getString(R.string.this_service_is_under_maintenance));
-                            alertDialog.setCancelable(false);
-                            alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE,getString(R.string.ok), (dialog, which) -> onBackPressed());
-                            alertDialog.show();
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+//        dataBaseHelper =
+//                Room.databaseBuilder(getApplicationContext(),
+//                        DataBaseHelper.class, getString(R.string.db_name)).build();
+//        Observable<String> stringObservable;
+//        stringObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getMaintenanceStatus(2));
+//        stringObservable
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Observer<String>() {
+//
+//
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(String str) {
+//                        if (str.equals("false")){
+//                            android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(RtcVerification.this).create();
+//                            alertDialog.setTitle(getString(R.string.status));
+//                            alertDialog.setMessage(getString(R.string.this_service_is_under_maintenance));
+//                            alertDialog.setCancelable(false);
+//                            alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE,getString(R.string.ok), (dialog, which) -> onBackPressed());
+//                            alertDialog.show();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        e.printStackTrace();
+//                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//
+//                    }
+//                });
 
     }
 

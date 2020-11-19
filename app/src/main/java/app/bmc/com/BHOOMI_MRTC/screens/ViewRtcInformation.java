@@ -176,45 +176,45 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
                 progressBar.setVisibility(View.VISIBLE);
         }
 
-        dataBaseHelper =
-                Room.databaseBuilder(getApplicationContext(),
-                        DataBaseHelper.class, getString(R.string.db_name)).build();
-        Observable<String> stringObservable;
-        stringObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getMaintenanceStatus(1));
-        stringObservable
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<String>() {
-
-
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(String str) {
-                        if (str.equals("false")){
-                            AlertDialog alertDialog = new AlertDialog.Builder(ViewRtcInformation.this).create();
-                            alertDialog.setTitle(getString(R.string.status));
-                            alertDialog.setMessage(getString(R.string.this_service_is_under_maintenance));
-                            alertDialog.setCancelable(false);
-                            alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE,getString(R.string.ok), (dialog, which) -> onBackPressed());
-                            alertDialog.show();
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+//        dataBaseHelper =
+//                Room.databaseBuilder(getApplicationContext(),
+//                        DataBaseHelper.class, getString(R.string.db_name)).build();
+//        Observable<String> stringObservable;
+//        stringObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getMaintenanceStatus(1));
+//        stringObservable
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Observer<String>() {
+//
+//
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(String str) {
+//                        if (str.equals("false")){
+//                            AlertDialog alertDialog = new AlertDialog.Builder(ViewRtcInformation.this).create();
+//                            alertDialog.setTitle(getString(R.string.status));
+//                            alertDialog.setMessage(getString(R.string.this_service_is_under_maintenance));
+//                            alertDialog.setCancelable(false);
+//                            alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE,getString(R.string.ok), (dialog, which) -> onBackPressed());
+//                            alertDialog.show();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        e.printStackTrace();
+//                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//
+//                    }
+//                });
 
     }
 
@@ -476,7 +476,20 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
             final android.app.AlertDialog alert = builder.create();
             alert.show();
             alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-        }else {
+        } else if (data.contains("is busy")){
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ViewRtcInformation.this, R.style.MyDialogTheme);
+            builder.setTitle(getString(R.string.status))
+                    .setMessage(getString(R.string.server_is_busy_please_try_again_later))
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
+                        dialog.cancel();
+                        edittext_survey.setText("");
+                    });
+            final android.app.AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        } else {
         //progressDoalog.dismiss();
         XmlToJson xmlToJson = new XmlToJson.Builder(data).build();
 

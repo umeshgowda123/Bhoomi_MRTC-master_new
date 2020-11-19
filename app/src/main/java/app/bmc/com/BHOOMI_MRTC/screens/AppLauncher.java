@@ -52,9 +52,6 @@ import retrofit2.Response;
 
 public class AppLauncher extends AppCompatActivity {
     private DataBaseHelper dataBaseHelper;
-    PariharaIndividualReportInteface apiInterface;
-    List<Maintenance_Flags> maintenance_flagsList;
-    Call<PariharaIndividualDetailsResponse> call;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,11 +86,13 @@ public class AppLauncher extends AppCompatActivity {
                         if (integer == 0) {
                             List<MST_VLM> mst_vlmList = loadDataFromCsv();
                             createMasterData(mst_vlmList);
-                            Log.d("Status_AppLau", "enter2 Integer==0");
                         }
                         else {
-                            Log.d("Status_AppLau", "enter2 Integer>0");
-                            createMaintenanceTbl();
+                            new Handler().postDelayed(() -> {
+                                Intent intent = new Intent(AppLauncher.this, BhoomiHomePage.class);
+                                startActivity(intent);
+                                finish();
+                            }, 1000);
                         }
                     }
 
@@ -108,14 +107,6 @@ public class AppLauncher extends AppCompatActivity {
 
                     }
                 });
-    }
-
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        assert connectivityManager != null;
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     public List<MST_VLM> loadDataFromCsv() {
@@ -189,7 +180,11 @@ public class AppLauncher extends AppCompatActivity {
                     @Override
                     public void onNext(Long[] longs) {
                         Log.d("Status_AppLau", "enter3 CreatedMasterData");
-                        createMaintenanceTbl();
+                        new Handler().postDelayed(() -> {
+                            Intent intent = new Intent(AppLauncher.this, BhoomiHomePage.class);
+                            startActivity(intent);
+                            finish();
+                        }, 1000);
                     }
 
                     @Override
@@ -204,183 +199,11 @@ public class AppLauncher extends AppCompatActivity {
 
                     }
                 });
-    }
-
-    public void createMaintenanceTbl(){
-        Log.d("Status_AppLau", "enter4 CreateMaintenanceTbl");
-        if (isNetworkAvailable()){
-            apiInterface = PariharaIndividualreportClient.getClient(getResources().getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
-            call = apiInterface.FnGetServiceStatus(Constants.REPORT_SERVICE_USER_NAME,
-                    Constants.REPORT_SERVICE_PASSWORD,1);
-            call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
-                @Override
-                public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {
-                    if (response.isSuccessful()) {
-                        Log.d("Status_AppLau", "enter4 Call<>");
-                        PariharaIndividualDetailsResponse result = response.body();
-                        assert result != null;
-                        String res = result.getFnGetServiceStatusResult();
-                        if (!TextUtils.isEmpty(res)){
-                            try {
-                                JSONArray jsonArray = new JSONArray(res);
-
-                                Gson gson = new Gson();
-                                maintenance_flagsList = gson.fromJson(String.valueOf(jsonArray), new TypeToken<List<Maintenance_Flags>>() {
-                                }.getType());
-
-                                deleteResponseByID(maintenance_flagsList);
-                            } catch (JSONException e){
-                                Log.d("Status_AppLau", "enter4 catch1");
-                                Log.d("Status_AppLau", ""+e.getLocalizedMessage());
-                                e.printStackTrace();
-                                Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable t) {
-                    call.cancel();
-                    Log.d("Status_AppLau", "enter4 onFailure1");
-                    Log.d("Status_AppLau", ""+t.getLocalizedMessage());
-                    Toast.makeText(getApplicationContext(), ""+t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        } else {
-            Observable<Integer> countOfRows;
-            countOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getCountMaintenance_Flags());
-            countOfRows
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<Integer>() {
-
-
-                        @Override
-                        public void onSubscribe(Disposable d) {
-
-                        }
-
-                        @Override
-                        public void onNext(Integer integer) {
-
-                            if (integer == 0) {
-                                Log.d("Status_AppLau", "enter4 No Internet Integer==0");
-                                AlertDialog alertDialog = new AlertDialog.Builder(AppLauncher.this).create();
-                                alertDialog.setMessage(getString(R.string.please_enable_internet_connection));
-                                alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.ok), (dialog, which) -> {
-                                    onBackPressed();
-                                    dialog.dismiss();
-                                });
-                                alertDialog.show();
-                            } else {
-                                Log.d("Status_AppLau", "enter4 No Internet Integer>0");
-                                Toast.makeText(getApplicationContext(), "Internet Connection not available", Toast.LENGTH_SHORT).show();
-                                new Handler().postDelayed(() -> {
-                                    Intent intent = new Intent(AppLauncher.this, BhoomiHomePage.class);
-                                    startActivity(intent);
-                                    finish();
-                                }, 1000);
-
-                            }
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            e.printStackTrace();
-                            Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                        }
-
-                        @Override
-                        public void onComplete() {
-
-                        }
-                    });
-            Toast.makeText(getApplicationContext(), "Internet Connection not available", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void insertDataMainFlags(List<Maintenance_Flags> maintenance_flagsList){
-        Log.d("Status_AppLau", "enter6 insertDataMainFlags");
-        Observable<Long[]> insertDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().insertMaintenance_Flags(maintenance_flagsList));
-        insertDataObservable
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Long[]>() {
-
-
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(Long[] longs) {
-                        Log.d("Status_AppLau", "enter6 insertedDataMainFlags");
-                        Intent intent = new Intent(AppLauncher.this, BhoomiHomePage.class);
-                        startActivity(intent);
-                        finish();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-    }
-    private void deleteResponseByID(List<Maintenance_Flags> maintenance_flagsList) {
-        Log.d("Status_AppLau", "enter5 deleteResByID");
-        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteResMainFlags());
-        noOfRows
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Integer>() {
-
-
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(Integer integer) {
-                        Log.d("Status_AppLau", "enter5 deleteResByID");
-                        insertDataMainFlags(maintenance_flagsList);
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         finish();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if(call != null && call.isExecuted()) {
-            call.cancel();
-        }
     }
 }

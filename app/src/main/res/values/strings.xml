@@ -461,4 +461,6 @@
     <string name="loading">Loading…</string>
     <string name="please_wait_do_not_interrupt">Please Wait, Do not Interrupt</string>
     <string name="search_by_owner_name_survey_no">Search By Owner Name/Survey No.</string>
+    <string name="server_is_busy_please_try_again_later">Server is busy.Please try again later…</string>
+    <string name="this_application_is_under_maintainance">This Application is Under Maintenance, Please try after sometime…</string>
 </resources>

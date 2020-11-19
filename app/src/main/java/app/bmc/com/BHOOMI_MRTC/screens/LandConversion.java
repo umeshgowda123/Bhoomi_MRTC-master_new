@@ -87,45 +87,45 @@ public class LandConversion extends AppCompatActivity {
         rb_UserID = findViewById(R.id.rb_UserID);
 
 
-        dataBaseHelper =
-                Room.databaseBuilder(getApplicationContext(),
-                        DataBaseHelper.class, getString(R.string.db_name)).build();
-        Observable<String> stringObservable;
-        stringObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getMaintenanceStatus(8));
-        stringObservable
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<String>() {
-
-
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(String str) {
-                        if (str.equals("false")){
-                            android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(LandConversion.this).create();
-                            alertDialog.setTitle(getString(R.string.status));
-                            alertDialog.setMessage(getString(R.string.this_service_is_under_maintenance));
-                            alertDialog.setCancelable(false);
-                            alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE,getString(R.string.ok), (dialog, which) -> onBackPressed());
-                            alertDialog.show();
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+//        dataBaseHelper =
+//                Room.databaseBuilder(getApplicationContext(),
+//                        DataBaseHelper.class, getString(R.string.db_name)).build();
+//        Observable<String> stringObservable;
+//        stringObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getMaintenanceStatus(8));
+//        stringObservable
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Observer<String>() {
+//
+//
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(String str) {
+//                        if (str.equals("false")){
+//                            android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(LandConversion.this).create();
+//                            alertDialog.setTitle(getString(R.string.status));
+//                            alertDialog.setMessage(getString(R.string.this_service_is_under_maintenance));
+//                            alertDialog.setCancelable(false);
+//                            alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE,getString(R.string.ok), (dialog, which) -> onBackPressed());
+//                            alertDialog.show();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        e.printStackTrace();
+//                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//
+//                    }
+//                });
 
         rb_AffidavitID.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
