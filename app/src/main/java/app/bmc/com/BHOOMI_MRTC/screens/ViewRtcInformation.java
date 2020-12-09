@@ -571,6 +571,9 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
             mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo, getString(R.string.rtc_view_info_url_parihara));
         }else {
 //            Toast.makeText(this, ""+data, Toast.LENGTH_SHORT).show();
+            if (data.contains("CertPathValidatorException")){
+                Toast.makeText(getApplicationContext(), ""+data, Toast.LENGTH_SHORT).show();
+            } else {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(ViewRtcInformation.this, R.style.MyDialogTheme);
                 builder.setTitle(getString(R.string.status))
                         .setMessage("Server is busy, Please try after sometime")
@@ -583,6 +586,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
                 final AlertDialog alert = builder.create();
                 alert.show();
                 alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+            }
 
             }
 

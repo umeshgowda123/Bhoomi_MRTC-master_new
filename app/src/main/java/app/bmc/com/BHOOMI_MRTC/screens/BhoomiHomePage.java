@@ -131,7 +131,6 @@ public class BhoomiHomePage extends AppCompatActivity {
                 Room.databaseBuilder(getApplicationContext(),
                         DataBaseHelper.class, getString(R.string.db_name)).build();
 
-        DistName();
         loadCalamityMasterData();
         //createMaintenanceTbl();
 
@@ -799,36 +798,6 @@ public class BhoomiHomePage extends AppCompatActivity {
     private void unregisterInstallStateUpdListener() {
         if (appUpdateManager != null && installStateUpdatedListener != null)
             appUpdateManager.unregisterListener(installStateUpdatedListener);
-    }
-
-
-    private void DistName() {
-
-        Observable<String> district = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getDistrictByDistrictName(20));
-        district
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<String>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(String s) {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
     }
 
     @Override

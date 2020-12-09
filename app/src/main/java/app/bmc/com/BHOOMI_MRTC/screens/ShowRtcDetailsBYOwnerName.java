@@ -275,7 +275,7 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity {
                         alert.show();
                         alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
                     } else {
-                        Toast.makeText(getApplicationContext(), "" + e, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "" + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             }
