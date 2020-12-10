@@ -420,10 +420,10 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
                                         progressDialog.setMessage(getString(R.string.please_wait));
                                         progressDialog.setCancelable(false);
                                         progressDialog.show();
-                                        apiInterface = PariharaIndividualreportClient.getClient(getResources().getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
+                                        apiInterface = PariharaIndividualreportClient.getClient(getResources().getString(R.string.rest_service_url)).create(PariharaIndividualReportInteface.class);
                                         try {
-                                            call= apiInterface.getMutationSummeryReportDetails(Constants.REPORT_SERVICE_USER_NAME,
-                                                    Constants.REPORT_SERVICE_PASSWORD, district_id, taluk_id, hobli_id, village_id, Integer.parseInt(surveyNumber));
+                                            call= apiInterface.getMutationSummeryReportDetails(Constants.CLWS_REST_SERVICE_USER_NAME,
+                                                    Constants.CLWS_REST_SERVICE_PASSWORD, district_id, taluk_id, hobli_id, village_id, Integer.parseInt(surveyNumber));
                                             call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
                                                 @Override
                                                 public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {

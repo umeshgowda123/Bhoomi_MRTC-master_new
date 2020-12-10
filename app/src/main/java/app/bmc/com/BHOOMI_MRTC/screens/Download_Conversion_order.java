@@ -456,9 +456,9 @@ public class Download_Conversion_order extends AppCompatActivity {
                                         progressDialog.setCancelable(false);
                                         progressDialog.show();
 
-                                        apiInterface = PariharaIndividualreportClient.getClient(getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
-                                        call = apiInterface.getLandConversionFinalOrders_BasedOnSurveyNo(Constants.REPORT_SERVICE_USER_NAME,
-                                                Constants.REPORT_SERVICE_PASSWORD, district_id, taluk_id, hobli_id, village_id, surveyNumber);
+                                        apiInterface = PariharaIndividualreportClient.getClient(getString(R.string.rest_service_url)).create(PariharaIndividualReportInteface.class);
+                                        call = apiInterface.getLandConversionFinalOrders_BasedOnSurveyNo(Constants.CLWS_REST_SERVICE_USER_NAME,
+                                                Constants.CLWS_REST_SERVICE_PASSWORD, district_id, taluk_id, hobli_id, village_id, surveyNumber);
                                         call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
                                             @Override
                                             public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {
@@ -611,9 +611,9 @@ public class Download_Conversion_order extends AppCompatActivity {
                                         progressDialog.setCancelable(false);
                                         progressDialog.show();
 
-                                        apiInterface = PariharaIndividualreportClient.getClient(getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
-                                        call2 = apiInterface.getLandConversionFinalOrders_BasedOnReqId(Constants.REPORT_SERVICE_USER_NAME,
-                                                Constants.REPORT_SERVICE_PASSWORD, requestID);
+                                        apiInterface = PariharaIndividualreportClient.getClient(getString(R.string.rest_service_url)).create(PariharaIndividualReportInteface.class);
+                                        call2 = apiInterface.getLandConversionFinalOrders_BasedOnReqId(Constants.CLWS_REST_SERVICE_USER_NAME,
+                                                Constants.CLWS_REST_SERVICE_PASSWORD, requestID);
                                         call2.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
                                             @Override
                                             public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {

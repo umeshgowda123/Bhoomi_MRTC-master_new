@@ -605,12 +605,6 @@ androidx.annotation.RestrictTo
 androidx.appcompat.R$drawable:
     private void <init>()
 android.support.v4.media.MediaBrowserCompatApi23$ItemCallback
-app.bmc.com.BHOOMI_MRTC.screens.RestrictionOnLandReport:
-    android.app.ProgressDialog progressDialog
-    org.ksoap2.transport.HttpTransportSE androidHttpTransport
-    org.ksoap2.serialization.SoapSerializationEnvelope envelope
-    org.ksoap2.serialization.SoapPrimitive resultString
-    java.lang.String resultFromServer
 io.reactivex.internal.operators.flowable.FlowableReplay$ReplayBuffer
 androidx.legacy.v4.R$integer
 androidx.interpolator.R
@@ -659,18 +653,7 @@ io.reactivex.internal.operators.completable.CompletableAmb
 kotlin.coroutines.AbstractCoroutineContextElement
 io.reactivex.internal.operators.flowable.FlowableReplay$ScheduledReplayBufferTask
 io.reactivex.annotations.Nullable
-org.ksoap2.SoapEnvelope:
-    public static final int VER10
-    public static final int VER11
-    public static final int VER12
-    public static final java.lang.String ENV2003
-    public static final java.lang.String ENC2003
-    public static final java.lang.String ENV
-    public static final java.lang.String ENC
-    public static final java.lang.String XSD
-    public static final java.lang.String XSI
-    public static final java.lang.String XSD1999
-    public static final java.lang.String XSI1999
+org.ksoap2.SoapEnvelope
 io.reactivex.internal.operators.flowable.FlowableBufferBoundarySupplier$BufferBoundarySupplierSubscriber
 io.reactivex.internal.operators.maybe.MaybeFlatten$FlatMapMaybeObserver$InnerObserver
 android.support.v4.media.MediaDescriptionCompatApi23:
@@ -768,7 +751,6 @@ com.google.android.play.core.assetpacks.d
 kotlin.collections.ArraysKt___ArraysKt$asIterable$$inlined$Iterable$2
 kotlin.UIntArray
 androidx.media.MediaSessionManager$MediaSessionManagerImpl
-app.bmc.com.BHOOMI_MRTC.screens.RestrictionOnLandReport$GetRestrictionOnLandReport$1
 androidx.constraintlayout.solver.widgets.ResolutionNode
 org.intellij.lang.annotations.JdkConstants$FlowLayoutAlignment
 io.reactivex.internal.operators.flowable.FlowableUsing$UsingSubscriber
@@ -1280,6 +1262,7 @@ app.bmc.com.BHOOMI_MRTC.backgroundtasks.RtcViewInfoBackGroundTaskFragment:
 android.support.v4.media.session.MediaSessionCompat$MediaSessionImplBase$MediaSessionStub
 kotlin.concurrent.ThreadsKt$thread$thread$1
 fr.arnaudguyon.xmltojsonlib.XmlToJson:
+    public org.json.JSONObject toJson()
     public java.lang.String toFormattedString(java.lang.String)
     private static final java.lang.String TAG
     private static final java.lang.String DEFAULT_CONTENT_NAME
@@ -3124,6 +3107,7 @@ io.reactivex.internal.operators.observable.ObservableSubscribeOn$SubscribeOnObse
     private static final long serialVersionUID
 io.reactivex.internal.operators.maybe.MaybeFlatMapSingleElement
 androidx.legacy.app.ActionBarDrawerToggle$Delegate
+org.ksoap2.serialization.HasInnerText
 kotlin.ranges.CharProgression
 kotlin.text.StringsKt__RegexExtensionsKt:
     private static final kotlin.text.Regex toRegex(java.lang.String)
@@ -3188,12 +3172,7 @@ com.google.android.material.shape.ShapeAppearanceModel$Builder:
     public com.google.android.material.shape.ShapeAppearanceModel$Builder setBottomEdge(com.google.android.material.shape.EdgeTreatment)
 io.reactivex.internal.operators.mixed.SingleFlatMapObservable$FlatMapObserver
 androidx.lifecycle.ViewModelProvider$AndroidViewModelFactory
-org.ksoap2.transport.HttpTransportSE:
-    public void <init>(java.net.Proxy,java.lang.String)
-    public void <init>(java.lang.String,int)
-    public void <init>(java.net.Proxy,java.lang.String,int)
-    public void <init>(java.lang.String,int,int)
-    public void <init>(java.net.Proxy,java.lang.String,int,int)
+org.ksoap2.transport.HttpTransportSE
 io.reactivex.internal.operators.maybe.MaybeDoFinally$DoFinallyObserver
 kotlin.internal.NoInfer
 io.reactivex.internal.operators.flowable.FlowableCountSingle$CountSubscriber
@@ -3752,20 +3731,7 @@ io.reactivex.internal.operators.flowable.FlowableSwitchIfEmpty$SwitchIfEmptySubs
 kotlin.io.FileSystemException
 kotlin.jvm.internal.ByteCompanionObject
 kotlin.random.PlatformRandomKt
-org.ksoap2.serialization.AttributeContainer:
-    private java.lang.Integer attributeIndex(java.lang.String,java.lang.String)
-    public java.lang.String getAttributeAsString(int)
-    public java.lang.Object getAttribute(java.lang.String)
-    public java.lang.Object getAttribute(java.lang.String,java.lang.String)
-    public java.lang.String getAttributeAsString(java.lang.String)
-    public java.lang.String getAttributeAsString(java.lang.String,java.lang.String)
-    public boolean hasAttribute(java.lang.String,java.lang.String)
-    public java.lang.Object getAttributeSafely(java.lang.String,java.lang.String)
-    public java.lang.Object getAttributeSafelyAsString(java.lang.String)
-    public java.lang.Object getAttributeSafelyAsString(java.lang.String,java.lang.String)
-    public void addAttributeIfValue(java.lang.String,java.lang.Object)
-    public void addAttributeIfValue(java.lang.String,java.lang.String,java.lang.Object)
-    public void addAttributeIfValue(org.ksoap2.serialization.AttributeInfo)
+org.ksoap2.serialization.AttributeContainer
 com.google.android.material.tabs.TabLayout$Mode
 io.reactivex.schedulers.TestScheduler$TestWorker$QueueRemove
 io.reactivex.internal.functions.Functions$Array7Func
@@ -4628,7 +4594,6 @@ kotlin.UByte$Companion
 com.google.android.material.R$color:
     private void <init>()
 io.reactivex.internal.operators.maybe.MaybeDetach$DetachMaybeObserver
-app.bmc.com.BHOOMI_MRTC.screens.RestrictionOnLandReport$GetRestrictionOnLandReport
 io.reactivex.functions.Function3
 androidx.core.view.PointerIconCompat:
     public static androidx.core.view.PointerIconCompat create(android.graphics.Bitmap,float,float)
@@ -4726,6 +4691,7 @@ androidx.asynclayoutinflater.R$style
 androidx.appcompat.widget.AppCompatRadioButton:
     public void <init>(android.content.Context)
 io.reactivex.internal.operators.observable.ObservableInternalHelper$ZipIterableFunction
+org.ksoap2.serialization.SoapPrimitive
 androidx.vectordrawable.R
 androidx.viewpager2.widget.MarginPageTransformer
 io.reactivex.internal.operators.single.SingleResumeNext
@@ -4789,11 +4755,7 @@ com.google.gson.internal.LinkedHashTreeMap$LinkedTreeMapIterator
 io.reactivex.internal.operators.observable.ObservableOnErrorNext
 kotlin.comparisons.ComparisonsKt__ComparisonsKt$thenDescending$1
 androidx.asynclayoutinflater.view.AsyncLayoutInflater$1
-org.ksoap2.transport.HttpResponseException:
-    public void <init>(int)
-    public void <init>(java.lang.String,int)
-    public void <init>(java.lang.String,java.lang.Throwable,int)
-    public void <init>(java.lang.Throwable,int)
+org.ksoap2.transport.HttpResponseException
 kotlin.time.ExperimentalTime
 kotlin.io.TextStreamsKt
 kotlin.text.StringsKt__IndentKt:
@@ -5355,6 +5317,7 @@ androidx.core.app.NotificationCompat$MessagingStyle
 androidx.appcompat.app.ActionBar$LayoutParams:
     public void <init>(int,int,int)
     public void <init>(int)
+org.ksoap2.HeaderProperty
 androidx.recyclerview.widget.SnapHelper:
     static final float MILLISECONDS_PER_INCH
 io.reactivex.internal.functions.Functions$TruePredicate:
@@ -5965,12 +5928,7 @@ io.reactivex.internal.operators.observable.ObservableWindowTimed$WindowSkipObser
 androidx.asynclayoutinflater.view.AsyncLayoutInflater$InflateRequest
 io.reactivex.internal.operators.flowable.FlowableIntervalRange$IntervalRangeSubscriber
 org.ksoap2.transport.OkHttpTransportSE
-org.ksoap2.transport.ServiceConnectionSE:
-    public void <init>(java.lang.String)
-    public void <init>(java.net.Proxy,java.lang.String)
-    public void <init>(java.lang.String,int)
-    public void connect()
-    public void setChunkedStreamingMode()
+org.ksoap2.transport.ServiceConnectionSE
 kotlin.coroutines.intrinsics.IntrinsicsKt__IntrinsicsJvmKt:
     private static final java.lang.Object startCoroutineUninterceptedOrReturn(kotlin.jvm.functions.Function1,kotlin.coroutines.Continuation)
     private static final java.lang.Object startCoroutineUninterceptedOrReturn(kotlin.jvm.functions.Function2,java.lang.Object,kotlin.coroutines.Continuation)
@@ -6171,10 +6129,7 @@ com.google.gson.JsonObject:
     public synthetic bridge com.google.gson.JsonElement deepCopy()
 kotlin.text.Regex$Serialized$Companion
 android.support.v4.media.MediaMetadataCompat$LongKey
-org.kxml2.kdom.Element:
-    public void clear()
-    public java.lang.String getAttributeValue(java.lang.String,java.lang.String)
-    public java.lang.String getNamespaceUri(java.lang.String)
+org.kxml2.kdom.Element
 com.github.chrisbanes.photoview.R$dimen
 com.google.android.play.core.splitcompat.h
 androidx.activity.OnBackPressedDispatcher:
@@ -6981,6 +6936,7 @@ androidx.fragment.app.FragmentActivity:
     static final int MAX_NUM_PENDING_FRAGMENT_ACTIVITY_RESULTS
 io.reactivex.internal.operators.completable.CompletableFromPublisher$FromPublisherSubscriber
 io.reactivex.internal.operators.observable.ObservableFlatMapCompletableCompletable$FlatMapCompletableMainObserver
+org.ksoap2.serialization.ValueWriter
 org.intellij.lang.annotations.JdkConstants$ListSelectionMode
 io.reactivex.internal.operators.maybe.MaybeFlatMapBiSelector
 okhttp3.internal.SystemPropertiesConnectionPool
@@ -7614,22 +7570,7 @@ io.reactivex.internal.operators.flowable.FlowableReduceWithSingle
 io.reactivex.internal.operators.completable.CompletableObserveOn$ObserveOnCompletableObserver
 io.reactivex.internal.operators.flowable.FlowableFlatMapPublisher
 androidx.lifecycle.MediatorLiveData
-org.ksoap2.serialization.SoapSerializationEnvelope:
-    public boolean isAddAdornments()
-    public void addTemplate(org.ksoap2.serialization.SoapObject)
-    protected static final int QNAME_TYPE
-    protected static final int QNAME_NAMESPACE
-    protected static final int QNAME_MARSHAL
-    protected static final java.lang.String NULL_LABEL
-    protected static final java.lang.String NIL_LABEL
-    private static final java.lang.String ANY_TYPE_LABEL
-    private static final java.lang.String ARRAY_MAPPING_NAME
-    private static final java.lang.String HREF_LABEL
-    private static final java.lang.String ID_LABEL
-    private static final java.lang.String ROOT_LABEL
-    private static final java.lang.String TYPE_LABEL
-    private static final java.lang.String ITEM_LABEL
-    private static final java.lang.String ARRAY_TYPE_LABEL
+org.ksoap2.serialization.SoapSerializationEnvelope
 okhttp3.MediaType$Companion:
     public final okhttp3.MediaType -deprecated_get(java.lang.String)
     public final okhttp3.MediaType -deprecated_parse(java.lang.String)
@@ -7805,11 +7746,7 @@ io.reactivex.internal.operators.observable.ObservableReplay$DisposeConsumer
 kotlin.ranges.LongRange$Companion
 io.reactivex.internal.operators.flowable.FlowableWindowTimed$WindowSkipSubscriber$Completion
 io.reactivex.internal.operators.single.SingleZipArray
-org.ksoap2.serialization.PropertyInfo:
-    public boolean isMultiRef()
-    public static final int TRANSIENT
-    public static final int MULTI_REF
-    public static final int REF_ONLY
+org.ksoap2.serialization.PropertyInfo
 androidx.room.Insert
 io.reactivex.internal.operators.observable.ObservableIgnoreElements$IgnoreObservable
 com.nineoldandroids.util.Property:
@@ -8773,9 +8710,7 @@ io.reactivex.internal.operators.flowable.FlowableCreate$MissingEmitter
 kotlin.collections.RingBuffer
 io.reactivex.internal.operators.single.SingleContains
 io.reactivex.observers.BaseTestConsumer$TestWaitStrategy$5
-org.ksoap2.SoapFault12:
-    public void write(org.xmlpull.v1.XmlSerializer)
-    private static final long serialVersionUID
+org.ksoap2.SoapFault12
 androidx.appcompat.graphics.drawable.DrawableContainer:
     void clearMutated()
     private static final boolean DEBUG
@@ -8784,39 +8719,7 @@ androidx.appcompat.graphics.drawable.DrawableContainer:
 io.reactivex.internal.operators.single.SingleDelayWithPublisher
 android.support.v4.media.MediaBrowserCompat$ConnectionCallback$StubApi21
 io.reactivex.internal.subscriptions.BasicQueueSubscription
-org.ksoap2.serialization.SoapObject:
-    private java.lang.Integer propertyIndex(java.lang.String)
-    private java.lang.Integer propertyIndex(java.lang.String,java.lang.String)
-    public java.lang.String getPropertyAsString(int)
-    public java.lang.Object getProperty(java.lang.String)
-    public java.lang.Object getProperty(java.lang.String,java.lang.String)
-    public java.lang.Object getPropertyByNamespaceSafely(java.lang.String,java.lang.String)
-    public java.lang.String getPropertyByNamespaceSafelyAsString(java.lang.String,java.lang.String)
-    public java.lang.Object getPropertySafely(java.lang.String,java.lang.String,java.lang.Object)
-    public java.lang.String getPropertySafelyAsString(java.lang.String,java.lang.String,java.lang.Object)
-    public java.lang.Object getPrimitiveProperty(java.lang.String,java.lang.String)
-    public java.lang.String getPrimitivePropertyAsString(java.lang.String,java.lang.String)
-    public java.lang.Object getPrimitivePropertySafely(java.lang.String,java.lang.String)
-    public java.lang.String getPrimitivePropertySafelyAsString(java.lang.String,java.lang.String)
-    public boolean hasProperty(java.lang.String,java.lang.String)
-    public java.lang.String getPropertyAsString(java.lang.String,java.lang.String)
-    public java.lang.String getPropertyAsString(java.lang.String)
-    public boolean hasProperty(java.lang.String)
-    public java.lang.Object getPropertySafely(java.lang.String)
-    public java.lang.String getPropertySafelyAsString(java.lang.String)
-    public java.lang.Object getPropertySafely(java.lang.String,java.lang.Object)
-    public java.lang.String getPropertySafelyAsString(java.lang.String,java.lang.Object)
-    public java.lang.Object getPrimitiveProperty(java.lang.String)
-    public java.lang.String getPrimitivePropertyAsString(java.lang.String)
-    public java.lang.Object getPrimitivePropertySafely(java.lang.String)
-    public java.lang.String getPrimitivePropertySafelyAsString(java.lang.String)
-    public org.ksoap2.serialization.PropertyInfo getPropertyInfo(int)
-    public org.ksoap2.serialization.SoapObject addPropertyIfValue(java.lang.String,java.lang.String,java.lang.Object)
-    public org.ksoap2.serialization.SoapObject addPropertyIfValue(java.lang.String,java.lang.Object)
-    public org.ksoap2.serialization.SoapObject addPropertyIfValue(org.ksoap2.serialization.PropertyInfo,java.lang.Object)
-    public org.ksoap2.serialization.SoapObject addPropertyIfValue(org.ksoap2.serialization.PropertyInfo)
-    public void removePropertyInfo(java.lang.Object)
-    private static final java.lang.String EMPTY_STRING
+org.ksoap2.serialization.SoapObject
 io.reactivex.internal.operators.single.SingleOnErrorReturn
 androidx.media.MediaBrowserServiceCompat$MediaBrowserServiceImplApi21$3
 io.reactivex.internal.operators.parallel.ParallelFilterTry
@@ -8873,20 +8776,7 @@ android.support.v4.media.MediaBrowserCompat$CallbackHandler
 androidx.collection.ContainerHelpers:
     private void <init>()
 io.reactivex.internal.operators.flowable.FlowableTimeout
-org.ksoap2.transport.Transport:
-    public void <init>(java.lang.String)
-    public void <init>(java.lang.String,int)
-    public void <init>(java.lang.String,int,int)
-    public void <init>(java.net.Proxy,java.lang.String,int)
-    public void <init>(java.net.Proxy,java.lang.String,int,int)
-    protected byte[] createRequestData(org.ksoap2.SoapEnvelope)
-    public void reset()
-    public abstract java.util.List call(java.lang.String,org.ksoap2.SoapEnvelope,java.util.List)
-    public abstract java.util.List call(java.lang.String,org.ksoap2.SoapEnvelope,java.util.List,java.io.File)
-    public void call(java.lang.String,org.ksoap2.SoapEnvelope)
-    protected static final java.lang.String CONTENT_TYPE_XML_CHARSET_UTF_8
-    protected static final java.lang.String CONTENT_TYPE_SOAP_XML_CHARSET_UTF_8
-    protected static final java.lang.String USER_AGENT
+org.ksoap2.transport.Transport
 kotlin.coroutines.experimental.migration.ExperimentalSuspendFunction1Migration
 com.nineoldandroids.view.ViewHelper
 io.reactivex.processors.ReplayProcessor$TimedNode
@@ -9440,14 +9330,7 @@ androidx.room.InvalidationTracker:
 androidx.fragment.app.FragmentTabHost$SavedState
 io.reactivex.internal.util.NotificationLite$ErrorNotification
 io.reactivex.internal.subscriptions.SubscriptionHelper
-org.ksoap2.transport.ServiceConnection:
-    public abstract void connect()
-    public abstract void setChunkedStreamingMode()
-    public abstract java.lang.String getHost()
-    public abstract int getPort()
-    public abstract java.lang.String getPath()
-    public static final int DEFAULT_TIMEOUT
-    public static final int DEFAULT_BUFFER_SIZE
+org.ksoap2.transport.ServiceConnection
 com.google.android.material.appbar.CollapsingToolbarLayout$2
 io.reactivex.subjects.ReplaySubject$SizeAndTimeBoundReplayBuffer
 com.google.android.play.core.install.model.AppUpdateType
@@ -9557,6 +9440,7 @@ io.reactivex.internal.operators.maybe.MaybeToFlowable$MaybeToFlowableSubscriber
 com.google.android.material.circularreveal.CircularRevealFrameLayout:
     public void <init>(android.content.Context)
     public void <init>(android.content.Context,android.util.AttributeSet)
+org.ksoap2.serialization.Marshal
 androidx.transition.R
 okio.RealBufferedSource:
     public static synthetic void buffer$annotations()
@@ -10230,12 +10114,7 @@ io.reactivex.internal.operators.mixed.ObservableSwitchMapSingle$SwitchMapSingleM
 io.reactivex.internal.operators.completable.CompletableSubscribeOn
 androidx.activity.R$integer
 io.reactivex.SingleTransformer
-org.kxml2.io.KXmlParser:
-    public void skipSubTree()
-    private static final java.lang.String UNEXPECTED_EOF
-    private static final java.lang.String ILLEGAL_TYPE
-    private static final int LEGACY
-    private static final int XML_DECL
+org.kxml2.io.KXmlParser
 kotlin.coroutines.experimental.SafeContinuation$Fail
 io.reactivex.internal.operators.observable.ObservableDelaySubscriptionOther$DelayObserver$OnComplete
 com.google.android.material.appbar.AppBarLayout$BaseBehavior:
@@ -10788,6 +10667,7 @@ okhttp3.FormBody:
     public final java.lang.String encodedValue(int)
     public final java.lang.String value(int)
 io.reactivex.internal.operators.observable.ObservableAll
+org.ksoap2.serialization.FwdRef
 com.google.android.material.chip.Chip:
     public void <init>(android.content.Context)
     public boolean isChipIconVisible()
@@ -11127,6 +11007,7 @@ androidx.recyclerview.widget.GridLayoutManager$SpanSizeLookup:
     public boolean isSpanIndexCacheEnabled()
     public boolean isSpanGroupIndexCacheEnabled()
 com.google.android.play.core.internal.a
+org.ksoap2.serialization.AttributeInfo
 io.reactivex.internal.operators.flowable.FlowableBufferBoundary$BufferBoundarySubscriber$BufferOpenSubscriber
 kotlin.text.StringsKt__IndentKt$prependIndent$1
 kotlin.NumbersKt__BigIntegersKt
@@ -11829,17 +11710,7 @@ com.google.android.material.bottomsheet.BottomSheetBehavior:
     private static final float HIDE_FRICTION
     private static final int CORNER_ANIMATION_DURATION
 kotlin.collections.ArraysKt___ArraysKt$asIterable$$inlined$Iterable$7
-org.kxml2.kdom.Node:
-    public void removeChild(int)
-    public static final int DOCUMENT
-    public static final int ELEMENT
-    public static final int TEXT
-    public static final int CDSECT
-    public static final int ENTITY_REF
-    public static final int IGNORABLE_WHITESPACE
-    public static final int PROCESSING_INSTRUCTION
-    public static final int COMMENT
-    public static final int DOCDECL
+org.kxml2.kdom.Node
 androidx.media.AudioAttributesImpl:
     public abstract java.lang.Object getAudioAttributes()
     public abstract android.os.Bundle toBundle()
@@ -12259,6 +12130,7 @@ io.reactivex.internal.operators.parallel.ParallelFromPublisher$ParallelDispatche
 androidx.constraintlayout.solver.widgets.ConstraintWidget
 io.reactivex.internal.operators.flowable.FlowableIgnoreElements$IgnoreElementsSubscriber
 io.reactivex.internal.functions.Functions$ToMapKeyValueSelector
+org.kxml2.io.KXmlSerializer
 io.reactivex.internal.operators.flowable.FlowableInternalHelper
 kotlin.io.FileTreeWalk$WalkState
 com.google.android.material.expandable.ExpandableWidgetHelper:
@@ -13917,9 +13789,7 @@ okhttp3.CertificatePinner$Pin:
     public final okhttp3.CertificatePinner$Pin copy(java.lang.String,java.lang.String,okio.ByteString)
 io.reactivex.internal.operators.flowable.FlowableGroupJoin$GroupJoinSubscription
 com.google.android.play.core.splitinstall.f
-org.ksoap2.SoapFault:
-    public void write(org.xmlpull.v1.XmlSerializer)
-    private static final long serialVersionUID
+org.ksoap2.SoapFault
 androidx.legacy.coreui.R$dimen
 io.reactivex.internal.operators.completable.CompletableEmpty
 kotlin.jvm.internal.PropertyReference2Impl
@@ -14032,6 +13902,7 @@ okhttp3.internal.platform.AndroidPlatform$CustomTrustRootIndex:
     private final java.lang.reflect.Method component2()
     public static synthetic okhttp3.internal.platform.AndroidPlatform$CustomTrustRootIndex copy$default(okhttp3.internal.platform.AndroidPlatform$CustomTrustRootIndex,javax.net.ssl.X509TrustManager,java.lang.reflect.Method,int,java.lang.Object)
     public final okhttp3.internal.platform.AndroidPlatform$CustomTrustRootIndex copy(javax.net.ssl.X509TrustManager,java.lang.reflect.Method)
+org.ksoap2.serialization.KvmSerializable
 io.reactivex.internal.operators.single.SingleJust
 androidx.appcompat.widget.ActivityChooserModel$ActivityResolveInfo
 androidx.media.MediaBrowserProtocol
@@ -14270,6 +14141,7 @@ com.google.android.material.shadow.ShadowRenderer:
 io.reactivex.internal.operators.observable.ObservableDebounceTimed
 androidx.fragment.app.FragmentManagerViewModel:
     void restoreFromSnapshot(androidx.fragment.app.FragmentManagerNonConfig)
+org.ksoap2.serialization.DM
 io.reactivex.internal.operators.flowable.FlowableTakeLast$TakeLastSubscriber
 androidx.lifecycle.LiveData$AlwaysActiveObserver
 androidx.core.app.ActivityManagerCompat
@@ -14277,6 +14149,7 @@ io.reactivex.internal.operators.maybe.MaybeOnErrorNext
 io.reactivex.subjects.ReplaySubject$ReplayDisposable
 io.reactivex.internal.operators.completable.CompletableMerge$CompletableMergeSubscriber$MergeInnerObserver
 kotlin.collections.GroupingKt__GroupingJVMKt
+org.ksoap2.serialization.HasAttributes
 kotlin.collections.ArraysKt___ArraysKt$asIterable$$inlined$Iterable$4
 com.google.android.play.core.splitinstall.e
 kotlin.coroutines.experimental.SafeContinuation
@@ -15586,10 +15459,6 @@ app.bmc.com.BHOOMI_MRTC.screens.RestrictionOnLandReport:
     public java.util.List loadData()
     public final boolean isNetworkAvailable()
     public final void deleteResponseByID(java.util.List)
-    public final java.lang.String OPERATION_NAME2
-    public final java.lang.String WSDL_TARGET_NAMESPACE2
-    public java.lang.String SOAP_ACTION2
-    public java.lang.String SOAP_ADDRESS2
     public static final synthetic boolean $assertionsDisabled
 com.google.android.material.snackbar.SnackbarContentLayout:
     public static void updateTopBottomPadding(android.view.View,int,int)
@@ -15621,12 +15490,6 @@ androidx.appcompat.widget.TintTypedArray:
     public int getInteger(int,int)
     public java.lang.CharSequence[] getTextArray(int)
     public void recycle()
-org.ksoap2.SoapEnvelope:
-    public void parse(org.xmlpull.v1.XmlPullParser)
-    public void parseHeader(org.xmlpull.v1.XmlPullParser)
-    public void write(org.xmlpull.v1.XmlSerializer)
-    public void writeHeader(org.xmlpull.v1.XmlSerializer)
-    public org.kxml2.kdom.Element[] headerOut
 android.support.v4.media.MediaDescriptionCompatApi23
 androidx.appcompat.view.menu.MenuDialogHelper:
     public void show(android.os.IBinder)
@@ -16002,11 +15865,15 @@ app.bmc.com.BHOOMI_MRTC.backgroundtasks.RtcViewInfoBackGroundTaskFragment:
     public void terminateExecutionOfBackgroundTask3()
     public void terminateExecutionOfBackgroundTask4()
     public void terminateExecutionOfGetCultivatorResponse()
+    public void terminateExecutionOfGetDetails_VillageWise_JSONResponse()
+    public final void getSurnocHissaResponse(com.google.gson.JsonObject,java.lang.String)
+    public final void getRtcResponse(com.google.gson.JsonObject,java.lang.String)
     public final void getMutationStatusResponse(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)
     public final void getLandRestrictionResult(com.google.gson.JsonObject,java.lang.String)
+    public final void getCultivatorResponse(com.google.gson.JsonObject,java.lang.String)
+    public final void GetDetails_VillageWise_JSON(com.google.gson.JsonObject,java.lang.String)
 fr.arnaudguyon.xmltojsonlib.XmlToJson:
     public void <init>(fr.arnaudguyon.xmltojsonlib.XmlToJson$Builder)
-    public org.json.JSONObject toJson()
     public final org.json.JSONObject convertToJSONObject()
     public final void unsetInput()
     public final boolean isForcedList(fr.arnaudguyon.xmltojsonlib.Tag)
@@ -16346,11 +16213,6 @@ com.google.android.material.shape.ShapeAppearanceModel$Builder:
 com.google.android.play.core.assetpacks.w:
     public static java.util.concurrent.Executor b()
 okhttp3.internal.http.RequestLine
-org.ksoap2.transport.HttpTransportSE:
-    public java.util.List call(java.lang.String,org.ksoap2.SoapEnvelope,java.util.List)
-    public java.util.List call(java.lang.String,org.ksoap2.SoapEnvelope,java.util.List,java.io.File)
-    public final java.io.InputStream readDebug(java.io.InputStream,int,java.io.File)
-    public final java.io.InputStream getUnZippedInputStream(java.io.InputStream)
 okio.-Util
 com.google.android.material.card.MaterialCardView:
     public static synthetic float access$001(com.google.android.material.card.MaterialCardView)
@@ -16387,11 +16249,11 @@ okhttp3.ConnectionPool:
     public void <init>(int,long,java.util.concurrent.TimeUnit)
 kotlin.reflect.KProperty1$Getter:
     public synthetic abstract kotlin.reflect.KType getReturnType()
+    public synthetic abstract kotlin.reflect.KProperty getProperty()
     public synthetic abstract java.util.List getTypeParameters()
     public synthetic abstract java.util.List getParameters()
-    public synthetic abstract java.util.List getAnnotations()
-    public synthetic abstract kotlin.reflect.KProperty getProperty()
     public synthetic abstract kotlin.reflect.KVisibility getVisibility()
+    public synthetic abstract java.util.List getAnnotations()
     public synthetic abstract java.lang.String getName()
 io.reactivex.internal.schedulers.IoScheduler$CachedWorkerPool:
     public void release(io.reactivex.internal.schedulers.IoScheduler$ThreadWorker)
@@ -16569,13 +16431,6 @@ okhttp3.CertificatePinner:
 retrofit2.adapter.rxjava2.CallExecuteObservable$CallDisposable:
     public boolean isDisposed()
 com.google.android.material.card.MaterialCardViewHelper$1
-org.ksoap2.serialization.AttributeContainer:
-    public java.lang.Object getAttribute(int)
-    public boolean hasAttribute(java.lang.String)
-    public java.lang.Object getAttributeSafely(java.lang.String)
-    public void addAttribute(java.lang.String,java.lang.Object)
-    public void addAttribute(java.lang.String,java.lang.String,java.lang.Object)
-    public void addAttribute(org.ksoap2.serialization.AttributeInfo)
 kotlin.sequences.SequencesKt__SequencesJVMKt
 androidx.customview.widget.FocusStrategy
 com.google.android.material.bottomsheet.BottomSheetBehavior$4:
@@ -17108,9 +16963,6 @@ androidx.core.graphics.drawable.IconCompat:
     public void onPostParceling()
 androidx.core.content.res.GradientColorInflaterCompat
 androidx.viewpager2.widget.ScrollEventAdapter
-app.bmc.com.BHOOMI_MRTC.screens.BhoomiHomePage$5:
-    public void onNext()
-    public final synthetic app.bmc.com.BHOOMI_MRTC.screens.BhoomiHomePage this$0
 androidx.recyclerview.widget.GapWorker$1:
     public int compare(androidx.recyclerview.widget.GapWorker$Task,androidx.recyclerview.widget.GapWorker$Task)
 okhttp3.internal.connection.Exchange:
@@ -17575,8 +17427,6 @@ okhttp3.internal.http2.Settings:
 kotlin.LazyKt__LazyJVMKt
 androidx.drawerlayout.widget.DrawerLayout$ViewDragCallback:
     public void peekDrawer()
-app.bmc.com.BHOOMI_MRTC.screens.ShowRtcDetailsBYOwnerName$GetAllOwnerDetailsBasedOnDTHVId$1:
-    public final synthetic app.bmc.com.BHOOMI_MRTC.screens.ShowRtcDetailsBYOwnerName$GetAllOwnerDetailsBasedOnDTHVId this$1
 com.google.android.material.circularreveal.CircularRevealHelper$Delegate
 com.google.android.play.core.assetpacks.cb:
     public final synchronized double b(java.lang.String)
@@ -17823,7 +17673,6 @@ app.bmc.com.BHOOMI_MRTC.screens.BhoomiHomePage:
     public final void loadCalamityMasterData()
     public final void checkForAppUpdate()
     public final void checkNewAppVersionState()
-    public final void DistName()
 androidx.fragment.app.DialogFragment:
     public void dismiss()
     public void setupDialog(android.app.Dialog,int)
@@ -17913,12 +17762,12 @@ com.google.gson.internal.bind.TypeAdapters$21:
     public void write(com.google.gson.stream.JsonWriter,java.net.URL)
 kotlin.reflect.KProperty:
     public abstract kotlin.reflect.KProperty$Getter getGetter()
+    public synthetic abstract java.util.List getParameters()
     public synthetic abstract kotlin.reflect.KType getReturnType()
-    public synthetic abstract java.util.List getTypeParameters()
+    public synthetic abstract java.util.List getAnnotations()
     public synthetic abstract kotlin.reflect.KVisibility getVisibility()
     public synthetic abstract java.lang.String getName()
-    public synthetic abstract java.util.List getParameters()
-    public synthetic abstract java.util.List getAnnotations()
+    public synthetic abstract java.util.List getTypeParameters()
 androidx.collection.ArraySet:
     public void <init>(int)
     public void ensureCapacity(int)
@@ -17989,15 +17838,6 @@ androidx.recyclerview.widget.GridLayoutManager:
 com.google.gson.JsonObject:
     public void add(java.lang.String,com.google.gson.JsonElement)
     public java.util.Set entrySet()
-org.kxml2.kdom.Element:
-    public void init()
-    public java.lang.String getAttributeNamespace(int)
-    public java.lang.String getAttributeName(int)
-    public java.lang.String getAttributeValue(int)
-    public java.lang.String getNamespacePrefix(int)
-    public java.lang.String getNamespaceUri(int)
-    public void setAttribute(java.lang.String,java.lang.String,java.lang.String)
-    public void setPrefix(java.lang.String,java.lang.String)
 androidx.activity.OnBackPressedDispatcher:
     public androidx.activity.Cancellable addCancellableCallback(androidx.activity.OnBackPressedCallback)
     public void addCallback(androidx.lifecycle.LifecycleOwner,androidx.activity.OnBackPressedCallback)
@@ -18823,20 +18663,6 @@ org.jsoup.parser.HtmlTreeBuilderState:
     public static void access$200(org.jsoup.parser.Token$StartTag,org.jsoup.parser.HtmlTreeBuilder)
     public static synthetic java.lang.String access$400()
     public static synthetic boolean access$2200(java.lang.String)
-org.ksoap2.serialization.SoapSerializationEnvelope:
-    public void readSerializable(org.xmlpull.v1.XmlPullParser,org.ksoap2.serialization.SoapObject)
-    public java.lang.Object readUnknown(org.xmlpull.v1.XmlPullParser,java.lang.String,java.lang.String)
-    public void readVector(org.xmlpull.v1.XmlPullParser,java.util.Vector,org.ksoap2.serialization.PropertyInfo)
-    public java.lang.String getIdFromHref(java.lang.String)
-    public void resolveReference(java.lang.String,java.lang.Object)
-    public java.lang.Object readInstance(org.xmlpull.v1.XmlPullParser,java.lang.String,java.lang.String,org.ksoap2.serialization.PropertyInfo)
-    public void addMapping(java.lang.String,java.lang.String,java.lang.Class)
-    public void writeArrayListBodyWithAttributes(org.xmlpull.v1.XmlSerializer,org.ksoap2.serialization.KvmSerializable)
-    public void writeObjectBody(org.xmlpull.v1.XmlSerializer,org.ksoap2.serialization.KvmSerializable)
-    public void writeArrayListBody(org.xmlpull.v1.XmlSerializer,java.util.ArrayList)
-    public void writeVectorBody(org.xmlpull.v1.XmlSerializer,java.util.Vector,org.ksoap2.serialization.PropertyInfo)
-    public boolean skipNullProperties
-    public boolean avoidExceptionForUnknownProperty
 androidx.appcompat.widget.AppCompatSpinner$DropdownPopup:
     public boolean isVisibleToUser(android.view.View)
 okhttp3.MediaType$Companion:
@@ -18898,8 +18724,6 @@ app.bmc.com.BHOOMI_MRTC.screens.Download_Conversion_order$4:
     public void onNext(java.util.List)
 okhttp3.internal.HostnamesKt
 androidx.appcompat.widget.ListPopupWindow$2
-org.ksoap2.serialization.PropertyInfo:
-    public void clear()
 okhttp3.internal.cache.DiskLruCache$Editor$newSink$$inlined$synchronized$lambda$1
 kotlin.ranges.IntProgression$Companion
 org.jsoup.nodes.Element$1:
@@ -19407,18 +19231,10 @@ androidx.appcompat.widget.TooltipCompatHandler:
     public final boolean updateAnchorPos(android.view.MotionEvent)
 app.bmc.com.BHOOMI_MRTC.fragments.LandDetailsFragment$2:
     public final synthetic app.bmc.com.BHOOMI_MRTC.fragments.LandDetailsFragment this$0
-org.ksoap2.SoapFault12:
-    public final void parseSelf(org.xmlpull.v1.XmlPullParser)
 androidx.appcompat.graphics.drawable.DrawableContainer:
     public final void updateDensity(android.content.res.Resources)
     public final boolean needsMirroring()
     public int mLastIndex
-org.ksoap2.serialization.SoapObject:
-    public boolean isPropertyEqual(java.lang.Object,int)
-    public void getPropertyInfo(int,org.ksoap2.serialization.PropertyInfo)
-    public org.ksoap2.serialization.SoapObject addProperty(java.lang.String,java.lang.String,java.lang.Object)
-    public org.ksoap2.serialization.SoapObject addProperty(org.ksoap2.serialization.PropertyInfo)
-    public org.ksoap2.serialization.SoapObject addSoapObject(org.ksoap2.serialization.SoapObject)
 okhttp3.FormBody$Companion
 okhttp3.internal.platform.android.AndroidCertificateChainCleaner:
     public static void <clinit>()
@@ -19449,12 +19265,6 @@ androidx.appcompat.app.ActionBarDrawerToggle:
     public boolean mHasCustomUpIndicator
 app.bmc.com.BHOOMI_MRTC.adapters.ExpandListAdapter:
     public static final synthetic boolean $assertionsDisabled
-org.ksoap2.transport.Transport:
-    public void parseResponse(org.ksoap2.SoapEnvelope,java.io.InputStream)
-    public byte[] createRequestData(org.ksoap2.SoapEnvelope,java.lang.String)
-    public boolean debug
-    public java.lang.String requestDump
-    public java.lang.String responseDump
 app.bmc.com.BHOOMI_MRTC.database.DataBaseAccess_Impl$8:
     public void bind(androidx.sqlite.db.framework.FrameworkSQLiteStatement,app.bmc.com.BHOOMI_MRTC.model.VR_INFO)
     public final synthetic app.bmc.com.BHOOMI_MRTC.database.DataBaseAccess_Impl this$0
@@ -19662,8 +19472,6 @@ com.google.android.material.circularreveal.CircularRevealFrameLayout:
     public void actualDraw(android.graphics.Canvas)
     public boolean actualIsOpaque()
     public final com.google.android.material.circularreveal.CircularRevealHelper helper
-org.ksoap2.serialization.Marshal:
-    public abstract void register(org.ksoap2.serialization.SoapSerializationEnvelope)
 okio.RealBufferedSource:
     public short readShortLe()
     public long readDecimalLong()
@@ -20039,11 +19847,6 @@ com.google.gson.internal.bind.TimeTypeAdapter:
     public synchronized java.sql.Time read(com.google.gson.stream.JsonReader)
     public synchronized void write(com.google.gson.stream.JsonWriter,java.sql.Time)
 androidx.core.view.ViewPropertyAnimatorCompat$ViewPropertyAnimatorListenerApi14
-org.kxml2.io.KXmlParser:
-    public final boolean adjustNsp()
-    public final int parseLegacy(boolean)
-    public final void parseDoctype(boolean)
-    public final void parseEndTag()
 com.google.android.play.core.assetpacks.n:
     public final android.content.Context a()
 com.google.android.material.appbar.AppBarLayout$BaseBehavior:
@@ -20182,13 +19985,13 @@ androidx.appcompat.app.AlertController$AlertParams$4
 app.bmc.com.BHOOMI_MRTC.retrofit.RtcViewInfoClient:
     public static void <clinit>()
 kotlin.reflect.KProperty1:
-    public synthetic abstract java.lang.String getName()
     public synthetic abstract kotlin.reflect.KType getReturnType()
+    public synthetic abstract java.lang.String getName()
     public synthetic abstract kotlin.reflect.KVisibility getVisibility()
+    public synthetic abstract java.util.List getAnnotations()
     public synthetic abstract java.util.List getParameters()
     public synthetic abstract java.util.List getTypeParameters()
     public synthetic abstract kotlin.reflect.KProperty$Getter getGetter()
-    public synthetic abstract java.util.List getAnnotations()
 androidx.viewpager2.widget.FakeDrag
 com.google.android.material.internal.ViewUtils
 androidx.appcompat.widget.TooltipCompat
@@ -20917,6 +20720,8 @@ okhttp3.EventListener:
 app.bmc.com.BHOOMI_MRTC.screens.PacsWebViewActivity$1$1:
     public final synthetic app.bmc.com.BHOOMI_MRTC.screens.PacsWebViewActivity$1 this$1
 com.google.android.material.bottomappbar.BottomAppBar$AnimationListener
+app.bmc.com.BHOOMI_MRTC.backgroundtasks.RtcViewInfoBackGroundTaskFragment$6:
+    public static final synthetic boolean $assertionsDisabled
 com.google.android.play.core.appupdate.AppUpdateManagerFactory
 androidx.recyclerview.widget.StaggeredGridLayoutManager$Span:
     public void cacheReferenceLineAndClear(boolean,int)
@@ -21546,11 +21351,6 @@ com.google.android.material.bottomsheet.BottomSheetBehavior:
     public final void restoreOptionalState(com.google.android.material.bottomsheet.BottomSheetBehavior$SavedState)
     public final void createMaterialShapeDrawable(android.content.Context,android.util.AttributeSet,boolean)
     public final void createShapeValueAnimator()
-org.kxml2.kdom.Node:
-    public void addChild(int,int,java.lang.Object)
-    public java.lang.Object getChild(int)
-    public int getType(int)
-    public boolean isText(int)
 com.nineoldandroids.animation.ValueAnimator$2:
     public java.util.ArrayList initialValue()
 android.support.v4.media.session.IMediaControllerCallback
@@ -22117,13 +21917,13 @@ kotlin.reflect.KMutableProperty2$Setter
 app.bmc.com.BHOOMI_MRTC.screens.ViewRtcInformation$2:
     public void onNext(java.util.List)
 kotlin.reflect.KProperty$Getter:
-    public synthetic abstract java.lang.String getName()
-    public synthetic abstract java.util.List getTypeParameters()
-    public synthetic abstract kotlin.reflect.KProperty getProperty()
-    public synthetic abstract java.util.List getAnnotations()
-    public synthetic abstract java.util.List getParameters()
-    public synthetic abstract kotlin.reflect.KType getReturnType()
     public synthetic abstract kotlin.reflect.KVisibility getVisibility()
+    public synthetic abstract java.lang.String getName()
+    public synthetic abstract kotlin.reflect.KType getReturnType()
+    public synthetic abstract kotlin.reflect.KProperty getProperty()
+    public synthetic abstract java.util.List getParameters()
+    public synthetic abstract java.util.List getAnnotations()
+    public synthetic abstract java.util.List getTypeParameters()
 androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat:
     public void <init>(android.content.Context)
     public static androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat createFromXmlInner(android.content.Context,android.content.res.Resources,org.xmlpull.v1.XmlPullParser,android.util.AttributeSet,android.content.res.Resources$Theme)
@@ -22272,11 +22072,7 @@ com.google.android.material.animation.MotionTiming:
     public static android.animation.TimeInterpolator getInterpolatorCompat(android.animation.ValueAnimator)
 app.bmc.com.BHOOMI_MRTC.screens.ShowRtcDetailsBYOwnerName:
     public static synthetic app.bmc.com.BHOOMI_MRTC.adapters.ViewRTCByOwnerNameNewAdapter access$000(app.bmc.com.BHOOMI_MRTC.screens.ShowRtcDetailsBYOwnerName)
-    public static synthetic app.bmc.com.BHOOMI_MRTC.adapters.ViewRTCByOwnerNameNewAdapter access$002(app.bmc.com.BHOOMI_MRTC.screens.ShowRtcDetailsBYOwnerName,app.bmc.com.BHOOMI_MRTC.adapters.ViewRTCByOwnerNameNewAdapter)
-    public static synthetic android.widget.ListView access$100(app.bmc.com.BHOOMI_MRTC.screens.ShowRtcDetailsBYOwnerName)
     public final boolean isNetworkAvailable()
-    public final java.lang.String OPERATION_NAME2
-    public final java.lang.String WSDL_TARGET_NAMESPACE2
     public static final synthetic boolean $assertionsDisabled
 androidx.appcompat.widget.ScrollingTabContainerView$VisibilityAnimListener:
     public int mFinalVisibility
@@ -22329,8 +22125,6 @@ androidx.lifecycle.LiveData:
     public final java.lang.Runnable mPostValueRunnable
 okhttp3.CertificatePinner$Pin:
     public final boolean matches(java.lang.String)
-org.ksoap2.SoapFault:
-    public int version
 org.jsoup.parser.HtmlTreeBuilderState$Constants:
     public static synthetic java.lang.String[] access$500()
     public static synthetic java.lang.String[] access$600()
@@ -22523,8 +22317,6 @@ androidx.fragment.app.FragmentManagerViewModel:
     public androidx.fragment.app.FragmentManagerViewModel getChildNonConfig(androidx.fragment.app.Fragment)
     public androidx.lifecycle.ViewModelStore getViewModelStore(androidx.fragment.app.Fragment)
     public void clearNonConfigState(androidx.fragment.app.Fragment)
-org.ksoap2.serialization.DM:
-    public void register(org.ksoap2.serialization.SoapSerializationEnvelope)
 androidx.recyclerview.widget.RecyclerView$LayoutManager:
     public final boolean isItemPrefetchEnabled()
     public void dispatchAttachedToWindow(androidx.recyclerview.widget.RecyclerView)
@@ -22693,11 +22485,6 @@ androidx.core.widget.AutoScrollHelper:
     public final void startAnimating()
     public final float getEdgeValue(float,float,float,float)
     public boolean mExclusive
-app.bmc.com.BHOOMI_MRTC.screens.ShowRtcDetailsBYOwnerName$GetAllOwnerDetailsBasedOnDTHVId:
-    public varargs java.lang.String doInBackground()
-    public varargs void onProgressUpdate(java.lang.Integer[])
-    public void onPostExecute(java.lang.String)
-    public java.lang.String TAG
 okio.BufferedSink:
     public abstract okio.BufferedSink emitCompleteSegments()
 kotlin.comparisons.ComparisonsKt__ComparisonsKt
@@ -22914,6 +22701,8 @@ androidx.appcompat.app.WindowDecorActionBar:
     public final boolean shouldAnimateContextView()
     public android.app.Dialog mDialog
     public static final synthetic boolean $assertionsDisabled
+app.bmc.com.BHOOMI_MRTC.screens.ShowRtcDetailsBYOwnerName$2:
+    public final synthetic app.bmc.com.BHOOMI_MRTC.screens.ShowRtcDetailsBYOwnerName this$0
 androidx.appcompat.widget.AppCompatToggleButton:
     public void <init>(android.content.Context,android.util.AttributeSet,int)
 kotlin.text.StringsKt__StringBuilderKt

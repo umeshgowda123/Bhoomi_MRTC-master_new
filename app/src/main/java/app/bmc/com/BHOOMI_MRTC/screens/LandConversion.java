@@ -212,9 +212,9 @@ public class LandConversion extends AppCompatActivity {
                                         progressDialog.setCancelable(false);
                                         progressDialog.show();
 
-                                        apiInterface = PariharaIndividualreportClient.getClient(getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
-                                        call = apiInterface.getLandConversionBasedOnAffidavitID(Constants.REPORT_SERVICE_USER_NAME,
-                                                Constants.REPORT_SERVICE_PASSWORD, affidavitID);
+                                        apiInterface = PariharaIndividualreportClient.getClient(getString(R.string.rest_service_url)).create(PariharaIndividualReportInteface.class);
+                                        call = apiInterface.getLandConversionBasedOnAffidavitID(Constants.CLWS_REST_SERVICE_USER_NAME,
+                                                Constants.CLWS_REST_SERVICE_PASSWORD, affidavitID);
                                         call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
                                             @Override
                                             public void onResponse(@NotNull Call<PariharaIndividualDetailsResponse> call, @NotNull Response<PariharaIndividualDetailsResponse> response) {
@@ -382,9 +382,9 @@ public class LandConversion extends AppCompatActivity {
                                         progressDialog.setCancelable(false);
                                         progressDialog.show();
 
-                                        apiInterface = PariharaIndividualreportClient.getClient(getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
-                                        call2 = apiInterface.getLandConversionBasedOnUserID(Constants.REPORT_SERVICE_USER_NAME,
-                                                Constants.REPORT_SERVICE_PASSWORD,userID);
+                                        apiInterface = PariharaIndividualreportClient.getClient(getString(R.string.rest_service_url)).create(PariharaIndividualReportInteface.class);
+                                        call2 = apiInterface.getLandConversionBasedOnUserID(Constants.CLWS_REST_SERVICE_USER_NAME,
+                                                Constants.CLWS_REST_SERVICE_PASSWORD,userID);
                                         call2.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
                                             @Override
                                             public void onResponse(@NotNull Call<PariharaIndividualDetailsResponse>  call, @NotNull Response<PariharaIndividualDetailsResponse> response)

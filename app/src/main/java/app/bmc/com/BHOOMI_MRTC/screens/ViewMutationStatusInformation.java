@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import androidx.annotation.NonNull;
 import androidx.room.Room;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -32,6 +31,8 @@ import android.widget.Toast;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
@@ -94,7 +95,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
     private String language;
     private DataBaseHelper dataBaseHelper;
     private TextView txtMutationStatust;
-    String surveyno;
+    String surveyNo;
 
     String restostoreinDBandSMSD;
     List<VMS_RES_Interface> VMS_RES_Data;
@@ -395,7 +396,15 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
             String talukName = spinner_taluk.getText().toString().trim();
             String hobliName = spinner_hobli.getText().toString().trim();
             String villageName = spinner_village.getText().toString().trim();
-            surveyno = edittext_survey.getText().toString().trim();
+            surveyNo = edittext_survey.getText().toString().trim();
+
+            String input = "{" +
+                    "\"Bhm_dist_code\": \""+district_id+"\"," +
+                    "\"Bhm_taluk_code\": \""+taluk_id+"\"," +
+                    "\"Bhm_hobli_code\":\""+hobli_id+"\"," +
+                    "\"village_code\": \""+village_id+"\"," +
+                    "\"survey_no\": \""+surveyNo+"\"" +
+                    "}";
 
             View focus = null;
             boolean status = false;
@@ -415,7 +424,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                 focus = spinner_village;
                 status = true;
                 spinner_village.setError(getString(R.string.village_err));
-            } else if (TextUtils.isEmpty(surveyno)) {
+            } else if (TextUtils.isEmpty(surveyNo)) {
                 focus = edittext_survey;
                 status = true;
                 edittext_survey.setError(getString(R.string.survey_no_err));
@@ -423,8 +432,14 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
             if (status) {
                 focus.requestFocus();
             } else {
-                if (isNetworkAvailable())
-                    mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyno, getString(R.string.rtc_view_info_url));
+                if (isNetworkAvailable()){
+                    try {
+                        JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
+                        mTaskFragment.startBackgroundTask1(jsonObject, getString(R.string.rest_service_url));
+                    } catch (Exception e){
+                        Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
                 else
                     Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
             }
@@ -518,7 +533,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                                         }
                                         } else {
                                             //5/6/5/1/1714
-                                            mTaskFragment.startBackgroundTask3(district_id, taluk_id, hobli_id, village_id, land_no, getString(R.string.server_report_url));
+                                            mTaskFragment.startBackgroundTask3(district_id, taluk_id, hobli_id, village_id, land_no, getString(R.string.rest_service_url));
                                             //mTaskFragment.startBackgroundTask3(5, 6, 5, 1, 1714);
                                         }
                                 }
@@ -715,27 +730,38 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
     }
 
     @Override
+    public void onPreExecute5() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess_GetDetails_VilWise(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_GetDetails_VilWise(String data) {
+
+    }
+
+    @Override
     public void onPostResponseError_FORHISSA(String data, int count) {
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
-        Log.d("count", count+"");
-        if (count != 2) {
-        mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyno, getString(R.string.rtc_view_info_url_parihara));
-        }else {
-//            Toast.makeText(this, ""+data, Toast.LENGTH_SHORT).show();
-                final AlertDialog.Builder builder = new AlertDialog.Builder(ViewMutationStatusInformation.this, R.style.MyDialogTheme);
-                builder.setTitle(getString(R.string.status))
-                        .setMessage("Server is busy, Please try after sometime")
-                        .setIcon(R.drawable.ic_notifications_black_24dp)
-                        .setCancelable(false)
-                        .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
-                            dialog.cancel();
-                        });
-                final AlertDialog alert = builder.create();
-                alert.show();
-                alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
 
-            }
+        if (data.contains("CertPathValidatorException")){
+            Toast.makeText(getApplicationContext(), ""+data, Toast.LENGTH_SHORT).show();
+        } else {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(ViewMutationStatusInformation.this, R.style.MyDialogTheme);
+            builder.setTitle(getString(R.string.status))
+                    .setMessage("Server is busy, Please try after sometime")
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
+            final AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        }
     }
 
 
@@ -743,7 +769,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
     public void onPostResponseError_Task3(String data) {
 //        if (progressBar != null)
 //            progressBar.setVisibility(View.GONE);
-//        mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyno, getString(R.string.rtc_view_info_url_parihara));
+//        mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyno, getString(R.string.rest_service_url));
     }
 
     @Override
@@ -783,7 +809,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
         savedInstanceState.putInt(Constants.TALUK_ID, taluk_id);
         savedInstanceState.putString(Constants.HOBLI_NAME, spinner_hobli.getText().toString().trim());
         savedInstanceState.putInt(Constants.HOBLI_ID, hobli_id);
-        savedInstanceState.putString(Constants.SURVEY_NUMBER, surveyno);
+        savedInstanceState.putString(Constants.SURVEY_NUMBER, surveyNo);
         savedInstanceState.putInt(Constants.LAND_NUMBER, land_no);
         savedInstanceState.putString(Constants.HISSA_NAME, spinner_hissa.getText().toString().trim());
         savedInstanceState.putInt(Constants.VILLAGE_ID, village_id);
@@ -807,7 +833,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
         district_id = savedInstanceState.getInt(Constants.DISTRICT_ID, 0);
         taluk_id = savedInstanceState.getInt(Constants.TALUK_ID, 0);
         hobli_id = savedInstanceState.getInt(Constants.HOBLI_ID, 0);
-        surveyno = savedInstanceState.getString(Constants.SURVEY_NUMBER, "");
+        surveyNo = savedInstanceState.getString(Constants.SURVEY_NUMBER, "");
         village_id = savedInstanceState.getInt(Constants.VILLAGE_ID, 0);
 
     }

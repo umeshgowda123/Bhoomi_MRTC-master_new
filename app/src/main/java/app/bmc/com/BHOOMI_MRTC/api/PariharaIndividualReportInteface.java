@@ -16,8 +16,11 @@ public interface PariharaIndividualReportInteface {
 
     @Headers({"content-type: text/json; charset=utf-8"})
     @POST("DownloadCLWSSTATUS_Aadhaar/{pstrUserName}/{pStrPassword}/{pAadhaarNo}")
-    Call<PariharaIndividualDetailsResponse> getCLWSStatusByAaadharNumber(@Path("pstrUserName") String pstrUserName, @Path("pStrPassword") String pstrPassword,
-                                                                      @Path("pAadhaarNo") String pAadhaarNo);
+    Call<PariharaIndividualDetailsResponse> getCLWSStatusByAaadharNumber(
+            @Path("pstrUserName") String pstrUserName,
+            @Path("pStrPassword") String pstrPassword,
+            @Path("pAadhaarNo") String pAadhaarNo
+    );
 
     @Headers({"content-type: text/json; charset=utf-8"})
     @POST("DownloadCLWSSTATUS_RationCard/{pstrUserName}/{pStrPassword}/{pRationCardNumber}")
@@ -154,27 +157,12 @@ public interface PariharaIndividualReportInteface {
     Call<PariharaIndividualDetailsResponse> getAllotmentDetailsBasedOnAppNo(@Path("pstrUserName") String pstrUserName, @Path("pStrPassword") String pStrPassword,
                                                                                 @Path("pApplicationNo") String pApplicationNo);
 
-
-//    @Headers({"content-type: text/json; charset=utf-8"})
-//    @POST("GetLandRestriction/{pstr_UserName}/{pStr_Password}/")
-//    Call<PariharaIndividualDetailsResponse> fnGetLandRestrictionResult(
-//            @Path("pstr_UserName") String username,
-//            @Path("pStr_Password") String password,
-//            @Body JsonObject input);
-
-
-
     @Headers({"content-type: text/json; charset=utf-8"})
     @POST("GetLandRestriction_RAW/{pstrUserName}/{pStrPassword}/")
     Call<PariharaIndividualDetailsResponse> fnGetLandRestrictionResult(
             @Path("pstrUserName") String username,
             @Path("pStrPassword") String password,
             @Body JsonObject input);
-
-//    @POST("FnGetServiceStatus/{pstrUserName}/{pStrPassword}/")
-//    Call<PariharaIndividualDetailsResponse> FnGetServiceStatus(
-//            @Path("pstrUserName") String username,
-//            @Path("pStrPassword") String password);\
 
     @POST("FnGetServiceStatus/{pstrUserName}/{pStrPassword}/{pStrApplicationType}/")
     Call<PariharaIndividualDetailsResponse> FnGetServiceStatus(

@@ -87,31 +87,15 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
     }
 
 
-    public void startBackgroundTask1(int district_id, int taluk_id, int hobli_id, int village_id, String surveyNo, String url) {
+    public void startBackgroundTask1(JsonObject jsonObject, String url) {
         if (!isTaskExecuting) {
-
-            if (url.contains(getString(R.string.rtc_view_info_url_parihara))) {
-                getSurnocHissaResponse(String.valueOf(district_id), String.valueOf(taluk_id), String.valueOf(hobli_id), String.valueOf(village_id), String.valueOf(surveyNo), url);
-                count = 2;
-            }
-            else {
-                count = 1;
-                getSurnocHissaResponse(String.valueOf(district_id), String.valueOf(taluk_id), String.valueOf(hobli_id), String.valueOf(village_id), String.valueOf(surveyNo), url);
-
-            }
+            getSurnocHissaResponse(jsonObject, url);
         }
     }
 
-    public void startBackgroundTask2(String district_id, String taluk_id, String hobli_id, String village_id, String land_no, String url) {
+    public void startBackgroundTask2(JsonObject input, String url) {
         if (!isTaskExecuting) {
-            if (url.contains(getString(R.string.rtc_view_info_url_parihara))) {
-                getRtcResponse(district_id, taluk_id, hobli_id, village_id, land_no, url);
-                count = 2;
-            }
-            else {
-                count = 1;
-                getRtcResponse(district_id, taluk_id, hobli_id, village_id, land_no, url);
-            }
+            getRtcResponse(input, url);
         }
     }
 
@@ -128,29 +112,27 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
 
     }
 
-    public void startBackgroundTaskCultivatorData(String district_id, String taluk_id, String hobli_id, String village_id, String land_no, String url) {
+    public void startBackgroundTaskCultivatorData(JsonObject input, String url) {
         if (!isTaskExecuting) {
-//            getCultivatorResponse(district_id, taluk_id, hobli_id, village_id, land_no, url);
-            if (url.contains(getString(R.string.rtc_view_info_url_parihara))) {
-                getCultivatorResponse(district_id, taluk_id, hobli_id, village_id, land_no, url);
-                count = 2;
-            }
-            else {
-                count = 1;
-                getCultivatorResponse(district_id, taluk_id, hobli_id, village_id, land_no, url);
-            }
+            getCultivatorResponse(input, url);
+        }
+    }
+
+    public void startBackgroundTask_GetDetails_VilWise(JsonObject input, String url) {
+        if (!isTaskExecuting) {
+            GetDetails_VillageWise_JSON(input, url);
         }
     }
 
 
-    private void getSurnocHissaResponse(String district_id, String taluk_id, String hobli_id, String village_id, String surveyNo, String url) {
+    private void getSurnocHissaResponse(JsonObject jsonObject, String url) {
         isTaskExecuting = true;
         if (backgroundCallBack != null)
             backgroundCallBack.onPreExecute1();
 
         Retrofit retrofit = RtcViewInfoClient.getClient(url);
         RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
-        get_surnoc_hissaResultCall = service.getSurnocHissaResponse(district_id, taluk_id, hobli_id, village_id, surveyNo);
+        get_surnoc_hissaResultCall = service.getSurnocHissaResponse(Constants.CLWS_REST_SERVICE_USER_NAME,Constants.CLWS_REST_SERVICE_PASSWORD, jsonObject);
         get_surnoc_hissaResultCall.enqueue(new Callback<Get_Surnoc_HissaResult>() {
             @Override
             public void onResponse(@NonNull Call<Get_Surnoc_HissaResult> call, @NonNull Response<Get_Surnoc_HissaResult> response) {
@@ -198,14 +180,14 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
     }
 
 
-    private void getRtcResponse(String district_id, String taluk_id, String hobli_id, String village_id, String land_no, String url) {
+    private void getRtcResponse(JsonObject input, String url) {
         isTaskExecuting = true;
         if (backgroundCallBack != null)
             backgroundCallBack.onPreExecute2();
 
         Retrofit retrofit = RtcViewInfoClient.getClient(url);
         RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
-        getRtcResponse_call = service.getRtcResponse(district_id, taluk_id, hobli_id, village_id, land_no);
+        getRtcResponse_call = service.getRtcResponse(Constants.CLWS_REST_SERVICE_USER_NAME,Constants.CLWS_REST_SERVICE_PASSWORD, input);
         getRtcResponse_call.enqueue(new Callback<Get_Rtc_Data_Result>() {
             @Override
             public void onResponse(@NonNull Call<Get_Rtc_Data_Result> call, @NonNull Response<Get_Rtc_Data_Result> response) {
@@ -254,7 +236,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
 
         Retrofit retrofit = RtcViewInfoClient.getClient(url);
         RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
-        get_rtc_data_resultCall = service.getMutationStatusResponse(Constants.REPORT_SERVICE_USER_NAME,Constants.REPORT_SERVICE_PASSWORD,Integer.parseInt(district_id),Integer.parseInt(taluk_id),Integer.parseInt(hobli_id),Integer.parseInt(village_id),Integer.parseInt(land_no));
+        get_rtc_data_resultCall = service.getMutationStatusResponse(Constants.CLWS_REST_SERVICE_USER_NAME,Constants.CLWS_REST_SERVICE_PASSWORD,Integer.parseInt(district_id),Integer.parseInt(taluk_id),Integer.parseInt(hobli_id),Integer.parseInt(village_id),Integer.parseInt(land_no));
         get_rtc_data_resultCall.enqueue(new Callback<Get_ViewMutationStatusResult>() {
             @Override
             public void onResponse(@NonNull Call<Get_ViewMutationStatusResult> call, @NonNull Response<Get_ViewMutationStatusResult> response) {
@@ -304,7 +286,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
 
         Retrofit retrofit = RtcViewInfoClient.getClient(url);
         PariharaIndividualReportInteface service = retrofit.create(PariharaIndividualReportInteface.class);
-        getLandRestrictionResultCall = service.fnGetLandRestrictionResult(Constants.REPORT_SERVICE_USER_NAME,Constants.REPORT_SERVICE_PASSWORD, input);
+        getLandRestrictionResultCall = service.fnGetLandRestrictionResult(Constants.CLWS_REST_SERVICE_USER_NAME,Constants.CLWS_REST_SERVICE_PASSWORD, input);
         getLandRestrictionResultCall.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
             @Override
             public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {
@@ -346,14 +328,14 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
     }
 
 
-    private void getCultivatorResponse(String district_id, String taluk_id, String hobli_id, String village_id, String land_no, String url) {
+    private void getCultivatorResponse(JsonObject input, String url) {
         isTaskExecuting = true;
         if (backgroundCallBack != null)
             backgroundCallBack.onPreExecute2();
 
         Retrofit retrofit = RtcViewInfoClient.getClient(url);
         RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
-        getCultivatorResponse_Call = service.getRtcCultivator(district_id, taluk_id, hobli_id, village_id, land_no);
+        getCultivatorResponse_Call = service.getRtcCultivator(Constants.CLWS_REST_SERVICE_USER_NAME, Constants.CLWS_REST_SERVICE_PASSWORD, input);
         getCultivatorResponse_Call.enqueue(new Callback<Get_Rtc_Data_Result>() {
             @Override
             public void onResponse(@NonNull Call<Get_Rtc_Data_Result> call, @NonNull Response<Get_Rtc_Data_Result> response) {
@@ -390,6 +372,51 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
             getCultivatorResponse_Call.cancel();
         }
     }
+
+    private void GetDetails_VillageWise_JSON(JsonObject input, String url){
+        isTaskExecuting = true;
+        if (backgroundCallBack != null)
+            backgroundCallBack.onPreExecute5();
+
+        Retrofit retrofit = RtcViewInfoClient.getClient(url);
+        RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
+        getLandRestrictionResultCall = service.GetDetails_VillageWise_JSON(Constants.CLWS_REST_SERVICE_USER_NAME, Constants.CLWS_REST_SERVICE_PASSWORD, input);
+        getLandRestrictionResultCall.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {
+                if (response.isSuccessful()) {
+                    PariharaIndividualDetailsResponse get_data_result = response.body();
+                    isTaskExecuting = false;
+                    if (backgroundCallBack != null) {
+                        assert get_data_result != null;
+                        backgroundCallBack.onPostResponseSuccess_GetDetails_VilWise(get_data_result.getDetails_VillageWise_JSONResult());
+                    }
+                } else {
+                    isTaskExecuting = false;
+                    if (backgroundCallBack != null) {
+                        String errorResponse = response.message();
+                        backgroundCallBack.onPostResponseError_GetDetails_VilWise(errorResponse);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable error) {
+                isTaskExecuting = false;
+                if (backgroundCallBack != null) {
+                    String errorResponse = error.getLocalizedMessage();
+                    backgroundCallBack.onPostResponseError_GetDetails_VilWise(errorResponse);
+                }
+            }
+        });
+    }
+
+    public void terminateExecutionOfGetDetails_VillageWise_JSONResponse(){
+        Log.d("Task1", "Entered");
+        if (getLandRestrictionResultCall != null && getLandRestrictionResultCall.isExecuted()) {
+            getLandRestrictionResultCall.cancel();
+        }
+    }
     public interface BackgroundCallBackRtcViewInfo {
 
         void onPreExecute1();
@@ -417,6 +444,9 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         void onPostResponseSuccessCultivator(String gettcDataResult);
         void onPostResponseErrorCultivator(String errorResponse, int count);
 
+        void onPreExecute5();
+        void onPostResponseSuccess_GetDetails_VilWise(String data);
+        void onPostResponseError_GetDetails_VilWise(String data);
 
     }
 }

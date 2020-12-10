@@ -33,8 +33,8 @@ public class Constants {
 
 
 
-    public static final String REPORT_SERVICE_USER_NAME = "bhoomiWS@2019";
-    public static final String REPORT_SERVICE_PASSWORD = "c2a2b557-c792-48f9-a4cd-56fdf45974b9";
+    public static final String CLWS_REST_SERVICE_USER_NAME = "bhoomiWS@2019";
+    public static final String CLWS_REST_SERVICE_PASSWORD = "c2a2b557-c792-48f9-a4cd-56fdf45974b9";
 
 
 

@@ -32,6 +32,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.room.Room;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
@@ -181,46 +183,6 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
                 progressBar.setVisibility(View.VISIBLE);
         }
         onClickAction();
-
-//        dataBaseHelper =
-//                Room.databaseBuilder(getApplicationContext(),
-//                        DataBaseHelper.class, getString(R.string.db_name)).build();
-//        Observable<String> stringObservable;
-//        stringObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getMaintenanceStatus(7));
-//        stringObservable
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Observer<String>() {
-//
-//
-//                    @Override
-//                    public void onSubscribe(Disposable d) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(String str) {
-//                        if (str.equals("false")){
-//                            android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(RestrictionOnLand.this).create();
-//                            alertDialog.setTitle(getString(R.string.status));
-//                            alertDialog.setMessage(getString(R.string.this_service_is_under_maintenance));
-//                            alertDialog.setCancelable(false);
-//                            alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE,getString(R.string.ok), (dialog, which) -> onBackPressed());
-//                            alertDialog.show();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        e.printStackTrace();
-//                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//
-//                    }
-//                });
 
     }
 
@@ -376,6 +338,14 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
             String villageName = spinner_village.getText().toString().trim();
             surveyNo = edittext_survey.getText().toString().trim();
 
+            String input = "{" +
+                    "\"Bhm_dist_code\": \""+district_id+"\"," +
+                    "\"Bhm_taluk_code\": \""+taluk_id+"\"," +
+                    "\"Bhm_hobli_code\":\""+hobli_id+"\"," +
+                    "\"village_code\": \""+village_id+"\"," +
+                    "\"survey_no\": \""+surveyNo+"\"" +
+                    "}";
+
             View focus = null;
             boolean status = false;
             if (TextUtils.isEmpty(districtName)) {
@@ -403,8 +373,14 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
                 focus.requestFocus();
             } else {
 //                surveyNo = Integer.parseInt(edittext_survey.getText().toString().trim());
-                if (isNetworkAvailable())
-                    mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo, getString(R.string.rtc_view_info_url));
+                if (isNetworkAvailable()){
+                    try {
+                        JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
+                        mTaskFragment.startBackgroundTask1(jsonObject, getString(R.string.rest_service_url));
+                    } catch (Exception e){
+                        Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
                 else
                     Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
 
@@ -559,22 +535,34 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
     }
 
     @Override
+    public void onPreExecute5() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess_GetDetails_VilWise(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_GetDetails_VilWise(String data) {
+
+    }
+
+    @Override
     public void onPostResponseError_FORHISSA(String data, int count) {
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
-        Log.d("count", count+"");
-        if (count != 2) {
-            mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo, getString(R.string.rtc_view_info_url_parihara));
-        }else {
-//            Toast.makeText(this, ""+data, Toast.LENGTH_SHORT).show();
+
+        if (data.contains("CertPathValidatorException")){
+            Toast.makeText(getApplicationContext(), ""+data, Toast.LENGTH_SHORT).show();
+        } else {
             final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(RestrictionOnLand.this, R.style.MyDialogTheme);
             builder.setTitle(getString(R.string.status))
                     .setMessage("Server is busy, Please try after sometime")
                     .setIcon(R.drawable.ic_notifications_black_24dp)
                     .setCancelable(false)
-                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
-                        dialog.cancel();
-                    });
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
             final android.app.AlertDialog alert = builder.create();
             alert.show();
             alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
@@ -585,7 +573,7 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
     public void onPostResponseError_Task2(String data, int count) {
 //        if (progressBar != null)
 //            progressBar.setVisibility(View.GONE);
-//        mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo, getString(R.string.rtc_view_info_url_parihara));
+//        mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo, getString(R.string.rest_service_url));
     }
 
     @Override

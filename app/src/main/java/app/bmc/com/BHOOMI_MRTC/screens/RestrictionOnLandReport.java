@@ -64,16 +64,6 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
 
     String district_id, taluk_id, hobli_id, village_id, surveyNo, suroc, hissa;
 
-    ProgressDialog progressDialog;
-
-    public final String OPERATION_NAME2 = "get_rtc_OwnerDetails";  //Method_name
-    public final String WSDL_TARGET_NAMESPACE2 = "http://tempuri.org/";  // NAMESPACE
-    String SOAP_ACTION2 = "http://tempuri.org/get_rtc_OwnerDetails";
-    String SOAP_ADDRESS2 = "https://landrecords.karnataka.gov.in/service46/WS_RTC_Details.asmx";
-    HttpTransportSE androidHttpTransport;
-    SoapSerializationEnvelope envelope;
-    SoapPrimitive resultString;
-    String resultFromServer;
     RtcViewInfoBackGroundTaskFragment mTaskFragment;
     private ProgressBar progressBar;
 
@@ -197,7 +187,7 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                                 else {
                                     JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
                                     progressBar.setVisibility(View.VISIBLE);
-                                    mTaskFragment.startBackgroundTask4(jsonObject, getString(R.string.server_report_url));
+                                    mTaskFragment.startBackgroundTask4(jsonObject, getString(R.string.rest_service_url));
                                 }
                             }
 
@@ -293,6 +283,21 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
     }
 
     @Override
+    public void onPreExecute5() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess_GetDetails_VilWise(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_GetDetails_VilWise(String data) {
+
+    }
+
+    @Override
     public void onPostResponseError_FORHISSA(String data, int count) {
 
     }
@@ -307,9 +312,7 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                     .setMessage(getString(R.string.no_data_found_for_this_record))
                     .setIcon(R.drawable.ic_notifications_black_24dp)
                     .setCancelable(false)
-                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
-                        dialog.cancel();
-                    });
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
             final AlertDialog alert = builder.create();
             alert.show();
             alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
@@ -421,124 +424,6 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
             alert.show();
             alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
 
-        }
-    }
-
-
-    private class GetRestrictionOnLandReport extends AsyncTask<String, Integer, String> {
-        String TAG = getClass().getSimpleName();
-
-        String distId, talkId, hblId, vlgId, surveyNO, surcoNo, hissaNo;
-        private GetRestrictionOnLandReport(String dId, String tId, String hId, String vId, String survey_No,
-                                          String surco_No, String hissa_No) {
-            this.distId = dId;
-            this.talkId = tId;
-            this.hblId = hId;
-            this.vlgId = vId;
-            this.surveyNO = survey_No;
-            this.surcoNo = surco_No;
-            this.hissaNo = hissa_No;
-        }
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = new ProgressDialog(RestrictionOnLandReport.this);
-            progressDialog.setMessage(getString(R.string.please_wait));
-            progressDialog.setCancelable(false);
-            progressDialog.show();
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-            SoapObject request = new SoapObject(WSDL_TARGET_NAMESPACE2, OPERATION_NAME2);
-            request.addProperty("DeptID", "WS_BMC_ID");
-            request.addProperty("DeptPassPhase", " fa16722b-36e0-40d1-805a-9026d600ab1d");
-            request.addProperty("Bhm_dist_code", distId);
-            request.addProperty("Bhm_taluk_code", talkId);
-            request.addProperty("Bhm_hobli_code", hblId);
-            request.addProperty("Bhm_village_code", vlgId);
-            request.addProperty("Bhm_survey_no", surveyNO);
-            request.addProperty("Bhm_surnoc", surcoNo);
-            request.addProperty("Bhm_Hissa", hissaNo);
-
-//            request.addProperty("DeptID", "WS_BMC_ID");
-//            request.addProperty("DeptPassPhase", " fa16722b-36e0-40d1-805a-9026d600ab1d");
-//            request.addProperty("Bhm_dist_code", "20");
-//            request.addProperty("Bhm_taluk_code", "2");
-//            request.addProperty("Bhm_hobli_code", "16");
-//            request.addProperty("Bhm_village_code", "36");
-//            request.addProperty("Bhm_survey_no", "1");
-//            request.addProperty("Bhm_surnoc", "*");
-//            request.addProperty("Bhm_Hissa", "1");
-
-
-            envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-            envelope.dotNet = true;
-            envelope.setOutputSoapObject(request);
-            androidHttpTransport = new HttpTransportSE(SOAP_ADDRESS2);
-
-            try {
-                androidHttpTransport.call(SOAP_ACTION2,envelope);
-                resultString = (SoapPrimitive) envelope.getResponse();
-                resultFromServer = String.valueOf(resultString);
-
-
-            } catch (IOException | XmlPullParserException e) {
-                e.printStackTrace();
-            }
-            return resultFromServer;
-        }
-
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-
-            if (result != null) {
-                try {
-                    progressDialog.dismiss();
-                    XmlToJson xmlToJson = new XmlToJson.Builder(result.replace("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>", "").trim()).build();
-                    // convert to a JSONObject
-                    JSONObject response = xmlToJson.toJson();
-                    assert response != null;
-                    JSONObject OwnerDetails_Obj = response.getJSONObject("OwnerDetails");
-                    JSONObject OWNERS_Obj = OwnerDetails_Obj.getJSONObject("OWNERS");
-                    JSONArray JOINT_OWNERS_jsonArray = OWNERS_Obj.getJSONArray("JOINT_OWNERS");
-
-                    String strJsonArray = JOINT_OWNERS_jsonArray.toString();
-                    strJsonArray = strJsonArray.replace("{\"OWNER\":","");
-                    strJsonArray = strJsonArray.replace("},\"EXTENT\"",",\"EXTENT\"");
-
-                    JSONArray final_JsonArray = new JSONArray(strJsonArray);
-
-                        Gson gson = new Gson();
-                        restrictionOnLandReportTableList = gson.fromJson(String.valueOf(final_JsonArray), new TypeToken<List<RestrictionOnLandReportTable>>() {
-                        }.getType());
-
-                    if (restrictionOnLandReportTableList.size() == 0) {
-                        final AlertDialog.Builder builder = new AlertDialog.Builder(RestrictionOnLandReport.this, R.style.MyDialogTheme);
-                        builder.setTitle(getString(R.string.status))
-                                .setMessage(getString(R.string.no_data_found_for_this_record))
-                                .setIcon(R.drawable.ic_notifications_black_24dp)
-                                .setCancelable(false)
-                                .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
-                        final AlertDialog alert = builder.create();
-                        alert.show();
-                        alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-                    } else {
-                        restrictionOnLandReportTableList.size();
-                        RestrictionOnLandReportAdapter adapter = new RestrictionOnLandReportAdapter(restrictionOnLandReportTableList);
-                        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-                        rvRestrictionReport.setLayoutManager(mLayoutManager);
-                        rvRestrictionReport.setItemAnimator(new DefaultItemAnimator());
-                        rvRestrictionReport.setAdapter(adapter);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }else {
-                progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(), "Result Null", Toast.LENGTH_SHORT).show();
-                finish();
-            }
         }
     }
 

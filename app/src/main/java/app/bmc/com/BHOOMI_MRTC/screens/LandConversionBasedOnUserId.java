@@ -168,9 +168,9 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
                                 progressDialog.setCancelable(false);
                                 progressDialog.show();
 
-                                PariharaIndividualReportInteface apiInterface = PariharaIndividualreportClient.getClient(getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
-                                call = apiInterface.getLandConversionBasedOnUserID(Constants.REPORT_SERVICE_USER_NAME,
-                                        Constants.REPORT_SERVICE_PASSWORD,userId);
+                                PariharaIndividualReportInteface apiInterface = PariharaIndividualreportClient.getClient(getString(R.string.rest_service_url)).create(PariharaIndividualReportInteface.class);
+                                call = apiInterface.getLandConversionBasedOnUserID(Constants.CLWS_REST_SERVICE_USER_NAME,
+                                        Constants.CLWS_REST_SERVICE_PASSWORD,userId);
                                 call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
                                     @Override
                                     public void onResponse(@NotNull Call<PariharaIndividualDetailsResponse>  call, @NotNull Response<PariharaIndividualDetailsResponse> response)

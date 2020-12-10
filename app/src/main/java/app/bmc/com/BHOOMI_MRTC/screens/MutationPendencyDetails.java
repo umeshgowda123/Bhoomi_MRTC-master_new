@@ -408,9 +408,9 @@ public class MutationPendencyDetails extends AppCompatActivity {
                                         progressDialog.setMessage(getString(R.string.please_wait));
                                         progressDialog.setCancelable(false);
                                         progressDialog.show();
-                                        apiInterface = PariharaIndividualreportClient.getClient(getResources().getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
-                                        call = apiInterface.getMutationPendingDetails(Constants.REPORT_SERVICE_USER_NAME,
-                                                Constants.REPORT_SERVICE_PASSWORD, pdistrict_id, ptaluk_id, phobli_id, pvillage_id);
+                                        apiInterface = PariharaIndividualreportClient.getClient(getResources().getString(R.string.rest_service_url)).create(PariharaIndividualReportInteface.class);
+                                        call = apiInterface.getMutationPendingDetails(Constants.CLWS_REST_SERVICE_USER_NAME,
+                                                Constants.CLWS_REST_SERVICE_PASSWORD, pdistrict_id, ptaluk_id, phobli_id, pvillage_id);
                                         call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
                                             @Override
                                             public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {

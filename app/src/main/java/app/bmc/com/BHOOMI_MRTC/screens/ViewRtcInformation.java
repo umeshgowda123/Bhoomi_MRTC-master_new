@@ -32,6 +32,8 @@ import android.widget.Toast;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
@@ -360,6 +362,14 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
             String villageName = spinner_village.getText().toString().trim();
             surveyNo = edittext_survey.getText().toString().trim();
 
+            String input = "{" +
+                    "\"Bhm_dist_code\": \""+district_id+"\"," +
+                    "\"Bhm_taluk_code\": \""+taluk_id+"\"," +
+                    "\"Bhm_hobli_code\":\""+hobli_id+"\"," +
+                    "\"village_code\": \""+village_id+"\"," +
+                    "\"survey_no\": \""+surveyNo+"\"" +
+                    "}";
+
             View focus = null;
             boolean status = false;
             if (TextUtils.isEmpty(districtName)) {
@@ -388,7 +398,12 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
             } else {
 //                surveyNo = Integer.parseInt(edittext_survey.getText().toString().trim());
                 if (isNetworkAvailable()) {
-                    mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo, getString(R.string.rtc_view_info_url));
+                    try {
+                        JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
+                        mTaskFragment.startBackgroundTask1(jsonObject, getString(R.string.rest_service_url));
+                    } catch (Exception e){
+                        Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
@@ -563,33 +578,38 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
 
     }
 
+    @Override
+    public void onPreExecute5() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess_GetDetails_VilWise(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_GetDetails_VilWise(String data) {
+
+    }
+
     public void onPostResponseError_FORHISSA(String data, int count) {
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
-        Log.d("count", count+""+data);
-        if (count != 2) {
-            mTaskFragment.startBackgroundTask1(district_id, taluk_id, hobli_id, village_id, surveyNo, getString(R.string.rtc_view_info_url_parihara));
-        }else {
-//            Toast.makeText(this, ""+data, Toast.LENGTH_SHORT).show();
-            if (data.contains("CertPathValidatorException")){
-                Toast.makeText(getApplicationContext(), ""+data, Toast.LENGTH_SHORT).show();
-            } else {
-                final AlertDialog.Builder builder = new AlertDialog.Builder(ViewRtcInformation.this, R.style.MyDialogTheme);
-                builder.setTitle(getString(R.string.status))
-                        .setMessage("Server is busy, Please try after sometime")
-                        .setIcon(R.drawable.ic_notifications_black_24dp)
-                        .setCancelable(false)
-                        .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
-                            dialog.cancel();
 
-                        });
-                final AlertDialog alert = builder.create();
-                alert.show();
-                alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-            }
-
-            }
-
+        if (data.contains("CertPathValidatorException")){
+            Toast.makeText(getApplicationContext(), ""+data, Toast.LENGTH_SHORT).show();
+        } else {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(ViewRtcInformation.this, R.style.MyDialogTheme);
+            builder.setTitle(getString(R.string.status))
+                    .setMessage("Server is busy, Please try after sometime")
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
+            final AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        }
     }
 
     @Override

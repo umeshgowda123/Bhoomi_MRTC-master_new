@@ -31,6 +31,22 @@ public class PariharaIndividualDetailsResponse {
     @Expose
     public String FnGetServiceStatusResult;
 
+    @SerializedName("GetDetails_VillageWise_JSONResult")
+    @Expose
+    public String Details_VillageWise_JSONResult;
+
+    public void setGetLandRestrictionResult(String getLandRestrictionResult) {
+        GetLandRestrictionResult = getLandRestrictionResult;
+    }
+
+    public String getDetails_VillageWise_JSONResult() {
+        return Details_VillageWise_JSONResult;
+    }
+
+    public void setDetails_VillageWise_JSONResult(String details_VillageWise_JSONResult) {
+        Details_VillageWise_JSONResult = details_VillageWise_JSONResult;
+    }
+
     public String getFnGetServiceStatusResult() {
         return FnGetServiceStatusResult;
     }

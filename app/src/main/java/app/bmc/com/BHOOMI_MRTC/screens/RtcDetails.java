@@ -19,7 +19,6 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -27,6 +26,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -77,6 +78,8 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
 
     private List<VR_RES_Interface> VR_RES_Data;
 
+    String input;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,9 +127,18 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                 progressBar.setVisibility(View.VISIBLE);
         }
 
+        input = "{" +
+                "\"Bhm_dist_code\": \""+distId+"\"," +
+                "\"Bhm_taluk_code\": \""+talkId+"\"," +
+                "\"Bhm_hobli_code\":\""+hblId+"\"," +
+                "\"village_code\": \""+villId+"\"," +
+                "\"land_code\": \""+land_no+"\"" +
+                "}";
+
         if (RTC.equals("RTC")) {
             if (distId != null && talkId != null && hblId != null && villId != null && land_no != null) {
                 if (isNetworkAvailable()) {
+
                     dataBaseHelper =
                             Room.databaseBuilder(getApplicationContext(),
                                     DataBaseHelper.class, getString(R.string.db_name)).build();
@@ -153,7 +165,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                                             String Cult = VR_RES_Data.get(0).getVR_CULT_RES();
 
                                             try {
-                                                Object object = new Object();
+                                                Object object;
 
                                                 JSONObject obj = new JSONObject(LansOwner);
                                                 JSONObject rtc = obj.getJSONObject("rtc");
@@ -214,7 +226,12 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                                     }
                                     else {
                                         progressBar.setVisibility(View.VISIBLE);
-                                        mTaskFragment.startBackgroundTask2(distId, talkId, hblId, villId, land_no, getString(R.string.rtc_view_info_url));
+                                        try {
+                                            JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
+                                            mTaskFragment.startBackgroundTask2(jsonObject, getString(R.string.rest_service_url));
+                                        } catch (Exception e){
+                                            Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                        }
                                     }
                                 }
 
@@ -258,30 +275,21 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
 
     @Override
     public void onPostResponseError_Task2(String data, int count) {
-//        if (progressBar != null)
-//            progressBar.setVisibility(View.GONE);
-//        Toast.makeText(getApplicationContext(), data, Toast.LENGTH_LONG).show();
-//        mTaskFragment.startBackgroundTask2(distId, talkId, hblId, villId, land_no, getString(R.string.rtc_view_info_url_parihara));
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
-        Log.d("count", count+"");
-        if (count != 2) {
-            mTaskFragment.startBackgroundTask2(distId, talkId, hblId, villId, land_no, getString(R.string.rtc_view_info_url_parihara));
-        }else {
-//            Toast.makeText(this, "" + data, Toast.LENGTH_SHORT).show();
+
+        if (data.contains("CertPathValidatorException")){
+            Toast.makeText(getApplicationContext(), ""+data, Toast.LENGTH_SHORT).show();
+        } else {
             final AlertDialog.Builder builder = new AlertDialog.Builder(RtcDetails.this, R.style.MyDialogTheme);
             builder.setTitle(getString(R.string.status))
                     .setMessage("Server is busy, Please try after sometime")
                     .setIcon(R.drawable.ic_notifications_black_24dp)
                     .setCancelable(false)
-                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
-                        dialog.cancel();
-                        finish();
-                    });
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
             final AlertDialog alert = builder.create();
             alert.show();
             alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-
         }
     }
 
@@ -314,8 +322,8 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                 progressBar.setVisibility(View.GONE);
             XmlToJson xmlToJson = new XmlToJson.Builder(data.replace("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>", "").trim()).build();
             // convert to a JSONObject
-            JSONObject jsonObject = xmlToJson.toJson();
-            Object object = new Object();
+            //JSONObject jsonObject = xmlToJson.toJson();
+            Object object;
 
             // convert to a formatted Json String
             formattedLand = xmlToJson.toFormattedString().replace("\n", "");
@@ -358,7 +366,12 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                         staticinfopahani = new Staticinfopahani();
                     }
                 }
-                mTaskFragment.startBackgroundTaskCultivatorData(distId, talkId, hblId, villId, land_no, getString(R.string.rtc_view_info_url));
+                try {
+                    JsonObject jsonObject1 = new JsonParser().parse(input).getAsJsonObject();
+                    mTaskFragment.startBackgroundTaskCultivatorData(jsonObject1, getString(R.string.rest_service_url));
+                } catch (Exception e){
+                    Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                }
 
                 survey_new = survey;
                 OwnerDetailsFragment = jointOwners.toString();
@@ -405,28 +418,38 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
 //        if (progressBar != null)
 //            progressBar.setVisibility(View.GONE);
 ////        Toast.makeText(getApplicationContext(), errorResponse, Toast.LENGTH_LONG).show();
-//        mTaskFragment.startBackgroundTaskCultivatorData(distId, talkId, hblId, villId, land_no, getString(R.string.rtc_view_info_url_parihara));
+//        mTaskFragment.startBackgroundTaskCultivatorData(distId, talkId, hblId, villId, land_no, getString(R.string.rest_service_url));
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
-        Log.d("count", count+"");
-        if (count != 2) {
-        mTaskFragment.startBackgroundTaskCultivatorData(distId, talkId, hblId, villId, land_no, getString(R.string.rtc_view_info_url_parihara));
-        }else {
-//            Toast.makeText(this, ""+errorResponse, Toast.LENGTH_SHORT).show();
+
+        if (errorResponse.contains("CertPathValidatorException")){
+            Toast.makeText(getApplicationContext(), ""+errorResponse, Toast.LENGTH_SHORT).show();
+        } else {
             final AlertDialog.Builder builder = new AlertDialog.Builder(RtcDetails.this, R.style.MyDialogTheme);
             builder.setTitle(getString(R.string.status))
                     .setMessage(""+errorResponse)
                     .setIcon(R.drawable.ic_notifications_black_24dp)
                     .setCancelable(false)
-                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
-                        dialog.cancel();
-                        finish();
-                    });
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
             final AlertDialog alert = builder.create();
             alert.show();
             alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-
         }
+    }
+
+    @Override
+    public void onPreExecute5() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess_GetDetails_VilWise(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_GetDetails_VilWise(String data) {
+
     }
 
     @SuppressLint("CheckResult")
@@ -435,9 +458,6 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
         if (progressBar!=null)
             progressBar.setVisibility(View.GONE);
         XmlToJson xmlToJson = new XmlToJson.Builder(gettcDataResult.replace("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>", "").trim()).build();
-        // convert to a JSONObject
-        JSONObject jsonObject = xmlToJson.toJson();
-        Object object = new Object();
 
         // convert to a formatted Json String
         formattedCult = xmlToJson.toFormattedString().replace("\n", "");
