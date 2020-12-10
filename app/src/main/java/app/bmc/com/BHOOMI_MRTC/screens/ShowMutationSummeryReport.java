@@ -20,7 +20,7 @@ public class ShowMutationSummeryReport extends AppCompatActivity {
         setContentView(R.layout.activity_show_mutation_summery_report);
 
         webView = findViewById(R.id.webView);
-        htmlResponseData = (String) getIntent().getStringExtra("html_response_data");
+        htmlResponseData = getIntent().getStringExtra("html_response_data");
 
         showData(htmlResponseData);
 

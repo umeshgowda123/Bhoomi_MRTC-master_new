@@ -419,6 +419,7 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                     .setCancelable(false)
                     .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
                         dialog.cancel();
+                        onBackPressed();
                     });
             final AlertDialog alert = builder.create();
             alert.show();
