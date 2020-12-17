@@ -48,7 +48,7 @@ public class RestrictionOnLandReportAdapter extends RecyclerView.Adapter<Restric
         holder.tvTrnscRunning.setText(list.get(position).getTransactionRunning());
         String str = list.get(position).getPyki_surveyor_desc();
         if (TextUtils.isEmpty(str)){
-            str = "Pyki update not happened on the selected survey number";
+            str = "No";
         }
         holder.tvPyki.setText(str);
 
