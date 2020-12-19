@@ -1,54 +1,41 @@
 package app.bmc.com.BHOOMI_MRTC.screens;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.room.Room;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import app.bmc.com.BHOOMI_MRTC.R;
-import app.bmc.com.BHOOMI_MRTC.api.PariharaIndividualReportInteface;
 import app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper;
 import app.bmc.com.BHOOMI_MRTC.model.MST_VLM;
-import app.bmc.com.BHOOMI_MRTC.model.Maintenance_Flags;
-import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
-import app.bmc.com.BHOOMI_MRTC.retrofit.PariharaIndividualreportClient;
-import app.bmc.com.BHOOMI_MRTC.util.Constants;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+
+import static app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper.MIGRATION_1_2;
+import static app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper.MIGRATION_2_3;
 
 public class AppLauncher extends AppCompatActivity {
     private DataBaseHelper dataBaseHelper;
@@ -64,10 +51,11 @@ public class AppLauncher extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
-        Log.d("Status_AppLau", "enter1");
 
-        dataBaseHelper = Room.databaseBuilder(AppLauncher.this,
-                        DataBaseHelper.class, getString(R.string.db_name)).build();
+        dataBaseHelper = Room.databaseBuilder(AppLauncher.this, DataBaseHelper.class, getString(R.string.db_name))
+                .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+                .build();
+
         Observable<Integer> noOfRows;
         noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumberOfRows());
         noOfRows

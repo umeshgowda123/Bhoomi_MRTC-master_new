@@ -1,5 +1,6 @@
 package app.bmc.com.BHOOMI_MRTC.screens;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -40,8 +42,13 @@ import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import app.bmc.com.BHOOMI_MRTC.R;
@@ -54,6 +61,7 @@ import app.bmc.com.BHOOMI_MRTC.model.RestrictionOnLandReportTable;
 import fr.arnaudguyon.xmltojsonlib.XmlToJson;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -70,8 +78,6 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
     private DataBaseHelper dataBaseHelper;
     String strData;
     List<RLR_RES_Interface> RLR_RES_Data;
-
-
 
 
     @Override
@@ -446,6 +452,12 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
     public List<R_LAND_REPORT_TABLE> loadData() {
 //        Toast.makeText(this, "LoadData", Toast.LENGTH_SHORT).show();
         List<R_LAND_REPORT_TABLE> r_land_report_tables_arr = new ArrayList<>();
+
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        String currentDate = df.format(c);
+        Log.d("currentDate", ""+currentDate);
+
         try {
             R_LAND_REPORT_TABLE land_report_table = new R_LAND_REPORT_TABLE();
             land_report_table.setRLR_DST_ID(district_id);
@@ -456,6 +468,7 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
             land_report_table.setRLR_SUROC(suroc);
             land_report_table.setRLR_HISSA(hissa);
             land_report_table.setRLR_RES(strData);
+            land_report_table.setRLR_UPD_DATE(currentDate);
             r_land_report_tables_arr.add(land_report_table);
 
         } catch (Exception e) {

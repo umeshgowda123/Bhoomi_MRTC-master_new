@@ -20,6 +20,8 @@ public class MS_REPORT_TABLE {
     private String MSR_SNO;
     @ColumnInfo(name = "MSR_RES")
     private String MSR_RES;
+    @ColumnInfo(name = "MSR_UPD_DATE")
+    private String MSR_UPD_DATE;
 
     public int getId() {
         return id;
@@ -75,5 +77,13 @@ public class MS_REPORT_TABLE {
 
     public void setMSR_RES(String MSR_RES) {
         this.MSR_RES = MSR_RES;
+    }
+
+    public String getMSR_UPD_DATE() {
+        return MSR_UPD_DATE;
+    }
+
+    public void setMSR_UPD_DATE(String MSR_UPD_DATE) {
+        this.MSR_UPD_DATE = MSR_UPD_DATE;
     }
 }

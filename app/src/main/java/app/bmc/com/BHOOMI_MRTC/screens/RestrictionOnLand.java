@@ -42,7 +42,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -56,6 +60,7 @@ import app.bmc.com.BHOOMI_MRTC.interfaces.HobliModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.TalukModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.VillageModelInterface;
 import app.bmc.com.BHOOMI_MRTC.model.Hissa_Response;
+import app.bmc.com.BHOOMI_MRTC.model.R_LAND_REPORT_TABLE;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
 import fr.arnaudguyon.xmltojsonlib.XmlToJson;
 import io.reactivex.Observable;
@@ -183,6 +188,90 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
                 progressBar.setVisibility(View.VISIBLE);
         }
         onClickAction();
+
+        Observable<String> dateObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getUpdDateOfRLR());
+        dateObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        Log.d("MAX(RLR_UPD_DATE)", ""+s);
+                        try {
+                            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+                            Date date = Calendar.getInstance().getTime();
+                            Log.d("CurrentDate", ""+date);
+                            String convertedDate = df.format(date);
+                            Log.d("CurrentDate", ""+convertedDate);
+                            Date currentDate = df.parse(convertedDate);
+                            Log.d("CurrentDate", ""+currentDate);
+
+                            Date DBDate = df.parse(s);
+                            Log.d("DBDate", ""+DBDate);
+                            assert currentDate != null;
+                            int curVal = currentDate.compareTo(DBDate);
+                            Log.d("MAXDate", ""+curVal);
+                            boolean val = currentDate.after(DBDate);
+                            Log.d("MAXDate_bool", ""+val);
+                            if (val){
+                                deleteResponseByID();
+                            }
+
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
+
+    private void deleteResponseByID() {
+
+        dataBaseHelper =
+                Room.databaseBuilder(getApplicationContext(),
+                        DataBaseHelper.class, getString(R.string.db_name)).build();
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteAllRLRResponse());
+        noOfRows
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+                        Log.d("DB_Data", "Deleted Successfully");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
 
     }
 

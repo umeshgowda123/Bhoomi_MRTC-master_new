@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import java.util.Date;
 import java.util.List;
 
 import app.bmc.com.BHOOMI_MRTC.model.BankMasterData;
@@ -186,6 +187,9 @@ public interface DataBaseAccess {
     @Query("SELECT COUNT(id) FROM MS_REPORT_TABLE ")
     int getNumOfRowsMSR();
 
+    @Query("Select MAX(MSR_UPD_DATE) as MSR_UPD_DATE From MS_REPORT_TABLE")
+    String getUpdDateOfMSR();
+
     @Query("SELECT MSR_RES FROM MS_REPORT_TABLE WHERE MSR_DST_ID = :MSR_DST_ID AND MSR_TLK_ID = :MSR_TLK_ID AND MSR_HBL_ID = :MSR_HBL_ID AND MSR_VLG_ID = :MSR_VLG_ID AND MSR_SNO = :MSR_SNO")
     List<MSR_RES_Data> getMSR_RES(int MSR_DST_ID, int MSR_TLK_ID, int MSR_HBL_ID, int MSR_VLG_ID, String MSR_SNO);
 
@@ -202,6 +206,9 @@ public interface DataBaseAccess {
 
     @Query("SELECT COUNT(id) FROM R_LAND_REPORT_TABLE ")
     int getNumOfRowsRLR();
+
+    @Query("Select MAX(RLR_UPD_DATE) as RLR_UPD_DATE From R_LAND_REPORT_TABLE")
+    String getUpdDateOfRLR();
 
     @Query("SELECT RLR_RES FROM R_LAND_REPORT_TABLE WHERE RLR_DST_ID = :RLR_DST_ID AND RLR_TLK_ID = :RLR_TLK_ID AND RLR_HBL_ID = :RLR_HBL_ID" +
             " AND RLR_VLG_ID = :RLR_VLG_ID AND RLR_SNO = :RLR_SNO AND RLR_SUROC = :RLR_SUROC AND RLR_HISSA = :RLR_HISSA")

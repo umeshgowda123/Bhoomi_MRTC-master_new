@@ -1,7 +1,10 @@
 package app.bmc.com.BHOOMI_MRTC.database;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import app.bmc.com.BHOOMI_MRTC.model.BankMasterData;
 import app.bmc.com.BHOOMI_MRTC.model.CalamityDetails;
@@ -20,7 +23,28 @@ import app.bmc.com.BHOOMI_MRTC.model.V_MUTATION_STATUS_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.YearDetails;
 
 
-@Database(entities = {MST_VLM.class, Maintenance_Flags.class, YearDetails.class, SeasonDetails.class, CalamityDetails.class, BankMasterData.class, PacsBankMasterData.class, VR_INFO.class, MPD_TABLE.class, MS_REPORT_TABLE.class, R_LAND_REPORT_TABLE.class, V_MUTATION_STATUS_TABLE.class, RTC_VERIFICATION_TABLE.class, LandConversion_TABLE.class, LandConversion_Final_Order_TABLE.class}, version = 1, exportSchema = false)
+@Database(entities = {MST_VLM.class, Maintenance_Flags.class, YearDetails.class, SeasonDetails.class,
+        CalamityDetails.class, BankMasterData.class, PacsBankMasterData.class, VR_INFO.class, MPD_TABLE.class,
+        MS_REPORT_TABLE.class, R_LAND_REPORT_TABLE.class, V_MUTATION_STATUS_TABLE.class, RTC_VERIFICATION_TABLE.class,
+        LandConversion_TABLE.class, LandConversion_Final_Order_TABLE.class}, version = 3, exportSchema = false)
 public abstract class DataBaseHelper extends RoomDatabase {
     public abstract DataBaseAccess daoAccess();
+
+    public static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("Alter TABLE MS_REPORT_TABLE ADD Column MSR_UPD_DATE TEXT");
+            database.execSQL("Alter TABLE R_LAND_REPORT_TABLE ADD Column RLR_UPD_DATE TEXT");
+        }
+    };
+
+    public static final Migration MIGRATION_2_3 = new Migration(2, 3) {
+
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("Alter TABLE MPD_TABLE ADD Column MPD_UPD_DATE TEXT");
+//            database.execSQL("Update sqlite_sequence set seq = 0 where name!='MST_VLM'");
+        }
+    };
 }

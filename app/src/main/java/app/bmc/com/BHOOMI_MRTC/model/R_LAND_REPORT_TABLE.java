@@ -24,6 +24,8 @@ public class R_LAND_REPORT_TABLE {
     private String RLR_HISSA;
     @ColumnInfo(name = "RLR_RES")
     private String RLR_RES;
+    @ColumnInfo(name = "RLR_UPD_DATE")
+    private String RLR_UPD_DATE;
 
     public int getId() {
         return id;
@@ -95,5 +97,13 @@ public class R_LAND_REPORT_TABLE {
 
     public void setRLR_RES(String RLR_RES) {
         this.RLR_RES = RLR_RES;
+    }
+
+    public String getRLR_UPD_DATE() {
+        return RLR_UPD_DATE;
+    }
+
+    public void setRLR_UPD_DATE(String RLR_UPD_DATE) {
+        this.RLR_UPD_DATE = RLR_UPD_DATE;
     }
 }

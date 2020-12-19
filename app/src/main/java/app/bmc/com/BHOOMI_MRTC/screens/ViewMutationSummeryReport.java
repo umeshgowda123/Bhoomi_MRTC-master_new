@@ -19,6 +19,7 @@ import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -29,7 +30,10 @@ import android.widget.Toast;
 
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -575,6 +579,11 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
 //        Toast.makeText(this, "LoadData", Toast.LENGTH_SHORT).show();
         List<MS_REPORT_TABLE> ms_report_tables_arr = new ArrayList<>();
 
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        String currentDate = df.format(c);
+        Log.d("currentDate", ""+currentDate);
+
         try {
             MS_REPORT_TABLE ms_report_table = new MS_REPORT_TABLE();
             ms_report_table.setMSR_DST_ID(district_id);
@@ -583,6 +592,7 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
             ms_report_table.setMSR_VLG_ID(village_id);
             ms_report_table.setMSR_SNO(surveyNumber);
             ms_report_table.setMSR_RES(s);
+            ms_report_table.setMSR_UPD_DATE(currentDate);
             ms_report_tables_arr.add(ms_report_table);
 
         } catch (Exception e) {
