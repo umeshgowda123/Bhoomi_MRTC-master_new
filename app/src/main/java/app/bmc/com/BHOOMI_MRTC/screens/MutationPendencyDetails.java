@@ -363,9 +363,6 @@ public class MutationPendencyDetails extends AppCompatActivity {
 
 
                     //----------------------------------LOCAl DB DATA PRESENT CHECK-----------------------------------------------------------
-                    dataBaseHelper =
-                            Room.databaseBuilder(getApplicationContext(),
-                                    DataBaseHelper.class, getString(R.string.db_name)).build();
                     Observable<List<? extends MPD_RES_Interface>> districtDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getMPD_RES(pdistrict_id,ptaluk_id,phobli_id,pvillage_id));
                     districtDataObservable
                             .subscribeOn(Schedulers.io())
@@ -435,9 +432,6 @@ public class MutationPendencyDetails extends AppCompatActivity {
                                                     } else {
 
                                                         //---------DB INSERT-------
-                                                        dataBaseHelper =
-                                                                Room.databaseBuilder(getApplicationContext(),
-                                                                        DataBaseHelper.class, getString(R.string.db_name)).build();
                                                         Observable<Integer> noOfRows;
                                                         noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumOfRowsMPDTbl());
                                                         noOfRows
@@ -592,9 +586,6 @@ public class MutationPendencyDetails extends AppCompatActivity {
 
     private void deleteAllResponse(List<MPD_TABLE> MPD_List) {
 
-        dataBaseHelper =
-                Room.databaseBuilder(getApplicationContext(),
-                        DataBaseHelper.class, getString(R.string.db_name)).build();
         Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteResponse());
         noOfRows
                 .subscribeOn(Schedulers.io())

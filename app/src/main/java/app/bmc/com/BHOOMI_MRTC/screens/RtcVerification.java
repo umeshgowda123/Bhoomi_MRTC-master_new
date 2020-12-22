@@ -58,15 +58,6 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rtc_verification);
 
-//        AlertDialog alertDialog = new AlertDialog.Builder(RtcVerification.this).create();
-//        // alertDialog.setTitle("Reset...");
-//        alertDialog.setMessage("This Service is Still Under Maintenance");
-//        alertDialog.setCancelable(false);
-//        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE,"OK", (dialog, which) -> onBackPressed());
-//
-//        alertDialog.show();
-
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
@@ -81,7 +72,13 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
         getRtcDataBtn = findViewById(R.id.btn_get_rtc_data);
         clearReferenceNoBtn = findViewById(R.id.btn_clear_reference_no);
         referenceNumber = findViewById(R.id.etRefNum);
+
         onButtonClickActions();
+
+        dataBaseHelper =
+                Room.databaseBuilder(getApplicationContext(),
+                        DataBaseHelper.class, getString(R.string.db_name)).build();
+
         FragmentManager fm = getSupportFragmentManager();
         mTaskFragment = (RtcXmlverificationBackGroundTask) fm.findFragmentByTag(RtcXmlverificationBackGroundTask.TAG_HEADLESS_FRAGMENT);
 
@@ -165,9 +162,7 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
                     JsonObject jsonObject = new JsonParser().parse(values1).getAsJsonObject();
 
                     //---------------------------------------------------------------------------
-                    dataBaseHelper =
-                            Room.databaseBuilder(getApplicationContext(),
-                                    DataBaseHelper.class, getString(R.string.db_name)).build();
+
                     Observable<List<? extends RTCV_RES_Interface>> districtDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getREFF_RES(referenceNo));
                     districtDataObservable
                             .subscribeOn(Schedulers.io())
@@ -265,10 +260,6 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
             progressBar.setVisibility(View.GONE);
         responseData = data;
         //---------DB INSERT-------
-
-        dataBaseHelper =
-                Room.databaseBuilder(getApplicationContext(),
-                        DataBaseHelper.class, getString(R.string.db_name)).build();
 
         //---------------------------------------------------------------------------------------------
         if (responseData.contains("No Information Found")||responseData.contains("SqlException")) {
@@ -386,9 +377,6 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
 
     private void deleteResponseByID(final List<RTC_VERIFICATION_TABLE> rtc_verification_tableList, String data) {
 
-        dataBaseHelper =
-                Room.databaseBuilder(getApplicationContext(),
-                        DataBaseHelper.class, getString(R.string.db_name)).build();
         Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteAllRTCVResponse());
         noOfRows
                 .subscribeOn(Schedulers.io())

@@ -65,6 +65,7 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
     private int taluk_id;
     private int hobli_id;
     private int village_id;
+    boolean clearData;
 
     String SOAP_ACTION2 = "http://tempuri.org/GetDetails_VillageWise_JSON";
     public final String OPERATION_NAME2 = "GetDetails_VillageWise_JSON";  //Method_name
@@ -117,6 +118,13 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
                         DataBaseHelper.class, getString(R.string.db_name)).build();
+
+        Intent i = getIntent();
+        clearData = i.getBooleanExtra("clearData", false);
+
+        if (clearData){
+            deleteDBData();
+        }
 
         Observable<List<? extends DistrictModelInterface>> districtDataObservable = Observable.fromCallable(() -> language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getDistinctDistricts() : dataBaseHelper.daoAccess().getDistinctDistrictsKannada());
         districtDataObservable
@@ -352,7 +360,6 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
                 if (isNetworkAvailable())
                 {
                     Intent intent = new Intent(ViewRtcInformationByOwnerName.this, ShowRtcDetailsBYOwnerName.class);
-
                     intent.putExtra("distId", district_id + "");
                     intent.putExtra("talkId", taluk_id + "");
                     intent.putExtra("hblId", hobli_id + "");
@@ -388,6 +395,35 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
         Configuration conf = res.getConfiguration();
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
+    }
+
+    private void deleteDBData(){
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteResponseRow());
+        noOfRows
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
     }
 
 

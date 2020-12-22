@@ -17,7 +17,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,10 +34,12 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 import static app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper.MIGRATION_1_2;
-import static app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper.MIGRATION_2_3;
 
 public class AppLauncher extends AppCompatActivity {
     private DataBaseHelper dataBaseHelper;
+    Date date;
+    SimpleDateFormat df;
+    String currentDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +53,13 @@ public class AppLauncher extends AppCompatActivity {
             window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
 
+        date = Calendar.getInstance().getTime();
+        df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        currentDate = df.format(date);
+        Log.d("currentDate", ""+currentDate);
+
         dataBaseHelper = Room.databaseBuilder(AppLauncher.this, DataBaseHelper.class, getString(R.string.db_name))
-                .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+                .addMigrations(MIGRATION_1_2)
                 .build();
 
         Observable<Integer> noOfRows;
@@ -73,14 +79,10 @@ public class AppLauncher extends AppCompatActivity {
                     public void onNext(Integer integer) {
                         if (integer == 0) {
                             List<MST_VLM> mst_vlmList = loadDataFromCsv();
-                            createMasterData(mst_vlmList);
+                            createMasterData(mst_vlmList, currentDate);
                         }
                         else {
-                            new Handler().postDelayed(() -> {
-                                Intent intent = new Intent(AppLauncher.this, BhoomiHomePage.class);
-                                startActivity(intent);
-                                finish();
-                            }, 1000);
+                            verifyUPDDate(currentDate);
                         }
                     }
 
@@ -152,7 +154,157 @@ public class AppLauncher extends AppCompatActivity {
         return mst_vlms;
     }
 
-    public void createMasterData(final List<MST_VLM> mst_vlmList) {
+    public void verifyUPDDate(String currentDate){
+        Observable<Integer> getCountUpdatedTbl;
+        getCountUpdatedTbl = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getCountOfUpdDate());
+        getCountUpdatedTbl
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+                        if(integer == 0){
+                            createUPDATE_DateTbl(currentDate, true);
+                        } else {
+                            checkUPD_Date(currentDate);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    public void createUPDATE_DateTbl(String str_date, boolean clearData){
+        Observable<Long> insertUpdDateTbl = Observable.fromCallable(() -> dataBaseHelper.daoAccess().insertUpdatedDate(1, str_date));
+        insertUpdDateTbl
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Long>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Long longs) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        new Handler().postDelayed(() -> {
+                            Intent intent = new Intent(AppLauncher.this, BhoomiHomePage.class);
+                            intent.putExtra("clearData", clearData);
+                            startActivity(intent);
+                            finish();
+                        }, 1000);
+                    }
+                });
+    }
+
+    public void checkUPD_Date(String curDate){
+        Observable<String> insertUpdDateTbl = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getUPD_DATE());
+        insertUpdDateTbl
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        if (s!=null){
+//                            try {
+//                                Date currentDate = df.parse(curDate);
+//                                Log.d("CurrentDate", ""+currentDate);
+//                                Date DBDate = df.parse(s);
+//                                Log.d("DBDate", ""+DBDate);
+//                                assert currentDate != null;
+//                                boolean compareDate = currentDate.after(DBDate);
+//                                Log.d("compareDate", ""+compareDate);
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+
+                            boolean compareDateString = curDate.equals(s);
+                            Log.d("compareDateString", ""+compareDateString);
+                            if (compareDateString){
+                                new Handler().postDelayed(() -> {
+                                    Intent intent = new Intent(AppLauncher.this, BhoomiHomePage.class);
+                                    intent.putExtra("clearData", false);
+                                    startActivity(intent);
+                                    finish();
+                                }, 1000);
+                            } else {
+                                deleteUpdDateTable(curDate);
+                            }
+                        } else {
+                            deleteUpdDateTable(curDate);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    public void deleteUpdDateTable(String currentDate){
+        Log.d("deleteUpdDateTable", "Deleted");
+        Observable<Integer> insertMasterObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteUpdDateTable());
+        insertMasterObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        createUPDATE_DateTbl(currentDate, true);
+                    }
+                });
+    }
+
+    public void createMasterData(final List<MST_VLM> mst_vlmList, String currentDate) {
         Observable<Long[]> insertMasterObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().insertMasterData(mst_vlmList));
         insertMasterObservable
                 .subscribeOn(Schedulers.io())
@@ -168,11 +320,7 @@ public class AppLauncher extends AppCompatActivity {
                     @Override
                     public void onNext(Long[] longs) {
                         Log.d("Status_AppLau", "enter3 CreatedMasterData");
-                        new Handler().postDelayed(() -> {
-                            Intent intent = new Intent(AppLauncher.this, BhoomiHomePage.class);
-                            startActivity(intent);
-                            finish();
-                        }, 1000);
+                        verifyUPDDate(currentDate);
                     }
 
                     @Override

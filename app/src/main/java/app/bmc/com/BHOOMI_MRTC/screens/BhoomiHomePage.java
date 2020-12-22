@@ -1,25 +1,19 @@
 package app.bmc.com.BHOOMI_MRTC.screens;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.room.Room;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Build;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 
-import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -38,11 +32,6 @@ import com.google.android.play.core.install.model.AppUpdateType;
 import com.google.android.play.core.install.model.InstallStatus;
 import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.android.play.core.tasks.Task;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -53,23 +42,16 @@ import java.util.List;
 import java.util.Locale;
 
 import app.bmc.com.BHOOMI_MRTC.R;
-import app.bmc.com.BHOOMI_MRTC.api.PariharaIndividualReportInteface;
 import app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper;
 import app.bmc.com.BHOOMI_MRTC.model.CalamityDetails;
-import app.bmc.com.BHOOMI_MRTC.model.Maintenance_Flags;
-import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
 import app.bmc.com.BHOOMI_MRTC.model.SeasonDetails;
 import app.bmc.com.BHOOMI_MRTC.model.YearDetails;
-import app.bmc.com.BHOOMI_MRTC.retrofit.PariharaIndividualreportClient;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class BhoomiHomePage extends AppCompatActivity {
 
@@ -87,6 +69,8 @@ public class BhoomiHomePage extends AppCompatActivity {
     private InstallStateUpdatedListener installStateUpdatedListener;
     LinearLayout linearLayout_bhoomi;
     private DataBaseHelper dataBaseHelper;
+    boolean clearData;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,9 +91,9 @@ public class BhoomiHomePage extends AppCompatActivity {
             window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
 
-//        dialog = new ProgressDialog(BhoomiHomePage.this);
-//        dialog.setMessage(getString(R.string.loading));
-//        dialog.setCancelable(false);
+        progressDialog = new ProgressDialog(BhoomiHomePage.this);
+        progressDialog.setMessage(getString(R.string.please_wait));
+        progressDialog.setCancelable(false);
 
         checkForAppUpdate();
 
@@ -126,10 +110,17 @@ public class BhoomiHomePage extends AppCompatActivity {
         view_land_conversion = findViewById(R.id.view_land_conversion);
         download_Conversion_order = findViewById(R.id.download_Conversion_order);
 
+        Intent i = getIntent();
+        clearData = i.getBooleanExtra("clearData", false);
 
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
                         DataBaseHelper.class, getString(R.string.db_name)).build();
+
+        if (clearData){
+            progressDialog.show();
+            deleteViewRTCInformationTbl();
+        }
 
         loadCalamityMasterData();
         //createMaintenanceTbl();
@@ -216,212 +207,6 @@ public class BhoomiHomePage extends AppCompatActivity {
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
     }
-
-//    private boolean isNetworkAvailable() {
-//        ConnectivityManager connectivityManager
-//                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-//        assert connectivityManager != null;
-//        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-//        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-//    }
-
-//    public void createMaintenanceTbl(){
-//        dialog.show();
-//        if (isNetworkAvailable()){
-//            apiInterface = PariharaIndividualreportClient.getClient(getResources().getString(R.string.server_report_url)).create(PariharaIndividualReportInteface.class);
-//            call = apiInterface.FnGetServiceStatus(Constants.REPORT_SERVICE_USER_NAME,
-//                    Constants.REPORT_SERVICE_PASSWORD,1);
-//            call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
-//                @Override
-//                public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {
-//                    if (response.isSuccessful()) {
-//                        PariharaIndividualDetailsResponse result = response.body();
-//                        assert result != null;
-//                        String res = result.getFnGetServiceStatusResult();
-//                        if (!TextUtils.isEmpty(res)){
-//                            try {
-//                                JSONArray jsonArray = new JSONArray(res);
-//
-//                                Gson gson = new Gson();
-//                                maintenance_flagsList = gson.fromJson(String.valueOf(jsonArray), new TypeToken<List<Maintenance_Flags>>() {
-//                                }.getType());
-//
-//                                deleteResponseByID(maintenance_flagsList);
-//                            } catch (JSONException e){
-//                                e.printStackTrace();
-//                                //Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-//                                checkLocalDB();
-//                            }
-//                        }
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable t) {
-//                    call.cancel();
-//                    //Toast.makeText(getApplicationContext(), ""+t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-//                    checkLocalDB();
-//                }
-//            });
-//        } else {
-//            Observable<Integer> countOfRows;
-//            countOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getCountMaintenance_Flags());
-//            countOfRows
-//                    .subscribeOn(Schedulers.io())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe(new Observer<Integer>() {
-//
-//
-//                        @Override
-//                        public void onSubscribe(Disposable d) {
-//
-//                        }
-//
-//                        @Override
-//                        public void onNext(Integer integer) {
-//
-//                            if (integer == 0) {
-//                                dialog.dismiss();
-//                                AlertDialog alertDialog = new AlertDialog.Builder(BhoomiHomePage.this).create();
-//                                alertDialog.setMessage(getString(R.string.please_enable_internet_connection));
-//                                alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.ok), (dialog, which) -> {
-//                                    onBackPressed();
-//                                    dialog.dismiss();
-//                                });
-//                                alertDialog.show();
-//                            } else {
-//                                Toast.makeText(getApplicationContext(), "Internet Connection not available", Toast.LENGTH_SHORT).show();
-//                                dialog.dismiss();
-//
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onError(Throwable e) {
-//                            dialog.dismiss();
-//                            e.printStackTrace();
-//                            Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-//                        }
-//
-//                        @Override
-//                        public void onComplete() {
-//
-//                        }
-//                    });
-//        }
-//    }
-
-//    public void checkLocalDB(){
-//        Observable<Integer> countOfRows;
-//        countOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getCountMaintenance_Flags());
-//        countOfRows
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Observer<Integer>() {
-//
-//
-//                    @Override
-//                    public void onSubscribe(Disposable d) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(Integer integer) {
-//
-//                        if (integer == 0) {
-//                            dialog.dismiss();
-//                            AlertDialog alertDialog = new AlertDialog.Builder(BhoomiHomePage.this).create();
-//                            alertDialog.setMessage(getString(R.string.server_is_busy_please_try_again_later));
-//                            alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.ok), (dialog, which) -> {
-//                                onBackPressed();
-//                                dialog.dismiss();
-//                            });
-//                            alertDialog.show();
-//                        } else {
-//                            dialog.dismiss();
-//
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        dialog.dismiss();
-//                        e.printStackTrace();
-//                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//
-//                    }
-//                });
-//    }
-
-//    public void insertDataMainFlags(List<Maintenance_Flags> maintenance_flagsList){
-//        Observable<Long[]> insertDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().insertMaintenance_Flags(maintenance_flagsList));
-//        insertDataObservable
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Observer<Long[]>() {
-//
-//
-//                    @Override
-//                    public void onSubscribe(Disposable d) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(Long[] longs) {
-//                        dialog.dismiss();
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        dialog.dismiss();
-//                        e.printStackTrace();
-//                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-//
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//
-//                    }
-//                });
-//    }
-//    private void deleteResponseByID(List<Maintenance_Flags> maintenance_flagsList) {
-//        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteResMainFlags());
-//        noOfRows
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Observer<Integer>() {
-//
-//
-//                    @Override
-//                    public void onSubscribe(Disposable d) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(Integer integer) {
-//                        insertDataMainFlags(maintenance_flagsList);
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        e.printStackTrace();
-//                        dialog.dismiss();
-//                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//
-//                    }
-//                });
-//
-//    }
 
     private void loadCalamityMasterData() {
 
@@ -668,6 +453,254 @@ public class BhoomiHomePage extends AppCompatActivity {
                 });
     }
 
+    private void deleteViewRTCInformationTbl(){
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteResponseRow());
+        noOfRows
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        deleteRtcVerificationTbl();
+                    }
+                });
+    }
+
+    private void deleteRtcVerificationTbl(){
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteAllRTCVResponse());
+        noOfRows
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        deleteMutationPendDetailsTbl();
+                    }
+                });
+    }
+
+    private void deleteMutationPendDetailsTbl(){
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteResponse());
+        noOfRows
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        deleteMutationSummaryReportTbl();
+                    }
+                });
+    }
+
+    private void deleteMutationSummaryReportTbl(){
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteAllResponse());
+        noOfRows
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        deleteViewMutationStatusTbl();
+                    }
+                });
+    }
+
+    private void deleteViewMutationStatusTbl(){
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteAllVMSResponse());
+        noOfRows
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        deleteRestrictionOnLandTbl();
+                    }
+                });
+    }
+
+    private void deleteRestrictionOnLandTbl(){
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteAllRLRResponse());
+        noOfRows
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        deleteLandConReqStatusTbl();
+                    }
+                });
+    }
+
+    private void deleteLandConReqStatusTbl(){
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteLandConversionResponse());
+        noOfRows
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        deleteLandConFinalOrderTbl();
+                    }
+                });
+    }
+
+    private void deleteLandConFinalOrderTbl(){
+        Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteLandConversion_Final_Order_Response());
+        noOfRows
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        progressDialog.dismiss();
+                    }
+                });
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -805,12 +838,4 @@ public class BhoomiHomePage extends AppCompatActivity {
         super.onBackPressed();
         finish();
     }
-
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        if(call != null && call.isExecuted()) {
-//            call.cancel();
-//        }
-//    }
 }

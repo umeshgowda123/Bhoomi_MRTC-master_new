@@ -486,9 +486,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
 
                     //---------------------------------------------------------------------------
-                    dataBaseHelper =
-                            Room.databaseBuilder(getApplicationContext(),
-                                    DataBaseHelper.class, getString(R.string.db_name)).build();
+
                     Observable<List<? extends VMS_RES_Interface>> districtDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getVMS_RES(district_id,
                             taluk_id, hobli_id, village_id, land_no));
 
@@ -652,9 +650,6 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                 restostoreinDBandSMSD = String.valueOf(obj1);
 //---------DB INSERT-------
 
-                dataBaseHelper =
-                        Room.databaseBuilder(getApplicationContext(),
-                                DataBaseHelper.class, getString(R.string.db_name)).build();
                 Observable<Integer> noOfRows;
                 noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumOfRowsVMS());
                 noOfRows
@@ -898,9 +893,6 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
     private void deleteResponseByID(List<V_MUTATION_STATUS_TABLE> VMS_list) {
 
-        dataBaseHelper =
-                Room.databaseBuilder(getApplicationContext(),
-                        DataBaseHelper.class, getString(R.string.db_name)).build();
         Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteAllVMSResponse());
         noOfRows
                 .subscribeOn(Schedulers.io())

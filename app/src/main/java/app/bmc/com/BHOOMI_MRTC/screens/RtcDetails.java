@@ -112,6 +112,10 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
         hissa_str = i.getStringExtra("hissa_str");
         RTC = i.getStringExtra("RTC");
 
+        dataBaseHelper =
+                Room.databaseBuilder(getApplicationContext(),
+                        DataBaseHelper.class, getString(R.string.db_name)).build();
+
         FragmentManager fm = getSupportFragmentManager();
         mTaskFragment = (RtcViewInfoBackGroundTaskFragment) fm.findFragmentByTag(RtcViewInfoBackGroundTaskFragment.TAG_HEADLESS_FRAGMENT);
 
@@ -138,10 +142,6 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
         if (RTC.equals("RTC")) {
             if (distId != null && talkId != null && hblId != null && villId != null && land_no != null) {
                 if (isNetworkAvailable()) {
-
-                    dataBaseHelper =
-                            Room.databaseBuilder(getApplicationContext(),
-                                    DataBaseHelper.class, getString(R.string.db_name)).build();
                     Observable<List<? extends VR_RES_Interface>> districtDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getVR_RES(distId,talkId,hblId,villId,surveyNo,hissa_str));
                     districtDataObservable
                             .subscribeOn(Schedulers.io())
@@ -477,9 +477,6 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
 
             //---------DB INSERT-------
 
-            dataBaseHelper =
-                    Room.databaseBuilder(getApplicationContext(),
-                            DataBaseHelper.class, getString(R.string.db_name)).build();
             Observable<Integer> noOfRows;
             noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumOfRows());
             noOfRows
@@ -693,9 +690,6 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
 
     private void deleteResponseByID(List<VR_INFO> vr_info_List) {
 
-        dataBaseHelper =
-                Room.databaseBuilder(getApplicationContext(),
-                        DataBaseHelper.class, getString(R.string.db_name)).build();
         Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteResponseRow());
         noOfRows
                 .subscribeOn(Schedulers.io())

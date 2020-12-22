@@ -97,6 +97,9 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
             window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
 
+        dataBaseHelper =
+                Room.databaseBuilder(getApplicationContext(),
+                        DataBaseHelper.class, getString(R.string.db_name)).build();
 
         FragmentManager fm = getSupportFragmentManager();
         mTaskFragment = (RtcViewInfoBackGroundTaskFragment) fm.findFragmentByTag(RtcViewInfoBackGroundTaskFragment.TAG_HEADLESS_FRAGMENT);
@@ -134,9 +137,6 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                     "}";
             try
             {
-                dataBaseHelper =
-                        Room.databaseBuilder(getApplicationContext(),
-                                DataBaseHelper.class, getString(R.string.db_name)).build();
                 Observable<List<? extends RLR_RES_Interface>> districtDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getRLR_RES(district_id,
                         taluk_id,hobli_id,village_id,surveyNo,suroc,hissa));
                 districtDataObservable
@@ -327,9 +327,6 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                 JSONArray jsonArray = new JSONArray(data.replace("\n", ""));
                 //---------DB INSERT-------
 
-                dataBaseHelper =
-                        Room.databaseBuilder(getApplicationContext(),
-                                DataBaseHelper.class, getString(R.string.db_name)).build();
                 Observable<Integer> noOfRows;
                 noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumOfRowsRLR());
                 noOfRows
@@ -453,11 +450,6 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
 //        Toast.makeText(this, "LoadData", Toast.LENGTH_SHORT).show();
         List<R_LAND_REPORT_TABLE> r_land_report_tables_arr = new ArrayList<>();
 
-        Date c = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-        String currentDate = df.format(c);
-        Log.d("currentDate", ""+currentDate);
-
         try {
             R_LAND_REPORT_TABLE land_report_table = new R_LAND_REPORT_TABLE();
             land_report_table.setRLR_DST_ID(district_id);
@@ -468,7 +460,6 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
             land_report_table.setRLR_SUROC(suroc);
             land_report_table.setRLR_HISSA(hissa);
             land_report_table.setRLR_RES(strData);
-            land_report_table.setRLR_UPD_DATE(currentDate);
             r_land_report_tables_arr.add(land_report_table);
 
         } catch (Exception e) {
@@ -510,9 +501,6 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
 
     private void deleteResponseByID(List<R_LAND_REPORT_TABLE> RLR_list) {
 
-        dataBaseHelper =
-                Room.databaseBuilder(getApplicationContext(),
-                        DataBaseHelper.class, getString(R.string.db_name)).build();
         Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteAllRLRResponse());
         noOfRows
                 .subscribeOn(Schedulers.io())

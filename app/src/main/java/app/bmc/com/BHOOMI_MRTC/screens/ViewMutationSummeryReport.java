@@ -96,7 +96,6 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
     private String language;
     Call<PariharaIndividualDetailsResponse> call;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -379,9 +378,7 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
 
                 if (isNetworkAvailable()) {
                     //----------------------------------LOCAl DB DATA PRESENT CHECK-----------------------------------------------------------
-                    dataBaseHelper =
-                            Room.databaseBuilder(getApplicationContext(),
-                                    DataBaseHelper.class, getString(R.string.db_name)).build();
+
                     Observable<List<? extends MSR_RES_Interface>> districtDataObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getMSR_RES(district_id,taluk_id,hobli_id,village_id,surveyNumber));
                     districtDataObservable
                             .subscribeOn(Schedulers.io())
@@ -451,9 +448,6 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
                                                         } else {
 
                                                             //---------DB INSERT-------
-                                                            dataBaseHelper =
-                                                                    Room.databaseBuilder(getApplicationContext(),
-                                                                            DataBaseHelper.class, getString(R.string.db_name)).build();
                                                             Observable<Integer> noOfRows;
                                                             noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumOfRowsMSR());
                                                             noOfRows
@@ -579,11 +573,6 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
 //        Toast.makeText(this, "LoadData", Toast.LENGTH_SHORT).show();
         List<MS_REPORT_TABLE> ms_report_tables_arr = new ArrayList<>();
 
-        Date c = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-        String currentDate = df.format(c);
-        Log.d("currentDate", ""+currentDate);
-
         try {
             MS_REPORT_TABLE ms_report_table = new MS_REPORT_TABLE();
             ms_report_table.setMSR_DST_ID(district_id);
@@ -592,7 +581,6 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
             ms_report_table.setMSR_VLG_ID(village_id);
             ms_report_table.setMSR_SNO(surveyNumber);
             ms_report_table.setMSR_RES(s);
-            ms_report_table.setMSR_UPD_DATE(currentDate);
             ms_report_tables_arr.add(ms_report_table);
 
         } catch (Exception e) {
@@ -634,9 +622,6 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
 
     private void deleteAllResponse(List<MS_REPORT_TABLE> MPD_List) {
 
-        dataBaseHelper =
-                Room.databaseBuilder(getApplicationContext(),
-                        DataBaseHelper.class, getString(R.string.db_name)).build();
         Observable<Integer> noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().deleteAllResponse());
         noOfRows
                 .subscribeOn(Schedulers.io())
@@ -666,6 +651,7 @@ public class ViewMutationSummeryReport extends AppCompatActivity {
                     }
                 });
     }
+
     public void setLocale(String localeName) {
 
         Locale myLocale = new Locale(localeName);

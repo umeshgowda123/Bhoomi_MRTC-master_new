@@ -694,11 +694,6 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
         return true;
     }
 
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        mTaskFragment.terminateExecutionOfBackgroundTask1();
-//    }
     @Override
     protected void onStop() {
         super.onStop();

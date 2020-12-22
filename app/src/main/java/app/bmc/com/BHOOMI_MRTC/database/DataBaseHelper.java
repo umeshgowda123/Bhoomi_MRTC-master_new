@@ -18,6 +18,7 @@ import app.bmc.com.BHOOMI_MRTC.model.PacsBankMasterData;
 import app.bmc.com.BHOOMI_MRTC.model.RTC_VERIFICATION_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.R_LAND_REPORT_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.SeasonDetails;
+import app.bmc.com.BHOOMI_MRTC.model.UPDATED_DATE;
 import app.bmc.com.BHOOMI_MRTC.model.VR_INFO;
 import app.bmc.com.BHOOMI_MRTC.model.V_MUTATION_STATUS_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.YearDetails;
@@ -26,7 +27,7 @@ import app.bmc.com.BHOOMI_MRTC.model.YearDetails;
 @Database(entities = {MST_VLM.class, Maintenance_Flags.class, YearDetails.class, SeasonDetails.class,
         CalamityDetails.class, BankMasterData.class, PacsBankMasterData.class, VR_INFO.class, MPD_TABLE.class,
         MS_REPORT_TABLE.class, R_LAND_REPORT_TABLE.class, V_MUTATION_STATUS_TABLE.class, RTC_VERIFICATION_TABLE.class,
-        LandConversion_TABLE.class, LandConversion_Final_Order_TABLE.class}, version = 3, exportSchema = false)
+        LandConversion_TABLE.class, LandConversion_Final_Order_TABLE.class, UPDATED_DATE.class}, version = 2, exportSchema = false)
 public abstract class DataBaseHelper extends RoomDatabase {
     public abstract DataBaseAccess daoAccess();
 
@@ -34,17 +35,16 @@ public abstract class DataBaseHelper extends RoomDatabase {
 
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
-            database.execSQL("Alter TABLE MS_REPORT_TABLE ADD Column MSR_UPD_DATE TEXT");
-            database.execSQL("Alter TABLE R_LAND_REPORT_TABLE ADD Column RLR_UPD_DATE TEXT");
+            database.execSQL("CREATE TABLE UPDATED_DATE (id INTEGER NOT null, UPD_DATE TEXT, Primary Key (id))");
         }
     };
-
-    public static final Migration MIGRATION_2_3 = new Migration(2, 3) {
-
-        @Override
-        public void migrate(@NonNull SupportSQLiteDatabase database) {
-            database.execSQL("Alter TABLE MPD_TABLE ADD Column MPD_UPD_DATE TEXT");
-//            database.execSQL("Update sqlite_sequence set seq = 0 where name!='MST_VLM'");
-        }
-    };
+//
+//    public static final Migration MIGRATION_2_3 = new Migration(2, 3) {
+//
+//        @Override
+//        public void migrate(@NonNull SupportSQLiteDatabase database) {
+//            database.execSQL("Alter TABLE MPD_TABLE ADD Column MPD_UPD_DATE TEXT");
+////            database.execSQL("Update sqlite_sequence set seq = 0 where name!='MST_VLM'");
+//        }
+//    };
 }
