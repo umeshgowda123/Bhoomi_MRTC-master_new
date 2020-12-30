@@ -77,6 +77,7 @@ public class AppLauncher extends AppCompatActivity {
 
                     @Override
                     public void onNext(Integer integer) {
+
                         if (integer == 0) {
                             List<MST_VLM> mst_vlmList = loadDataFromCsv();
                             createMasterData(mst_vlmList, currentDate);
@@ -90,6 +91,7 @@ public class AppLauncher extends AppCompatActivity {
                     public void onError(Throwable e) {
                         e.printStackTrace();
                         Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                        Log.d("1st", e.getLocalizedMessage()+"");
                     }
 
                     @Override
@@ -108,7 +110,7 @@ public class AppLauncher extends AppCompatActivity {
 
 
             reader = new BufferedReader(
-                    new InputStreamReader(getApplicationContext().getAssets().open("MasterData.csv"), StandardCharsets.UTF_8));
+                    new InputStreamReader(getApplicationContext().getAssets().open("VMAP_VMST.csv"), StandardCharsets.UTF_8));
 
             int i = 0;
             while ((mLine = reader.readLine()) != null) {
@@ -119,7 +121,7 @@ public class AppLauncher extends AppCompatActivity {
                     mst_vlm.setVLM_DST_ID(Integer.parseInt(data[1]));
                     mst_vlm.setVLM_TLK_ID(Integer.parseInt(data[2]));
                     mst_vlm.setVLM_HBL_ID(Integer.parseInt(data[3]));
-                    mst_vlm.setVLM_CIR_ID(Integer.parseInt(data[4]));
+                    mst_vlm.setVLM_CIR_ID(data[4]);
                     mst_vlm.setVLM_VLG_ID(Integer.parseInt(data[5]));
                     mst_vlm.setVLM_DKN_NM(data[6]);
                     mst_vlm.setVLM_DST_NM(data[7]);
@@ -327,7 +329,7 @@ public class AppLauncher extends AppCompatActivity {
                     public void onError(Throwable e) {
                         e.printStackTrace();
                         Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-
+                        Log.d("2nd", e.getLocalizedMessage()+"");
                     }
 
                     @Override

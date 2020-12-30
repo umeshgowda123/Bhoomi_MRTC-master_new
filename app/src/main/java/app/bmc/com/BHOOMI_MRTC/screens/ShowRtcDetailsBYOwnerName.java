@@ -313,7 +313,10 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity implements RtcV
                 .setMessage(data)
                 .setIcon(R.drawable.ic_notifications_black_24dp)
                 .setCancelable(false)
-                .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
+                .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
+                    dialog.cancel();
+                    finish();
+                });
         final AlertDialog alert = builder.create();
         alert.show();
         alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);

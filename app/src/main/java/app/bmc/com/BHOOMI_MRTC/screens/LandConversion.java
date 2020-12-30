@@ -61,7 +61,7 @@ public class LandConversion extends AppCompatActivity {
 
     private DataBaseHelper dataBaseHelper;
     private List<LandConversion_Interface> LandConversion_Data;
-    Call<PariharaIndividualDetailsResponse> call, call2;
+    Call<PariharaIndividualDetailsResponse> call;
     PariharaIndividualReportInteface apiInterface;
 
     @Override
@@ -383,9 +383,9 @@ public class LandConversion extends AppCompatActivity {
                                         progressDialog.show();
 
                                         apiInterface = PariharaIndividualreportClient.getClient(getString(R.string.rest_service_url)).create(PariharaIndividualReportInteface.class);
-                                        call2 = apiInterface.getLandConversionBasedOnUserID(Constants.CLWS_REST_SERVICE_USER_NAME,
+                                        call = apiInterface.getLandConversionBasedOnUserID(Constants.CLWS_REST_SERVICE_USER_NAME,
                                                 Constants.CLWS_REST_SERVICE_PASSWORD,userID);
-                                        call2.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+                                        call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
                                             @Override
                                             public void onResponse(@NotNull Call<PariharaIndividualDetailsResponse>  call, @NotNull Response<PariharaIndividualDetailsResponse> response)
                                             {
@@ -469,7 +469,7 @@ public class LandConversion extends AppCompatActivity {
 
                                             @Override
                                             public void onFailure(@NotNull Call<PariharaIndividualDetailsResponse> call, @NotNull Throwable t) {
-                                                call2.cancel();
+                                                call.cancel();
                                                 progressDialog.dismiss();
                                                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                                             }
@@ -612,9 +612,6 @@ public class LandConversion extends AppCompatActivity {
         super.onStop();
         if(call != null && call.isExecuted()) {
             call.cancel();
-        }
-        if(call2 != null && call2.isExecuted()) {
-            call2.cancel();
         }
     }
 }

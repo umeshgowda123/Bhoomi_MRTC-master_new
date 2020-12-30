@@ -35,7 +35,9 @@ public abstract class DataBaseHelper extends RoomDatabase {
 
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
-            database.execSQL("CREATE TABLE UPDATED_DATE (id INTEGER NOT null, UPD_DATE TEXT, Primary Key (id))");
+//            database.execSQL("CREATE TABLE IF NOT EXISTS UPDATED_DATE (id INTEGER NOT null, UPD_DATE TEXT, Primary Key (id))");
+            database.execSQL("CREATE TABLE IF NOT EXISTS UPDATED_DATE (id INTEGER NOT NULL DEFAULT 0, name TEXT, TEXT NOT NULL DEFAULT '',Primary Key (id))");
+
         }
     };
 //

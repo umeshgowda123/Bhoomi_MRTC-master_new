@@ -33,7 +33,6 @@ import app.bmc.com.BHOOMI_MRTC.model.SeasonData;
 import app.bmc.com.BHOOMI_MRTC.model.SeasonDetails;
 import app.bmc.com.BHOOMI_MRTC.model.TalukData;
 import app.bmc.com.BHOOMI_MRTC.model.TalukDataKannda;
-import app.bmc.com.BHOOMI_MRTC.model.UPDATED_DATE;
 import app.bmc.com.BHOOMI_MRTC.model.VMS_RES_Data;
 import app.bmc.com.BHOOMI_MRTC.model.VR_RES_Data;
 import app.bmc.com.BHOOMI_MRTC.model.VR_INFO;

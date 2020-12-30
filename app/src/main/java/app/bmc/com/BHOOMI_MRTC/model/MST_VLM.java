@@ -18,7 +18,7 @@ public class MST_VLM {
     @ColumnInfo(name = "VLM_HBL_ID")
     private int VLM_HBL_ID;
     @ColumnInfo(name = "VLM_CIR_ID")
-    private int VLM_CIR_ID;
+    private String VLM_CIR_ID;
     @ColumnInfo(name = "VLM_VLG_ID")
     private int VLM_VLG_ID;
     @ColumnInfo(name = "VLM_DKN_NM")
@@ -86,11 +86,11 @@ public class MST_VLM {
         this.VLM_HBL_ID = VLM_HBL_ID;
     }
 
-    public int getVLM_CIR_ID() {
+    public String getVLM_CIR_ID() {
         return VLM_CIR_ID;
     }
 
-    public void setVLM_CIR_ID(int VLM_CIR_ID) {
+    public void setVLM_CIR_ID(String VLM_CIR_ID) {
         this.VLM_CIR_ID = VLM_CIR_ID;
     }
 

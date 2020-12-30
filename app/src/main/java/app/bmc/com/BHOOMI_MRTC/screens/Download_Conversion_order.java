@@ -95,7 +95,7 @@ public class Download_Conversion_order extends AppCompatActivity {
     private String language;
 
     PariharaIndividualReportInteface apiInterface;
-    Call<PariharaIndividualDetailsResponse> call, call2;
+    Call<PariharaIndividualDetailsResponse> call;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -612,9 +612,9 @@ public class Download_Conversion_order extends AppCompatActivity {
                                         progressDialog.show();
 
                                         apiInterface = PariharaIndividualreportClient.getClient(getString(R.string.rest_service_url)).create(PariharaIndividualReportInteface.class);
-                                        call2 = apiInterface.getLandConversionFinalOrders_BasedOnReqId(Constants.CLWS_REST_SERVICE_USER_NAME,
+                                        call = apiInterface.getLandConversionFinalOrders_BasedOnReqId(Constants.CLWS_REST_SERVICE_USER_NAME,
                                                 Constants.CLWS_REST_SERVICE_PASSWORD, requestID);
-                                        call2.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+                                        call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
                                             @Override
                                             public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {
 
@@ -685,7 +685,7 @@ public class Download_Conversion_order extends AppCompatActivity {
 
                                             @Override
                                             public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable t) {
-                                                call2.cancel();
+                                                call.cancel();
                                                 progressDialog.dismiss();
                                                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
 
@@ -852,9 +852,6 @@ public class Download_Conversion_order extends AppCompatActivity {
         super.onStop();
         if(call != null && call.isExecuted()) {
             call.cancel();
-        }
-        if(call2 != null && call2.isExecuted()) {
-            call2.cancel();
         }
     }
 }

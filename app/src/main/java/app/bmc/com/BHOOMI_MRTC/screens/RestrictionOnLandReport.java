@@ -2,12 +2,11 @@ package app.bmc.com.BHOOMI_MRTC.screens;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
