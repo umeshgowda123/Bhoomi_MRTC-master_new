@@ -44,7 +44,6 @@ public class Bhoomi extends AppCompatActivity
         setContentView(R.layout.activity_bhoomi);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         // DBManager dbManager=new DBManager(Bhoomi.this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();

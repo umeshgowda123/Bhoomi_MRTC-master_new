@@ -46,7 +46,6 @@ public class AppLauncher extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_lancher);
 
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -110,7 +109,7 @@ public class AppLauncher extends AppCompatActivity {
 
 
             reader = new BufferedReader(
-                    new InputStreamReader(getApplicationContext().getAssets().open("VMAP_VMST.csv"), StandardCharsets.UTF_8));
+                    new InputStreamReader(getApplicationContext().getAssets().open("MasterData.csv"), StandardCharsets.UTF_8));
 
             int i = 0;
             while ((mLine = reader.readLine()) != null) {
