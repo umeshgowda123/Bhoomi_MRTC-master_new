@@ -19,8 +19,6 @@ public class MPD_TABLE {
     private int MPD_VLG_ID;
     @ColumnInfo(name = "MPD_RES")
     private String MPD_RES;
-    @ColumnInfo(name = "MPD_UPD_DATE")
-    private String MPD_UPD_DATE;
 
     public int getId() {
         return id;
@@ -70,11 +68,4 @@ public class MPD_TABLE {
         this.MPD_RES = MPD_RES;
     }
 
-    public String getMPD_UPD_DATE() {
-        return MPD_UPD_DATE;
-    }
-
-    public void setMPD_UPD_DATE(String MPD_UPD_DATE) {
-        this.MPD_UPD_DATE = MPD_UPD_DATE;
-    }
 }

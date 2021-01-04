@@ -434,7 +434,7 @@
     <string name="is_there_a_court_stay">Is there a Court stay?</string>
     <string name="is_land_alienated">Is Land Alienated?</string>
     <string name="any_trnsc_running">Any Transaction Running?</string>
-    <string name="pyki_rtc">PYKI RTC</string>
+    <string name="pyki_rtc">Is This RTC is Pyki RTC?</string>
     <string name="details_not_found">Details not found</string>
     <string name="col1">View RTC Information</string>
     <string name="col2">Rtc Xml Verification</string>

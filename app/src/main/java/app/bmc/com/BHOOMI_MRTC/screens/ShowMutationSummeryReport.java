@@ -3,6 +3,7 @@ package app.bmc.com.BHOOMI_MRTC.screens;
 import android.app.ProgressDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.WebView;
 
 import app.bmc.com.BHOOMI_MRTC.R;
@@ -37,6 +38,7 @@ public class ShowMutationSummeryReport extends AppCompatActivity {
             if (htmlResponseData != null) {
                 webView.requestFocus();
                 webView.getSettings().setJavaScriptEnabled(true);
+                Log.d("htmlResponseData", ""+htmlResponseData);
                 webView.loadDataWithBaseURL("file:///android_asset/", htmlResponseData, "text/html", "UTF-8", null);
             }
         } catch (Exception ex) {
