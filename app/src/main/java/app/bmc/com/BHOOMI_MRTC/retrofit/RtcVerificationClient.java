@@ -9,22 +9,6 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RtcVerificationClient {
-//    final static OkHttpClient okHttpClient = new OkHttpClient.Builder()
-//            .readTimeout(60, TimeUnit.SECONDS)
-//            .connectTimeout(60, TimeUnit.SECONDS)
-//            .build();
-//    private static Retrofit retrofit = null;
-//
-//    public static Retrofit getClient(String baseUrl) {
-//        if (retrofit == null) {
-//            retrofit = new Retrofit.Builder()
-//                    .baseUrl(baseUrl)
-//                    .client(okHttpClient)
-//                    .addConverterFactory(GsonConverterFactory.create())
-//                    .build();
-//        }
-//        return retrofit;
-//    }
 
     public static Retrofit getClient(String baseUrl) {
 
@@ -33,6 +17,7 @@ public class RtcVerificationClient {
             OkHttpClient client = new OkHttpClient.Builder()
                     .connectTimeout(30, TimeUnit.SECONDS)
                     .readTimeout(30, TimeUnit.SECONDS).addInterceptor(interceptor).build();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())

@@ -390,7 +390,7 @@
     <string name="is_land_alienated">ಭೂಪರಿವರ್ತನೆಯಾಗಿದೆಯೇ?</string>
     <string name="any_trnsc_running">ಯಾವುದಾದರೂ ವಹಿವಾಟು ಚಾಲನೆಯಲ್ಲಿದೆಯೇ?</string>
     <string name="details_not_found">ವಿವರಗಳು ಕಂಡುಬಂದಿಲ್ಲ</string>
-    <string name="pyki_rtc">ಪೈಕಿ ಪಹಣಿ</string>
+    <string name="pyki_rtc">ಈ ಪಹಣಿಯು ಪೈಕಿ ಪಹಣಿಯೇ?</string>
     <string name="col1">View RTC Information</string>
     <string name="col2">Rtc Xml Verification</string>
     <string name="col3">View Rtc By OwnerName</string>
