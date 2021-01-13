@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/linearLayout_bhoomi"
-    tools:context=".screens.Bhoomi">
+    android:id="@+id/linearLayout_bhoomi">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -156,8 +154,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        tools:ignore="UseCompoundDrawables">
+                        android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/iv_view_rtc"
@@ -167,7 +164,7 @@
                             android:paddingStart="2dip"
                             android:paddingEnd="5dip"
                             android:src="@drawable/view_rtc"
-                            tools:ignore="ContentDescription" />
+                            android:contentDescription="@string/view_rtc_information" />
 
 
                         <TextView
@@ -193,11 +190,10 @@
                             android:layout_width="65dp"
                             android:layout_height="65dp"
                             android:layout_gravity="center"
-                            android:layout_weight="1"
                             android:paddingStart="2dip"
                             android:paddingEnd="5dip"
                             android:src="@drawable/rtc_xml_verify"
-                            tools:ignore="ContentDescription,InefficientWeight" />
+                            android:contentDescription="@string/rtc_xml_verification" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -222,11 +218,10 @@
                             android:layout_width="65dp"
                             android:layout_height="65dp"
                             android:layout_gravity="center"
-                            android:layout_weight="1"
                             android:paddingStart="2dip"
                             android:paddingEnd="5dip"
                             android:src="@drawable/view_rtc_owner"
-                            tools:ignore="ContentDescription,InefficientWeight" />
+                            android:contentDescription="@string/view_rtc_by_ownername" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -250,8 +245,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        tools:ignore="UseCompoundDrawables">
+                        android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/ivService5"
@@ -261,7 +255,7 @@
                             android:paddingStart="2dip"
                             android:paddingEnd="5dip"
                             android:src="@drawable/mut_pend"
-                            tools:ignore="ContentDescription" />
+                            android:contentDescription="@string/mutation_pendencey_details" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -281,8 +275,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        tools:ignore="UseCompoundDrawables">
+                        android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/inService5"
@@ -292,7 +285,7 @@
                             android:paddingStart="2dip"
                             android:paddingEnd="5dip"
                             android:src="@drawable/mut_sum"
-                            tools:ignore="ContentDescription" />
+                            android:contentDescription="@string/mutation_sum_report"  />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -311,8 +304,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        tools:ignore="UseCompoundDrawables">
+                        android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/ivService4"
@@ -322,7 +314,7 @@
                             android:paddingStart="2dip"
                             android:paddingEnd="5dip"
                             android:src="@drawable/m_status"
-                            tools:ignore="ContentDescription" />
+                            android:contentDescription="@string/view_mutation_status" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -347,8 +339,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        tools:ignore="UseCompoundDrawables">
+                        android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/ivService77"
@@ -358,7 +349,7 @@
                             android:paddingStart="2dip"
                             android:paddingEnd="5dip"
                             android:src="@drawable/restriction_on_land"
-                            tools:ignore="ContentDescription" />
+                            android:contentDescription="@string/restriction_on_land" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -372,23 +363,12 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/layout_citizen_portal"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        tools:ignore="UseCompoundDrawables">
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        tools:ignore="UseCompoundDrawables">
+                        android:layout_weight="2"
+                        android:orientation="vertical">
                     </LinearLayout>
 
                 </TableRow>
@@ -404,7 +384,7 @@
                     <View
                         android:layout_width="0dp"
                         android:layout_height="1dp"
-                            android:layout_gravity="center"
+                        android:layout_gravity="center"
                         android:layout_weight=".5"
                         android:background="@android:color/white" />
 
@@ -441,8 +421,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        tools:ignore="UseCompoundDrawables">
+                        android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/iv_fservice4"
@@ -452,7 +431,7 @@
                             android:paddingStart="2dip"
                             android:paddingEnd="5dip"
                             android:src="@drawable/village_map"
-                            tools:ignore="ContentDescription" />
+                            android:contentDescription= "@string/downlaod_village_map" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -471,8 +450,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        tools:ignore="UseCompoundDrawables">
+                        android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/ivService9"
@@ -482,7 +460,7 @@
                             android:paddingStart="2dip"
                             android:paddingEnd="5dip"
                             android:src="@drawable/view_phody"
-                            tools:ignore="ContentDescription" />
+                            android:contentDescription="@string/view_phody_sketch" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -502,8 +480,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        tools:ignore="UseCompoundDrawables">
+                        android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/inService8"
@@ -513,7 +490,7 @@
                             android:paddingStart="2dip"
                             android:paddingEnd="5dip"
                             android:src="@drawable/s_status"
-                            tools:ignore="ContentDescription" />
+                            android:contentDescription="@string/view_mojini_request_status" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -572,8 +549,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        tools:ignore="UseCompoundDrawables">
+                        android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/inService99"
@@ -583,7 +559,7 @@
                             android:paddingStart="2dip"
                             android:paddingEnd="5dip"
                             android:src="@drawable/landconv_request_status"
-                            tools:ignore="ContentDescription" />
+                            android:contentDescription="@string/land_conversion_request_status" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -602,8 +578,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        tools:ignore="UseCompoundDrawables">
+                        android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/inService_99"
@@ -613,7 +588,7 @@
                             android:paddingStart="2dip"
                             android:paddingEnd="5dip"
                             android:src="@drawable/land_conversion"
-                            tools:ignore="ContentDescription" />
+                            android:contentDescription="@string/land_conversion_final_orders" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -631,8 +606,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        tools:ignore="UseCompoundDrawables,UselessLeaf" />
+                        android:orientation="vertical"/>
 
                 </TableRow>
                 <LinearLayout

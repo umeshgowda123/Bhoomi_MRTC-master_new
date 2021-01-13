@@ -72,7 +72,6 @@
             android:fillViewport="true"
             android:overScrollMode="never"
             android:scrollbars="none"
-            tools:ignore="UselessParent"
             android:layout_marginTop="20dp">
 
             <LinearLayout
@@ -80,11 +79,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TableLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp">
+
 
                     <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
                         android:background="@android:color/white"
                         android:padding="8dp">
 
@@ -113,8 +112,6 @@
                             android:textColor="@android:color/black" />
 
                     </TableRow>
-
-                </TableLayout>
 
                 <ProgressBar
                     android:id="@+id/progress_circular"

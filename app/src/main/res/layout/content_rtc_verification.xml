@@ -17,10 +17,9 @@
         tools:context=".screens.RtcVerification"
         tools:showIn="@layout/activity_rtc_verification">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:ignore="UselessParent">
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
 
             <ProgressBar
                 android:id="@+id/progress_circular"
@@ -95,6 +94,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-        </RelativeLayout>
+<!--        </RelativeLayout>-->
     </LinearLayout>
 </androidx.cardview.widget.CardView>

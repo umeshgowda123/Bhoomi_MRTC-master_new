@@ -7,18 +7,21 @@
     android:layout_height="match_parent"
     card_view:cardUseCompatPadding="true">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp"
-        android:orientation="vertical"
-        tools:context=".screens.RtcDetails"
-        tools:showIn="@layout/activity_view_rtc_information">
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_margin="16dp"-->
+<!--        android:orientation="vertical"-->
+<!--        tools:context=".screens.RtcDetails"-->
+<!--        tools:showIn="@layout/activity_view_rtc_information">-->
 
         <ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:ignore="UselessParent">
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:orientation="vertical"
+            tools:context=".screens.RtcDetails"
+            tools:showIn="@layout/activity_view_rtc_information">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -157,5 +160,5 @@
                 </LinearLayout>
             </RelativeLayout>
         </ScrollView>
-    </LinearLayout>
+<!--    </LinearLayout>-->
 </androidx.cardview.widget.CardView>

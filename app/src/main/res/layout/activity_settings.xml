@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".screens.Settings">
+    android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -19,17 +17,16 @@
             android:theme="@style/AppTheme.PopupOverlay"
             app:titleTextColor="@color/toolbartitle">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                tools:ignore="UseCompoundDrawables">
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="horizontal">-->
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/ic_launcher"
-                    android:contentDescription="@string/todo" />
+                    android:contentDescription="@string/toolbartitle_settings" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -42,7 +39,7 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-            </LinearLayout>
+<!--            </LinearLayout>-->
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
