@@ -11,8 +11,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:ignore="UselessParent">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -105,7 +104,7 @@
                             android:id="@+id/edittext_survey"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="4dp"
+                            android:layout_marginEnd="4dp"
                             android:hint="@string/survey"
                             android:imeOptions="actionDone"
                             android:inputType="number"
@@ -137,9 +136,9 @@
                         android:id="@+id/spinner_hissa"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="4dp"
+                        android:layout_marginEnd="4dp"
                         android:layout_weight="3"
-                        android:hint="Hissa"
+                        android:hint="@string/hissa"
                         android:textColorHint="@color/hint_before_float_rtc"
                         app:met_floatingLabel="normal"
                         app:met_floatingLabelTextColor="@color/hint_rtc" />
@@ -148,7 +147,7 @@
                         android:id="@+id/btn_fetch"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
+                        android:layout_marginStart="4dp"
                         android:layout_weight="3"
                         android:background="@color/btn_background_blue"
                         android:text="@string/btnfetch"

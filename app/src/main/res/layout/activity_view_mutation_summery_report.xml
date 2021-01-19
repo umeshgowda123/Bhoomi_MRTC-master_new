@@ -1,9 +1,9 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:ignore="NamespaceTypo">
+    android:layout_height="match_parent">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,22 +39,27 @@
 
 
 
-    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="55dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:orientation="vertical"
-        tools:context=".screens.RtcDetails"
-        tools:showIn="@layout/activity_view_rtc_information">
+<!--    <LinearLayout xmlns:tools="http://schemas.android.com/tools"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_marginTop="55dp"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:layout_marginBottom="16dp"-->
+<!--        android:orientation="vertical"-->
+<!--        tools:context=".screens.RtcDetails"-->
+<!--        tools:showIn="@layout/activity_view_rtc_information">-->
 
-        <ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:ignore="UselessParent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="55dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="vertical"
+            tools:context=".screens.RtcDetails"
+            tools:showIn="@layout/activity_view_rtc_information">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -173,7 +178,7 @@
 
         </ScrollView>
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
 </androidx.cardview.widget.CardView>
 
