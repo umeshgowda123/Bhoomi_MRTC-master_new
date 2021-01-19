@@ -159,6 +159,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Call<Get_Surnoc_HissaResult> call, @NonNull Throwable error) {
                 isTaskExecuting = false;
+                error.printStackTrace();
                 if (backgroundCallBack != null) {
 
                     String errorResponse = error.getMessage();
@@ -212,6 +213,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Call<Get_Rtc_Data_Result> call, @NonNull Throwable error) {
                 isTaskExecuting = false;
+                error.printStackTrace();
                 if (backgroundCallBack != null) {
                     String errorResponse = error.getMessage();
                     Log.d("Err_msg", errorResponse + "");
@@ -262,6 +264,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Call<Get_ViewMutationStatusResult> call, @NonNull Throwable error) {
                 isTaskExecuting = false;
+                error.printStackTrace();
                 if (backgroundCallBack != null) {
                     String errorResponse = error.getMessage();
                     Log.d("Err_msg", errorResponse + "");
@@ -312,6 +315,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable error) {
                 isTaskExecuting = false;
+                error.printStackTrace();
                 if (backgroundCallBack != null) {
                     String errorResponse = error.getMessage();
                     Log.d("Err_msg", errorResponse + "");
@@ -358,6 +362,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Call<Get_Rtc_Data_Result> call, @NonNull Throwable error) {
                 isTaskExecuting = false;
+                error.printStackTrace();
                 if (backgroundCallBack != null) {
                     String errorResponse = error.getLocalizedMessage();
                     backgroundCallBack.onPostResponseErrorCultivator(errorResponse, count);
@@ -403,6 +408,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable error) {
                 isTaskExecuting = false;
+                error.printStackTrace();
                 if (backgroundCallBack != null) {
                     String errorResponse = error.getLocalizedMessage();
                     backgroundCallBack.onPostResponseError_GetDetails_VilWise(errorResponse);

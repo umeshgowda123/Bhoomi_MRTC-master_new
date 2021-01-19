@@ -3,10 +3,15 @@ package app.bmc.com.BHOOMI_MRTC.screens;
 import android.content.DialogInterface;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.net.http.SslError;
 import android.os.Bundle;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 
@@ -89,11 +94,44 @@ public class ShowEnglishCertificateActivity extends AppCompatActivity {
             if (elanguage != null) {
                 eurl = "https://clws.karnataka.gov.in/clws/paydment/pacscertview/ReportBasedOnId.aspx?" + "language=" + elanguage + "&CustID=" + certificateRequestParamter;
 //                eurl = "https://clws.karnataka.gov.in/clws/paydment/pacscertview/ReportBasedOnId.aspx?" + "language=" + elanguage + "&CustID=" + certificateRequestParamter;//SUSMITA  4:28.P.M.
+
+                webViewCrop.setWebViewClient(new WebViewClient(){
+                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                        view.loadUrl(url);
+                        return true;
+                    }
+
+                    public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                        Toast.makeText(ShowEnglishCertificateActivity.this, "Oh no! " + description, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError er) {
+                        handler.proceed(); // Ignore SSL certificate errors
+                    }
+                });
+
                 webViewCrop.loadUrl(eurl);
             }
         if (klanaguage != null) {
             kandaurl = "https://clws.karnataka.gov.in/clws/payment/pacscertview/ReportBasedOnId.aspx?" + "language=" + klanaguage + "&CustID=" + certificateRequestParamter;
 //            kandaurl = "https://clws.karnataka.gov.in/clws/payment/pacscertview/ReportBasedOnId.aspx?" + "language=" + klanaguage + "&CustID=" + certificateRequestParamter;//SUSMITA  4:28.P.M.
+
+            webViewCrop.setWebViewClient(new WebViewClient(){
+                public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                    view.loadUrl(url);
+                    return true;
+                }
+
+                public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                    Toast.makeText(ShowEnglishCertificateActivity.this, "Oh no! " + description, Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError er) {
+                    handler.proceed(); // Ignore SSL certificate errors
+                }
+            });
             webViewCrop.loadUrl(kandaurl);
         }
 

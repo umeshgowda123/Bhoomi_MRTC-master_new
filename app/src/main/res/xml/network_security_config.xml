@@ -4,6 +4,8 @@
         <domain includeSubdomains="true">https://www.landrecords.karnataka.gov.in/</domain>
         <domain includeSubdomains="true">landrecords.karnataka.gov.in</domain>
         <domain includeSubdomains="true">https://clws.karnataka.gov.in/</domain>
+        <domain includeSubdomains="true">https://164.100.133.135/</domain>
+        <domain includeSubdomains="true">https://clws.karnataka.gov.in/Service4/BHOOMI/</domain>
         <domain includeSubdomains="true">192.168.0.139</domain>
         <domain includeSubdomains="true">218.248.32.25</domain>
 

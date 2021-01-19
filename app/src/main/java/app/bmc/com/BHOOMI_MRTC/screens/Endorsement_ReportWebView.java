@@ -3,10 +3,13 @@ package app.bmc.com.BHOOMI_MRTC.screens;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.net.http.SslError;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -36,7 +39,6 @@ public class Endorsement_ReportWebView extends AppCompatActivity {
         initializeWebView(baseUrl, REQ_ID);
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
     public void initializeWebView(String baseUrl, String REQ_ID) {
         WebSettings webSettings = webViewEndorsement_Report.getSettings();
         webViewEndorsement_Report.setClickable(true);
@@ -110,6 +112,11 @@ public class Endorsement_ReportWebView extends AppCompatActivity {
                     final android.app.AlertDialog alert = builder.create();
                     alert.show();
                     alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                }
+
+                @Override
+                public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError er) {
+                    handler.proceed(); // Ignore SSL certificate errors
                 }
             });
             webViewEndorsement_Report.loadUrl(resultUrl);

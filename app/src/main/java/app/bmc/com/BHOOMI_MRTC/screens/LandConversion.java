@@ -8,6 +8,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -298,6 +300,7 @@ public class LandConversion extends AppCompatActivity {
                                             public void onFailure(@NotNull Call<PariharaIndividualDetailsResponse> call, @NotNull Throwable t) {
                                                 call.cancel();
                                                 progressDialog.dismiss();
+                                                t.printStackTrace();
                                                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
 
                                             }
@@ -306,8 +309,8 @@ public class LandConversion extends AppCompatActivity {
                                 }
 
                                 @Override
-                                public void onError(Throwable e) {
-
+                                public void onError(@NonNull Throwable e) {
+                                    e.printStackTrace();
                                 }
 
                                 @Override

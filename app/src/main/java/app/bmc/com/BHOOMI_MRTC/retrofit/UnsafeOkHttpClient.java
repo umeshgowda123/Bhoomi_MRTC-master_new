@@ -2,6 +2,7 @@ package app.bmc.com.BHOOMI_MRTC.retrofit;
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -33,7 +34,7 @@ public class UnsafeOkHttpClient {
                         }
                     }
             };
-            final SSLContext sslContext = SSLContext.getInstance("SSL");
+            final SSLContext sslContext = SSLContext.getInstance("TLS");
             sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
 
             final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
@@ -45,7 +46,11 @@ public class UnsafeOkHttpClient {
                     return true;
                 }
             });
-            OkHttpClient okHttpClient = builder.build();
+            OkHttpClient okHttpClient = builder
+                    .connectTimeout(30, TimeUnit.SECONDS)
+                    .readTimeout(30, TimeUnit.SECONDS)
+                    .build();
+
             return okHttpClient;
 
         } catch (Exception e){

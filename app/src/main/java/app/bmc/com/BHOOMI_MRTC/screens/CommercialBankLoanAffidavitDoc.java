@@ -2,10 +2,15 @@ package app.bmc.com.BHOOMI_MRTC.screens;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.net.http.SslError;
 import android.os.Bundle;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 
@@ -82,6 +87,21 @@ public class CommercialBankLoanAffidavitDoc extends AppCompatActivity {
 
             resultUrl = "https://clws.karnataka.gov.in/clws/Bank/Affidavite/AFDVT_PRINT_BANK.aspx?" + "rp_CoustmerBankID=" + bankIdValue + "&rp_CLW_APPGUID=" + appValue + "&rp_CoustmerID=" + custIdValue + "&rp_CLW_UserID=" + "";
             if (appValue != null && custIdValue!=null &&  bankIdValue!= null) {
+                webViewBankLoanAffidavit.setWebViewClient(new WebViewClient(){
+                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                        view.loadUrl(url);
+                        return true;
+                    }
+
+                    public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                        Toast.makeText(CommercialBankLoanAffidavitDoc.this, "Oh no! " + description, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError er) {
+                        handler.proceed(); // Ignore SSL certificate errors
+                    }
+                });
                 webViewBankLoanAffidavit.loadUrl(resultUrl);
             }
 

@@ -276,6 +276,7 @@ okhttp3.Connection:
     public abstract okhttp3.Route route()
     public abstract java.net.Socket socket()
     public abstract okhttp3.Handshake handshake()
+    public abstract okhttp3.Protocol protocol()
 androidx.vectordrawable.R$layout
 kotlin.coroutines.experimental.SequenceBuilder
 io.reactivex.internal.operators.completable.CompletableMergeDelayErrorArray$MergeInnerCompletableObserver
@@ -725,6 +726,7 @@ com.google.android.play.core.assetpacks.bt:
 com.google.gson.internal.$Gson$Types:
     private void <init>()
 androidx.core.app.NotificationCompatJellybean
+okhttp3.logging.HttpLoggingInterceptor$Logger
 androidx.constraintlayout.solver.widgets.Analyzer
 okhttp3.OkUrlFactory$1
 androidx.constraintlayout.solver.Pools
@@ -752,6 +754,8 @@ kotlin.collections.ArraysKt___ArraysKt$asIterable$$inlined$Iterable$2
 kotlin.UIntArray
 androidx.media.MediaSessionManager$MediaSessionManagerImpl
 androidx.constraintlayout.solver.widgets.ResolutionNode
+app.bmc.com.BHOOMI_MRTC.retrofit.UnsafeOkHttpClient:
+    public void <init>()
 org.intellij.lang.annotations.JdkConstants$FlowLayoutAlignment
 io.reactivex.internal.operators.flowable.FlowableUsing$UsingSubscriber
 androidx.loader.R$id
@@ -792,6 +796,7 @@ okhttp3.OkHttpClient$Builder:
     public final okhttp3.OkHttpClient$Builder dispatcher(okhttp3.Dispatcher)
     public final okhttp3.OkHttpClient$Builder connectionPool(okhttp3.ConnectionPool)
     public final java.util.List interceptors()
+    public final okhttp3.OkHttpClient$Builder addInterceptor(okhttp3.Interceptor)
     public final okhttp3.OkHttpClient$Builder -addInterceptor(kotlin.jvm.functions.Function1)
     public final java.util.List networkInterceptors()
     public final okhttp3.OkHttpClient$Builder addNetworkInterceptor(okhttp3.Interceptor)
@@ -810,10 +815,8 @@ okhttp3.OkHttpClient$Builder:
     public final okhttp3.OkHttpClient$Builder proxyAuthenticator(okhttp3.Authenticator)
     public final okhttp3.OkHttpClient$Builder socketFactory(javax.net.SocketFactory)
     public final okhttp3.OkHttpClient$Builder sslSocketFactory(javax.net.ssl.SSLSocketFactory)
-    public final okhttp3.OkHttpClient$Builder sslSocketFactory(javax.net.ssl.SSLSocketFactory,javax.net.ssl.X509TrustManager)
     public final okhttp3.OkHttpClient$Builder connectionSpecs(java.util.List)
     public final okhttp3.OkHttpClient$Builder protocols(java.util.List)
-    public final okhttp3.OkHttpClient$Builder hostnameVerifier(javax.net.ssl.HostnameVerifier)
     public final okhttp3.OkHttpClient$Builder certificatePinner(okhttp3.CertificatePinner)
     public final okhttp3.OkHttpClient$Builder callTimeout(long,java.util.concurrent.TimeUnit)
     public final okhttp3.OkHttpClient$Builder callTimeout(java.time.Duration)
@@ -1338,6 +1341,7 @@ androidx.appcompat.widget.ActionMenuView:
     static final int GENERATED_ITEM_PADDING
 okio.BufferedSource:
     public abstract okio.Buffer buffer()
+    public abstract boolean request(long)
     public abstract short readShortLe()
     public abstract int readIntLe()
     public abstract long readLong()
@@ -2756,8 +2760,7 @@ kotlin.collections.ArraysKt___ArraysKt:
     public static final double sum(double[])
     public void <init>()
 androidx.constraintlayout.solver.widgets.Optimizer
-okhttp3.logging.HttpLoggingInterceptor$Logger$Companion:
-    static final synthetic okhttp3.logging.HttpLoggingInterceptor$Logger$Companion $$INSTANCE
+okhttp3.logging.HttpLoggingInterceptor$Logger$Companion
 io.reactivex.internal.operators.flowable.FlowableSwitchMap$SwitchMapInnerSubscriber
 okhttp3.internal.cache2.Relay$Companion
 io.reactivex.internal.operators.flowable.FlowableSingleSingle$SingleElementSubscriber
@@ -4222,6 +4225,7 @@ okio.Buffer:
     public okio.Buffer buffer()
     public okio.Buffer emit()
     public synthetic bridge okio.BufferedSink emit()
+    public boolean request(long)
     public okio.BufferedSource peek()
     public final okio.Buffer copyTo(java.io.OutputStream,long,long)
     public final okio.Buffer copyTo(java.io.OutputStream,long)
@@ -4234,7 +4238,9 @@ okio.Buffer:
     public long readLong()
     public long readLongLe()
     public void readFully(okio.Buffer,long)
+    public java.lang.String readString(java.nio.charset.Charset)
     public java.lang.String readUtf8Line()
+    public int readUtf8CodePoint()
     public int read(byte[])
     public okio.Buffer write(okio.ByteString,int,int)
     public synthetic bridge okio.BufferedSink write(okio.ByteString,int,int)
@@ -4639,6 +4645,7 @@ kotlin.collections.CollectionsKt:
 androidx.annotation.ColorInt
 androidx.legacy.v4.R$layout
 kotlin.jvm.functions.Function21
+okhttp3.logging.HttpLoggingInterceptor$Level
 org.jsoup.nodes.DataNode:
     private static final java.lang.String DATA_KEY
 io.reactivex.internal.operators.parallel.ParallelFilterTry$1
@@ -6296,6 +6303,7 @@ androidx.loader.content.Loader:
     public void onContentChanged()
     androidx.loader.content.Loader$OnLoadCanceledListener mOnLoadCanceledListener
 okhttp3.Interceptor$Chain:
+    public abstract okhttp3.Connection connection()
     public abstract okhttp3.Call call()
     public abstract int connectTimeoutMillis()
     public abstract okhttp3.Interceptor$Chain withConnectTimeout(int,java.util.concurrent.TimeUnit)
@@ -6566,6 +6574,7 @@ kotlin.ranges.RangesKt___RangesKt:
     public static final java.lang.Comparable coerceAtMost(java.lang.Comparable,java.lang.Comparable)
     public static final byte coerceAtMost(byte,byte)
     public static final short coerceAtMost(short,short)
+    public static final long coerceAtMost(long,long)
     public static final float coerceAtMost(float,float)
     public static final double coerceAtMost(double,double)
     public static final java.lang.Comparable coerceIn(java.lang.Comparable,java.lang.Comparable,java.lang.Comparable)
@@ -6580,13 +6589,13 @@ kotlin.ranges.RangesKt___RangesKt:
     public static final long coerceIn(long,kotlin.ranges.ClosedRange)
     public void <init>()
 android.support.v4.media.session.MediaSessionCompat$Callback$CallbackHandler
+okhttp3.logging.HttpLoggingInterceptor$Logger$Companion$DEFAULT$1
 io.reactivex.observers.ResourceSingleObserver
 androidx.room.Query
 kotlin.collections.ArraysKt:
     private void <init>()
 io.reactivex.processors.PublishProcessor
 kotlin.comparisons.ComparisonsKt__ComparisonsKt$compareBy$1
-app.bmc.com.BHOOMI_MRTC.retrofit.APIClient
 io.reactivex.internal.operators.flowable.FlowableMap
 android.support.v4.media.MediaBrowserCompat$MediaBrowserImplApi21$1
 kotlin.text.MatcherMatchResult$groupValues$1
@@ -7146,6 +7155,7 @@ okhttp3.internal.connection.RealConnection:
     public static final synthetic java.net.Socket access$getSocket$p(okhttp3.internal.connection.RealConnection)
     public static final synthetic void access$setSocket$p(okhttp3.internal.connection.RealConnection,java.net.Socket)
     public final okhttp3.internal.ws.RealWebSocket$Streams newWebSocketStreams$okhttp(okhttp3.internal.connection.Exchange)
+    public okhttp3.Protocol protocol()
     private static final java.lang.String NPE_THROW_WITH_NULL
     private static final int MAX_TUNNEL_ATTEMPTS
     public static final long IDLE_CONNECTION_HEALTHY_NS
@@ -7682,6 +7692,7 @@ com.google.android.material.snackbar.BaseTransientBottomBar$AnimationMode
 io.reactivex.internal.operators.flowable.FlowableCollectSingle$CollectSubscriber
 io.reactivex.observers.BaseTestConsumer$TestWaitStrategy$2
 okhttp3.internal.http.RealInterceptorChain:
+    public okhttp3.Connection connection()
     public int connectTimeoutMillis()
     public okhttp3.Interceptor$Chain withConnectTimeout(int,java.util.concurrent.TimeUnit)
     public okhttp3.Interceptor$Chain withReadTimeout(int,java.util.concurrent.TimeUnit)
@@ -8325,6 +8336,7 @@ io.reactivex.internal.operators.flowable.FlowableBufferBoundarySupplier$BufferBo
 kotlin.ranges.ClosedFloatingPointRange$DefaultImpls
 androidx.core.net.DatagramSocketWrapper
 io.reactivex.internal.operators.observable.ObservableDematerialize$DematerializeObserver
+okhttp3.logging.Utf8Kt
 io.reactivex.internal.operators.observable.ObservableInternalHelper$BufferedReplayCallable
 io.reactivex.internal.operators.flowable.FlowableFlatMapSingle$FlatMapSingleSubscriber
 com.google.android.material.datepicker.MaterialDatePicker:
@@ -11896,10 +11908,7 @@ io.reactivex.internal.operators.maybe.MaybeSwitchIfEmpty$SwitchIfEmptyMaybeObser
 kotlin.comparisons.ComparisonsKt__ComparisonsKt$thenComparator$1
 io.reactivex.internal.operators.observable.ObservableAllSingle
 androidx.recyclerview.widget.ListAdapter
-okhttp3.logging.HttpLoggingInterceptor:
-    public final void level(okhttp3.logging.HttpLoggingInterceptor$Level)
-    public final void redactHeader(java.lang.String)
-    public final okhttp3.logging.HttpLoggingInterceptor$Level -deprecated_level()
+okhttp3.logging.HttpLoggingInterceptor
 io.reactivex.internal.operators.flowable.FlowableWindowBoundary$WindowBoundaryMainSubscriber
 kotlin.coroutines.experimental.migration.CoroutinesMigrationKt
 io.reactivex.internal.operators.flowable.FlowableSampleTimed$SampleTimedNoLast
@@ -14968,7 +14977,6 @@ io.reactivex.internal.util.Pow2:
 android.support.v4.media.session.MediaControllerCompat$TransportControlsApi24
 androidx.appcompat.widget.FitWindowsFrameLayout:
     public void <init>(android.content.Context)
-kotlin.KotlinVersion
 kotlin.Result:
     public static synthetic void value$annotations()
     private synthetic void <init>(java.lang.Object)
@@ -14986,6 +14994,7 @@ kotlin.Result:
     public int hashCode()
     public boolean equals(java.lang.Object)
     private final java.lang.Object value
+kotlin.KotlinVersion
 androidx.appcompat.widget.SwitchCompat
 androidx.appcompat.view.StandaloneActionMode:
     public void onCloseMenu(androidx.appcompat.view.menu.MenuBuilder,boolean)
@@ -15524,8 +15533,6 @@ com.google.gson.internal.$Gson$Types:
     public static java.lang.reflect.Type resolveTypeVariable(java.lang.reflect.Type,java.lang.Class,java.lang.reflect.TypeVariable)
     public static int indexOf(java.lang.Object[],java.lang.Object)
     public static java.lang.Class declaringClassOf(java.lang.reflect.TypeVariable)
-okhttp3.logging.HttpLoggingInterceptor$Logger:
-    public static final okhttp3.logging.HttpLoggingInterceptor$Logger$Companion Companion
 app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper$1:
     public void migrate(androidx.sqlite.db.SupportSQLiteDatabase)
 kotlin.jvm.internal.CallableReference:
@@ -15556,6 +15563,9 @@ androidx.cardview.widget.RoundRectDrawableWithShadow:
 app.bmc.com.BHOOMI_MRTC.database.DataBaseAccess_Impl$16:
     public final synthetic app.bmc.com.BHOOMI_MRTC.database.DataBaseAccess_Impl this$0
 okhttp3.OkHttpClient$Builder:
+    public final okhttp3.OkHttpClient$Builder hostnameVerifier(javax.net.ssl.HostnameVerifier)
+    public final okhttp3.OkHttpClient$Builder connectTimeout(long,java.util.concurrent.TimeUnit)
+    public final okhttp3.OkHttpClient$Builder readTimeout(long,java.util.concurrent.TimeUnit)
     public final okhttp3.OkHttpClient build()
 kotlin.text.StringsKt__StringsKt$splitToSequence$2
 androidx.appcompat.widget.LinearLayoutCompat:
@@ -16037,7 +16047,6 @@ org.jsoup.nodes.Attributes$Dataset:
 okhttp3.internal.http2.Http2Connection$pushHeadersLater$$inlined$execute$1:
     public final synthetic java.lang.String $name
     public final synthetic boolean $cancelable
-okhttp3.logging.HttpLoggingInterceptor$Logger$Companion
 app.bmc.com.BHOOMI_MRTC.screens.BhoomiHomePage$3:
     public void onNext()
 androidx.lifecycle.LifecycleRegistry:
@@ -16248,12 +16257,12 @@ okhttp3.ConnectionPool:
     public void <init>(int,long,java.util.concurrent.TimeUnit)
 kotlin.reflect.KProperty1$Getter:
     public synthetic abstract kotlin.reflect.KType getReturnType()
-    public synthetic abstract java.util.List getTypeParameters()
-    public synthetic abstract java.lang.String getName()
-    public synthetic abstract java.util.List getParameters()
-    public synthetic abstract kotlin.reflect.KVisibility getVisibility()
-    public synthetic abstract kotlin.reflect.KProperty getProperty()
     public synthetic abstract java.util.List getAnnotations()
+    public synthetic abstract java.util.List getParameters()
+    public synthetic abstract kotlin.reflect.KProperty getProperty()
+    public synthetic abstract kotlin.reflect.KVisibility getVisibility()
+    public synthetic abstract java.lang.String getName()
+    public synthetic abstract java.util.List getTypeParameters()
 io.reactivex.internal.schedulers.IoScheduler$CachedWorkerPool:
     public void release(io.reactivex.internal.schedulers.IoScheduler$ThreadWorker)
     public void evictExpiredWorkers()
@@ -16828,12 +16837,12 @@ okio.Buffer:
     public int readIntLe()
     public long readDecimalLong()
     public java.lang.String readUtf8(long)
-    public java.lang.String readString(java.nio.charset.Charset)
     public byte[] readByteArray()
     public void readFully(byte[])
     public final void clear()
     public okio.Buffer writeString(java.lang.String,int,int,java.nio.charset.Charset)
     public final okio.Buffer copy()
+    public okio.Buffer clone()
     public final okio.ByteString snapshot()
 androidx.room.RoomDatabase$JournalMode:
     public static boolean isLowRamDevice(android.app.ActivityManager)
@@ -17047,8 +17056,6 @@ kotlin.collections.CollectionsKt
 com.google.android.material.bottomsheet.BottomSheetBehavior$SettleRunnable:
     public static synthetic boolean access$100(com.google.android.material.bottomsheet.BottomSheetBehavior$SettleRunnable)
     public static synthetic boolean access$102(com.google.android.material.bottomsheet.BottomSheetBehavior$SettleRunnable,boolean)
-okhttp3.logging.HttpLoggingInterceptor$Level:
-    public static final enum okhttp3.logging.HttpLoggingInterceptor$Level BASIC
 retrofit2.ParameterHandler$PartMap:
     public void apply(retrofit2.RequestBuilder,java.util.Map)
 com.google.android.material.shape.ShapePath:
@@ -17777,11 +17784,11 @@ com.google.gson.internal.bind.TypeAdapters$21:
 kotlin.reflect.KProperty:
     public abstract kotlin.reflect.KProperty$Getter getGetter()
     public synthetic abstract java.util.List getAnnotations()
-    public synthetic abstract java.lang.String getName()
-    public synthetic abstract kotlin.reflect.KType getReturnType()
-    public synthetic abstract java.util.List getTypeParameters()
     public synthetic abstract java.util.List getParameters()
+    public synthetic abstract java.util.List getTypeParameters()
+    public synthetic abstract java.lang.String getName()
     public synthetic abstract kotlin.reflect.KVisibility getVisibility()
+    public synthetic abstract kotlin.reflect.KType getReturnType()
 app.bmc.com.BHOOMI_MRTC.screens.BhoomiHomePage$7:
     public void onNext()
 androidx.collection.ArraySet:
@@ -18354,6 +18361,7 @@ okhttp3.MediaType:
     public void <init>(java.lang.String,java.lang.String,java.lang.String,java.lang.String)
     public static final synthetic java.util.regex.Pattern access$getTYPE_SUBTYPE$cp()
     public static final synthetic java.util.regex.Pattern access$getPARAMETER$cp()
+    public final java.nio.charset.Charset charset(java.nio.charset.Charset)
     public final java.lang.String type()
     public final java.lang.String subtype
 androidx.appcompat.widget.AppCompatHintHelper
@@ -18407,7 +18415,6 @@ com.google.android.material.behavior.SwipeDismissBehavior$OnDismissListener:
     public abstract void onDragStateChanged(int)
 kotlin.ranges.RangesKt:
     public static final int coerceIn(int,int,int)
-    public static final long coerceAtMost(long,long)
     public static final int coerceAtLeast(int,int)
     public static final int coerceAtMost(int,int)
 okhttp3.internal.connection.RealConnection:
@@ -19020,7 +19027,6 @@ com.google.android.material.tabs.TabLayout$TabLayoutOnPageChangeListener:
     public void reset()
 de.hdodenhof.circleimageview.CircleImageView$OutlineProvider:
     public void <init>(de.hdodenhof.circleimageview.CircleImageView)
-okhttp3.logging.Utf8Kt
 com.google.android.material.datepicker.MaterialDatePicker:
     public static android.graphics.drawable.Drawable createHeaderToggleDrawable(android.content.Context)
     public static int getDialogPickerHeight(android.content.Context)
@@ -20015,13 +20021,13 @@ androidx.appcompat.app.AlertController$AlertParams$4
 app.bmc.com.BHOOMI_MRTC.retrofit.RtcViewInfoClient:
     public static void <clinit>()
 kotlin.reflect.KProperty1:
+    public synthetic abstract kotlin.reflect.KVisibility getVisibility()
     public synthetic abstract java.lang.String getName()
     public synthetic abstract java.util.List getTypeParameters()
-    public synthetic abstract java.util.List getParameters()
     public synthetic abstract kotlin.reflect.KType getReturnType()
-    public synthetic abstract java.util.List getAnnotations()
-    public synthetic abstract kotlin.reflect.KVisibility getVisibility()
     public synthetic abstract kotlin.reflect.KProperty$Getter getGetter()
+    public synthetic abstract java.util.List getAnnotations()
+    public synthetic abstract java.util.List getParameters()
 androidx.viewpager2.widget.FakeDrag
 com.google.android.material.internal.ViewUtils
 androidx.appcompat.widget.TooltipCompat
@@ -21499,10 +21505,6 @@ androidx.media.MediaSessionManager$RemoteUserInfoImpl:
 com.google.gson.internal.bind.TypeAdapters$8:
     public java.util.concurrent.atomic.AtomicInteger read(com.google.gson.stream.JsonReader)
     public void write(com.google.gson.stream.JsonWriter,java.util.concurrent.atomic.AtomicInteger)
-okhttp3.logging.HttpLoggingInterceptor:
-    public void <init>(okhttp3.logging.HttpLoggingInterceptor$Logger)
-    public void <init>(okhttp3.logging.HttpLoggingInterceptor$Logger,int)
-    public final okhttp3.logging.HttpLoggingInterceptor setLevel(okhttp3.logging.HttpLoggingInterceptor$Level)
 androidx.viewpager2.adapter.FragmentStateAdapter$1
 androidx.core.content.res.FontResourcesParserCompat$FontFileResourceEntry:
     public boolean isItalic()
@@ -21948,13 +21950,13 @@ kotlin.reflect.KMutableProperty2$Setter
 app.bmc.com.BHOOMI_MRTC.screens.ViewRtcInformation$2:
     public void onNext(java.util.List)
 kotlin.reflect.KProperty$Getter:
+    public synthetic abstract java.util.List getParameters()
+    public synthetic abstract kotlin.reflect.KType getReturnType()
     public synthetic abstract kotlin.reflect.KVisibility getVisibility()
+    public synthetic abstract java.util.List getTypeParameters()
+    public synthetic abstract java.lang.String getName()
     public synthetic abstract java.util.List getAnnotations()
     public synthetic abstract kotlin.reflect.KProperty getProperty()
-    public synthetic abstract java.util.List getParameters()
-    public synthetic abstract java.lang.String getName()
-    public synthetic abstract kotlin.reflect.KType getReturnType()
-    public synthetic abstract java.util.List getTypeParameters()
 androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat:
     public void <init>(android.content.Context)
     public static androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat createFromXmlInner(android.content.Context,android.content.res.Resources,org.xmlpull.v1.XmlPullParser,android.util.AttributeSet,android.content.res.Resources$Theme)

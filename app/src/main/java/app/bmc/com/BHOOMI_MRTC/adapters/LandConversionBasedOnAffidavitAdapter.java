@@ -33,6 +33,17 @@ public class LandConversionBasedOnAffidavitAdapter extends RecyclerView.Adapter<
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+
+        String status = list.get(i).getStatus_Description();
+
+        if (status.contains("Generate Endorsement")){
+            viewHolder.ivEndorsement_Report.setVisibility(View.VISIBLE);
+            viewHolder.tvEndorsementRep.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.ivEndorsement_Report.setVisibility(View.GONE);
+            viewHolder.tvEndorsementRep.setVisibility(View.GONE);
+        }
+
         viewHolder.tvAffidavitID.setText(list.get(i).getREQ_AID());
         viewHolder.tvReqID.setText(list.get(i).getREQ_ID());
         viewHolder.tvDistID.setText(list.get(i).getDISTRICT_NAME());
@@ -65,6 +76,7 @@ public class LandConversionBasedOnAffidavitAdapter extends RecyclerView.Adapter<
         public TextView tvCreatedDate;
         public TextView tvTypeOfConverSion;
         public TextView tvStatus;
+        public TextView tvEndorsementRep;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -80,6 +92,7 @@ public class LandConversionBasedOnAffidavitAdapter extends RecyclerView.Adapter<
             tvCreatedDate = itemView.findViewById(R.id.tvCreatedDate);
             tvTypeOfConverSion = itemView.findViewById(R.id.tvTypeOfConverSion);
             tvStatus = itemView.findViewById(R.id.tvStatus);
+            tvEndorsementRep = itemView.findViewById(R.id.tvEndorsementRep);
 
             ivEndorsement_Report.setOnClickListener(v -> {
                 int pos = getAdapterPosition();

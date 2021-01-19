@@ -599,6 +599,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
         if (data.contains("CertPathValidatorException")){
             Toast.makeText(getApplicationContext(), ""+data, Toast.LENGTH_SHORT).show();
         } else {
+            Log.d("DataResponse", ""+data);
             final AlertDialog.Builder builder = new AlertDialog.Builder(ViewRtcInformation.this, R.style.MyDialogTheme);
             builder.setTitle(getString(R.string.status))
                     .setMessage("Server is busy, Please try after sometime")
