@@ -12,6 +12,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 public class UnsafeOkHttpClient {
     public static OkHttpClient getUnsafeOkHttpClient(){
@@ -46,9 +47,11 @@ public class UnsafeOkHttpClient {
                     return true;
                 }
             });
+            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             OkHttpClient okHttpClient = builder
                     .connectTimeout(30, TimeUnit.SECONDS)
-                    .readTimeout(30, TimeUnit.SECONDS)
+                    .readTimeout(30, TimeUnit.SECONDS).addInterceptor(interceptor)
                     .build();
 
             return okHttpClient;

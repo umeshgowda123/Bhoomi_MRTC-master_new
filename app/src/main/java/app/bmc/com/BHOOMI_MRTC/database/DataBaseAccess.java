@@ -6,9 +6,6 @@ import androidx.room.Query;
 
 import java.util.List;
 
-import app.bmc.com.BHOOMI_MRTC.model.BankMasterData;
-import app.bmc.com.BHOOMI_MRTC.model.BranchNameWithCodeData;
-import app.bmc.com.BHOOMI_MRTC.model.CalamityData;
 import app.bmc.com.BHOOMI_MRTC.model.CalamityDetails;
 import app.bmc.com.BHOOMI_MRTC.model.DistrictData;
 import app.bmc.com.BHOOMI_MRTC.model.DistrictDataKannada;
@@ -29,7 +26,6 @@ import app.bmc.com.BHOOMI_MRTC.model.RLR_RES_Data;
 import app.bmc.com.BHOOMI_MRTC.model.RTCV_Data;
 import app.bmc.com.BHOOMI_MRTC.model.RTC_VERIFICATION_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.R_LAND_REPORT_TABLE;
-import app.bmc.com.BHOOMI_MRTC.model.SeasonData;
 import app.bmc.com.BHOOMI_MRTC.model.SeasonDetails;
 import app.bmc.com.BHOOMI_MRTC.model.TalukData;
 import app.bmc.com.BHOOMI_MRTC.model.TalukDataKannda;
@@ -39,7 +35,6 @@ import app.bmc.com.BHOOMI_MRTC.model.VR_INFO;
 import app.bmc.com.BHOOMI_MRTC.model.V_MUTATION_STATUS_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.VillageData;
 import app.bmc.com.BHOOMI_MRTC.model.VillageDataKannada;
-import app.bmc.com.BHOOMI_MRTC.model.YearData;
 import app.bmc.com.BHOOMI_MRTC.model.YearDetails;
 
 @Dao
@@ -56,10 +51,6 @@ public interface DataBaseAccess {
 
     @Insert
     Long[] insertMasterSeasonData(List<SeasonDetails> season_list);
-
-
-    @Insert
-    Long[] insertBankMasterData(List<BankMasterData> bankMasterList);
 
     @Insert
 //    Long[] insertPacsBankMasterData(List<PacsBankMasterData> bankMasterList);
@@ -97,8 +88,8 @@ public interface DataBaseAccess {
     @Query("SELECT COUNT(id) FROM CalamityDetails")
     int getNumberOfRowsFromCalamityMaster();
 
-    @Query("SELECT COUNT(id) FROM BankMasterData")
-    int getNumberOfROwsFromBankMaster();
+//    @Query("SELECT COUNT(id) FROM BankMasterData")
+//    int getNumberOfROwsFromBankMaster();
 
 //-----------------Susmita-------------------------
     @Query("SELECT COUNT(id) FROM PacsBankMasterData")
@@ -109,27 +100,27 @@ public interface DataBaseAccess {
     List<DistrictData> getDistinctDistricts();
 
 
-    @Query("SELECT DISTINCT BNK_NME_EN FROM BankMasterData  WHERE BNK_BHM_DC_CDE = :dis_id ORDER BY BNK_NME_EN ASC")
-    List<String> getBankNames(int dis_id);
+//    @Query("SELECT DISTINCT BNK_NME_EN FROM BankMasterData  WHERE BNK_BHM_DC_CDE = :dis_id ORDER BY BNK_NME_EN ASC")
+//    List<String> getBankNames(int dis_id);
 
 
     @Query("SELECT DISTINCT BNK_NME_EN FROM PacsBankMasterData  WHERE BNK_BHM_DC_CDE = :dis_id ORDER BY BNK_NME_EN ASC")
     List<String> getPacsBankNames(int dis_id);
 
-    @Query("SELECT DISTINCT Bnk_Brnch_Nme_Eng,BNK_NME_EN,BNK_BRNCH_CDE FROM PacsBankMasterData WHERE BNK_BHM_DC_CDE =:district_id and  BNK_NME_EN = :bank_name ORDER BY Bnk_Brnch_Nme_Eng ASC")
-    List<BranchNameWithCodeData>  getPacsBranchNameList(int district_id, String bank_name);
+//    @Query("SELECT DISTINCT Bnk_Brnch_Nme_Eng,BNK_NME_EN,BNK_BRNCH_CDE FROM PacsBankMasterData WHERE BNK_BHM_DC_CDE =:district_id and  BNK_NME_EN = :bank_name ORDER BY Bnk_Brnch_Nme_Eng ASC")
+//    List<BranchNameWithCodeData>  getPacsBranchNameList(int district_id, String bank_name);
 
-    @Query("SELECT DISTINCT BNK_BRNCH_NME FROM BankMasterData WHERE BNK_BHM_DC_CDE = :district_id and BNK_NME_EN = :bank_name ORDER BY BNK_BRNCH_NME ASC")
-    List<String>  getBranchNameList(int district_id, String bank_name);
+//    @Query("SELECT DISTINCT BNK_BRNCH_NME FROM BankMasterData WHERE BNK_BHM_DC_CDE = :district_id and BNK_NME_EN = :bank_name ORDER BY BNK_BRNCH_NME ASC")
+//    List<String>  getBranchNameList(int district_id, String bank_name);
 
-    @Query("SELECT Year,Code FROM YearDetails")
-    List<YearData> getDistinctYears();
+//    @Query("SELECT Year,Code FROM YearDetails")
+//    List<YearData> getDistinctYears();
 
-    @Query("SELECT MSTSEASON_ID,MSTSEASON_VAL,MSTSEASON_DESC FROM SeasonDetails")
-    List<SeasonData> getDistinctSeasons();
+//    @Query("SELECT MSTSEASON_ID,MSTSEASON_VAL,MSTSEASON_DESC FROM SeasonDetails")
+//    List<SeasonData> getDistinctSeasons();
 
-    @Query("SELECT MSTCTYPE_ID,MSTCTYPE_VAL,MSTCTYPE_DESC FROM CalamityDetails")
-    List<CalamityData> getDistinctCalamity();
+//    @Query("SELECT MSTCTYPE_ID,MSTCTYPE_VAL,MSTCTYPE_DESC FROM CalamityDetails")
+//    List<CalamityData> getDistinctCalamity();
 
     @Query("SELECT VLM_DST_ID,VLM_DKN_NM FROM MST_VLM  group by VLM_DKN_NM")
     List<DistrictDataKannada> getDistinctDistrictsKannada();

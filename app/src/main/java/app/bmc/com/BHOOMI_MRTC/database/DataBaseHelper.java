@@ -6,7 +6,6 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import app.bmc.com.BHOOMI_MRTC.model.BankMasterData;
 import app.bmc.com.BHOOMI_MRTC.model.CalamityDetails;
 import app.bmc.com.BHOOMI_MRTC.model.LandConversion_Final_Order_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.LandConversion_TABLE;
@@ -25,7 +24,7 @@ import app.bmc.com.BHOOMI_MRTC.model.YearDetails;
 
 
 @Database(entities = {MST_VLM.class, Maintenance_Flags.class, YearDetails.class, SeasonDetails.class,
-        CalamityDetails.class, BankMasterData.class, PacsBankMasterData.class, VR_INFO.class, MPD_TABLE.class,
+        CalamityDetails.class, PacsBankMasterData.class, VR_INFO.class, MPD_TABLE.class,
         MS_REPORT_TABLE.class, R_LAND_REPORT_TABLE.class, V_MUTATION_STATUS_TABLE.class, RTC_VERIFICATION_TABLE.class,
         LandConversion_TABLE.class, LandConversion_Final_Order_TABLE.class, UPDATED_DATE.class}, version = 2, exportSchema = false)
 public abstract class DataBaseHelper extends RoomDatabase {
