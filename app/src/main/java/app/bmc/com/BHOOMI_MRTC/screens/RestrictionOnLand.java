@@ -563,7 +563,7 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
         } else {
             final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(RestrictionOnLand.this, R.style.MyDialogTheme);
             builder.setTitle(getString(R.string.status))
-                    .setMessage("Server is busy, Please try after sometime")
+                    .setMessage(getString(R.string.server_is_busy_please_try_again_later))
                     .setIcon(R.drawable.ic_notifications_black_24dp)
                     .setCancelable(false)
                     .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
