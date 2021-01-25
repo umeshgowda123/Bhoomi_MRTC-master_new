@@ -26,7 +26,7 @@ public class MutationStatusAdapter extends RecyclerView.Adapter<MutationStatusAd
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tvYear, tvMutationType, tvMutationStatusKan, tvMutationStatusEng;
+        TextView tvYear, tvMutationType, tvMutationStatusKan, tvMutationStatusEng, tvApplicationNo, tvTransactionNo, tvMRNo, tvSurveyNo;
 
         public MyViewHolder(View view) {
             super(view);
@@ -35,6 +35,10 @@ public class MutationStatusAdapter extends RecyclerView.Adapter<MutationStatusAd
             tvMutationType = view.findViewById(R.id.tvMutationType);
             tvMutationStatusKan = view.findViewById(R.id.tvMutationStatusKan);
             tvMutationStatusEng = view.findViewById(R.id.tvMutationStatusEng);
+            tvApplicationNo = view.findViewById(R.id.tvApplicationNo);
+            tvTransactionNo = view.findViewById(R.id.tvTransactionNo);
+            tvMRNo = view.findViewById(R.id.tvMRNo);
+            tvSurveyNo = view.findViewById(R.id.tvSurveyNo);
 
         }
     }
@@ -55,7 +59,11 @@ public class MutationStatusAdapter extends RecyclerView.Adapter<MutationStatusAd
             Toast.makeText(activity, "No Data Found!", Toast.LENGTH_SHORT).show();
         }else
         {
+            myViewHolder.tvApplicationNo.setText(clist.get(position).getAPPL_NO());
+            myViewHolder.tvTransactionNo.setText(clist.get(position).getTRAN_NO());
+            myViewHolder.tvMRNo.setText(clist.get(position).getMR_NO());
             myViewHolder.tvYear.setText(clist.get(position).getYEAR());
+            myViewHolder.tvSurveyNo.setText(clist.get(position).getSURVEY_NO());
             myViewHolder.tvMutationType.setText(clist.get(position).getMUTATION_TYPE());
             myViewHolder.tvMutationStatusEng.setText(clist.get(position).getMUTAION_STATUS_ENG());
             myViewHolder.tvMutationStatusKan.setText(clist.get(position).getMUTAION_STATUS_KN());

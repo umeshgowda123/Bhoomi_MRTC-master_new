@@ -420,4 +420,7 @@
     <string name="search_by_owner_name_survey_no">Search By Owner Name/Survey No.</string>
     <string name="server_is_busy_please_try_again_later">ಸರ್ವರ್ ಕಾರ್ಯನಿರತವಾಗಿದೆ. ದಯವಿಟ್ಟು ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ…</string>
     <string name="this_application_is_under_maintainance">ಈ ಅಪ್ಲಿಕೇಶನ್ ನಿರ್ವಹಣೆ ಹಂತದಲ್ಲಿದೆ, ದಯವಿಟ್ಟು ಸ್ವಲ್ಪ ಸಮಯದ ನಂತರ ಪ್ರಯತ್ನಿಸಿ…</string>
+    <string name="application_no">ಅರ್ಜಿ ಸಂಖ್ಯೆ</string>
+    <string name="transaction_no">ವಹಿವಾಟಿನ ಸಂಖ್ಯೆ</string>
+    <string name="mr_no">ಎಮ್.ಆರ್ ಸಂಖ್ಯೆ</string>
 </resources>

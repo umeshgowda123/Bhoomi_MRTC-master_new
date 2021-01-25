@@ -465,4 +465,7 @@
     <string name="search_by_owner_name_survey_no">Search By Owner Name/Survey No.</string>
     <string name="server_is_busy_please_try_again_later">Server is busy.Please try again later…</string>
     <string name="this_application_is_under_maintainance">This Application is Under Maintenance, Please try after sometime…</string>
+    <string name="application_no">Application No.</string>
+    <string name="transaction_no">Transaction No.</string>
+    <string name="mr_no">MR No.</string>
 </resources>

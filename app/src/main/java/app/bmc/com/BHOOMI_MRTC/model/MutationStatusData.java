@@ -4,6 +4,18 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class MutationStatusData {
+    @SerializedName("MR_NO")
+    @Expose
+    private String MR_NO;
+
+    @SerializedName("APPL_NO")
+    @Expose
+    private String APPL_NO;
+
+    @SerializedName("TRAN_NO")
+    @Expose
+    private String TRAN_NO;
+
     @SerializedName("MUTAION_STATUS_ENG")
     @Expose
     private String MUTAION_STATUS_ENG;
@@ -51,6 +63,30 @@ public class MutationStatusData {
     @SerializedName("VillageName")
     @Expose
     private String VillageName;
+
+    public String getMR_NO() {
+        return MR_NO;
+    }
+
+    public void setMR_NO(String MR_NO) {
+        this.MR_NO = MR_NO;
+    }
+
+    public String getAPPL_NO() {
+        return APPL_NO;
+    }
+
+    public void setAPPL_NO(String APPL_NO) {
+        this.APPL_NO = APPL_NO;
+    }
+
+    public String getTRAN_NO() {
+        return TRAN_NO;
+    }
+
+    public void setTRAN_NO(String TRAN_NO) {
+        this.TRAN_NO = TRAN_NO;
+    }
 
     public String getHobliName() {
         return HobliName;
