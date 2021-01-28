@@ -79,7 +79,7 @@
 
     <string name="calamity_error">Select Calamity</string>
 
-    <string name="aadhaar_number_err">Enter aadhar Number!</string>
+    <string name="aadhaar_number_err">Enter aadhaar Number!</string>
 
     <string name="action_text">Action</string>
 
@@ -127,9 +127,9 @@
     <string name="ExtentAcGun">Extent Ac Gun</string>
     <string name="KhataNo">Khata No</string>
     <string name="AcquisitionDetails">10.Acquisition Type and Description</string>
-    <string name="otherrightliaHeading">11.Other rights and liablities</string>
+    <string name="otherrightliaHeading">11.Other rights and liabilities</string>
     <string name="Rights">Rights</string>
-    <string name="Liablities">Liablities</string>
+    <string name="Liablities">Liabilities</string>
     <string name="rtc_verification">RTC XML Verification</string>
     <string name="rtc_verification_et_hint">Enter Reference Number</string>
     <string name="rtc_verification_btn1">Get RTC Data</string>
@@ -385,7 +385,7 @@
     <string name="please_enter_rationcard_num">Please Enter RationCard Num.</string>
     <string name="land_conversion">Land Conversion</string>
     <string name="land_conversion_request_status">Land Conversion Request Status</string>
-    <string name="ver_1_0_0">Ver: 3.0.0</string>
+    <string name="ver_1_0_0">Ver: 4.0.0</string>
     <string name="copyright_bhoomi_monitoring_cell_2020_all_right_reserved">Copyright© Bhoomi Monitoring Cell - 2020  All Right Reserved</string>
     <string name="request_id">Request ID Wise</string>
     <string name="survey_no_wise">Survey No. Wise</string>

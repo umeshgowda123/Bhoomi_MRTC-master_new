@@ -15293,8 +15293,6 @@ androidx.transition.ViewGroupUtilsApi14:
     public static java.lang.reflect.Method sCancelMethod
     public static boolean sCancelMethodFetched
 kotlin.LazyKt__LazyKt
-app.bmc.com.BHOOMI_MRTC.screens.ShowEnglishCertificateActivity$1$1:
-    public final synthetic app.bmc.com.BHOOMI_MRTC.screens.ShowEnglishCertificateActivity$1 this$1
 com.google.android.material.internal.TextDrawableHelper:
     public static synthetic boolean access$002(com.google.android.material.internal.TextDrawableHelper,boolean)
     public static synthetic java.lang.ref.WeakReference access$100(com.google.android.material.internal.TextDrawableHelper)
@@ -15566,9 +15564,6 @@ com.github.chrisbanes.photoview.PhotoView:
     public final void init()
 org.jsoup.nodes.TextNode:
     public static java.lang.String normaliseWhitespace(java.lang.String)
-app.bmc.com.BHOOMI_MRTC.screens.ShowEnglishCertificateActivity:
-    public void initializeWebView()
-    public final void loadURL()
 androidx.core.provider.SelfDestructiveThread:
     public void postAndReply(java.util.concurrent.Callable,androidx.core.provider.SelfDestructiveThread$ReplyCallback)
     public void onInvokeRunnable(java.lang.Runnable)
@@ -15951,6 +15946,7 @@ androidx.appcompat.app.AlertDialog$Builder:
     public androidx.appcompat.app.AlertDialog$Builder setCustomTitle(android.view.View)
     public androidx.appcompat.app.AlertDialog$Builder setMessage(java.lang.CharSequence)
     public androidx.appcompat.app.AlertDialog$Builder setIcon(android.graphics.drawable.Drawable)
+    public androidx.appcompat.app.AlertDialog$Builder setPositiveButton(int,android.content.DialogInterface$OnClickListener)
     public androidx.appcompat.app.AlertDialog$Builder setPositiveButton(java.lang.CharSequence,android.content.DialogInterface$OnClickListener)
     public androidx.appcompat.app.AlertDialog$Builder setNegativeButton(java.lang.CharSequence,android.content.DialogInterface$OnClickListener)
     public androidx.appcompat.app.AlertDialog$Builder setCancelable(boolean)
@@ -16197,13 +16193,13 @@ okhttp3.ConnectionPool:
     public void <init>(okhttp3.internal.connection.RealConnectionPool)
     public void <init>(int,long,java.util.concurrent.TimeUnit)
 kotlin.reflect.KProperty1$Getter:
-    public synthetic abstract kotlin.reflect.KProperty getProperty()
-    public synthetic abstract java.lang.String getName()
     public synthetic abstract java.util.List getTypeParameters()
-    public synthetic abstract kotlin.reflect.KVisibility getVisibility()
     public synthetic abstract java.util.List getParameters()
-    public synthetic abstract java.util.List getAnnotations()
     public synthetic abstract kotlin.reflect.KType getReturnType()
+    public synthetic abstract kotlin.reflect.KVisibility getVisibility()
+    public synthetic abstract kotlin.reflect.KProperty getProperty()
+    public synthetic abstract java.util.List getAnnotations()
+    public synthetic abstract java.lang.String getName()
 io.reactivex.internal.schedulers.IoScheduler$CachedWorkerPool:
     public void release(io.reactivex.internal.schedulers.IoScheduler$ThreadWorker)
     public void evictExpiredWorkers()
@@ -17266,8 +17262,6 @@ com.google.android.material.ripple.RippleDrawableCompat
 androidx.core.text.BidiFormatter$Builder
 kotlin.jvm.internal.PropertyReference1:
     public kotlin.reflect.KCallable computeReflected()
-app.bmc.com.BHOOMI_MRTC.screens.CommercialBankLoanReportDocActivity$1:
-    public final synthetic app.bmc.com.BHOOMI_MRTC.screens.CommercialBankLoanReportDocActivity this$0
 com.google.gson.internal.bind.TypeAdapters$20:
     public java.lang.StringBuffer read(com.google.gson.stream.JsonReader)
     public void write(com.google.gson.stream.JsonWriter,java.lang.StringBuffer)
@@ -17699,8 +17693,6 @@ retrofit2.ServiceMethod:
 kotlin.coroutines.intrinsics.IntrinsicsKt__IntrinsicsJvmKt
 retrofit2.converter.gson.GsonConverterFactory:
     public static retrofit2.converter.gson.GsonConverterFactory create(com.google.gson.Gson)
-app.bmc.com.BHOOMI_MRTC.screens.CommercialBankLoanAffidavitDoc$1:
-    public final synthetic app.bmc.com.BHOOMI_MRTC.screens.CommercialBankLoanAffidavitDoc this$0
 androidx.appcompat.widget.RtlSpacingHelper:
     public void setAbsolute(int,int)
 com.google.android.material.behavior.SwipeDismissBehavior$1:
@@ -17722,12 +17714,12 @@ com.google.gson.internal.bind.TypeAdapters$21:
     public void write(com.google.gson.stream.JsonWriter,java.net.URL)
 kotlin.reflect.KProperty:
     public abstract kotlin.reflect.KProperty$Getter getGetter()
-    public synthetic abstract kotlin.reflect.KType getReturnType()
-    public synthetic abstract java.util.List getTypeParameters()
-    public synthetic abstract kotlin.reflect.KVisibility getVisibility()
-    public synthetic abstract java.util.List getParameters()
-    public synthetic abstract java.lang.String getName()
     public synthetic abstract java.util.List getAnnotations()
+    public synthetic abstract java.util.List getTypeParameters()
+    public synthetic abstract java.util.List getParameters()
+    public synthetic abstract kotlin.reflect.KType getReturnType()
+    public synthetic abstract java.lang.String getName()
+    public synthetic abstract kotlin.reflect.KVisibility getVisibility()
 app.bmc.com.BHOOMI_MRTC.screens.BhoomiHomePage$7:
     public void onNext()
 androidx.collection.ArraySet:
@@ -19953,13 +19945,13 @@ androidx.appcompat.app.AlertController$AlertParams$4
 app.bmc.com.BHOOMI_MRTC.retrofit.RtcViewInfoClient:
     public static void <clinit>()
 kotlin.reflect.KProperty1:
-    public synthetic abstract kotlin.reflect.KVisibility getVisibility()
-    public synthetic abstract java.util.List getParameters()
-    public synthetic abstract java.util.List getTypeParameters()
-    public synthetic abstract java.util.List getAnnotations()
     public synthetic abstract kotlin.reflect.KProperty$Getter getGetter()
-    public synthetic abstract java.lang.String getName()
+    public synthetic abstract java.util.List getTypeParameters()
+    public synthetic abstract kotlin.reflect.KVisibility getVisibility()
     public synthetic abstract kotlin.reflect.KType getReturnType()
+    public synthetic abstract java.lang.String getName()
+    public synthetic abstract java.util.List getAnnotations()
+    public synthetic abstract java.util.List getParameters()
 androidx.viewpager2.widget.FakeDrag
 com.google.android.material.internal.ViewUtils
 androidx.appcompat.widget.TooltipCompat
@@ -20232,10 +20224,6 @@ com.google.android.material.resources.TextAppearanceConfig:
     public static boolean shouldLoadFontSynchronously()
 app.bmc.com.BHOOMI_MRTC.screens.RtcDetails$1:
     public void onNext(java.util.List)
-app.bmc.com.BHOOMI_MRTC.screens.CommercialBankLoanAffidavitDoc:
-    public void initializeWebView()
-    public final void loadURL()
-    public java.lang.String baseUrl
 androidx.recyclerview.widget.RecyclerView$ItemAnimator$ItemAnimatorListener:
     public abstract void onAnimationFinished(androidx.recyclerview.widget.RecyclerView$ViewHolder)
 io.reactivex.internal.functions.Functions$ErrorConsumer
@@ -21655,8 +21643,6 @@ retrofit2.BuiltInConverters$BufferingResponseBodyConverter:
 com.nineoldandroids.animation.ValueAnimator$1:
     public java.util.ArrayList initialValue()
 com.google.android.play.core.splitcompat.q
-app.bmc.com.BHOOMI_MRTC.screens.ShowEnglishCertificateActivity$1:
-    public final synthetic app.bmc.com.BHOOMI_MRTC.screens.ShowEnglishCertificateActivity this$0
 com.google.android.material.behavior.SwipeDismissBehavior:
     public static int clamp(int,int,int)
     public static float fraction(float,float,float)
@@ -21884,13 +21870,13 @@ kotlin.reflect.KMutableProperty2$Setter
 app.bmc.com.BHOOMI_MRTC.screens.ViewRtcInformation$2:
     public void onNext(java.util.List)
 kotlin.reflect.KProperty$Getter:
+    public synthetic abstract kotlin.reflect.KVisibility getVisibility()
+    public synthetic abstract java.lang.String getName()
     public synthetic abstract kotlin.reflect.KProperty getProperty()
-    public synthetic abstract kotlin.reflect.KType getReturnType()
     public synthetic abstract java.util.List getTypeParameters()
     public synthetic abstract java.util.List getParameters()
-    public synthetic abstract java.lang.String getName()
     public synthetic abstract java.util.List getAnnotations()
-    public synthetic abstract kotlin.reflect.KVisibility getVisibility()
+    public synthetic abstract kotlin.reflect.KType getReturnType()
 androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat:
     public void <init>(android.content.Context)
     public static androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat createFromXmlInner(android.content.Context,android.content.res.Resources,org.xmlpull.v1.XmlPullParser,android.util.AttributeSet,android.content.res.Resources$Theme)
@@ -21914,10 +21900,6 @@ app.bmc.com.BHOOMI_MRTC.fragments.CultivatorDetailsFragment$1:
 androidx.transition.ChangeBounds$4:
     public void set(android.view.View,android.graphics.PointF)
     public android.graphics.PointF get()
-app.bmc.com.BHOOMI_MRTC.screens.CommercialBankLoanReportDocActivity:
-    public void initializeWebView()
-    public final void loadURL()
-    public java.lang.String baseUrl
 androidx.appcompat.widget.ResourceManagerInternal$ResourceManagerHooks:
     public abstract android.graphics.drawable.Drawable createDrawableFor(androidx.appcompat.widget.ResourceManagerInternal,android.content.Context,int)
     public abstract boolean tintDrawable(android.content.Context,int,android.graphics.drawable.Drawable)
