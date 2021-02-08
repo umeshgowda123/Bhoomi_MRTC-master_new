@@ -19,6 +19,7 @@ import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -478,6 +479,7 @@ public class MutationPendencyDetails extends AppCompatActivity {
                                             public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable t) {
                                                 call.cancel();
                                                 progressDialog.dismiss();
+                                                Log.d("t :::::::::::::", t.getLocalizedMessage()+"");
                                                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                                             }
                                         });
