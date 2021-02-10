@@ -37,6 +37,15 @@ public class Constants {
     public static final String CLWS_REST_SERVICE_PASSWORD = "c2a2b557-c792-48f9-a4cd-56fdf45974b9";
 
 
+    public static final String USERNAME_TOKEN = "aakm569soo71064eb83d03ec5ba1e3252d08d9ad102b8f0b2c4ebeaa269sbxy6";
+    public static final String PASSWORD_TOKEN = "uusj89xn54b4ed834d995bee3d6b99ecd91fc1a2fc346bf7c93aa5gs6sgs6sgh";
+
+
+    public static final String GRANT_TYPE = "password";
+
+
+
+
 
     public static int convertInt(String paymentStatus) {
         try{

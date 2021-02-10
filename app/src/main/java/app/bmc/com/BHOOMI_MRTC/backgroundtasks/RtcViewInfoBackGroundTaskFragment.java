@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.gson.JsonObject;
 
+
 import org.jetbrains.annotations.NotNull;
 
 import app.bmc.com.BHOOMI_MRTC.R;
@@ -21,7 +22,10 @@ import app.bmc.com.BHOOMI_MRTC.model.Get_Rtc_Data_Result;
 import app.bmc.com.BHOOMI_MRTC.model.Get_Surnoc_HissaResult;
 import app.bmc.com.BHOOMI_MRTC.model.Get_ViewMutationStatusResult;
 import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
+import app.bmc.com.BHOOMI_MRTC.model.TokenRes;
+import app.bmc.com.BHOOMI_MRTC.retrofit.PariharaIndividualreportClient;
 import app.bmc.com.BHOOMI_MRTC.retrofit.RtcViewInfoClient;
+import app.bmc.com.BHOOMI_MRTC.retrofit.TestClient;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,6 +43,9 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
     Call<Get_Rtc_Data_Result> getRtcResponse_call;
     Call<PariharaIndividualDetailsResponse> getLandRestrictionResultCall;
     Call<Get_Rtc_Data_Result> getCultivatorResponse_Call;
+
+    PariharaIndividualReportInteface apiInterface;
+    Call<TokenRes> callToken;
 
     /**
      * Called when a fragment is first attached to its activity.
@@ -87,15 +94,15 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
     }
 
 
-    public void startBackgroundTask1(JsonObject jsonObject, String url) {
+    public void startBackgroundTask1(JsonObject jsonObject, String url, String token_type, String token) {
         if (!isTaskExecuting) {
-            getSurnocHissaResponse(jsonObject, url);
+            getSurnocHissaResponse(jsonObject, url, token_type, token);
         }
     }
 
-    public void startBackgroundTask2(JsonObject input, String url) {
+    public void startBackgroundTask2(JsonObject input, String url,String token_type, String token) {
         if (!isTaskExecuting) {
-            getRtcResponse(input, url);
+            getRtcResponse(input, url, token_type, token);
         }
     }
 
@@ -124,13 +131,116 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         }
     }
 
+    public void startBackgroundTask_GenerateToken(){
+        if (!isTaskExecuting) {
+            GetToken();
+        }
+    }
 
-    private void getSurnocHissaResponse(JsonObject jsonObject, String url) {
+    private void GetToken() {
+        apiInterface = PariharaIndividualreportClient.getClient(getString(R.string.url_token)).create(PariharaIndividualReportInteface.class);
+        callToken = (Call<TokenRes>) apiInterface.getToken(Constants.USERNAME_TOKEN,Constants.PASSWORD_TOKEN,Constants.GRANT_TYPE);
+        callToken.enqueue(new Callback<TokenRes>() {
+            @Override
+            public void onResponse(@NotNull Call<TokenRes> call1, @NotNull Response<TokenRes> response) {
+                String AccessToken = null;
+                String TokenType = null;
+
+                if (response.isSuccessful()) {
+                        TokenRes result = response.body();
+                        AccessToken = result.getAccessToken();
+                        TokenType = result.getTokenType();
+
+                        assert result != null;
+
+                    }
+                        isTaskExecuting = false;
+                        if (backgroundCallBack != null) {
+                            assert response != null;
+                            backgroundCallBack.onPostResponseSuccessGetToken(TokenType,AccessToken);
+                        } else {
+                        isTaskExecuting = false;
+                        if (backgroundCallBack != null) {
+
+                            String errorResponse = response.message();
+
+                            backgroundCallBack.onPostResponseError_Token(errorResponse);
+                        }
+
+                    }
+
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<TokenRes> callToken, @NonNull Throwable error) {
+                    isTaskExecuting = false;
+                    error.printStackTrace();
+                    if (backgroundCallBack != null) {
+
+                        String errorResponse = error.getMessage();
+                        Log.d("ERR_RES", "" + errorResponse);
+//                        backgroundCallBack.onPostResponseError_Token(errorResponse);
+                    }
+                }
+            });
+
+//                if (response.isSuccessful()) {
+//                    TokenRes result = response.body();
+//                    assert result != null;
+//                    String AccessToken,TokenType;
+//                    AccessToken = result.getAccessToken();
+//                    TokenType = result.getTokenType();
+//
+//                    if (AccessToken == null || AccessToken.equals("") || AccessToken.contains("INVALID")||TokenType == null || TokenType.equals("") || TokenType.contains("INVALID")) {
+//                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ViewRtcInformation.this, R.style.MyDialogTheme);
+//                        builder.setTitle(getString(R.string.status))
+//                                .setMessage(getString(R.string.invalid_affidavit_id))
+//                                .setIcon(R.drawable.ic_notifications_black_24dp)
+//                                .setCancelable(false)
+//                                .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
+//                        final android.app.AlertDialog alert = builder.create();
+//                        alert.show();
+//                        alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+//                    } else if (AccessToken.contains("Details not found")|| TokenType.contains("Details not found")) {
+//                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ViewRtcInformation.this, R.style.MyDialogTheme);
+//                        builder.setTitle(getString(R.string.status))
+//                                .setMessage(getString(R.string.details_not_found))
+//                                .setIcon(R.drawable.ic_notifications_black_24dp)
+//                                .setCancelable(false)
+//                                .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
+//                        final android.app.AlertDialog alert = builder.create();
+//                        alert.show();
+//                        alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+//                    } else {
+//                        Log.d("AccessToken", AccessToken.toString()+"");
+//                        Log.d("TokenType", TokenType.toString()+"");
+//                        try {
+//                            JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
+//                            mTaskFragment.startBackgroundTask1(jsonObject, getString(R.string.rest_service_url), TokenType, AccessToken);
+//                        } catch (Exception e){
+//                            Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(@NotNull Call<TokenRes> call, @NotNull Throwable t) {
+//                call.cancel();
+//                t.printStackTrace();
+//                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+//            }
+//
+//        });
+    }
+
+
+    private void getSurnocHissaResponse(JsonObject jsonObject, String url, String token_type, String token) {
         isTaskExecuting = true;
         if (backgroundCallBack != null)
             backgroundCallBack.onPreExecute1();
 
-        Retrofit retrofit = RtcViewInfoClient.getClient(url);
+        Retrofit retrofit = TestClient.getClient(url, token_type, token);
         RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
         get_surnoc_hissaResultCall = service.getSurnocHissaResponse(Constants.CLWS_REST_SERVICE_USER_NAME,Constants.CLWS_REST_SERVICE_PASSWORD, jsonObject);
         get_surnoc_hissaResultCall.enqueue(new Callback<Get_Surnoc_HissaResult>() {
@@ -181,12 +291,12 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
     }
 
 
-    private void getRtcResponse(JsonObject input, String url) {
+    private void getRtcResponse(JsonObject input, String url, String token_type, String token) {
         isTaskExecuting = true;
         if (backgroundCallBack != null)
             backgroundCallBack.onPreExecute2();
 
-        Retrofit retrofit = RtcViewInfoClient.getClient(url);
+        Retrofit retrofit = TestClient.getClient(url, token_type, token);
         RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
         getRtcResponse_call = service.getRtcResponse(Constants.CLWS_REST_SERVICE_USER_NAME,Constants.CLWS_REST_SERVICE_PASSWORD, input);
         getRtcResponse_call.enqueue(new Callback<Get_Rtc_Data_Result>() {
@@ -453,6 +563,10 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         void onPreExecute5();
         void onPostResponseSuccess_GetDetails_VilWise(String data);
         void onPostResponseError_GetDetails_VilWise(String data);
+
+
+        void onPostResponseSuccessGetToken(String AccessToken, String TokenType );
+        void onPostResponseError_Token(String errorResponse);
 
     }
 }

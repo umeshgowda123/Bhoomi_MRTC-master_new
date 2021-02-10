@@ -323,6 +323,16 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity implements RtcV
     }
 
     @Override
+    public void onPostResponseSuccessGetToken(String AccessToken, String TokenType) {
+
+    }
+
+    @Override
+    public void onPostResponseError_Token(String errorResponse) {
+
+    }
+
+    @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;

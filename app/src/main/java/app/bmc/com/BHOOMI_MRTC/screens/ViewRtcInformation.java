@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.Room;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,6 +28,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import androidx.fragment.app.FragmentManager;
@@ -37,6 +39,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -47,6 +50,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 import app.bmc.com.BHOOMI_MRTC.R;
+import app.bmc.com.BHOOMI_MRTC.api.PariharaIndividualReportInteface;
 import app.bmc.com.BHOOMI_MRTC.backgroundtasks.RtcViewInfoBackGroundTaskFragment;
 import app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper;
 import app.bmc.com.BHOOMI_MRTC.interfaces.DistrictModelInterface;
@@ -54,6 +58,9 @@ import app.bmc.com.BHOOMI_MRTC.interfaces.HobliModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.TalukModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.VillageModelInterface;
 import app.bmc.com.BHOOMI_MRTC.model.Hissa_Response;
+import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
+import app.bmc.com.BHOOMI_MRTC.model.TokenRes;
+import app.bmc.com.BHOOMI_MRTC.retrofit.PariharaIndividualreportClient;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
 import fr.arnaudguyon.xmltojsonlib.XmlToJson;
 import io.reactivex.Observable;
@@ -61,6 +68,9 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfoBackGroundTaskFragment.BackgroundCallBackRtcViewInfo {
 
@@ -92,6 +102,13 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
     private DataBaseHelper dataBaseHelper;
     ArrayAdapter<String> defaultArrayAdapter;
 
+    Call<PariharaIndividualDetailsResponse> call;
+    PariharaIndividualReportInteface apiInterface;
+    TokenRes apiInterface1;
+    Call<TokenRes> call1;
+    String input;
+
+    String accessToken, tokenType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -355,19 +372,22 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
         }
         );
         btn_go.setOnClickListener(v -> {
+
+
             String districtName = spinner_district.getText().toString().trim();
             String talukName = spinner_taluk.getText().toString().trim();
             String hobliName = spinner_hobli.getText().toString().trim();
             String villageName = spinner_village.getText().toString().trim();
             surveyNo = edittext_survey.getText().toString().trim();
 
-            String input = "{" +
+            input = "{" +
                     "\"Bhm_dist_code\": \""+district_id+"\"," +
                     "\"Bhm_taluk_code\": \""+taluk_id+"\"," +
                     "\"Bhm_hobli_code\":\""+hobli_id+"\"," +
                     "\"village_code\": \""+village_id+"\"," +
                     "\"survey_no\": \""+surveyNo+"\"" +
                     "}";
+
 
             View focus = null;
             boolean status = false;
@@ -397,12 +417,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
             } else {
 //                surveyNo = Integer.parseInt(edittext_survey.getText().toString().trim());
                 if (isNetworkAvailable()) {
-                    try {
-                        JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
-                        mTaskFragment.startBackgroundTask1(jsonObject, getString(R.string.rest_service_url));
-                    } catch (Exception e){
-                        Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                    }
+                    mTaskFragment.startBackgroundTask_GenerateToken();
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
@@ -459,6 +474,8 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
                 intent.putExtra("surveyNo",surveyNo+"");
                 intent.putExtra("hissa_str",hissa_str);
                 intent.putExtra("RTC", "RTC");
+                intent.putExtra("AccessToken", accessToken);
+                intent.putExtra("TokenType", tokenType);
                 startActivity(intent);
 
             }
@@ -589,6 +606,35 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
 
     @Override
     public void onPostResponseError_GetDetails_VilWise(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseSuccessGetToken(String AccessToken, String TokenType) {
+        accessToken = AccessToken;
+        tokenType = TokenType;
+        if (AccessToken == null || AccessToken.equals("") || AccessToken.contains("INVALID")||TokenType == null || TokenType.equals("") || TokenType.contains("INVALID")) {
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ViewRtcInformation.this, R.style.MyDialogTheme);
+            builder.setTitle(getString(R.string.status))
+                    .setMessage(getString(R.string.something_went_wrong_pls_try_again))
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
+            final android.app.AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        } else {
+            try {
+                JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
+                mTaskFragment.startBackgroundTask1(jsonObject, getString(R.string.rest_service_url), TokenType, AccessToken);
+            } catch (Exception e){
+                Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public void onPostResponseError_Token(String errorResponse) {
 
     }
 

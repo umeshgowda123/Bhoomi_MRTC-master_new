@@ -1,20 +1,15 @@
 package app.bmc.com.BHOOMI_MRTC.retrofit;
 
-import android.util.Log;
-
-import java.util.concurrent.TimeUnit;
-
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class PariharaIndividualreportClient {
+public class TestClient {
 
     private static Retrofit retrofit = null;
 
-    public static Retrofit getClient(String url) {
+    public static Retrofit getClient(String url, String token_type, String token) {
 
 //        try {
 //            Log.d("test123", ""+System.getProperties());
@@ -42,7 +37,7 @@ public class PariharaIndividualreportClient {
 //        }
 
 
-        OkHttpClient client = UnsafeOkHttpClient.getUnsafeOkHttpClient();
+        OkHttpClient client = TestOkHttpClient.getUnsafeOkHttpClient(token_type, token);
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(url)

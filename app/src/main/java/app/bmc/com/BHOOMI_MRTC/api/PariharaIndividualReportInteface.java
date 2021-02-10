@@ -3,8 +3,12 @@ package app.bmc.com.BHOOMI_MRTC.api;
 import com.google.gson.JsonObject;
 
 import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
+import app.bmc.com.BHOOMI_MRTC.model.TokenRes;
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -61,5 +65,9 @@ public interface PariharaIndividualReportInteface {
             @Path("pstrUserName") String username,
             @Path("pStrPassword") String password,
             @Body JsonObject input);
+
+    @FormUrlEncoded
+    @POST("token")
+    Call<TokenRes> getToken(@Field("username") String email, @Field("password") String password, @Field("grant_type") String granttype);
 
 }

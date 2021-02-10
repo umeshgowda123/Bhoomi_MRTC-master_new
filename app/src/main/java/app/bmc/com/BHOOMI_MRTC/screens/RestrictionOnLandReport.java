@@ -302,6 +302,16 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
     }
 
     @Override
+    public void onPostResponseSuccessGetToken(String AccessToken, String TokenType) {
+
+    }
+
+    @Override
+    public void onPostResponseError_Token(String errorResponse) {
+
+    }
+
+    @Override
     public void onPostResponseError_FORHISSA(String data, int count) {
 
     }

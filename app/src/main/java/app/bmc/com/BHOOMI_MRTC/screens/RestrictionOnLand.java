@@ -380,7 +380,7 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
                 if (isNetworkAvailable()){
                     try {
                         JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
-                        mTaskFragment.startBackgroundTask1(jsonObject, getString(R.string.rest_service_url));
+                        mTaskFragment.startBackgroundTask1(jsonObject, getString(R.string.rest_service_url), Constants.GRANT_TYPE, Constants.GRANT_TYPE);
                     } catch (Exception e){
                         Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -550,6 +550,16 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
 
     @Override
     public void onPostResponseError_GetDetails_VilWise(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseSuccessGetToken(String AccessToken, String TokenType) {
+
+    }
+
+    @Override
+    public void onPostResponseError_Token(String errorResponse) {
 
     }
 

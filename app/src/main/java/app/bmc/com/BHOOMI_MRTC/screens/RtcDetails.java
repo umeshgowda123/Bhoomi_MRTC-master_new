@@ -62,6 +62,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
     private ProgressBar progressBar;
     String distId, talkId, hblId, villId;
     String land_no, survey, RTC, hissa_str, surveyNo;
+    String AccessToken, TokenType;
     public String owner;
 
     String LandDetailsFragment;
@@ -111,6 +112,8 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
         surveyNo = i.getStringExtra("surveyNo");
         hissa_str = i.getStringExtra("hissa_str");
         RTC = i.getStringExtra("RTC");
+        AccessToken = i.getStringExtra("AccessToken");
+        TokenType = i.getStringExtra("TokenType");
 
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
@@ -228,7 +231,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                                         progressBar.setVisibility(View.VISIBLE);
                                         try {
                                             JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
-                                            mTaskFragment.startBackgroundTask2(jsonObject, getString(R.string.rest_service_url));
+                                            mTaskFragment.startBackgroundTask2(jsonObject, getString(R.string.rest_service_url),TokenType, AccessToken);
                                         } catch (Exception e){
                                             Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                                         }
@@ -452,6 +455,16 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
 
     @Override
     public void onPostResponseError_GetDetails_VilWise(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseSuccessGetToken(String AccessToken, String TokenType) {
+
+    }
+
+    @Override
+    public void onPostResponseError_Token(String errorResponse) {
 
     }
 

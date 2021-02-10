@@ -10,6 +10,7 @@
 <!--    <string name="rtc_xml_verification_url">https://clws.karnataka.gov.in/Service4/BHOOMI/</string>-->
 
     <string name="rest_service_url">https://clws.karnataka.gov.in/Service4/BHOOMI/</string>
+    <string name="url_token">https://clws.karnataka.gov.in/service12/token</string>
 
     <string name="app_name">Bhoomi</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
