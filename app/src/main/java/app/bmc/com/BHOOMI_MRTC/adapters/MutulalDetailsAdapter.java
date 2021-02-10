@@ -42,7 +42,7 @@ public class MutulalDetailsAdapter extends RecyclerView.Adapter<MutulalDetailsAd
         public TextView tvMPMutationStatus;
         public TextView tvAcquatationType;
         public TextView tvCourtType;
-        public TextView tvReportGenratedDate;
+//        public TextView tvReportGenratedDate;
         public TextView tvMPSurveyNoIncluTransaction;
 
 
@@ -61,7 +61,7 @@ public class MutulalDetailsAdapter extends RecyclerView.Adapter<MutulalDetailsAd
             tvMPMutationStatus = view.findViewById(R.id.tvMPMutationStatus);
             tvAcquatationType = view.findViewById(R.id.tvAcquatationType);
             tvCourtType = view.findViewById(R.id.tvCourtType);
-            tvReportGenratedDate = view.findViewById(R.id.tvReportGenratedDate);
+//            tvReportGenratedDate = view.findViewById(R.id.tvReportGenratedDate);
             tvMPSurveyNoIncluTransaction = view.findViewById(R.id.tvMPSurveyNoIncluTransaction);
 
 
@@ -100,7 +100,7 @@ public class MutulalDetailsAdapter extends RecyclerView.Adapter<MutulalDetailsAd
             holder.tvMPMutationStatus.setText(clist.get(position).getಮ್ಯುಟೇಷನ್_x0020_ಸ್ಥಿ());
             holder.tvAcquatationType.setText(clist.get(position).getಸ್ವಾಧೀನತೆ_x0020_ರೀ());
             holder.tvCourtType.setText(clist.get(position).getCourtType());
-            holder.tvReportGenratedDate.setText(clist.get(position).getReportGeneratedDate());
+//            holder.tvReportGenratedDate.setText(clist.get(position).getReportGeneratedDate());
             holder.tvMPSurveyNoIncluTransaction.setText(clist.get(position).getವಹಿವಾಟಿನಲ್ಲಿ_x0020_ಒಳಗೊಂಡಿರುವ_x0020_ಸರ್ವೇ_x0020_ನಂಬರ್());
         }
 
