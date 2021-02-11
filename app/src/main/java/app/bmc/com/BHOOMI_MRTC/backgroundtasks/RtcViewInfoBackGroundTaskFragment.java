@@ -19,6 +19,7 @@ import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.api.PariharaIndividualReportInteface;
 import app.bmc.com.BHOOMI_MRTC.api.RtcViewInformationApi;
 import app.bmc.com.BHOOMI_MRTC.model.Get_Rtc_Data_Result;
+import app.bmc.com.BHOOMI_MRTC.model.Get_Surnoc_HissaRequest;
 import app.bmc.com.BHOOMI_MRTC.model.Get_Surnoc_HissaResult;
 import app.bmc.com.BHOOMI_MRTC.model.Get_ViewMutationStatusResult;
 import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
@@ -94,9 +95,9 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
     }
 
 
-    public void startBackgroundTask1(JsonObject jsonObject, String url, String token_type, String token) {
+    public void startBackgroundTask1(Get_Surnoc_HissaRequest get_surnoc_hissaRequest, String url, String token_type, String token) {
         if (!isTaskExecuting) {
-            getSurnocHissaResponse(jsonObject, url, token_type, token);
+            getSurnocHissaResponse(get_surnoc_hissaRequest, url, token_type, token);
         }
     }
 
@@ -183,75 +184,29 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
                     }
                 }
             });
-
-//                if (response.isSuccessful()) {
-//                    TokenRes result = response.body();
-//                    assert result != null;
-//                    String AccessToken,TokenType;
-//                    AccessToken = result.getAccessToken();
-//                    TokenType = result.getTokenType();
-//
-//                    if (AccessToken == null || AccessToken.equals("") || AccessToken.contains("INVALID")||TokenType == null || TokenType.equals("") || TokenType.contains("INVALID")) {
-//                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ViewRtcInformation.this, R.style.MyDialogTheme);
-//                        builder.setTitle(getString(R.string.status))
-//                                .setMessage(getString(R.string.invalid_affidavit_id))
-//                                .setIcon(R.drawable.ic_notifications_black_24dp)
-//                                .setCancelable(false)
-//                                .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
-//                        final android.app.AlertDialog alert = builder.create();
-//                        alert.show();
-//                        alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-//                    } else if (AccessToken.contains("Details not found")|| TokenType.contains("Details not found")) {
-//                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ViewRtcInformation.this, R.style.MyDialogTheme);
-//                        builder.setTitle(getString(R.string.status))
-//                                .setMessage(getString(R.string.details_not_found))
-//                                .setIcon(R.drawable.ic_notifications_black_24dp)
-//                                .setCancelable(false)
-//                                .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
-//                        final android.app.AlertDialog alert = builder.create();
-//                        alert.show();
-//                        alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-//                    } else {
-//                        Log.d("AccessToken", AccessToken.toString()+"");
-//                        Log.d("TokenType", TokenType.toString()+"");
-//                        try {
-//                            JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
-//                            mTaskFragment.startBackgroundTask1(jsonObject, getString(R.string.rest_service_url), TokenType, AccessToken);
-//                        } catch (Exception e){
-//                            Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(@NotNull Call<TokenRes> call, @NotNull Throwable t) {
-//                call.cancel();
-//                t.printStackTrace();
-//                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-//            }
-//
-//        });
     }
 
 
-    private void getSurnocHissaResponse(JsonObject jsonObject, String url, String token_type, String token) {
+    private void getSurnocHissaResponse(Get_Surnoc_HissaRequest get_surnoc_hissaRequest, String url, String token_type, String token) {
         isTaskExecuting = true;
         if (backgroundCallBack != null)
             backgroundCallBack.onPreExecute1();
 
         Retrofit retrofit = TestClient.getClient(url, token_type, token);
         RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
-        get_surnoc_hissaResultCall = service.getSurnocHissaResponse(Constants.CLWS_REST_SERVICE_USER_NAME,Constants.CLWS_REST_SERVICE_PASSWORD, jsonObject);
+        get_surnoc_hissaResultCall = service.getSurnocHissaResponse(get_surnoc_hissaRequest);
         get_surnoc_hissaResultCall.enqueue(new Callback<Get_Surnoc_HissaResult>() {
             @Override
             public void onResponse(@NonNull Call<Get_Surnoc_HissaResult> call, @NonNull Response<Get_Surnoc_HissaResult> response) {
                 if (response.isSuccessful()) {
                     Get_Surnoc_HissaResult get_surnoc_hissaResult = response.body();
+                    String data = get_surnoc_hissaResult.getGetSurnocHissaResult();
+
+                    Log.d("datatata : ",data+"");
                     isTaskExecuting = false;
                     if (backgroundCallBack != null) {
                         assert get_surnoc_hissaResult != null;
-                        backgroundCallBack.onPostResponseSuccess1(get_surnoc_hissaResult.getGetSurnocHissaResult());
+                        backgroundCallBack.onPostResponseSuccess1(data);
                     }
                 } else {
                     isTaskExecuting = false;
@@ -298,7 +253,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
 
         Retrofit retrofit = TestClient.getClient(url, token_type, token);
         RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
-        getRtcResponse_call = service.getRtcResponse(Constants.CLWS_REST_SERVICE_USER_NAME,Constants.CLWS_REST_SERVICE_PASSWORD, input);
+        getRtcResponse_call = service.getRtcResponse(input);
         getRtcResponse_call.enqueue(new Callback<Get_Rtc_Data_Result>() {
             @Override
             public void onResponse(@NonNull Call<Get_Rtc_Data_Result> call, @NonNull Response<Get_Rtc_Data_Result> response) {
@@ -565,7 +520,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         void onPostResponseError_GetDetails_VilWise(String data);
 
 
-        void onPostResponseSuccessGetToken(String AccessToken, String TokenType );
+        void onPostResponseSuccessGetToken(String TokenType, String AccessToken );
         void onPostResponseError_Token(String errorResponse);
 
     }

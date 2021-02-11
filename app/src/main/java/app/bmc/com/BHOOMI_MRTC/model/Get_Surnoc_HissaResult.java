@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Get_Surnoc_HissaResult {
 
-    @SerializedName("Get_Surnoc_HissaResult")
+    @SerializedName("Get_Surnoc_Hissa")
     @Expose
     private String getSurnocHissaResult;
 

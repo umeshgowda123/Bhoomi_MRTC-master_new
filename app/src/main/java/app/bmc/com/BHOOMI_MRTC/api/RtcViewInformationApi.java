@@ -3,6 +3,7 @@ package app.bmc.com.BHOOMI_MRTC.api;
 import com.google.gson.JsonObject;
 
 import app.bmc.com.BHOOMI_MRTC.model.Get_Rtc_Data_Result;
+import app.bmc.com.BHOOMI_MRTC.model.Get_Surnoc_HissaRequest;
 import app.bmc.com.BHOOMI_MRTC.model.Get_Surnoc_HissaResult;
 import app.bmc.com.BHOOMI_MRTC.model.Get_ViewMutationStatusResult;
 import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
@@ -15,18 +16,14 @@ import retrofit2.http.Path;
 public interface RtcViewInformationApi {
 
     @Headers({"content-type: text/json; charset=utf-8"})
-    @POST("Get_Surnoc_Hissa/{pstrUserName}/{pStrPassword}/")
+    @POST("api/values/Get_Surnoc_Hissa/")
     Call<Get_Surnoc_HissaResult> getSurnocHissaResponse(
-            @Path("pstrUserName") String pstrUserName,
-            @Path("pStrPassword") String pStrPassword,
-            @Body JsonObject input
+            @Body Get_Surnoc_HissaRequest get_surnoc_hissaRequest
     );
 
     @Headers({"content-type: text/json; charset=utf-8"})
-    @POST("get_rtc_data/{pstrUserName}/{pStrPassword}/")
+    @POST("api/values/get_rtc_data/")
     Call<Get_Rtc_Data_Result> getRtcResponse(
-            @Path("pstrUserName") String pstrUserName,
-            @Path("pStrPassword") String pStrPassword,
             @Body JsonObject input
     );
 

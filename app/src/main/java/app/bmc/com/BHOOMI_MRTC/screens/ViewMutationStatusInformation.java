@@ -53,6 +53,7 @@ import app.bmc.com.BHOOMI_MRTC.interfaces.HobliModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.TalukModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.VMS_RES_Interface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.VillageModelInterface;
+import app.bmc.com.BHOOMI_MRTC.model.Get_Surnoc_HissaRequest;
 import app.bmc.com.BHOOMI_MRTC.model.Hissa_Response;
 import app.bmc.com.BHOOMI_MRTC.model.V_MUTATION_STATUS_TABLE;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
@@ -99,7 +100,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
     String restostoreinDBandSMSD;
     List<VMS_RES_Interface> VMS_RES_Data;
-
+    Get_Surnoc_HissaRequest get_surnoc_hissaRequest;
     ArrayAdapter<String> defaultArrayAdapter;
 
     @Override
@@ -397,13 +398,12 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
             String villageName = spinner_village.getText().toString().trim();
             surveyNo = edittext_survey.getText().toString().trim();
 
-            String input = "{" +
-                    "\"Bhm_dist_code\": \""+district_id+"\"," +
-                    "\"Bhm_taluk_code\": \""+taluk_id+"\"," +
-                    "\"Bhm_hobli_code\":\""+hobli_id+"\"," +
-                    "\"village_code\": \""+village_id+"\"," +
-                    "\"survey_no\": \""+surveyNo+"\"" +
-                    "}";
+            get_surnoc_hissaRequest = new Get_Surnoc_HissaRequest();
+            get_surnoc_hissaRequest.setBhm_dist_code(String.valueOf(district_id));
+            get_surnoc_hissaRequest.setBhm_taluk_code(String.valueOf(taluk_id));
+            get_surnoc_hissaRequest.setBhm_hobli_code(String.valueOf(hobli_id));
+            get_surnoc_hissaRequest.setVillage_code(String.valueOf(village_id));
+            get_surnoc_hissaRequest.setSurvey_no(surveyNo);
 
             View focus = null;
             boolean status = false;
@@ -433,8 +433,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
             } else {
                 if (isNetworkAvailable()){
                     try {
-                        JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
-                        mTaskFragment.startBackgroundTask1(jsonObject, getString(R.string.rest_service_url), Constants.GRANT_TYPE, Constants.GRANT_TYPE);
+                        mTaskFragment.startBackgroundTask1(get_surnoc_hissaRequest, getString(R.string.rest_service_url), Constants.GRANT_TYPE, Constants.GRANT_TYPE);
                     } catch (Exception e){
                         Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     }

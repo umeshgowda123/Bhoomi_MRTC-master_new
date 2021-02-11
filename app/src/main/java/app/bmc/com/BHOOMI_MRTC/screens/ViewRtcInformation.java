@@ -609,7 +609,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
     }
 
     @Override
-    public void onPostResponseSuccessGetToken(String AccessToken, String TokenType) {
+    public void onPostResponseSuccessGetToken(String TokenType, String AccessToken) {
         accessToken = AccessToken;
         tokenType = TokenType;
         if (AccessToken == null || AccessToken.equals("") || AccessToken.contains("INVALID")||TokenType == null || TokenType.equals("") || TokenType.contains("INVALID")) {
