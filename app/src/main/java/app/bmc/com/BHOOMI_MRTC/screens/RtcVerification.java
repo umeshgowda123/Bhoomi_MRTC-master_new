@@ -11,6 +11,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -31,6 +32,7 @@ import java.util.List;
 import java.util.Objects;
 
 import app.bmc.com.BHOOMI_MRTC.R;
+import app.bmc.com.BHOOMI_MRTC.backgroundtasks.RtcViewInfoBackGroundTaskFragment;
 import app.bmc.com.BHOOMI_MRTC.backgroundtasks.RtcXmlverificationBackGroundTask;
 import app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper;
 import app.bmc.com.BHOOMI_MRTC.interfaces.RTCV_RES_Interface;
@@ -41,17 +43,21 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class RtcVerification extends AppCompatActivity implements RtcXmlverificationBackGroundTask.BackgroundCallBackRtcXmlVerification {
+public class RtcVerification extends AppCompatActivity implements RtcXmlverificationBackGroundTask.BackgroundCallBackRtcXmlVerification, RtcViewInfoBackGroundTaskFragment.BackgroundCallBackRtcViewInfo {
     private Button getRtcDataBtn;
     private Button clearReferenceNoBtn;
     private EditText referenceNumber;
     private RtcXmlverificationBackGroundTask mTaskFragment;
+    private RtcViewInfoBackGroundTaskFragment mTaskFragment_2;
     private ProgressBar progressBar;
 
     private DataBaseHelper dataBaseHelper;
     String referenceNo;
     String responseData;
     List<RTCV_RES_Interface> RTCV_data;
+
+    String accessToken, tokenType;
+    JsonObject jsonObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +99,21 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
             if (progressBar != null)
                 progressBar.setVisibility(View.VISIBLE);
         }
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        mTaskFragment_2 = (RtcViewInfoBackGroundTaskFragment) fm.findFragmentByTag(RtcViewInfoBackGroundTaskFragment.TAG_HEADLESS_FRAGMENT);
+
+        // If the Fragment is non-null, then it is currently being
+        // retained across a configuration change.
+        if (mTaskFragment_2 == null) {
+            mTaskFragment_2 = new RtcViewInfoBackGroundTaskFragment();
+            fragmentManager.beginTransaction().add(mTaskFragment_2, RtcViewInfoBackGroundTaskFragment.TAG_HEADLESS_FRAGMENT).commit();
+        }
+//        if (mTaskFragment_2.isTaskExecuting) {
+//            progressBar = findViewById(R.id.progress_circular);
+//            if (progressBar != null)
+//                progressBar.setVisibility(View.VISIBLE);
+//        }
 
 //        dataBaseHelper =
 //                Room.databaseBuilder(getApplicationContext(),
@@ -159,7 +180,7 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
                             + "\"pPasscode\":" + passcode + ","
                             + "\"pSaltkey\":\"" + saltkey + "\""
                             + "}";
-                    JsonObject jsonObject = new JsonParser().parse(values1).getAsJsonObject();
+                    jsonObject = new JsonParser().parse(values1).getAsJsonObject();
 
                     //---------------------------------------------------------------------------
 
@@ -205,8 +226,10 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
                                             }
                                         }
                                     } else {
-                                        progressBar.setVisibility(View.VISIBLE);
-                                        mTaskFragment.startBackgroundTask(jsonObject);
+//                                        progressBar.setVisibility(View.VISIBLE);
+//                                        mTaskFragment.startBackgroundTask(jsonObject);
+                                        mTaskFragment_2.startBackgroundTask_GenerateToken();
+
 
                                     }
                                 }
@@ -259,9 +282,7 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
         responseData = data;
-        //---------DB INSERT-------
-
-        //---------------------------------------------------------------------------------------------
+        Log.d("DATA RtcVerification", data+"");
         if (responseData.contains("No Information Found")||responseData.contains("SqlException")) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(RtcVerification.this, R.style.MyDialogTheme);
             builder.setTitle(getString(R.string.status))
@@ -312,10 +333,118 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
     }
 
     @Override
+    public void onPostResponseError_FORHISSA(String data, int count) {
+
+    }
+
+    @Override
+    public void onPreExecute2() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess2(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_Task2(String data, int count) {
+
+    }
+
+    @Override
+    public void onPreExecute3() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess3(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_Task3(String data) {
+
+    }
+
+    @Override
+    public void onPreExecute4() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess4(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_Task4(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseSuccessCultivator(String gettcDataResult) {
+
+    }
+
+    @Override
+    public void onPostResponseErrorCultivator(String errorResponse, int count) {
+
+    }
+
+    @Override
+    public void onPreExecute5() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess_GetDetails_VilWise(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_GetDetails_VilWise(String data) {
+
+    }
+
+    @Override
     public void onPostResponseError(String data) {
+        Log.d("ERRORMSG",""+data);
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
         Toast.makeText(getApplicationContext(), data, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onPostResponseSuccessGetToken(String TokenType, String AccessToken) {
+        accessToken = AccessToken;
+        tokenType = TokenType;
+        if (AccessToken == null || AccessToken.equals("") || AccessToken.contains("INVALID")||TokenType == null || TokenType.equals("") || TokenType.contains("INVALID")) {
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(RtcVerification.this, R.style.MyDialogTheme);
+            builder.setTitle(getString(R.string.status))
+                    .setMessage(getString(R.string.something_went_wrong_pls_try_again))
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
+            final android.app.AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        } else {
+            try {
+                progressBar.setVisibility(View.VISIBLE);
+                mTaskFragment.startBackgroundTask(jsonObject, tokenType, accessToken);
+            } catch (Exception e){
+                Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public void onPostResponseError_Token(String errorResponse) {
+        Log.d("ERR_msg", errorResponse+"");
+        Toast.makeText(this, errorResponse+"", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Authorization has been denied for this request.", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override

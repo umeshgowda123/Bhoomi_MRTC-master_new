@@ -4,9 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.room.Room;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
+
 import android.content.Context;
-import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -28,18 +28,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.SeekBar;
+
 import android.widget.Toast;
 
 import androidx.fragment.app.FragmentManager;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
-import org.jetbrains.annotations.NotNull;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -50,7 +48,6 @@ import java.util.Locale;
 import java.util.Objects;
 
 import app.bmc.com.BHOOMI_MRTC.R;
-import app.bmc.com.BHOOMI_MRTC.api.PariharaIndividualReportInteface;
 import app.bmc.com.BHOOMI_MRTC.backgroundtasks.RtcViewInfoBackGroundTaskFragment;
 import app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper;
 import app.bmc.com.BHOOMI_MRTC.interfaces.DistrictModelInterface;
@@ -59,9 +56,6 @@ import app.bmc.com.BHOOMI_MRTC.interfaces.TalukModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.VillageModelInterface;
 import app.bmc.com.BHOOMI_MRTC.model.Get_Surnoc_HissaRequest;
 import app.bmc.com.BHOOMI_MRTC.model.Hissa_Response;
-import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
-import app.bmc.com.BHOOMI_MRTC.model.TokenRes;
-import app.bmc.com.BHOOMI_MRTC.retrofit.PariharaIndividualreportClient;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
 import fr.arnaudguyon.xmltojsonlib.XmlToJson;
 import io.reactivex.Observable;
@@ -69,9 +63,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfoBackGroundTaskFragment.BackgroundCallBackRtcViewInfo {
 
@@ -102,11 +93,6 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
     private String language;
     private DataBaseHelper dataBaseHelper;
     ArrayAdapter<String> defaultArrayAdapter;
-
-    Call<PariharaIndividualDetailsResponse> call;
-    PariharaIndividualReportInteface apiInterface;
-    TokenRes apiInterface1;
-    Call<TokenRes> call1;
     Get_Surnoc_HissaRequest get_surnoc_hissaRequest;
 
     String accessToken, tokenType;
@@ -156,12 +142,12 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<? extends DistrictModelInterface>>() {
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(List<? extends DistrictModelInterface> mst_vlmList) {
+                    public void onNext(@NonNull List<? extends DistrictModelInterface> mst_vlmList) {
 
                         districtData = (List<DistrictModelInterface>) mst_vlmList;
                         ArrayAdapter<DistrictModelInterface> districtArrayAdapter = new ArrayAdapter<>(getApplicationContext(),
@@ -170,7 +156,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
 
                     }
 
@@ -256,18 +242,18 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Observer<List<? extends TalukModelInterface>>() {
                         @Override
-                        public void onSubscribe(Disposable d) {
+                        public void onSubscribe(@NonNull Disposable d) {
 
                         }
                         @Override
-                        public void onNext(List<? extends TalukModelInterface> talukDataList) {
+                        public void onNext(@NonNull List<? extends TalukModelInterface> talukDataList) {
                             talukData = (List<TalukModelInterface>) talukDataList;
                             ArrayAdapter<TalukModelInterface> talukArrayAdapter = new ArrayAdapter<>(ViewRtcInformation.this,
                                     android.R.layout.simple_list_item_single_choice, talukData);
                             spinner_taluk.setAdapter(talukArrayAdapter);
                         }
                         @Override
-                        public void onError(Throwable e) {
+                        public void onError(@NonNull Throwable e) {
 
                         }
                         @Override
@@ -295,12 +281,12 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
 
 
                         @Override
-                        public void onSubscribe(Disposable d) {
+                        public void onSubscribe(@NonNull Disposable d) {
 
                         }
 
                         @Override
-                        public void onNext(List<? extends HobliModelInterface> hobliDataList) {
+                        public void onNext(@NonNull List<? extends HobliModelInterface> hobliDataList) {
                             hobliData = (List<HobliModelInterface>) hobliDataList;
                             ArrayAdapter<HobliModelInterface> hobliArrayAdapter = new ArrayAdapter<>(ViewRtcInformation.this,
                                     android.R.layout.simple_list_item_single_choice, hobliData);
@@ -308,7 +294,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
                         }
 
                         @Override
-                        public void onError(Throwable e) {
+                        public void onError(@NonNull Throwable e) {
 
                         }
 
@@ -335,12 +321,12 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
 
 
                         @Override
-                        public void onSubscribe(Disposable d) {
+                        public void onSubscribe(@NonNull Disposable d) {
 
                         }
 
                         @Override
-                        public void onNext(List<? extends VillageModelInterface> villageDataList) {
+                        public void onNext(@NonNull List<? extends VillageModelInterface> villageDataList) {
                             villageData = (List<VillageModelInterface>) villageDataList;
                             ArrayAdapter<VillageModelInterface> villageArrayAdapter = new ArrayAdapter<>(ViewRtcInformation.this,
                                     android.R.layout.simple_list_item_single_choice, villageData);
@@ -348,7 +334,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
                         }
 
                         @Override
-                        public void onError(Throwable e) {
+                        public void onError(@NonNull Throwable e) {
 
                         }
 
@@ -634,7 +620,9 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
 
     @Override
     public void onPostResponseError_Token(String errorResponse) {
-
+        Log.d("ERR_msg", errorResponse+"");
+        Toast.makeText(this, ""+errorResponse, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Authorization has been denied for this request.", Toast.LENGTH_SHORT).show();
     }
 
     public void onPostResponseError_FORHISSA(String data, int count) {

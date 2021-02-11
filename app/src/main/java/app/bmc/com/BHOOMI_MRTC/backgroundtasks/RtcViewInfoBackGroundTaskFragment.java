@@ -126,9 +126,9 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         }
     }
 
-    public void startBackgroundTask_GetDetails_VilWise(JsonObject input, String url) {
+    public void startBackgroundTask_GetDetails_VilWise(JsonObject input, String url, String token_type, String token) {
         if (!isTaskExecuting) {
-            GetDetails_VillageWise_JSON(input, url);
+            GetDetails_VillageWise_JSON(input, url, token_type, token);
         }
     }
 
@@ -148,28 +148,21 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
                 String TokenType = null;
 
                 if (response.isSuccessful()) {
-                        TokenRes result = response.body();
-                        AccessToken = result.getAccessToken();
-                        TokenType = result.getTokenType();
-
-                        assert result != null;
-
+                    TokenRes result = response.body();
+                    assert result != null;
+                    AccessToken = result.getAccessToken();
+                    TokenType = result.getTokenType();
+                }
+                    isTaskExecuting = false;
+                    if (backgroundCallBack != null) {
+                        backgroundCallBack.onPostResponseSuccessGetToken(TokenType,AccessToken);
                     }
-                        isTaskExecuting = false;
+                    else {
                         if (backgroundCallBack != null) {
-                            assert response != null;
-                            backgroundCallBack.onPostResponseSuccessGetToken(TokenType,AccessToken);
-                        } else {
-                        isTaskExecuting = false;
-                        if (backgroundCallBack != null) {
-
                             String errorResponse = response.message();
-
                             backgroundCallBack.onPostResponseError_Token(errorResponse);
                         }
-
                     }
-
                 }
 
                 @Override
@@ -180,7 +173,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
 
                         String errorResponse = error.getMessage();
                         Log.d("ERR_RES", "" + errorResponse);
-//                        backgroundCallBack.onPostResponseError_Token(errorResponse);
+                        backgroundCallBack.onPostResponseError_Token(errorResponse);
                     }
                 }
             });
@@ -443,14 +436,14 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         }
     }
 
-    private void GetDetails_VillageWise_JSON(JsonObject input, String url){
+    private void GetDetails_VillageWise_JSON(JsonObject input, String url,  String token_type, String token){
         isTaskExecuting = true;
         if (backgroundCallBack != null)
             backgroundCallBack.onPreExecute5();
 
-        Retrofit retrofit = RtcViewInfoClient.getClient(url);
+        Retrofit retrofit = TestClient.getClient(url, token_type, token);
         RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
-        getLandRestrictionResultCall = service.GetDetails_VillageWise_JSON(Constants.CLWS_REST_SERVICE_USER_NAME, Constants.CLWS_REST_SERVICE_PASSWORD, input);
+        getLandRestrictionResultCall = service.GetDetails_VillageWise_JSON(input);
         getLandRestrictionResultCall.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
             @Override
             public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {

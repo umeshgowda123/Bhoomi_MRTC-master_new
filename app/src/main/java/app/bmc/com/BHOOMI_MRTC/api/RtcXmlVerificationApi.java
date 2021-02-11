@@ -12,10 +12,8 @@ import retrofit2.http.Path;
 public interface RtcXmlVerificationApi {
     @Headers({"content-type: text/json; charset=utf-8"})
 //    @POST("RTCXML/{pReferenceNo}/{pPasscode}/{pSaltkey}")
-    @POST("RTCXML/{pstrUserName}/{pStrPassword}/")
+    @POST("api/values/RTCXML/")
     Call<GETRTCXMLDATAResult> getStringResponse(
-            @Path("pstrUserName") String username,
-            @Path("pStrPassword") String password,
             @Body JsonObject input);
 
 

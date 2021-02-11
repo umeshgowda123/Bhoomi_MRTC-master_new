@@ -19,6 +19,7 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -308,6 +309,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
 
     @Override
     public void onPostResponseSuccess2(String data) {
+        Log.d("DATA rtcdetails_success",""+data);
         if (data.contains("No value for rtc") || data.contains("Please try again later")) {
             if (progressBar != null)
                 progressBar.setVisibility(View.GONE);

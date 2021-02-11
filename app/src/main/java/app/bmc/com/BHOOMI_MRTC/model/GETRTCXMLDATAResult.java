@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class GETRTCXMLDATAResult {
-    @SerializedName("RTCXMLResult")
+    @SerializedName("RTCXML")
     @Expose
     private String RTCXMLResult;
 

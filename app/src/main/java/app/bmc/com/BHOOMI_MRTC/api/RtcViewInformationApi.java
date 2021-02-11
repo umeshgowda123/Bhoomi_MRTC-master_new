@@ -50,10 +50,8 @@ public interface RtcViewInformationApi {
     );
 
     @Headers({"content-type: text/json; charset=utf-8"})
-    @POST("GetDetails_VillageWise_JSON/{pstrUserName}/{pStrPassword}/")
+    @POST("GetDetails_VillageWise_JSON/")
     Call<PariharaIndividualDetailsResponse> GetDetails_VillageWise_JSON(
-            @Path("pstrUserName") String pstrUserName,
-            @Path("pStrPassword") String pStrPassword,
             @Body JsonObject input
     );
 

@@ -55,6 +55,8 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity implements RtcV
     ArrayList<String> distId_array = new ArrayList<>(), talkId_array = new ArrayList<>(), hblId_array = new ArrayList<>(), village_id_array = new ArrayList<>();
 
     Intent intent;
+    String accessToken, tokenType;
+    String input;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +107,7 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity implements RtcV
             hblId = intent.getStringExtra("hblId");
             village_id = intent.getStringExtra("village_id");
 
-            String input = "{" +
+            input = "{" +
                     "\"pDistrictCode\": \""+distId+"\"," +
                     "\"pTalukCode\": \""+talkId+"\"," +
                     "\"pHobliCode\":\""+hblId+"\"," +
@@ -116,9 +118,11 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity implements RtcV
             if (isNetworkAvailable()){
                 try {
 
-                    JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
-                    mTaskFragment.startBackgroundTask_GetDetails_VilWise(jsonObject, getString(R.string.rest_service_url));
+//                    JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
+//                    mTaskFragment.startBackgroundTask_GetDetails_VilWise(jsonObject, getString(R.string.rest_service_url));
+                    mTaskFragment.startBackgroundTask_GenerateToken();
                 } catch (Exception e){
+                    Log.d("Exception gentoken",e.getLocalizedMessage()+"");
                     Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 }
             }else {
@@ -297,6 +301,7 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity implements RtcV
                     alert.show();
                     alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
                 } else {
+                    Log.d("Exception_Success",e.getLocalizedMessage()+"");
                     Toast.makeText(getApplicationContext(), "" + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -325,11 +330,36 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity implements RtcV
     @Override
     public void onPostResponseSuccessGetToken(String AccessToken, String TokenType) {
 
+        accessToken = AccessToken;
+        tokenType = TokenType;
+        if (AccessToken == null || AccessToken.equals("") || AccessToken.contains("INVALID")||TokenType == null || TokenType.equals("") || TokenType.contains("INVALID")) {
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ShowRtcDetailsBYOwnerName.this, R.style.MyDialogTheme);
+            builder.setTitle(getString(R.string.status))
+                    .setMessage(getString(R.string.something_went_wrong_pls_try_again))
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
+            final android.app.AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        } else {
+            try {
+
+                JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
+                mTaskFragment.startBackgroundTask_GetDetails_VilWise(jsonObject, getString(R.string.rest_service_url), tokenType, accessToken);
+
+            } catch (Exception e){
+                Log.d("ExcepSuccessGetToken",e.getLocalizedMessage()+"");
+                Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override
     public void onPostResponseError_Token(String errorResponse) {
-
+        Log.d("ERR_msg", errorResponse+"");
+        Toast.makeText(this, ""+errorResponse, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Authorization has been denied for this request.", Toast.LENGTH_SHORT).show();
     }
 
     @Override

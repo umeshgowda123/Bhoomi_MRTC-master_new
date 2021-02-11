@@ -16,6 +16,7 @@ import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.api.RtcXmlVerificationApi;
 import app.bmc.com.BHOOMI_MRTC.model.GETRTCXMLDATAResult;
 import app.bmc.com.BHOOMI_MRTC.retrofit.RtcVerificationClient;
+import app.bmc.com.BHOOMI_MRTC.retrofit.TestClient;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -78,28 +79,33 @@ public class RtcXmlverificationBackGroundTask extends Fragment {
 //            getRtcVerificationResponse(referenceNo);
 //        }
 //    }
-    public void startBackgroundTask(JsonObject jsonObject) {
+    public void startBackgroundTask(JsonObject jsonObject, String token_type, String token) {
         if (!isTaskExecuting) {
-            getRtcVerificationResponse(jsonObject);
+            getRtcVerificationResponse(jsonObject, token_type, token);
         }
     }
 
-    private void getRtcVerificationResponse(JsonObject jsonObject) {
+    private void getRtcVerificationResponse(JsonObject jsonObject, String token_type, String token) {
         try {
             isTaskExecuting = true;
             if (backgroundCallBack != null)
                 backgroundCallBack.onPreExecute1();
-            Retrofit retrofit = RtcVerificationClient.getClient(getString(R.string.rest_service_url));
+            Retrofit retrofit = TestClient.getClient(getString(R.string.rest_service_url), token_type, token);
             RtcXmlVerificationApi rtcXmlVerificationApi = retrofit.create(RtcXmlVerificationApi.class);
-            Call<GETRTCXMLDATAResult> stringCall = rtcXmlVerificationApi.getStringResponse(Constants.CLWS_REST_SERVICE_USER_NAME,Constants.CLWS_REST_SERVICE_PASSWORD,jsonObject);
+            Call<GETRTCXMLDATAResult> stringCall = rtcXmlVerificationApi.getStringResponse(jsonObject);
             stringCall.enqueue(new Callback<GETRTCXMLDATAResult>() {
                 @Override
                 public void onResponse(@NonNull Call<GETRTCXMLDATAResult> call, @NonNull Response<GETRTCXMLDATAResult> response) {
+                    Log.d("response : ",response.body()+"");
                     if (response.isSuccessful()) {
                         GETRTCXMLDATAResult getrtcxmldataResult = response.body();
-                        isTaskExecuting = false;
                         assert getrtcxmldataResult != null;
-                        backgroundCallBack.onPostResponseSuccess1(getrtcxmldataResult.getGETRTCXMLDATAResult());
+                        String data = getrtcxmldataResult.getGETRTCXMLDATAResult();
+
+                        Log.d("datatata : ",data+"");
+
+                        isTaskExecuting = false;
+                        backgroundCallBack.onPostResponseSuccess1(data);
 
 
                     } else {
@@ -115,7 +121,6 @@ public class RtcXmlverificationBackGroundTask extends Fragment {
                 @Override
                 public void onFailure(@NonNull Call<GETRTCXMLDATAResult> call, @NonNull Throwable error) {
                     isTaskExecuting = false;
-                    assert error != null;
                     String errorResponse = error.getLocalizedMessage();
                     Log.d("errorResponse : ", errorResponse+"");
                     backgroundCallBack.onPostResponseError(errorResponse);
