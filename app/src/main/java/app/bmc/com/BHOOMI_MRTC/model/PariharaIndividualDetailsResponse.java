@@ -125,7 +125,7 @@ public class PariharaIndividualDetailsResponse {
     }
 
 
-    @SerializedName("GetMutationPendencyDetailsResult")
+    @SerializedName("GetMutationPendencyDetails")
     @Expose
     private String getMutationPendencyDetailsResult;
 
@@ -139,7 +139,7 @@ public class PariharaIndividualDetailsResponse {
     }
 
 
-    @SerializedName("GetMutationSummaryReportResult")
+    @SerializedName("GetMutationSummaryReport")
     @Expose
     private String getMutationSummaryReportResult;
 
@@ -233,7 +233,7 @@ public class PariharaIndividualDetailsResponse {
     public void setGetLoanWaiverReportPACS_FarmerwiseResult(String getLoanWaiverReportPACS_FarmerwiseResult) {
         this.getLoanWaiverReportPACS_FarmerwiseResult = getLoanWaiverReportPACS_FarmerwiseResult;
     }
-    @SerializedName("GET_Afdvt_ReqSts_BasedOnAfdvtIdResult")
+    @SerializedName("GET_Afdvt_ReqSts_BasedOnAfdvtId")
     @Expose
     private String get_Afdvt_ReqSts_BasedOnAfdvtIdResult;
 
@@ -244,15 +244,15 @@ public class PariharaIndividualDetailsResponse {
     public String getGet_Afdvt_ReqSts_BasedOnAfdvtIdResult() {
         return get_Afdvt_ReqSts_BasedOnAfdvtIdResult;
     }
-    @SerializedName("GET_Afdvt_ReqSts_BasedOnUserIdResult")
+    @SerializedName("GET_Afdvt_ReqSts_BasedOnUserId")
     @Expose
     private String get_Afdvt_ReqSts_BasedOnUserIdResult;
 
-    @SerializedName("GetLandConversionFinalOrders_BasedOnSurveyNoResult")
+    @SerializedName("GetLandConversionFinalOrders_BasedOnSurveyNo")
     @Expose
     private String getLandConversionFinalOrders_BasedOnSurveyNoResult;
 
-    @SerializedName("GetLandConversionFinalOrders_BasedOnReqIdResult")
+    @SerializedName("GetLandConversionFinalOrders_BasedOnReqId")
     @Expose
     private String getLandConversionFinalOrders_BasedOnReqIdResult;
 

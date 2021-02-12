@@ -19,39 +19,32 @@ public interface PariharaIndividualReportInteface {
 
 
     @Headers({"content-type: text/json; charset=utf-8"})
-    @POST("GetMutationPendencyDetails/{pstrUserName}/{pStrPassword}/{pCensus_dist_code}/{pCensus_Taluk_Code}/{pHobliCode}/{pVillageCode}")
-    Call<PariharaIndividualDetailsResponse> getMutationPendingDetails(@Path("pstrUserName") String pstrUserName, @Path("pStrPassword") String pstrPassword,
-                                                                      @Path("pCensus_dist_code") int pCensus_dist_code, @Path("pCensus_Taluk_Code") int pCensus_Taluk_Code,
+    @POST("api/values/GetMutationPendencyDetails/{pCensus_dist_code}/{pCensus_Taluk_Code}/{pHobliCode}/{pVillageCode}")
+    Call<PariharaIndividualDetailsResponse> getMutationPendingDetails(@Path("pCensus_dist_code") int pCensus_dist_code, @Path("pCensus_Taluk_Code") int pCensus_Taluk_Code,
                                                                       @Path("pHobliCode") int pHobliCode, @Path("pVillageCode") int pVillageCode);
 
 
 
     @Headers({"content-type: text/json; charset=utf-8"})
-    @POST("GetMutationSummaryReport/{pstrUserName}/{pStrPassword}/{pCensus_dist_code}/{pCensus_Taluk_Code}/{pHobliCode}/{pVillageCode}/{pSurvey_no}")
-    Call<PariharaIndividualDetailsResponse> getMutationSummeryReportDetails(@Path("pstrUserName") String pstrUserName, @Path("pStrPassword") String pstrPassword,
-                                                                      @Path("pCensus_dist_code") int pCensus_dist_code, @Path("pCensus_Taluk_Code") int pCensus_Taluk_Code,
+    @POST("api/values/GetMutationSummaryReport/{pCensus_dist_code}/{pCensus_Taluk_Code}/{pHobliCode}/{pVillageCode}/{pSurvey_no}")
+    Call<PariharaIndividualDetailsResponse> getMutationSummeryReportDetails(@Path("pCensus_dist_code") int pCensus_dist_code, @Path("pCensus_Taluk_Code") int pCensus_Taluk_Code,
                                                                       @Path("pHobliCode") int pHobliCode, @Path("pVillageCode") int pVillageCode, @Path("pSurvey_no") int pSurvey_no);
 
     @Headers({"content-type: text/json; charset=utf-8"})
-    @POST("GET_Afdvt_ReqSts_BasedOnAfdvtId/{pstrUserName}/{pStrPassword}/{pAfdvtId}")
-    Call<PariharaIndividualDetailsResponse> getLandConversionBasedOnAffidavitID(@Path("pstrUserName") String pstrUserName, @Path("pStrPassword") String pstrPassword,
-                                                                         @Path("pAfdvtId") String pAfdvtId);
+    @POST("api/values/GET_Afdvt_ReqSts_BasedOnAfdvtId/{pAfdvtId}")
+    Call<PariharaIndividualDetailsResponse> getLandConversionBasedOnAffidavitID(@Path("pAfdvtId") String pAfdvtId);
 
     @Headers({"content-type: text/json; charset=utf-8"})
-    @POST("GET_Afdvt_ReqSts_BasedOnUserId/{pstrUserName}/{pStrPassword}/{pUserId}")
-    Call<PariharaIndividualDetailsResponse> getLandConversionBasedOnUserID(@Path("pstrUserName") String pstrUserName, @Path("pStrPassword") String pstrPassword,
-                                                                                @Path("pUserId") String pUserId);
+    @POST("api/values/GET_Afdvt_ReqSts_BasedOnUserId/{pUserId}")
+    Call<PariharaIndividualDetailsResponse> getLandConversionBasedOnUserID(@Path("pUserId") String pUserId);
 
     @Headers({"content-type: text/json; charset=utf-8"})
-    @POST("GetLandConversionFinalOrders_BasedOnReqId/{PSTRUSERNAME}/{PSTRPASSWORD}/{PREQUESTID}")
-    Call<PariharaIndividualDetailsResponse> getLandConversionFinalOrders_BasedOnReqId(@Path("PSTRUSERNAME") String PSTRUSERNAME, @Path("PSTRPASSWORD") String PSTRPASSWORD,
-                                                                           @Path("PREQUESTID") String PREQUESTID);
+    @POST("api/values/GetLandConversionFinalOrders_BasedOnReqId/{PREQUESTID}")
+    Call<PariharaIndividualDetailsResponse> getLandConversionFinalOrders_BasedOnReqId(@Path("PREQUESTID") String PREQUESTID);
 
     @Headers({"content-type: text/json; charset=utf-8"})
-    @POST("GetLandConversionFinalOrders_BasedOnSurveyNo/{PSTRUSERNAME}/{PSTRPASSWORD}/{pDistrictCode}/{pTalukCode}/{pHobliCode}/{pVillageCode}/{pSurveyNo}")
+    @POST("api/values/GetLandConversionFinalOrders_BasedOnSurveyNo/{pDistrictCode}/{pTalukCode}/{pHobliCode}/{pVillageCode}/{pSurveyNo}")
     Call<PariharaIndividualDetailsResponse> getLandConversionFinalOrders_BasedOnSurveyNo(
-            @Path("PSTRUSERNAME") String PSTRUSERNAME,
-            @Path("PSTRPASSWORD") String PSTRPASSWORD,
             @Path("pDistrictCode") int pDistrictCode,
             @Path("pTalukCode") int pTalukCode,
             @Path("pHobliCode") int pHobliCode,
@@ -60,10 +53,8 @@ public interface PariharaIndividualReportInteface {
     );
 
     @Headers({"content-type: text/json; charset=utf-8"})
-    @POST("GetLandRestriction_RAW/{pstrUserName}/{pStrPassword}/")
+    @POST("api/values/GetLandRestriction_RAW/")
     Call<PariharaIndividualDetailsResponse> fnGetLandRestrictionResult(
-            @Path("pstrUserName") String username,
-            @Path("pStrPassword") String password,
             @Body JsonObject input);
 
     @FormUrlEncoded

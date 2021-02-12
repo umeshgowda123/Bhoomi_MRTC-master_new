@@ -15,9 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.api.RtcXmlVerificationApi;
 import app.bmc.com.BHOOMI_MRTC.model.GETRTCXMLDATAResult;
-import app.bmc.com.BHOOMI_MRTC.retrofit.RtcVerificationClient;
-import app.bmc.com.BHOOMI_MRTC.retrofit.TestClient;
-import app.bmc.com.BHOOMI_MRTC.util.Constants;
+import app.bmc.com.BHOOMI_MRTC.retrofit.AuthorizationClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -90,7 +88,7 @@ public class RtcXmlverificationBackGroundTask extends Fragment {
             isTaskExecuting = true;
             if (backgroundCallBack != null)
                 backgroundCallBack.onPreExecute1();
-            Retrofit retrofit = TestClient.getClient(getString(R.string.rest_service_url), token_type, token);
+            Retrofit retrofit = AuthorizationClient.getClient(getString(R.string.rest_service_url), token_type, token);
             RtcXmlVerificationApi rtcXmlVerificationApi = retrofit.create(RtcXmlVerificationApi.class);
             Call<GETRTCXMLDATAResult> stringCall = rtcXmlVerificationApi.getStringResponse(jsonObject);
             stringCall.enqueue(new Callback<GETRTCXMLDATAResult>() {

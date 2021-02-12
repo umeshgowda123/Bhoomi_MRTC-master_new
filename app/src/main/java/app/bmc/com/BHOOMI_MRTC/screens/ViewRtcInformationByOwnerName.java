@@ -1,5 +1,6 @@
 package app.bmc.com.BHOOMI_MRTC.screens;
 
+import androidx.fragment.app.FragmentManager;
 import androidx.room.Room;
 
 import android.app.AlertDialog;
@@ -20,6 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -28,6 +30,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import java.util.ArrayList;
@@ -36,6 +40,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 import app.bmc.com.BHOOMI_MRTC.R;
+import app.bmc.com.BHOOMI_MRTC.backgroundtasks.RtcViewInfoBackGroundTaskFragment;
 import app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper;
 import app.bmc.com.BHOOMI_MRTC.interfaces.DistrictModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.HobliModelInterface;
@@ -49,7 +54,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class ViewRtcInformationByOwnerName extends AppCompatActivity {
+public class ViewRtcInformationByOwnerName extends AppCompatActivity  implements RtcViewInfoBackGroundTaskFragment.BackgroundCallBackRtcViewInfo {
 
     private MaterialBetterSpinner sp_district;
     private MaterialBetterSpinner sp_taluk;
@@ -76,6 +81,8 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
     private DataBaseHelper dataBaseHelper;
 
     ArrayAdapter<String> defaultArrayAdapter;
+    String accessToken, tokenType;
+    private RtcViewInfoBackGroundTaskFragment mTaskFragment;
 
 //    HttpTransportSE androidHttpTransport;
 //    SoapSerializationEnvelope envelope;
@@ -114,7 +121,20 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
         sp_hobli.setAdapter(defaultArrayAdapter);
         sp_village.setAdapter(defaultArrayAdapter);
 
+        FragmentManager fm = getSupportFragmentManager();
+        mTaskFragment = (RtcViewInfoBackGroundTaskFragment) fm.findFragmentByTag(RtcViewInfoBackGroundTaskFragment.TAG_HEADLESS_FRAGMENT);
 
+        // If the Fragment is non-null, then it is currently being
+        // retained across a configuration change.
+        if (mTaskFragment == null) {
+            mTaskFragment = new RtcViewInfoBackGroundTaskFragment();
+            fm.beginTransaction().add(mTaskFragment, RtcViewInfoBackGroundTaskFragment.TAG_HEADLESS_FRAGMENT).commit();
+        }
+//        if (mTaskFragment.isTaskExecuting) {
+//            progressBar = findViewById(R.id.progress_circular);
+//            if (progressBar != null)
+//                progressBar.setVisibility(View.VISIBLE);
+//        }
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
                         DataBaseHelper.class, getString(R.string.db_name)).build();
@@ -359,12 +379,14 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
 
                 if (isNetworkAvailable())
                 {
-                    Intent intent = new Intent(ViewRtcInformationByOwnerName.this, ShowRtcDetailsBYOwnerName.class);
-                    intent.putExtra("distId", district_id + "");
-                    intent.putExtra("talkId", taluk_id + "");
-                    intent.putExtra("hblId", hobli_id + "");
-                    intent.putExtra("village_id", village_id + "");
-                    startActivity(intent);
+                    mTaskFragment.startBackgroundTask_GenerateToken();
+
+//                    Intent intent = new Intent(ViewRtcInformationByOwnerName.this, ShowRtcDetailsBYOwnerName.class);
+//                    intent.putExtra("distId", district_id + "");
+//                    intent.putExtra("talkId", taluk_id + "");
+//                    intent.putExtra("hblId", hobli_id + "");
+//                    intent.putExtra("village_id", village_id + "");
+//                    startActivity(intent);
 
                 }
                 else
@@ -433,4 +455,128 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onPreExecute1() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess1(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_FORHISSA(String data, int count) {
+
+    }
+
+    @Override
+    public void onPreExecute2() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess2(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_Task2(String data, int count) {
+
+    }
+
+    @Override
+    public void onPreExecute3() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess3(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_Task3(String data) {
+
+    }
+
+    @Override
+    public void onPreExecute4() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess4(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_Task4(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseSuccessCultivator(String gettcDataResult) {
+
+    }
+
+    @Override
+    public void onPostResponseErrorCultivator(String errorResponse, int count) {
+
+    }
+
+    @Override
+    public void onPreExecute5() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess_GetDetails_VilWise(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_GetDetails_VilWise(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseSuccessGetToken(String TokenType, String AccessToken) {
+
+        accessToken = AccessToken;
+        tokenType = TokenType;
+        if (AccessToken == null || AccessToken.equals("") || AccessToken.contains("INVALID")||TokenType == null || TokenType.equals("") || TokenType.contains("INVALID")) {
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ViewRtcInformationByOwnerName.this, R.style.MyDialogTheme);
+            builder.setTitle(getString(R.string.status))
+                    .setMessage(getString(R.string.something_went_wrong_pls_try_again))
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
+            final android.app.AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        } else {
+            try {
+                Intent intent = new Intent(ViewRtcInformationByOwnerName.this, ShowRtcDetailsBYOwnerName.class);
+                intent.putExtra("distId", district_id + "");
+                intent.putExtra("talkId", taluk_id + "");
+                intent.putExtra("hblId", hobli_id + "");
+                intent.putExtra("village_id", village_id + "");
+                intent.putExtra("AccessToken", accessToken + "");
+                intent.putExtra("TokenType", tokenType + "");
+                startActivity(intent);
+            } catch (Exception e){
+                Log.d("ExcepSuccessGetToken",e.getLocalizedMessage()+"");
+                Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public void onPostResponseError_Token(String errorResponse) {
+
+        Log.d("ERR_msg", errorResponse+"");
+        Toast.makeText(this, ""+errorResponse, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Authorization has been denied for this request.", Toast.LENGTH_SHORT).show();
+    }
 }

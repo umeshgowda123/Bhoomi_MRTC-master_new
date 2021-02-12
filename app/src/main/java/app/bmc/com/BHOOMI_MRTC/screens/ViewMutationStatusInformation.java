@@ -103,6 +103,8 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
     Get_Surnoc_HissaRequest get_surnoc_hissaRequest;
     ArrayAdapter<String> defaultArrayAdapter;
 
+    String accessToken, tokenType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -375,16 +377,6 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
             village_id = villageData.get(position).getVLM_VLG_ID();
         });
 
-
-       /* btn_fetch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(ViewMutationStatusInformation.this, RtcDetails.class);
-                startActivity(intent);
-            }
-        });*/
-
         spinner_hissa.setOnItemClickListener((parent, view, position, id) -> {
             land_no = hissa_responseList.get(position).getLand_code();
             hissa = hissa_responseList.get(position).getHissa_no();
@@ -433,7 +425,9 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
             } else {
                 if (isNetworkAvailable()){
                     try {
-                        mTaskFragment.startBackgroundTask1(get_surnoc_hissaRequest, getString(R.string.rest_service_url), Constants.GRANT_TYPE, Constants.GRANT_TYPE);
+                        mTaskFragment.startBackgroundTask_GenerateToken();
+
+//                        mTaskFragment.startBackgroundTask1(get_surnoc_hissaRequest, getString(R.string.rest_service_url), Constants.GRANT_TYPE, Constants.GRANT_TYPE);
                     } catch (Exception e){
                         Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -529,7 +523,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                                         }
                                         } else {
                                             //5/6/5/1/1714
-                                            mTaskFragment.startBackgroundTask3(district_id, taluk_id, hobli_id, village_id, land_no, getString(R.string.rest_service_url));
+                                            mTaskFragment.startBackgroundTask3(district_id, taluk_id, hobli_id, village_id, land_no, getString(R.string.rest_service_url),tokenType,accessToken);
                                             //mTaskFragment.startBackgroundTask3(5, 6, 5, 1, 1714);
                                         }
                                 }
@@ -738,13 +732,35 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
     }
 
     @Override
-    public void onPostResponseSuccessGetToken(String AccessToken, String TokenType) {
+    public void onPostResponseSuccessGetToken(String TokenType, String AccessToken) {
+        accessToken = AccessToken;
+        tokenType = TokenType;
+        if (AccessToken == null || AccessToken.equals("") || AccessToken.contains("INVALID")||TokenType == null || TokenType.equals("") || TokenType.contains("INVALID")) {
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ViewMutationStatusInformation.this, R.style.MyDialogTheme);
+            builder.setTitle(getString(R.string.status))
+                    .setMessage(getString(R.string.something_went_wrong_pls_try_again))
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
+            final android.app.AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        } else {
+            try {
+                //JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
+                mTaskFragment.startBackgroundTask1(get_surnoc_hissaRequest, getString(R.string.rest_service_url), TokenType, AccessToken);
 
+            } catch (Exception e){
+                Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override
     public void onPostResponseError_Token(String errorResponse) {
-
+        Log.d("ERR_msg", errorResponse+"");
+        Toast.makeText(this, ""+errorResponse, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Authorization has been denied for this request.", Toast.LENGTH_SHORT).show();
     }
 
     @Override

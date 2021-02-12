@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -36,8 +37,7 @@ import app.bmc.com.BHOOMI_MRTC.interfaces.LandConversion_Interface;
 import app.bmc.com.BHOOMI_MRTC.model.Afdvt_ReqSts_BasedOnAfdvtIdTable;
 
 import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
-import app.bmc.com.BHOOMI_MRTC.retrofit.PariharaIndividualreportClient;
-import app.bmc.com.BHOOMI_MRTC.util.Constants;
+import app.bmc.com.BHOOMI_MRTC.retrofit.AuthorizationClient;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -56,6 +56,8 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
     DataBaseHelper dataBaseHelper;
     private List<LandConversion_Interface> LandConversion_Data;
     String User_res;
+    String tokenType;
+    String accessToken;
 
     Call<PariharaIndividualDetailsResponse> call;
 
@@ -78,6 +80,9 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
         tvUserId = findViewById(R.id.tvUserId);
 
         String userId = (String) Objects.requireNonNull(getIntent().getExtras()).getSerializable("USER_ID");
+        String tokenType = (String) Objects.requireNonNull(getIntent().getExtras()).getSerializable("tokenType");
+        String accessToken = (String) Objects.requireNonNull(getIntent().getExtras()).getSerializable("accessToken");
+        Log.d("token", tokenType+"   "+accessToken);
 
         if (userId!= null) {
 
@@ -166,9 +171,8 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
                                 progressDialog.setCancelable(false);
                                 progressDialog.show();
 
-                                PariharaIndividualReportInteface apiInterface = PariharaIndividualreportClient.getClient(getString(R.string.rest_service_url)).create(PariharaIndividualReportInteface.class);
-                                call = apiInterface.getLandConversionBasedOnUserID(Constants.CLWS_REST_SERVICE_USER_NAME,
-                                        Constants.CLWS_REST_SERVICE_PASSWORD,userId);
+                                PariharaIndividualReportInteface apiInterface = AuthorizationClient.getClient(getString(R.string.rest_service_url), tokenType, accessToken).create(PariharaIndividualReportInteface.class);
+                                call = apiInterface.getLandConversionBasedOnUserID(userId);
                                 call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
                                     @Override
                                     public void onResponse(@NotNull Call<PariharaIndividualDetailsResponse>  call, @NotNull Response<PariharaIndividualDetailsResponse> response)

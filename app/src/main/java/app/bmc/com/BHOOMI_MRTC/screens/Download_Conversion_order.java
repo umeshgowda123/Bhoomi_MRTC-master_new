@@ -3,6 +3,7 @@ package app.bmc.com.BHOOMI_MRTC.screens;
 import android.app.ProgressDialog;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.room.Room;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -41,6 +43,7 @@ import java.util.Objects;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.api.PariharaIndividualReportInteface;
+import app.bmc.com.BHOOMI_MRTC.backgroundtasks.RtcViewInfoBackGroundTaskFragment;
 import app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper;
 import app.bmc.com.BHOOMI_MRTC.interfaces.DistrictModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.HobliModelInterface;
@@ -49,6 +52,7 @@ import app.bmc.com.BHOOMI_MRTC.interfaces.TalukModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.VillageModelInterface;
 import app.bmc.com.BHOOMI_MRTC.model.LandConversion_Final_Order_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
+import app.bmc.com.BHOOMI_MRTC.retrofit.AuthorizationClient;
 import app.bmc.com.BHOOMI_MRTC.retrofit.PariharaIndividualreportClient;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
 import io.reactivex.Observable;
@@ -60,7 +64,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Download_Conversion_order extends AppCompatActivity {
+public class Download_Conversion_order extends AppCompatActivity implements RtcViewInfoBackGroundTaskFragment.BackgroundCallBackRtcViewInfo {
 
     RadioGroup rgForSelection;
     RadioButton rbRequestID, rbSurveyNo;
@@ -97,6 +101,10 @@ public class Download_Conversion_order extends AppCompatActivity {
     PariharaIndividualReportInteface apiInterface;
     Call<PariharaIndividualDetailsResponse> call;
 
+    String tokenType, accessToken;
+
+    private RtcViewInfoBackGroundTaskFragment mTaskFragment;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,6 +135,16 @@ public class Download_Conversion_order extends AppCompatActivity {
         sp_sum_hobli = findViewById(R.id.sp_sum_hobli);
         sp_sum_village  =  findViewById(R.id.sp_sum_village);
         etSurveyNumber = findViewById(R.id.etSurveyNumber);
+
+        FragmentManager fm = getSupportFragmentManager();
+        mTaskFragment = (RtcViewInfoBackGroundTaskFragment) fm.findFragmentByTag(RtcViewInfoBackGroundTaskFragment.TAG_HEADLESS_FRAGMENT);
+
+        // If the Fragment is non-null, then it is currently being
+        // retained across a configuration change.
+        if (mTaskFragment == null) {
+            mTaskFragment = new RtcViewInfoBackGroundTaskFragment();
+            fm.beginTransaction().add(mTaskFragment, RtcViewInfoBackGroundTaskFragment.TAG_HEADLESS_FRAGMENT).commit();
+        }
 
 //        dataBaseHelper =
 //                Room.databaseBuilder(getApplicationContext(),
@@ -450,92 +468,7 @@ public class Download_Conversion_order extends AppCompatActivity {
                                                 }
                                             }
                                         } else {
-
-                                        progressDialog = new ProgressDialog(Download_Conversion_order.this);
-                                        progressDialog.setMessage(getString(R.string.please_wait));
-                                        progressDialog.setCancelable(false);
-                                        progressDialog.show();
-
-
-                                        apiInterface = PariharaIndividualreportClient.getClient(getString(R.string.rest_service_url)).create(PariharaIndividualReportInteface.class);
-                                        call = apiInterface.getLandConversionFinalOrders_BasedOnSurveyNo(Constants.CLWS_REST_SERVICE_USER_NAME,
-                                                Constants.CLWS_REST_SERVICE_PASSWORD, district_id, taluk_id, hobli_id, village_id, surveyNumber);
-                                        call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
-                                            @Override
-                                            public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {
-
-                                                if (response.isSuccessful()) {
-                                                    PariharaIndividualDetailsResponse result = response.body();
-                                                    assert result != null;
-                                                    SNO_RES = result.getGetLandConversionFinalOrders_BasedOnSurveyNoResult();
-
-                                                    progressDialog.dismiss();
-                                                    if(SNO_RES == null || SNO_RES.equals("") || SNO_RES.contains("Details not found")) {
-                                                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Download_Conversion_order.this, R.style.MyDialogTheme);
-                                                        builder.setTitle(getString(R.string.status))
-                                                                .setMessage(getString(R.string.no_data_found_for_this_record))
-                                                                .setIcon(R.drawable.ic_notifications_black_24dp)
-                                                                .setCancelable(false)
-                                                                .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
-                                                        final android.app.AlertDialog alert = builder.create();
-                                                        alert.show();
-                                                        alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-                                                    } else {
-
-
-                                                    //---------DB INSERT-------
-                                                    dataBaseHelper =
-                                                            Room.databaseBuilder(getApplicationContext(),
-                                                                    DataBaseHelper.class, getString(R.string.db_name)).build();
-                                                    Observable<Integer> noOfRows;
-                                                    noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumOfRowsLandConversion_Final_Order_Tbl());
-                                                    noOfRows
-                                                        .subscribeOn(Schedulers.io())
-                                                        .observeOn(AndroidSchedulers.mainThread())
-                                                        .subscribe(new Observer<Integer>() {
-
-
-                                                            @Override
-                                                            public void onSubscribe(Disposable d) {
-
-                                                            }
-
-                                                            @Override
-                                                            public void onNext(Integer integer) {
-                                                                List<LandConversion_Final_Order_TABLE> LCFO_List = loadData();
-                                                                if (integer < 6) {
-                                                                    createLandConversion_Final_Order_TABLEData(LCFO_List);
-                                                                } else {
-                                                                    deleteAllResponse(LCFO_List);
-                                                                }
-                                                            }
-
-                                                            @Override
-                                                            public void onError(Throwable e) {
-                                                                Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                                            }
-
-                                                            @Override
-                                                            public void onComplete() {
-                                                                progressDialog.dismiss();
-
-                                                                Intent intent = new Intent(Download_Conversion_order.this, ConversionFinalOrders_BasedOnReq_ID.class);
-                                                                intent.putExtra("LandConversionFinalOrders", "" + SNO_RES);
-                                                                startActivity(intent);
-                                                            }
-                                                        });
-                                                    //---------------------------------------------------------------------------------------------
-                                                    }
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable t) {
-                                                call.cancel();
-                                                progressDialog.dismiss();
-                                                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-                                            }
-                                        });
+                                            mTaskFragment.startBackgroundTask_GenerateToken();
                                         }
                                     }
 
@@ -606,92 +539,7 @@ public class Download_Conversion_order extends AppCompatActivity {
                                             }
                                         }
                                         else {
-
-                                        progressDialog = new ProgressDialog(Download_Conversion_order.this);
-                                        progressDialog.setMessage(getString(R.string.please_wait));
-                                        progressDialog.setCancelable(false);
-                                        progressDialog.show();
-
-                                        apiInterface = PariharaIndividualreportClient.getClient(getString(R.string.rest_service_url)).create(PariharaIndividualReportInteface.class);
-                                        call = apiInterface.getLandConversionFinalOrders_BasedOnReqId(Constants.CLWS_REST_SERVICE_USER_NAME,
-                                                Constants.CLWS_REST_SERVICE_PASSWORD, requestID);
-                                        call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
-                                            @Override
-                                            public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {
-
-                                                if (response.isSuccessful()) {
-                                                    PariharaIndividualDetailsResponse result = response.body();
-                                                    assert result != null;
-                                                    ReqID_RES = result.getGetLandConversionFinalOrders_BasedOnReqIdResult();
-
-                                                    progressDialog.dismiss();
-                                                    if(ReqID_RES == null || ReqID_RES.equals("") || ReqID_RES.equals("[{\"Result\":\"Details not found\"}]")) {
-                                                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Download_Conversion_order.this, R.style.MyDialogTheme);
-                                                        builder.setTitle(getString(R.string.status))
-                                                                .setMessage(getString(R.string.no_data_found_for_this_record))
-                                                                .setIcon(R.drawable.ic_notifications_black_24dp)
-                                                                .setCancelable(false)
-                                                                .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
-                                                        final android.app.AlertDialog alert = builder.create();
-                                                        alert.show();
-                                                        alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-                                                    } else {
-
-                                                        //---------DB INSERT-------
-                                                        dataBaseHelper =
-                                                                Room.databaseBuilder(getApplicationContext(),
-                                                                        DataBaseHelper.class, getString(R.string.db_name)).build();
-                                                        Observable<Integer> noOfRows;
-                                                        noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumOfRowsLandConversion_Final_Order_Tbl());
-                                                        noOfRows
-                                                                .subscribeOn(Schedulers.io())
-                                                                .observeOn(AndroidSchedulers.mainThread())
-                                                                .subscribe(new Observer<Integer>() {
-
-
-                                                                    @Override
-                                                                    public void onSubscribe(Disposable d) {
-
-                                                                    }
-
-                                                                    @Override
-                                                                    public void onNext(Integer integer) {
-                                                                        List<LandConversion_Final_Order_TABLE> LCFO_List = loadData();
-                                                                        if (integer < 6) {
-                                                                            createLandConversion_Final_Order_TABLEData(LCFO_List);
-                                                                        } else {
-                                                                            deleteAllResponse(LCFO_List);
-                                                                        }
-                                                                    }
-
-                                                                    @Override
-                                                                    public void onError(Throwable e) {
-                                                                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                                                    }
-
-                                                                    @Override
-                                                                    public void onComplete() {
-                                                                        progressDialog.dismiss();
-
-                                                                        Intent intent = new Intent(Download_Conversion_order.this, ConversionFinalOrders_BasedOnReq_ID.class);
-                                                                        intent.putExtra("LandConversionFinalOrders", "" + ReqID_RES);
-                                                                        startActivity(intent);
-                                                                    }
-                                                                });
-                                                        //---------------------------------------------------------------------------------------------
-
-                                                    }
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable t) {
-                                                call.cancel();
-                                                progressDialog.dismiss();
-                                                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-
-                                            }
-                                        });
+                                            mTaskFragment.startBackgroundTask_GenerateToken();
                                         }
                                     }
 
@@ -854,5 +702,306 @@ public class Download_Conversion_order extends AppCompatActivity {
         if(call != null && call.isExecuted()) {
             call.cancel();
         }
+    }
+
+
+    public void ReqID_Response(String token_type, String token){
+
+        progressDialog = new ProgressDialog(Download_Conversion_order.this);
+        progressDialog.setMessage(getString(R.string.please_wait));
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        apiInterface = AuthorizationClient.getClient(getString(R.string.rest_service_url),token_type,token).create(PariharaIndividualReportInteface.class);
+        call = apiInterface.getLandConversionFinalOrders_BasedOnReqId(requestID);
+        call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {
+
+                if (response.isSuccessful()) {
+                    PariharaIndividualDetailsResponse result = response.body();
+                    assert result != null;
+                    ReqID_RES = result.getGetLandConversionFinalOrders_BasedOnReqIdResult();
+
+                    progressDialog.dismiss();
+                    if(ReqID_RES == null || ReqID_RES.equals("") || ReqID_RES.equals("[{\"Result\":\"Details not found\"}]")) {
+                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Download_Conversion_order.this, R.style.MyDialogTheme);
+                        builder.setTitle(getString(R.string.status))
+                                .setMessage(getString(R.string.no_data_found_for_this_record))
+                                .setIcon(R.drawable.ic_notifications_black_24dp)
+                                .setCancelable(false)
+                                .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
+                        final android.app.AlertDialog alert = builder.create();
+                        alert.show();
+                        alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                    } else {
+
+                        //---------DB INSERT-------
+                        dataBaseHelper =
+                                Room.databaseBuilder(getApplicationContext(),
+                                        DataBaseHelper.class, getString(R.string.db_name)).build();
+                        Observable<Integer> noOfRows;
+                        noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumOfRowsLandConversion_Final_Order_Tbl());
+                        noOfRows
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Observer<Integer>() {
+
+
+                                    @Override
+                                    public void onSubscribe(Disposable d) {
+
+                                    }
+
+                                    @Override
+                                    public void onNext(Integer integer) {
+                                        List<LandConversion_Final_Order_TABLE> LCFO_List = loadData();
+                                        if (integer < 6) {
+                                            createLandConversion_Final_Order_TABLEData(LCFO_List);
+                                        } else {
+                                            deleteAllResponse(LCFO_List);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e) {
+                                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                    }
+
+                                    @Override
+                                    public void onComplete() {
+                                        progressDialog.dismiss();
+
+                                        Intent intent = new Intent(Download_Conversion_order.this, ConversionFinalOrders_BasedOnReq_ID.class);
+                                        intent.putExtra("LandConversionFinalOrders", "" + ReqID_RES);
+                                        startActivity(intent);
+                                    }
+                                });
+                        //---------------------------------------------------------------------------------------------
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable t) {
+                call.cancel();
+                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+
+            }
+        });
+    }
+    public void SNO_Response(String token_type, String token){
+
+        progressDialog = new ProgressDialog(Download_Conversion_order.this);
+        progressDialog.setMessage(getString(R.string.please_wait));
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+
+        apiInterface = AuthorizationClient.getClient(getString(R.string.rest_service_url),token_type,token).create(PariharaIndividualReportInteface.class);
+        call = apiInterface.getLandConversionFinalOrders_BasedOnSurveyNo(district_id, taluk_id, hobli_id, village_id, surveyNumber);
+        call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {
+
+                if (response.isSuccessful()) {
+                    PariharaIndividualDetailsResponse result = response.body();
+                    assert result != null;
+                    SNO_RES = result.getGetLandConversionFinalOrders_BasedOnSurveyNoResult();
+
+                    progressDialog.dismiss();
+                    if(SNO_RES == null || SNO_RES.equals("") || SNO_RES.contains("Details not found")) {
+                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Download_Conversion_order.this, R.style.MyDialogTheme);
+                        builder.setTitle(getString(R.string.status))
+                                .setMessage(getString(R.string.no_data_found_for_this_record))
+                                .setIcon(R.drawable.ic_notifications_black_24dp)
+                                .setCancelable(false)
+                                .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
+                        final android.app.AlertDialog alert = builder.create();
+                        alert.show();
+                        alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                    } else {
+
+
+                        //---------DB INSERT-------
+                        dataBaseHelper =
+                                Room.databaseBuilder(getApplicationContext(),
+                                        DataBaseHelper.class, getString(R.string.db_name)).build();
+                        Observable<Integer> noOfRows;
+                        noOfRows = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getNumOfRowsLandConversion_Final_Order_Tbl());
+                        noOfRows
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Observer<Integer>() {
+
+
+                                    @Override
+                                    public void onSubscribe(Disposable d) {
+
+                                    }
+
+                                    @Override
+                                    public void onNext(Integer integer) {
+                                        List<LandConversion_Final_Order_TABLE> LCFO_List = loadData();
+                                        if (integer < 6) {
+                                            createLandConversion_Final_Order_TABLEData(LCFO_List);
+                                        } else {
+                                            deleteAllResponse(LCFO_List);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e) {
+                                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                    }
+
+                                    @Override
+                                    public void onComplete() {
+                                        progressDialog.dismiss();
+
+                                        Intent intent = new Intent(Download_Conversion_order.this, ConversionFinalOrders_BasedOnReq_ID.class);
+                                        intent.putExtra("LandConversionFinalOrders", "" + SNO_RES);
+                                        startActivity(intent);
+                                    }
+                                });
+                        //---------------------------------------------------------------------------------------------
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable t) {
+                call.cancel();
+                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    @Override
+    public void onPreExecute1() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess1(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_FORHISSA(String data, int count) {
+
+    }
+
+    @Override
+    public void onPreExecute2() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess2(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_Task2(String data, int count) {
+
+    }
+
+    @Override
+    public void onPreExecute3() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess3(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_Task3(String data) {
+
+    }
+
+    @Override
+    public void onPreExecute4() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess4(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_Task4(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseSuccessCultivator(String gettcDataResult) {
+
+    }
+
+    @Override
+    public void onPostResponseErrorCultivator(String errorResponse, int count) {
+
+    }
+
+    @Override
+    public void onPreExecute5() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess_GetDetails_VilWise(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_GetDetails_VilWise(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseSuccessGetToken(String TokenType, String AccessToken) {
+        accessToken = AccessToken;
+        tokenType = TokenType;
+        if (AccessToken == null || AccessToken.equals("") || AccessToken.contains("INVALID")||TokenType == null || TokenType.equals("") || TokenType.contains("INVALID")) {
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Download_Conversion_order.this, R.style.MyDialogTheme);
+            builder.setTitle(getString(R.string.status))
+                    .setMessage(getString(R.string.something_went_wrong_pls_try_again))
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
+            final android.app.AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        } else {
+            try {
+                if (strSelected.equals(getString(R.string.request_id))) {
+                    Log.d("request_id","request_id");
+                    ReqID_Response(tokenType, accessToken);
+                }else if (strSelected.equals(getString(R.string.survey_no_wise))){
+                    Log.d("survey_no_wise","survey_no_wise");
+                    SNO_Response(tokenType, accessToken);
+                }
+//                JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
+//                mTaskFragment.startBackgroundTask_GetDetails_VilWise(jsonObject, getString(R.string.rest_service_url), tokenType, accessToken);
+
+            } catch (Exception e){
+                Log.d("ExcepSuccessGetToken",e.getLocalizedMessage()+"");
+                Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public void onPostResponseError_Token(String errorResponse) {
+        Log.d("ERR_msg", errorResponse+"");
+        Toast.makeText(this, ""+errorResponse, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Authorization has been denied for this request.", Toast.LENGTH_SHORT).show();
     }
 }

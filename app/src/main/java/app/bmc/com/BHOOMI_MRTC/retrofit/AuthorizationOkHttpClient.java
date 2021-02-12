@@ -15,7 +15,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 
-public class TestOkHttpClient {
+public class AuthorizationOkHttpClient {
     public static OkHttpClient getUnsafeOkHttpClient(String token_type, String token){
 
         try{

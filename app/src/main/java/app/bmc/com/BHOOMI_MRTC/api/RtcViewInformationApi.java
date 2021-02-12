@@ -29,10 +29,8 @@ public interface RtcViewInformationApi {
 
 
     @Headers({"content-type: text/json; charset=utf-8"})
-    @POST("ViewMutationStatus/{pstrUserName}/{pStrPassword}/{District_Code}/{Taluk_Code}/{Hobli_Code}/{Village_Code}/{Land_Code}")
+    @POST("api/values/ViewMutationStatus/{District_Code}/{Taluk_Code}/{Hobli_Code}/{Village_Code}/{Land_Code}")
     Call<Get_ViewMutationStatusResult> getMutationStatusResponse(
-            @Path("pstrUserName") String pstrUserName,
-            @Path("pStrPassword") String pStrPassword,
             @Path("District_Code") int District_Code,
             @Path("Taluk_Code") int Taluk_Code,
             @Path("Hobli_Code") int Hobli_Code,
@@ -50,7 +48,7 @@ public interface RtcViewInformationApi {
     );
 
     @Headers({"content-type: text/json; charset=utf-8"})
-    @POST("GetDetails_VillageWise_JSON/")
+    @POST("api/values/GetDetails_VillageWise_JSON/")
     Call<PariharaIndividualDetailsResponse> GetDetails_VillageWise_JSON(
             @Body JsonObject input
     );

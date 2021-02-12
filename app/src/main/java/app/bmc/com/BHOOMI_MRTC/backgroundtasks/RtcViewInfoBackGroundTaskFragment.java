@@ -26,7 +26,7 @@ import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
 import app.bmc.com.BHOOMI_MRTC.model.TokenRes;
 import app.bmc.com.BHOOMI_MRTC.retrofit.PariharaIndividualreportClient;
 import app.bmc.com.BHOOMI_MRTC.retrofit.RtcViewInfoClient;
-import app.bmc.com.BHOOMI_MRTC.retrofit.TestClient;
+import app.bmc.com.BHOOMI_MRTC.retrofit.AuthorizationClient;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -107,15 +107,15 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         }
     }
 
-    public void startBackgroundTask3(int district_id, int taluk_id, int hobli_id, int village_id, int land_no, String url) {
+    public void startBackgroundTask3(int district_id, int taluk_id, int hobli_id, int village_id, int land_no, String url, String token_type, String token) {
         if (!isTaskExecuting) {
-                getMutationStatusResponse(String.valueOf(district_id), String.valueOf(taluk_id), String.valueOf(hobli_id), String.valueOf(village_id), String.valueOf(land_no), url);
+                getMutationStatusResponse(String.valueOf(district_id), String.valueOf(taluk_id), String.valueOf(hobli_id), String.valueOf(village_id), String.valueOf(land_no), url,token_type,token);
         }
     }
 
-    public void startBackgroundTask4(JsonObject input, String url) {
+    public void startBackgroundTask4(JsonObject input, String url,String token_type, String token) {
         if (!isTaskExecuting) {
-            getLandRestrictionResult(input, url);
+            getLandRestrictionResult(input, url, token_type,token);
         }
 
     }
@@ -147,22 +147,46 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
                 String AccessToken = null;
                 String TokenType = null;
 
+//                if (response.isSuccessful()) {
+//                    TokenRes result = response.body();
+//                    assert result != null;
+//                    AccessToken = result.getAccessToken();
+//                    TokenType = result.getTokenType();
+//                }
+//                    isTaskExecuting = false;
+//                    if (backgroundCallBack != null) {
+//                        backgroundCallBack.onPostResponseSuccessGetToken(TokenType,AccessToken);
+//                    }
+//                    else {
+//                    isTaskExecuting = false;
+//                    if (backgroundCallBack != null) {
+//
+//                        String errorResponse = response.message();
+//                        backgroundCallBack.onPostResponseError_Token(errorResponse);
+//                    }
+
+//                }
+
                 if (response.isSuccessful()) {
                     TokenRes result = response.body();
                     assert result != null;
                     AccessToken = result.getAccessToken();
                     TokenType = result.getTokenType();
-                }
+                    Log.d("datatata : ",AccessToken+"    "+TokenType);
                     isTaskExecuting = false;
                     if (backgroundCallBack != null) {
                         backgroundCallBack.onPostResponseSuccessGetToken(TokenType,AccessToken);
                     }
-                    else {
-                        if (backgroundCallBack != null) {
-                            String errorResponse = response.message();
-                            backgroundCallBack.onPostResponseError_Token(errorResponse);
-                        }
+                } else {
+                    isTaskExecuting = false;
+                    if (backgroundCallBack != null) {
+
+                        String errorResponse = response.message();
+
+                        backgroundCallBack.onPostResponseError_Token(errorResponse);
                     }
+
+                }
                 }
 
                 @Override
@@ -185,7 +209,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         if (backgroundCallBack != null)
             backgroundCallBack.onPreExecute1();
 
-        Retrofit retrofit = TestClient.getClient(url, token_type, token);
+        Retrofit retrofit = AuthorizationClient.getClient(url, token_type, token);
         RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
         get_surnoc_hissaResultCall = service.getSurnocHissaResponse(get_surnoc_hissaRequest);
         get_surnoc_hissaResultCall.enqueue(new Callback<Get_Surnoc_HissaResult>() {
@@ -193,12 +217,12 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
             public void onResponse(@NonNull Call<Get_Surnoc_HissaResult> call, @NonNull Response<Get_Surnoc_HissaResult> response) {
                 if (response.isSuccessful()) {
                     Get_Surnoc_HissaResult get_surnoc_hissaResult = response.body();
+                    assert get_surnoc_hissaResult != null;
                     String data = get_surnoc_hissaResult.getGetSurnocHissaResult();
 
                     Log.d("datatata : ",data+"");
                     isTaskExecuting = false;
                     if (backgroundCallBack != null) {
-                        assert get_surnoc_hissaResult != null;
                         backgroundCallBack.onPostResponseSuccess1(data);
                     }
                 } else {
@@ -244,7 +268,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         if (backgroundCallBack != null)
             backgroundCallBack.onPreExecute2();
 
-        Retrofit retrofit = TestClient.getClient(url, token_type, token);
+        Retrofit retrofit = AuthorizationClient.getClient(url, token_type, token);
         RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
         getRtcResponse_call = service.getRtcResponse(input);
         getRtcResponse_call.enqueue(new Callback<Get_Rtc_Data_Result>() {
@@ -289,14 +313,14 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
     }
 
 
-    private void getMutationStatusResponse(String district_id, String taluk_id, String hobli_id, String village_id, String land_no, String url) {
+    private void getMutationStatusResponse(String district_id, String taluk_id, String hobli_id, String village_id, String land_no, String url, String token_type, String token) {
         isTaskExecuting = true;
         if (backgroundCallBack != null)
             backgroundCallBack.onPreExecute3();
 
-        Retrofit retrofit = RtcViewInfoClient.getClient(url);
+        Retrofit retrofit = AuthorizationClient.getClient(url,token_type,token);
         RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
-        get_rtc_data_resultCall = service.getMutationStatusResponse(Constants.CLWS_REST_SERVICE_USER_NAME,Constants.CLWS_REST_SERVICE_PASSWORD,Integer.parseInt(district_id),Integer.parseInt(taluk_id),Integer.parseInt(hobli_id),Integer.parseInt(village_id),Integer.parseInt(land_no));
+        get_rtc_data_resultCall = service.getMutationStatusResponse(Integer.parseInt(district_id),Integer.parseInt(taluk_id),Integer.parseInt(hobli_id),Integer.parseInt(village_id),Integer.parseInt(land_no));
         get_rtc_data_resultCall.enqueue(new Callback<Get_ViewMutationStatusResult>() {
             @Override
             public void onResponse(@NonNull Call<Get_ViewMutationStatusResult> call, @NonNull Response<Get_ViewMutationStatusResult> response) {
@@ -340,14 +364,14 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         }
     }
 
-    private void getLandRestrictionResult(JsonObject input, String url){
+    private void getLandRestrictionResult(JsonObject input, String url, String token_type, String token){
         isTaskExecuting = true;
         if (backgroundCallBack != null)
             backgroundCallBack.onPreExecute4();
 
-        Retrofit retrofit = RtcViewInfoClient.getClient(url);
+        Retrofit retrofit = AuthorizationClient.getClient(url,token_type,token);
         PariharaIndividualReportInteface service = retrofit.create(PariharaIndividualReportInteface.class);
-        getLandRestrictionResultCall = service.fnGetLandRestrictionResult(Constants.CLWS_REST_SERVICE_USER_NAME,Constants.CLWS_REST_SERVICE_PASSWORD, input);
+        getLandRestrictionResultCall = service.fnGetLandRestrictionResult(input);
         getLandRestrictionResultCall.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
             @Override
             public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {
@@ -441,7 +465,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         if (backgroundCallBack != null)
             backgroundCallBack.onPreExecute5();
 
-        Retrofit retrofit = TestClient.getClient(url, token_type, token);
+        Retrofit retrofit = AuthorizationClient.getClient(url, token_type, token);
         RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
         getLandRestrictionResultCall = service.GetDetails_VillageWise_JSON(input);
         getLandRestrictionResultCall.enqueue(new Callback<PariharaIndividualDetailsResponse>() {

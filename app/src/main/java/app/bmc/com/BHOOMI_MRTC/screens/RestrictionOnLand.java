@@ -101,6 +101,8 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
     ArrayAdapter<String> defaultArrayAdapter;
     Get_Surnoc_HissaRequest get_surnoc_hissaRequest;
 
+    String accessToken, tokenType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -380,7 +382,8 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
 //                surveyNo = Integer.parseInt(edittext_survey.getText().toString().trim());
                 if (isNetworkAvailable()){
                     try {
-                        mTaskFragment.startBackgroundTask1(get_surnoc_hissaRequest, getString(R.string.rest_service_url), Constants.GRANT_TYPE, Constants.GRANT_TYPE);
+                        mTaskFragment.startBackgroundTask_GenerateToken();
+//                        mTaskFragment.startBackgroundTask1(get_surnoc_hissaRequest, getString(R.string.rest_service_url), Constants.GRANT_TYPE, Constants.GRANT_TYPE);
                     } catch (Exception e){
                         Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -435,6 +438,8 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
                 intent.putExtra("s_No", surveyNo + "");
                 intent.putExtra("s_c", suroc + "");
                 intent.putExtra("hi_no", hissa + "");
+                intent.putExtra("AccessToken", accessToken);
+                intent.putExtra("TokenType", tokenType);
                 startActivity(intent);
             }
         });
@@ -554,13 +559,35 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
     }
 
     @Override
-    public void onPostResponseSuccessGetToken(String AccessToken, String TokenType) {
+    public void onPostResponseSuccessGetToken(String TokenType, String AccessToken) {
+        accessToken = AccessToken;
+        tokenType = TokenType;
+        if (AccessToken == null || AccessToken.equals("") || AccessToken.contains("INVALID")||TokenType == null || TokenType.equals("") || TokenType.contains("INVALID")) {
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(RestrictionOnLand.this, R.style.MyDialogTheme);
+            builder.setTitle(getString(R.string.status))
+                    .setMessage(getString(R.string.something_went_wrong_pls_try_again))
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
+            final android.app.AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        } else {
+            try {
+                //JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
+                mTaskFragment.startBackgroundTask1(get_surnoc_hissaRequest, getString(R.string.rest_service_url), TokenType, AccessToken);
 
+            } catch (Exception e){
+                Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override
     public void onPostResponseError_Token(String errorResponse) {
-
+        Log.d("ERR_msg", errorResponse+"");
+        Toast.makeText(this, ""+errorResponse, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Authorization has been denied for this request.", Toast.LENGTH_SHORT).show();
     }
 
     @Override

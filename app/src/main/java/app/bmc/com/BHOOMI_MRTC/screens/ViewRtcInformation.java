@@ -262,8 +262,6 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
                         }
                     });
         });
-
-
         spinner_taluk.setOnItemClickListener((parent, view, position, id) -> {
             spinner_hobli.setText("");
             spinner_village.setText("");
@@ -305,7 +303,6 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
                     });
 
         });
-
         spinner_hobli.setOnItemClickListener((parent, view, position, id) -> {
             spinner_village.setText("");
             spinner_hissa.setText("");
@@ -351,7 +348,6 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
             edittext_survey.setText("");
             village_id = villageData.get(position).getVLM_VLG_ID();
         });
-
         spinner_hissa.setOnItemClickListener((parent, view, position, id) -> {
             land_no = hissa_responseList.get(position).getLand_code();
             hissa = hissa_responseList.get(position).getHissa_no();
@@ -359,7 +355,6 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
         }
         );
         btn_go.setOnClickListener(v -> {
-
 
             String districtName = spinner_district.getText().toString().trim();
             String talukName = spinner_taluk.getText().toString().trim();
@@ -611,7 +606,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
         } else {
             try {
                 //JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
-                mTaskFragment.startBackgroundTask1(get_surnoc_hissaRequest, getString(R.string.rest_service_url), TokenType, AccessToken);
+                mTaskFragment.startBackgroundTask1(get_surnoc_hissaRequest,getString(R.string.rest_service_url), TokenType, AccessToken);
             } catch (Exception e){
                 Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }

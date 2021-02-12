@@ -1,6 +1,6 @@
 package app.bmc.com.BHOOMI_MRTC.screens;
 
-import android.annotation.SuppressLint;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +10,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
+
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -32,22 +32,8 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapPrimitive;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
-import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 import app.bmc.com.BHOOMI_MRTC.R;
@@ -57,10 +43,9 @@ import app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper;
 import app.bmc.com.BHOOMI_MRTC.interfaces.RLR_RES_Interface;
 import app.bmc.com.BHOOMI_MRTC.model.R_LAND_REPORT_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.RestrictionOnLandReportTable;
-import fr.arnaudguyon.xmltojsonlib.XmlToJson;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -77,6 +62,7 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
     private DataBaseHelper dataBaseHelper;
     String strData;
     List<RLR_RES_Interface> RLR_RES_Data;
+    String AccessToken, TokenType;
 
 
     @Override
@@ -121,6 +107,8 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
             surveyNo = intent.getStringExtra("s_No");
             suroc = intent.getStringExtra("s_c");
             hissa = intent.getStringExtra("hi_no");
+            AccessToken = intent.getStringExtra("AccessToken");
+            TokenType = intent.getStringExtra("TokenType");
 
         }
         if (isNetworkAvailable()){
@@ -191,7 +179,7 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                                 else {
                                     JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
                                     progressBar.setVisibility(View.VISIBLE);
-                                    mTaskFragment.startBackgroundTask4(jsonObject, getString(R.string.rest_service_url));
+                                    mTaskFragment.startBackgroundTask4(jsonObject, getString(R.string.rest_service_url),TokenType,AccessToken);
                                 }
                             }
 

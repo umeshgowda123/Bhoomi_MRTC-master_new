@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Get_ViewMutationStatusResult {
 
-    @SerializedName("ViewMutationStatusResult")
+    @SerializedName("ViewMutationStatus")
     @Expose
     private String ViewMutationStatusResult;
 
