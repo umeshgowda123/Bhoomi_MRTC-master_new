@@ -19,8 +19,8 @@ import app.bmc.com.BHOOMI_MRTC.screens.RtcDetails;
 
 public class ViewRTCByOwnerNameNewAdapter extends BaseAdapter implements Filterable {
 
-    private Context mContext;
-    private ArrayList<String> distId, talkId, hblId, villId;
+    Context mContext;
+    ArrayList<String> distId, talkId, hblId, villId;
     ArrayList<RTCByOwnerNameResponse> dataList;
     ArrayList<RTCByOwnerNameResponse> filterList;
     CustomFilter customFilter;
@@ -68,8 +68,9 @@ public class ViewRTCByOwnerNameNewAdapter extends BaseAdapter implements Filtera
             viewHolder = (ViewRTCByOwnerNameViewHolder) convertView.getTag();
         }
 
+        String strShowSurNo = dataList.get(position).getSurvey_no() + "/" + dataList.get(position).getSurnoc() + "/" + dataList.get(position).getHissa_no();
         viewHolder.tvShowOwnerName.setText(dataList.get(position).getOwner());
-        viewHolder.tvShowSurveyNo.setText(dataList.get(position).getSurvey_no() + "/" + dataList.get(position).getSurnoc() + "/" + dataList.get(position).getHissa_no());
+        viewHolder.tvShowSurveyNo.setText(strShowSurNo);
         // Return the completed view to render on screen
 
         viewHolder.btnViewReport.setOnClickListener(v -> {
@@ -111,7 +112,7 @@ public class ViewRTCByOwnerNameNewAdapter extends BaseAdapter implements Filtera
     }
 
 
-    class ViewRTCByOwnerNameViewHolder {
+    public class ViewRTCByOwnerNameViewHolder {
         TextView tvShowOwnerName, tvShowSurveyNo;
         ImageView btnViewReport;
 

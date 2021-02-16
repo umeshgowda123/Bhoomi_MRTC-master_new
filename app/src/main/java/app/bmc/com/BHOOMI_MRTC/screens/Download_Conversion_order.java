@@ -50,10 +50,9 @@ import app.bmc.com.BHOOMI_MRTC.interfaces.HobliModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.LandConversion_Final_Order_Interface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.TalukModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.VillageModelInterface;
+import app.bmc.com.BHOOMI_MRTC.model.BHOOMI_API_Response;
 import app.bmc.com.BHOOMI_MRTC.model.LandConversion_Final_Order_TABLE;
-import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
 import app.bmc.com.BHOOMI_MRTC.retrofit.AuthorizationClient;
-import app.bmc.com.BHOOMI_MRTC.retrofit.PariharaIndividualreportClient;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -99,7 +98,7 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
     private String language;
 
     PariharaIndividualReportInteface apiInterface;
-    Call<PariharaIndividualDetailsResponse> call;
+    Call<BHOOMI_API_Response> call;
 
     String tokenType, accessToken;
 
@@ -145,6 +144,10 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
             mTaskFragment = new RtcViewInfoBackGroundTaskFragment();
             fm.beginTransaction().add(mTaskFragment, RtcViewInfoBackGroundTaskFragment.TAG_HEADLESS_FRAGMENT).commit();
         }
+
+        progressDialog = new ProgressDialog(Download_Conversion_order.this);
+        progressDialog.setMessage(getString(R.string.please_wait));
+        progressDialog.setCancelable(false);
 
 //        dataBaseHelper =
 //                Room.databaseBuilder(getApplicationContext(),
@@ -468,7 +471,8 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
                                                 }
                                             }
                                         } else {
-                                            mTaskFragment.startBackgroundTask_GenerateToken();
+                                            progressDialog.show();
+                                            mTaskFragment.startBackgroundTask_GenerateToken(getString(R.string.url_token));
                                         }
                                     }
 
@@ -539,7 +543,8 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
                                             }
                                         }
                                         else {
-                                            mTaskFragment.startBackgroundTask_GenerateToken();
+                                            progressDialog.show();
+                                            mTaskFragment.startBackgroundTask_GenerateToken(getString(R.string.url_token));
                                         }
                                     }
 
@@ -707,21 +712,16 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
 
     public void ReqID_Response(String token_type, String token){
 
-        progressDialog = new ProgressDialog(Download_Conversion_order.this);
-        progressDialog.setMessage(getString(R.string.please_wait));
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-
         apiInterface = AuthorizationClient.getClient(getString(R.string.rest_service_url),token_type,token).create(PariharaIndividualReportInteface.class);
         call = apiInterface.getLandConversionFinalOrders_BasedOnReqId(requestID);
-        call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+        call.enqueue(new Callback<BHOOMI_API_Response>() {
             @Override
-            public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {
+            public void onResponse(@NonNull Call<BHOOMI_API_Response> call, @NonNull Response<BHOOMI_API_Response> response) {
 
                 if (response.isSuccessful()) {
-                    PariharaIndividualDetailsResponse result = response.body();
+                    BHOOMI_API_Response result = response.body();
                     assert result != null;
-                    ReqID_RES = result.getGetLandConversionFinalOrders_BasedOnReqIdResult();
+                    ReqID_RES = result.getBhoomI_API_Response();
 
                     progressDialog.dismiss();
                     if(ReqID_RES == null || ReqID_RES.equals("") || ReqID_RES.equals("[{\"Result\":\"Details not found\"}]")) {
@@ -784,7 +784,7 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
             }
 
             @Override
-            public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<BHOOMI_API_Response> call, @NonNull Throwable t) {
                 call.cancel();
                 progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
@@ -794,22 +794,16 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
     }
     public void SNO_Response(String token_type, String token){
 
-        progressDialog = new ProgressDialog(Download_Conversion_order.this);
-        progressDialog.setMessage(getString(R.string.please_wait));
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-
-
         apiInterface = AuthorizationClient.getClient(getString(R.string.rest_service_url),token_type,token).create(PariharaIndividualReportInteface.class);
         call = apiInterface.getLandConversionFinalOrders_BasedOnSurveyNo(district_id, taluk_id, hobli_id, village_id, surveyNumber);
-        call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+        call.enqueue(new Callback<BHOOMI_API_Response>() {
             @Override
-            public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {
+            public void onResponse(@NonNull Call<BHOOMI_API_Response> call, @NonNull Response<BHOOMI_API_Response> response) {
 
                 if (response.isSuccessful()) {
-                    PariharaIndividualDetailsResponse result = response.body();
+                    BHOOMI_API_Response result = response.body();
                     assert result != null;
-                    SNO_RES = result.getGetLandConversionFinalOrders_BasedOnSurveyNoResult();
+                    SNO_RES = result.getBhoomI_API_Response();
 
                     progressDialog.dismiss();
                     if(SNO_RES == null || SNO_RES.equals("") || SNO_RES.contains("Details not found")) {
@@ -872,7 +866,7 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
             }
 
             @Override
-            public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<BHOOMI_API_Response> call, @NonNull Throwable t) {
                 call.cancel();
                 progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
@@ -963,6 +957,10 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
     @Override
     public void onPostResponseError_GetDetails_VilWise(String data) {
 
+    }
+
+    @Override
+    public void onPreExecuteToken() {
     }
 
     @Override

@@ -45,9 +45,9 @@ import app.bmc.com.BHOOMI_MRTC.interfaces.HobliModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.MPD_RES_Interface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.TalukModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.VillageModelInterface;
+import app.bmc.com.BHOOMI_MRTC.model.BHOOMI_API_Response;
 import app.bmc.com.BHOOMI_MRTC.model.MPD_RES_Data;
 import app.bmc.com.BHOOMI_MRTC.model.MPD_TABLE;
-import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
 import app.bmc.com.BHOOMI_MRTC.retrofit.AuthorizationClient;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
 import io.reactivex.Observable;
@@ -92,7 +92,7 @@ public class MutationPendencyDetails extends AppCompatActivity implements RtcVie
     ArrayAdapter<String> defaultArrayAdapter;
     private String language;
 
-    Call<PariharaIndividualDetailsResponse> call;
+    Call<BHOOMI_API_Response> call;
 
     String tokenType, accessToken;
     private RtcViewInfoBackGroundTaskFragment mTaskFragment;
@@ -177,6 +177,11 @@ public class MutationPendencyDetails extends AppCompatActivity implements RtcVie
             mTaskFragment = new RtcViewInfoBackGroundTaskFragment();
             fm.beginTransaction().add(mTaskFragment, RtcViewInfoBackGroundTaskFragment.TAG_HEADLESS_FRAGMENT).commit();
         }
+
+        progressDialog = new ProgressDialog(MutationPendencyDetails.this);
+        progressDialog.setMessage(getString(R.string.please_wait));
+        progressDialog.setCancelable(false);
+
 //        if (mTaskFragment.isTaskExecuting) {
 //            progressBar = findViewById(R.id.progress_circular);
 //            if (progressBar != null)
@@ -420,7 +425,8 @@ public class MutationPendencyDetails extends AppCompatActivity implements RtcVie
                                         }
                                     }
                                     else {
-                                        mTaskFragment.startBackgroundTask_GenerateToken();
+                                        progressDialog.show();
+                                        mTaskFragment.startBackgroundTask_GenerateToken(getString(R.string.url_token));
 //                                        Get_MutationPendencyDetailsResponse();
                                     }
                                 }
@@ -660,6 +666,10 @@ public class MutationPendencyDetails extends AppCompatActivity implements RtcVie
     }
 
     @Override
+    public void onPreExecuteToken() {
+    }
+
+    @Override
     public void onPostResponseSuccessGetToken(String TokenType, String AccessToken) {
         accessToken = AccessToken;
         tokenType = TokenType;
@@ -695,22 +705,18 @@ public class MutationPendencyDetails extends AppCompatActivity implements RtcVie
     }
     public void Get_MutationPendencyDetailsResponse(String token_type, String token){
 
-        progressDialog = new ProgressDialog(MutationPendencyDetails.this);
-        progressDialog.setMessage(getString(R.string.please_wait));
-        progressDialog.setCancelable(false);
-        progressDialog.show();
         apiInterface = AuthorizationClient.getClient(getResources().getString(R.string.rest_service_url),token_type,token).create(PariharaIndividualReportInteface.class);
         call = apiInterface.getMutationPendingDetails(pdistrict_id, ptaluk_id, phobli_id, pvillage_id);
-        call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+        call.enqueue(new Callback<BHOOMI_API_Response>() {
             @Override
-            public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {
+            public void onResponse(@NonNull Call<BHOOMI_API_Response> call, @NonNull Response<BHOOMI_API_Response> response) {
 
                 if (response.isSuccessful()) {
-                    PariharaIndividualDetailsResponse result = response.body();
+                    BHOOMI_API_Response result = response.body();
                     progressDialog.dismiss();
 
                     assert result != null;
-                    res = result.getGetMutationPendencyDetailsResult();
+                    res = result.getBhoomI_API_Response();
 
                     if (res.equals("<NewDataSet />")) {
                         final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(MutationPendencyDetails.this, R.style.MyDialogTheme);
@@ -757,7 +763,7 @@ public class MutationPendencyDetails extends AppCompatActivity implements RtcVie
                                     public void onComplete() {
                                         progressDialog.dismiss();
                                         Intent intent = new Intent(MutationPendencyDetails.this, ShowMutationPendencyDetails.class);
-                                        intent.putExtra("ped_response_data", result.getGetMutationPendencyDetailsResult());
+                                        intent.putExtra("ped_response_data", result.getBhoomI_API_Response());
                                         startActivity(intent);
                                     }
                                 });
@@ -768,7 +774,7 @@ public class MutationPendencyDetails extends AppCompatActivity implements RtcVie
             }
 
             @Override
-            public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<BHOOMI_API_Response> call, @NonNull Throwable t) {
                 call.cancel();
                 progressDialog.dismiss();
                 Log.d("t :::::::::::::", t.getLocalizedMessage()+"");

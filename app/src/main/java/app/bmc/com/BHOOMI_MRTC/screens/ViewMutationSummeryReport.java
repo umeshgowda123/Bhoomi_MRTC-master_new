@@ -48,7 +48,7 @@ import app.bmc.com.BHOOMI_MRTC.interfaces.TalukModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.VillageModelInterface;
 import app.bmc.com.BHOOMI_MRTC.model.MSR_RES_Data;
 import app.bmc.com.BHOOMI_MRTC.model.MS_REPORT_TABLE;
-import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
+import app.bmc.com.BHOOMI_MRTC.model.BHOOMI_API_Response;
 import app.bmc.com.BHOOMI_MRTC.retrofit.AuthorizationClient;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
 import io.reactivex.Observable;
@@ -94,7 +94,7 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
     private List<MSR_RES_Data> MSR_RES_Data;
 
     private String language;
-    Call<PariharaIndividualDetailsResponse> call;
+    Call<BHOOMI_API_Response> call;
 
     String tokenType, accessToken;
 
@@ -429,7 +429,7 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
                                         }
                                     }
                                     else {
-                                        mTaskFragment.startBackgroundTask_GenerateToken();
+                                        mTaskFragment.startBackgroundTask_GenerateToken(getString(R.string.url_token));
                                     }
                                 }
 
@@ -672,6 +672,11 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
     }
 
     @Override
+    public void onPreExecuteToken() {
+
+    }
+
+    @Override
     public void onPostResponseSuccessGetToken(String TokenType, String AccessToken) {
         accessToken = AccessToken;
         tokenType = TokenType;
@@ -714,16 +719,16 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
         apiInterface = AuthorizationClient.getClient(getResources().getString(R.string.rest_service_url),token_type,token).create(PariharaIndividualReportInteface.class);
         try {
             call= apiInterface.getMutationSummeryReportDetails(district_id, taluk_id, hobli_id, village_id, Integer.parseInt(surveyNumber));
-            call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+            call.enqueue(new Callback<BHOOMI_API_Response>() {
                 @Override
-                public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {
+                public void onResponse(@NonNull Call<BHOOMI_API_Response> call, @NonNull Response<BHOOMI_API_Response> response) {
 
                     if (response.isSuccessful()) {
-                        PariharaIndividualDetailsResponse result = response.body();
+                        BHOOMI_API_Response result = response.body();
                         progressDialog.dismiss();
 
                         assert result != null;
-                        s = result.getGetMutationSummaryReportResult();
+                        s = result.getBhoomI_API_Response();
                         if (s.equals("")) {
                             final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ViewMutationSummeryReport.this, R.style.MyDialogTheme);
                             builder.setTitle(getString(R.string.status))
@@ -770,7 +775,7 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
                                         public void onComplete() {
                                             progressDialog.dismiss();
                                             Intent intent = new Intent(ViewMutationSummeryReport.this, ShowMutationSummeryReport.class);
-                                            intent.putExtra("html_response_data", result.getGetMutationSummaryReportResult());
+                                            intent.putExtra("html_response_data", result.getBhoomI_API_Response());
                                             startActivity(intent);
                                         }
                                     });
@@ -780,7 +785,7 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
                 }
 
                 @Override
-                public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable t) {
+                public void onFailure(@NonNull Call<BHOOMI_API_Response> call, @NonNull Throwable t) {
                     call.cancel();
                     progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();

@@ -2,9 +2,8 @@ package app.bmc.com.BHOOMI_MRTC.api;
 
 import com.google.gson.JsonObject;
 
-import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
+import app.bmc.com.BHOOMI_MRTC.model.BHOOMI_API_Response;
 import app.bmc.com.BHOOMI_MRTC.model.TokenRes;
-import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -20,31 +19,31 @@ public interface PariharaIndividualReportInteface {
 
     @Headers({"content-type: text/json; charset=utf-8"})
     @POST("api/values/GetMutationPendencyDetails/{pCensus_dist_code}/{pCensus_Taluk_Code}/{pHobliCode}/{pVillageCode}")
-    Call<PariharaIndividualDetailsResponse> getMutationPendingDetails(@Path("pCensus_dist_code") int pCensus_dist_code, @Path("pCensus_Taluk_Code") int pCensus_Taluk_Code,
-                                                                      @Path("pHobliCode") int pHobliCode, @Path("pVillageCode") int pVillageCode);
+    Call<BHOOMI_API_Response> getMutationPendingDetails(@Path("pCensus_dist_code") int pCensus_dist_code, @Path("pCensus_Taluk_Code") int pCensus_Taluk_Code,
+                                                        @Path("pHobliCode") int pHobliCode, @Path("pVillageCode") int pVillageCode);
 
 
 
     @Headers({"content-type: text/json; charset=utf-8"})
     @POST("api/values/GetMutationSummaryReport/{pCensus_dist_code}/{pCensus_Taluk_Code}/{pHobliCode}/{pVillageCode}/{pSurvey_no}")
-    Call<PariharaIndividualDetailsResponse> getMutationSummeryReportDetails(@Path("pCensus_dist_code") int pCensus_dist_code, @Path("pCensus_Taluk_Code") int pCensus_Taluk_Code,
-                                                                      @Path("pHobliCode") int pHobliCode, @Path("pVillageCode") int pVillageCode, @Path("pSurvey_no") int pSurvey_no);
+    Call<BHOOMI_API_Response> getMutationSummeryReportDetails(@Path("pCensus_dist_code") int pCensus_dist_code, @Path("pCensus_Taluk_Code") int pCensus_Taluk_Code,
+                                                              @Path("pHobliCode") int pHobliCode, @Path("pVillageCode") int pVillageCode, @Path("pSurvey_no") int pSurvey_no);
 
     @Headers({"content-type: text/json; charset=utf-8"})
     @POST("api/values/GET_Afdvt_ReqSts_BasedOnAfdvtId/{pAfdvtId}")
-    Call<PariharaIndividualDetailsResponse> getLandConversionBasedOnAffidavitID(@Path("pAfdvtId") String pAfdvtId);
+    Call<BHOOMI_API_Response> getLandConversionBasedOnAffidavitID(@Path("pAfdvtId") String pAfdvtId);
 
     @Headers({"content-type: text/json; charset=utf-8"})
     @POST("api/values/GET_Afdvt_ReqSts_BasedOnUserId/{pUserId}")
-    Call<PariharaIndividualDetailsResponse> getLandConversionBasedOnUserID(@Path("pUserId") String pUserId);
+    Call<BHOOMI_API_Response> getLandConversionBasedOnUserID(@Path("pUserId") String pUserId);
 
     @Headers({"content-type: text/json; charset=utf-8"})
     @POST("api/values/GetLandConversionFinalOrders_BasedOnReqId/{PREQUESTID}")
-    Call<PariharaIndividualDetailsResponse> getLandConversionFinalOrders_BasedOnReqId(@Path("PREQUESTID") String PREQUESTID);
+    Call<BHOOMI_API_Response> getLandConversionFinalOrders_BasedOnReqId(@Path("PREQUESTID") String PREQUESTID);
 
     @Headers({"content-type: text/json; charset=utf-8"})
     @POST("api/values/GetLandConversionFinalOrders_BasedOnSurveyNo/{pDistrictCode}/{pTalukCode}/{pHobliCode}/{pVillageCode}/{pSurveyNo}")
-    Call<PariharaIndividualDetailsResponse> getLandConversionFinalOrders_BasedOnSurveyNo(
+    Call<BHOOMI_API_Response> getLandConversionFinalOrders_BasedOnSurveyNo(
             @Path("pDistrictCode") int pDistrictCode,
             @Path("pTalukCode") int pTalukCode,
             @Path("pHobliCode") int pHobliCode,
@@ -54,7 +53,7 @@ public interface PariharaIndividualReportInteface {
 
     @Headers({"content-type: text/json; charset=utf-8"})
     @POST("api/values/GetLandRestriction_RAW/")
-    Call<PariharaIndividualDetailsResponse> fnGetLandRestrictionResult(
+    Call<BHOOMI_API_Response> fnGetLandRestrictionResult(
             @Body JsonObject input);
 
     @FormUrlEncoded

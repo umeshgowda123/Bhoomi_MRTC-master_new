@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.api.RtcXmlVerificationApi;
-import app.bmc.com.BHOOMI_MRTC.model.GETRTCXMLDATAResult;
+import app.bmc.com.BHOOMI_MRTC.model.BHOOMI_API_Response;
 import app.bmc.com.BHOOMI_MRTC.retrofit.AuthorizationClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -90,15 +90,15 @@ public class RtcXmlverificationBackGroundTask extends Fragment {
                 backgroundCallBack.onPreExecute1();
             Retrofit retrofit = AuthorizationClient.getClient(getString(R.string.rest_service_url), token_type, token);
             RtcXmlVerificationApi rtcXmlVerificationApi = retrofit.create(RtcXmlVerificationApi.class);
-            Call<GETRTCXMLDATAResult> stringCall = rtcXmlVerificationApi.getStringResponse(jsonObject);
-            stringCall.enqueue(new Callback<GETRTCXMLDATAResult>() {
+            Call<BHOOMI_API_Response> stringCall = rtcXmlVerificationApi.getStringResponse(jsonObject);
+            stringCall.enqueue(new Callback<BHOOMI_API_Response>() {
                 @Override
-                public void onResponse(@NonNull Call<GETRTCXMLDATAResult> call, @NonNull Response<GETRTCXMLDATAResult> response) {
+                public void onResponse(@NonNull Call<BHOOMI_API_Response> call, @NonNull Response<BHOOMI_API_Response> response) {
                     Log.d("response : ",response.body()+"");
                     if (response.isSuccessful()) {
-                        GETRTCXMLDATAResult getrtcxmldataResult = response.body();
+                        BHOOMI_API_Response getrtcxmldataResult = response.body();
                         assert getrtcxmldataResult != null;
-                        String data = getrtcxmldataResult.getGETRTCXMLDATAResult();
+                        String data = getrtcxmldataResult.getBhoomI_API_Response();
 
                         Log.d("datatata : ",data+"");
 
@@ -117,7 +117,7 @@ public class RtcXmlverificationBackGroundTask extends Fragment {
                 }
 
                 @Override
-                public void onFailure(@NonNull Call<GETRTCXMLDATAResult> call, @NonNull Throwable error) {
+                public void onFailure(@NonNull Call<BHOOMI_API_Response> call, @NonNull Throwable error) {
                     isTaskExecuting = false;
                     String errorResponse = error.getLocalizedMessage();
                     Log.d("errorResponse : ", errorResponse+"");

@@ -64,7 +64,6 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
     List<RLR_RES_Interface> RLR_RES_Data;
     String AccessToken, TokenType;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -290,7 +289,12 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
     }
 
     @Override
-    public void onPostResponseSuccessGetToken(String AccessToken, String TokenType) {
+    public void onPreExecuteToken() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccessGetToken(String TokenType, String AccessToken) {
 
     }
 

@@ -18,14 +18,10 @@ import org.jetbrains.annotations.NotNull;
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.api.PariharaIndividualReportInteface;
 import app.bmc.com.BHOOMI_MRTC.api.RtcViewInformationApi;
-import app.bmc.com.BHOOMI_MRTC.model.Get_Rtc_Data_Result;
+import app.bmc.com.BHOOMI_MRTC.model.BHOOMI_API_Response;
 import app.bmc.com.BHOOMI_MRTC.model.Get_Surnoc_HissaRequest;
-import app.bmc.com.BHOOMI_MRTC.model.Get_Surnoc_HissaResult;
-import app.bmc.com.BHOOMI_MRTC.model.Get_ViewMutationStatusResult;
-import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
 import app.bmc.com.BHOOMI_MRTC.model.TokenRes;
 import app.bmc.com.BHOOMI_MRTC.retrofit.PariharaIndividualreportClient;
-import app.bmc.com.BHOOMI_MRTC.retrofit.RtcViewInfoClient;
 import app.bmc.com.BHOOMI_MRTC.retrofit.AuthorizationClient;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
 import retrofit2.Call;
@@ -37,13 +33,13 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
     public static final String TAG_HEADLESS_FRAGMENT = "headless_fragment";
     public boolean isTaskExecuting = false;
     private BackgroundCallBackRtcViewInfo backgroundCallBack;
-    private int count = 0;
+    int count = 0;
 
-    Call<Get_ViewMutationStatusResult> get_rtc_data_resultCall;
-    Call<Get_Surnoc_HissaResult> get_surnoc_hissaResultCall;
-    Call<Get_Rtc_Data_Result> getRtcResponse_call;
-    Call<PariharaIndividualDetailsResponse> getLandRestrictionResultCall;
-    Call<Get_Rtc_Data_Result> getCultivatorResponse_Call;
+    Call<BHOOMI_API_Response> get_rtc_data_resultCall;
+    Call<BHOOMI_API_Response> get_surnoc_hissaResultCall;
+    Call<BHOOMI_API_Response> getRtcResponse_call;
+    Call<BHOOMI_API_Response> getLandRestrictionResultCall;
+    Call<BHOOMI_API_Response> getCultivatorResponse_Call;
 
     PariharaIndividualReportInteface apiInterface;
     Call<TokenRes> callToken;
@@ -120,9 +116,9 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
 
     }
 
-    public void startBackgroundTaskCultivatorData(JsonObject input, String url) {
+    public void startBackgroundTaskCultivatorData(JsonObject input, String url, String token_type, String token) {
         if (!isTaskExecuting) {
-            getCultivatorResponse(input, url);
+            getCultivatorResponse(input, url, token_type,token);
         }
     }
 
@@ -132,47 +128,30 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         }
     }
 
-    public void startBackgroundTask_GenerateToken(){
+    public void startBackgroundTask_GenerateToken(String url){
         if (!isTaskExecuting) {
-            GetToken();
+            GetToken(url);
         }
     }
 
-    private void GetToken() {
-        apiInterface = PariharaIndividualreportClient.getClient(getString(R.string.url_token)).create(PariharaIndividualReportInteface.class);
-        callToken = (Call<TokenRes>) apiInterface.getToken(Constants.USERNAME_TOKEN,Constants.PASSWORD_TOKEN,Constants.GRANT_TYPE);
+    private void GetToken(String url) {
+        isTaskExecuting = true;
+        if (backgroundCallBack != null)
+            backgroundCallBack.onPreExecuteToken();
+
+        apiInterface = PariharaIndividualreportClient.getClient(url).create(PariharaIndividualReportInteface.class);
+        callToken = apiInterface.getToken(Constants.USERNAME_TOKEN,Constants.PASSWORD_TOKEN,Constants.GRANT_TYPE);
         callToken.enqueue(new Callback<TokenRes>() {
             @Override
             public void onResponse(@NotNull Call<TokenRes> call1, @NotNull Response<TokenRes> response) {
-                String AccessToken = null;
-                String TokenType = null;
-
-//                if (response.isSuccessful()) {
-//                    TokenRes result = response.body();
-//                    assert result != null;
-//                    AccessToken = result.getAccessToken();
-//                    TokenType = result.getTokenType();
-//                }
-//                    isTaskExecuting = false;
-//                    if (backgroundCallBack != null) {
-//                        backgroundCallBack.onPostResponseSuccessGetToken(TokenType,AccessToken);
-//                    }
-//                    else {
-//                    isTaskExecuting = false;
-//                    if (backgroundCallBack != null) {
-//
-//                        String errorResponse = response.message();
-//                        backgroundCallBack.onPostResponseError_Token(errorResponse);
-//                    }
-
-//                }
+                String AccessToken;
+                String TokenType;
 
                 if (response.isSuccessful()) {
                     TokenRes result = response.body();
                     assert result != null;
                     AccessToken = result.getAccessToken();
                     TokenType = result.getTokenType();
-                    Log.d("datatata : ",AccessToken+"    "+TokenType);
                     isTaskExecuting = false;
                     if (backgroundCallBack != null) {
                         backgroundCallBack.onPostResponseSuccessGetToken(TokenType,AccessToken);
@@ -212,13 +191,13 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         Retrofit retrofit = AuthorizationClient.getClient(url, token_type, token);
         RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
         get_surnoc_hissaResultCall = service.getSurnocHissaResponse(get_surnoc_hissaRequest);
-        get_surnoc_hissaResultCall.enqueue(new Callback<Get_Surnoc_HissaResult>() {
+        get_surnoc_hissaResultCall.enqueue(new Callback<BHOOMI_API_Response>() {
             @Override
-            public void onResponse(@NonNull Call<Get_Surnoc_HissaResult> call, @NonNull Response<Get_Surnoc_HissaResult> response) {
+            public void onResponse(@NonNull Call<BHOOMI_API_Response> call, @NonNull Response<BHOOMI_API_Response> response) {
                 if (response.isSuccessful()) {
-                    Get_Surnoc_HissaResult get_surnoc_hissaResult = response.body();
+                    BHOOMI_API_Response get_surnoc_hissaResult = response.body();
                     assert get_surnoc_hissaResult != null;
-                    String data = get_surnoc_hissaResult.getGetSurnocHissaResult();
+                    String data = get_surnoc_hissaResult.getBhoomI_API_Response();
 
                     Log.d("datatata : ",data+"");
                     isTaskExecuting = false;
@@ -239,7 +218,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(@NonNull Call<Get_Surnoc_HissaResult> call, @NonNull Throwable error) {
+            public void onFailure(@NonNull Call<BHOOMI_API_Response> call, @NonNull Throwable error) {
                 isTaskExecuting = false;
                 error.printStackTrace();
                 if (backgroundCallBack != null) {
@@ -271,15 +250,15 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         Retrofit retrofit = AuthorizationClient.getClient(url, token_type, token);
         RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
         getRtcResponse_call = service.getRtcResponse(input);
-        getRtcResponse_call.enqueue(new Callback<Get_Rtc_Data_Result>() {
+        getRtcResponse_call.enqueue(new Callback<BHOOMI_API_Response>() {
             @Override
-            public void onResponse(@NonNull Call<Get_Rtc_Data_Result> call, @NonNull Response<Get_Rtc_Data_Result> response) {
+            public void onResponse(@NonNull Call<BHOOMI_API_Response> call, @NonNull Response<BHOOMI_API_Response> response) {
                 if (response.isSuccessful()) {
-                    Get_Rtc_Data_Result get_rtc_data_result = response.body();
+                    BHOOMI_API_Response get_rtc_data_result = response.body();
                     isTaskExecuting = false;
                     if (backgroundCallBack != null) {
                         assert get_rtc_data_result != null;
-                        backgroundCallBack.onPostResponseSuccess2(get_rtc_data_result.getGetRtcDataResult());
+                        backgroundCallBack.onPostResponseSuccess2(get_rtc_data_result.getBhoomI_API_Response());
                     }
                 } else {
                     isTaskExecuting = false;
@@ -293,7 +272,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(@NonNull Call<Get_Rtc_Data_Result> call, @NonNull Throwable error) {
+            public void onFailure(@NonNull Call<BHOOMI_API_Response> call, @NonNull Throwable error) {
                 isTaskExecuting = false;
                 error.printStackTrace();
                 if (backgroundCallBack != null) {
@@ -321,16 +300,16 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         Retrofit retrofit = AuthorizationClient.getClient(url,token_type,token);
         RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
         get_rtc_data_resultCall = service.getMutationStatusResponse(Integer.parseInt(district_id),Integer.parseInt(taluk_id),Integer.parseInt(hobli_id),Integer.parseInt(village_id),Integer.parseInt(land_no));
-        get_rtc_data_resultCall.enqueue(new Callback<Get_ViewMutationStatusResult>() {
+        get_rtc_data_resultCall.enqueue(new Callback<BHOOMI_API_Response>() {
             @Override
-            public void onResponse(@NonNull Call<Get_ViewMutationStatusResult> call, @NonNull Response<Get_ViewMutationStatusResult> response) {
+            public void onResponse(@NonNull Call<BHOOMI_API_Response> call, @NonNull Response<BHOOMI_API_Response> response) {
                 if (response.isSuccessful()) {
-                    Get_ViewMutationStatusResult viewMutationStatusResult = response.body();
+                    BHOOMI_API_Response viewMutationStatusResult = response.body();
                     //String get_rtc_data_result = response.body();
                     isTaskExecuting = false;
                     if (backgroundCallBack != null) {
                         assert viewMutationStatusResult != null;
-                        backgroundCallBack.onPostResponseSuccess3(viewMutationStatusResult.getViewMutationStatusResult());
+                        backgroundCallBack.onPostResponseSuccess3(viewMutationStatusResult.getBhoomI_API_Response());
                     }
                 } else {
                     isTaskExecuting = false;
@@ -344,7 +323,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
 
 
             @Override
-            public void onFailure(@NonNull Call<Get_ViewMutationStatusResult> call, @NonNull Throwable error) {
+            public void onFailure(@NonNull Call<BHOOMI_API_Response> call, @NonNull Throwable error) {
                 isTaskExecuting = false;
                 error.printStackTrace();
                 if (backgroundCallBack != null) {
@@ -372,16 +351,16 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         Retrofit retrofit = AuthorizationClient.getClient(url,token_type,token);
         PariharaIndividualReportInteface service = retrofit.create(PariharaIndividualReportInteface.class);
         getLandRestrictionResultCall = service.fnGetLandRestrictionResult(input);
-        getLandRestrictionResultCall.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+        getLandRestrictionResultCall.enqueue(new Callback<BHOOMI_API_Response>() {
             @Override
-            public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {
+            public void onResponse(@NonNull Call<BHOOMI_API_Response> call, @NonNull Response<BHOOMI_API_Response> response) {
                 if (response.isSuccessful()) {
-                    PariharaIndividualDetailsResponse viewResult = response.body();
+                    BHOOMI_API_Response viewResult = response.body();
                     //String get_rtc_data_result = response.body();
                     isTaskExecuting = false;
                     if (backgroundCallBack != null) {
                         assert viewResult != null;
-                        backgroundCallBack.onPostResponseSuccess4(viewResult.getGetLandRestrictionResult());
+                        backgroundCallBack.onPostResponseSuccess4(viewResult.getBhoomI_API_Response());
                     }
                 } else {
                     isTaskExecuting = false;
@@ -395,7 +374,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
 
 
             @Override
-            public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable error) {
+            public void onFailure(@NonNull Call<BHOOMI_API_Response> call, @NonNull Throwable error) {
                 isTaskExecuting = false;
                 error.printStackTrace();
                 if (backgroundCallBack != null) {
@@ -414,23 +393,23 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
     }
 
 
-    private void getCultivatorResponse(JsonObject input, String url) {
+    private void getCultivatorResponse(JsonObject input, String url, String token_type, String token) {
         isTaskExecuting = true;
         if (backgroundCallBack != null)
             backgroundCallBack.onPreExecute2();
 
-        Retrofit retrofit = RtcViewInfoClient.getClient(url);
+        Retrofit retrofit = AuthorizationClient.getClient(url,token_type,token);
         RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
-        getCultivatorResponse_Call = service.getRtcCultivator(Constants.CLWS_REST_SERVICE_USER_NAME, Constants.CLWS_REST_SERVICE_PASSWORD, input);
-        getCultivatorResponse_Call.enqueue(new Callback<Get_Rtc_Data_Result>() {
+        getCultivatorResponse_Call = service.getRtcCultivator(input);
+        getCultivatorResponse_Call.enqueue(new Callback<BHOOMI_API_Response>() {
             @Override
-            public void onResponse(@NonNull Call<Get_Rtc_Data_Result> call, @NonNull Response<Get_Rtc_Data_Result> response) {
+            public void onResponse(@NonNull Call<BHOOMI_API_Response> call, @NonNull Response<BHOOMI_API_Response> response) {
                 if (response.isSuccessful()) {
-                    Get_Rtc_Data_Result get_rtc_data_result = response.body();
+                    BHOOMI_API_Response get_rtc_data_result = response.body();
                     isTaskExecuting = false;
                     if (backgroundCallBack != null) {
                         assert get_rtc_data_result != null;
-                        backgroundCallBack.onPostResponseSuccessCultivator(get_rtc_data_result.getGettcDataResult());
+                        backgroundCallBack.onPostResponseSuccessCultivator(get_rtc_data_result.getBhoomI_API_Response());
                     }
                 } else {
                     isTaskExecuting = false;
@@ -442,7 +421,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(@NonNull Call<Get_Rtc_Data_Result> call, @NonNull Throwable error) {
+            public void onFailure(@NonNull Call<BHOOMI_API_Response> call, @NonNull Throwable error) {
                 isTaskExecuting = false;
                 error.printStackTrace();
                 if (backgroundCallBack != null) {
@@ -468,15 +447,15 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         Retrofit retrofit = AuthorizationClient.getClient(url, token_type, token);
         RtcViewInformationApi service = retrofit.create(RtcViewInformationApi.class);
         getLandRestrictionResultCall = service.GetDetails_VillageWise_JSON(input);
-        getLandRestrictionResultCall.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+        getLandRestrictionResultCall.enqueue(new Callback<BHOOMI_API_Response>() {
             @Override
-            public void onResponse(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Response<PariharaIndividualDetailsResponse> response) {
+            public void onResponse(@NonNull Call<BHOOMI_API_Response> call, @NonNull Response<BHOOMI_API_Response> response) {
                 if (response.isSuccessful()) {
-                    PariharaIndividualDetailsResponse get_data_result = response.body();
+                    BHOOMI_API_Response get_data_result = response.body();
                     isTaskExecuting = false;
                     if (backgroundCallBack != null) {
                         assert get_data_result != null;
-                        backgroundCallBack.onPostResponseSuccess_GetDetails_VilWise(get_data_result.getDetails_VillageWise_JSONResult());
+                        backgroundCallBack.onPostResponseSuccess_GetDetails_VilWise(get_data_result.getBhoomI_API_Response());
                     }
                 } else {
                     isTaskExecuting = false;
@@ -488,7 +467,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(@NonNull Call<PariharaIndividualDetailsResponse> call, @NonNull Throwable error) {
+            public void onFailure(@NonNull Call<BHOOMI_API_Response> call, @NonNull Throwable error) {
                 isTaskExecuting = false;
                 error.printStackTrace();
                 if (backgroundCallBack != null) {
@@ -536,7 +515,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         void onPostResponseSuccess_GetDetails_VilWise(String data);
         void onPostResponseError_GetDetails_VilWise(String data);
 
-
+        void onPreExecuteToken();
         void onPostResponseSuccessGetToken(String TokenType, String AccessToken );
         void onPostResponseError_Token(String errorResponse);
 

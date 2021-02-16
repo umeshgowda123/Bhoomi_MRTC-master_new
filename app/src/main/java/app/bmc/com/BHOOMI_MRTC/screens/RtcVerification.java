@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -228,7 +229,10 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
                                     } else {
 //                                        progressBar.setVisibility(View.VISIBLE);
 //                                        mTaskFragment.startBackgroundTask(jsonObject);
-                                        mTaskFragment_2.startBackgroundTask_GenerateToken();
+                                        InputMethodManager inputManager = (InputMethodManager) RtcVerification.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                                        assert inputManager != null;
+                                        inputManager.hideSoftInputFromWindow(Objects.requireNonNull(RtcVerification.this.getCurrentFocus()).getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                                        mTaskFragment_2.startBackgroundTask_GenerateToken(getString(R.string.url_token));
 
 
                                     }
@@ -413,6 +417,13 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
         Toast.makeText(getApplicationContext(), data, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onPreExecuteToken() {
+        progressBar = findViewById(R.id.progress_circular);
+        if (progressBar != null)
+            progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override

@@ -382,7 +382,7 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
 //                surveyNo = Integer.parseInt(edittext_survey.getText().toString().trim());
                 if (isNetworkAvailable()){
                     try {
-                        mTaskFragment.startBackgroundTask_GenerateToken();
+                        mTaskFragment.startBackgroundTask_GenerateToken(getString(R.string.url_token));
 //                        mTaskFragment.startBackgroundTask1(get_surnoc_hissaRequest, getString(R.string.rest_service_url), Constants.GRANT_TYPE, Constants.GRANT_TYPE);
                     } catch (Exception e){
                         Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
@@ -556,6 +556,13 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
     @Override
     public void onPostResponseError_GetDetails_VilWise(String data) {
 
+    }
+
+    @Override
+    public void onPreExecuteToken() {
+        progressBar = findViewById(R.id.progress_circular);
+        if (progressBar != null)
+            progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override

@@ -72,8 +72,6 @@ public class BhoomiHomePage extends AppCompatActivity {
     boolean clearData;
     ProgressDialog progressDialog;
 
-    String accessToken, tokenType;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

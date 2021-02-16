@@ -63,14 +63,13 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
     private ProgressBar progressBar;
     String distId, talkId, hblId, villId;
     String land_no, survey, RTC, hissa_str, surveyNo;
-    String AccessToken, TokenType;
     public String owner;
 
     String LandDetailsFragment;
     String survey_new;
     String OwnerDetailsFragment;
     String CultivatorDetailsFragment;
-
+    String accessToken, tokenType;
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
@@ -113,8 +112,6 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
         surveyNo = i.getStringExtra("surveyNo");
         hissa_str = i.getStringExtra("hissa_str");
         RTC = i.getStringExtra("RTC");
-        AccessToken = i.getStringExtra("AccessToken");
-        TokenType = i.getStringExtra("TokenType");
 
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
@@ -231,8 +228,8 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                                     else {
                                         progressBar.setVisibility(View.VISIBLE);
                                         try {
-                                            JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
-                                            mTaskFragment.startBackgroundTask2(jsonObject, getString(R.string.rest_service_url),TokenType, AccessToken);
+                                            mTaskFragment.startBackgroundTask_GenerateToken(getString(R.string.url_token));
+
                                         } catch (Exception e){
                                             Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                                         }
@@ -376,7 +373,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                 }
                 try {
                     JsonObject jsonObject1 = new JsonParser().parse(input).getAsJsonObject();
-                    mTaskFragment.startBackgroundTaskCultivatorData(jsonObject1, getString(R.string.rest_service_url));
+                    mTaskFragment.startBackgroundTaskCultivatorData(jsonObject1, getString(R.string.rest_service_url), tokenType, accessToken);
                 } catch (Exception e){
                     Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -461,16 +458,39 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
     }
 
     @Override
-    public void onPostResponseSuccessGetToken(String AccessToken, String TokenType) {
+    public void onPreExecuteToken() {
 
     }
 
     @Override
-    public void onPostResponseError_Token(String errorResponse) {
-
+    public void onPostResponseSuccessGetToken(String TokenType, String AccessToken) {
+        tokenType = TokenType;
+        accessToken = AccessToken;
+        if (AccessToken == null || AccessToken.equals("") || AccessToken.contains("INVALID")||TokenType == null || TokenType.equals("") || TokenType.contains("INVALID")) {
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(RtcDetails.this, R.style.MyDialogTheme);
+            builder.setTitle(getString(R.string.status))
+                    .setMessage(getString(R.string.something_went_wrong_pls_try_again))
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
+            final android.app.AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        } else {
+            try {
+                JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
+                mTaskFragment.startBackgroundTask2(jsonObject, getString(R.string.rest_service_url),TokenType, AccessToken);
+            } catch (Exception e){
+                Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
-    @SuppressLint("CheckResult")
+    @Override
+    public void onPostResponseError_Token(String errorResponse) {
+        Toast.makeText(this, ""+errorResponse, Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     public void onPostResponseSuccessCultivator(String gettcDataResult) {
         if (progressBar!=null)

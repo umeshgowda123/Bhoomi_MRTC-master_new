@@ -38,8 +38,8 @@ import app.bmc.com.BHOOMI_MRTC.api.PariharaIndividualReportInteface;
 import app.bmc.com.BHOOMI_MRTC.backgroundtasks.RtcViewInfoBackGroundTaskFragment;
 import app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper;
 import app.bmc.com.BHOOMI_MRTC.interfaces.LandConversion_Interface;
+import app.bmc.com.BHOOMI_MRTC.model.BHOOMI_API_Response;
 import app.bmc.com.BHOOMI_MRTC.model.LandConversion_TABLE;
-import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
 import app.bmc.com.BHOOMI_MRTC.retrofit.AuthorizationClient;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -65,7 +65,7 @@ public class LandConversion extends AppCompatActivity implements RtcViewInfoBack
 
     private DataBaseHelper dataBaseHelper;
     private List<LandConversion_Interface> LandConversion_Data;
-    Call<PariharaIndividualDetailsResponse> call;
+    Call<BHOOMI_API_Response> call;
     PariharaIndividualReportInteface apiInterface;
 
     String tokenType, accessToken;
@@ -163,6 +163,11 @@ public class LandConversion extends AppCompatActivity implements RtcViewInfoBack
             mTaskFragment = new RtcViewInfoBackGroundTaskFragment();
             fm.beginTransaction().add(mTaskFragment, RtcViewInfoBackGroundTaskFragment.TAG_HEADLESS_FRAGMENT).commit();
         }
+
+        progressDialog = new ProgressDialog(LandConversion.this);
+        progressDialog.setMessage(getString(R.string.please_wait));
+        progressDialog.setCancelable(false);
+
         btnFetchReports.setOnClickListener(v -> {
 
         if (isNetworkAvailable()) {
@@ -222,7 +227,8 @@ public class LandConversion extends AppCompatActivity implements RtcViewInfoBack
                                             }
                                         }
                                     } else {
-                                        mTaskFragment.startBackgroundTask_GenerateToken();
+                                        progressDialog.show();
+                                        mTaskFragment.startBackgroundTask_GenerateToken(getString(R.string.url_token));
                                     }
                                 }
 
@@ -299,7 +305,8 @@ public class LandConversion extends AppCompatActivity implements RtcViewInfoBack
                                         }
                                     }
                                     else {
-                                        mTaskFragment.startBackgroundTask_GenerateToken();
+                                        progressDialog.show();
+                                        mTaskFragment.startBackgroundTask_GenerateToken(getString(R.string.url_token));
                                     }
                                 }
 
@@ -529,6 +536,10 @@ public class LandConversion extends AppCompatActivity implements RtcViewInfoBack
     }
 
     @Override
+    public void onPreExecuteToken() {
+    }
+
+    @Override
     public void onPostResponseSuccessGetToken(String TokenType, String AccessToken) {
         accessToken = AccessToken;
         tokenType = TokenType;
@@ -567,21 +578,17 @@ public class LandConversion extends AppCompatActivity implements RtcViewInfoBack
     }
 
     public void LandConversionBasedOnAffidavitIDResponse(String token_type, String token){
-        progressDialog = new ProgressDialog(LandConversion.this);
-        progressDialog.setMessage(getString(R.string.please_wait));
-        progressDialog.setCancelable(false);
-        progressDialog.show();
 
         apiInterface = AuthorizationClient.getClient(getString(R.string.rest_service_url),token_type,token).create(PariharaIndividualReportInteface.class);
         call = apiInterface.getLandConversionBasedOnAffidavitID(affidavitID);
-        call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+        call.enqueue(new Callback<BHOOMI_API_Response>() {
             @Override
-            public void onResponse(@NotNull Call<PariharaIndividualDetailsResponse> call, @NotNull Response<PariharaIndividualDetailsResponse> response) {
+            public void onResponse(@NotNull Call<BHOOMI_API_Response> call, @NotNull Response<BHOOMI_API_Response> response) {
 
                 if (response.isSuccessful()) {
-                    PariharaIndividualDetailsResponse result = response.body();
+                    BHOOMI_API_Response result = response.body();
                     assert result != null;
-                    Affidavit_res = result.getGet_Afdvt_ReqSts_BasedOnAfdvtIdResult();
+                    Affidavit_res = result.getBhoomI_API_Response();
 
                     progressDialog.dismiss();
                     if (Affidavit_res == null || Affidavit_res.equals("") || Affidavit_res.contains("INVALID")) {
@@ -655,7 +662,7 @@ public class LandConversion extends AppCompatActivity implements RtcViewInfoBack
             }
 
             @Override
-            public void onFailure(@NotNull Call<PariharaIndividualDetailsResponse> call, @NotNull Throwable t) {
+            public void onFailure(@NotNull Call<BHOOMI_API_Response> call, @NotNull Throwable t) {
                 call.cancel();
                 progressDialog.dismiss();
                 t.printStackTrace();
@@ -665,22 +672,18 @@ public class LandConversion extends AppCompatActivity implements RtcViewInfoBack
         });
     }
     public void LandConversionBasedOnUserIDResponse(String token_type, String token){
-        progressDialog = new ProgressDialog(LandConversion.this);
-        progressDialog.setMessage(getString(R.string.please_wait));
-        progressDialog.setCancelable(false);
-        progressDialog.show();
 
         apiInterface = AuthorizationClient.getClient(getString(R.string.rest_service_url),token_type,token).create(PariharaIndividualReportInteface.class);
         call = apiInterface.getLandConversionBasedOnUserID(userID);
-        call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+        call.enqueue(new Callback<BHOOMI_API_Response>() {
             @Override
-            public void onResponse(@NotNull Call<PariharaIndividualDetailsResponse>  call, @NotNull Response<PariharaIndividualDetailsResponse> response)
+            public void onResponse(@NotNull Call<BHOOMI_API_Response>  call, @NotNull Response<BHOOMI_API_Response> response)
             {
                 if(response.isSuccessful())
                 {
-                    PariharaIndividualDetailsResponse result = response.body();
+                    BHOOMI_API_Response result = response.body();
                     assert result != null;
-                    User_res = result.getGet_Afdvt_ReqSts_BasedOnUserIdResult();
+                    User_res = result.getBhoomI_API_Response();
 
                     progressDialog.dismiss();
                     if(User_res == null || User_res.equals("") || User_res.contains("INVALID")) {
@@ -755,7 +758,7 @@ public class LandConversion extends AppCompatActivity implements RtcViewInfoBack
             }
 
             @Override
-            public void onFailure(@NotNull Call<PariharaIndividualDetailsResponse> call, @NotNull Throwable t) {
+            public void onFailure(@NotNull Call<BHOOMI_API_Response> call, @NotNull Throwable t) {
                 call.cancel();
                 progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();

@@ -36,7 +36,7 @@ import app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper;
 import app.bmc.com.BHOOMI_MRTC.interfaces.LandConversion_Interface;
 import app.bmc.com.BHOOMI_MRTC.model.Afdvt_ReqSts_BasedOnAfdvtIdTable;
 
-import app.bmc.com.BHOOMI_MRTC.model.PariharaIndividualDetailsResponse;
+import app.bmc.com.BHOOMI_MRTC.model.BHOOMI_API_Response;
 import app.bmc.com.BHOOMI_MRTC.retrofit.AuthorizationClient;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -59,7 +59,7 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
     String tokenType;
     String accessToken;
 
-    Call<PariharaIndividualDetailsResponse> call;
+    Call<BHOOMI_API_Response> call;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -173,16 +173,16 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
 
                                 PariharaIndividualReportInteface apiInterface = AuthorizationClient.getClient(getString(R.string.rest_service_url), tokenType, accessToken).create(PariharaIndividualReportInteface.class);
                                 call = apiInterface.getLandConversionBasedOnUserID(userId);
-                                call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
+                                call.enqueue(new Callback<BHOOMI_API_Response>() {
                                     @Override
-                                    public void onResponse(@NotNull Call<PariharaIndividualDetailsResponse>  call, @NotNull Response<PariharaIndividualDetailsResponse> response)
+                                    public void onResponse(@NotNull Call<BHOOMI_API_Response>  call, @NotNull Response<BHOOMI_API_Response> response)
                                     {
 
                                         if(response.isSuccessful())
                                         {
-                                            PariharaIndividualDetailsResponse result = response.body();
+                                            BHOOMI_API_Response result = response.body();
                                             assert result != null;
-                                            User_res = result.getGet_Afdvt_ReqSts_BasedOnUserIdResult();
+                                            User_res = result.getBhoomI_API_Response();
 
                                             progressDialog.dismiss();
                                             if(User_res == null || User_res.equals("") || User_res.contains("INVALID")) {
@@ -240,7 +240,7 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
                                     }
 
                                     @Override
-                                    public void onFailure(@NotNull Call<PariharaIndividualDetailsResponse> call, @NotNull Throwable t) {
+                                    public void onFailure(@NotNull Call<BHOOMI_API_Response> call, @NotNull Throwable t) {
                                         call.cancel();
                                         progressDialog.dismiss();
                                         Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();

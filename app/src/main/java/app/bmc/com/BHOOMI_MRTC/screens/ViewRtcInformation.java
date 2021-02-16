@@ -397,7 +397,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
             } else {
 //                surveyNo = Integer.parseInt(edittext_survey.getText().toString().trim());
                 if (isNetworkAvailable()) {
-                    mTaskFragment.startBackgroundTask_GenerateToken();
+                    mTaskFragment.startBackgroundTask_GenerateToken(getString(R.string.url_token));
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
@@ -452,10 +452,8 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
                 intent.putExtra("land_code",""+land_no);
                 intent.putExtra("survey", surveyNo + "/" + suroc + "/" + hissa);
                 intent.putExtra("surveyNo",surveyNo+"");
-                intent.putExtra("hissa_str",hissa_str);
+                intent.putExtra("hissa_str",""+hissa_str);
                 intent.putExtra("RTC", "RTC");
-                intent.putExtra("AccessToken", accessToken);
-                intent.putExtra("TokenType", tokenType);
                 startActivity(intent);
 
             }
@@ -590,6 +588,13 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
     }
 
     @Override
+    public void onPreExecuteToken() {
+        progressBar = findViewById(R.id.progress_circular);
+        if (progressBar != null)
+            progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     public void onPostResponseSuccessGetToken(String TokenType, String AccessToken) {
         accessToken = AccessToken;
         tokenType = TokenType;
@@ -615,9 +620,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
 
     @Override
     public void onPostResponseError_Token(String errorResponse) {
-        Log.d("ERR_msg", errorResponse+"");
         Toast.makeText(this, ""+errorResponse, Toast.LENGTH_SHORT).show();
-//        Toast.makeText(this, "Authorization has been denied for this request.", Toast.LENGTH_SHORT).show();
     }
 
     public void onPostResponseError_FORHISSA(String data, int count) {
