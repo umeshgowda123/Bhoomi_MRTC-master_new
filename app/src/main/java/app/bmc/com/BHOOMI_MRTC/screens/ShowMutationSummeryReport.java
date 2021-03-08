@@ -11,7 +11,7 @@ import app.bmc.com.BHOOMI_MRTC.R;
 public class ShowMutationSummeryReport extends AppCompatActivity {
 
 
-    private String htmlResponseData;
+    String htmlResponseData;
 
     private WebView webView;
 
@@ -38,6 +38,7 @@ public class ShowMutationSummeryReport extends AppCompatActivity {
             if (htmlResponseData != null) {
                 webView.requestFocus();
                 webView.getSettings().setJavaScriptEnabled(true);
+                webView.getSettings().setDomStorageEnabled(true);
                 Log.d("htmlResponseData", ""+htmlResponseData);
                 webView.loadDataWithBaseURL("file:///android_asset/", htmlResponseData, "text/html", "UTF-8", null);
             }

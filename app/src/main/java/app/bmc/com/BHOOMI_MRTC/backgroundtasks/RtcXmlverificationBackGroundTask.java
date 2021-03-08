@@ -100,8 +100,6 @@ public class RtcXmlverificationBackGroundTask extends Fragment {
                         assert getrtcxmldataResult != null;
                         String data = getrtcxmldataResult.getBhoomI_API_Response();
 
-                        Log.d("datatata : ",data+"");
-
                         isTaskExecuting = false;
                         backgroundCallBack.onPostResponseSuccess1(data);
 

@@ -225,35 +225,8 @@
     <string name="season_error">ಸೀಸನ್ ಆಯ್ಕೆಮಾಡಿ</string>
     <string name="calamity_error">ವಿಪತ್ತು ಆಯ್ಕೆಮಾಡಿ</string>
 
-    <string-array name="select_financial_year">
-        <item>2020-21</item>
-        <item>2019-20</item>
-        <item>2018-19</item>
-        <item>2017-18</item>
-        <item>2016-17</item>
-        <item>2015-16</item>
-        <item>2014-15</item>
-    </string-array>
-
-    <string-array name="select_season">
-        <item>ಮುಂಗಾರು</item>
-        <item>ಪೂರ್ವ ಮುಂಗಾರು</item>
-        <item>ಹಿಂಗಾರು</item>
-        <item>ಬೇಸಿಗೆ</item>
-    </string-array>
-
     <string name="year_err">ವರ್ಷ ಆಯ್ಕೆಮಾಡಿ</string>
     <string name="calamity_err">ವಿಪತ್ತು ಆಯ್ಕೆಮಾಡಿ</string>
-
-    <string-array name="select_calamity_type">
-        <item>ಬರ</item>
-        <item>ಪ್ರವಾಹ</item>
-        <item>ಪಿ ಯಿ ಎಸ್ ಟಿ</item>
-        <item>ಡೆಸಿಲ್ಟಿಂಗ್</item>
-        <item>ಭೂಕುಸಿತ</item>
-        <item>ಆಲಿಕಲ್ಲು ಅಥವಾ ಅಧಿಕ ಮಳೆ</item>
-    </string-array>
-
     <string name="downlaod_village_map"> ಗ್ರಾಮ ನಕ್ಷೆ ಡೌನ್‌ಲಾಡ್ ಮಾಡಿ</string>
     <string name="mutation_pendencey_details">ಮ್ಯುಟೇಶನ್ ಬಾಕಿ ವಿವರಗಳು</string>
     <string name="application_number">ಅರ್ಜಿ ಸಂಖ್ಯೆ</string>
@@ -424,4 +397,6 @@
     <string name="application_no">ಅರ್ಜಿ ಸಂಖ್ಯೆ</string>
     <string name="transaction_no">ವಹಿವಾಟಿನ ಸಂಖ್ಯೆ</string>
     <string name="mr_no">ಎಮ್.ಆರ್ ಸಂಖ್ಯೆ</string>
+    <string name="land_conversion_application_status">ಭೂ ಪರಿವರ್ತನೆ ಅರ್ಜಿ ಸ್ಥಿತಿ</string>
+    <string name="stage_wise_status">ಹಂತವಾರು ಸ್ಥಿತಿ</string>
 </resources>

@@ -2,11 +2,13 @@ package app.bmc.com.BHOOMI_MRTC.screens;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.net.http.SslError;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -47,11 +49,8 @@ public class Endorsement_ReportWebView extends AppCompatActivity {
         webSettings.setBuiltInZoomControls(true);
         webSettings.setSupportZoom(true);
         webSettings.setDomStorageEnabled(true);
-        webSettings.setLightTouchEnabled(true);
-        webSettings.setPluginState(WebSettings.PluginState.ON);
         webSettings.setLoadWithOverviewMode(false);
         webSettings.setUseWideViewPort(false);
-        webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
         webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
 
 
@@ -112,6 +111,13 @@ public class Endorsement_ReportWebView extends AppCompatActivity {
                     alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
                 }
 
+                @Override
+                public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                    if (progressBar.isShowing()) {
+                        progressBar.dismiss();
+                    }
+                    Toast.makeText(Endorsement_ReportWebView.this, "Failed to validate the certificate chain\nerror: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.", Toast.LENGTH_SHORT).show();
+                }
             });
             webViewEndorsement_Report.loadUrl(resultUrl);
         }

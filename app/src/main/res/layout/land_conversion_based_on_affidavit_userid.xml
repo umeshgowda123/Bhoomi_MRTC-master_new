@@ -37,7 +37,7 @@
                 <TextView
                     android:id="@+id/tvEndorsementRep"
                     android:layout_width="0dp"
-                    android:layout_height="34dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/endorsement_report"
                     android:textStyle="bold"
@@ -47,7 +47,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="34dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/transaction_report"
                     android:textStyle="bold"

@@ -274,37 +274,6 @@
 
     <string name="hissa_number">Hissa Number</string>
 
-
-    <string-array name="select_financial_year">
-        <item>2020-21</item>
-        <item>2019-20</item>
-        <item>2018-19</item>
-        <item>2017-18</item>
-        <item>2016-17</item>
-        <item>2015-16</item>
-        <item>2014-15</item>
-    </string-array>
-
-
-    <string-array name="select_season">
-
-        <item>Khariff</item>
-        <item>Late Khariff</item>
-        <item>Rabi</item>
-        <item>Summer</item>
-
-    </string-array>
-
-    <string-array name="select_calamity_type">
-        <item>Drought</item>
-        <item>Flood</item>
-        <item>PEST</item>
-        <item>Desilting</item>
-        <item>Landslide</item>
-        <item>HailstormOrHeavryRains</item>
-    </string-array>
-
-
     <string name="aadhaar_err">Aadhar Error</string>
     <string name="dist_code">District Code</string>
     <string name="amount_in_ruppes">Amount in Rupees (Rs.).</string>
@@ -471,4 +440,6 @@
     <string name="application_no">Application No.</string>
     <string name="transaction_no">Transaction No.</string>
     <string name="mr_no">MR No.</string>
+    <string name="land_conversion_application_status">Land Conversion Application Status</string>
+    <string name="stage_wise_status">Stage wise Status</string>
 </resources>

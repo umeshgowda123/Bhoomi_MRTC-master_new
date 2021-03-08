@@ -29,9 +29,15 @@ public interface PariharaIndividualReportInteface {
     Call<BHOOMI_API_Response> getMutationSummeryReportDetails(@Path("pCensus_dist_code") int pCensus_dist_code, @Path("pCensus_Taluk_Code") int pCensus_Taluk_Code,
                                                               @Path("pHobliCode") int pHobliCode, @Path("pVillageCode") int pVillageCode, @Path("pSurvey_no") int pSurvey_no);
 
-    @Headers({"content-type: text/json; charset=utf-8"})
-    @POST("api/values/GET_Afdvt_ReqSts_BasedOnAfdvtId/{pAfdvtId}")
-    Call<BHOOMI_API_Response> getLandConversionBasedOnAffidavitID(@Path("pAfdvtId") String pAfdvtId);
+//    @Headers({"content-type: text/json; charset=utf-8"})
+//    @POST("api/values/GET_Afdvt_ReqSts_BasedOnAfdvtId/{pAfdvtId}")
+//    Call<BHOOMI_API_Response> getLandConversionBasedOnAffidavitID(@Path("pAfdvtId") String pAfdvtId);
+
+    @POST("api/values/GET_LandConv_ReqSts_BasedOnId/1/{pId}")
+    Call<BHOOMI_API_Response> getLandConversionBasedOnReqID(@Path("pId") String pReqId);
+
+    @POST("api/values/GET_LandConv_ReqSts_BasedOnId/2/{pId}")
+    Call<BHOOMI_API_Response> getLandConversionBasedOnAffidavitID(@Path("pId") String pAfdvtId);
 
     @Headers({"content-type: text/json; charset=utf-8"})
     @POST("api/values/GET_Afdvt_ReqSts_BasedOnUserId/{pUserId}")

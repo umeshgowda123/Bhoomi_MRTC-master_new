@@ -573,7 +573,17 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
             final android.app.AlertDialog alert = builder.create();
             alert.show();
             alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-        }else {
+        } else if (data.contains("is busy")){
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ViewMutationStatusInformation.this, R.style.MyDialogTheme);
+            builder.setTitle(getString(R.string.status))
+                    .setMessage(getString(R.string.server_is_busy_please_try_again_later))
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
+            final android.app.AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        } else {
 
             XmlToJson xmlToJson = new XmlToJson.Builder(data).build();
             // convert to a formatted Json String

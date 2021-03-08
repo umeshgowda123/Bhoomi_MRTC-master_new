@@ -40,36 +40,62 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tvAffidavit"
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:text="@string/land_conversion_request_based_on_affidavit_id"
-            android:textColor="@android:color/black"
-            android:textStyle="bold" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvAffidavit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/land_conversion_request_based_on_affidavit_id"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvAffidavit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:scrollbars="vertical"
-            tools:context=".activity.ClwsStatusDetails"
-            android:layout_marginBottom="5dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvAffidavit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:scrollbars="vertical"
+                tools:context=".activity.ClwsStatusDetails"
+                android:layout_marginBottom="5dp"/>
 
+            <TextView
+                android:id="@+id/txtStageWiseStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/stage_wise_status"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
 
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layoutStageWiseStatus"
+                android:layout_width="match_parent"
+                android:layout_height="640dp"
+                android:orientation="vertical">
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:nestedScrollingEnabled="false"
+                    android:scrollbars="vertical" />
 
+            </LinearLayout>
 
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

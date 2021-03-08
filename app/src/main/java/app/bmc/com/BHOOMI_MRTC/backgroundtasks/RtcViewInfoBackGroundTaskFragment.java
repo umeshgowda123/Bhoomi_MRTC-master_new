@@ -199,7 +199,6 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
                     assert get_surnoc_hissaResult != null;
                     String data = get_surnoc_hissaResult.getBhoomI_API_Response();
 
-                    Log.d("datatata : ",data+"");
                     isTaskExecuting = false;
                     if (backgroundCallBack != null) {
                         backgroundCallBack.onPostResponseSuccess1(data);

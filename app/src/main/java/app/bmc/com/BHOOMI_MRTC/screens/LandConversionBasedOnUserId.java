@@ -52,12 +52,9 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
     RecyclerView rvUserId;
     TextView tvUserId;
     private ProgressDialog progressDialog;
-    String res;
     DataBaseHelper dataBaseHelper;
     private List<LandConversion_Interface> LandConversion_Data;
     String User_res;
-    String tokenType;
-    String accessToken;
 
     Call<BHOOMI_API_Response> call;
 
@@ -85,8 +82,6 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
         Log.d("token", tokenType+"   "+accessToken);
 
         if (userId!= null) {
-
-
 
             dataBaseHelper =
                     Room.databaseBuilder(getApplicationContext(),
@@ -260,72 +255,6 @@ public class LandConversionBasedOnUserId extends AppCompatActivity {
 
                         }
                     });
-//            progressDialog = new ProgressDialog(LandConversionBasedOnUserId.this);
-//            progressDialog.setMessage("Please Wait");
-//            progressDialog.setCancelable(false);
-//            progressDialog.show();
-//            PariharaIndividualReportInteface apiInterface = PariharaIndividualreportClient.getClient("https://clws.karnataka.gov.in/Service4/BHOOMI/").create(PariharaIndividualReportInteface.class);
-//            Call<PariharaIndividualDetailsResponse> call = apiInterface.getLandConversionBasedOnUserID(Constants.REPORT_SERVICE_USER_NAME,
-//                    Constants.REPORT_SERVICE_PASSWORD,userId);
-//            call.enqueue(new Callback<PariharaIndividualDetailsResponse>() {
-//                @Override
-//                public void onResponse(@NotNull Call<PariharaIndividualDetailsResponse> call, @NotNull Response<PariharaIndividualDetailsResponse> response) {
-//
-//                    if(response.isSuccessful())
-//                    {
-//                        PariharaIndividualDetailsResponse result = response.body();
-//                        assert result != null;
-//                        res = result.getGet_Afdvt_ReqSts_BasedOnUserIdResult();
-//
-//                        progressDialog.dismiss();
-//                        if(res == null || res.contains("INVALID")) {
-//                            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversionBasedOnUserId.this, R.style.MyDialogTheme);
-//                            builder.setTitle("STATUS")
-//                                    .setMessage("Invalid User ID")
-//                                    .setIcon(R.drawable.ic_notifications_black_24dp)
-//                                    .setCancelable(false)
-//                                    .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
-//                            final android.app.AlertDialog alert = builder.create();
-//                            alert.show();
-//                            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-//                        }else {
-//                            try {
-//                                JSONArray jsonArray = new JSONArray(res);
-//                                Gson gson = new Gson();
-//                                AfdvtBasedOnUserIdData = gson.fromJson(String.valueOf(jsonArray), new TypeToken<List<Afdvt_ReqSts_BasedOnAfdvtIdTable>>() {
-//                                }.getType());
-//
-//
-//                                if (AfdvtBasedOnUserIdData.size() == 0) {
-//                                    final AlertDialog.Builder builder = new AlertDialog.Builder(LandConversionBasedOnUserId.this, R.style.MyDialogTheme);
-//                                    builder.setTitle("STATUS")
-//                                            .setMessage("No Data Found For this Record")
-//                                            .setIcon(R.drawable.ic_notifications_black_24dp)
-//                                            .setCancelable(false)
-//                                            .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
-//                                    final AlertDialog alert = builder.create();
-//                                    alert.show();
-//                                    alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-//                                } else {
-//                                    LandConversionBasedOnUserIDAdapter adapter = new LandConversionBasedOnUserIDAdapter(AfdvtBasedOnUserIdData,LandConversionBasedOnUserId.this);
-//                                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-//                                    rvUserId.setLayoutManager(mLayoutManager);
-//                                    rvUserId.setItemAnimator(new DefaultItemAnimator());
-//                                    rvUserId.setAdapter(adapter);
-//                                }
-//
-//                            } catch (Exception e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    }
-//                }
-//                @Override
-//                public void onFailure( @NotNull Call<PariharaIndividualDetailsResponse> call, @NotNull Throwable t) {
-//                    call.cancel();
-//                    progressDialog.dismiss();
-//                }
-//            });
 
         }
     }

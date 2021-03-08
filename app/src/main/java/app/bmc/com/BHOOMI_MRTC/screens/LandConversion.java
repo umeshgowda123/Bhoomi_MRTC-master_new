@@ -565,6 +565,7 @@ public class LandConversion extends AppCompatActivity implements RtcViewInfoBack
 
             } catch (Exception e){
                 Log.d("ExcepSuccessGetToken",e.getLocalizedMessage()+"");
+                e.printStackTrace();
                 Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         }
@@ -605,6 +606,16 @@ public class LandConversion extends AppCompatActivity implements RtcViewInfoBack
                         final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversion.this, R.style.MyDialogTheme);
                         builder.setTitle(getString(R.string.status))
                                 .setMessage(getString(R.string.details_not_found))
+                                .setIcon(R.drawable.ic_notifications_black_24dp)
+                                .setCancelable(false)
+                                .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
+                        final android.app.AlertDialog alert = builder.create();
+                        alert.show();
+                        alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                    } else if(Affidavit_res.contains("Unable to connect to the remote server")){
+                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversion.this, R.style.MyDialogTheme);
+                        builder.setTitle(getString(R.string.status))
+                                .setMessage(getString(R.string.server_is_busy_please_try_again_later))
                                 .setIcon(R.drawable.ic_notifications_black_24dp)
                                 .setCancelable(false)
                                 .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
@@ -746,8 +757,9 @@ public class LandConversion extends AppCompatActivity implements RtcViewInfoBack
                                         progressDialog.dismiss();
 
                                         Intent intent = new Intent(LandConversion.this, LandConversionBasedOnUserId.class);
-//                                                                                intent.putExtra("UserID_ResponseData", User_res);
                                         intent.putExtra("USER_ID", userID);
+                                        intent.putExtra("tokenType", tokenType);
+                                        intent.putExtra("accessToken", accessToken);
                                         startActivity(intent);
                                     }
                                 });
