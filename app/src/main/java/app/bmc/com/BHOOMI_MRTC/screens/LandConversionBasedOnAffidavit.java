@@ -96,30 +96,30 @@ public class LandConversionBasedOnAffidavit extends AppCompatActivity {
 
         if(AFFIDAVIT_ResponseData != null) {
             try {
-                JSONObject jsonObject = new JSONObject(AFFIDAVIT_ResponseData);
-
-                GetStatusBasedOnIDClass getStatusBasedOnIDClass = new GetStatusBasedOnIDClass();
-                getStatusBasedOnIDClass.setMessage(jsonObject.getString("Message"));
-                getStatusBasedOnIDClass.setStatusCode(jsonObject.getString("StatusCode"));
-                getStatusBasedOnIDClass.setRequestID(jsonObject.getString("RequestID"));
-                getStatusBasedOnIDClass.setAffidavitID(jsonObject.getString("AffidavitID"));
-                getStatusBasedOnIDClass.setStatus(jsonObject.getString("Status"));
-                getStatusBasedOnIDClass.setDistrict(jsonObject.getString("District"));
-                getStatusBasedOnIDClass.setTaluk(jsonObject.getString("Taluk"));
-                getStatusBasedOnIDClass.setHobli(jsonObject.getString("Hobli"));
-                getStatusBasedOnIDClass.setVillage(jsonObject.getString("Village"));
-                getStatusBasedOnIDClass.setSurveyNos(jsonObject.getString("SurveyNos"));
-                getStatusBasedOnIDClass.setApplicationDate(jsonObject.getString("ApplicationDate"));
-                getStatusBasedOnIDClass.setREQ_WFID(jsonObject.getString("REQ_WFID"));
-                getStatusBasedOnIDClass.setApprovedDate(jsonObject.getString("ApprovedDate"));
-
-                String Status = getStatusBasedOnIDClass.getStatus();
-
-                if (Status.contains("Generate Endorsement")){
-                    Log.d("Status", ""+Status);
-                } else {
-                    Log.d("Status", ""+getStatusBasedOnIDClass.getStatus());
-                }
+//                JSONObject jsonObject = new JSONObject(AFFIDAVIT_ResponseData);
+//
+//                GetStatusBasedOnIDClass getStatusBasedOnIDClass = new GetStatusBasedOnIDClass();
+//                getStatusBasedOnIDClass.setMessage(jsonObject.getString("Message"));
+//                getStatusBasedOnIDClass.setStatusCode(jsonObject.getString("StatusCode"));
+//                getStatusBasedOnIDClass.setRequestID(jsonObject.getString("RequestID"));
+//                getStatusBasedOnIDClass.setAffidavitID(jsonObject.getString("AffidavitID"));
+//                getStatusBasedOnIDClass.setStatus(jsonObject.getString("Status"));
+//                getStatusBasedOnIDClass.setDistrict(jsonObject.getString("District"));
+//                getStatusBasedOnIDClass.setTaluk(jsonObject.getString("Taluk"));
+//                getStatusBasedOnIDClass.setHobli(jsonObject.getString("Hobli"));
+//                getStatusBasedOnIDClass.setVillage(jsonObject.getString("Village"));
+//                getStatusBasedOnIDClass.setSurveyNos(jsonObject.getString("SurveyNos"));
+//                getStatusBasedOnIDClass.setApplicationDate(jsonObject.getString("ApplicationDate"));
+//                getStatusBasedOnIDClass.setREQ_WFID(jsonObject.getString("REQ_WFID"));
+//                getStatusBasedOnIDClass.setApprovedDate(jsonObject.getString("ApprovedDate"));
+//
+//                String Status = getStatusBasedOnIDClass.getStatus();
+//
+//                if (Status.contains("Generate Endorsement")){
+//                    Log.d("Status", ""+Status);
+//                } else {
+//                    Log.d("Status", ""+getStatusBasedOnIDClass.getStatus());
+//                }
 
                 JSONArray jsonArray = new JSONArray(AFFIDAVIT_ResponseData);
 
@@ -146,7 +146,7 @@ public class LandConversionBasedOnAffidavit extends AppCompatActivity {
                     rvAffidavit.setItemAnimator(new DefaultItemAnimator());
                     rvAffidavit.setAdapter(adapter);
 
-                    //displayAppStatus(AFFIDAVIT_ResponseData);
+                    displayAppStatus(AFFIDAVIT_ResponseData);
 
                 }
             } catch (Exception e) {
