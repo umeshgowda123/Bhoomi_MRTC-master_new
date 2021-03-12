@@ -49,8 +49,8 @@
     <string name="app_kannada">Kannada</string>
     <string name="app_english">English</string>
     <string name="language">Language</string>
-    <string name="district">District</string>
-    <string name="taluk">Taluk</string>
+        <string name="district">District</string>
+        <string name="taluk">Taluk</string>
     <string name="hobli">Hobli</string>
     <string name="village">Village</string>
     <string name="survey_no">Survey No</string>

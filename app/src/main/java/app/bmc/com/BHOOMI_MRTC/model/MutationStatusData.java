@@ -28,16 +28,13 @@ public class MutationStatusData {
     @Expose
     private String MUTAION_STATUS_KN;
 
-
     @SerializedName("YEAR")
     @Expose
     private String YEAR;
 
-
     @SerializedName("LAND_CODE")
     @Expose
     private String LAND_CODE;
-
 
     @SerializedName("MUTATION_TYPE")
     @Expose
@@ -59,10 +56,50 @@ public class MutationStatusData {
     @Expose
     private String HobliName;
 
-
     @SerializedName("VillageName")
     @Expose
     private String VillageName;
+
+
+
+
+    @SerializedName("TranEnteredBy")
+    @Expose
+    private String TranEnteredBy;
+
+    @SerializedName("TranEnteredDate")
+    @Expose
+    private String TranEnteredDate;
+
+    @SerializedName("CheckListApprBy")
+    @Expose
+    private String CheckListApprBy;
+
+    @SerializedName("CheckListApprDate")
+    @Expose
+    private String CheckListApprDate;
+
+    @SerializedName("NoticeGenOn")
+    @Expose
+    private String NoticeGenOn;
+
+    @SerializedName("RI_ProvAcc")
+    @Expose
+    private String RI_ProvAcc;
+
+    @SerializedName("RI_ProvAccDate")
+    @Expose
+    private String RI_ProvAccDate;
+
+    @SerializedName("SurveyorApprDate")
+    @Expose
+    private String SurveyorApprDate;
+
+    @SerializedName("TypeOfMutCode")
+    @Expose
+    private String TypeOfMutCode;
+
+
 
     public String getMR_NO() {
         return MR_NO;
@@ -174,5 +211,78 @@ public class MutationStatusData {
 
     public void setSURVEY_NO(String SURVEY_NO) {
         this.SURVEY_NO = SURVEY_NO;
+    }
+
+
+    public String getTranEnteredBy() {
+        return TranEnteredBy;
+    }
+
+    public void setTranEnteredBy(String tranEnteredBy) {
+        this.TranEnteredBy = tranEnteredBy;
+    }
+
+    public String getTranEnteredDate() {
+        return TranEnteredDate;
+    }
+
+    public void setTranEnteredDate(String tranEnteredDate) {
+        this.TranEnteredDate = tranEnteredDate;
+    }
+
+    public String getCheckListApprBy() {
+        return CheckListApprBy;
+    }
+
+    public void setCheckListApprBy(String checkListApprBy) {
+        this.CheckListApprBy = checkListApprBy;
+    }
+
+    public String getCheckListApprDate() {
+        return CheckListApprDate;
+    }
+
+    public void setCheckListApprDate(String checkListApprDate) {
+        this.CheckListApprDate = checkListApprDate;
+    }
+
+    public String getNoticeGenOn() {
+        return NoticeGenOn;
+    }
+
+    public void setNoticeGenOn(String noticeGenOn) {
+        this.NoticeGenOn = noticeGenOn;
+    }
+
+    public String getRI_ProvAcc() {
+        return RI_ProvAcc;
+    }
+
+    public void setRI_ProvAcc(String RI_ProvAcc) {
+        this.RI_ProvAcc = RI_ProvAcc;
+    }
+
+    public String getRI_ProvAccDate() {
+        return RI_ProvAccDate;
+    }
+
+    public void setRI_ProvAccDate(String RI_ProvAccDate) {
+        this.RI_ProvAccDate = RI_ProvAccDate;
+    }
+
+    public String getSurveyorApprDate() {
+        return SurveyorApprDate;
+    }
+
+    public void setSurveyorApprDate(String surveyorApprDate) {
+        this.SurveyorApprDate = surveyorApprDate;
+    }
+
+    public String getTypeOfMutCode() {
+        return TypeOfMutCode;
+    }
+
+    public void setTypeOfMutCode(String typeOfMutCode) {
+        TypeOfMutCode = typeOfMutCode;
     }
 }

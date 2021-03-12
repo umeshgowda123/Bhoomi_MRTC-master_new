@@ -31,8 +31,6 @@ import android.widget.Toast;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
@@ -95,7 +93,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
     private ProgressBar progressBar;
     private String language;
     private DataBaseHelper dataBaseHelper;
-    private TextView txtMutationStatust;
+    TextView txtMutationStatust;
     String surveyNo;
 
     String restostoreinDBandSMSD;
@@ -156,12 +154,12 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(List<? extends DistrictModelInterface> mst_vlmList) {
+                    public void onNext(@NonNull List<? extends DistrictModelInterface> mst_vlmList) {
 
                         districtData = (List<DistrictModelInterface>) mst_vlmList;
                         ArrayAdapter<DistrictModelInterface> districtArrayAdapter = new ArrayAdapter<>(getApplicationContext(),
@@ -170,7 +168,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
 
                     }
 
@@ -261,12 +259,12 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
 
                         @Override
-                        public void onSubscribe(Disposable d) {
+                        public void onSubscribe(@NonNull Disposable d) {
 
                         }
 
                         @Override
-                        public void onNext(List<? extends TalukModelInterface> talukDataList) {
+                        public void onNext(@NonNull List<? extends TalukModelInterface> talukDataList) {
                             talukData = (List<TalukModelInterface>) talukDataList;
                             ArrayAdapter<TalukModelInterface> talukArrayAdapter = new ArrayAdapter<>(ViewMutationStatusInformation.this,
                                     android.R.layout.simple_list_item_single_choice, talukData);
@@ -274,7 +272,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                         }
 
                         @Override
-                        public void onError(Throwable e) {
+                        public void onError(@NonNull Throwable e) {
 
                         }
 
@@ -305,12 +303,12 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
 
                         @Override
-                        public void onSubscribe(Disposable d) {
+                        public void onSubscribe(@NonNull Disposable d) {
 
                         }
 
                         @Override
-                        public void onNext(List<? extends HobliModelInterface> hobliDataList) {
+                        public void onNext(@NonNull List<? extends HobliModelInterface> hobliDataList) {
                             hobliData = (List<HobliModelInterface>) hobliDataList;
                             ArrayAdapter<HobliModelInterface> hobliArrayAdapter = new ArrayAdapter<>(ViewMutationStatusInformation.this,
                                     android.R.layout.simple_list_item_single_choice, hobliData);
@@ -318,7 +316,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                         }
 
                         @Override
-                        public void onError(Throwable e) {
+                        public void onError(@NonNull Throwable e) {
 
                         }
 
@@ -346,12 +344,12 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
 
                         @Override
-                        public void onSubscribe(Disposable d) {
+                        public void onSubscribe(@NonNull Disposable d) {
 
                         }
 
                         @Override
-                        public void onNext(List<? extends VillageModelInterface> villageDataList) {
+                        public void onNext(@NonNull List<? extends VillageModelInterface> villageDataList) {
                             villageData = (List<VillageModelInterface>) villageDataList;
                             ArrayAdapter<VillageModelInterface> villageArrayAdapter = new ArrayAdapter<>(ViewMutationStatusInformation.this,
                                     android.R.layout.simple_list_item_single_choice, villageData);
@@ -359,7 +357,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                         }
 
                         @Override
-                        public void onError(Throwable e) {
+                        public void onError(@NonNull Throwable e) {
 
                         }
 
@@ -488,12 +486,12 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                             .subscribe(new Observer<List<? extends VMS_RES_Interface>>() {
 
                                 @Override
-                                public void onSubscribe(Disposable d) {
+                                public void onSubscribe(@NonNull Disposable d) {
 
                                 }
 
                                 @Override
-                                public void onNext(List<? extends VMS_RES_Interface> vms_res_interfaces_list) {
+                                public void onNext(@NonNull List<? extends VMS_RES_Interface> vms_res_interfaces_list) {
                                     progressBar.setVisibility(View.GONE);
 
                                     VMS_RES_Data = (List<VMS_RES_Interface>) vms_res_interfaces_list;
@@ -524,12 +522,12 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                                         } else {
                                             //5/6/5/1/1714
                                             mTaskFragment.startBackgroundTask3(district_id, taluk_id, hobli_id, village_id, land_no, getString(R.string.rest_service_url),tokenType,accessToken);
-                                            //mTaskFragment.startBackgroundTask3(5, 6, 5, 1, 1714);
+//                                            mTaskFragment.startBackgroundTask3(1, 1, 1, 1, 969,getString(R.string.rest_service_url),tokenType,accessToken);
                                         }
                                 }
 
                                 @Override
-                                public void onError(Throwable e) {
+                                public void onError(@NonNull Throwable e) {
 
                                 }
 
@@ -603,7 +601,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                 Type listType = new TypeToken<ArrayList<Hissa_Response>>() {
                 }.getType();
                 hissa_responseList = new Gson().fromJson(ds_rtc.toString(), listType);
-                ArrayAdapter<Hissa_Response> villageArrayAdapter = new ArrayAdapter<Hissa_Response>(ViewMutationStatusInformation.this,
+                ArrayAdapter<Hissa_Response> villageArrayAdapter = new ArrayAdapter<>(ViewMutationStatusInformation.this,
                         android.R.layout.simple_list_item_single_choice, hissa_responseList);
                 spinner_hissa.setAdapter(villageArrayAdapter);
 
@@ -661,12 +659,12 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
 
                             @Override
-                            public void onSubscribe(Disposable d) {
+                            public void onSubscribe(@NonNull Disposable d) {
 
                             }
 
                             @Override
-                            public void onNext(Integer integer) {
+                            public void onNext(@NonNull Integer integer) {
                                 List<V_MUTATION_STATUS_TABLE> VMS_list = loadData();
                                 if (integer < 6) {
                                     createVMSTABLE_Data(VMS_list);
@@ -676,7 +674,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                             }
 
                             @Override
-                            public void onError(Throwable e) {
+                            public void onError(@NonNull Throwable e) {
                                 Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                             }
 
@@ -911,16 +909,16 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Long[] longs) {
+                    public void onNext(@NonNull Long[] longs) {
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
                         Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
 
                     }
@@ -942,17 +940,17 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer integer) {
+                    public void onNext(@NonNull Integer integer) {
 
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
                         Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                     }
 

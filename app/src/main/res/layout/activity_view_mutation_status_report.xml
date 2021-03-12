@@ -39,22 +39,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="34dp"
-            android:layout_weight="1"
-            android:text="@string/mutation_status"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:textColor="@android:color/black" />
-
-    </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -69,13 +53,503 @@
             android:orientation="vertical">
 
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvMutationStatus"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:layout_weight="1"
+                android:text="@string/mutation_status"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@android:color/black" />
+
+
+
+            <androidx.cardview.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:scrollbars="vertical"/>
+                card_view:cardCornerRadius="10dp"
+                card_view:cardElevation="5dp"
+                card_view:cardUseCompatPadding="true">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:padding="10dp"
+                    android:orientation="vertical">
+
+                    <!--            <LinearLayout-->
+                    <!--                android:layout_width="match_parent"-->
+                    <!--                android:layout_height="wrap_content"-->
+                    <!--                android:layout_marginTop="10dp"-->
+                    <!--                android:orientation="horizontal">-->
+
+                    <!--                <TextView-->
+                    <!--                    android:layout_width="0dp"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:layout_weight="1"-->
+                    <!--                    android:text="@string/hobli"-->
+                    <!--                    android:textStyle="bold"-->
+                    <!--                    android:layout_gravity="center"-->
+                    <!--                    android:textColor="@android:color/black" />-->
+
+
+                    <!--                <TextView-->
+                    <!--                    android:id="@+id/tvHobliName"-->
+                    <!--                    android:layout_width="0dp"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:layout_weight="1"-->
+                    <!--                    android:textStyle="bold"-->
+                    <!--                    android:layout_gravity="center"-->
+                    <!--                    android:textColor="@android:color/black" />-->
+
+                    <!--            </LinearLayout>-->
+
+                    <!--            <LinearLayout-->
+                    <!--                android:layout_width="match_parent"-->
+                    <!--                android:layout_height="wrap_content"-->
+                    <!--                android:layout_marginTop="10dp"-->
+                    <!--                android:orientation="horizontal">-->
+
+                    <!--                <TextView-->
+                    <!--                    android:layout_width="0dp"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:layout_weight="1"-->
+                    <!--                    android:text="@string/village"-->
+                    <!--                    android:textStyle="bold"-->
+                    <!--                    android:textColor="@android:color/black" />-->
+
+
+                    <!--                <TextView-->
+                    <!--                    android:id="@+id/tvVillageName"-->
+                    <!--                    android:layout_width="0dp"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:layout_weight="1"-->
+                    <!--                    android:textColor="@android:color/black" />-->
+
+                    <!--            </LinearLayout>-->
+
+                    <!--            <LinearLayout-->
+                    <!--                android:layout_width="match_parent"-->
+                    <!--                android:layout_height="wrap_content"-->
+                    <!--                android:layout_marginTop="10dp"-->
+                    <!--                android:orientation="horizontal">-->
+
+                    <!--                <TextView-->
+                    <!--                    android:layout_width="0dp"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:layout_weight="1"-->
+                    <!--                    android:text="@string/land_code"-->
+                    <!--                    android:textStyle="bold"-->
+                    <!--                    android:textColor="@android:color/black" />-->
+
+
+                    <!--                <TextView-->
+                    <!--                    android:id="@+id/tvLandCode"-->
+                    <!--                    android:layout_width="0dp"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:layout_weight="1"-->
+                    <!--                    android:textColor="@android:color/black" />-->
+
+                    <!--            </LinearLayout>-->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/application_no"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black" />
+
+
+                        <TextView
+                            android:id="@+id/tvApplicationNo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@android:color/black" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/transaction_no"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black" />
+
+
+                        <TextView
+                            android:id="@+id/tvTransactionNo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@android:color/black" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/mr_no"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black" />
+
+
+                        <TextView
+                            android:id="@+id/tvMRNo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@android:color/black" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/year"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black" />
+
+
+                        <TextView
+                            android:id="@+id/tvYear"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@android:color/black" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/Survey_No"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black" />
+
+
+                        <TextView
+                            android:id="@+id/tvSurveyNo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@android:color/black" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/mutation_type"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black" />
+
+
+                        <TextView
+                            android:id="@+id/tvMutationType"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@android:color/black" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/mutation_status"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black"
+                            android:layout_gravity="center"/>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvMutationStatusKan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@android:color/black" />
+
+                            <TextView
+                                android:id="@+id/tvMutationStatusEng"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@android:color/black"
+                                android:layout_marginTop="5dp"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:text="Tran Entered By"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:textColor="@android:color/black" />-->
+
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvTranEnteredBy"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:textColor="@android:color/black" />-->
+
+<!--                    </LinearLayout>-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:text="Tran Entered Date"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:textColor="@android:color/black" />-->
+
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvTranEnteredDate"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:textColor="@android:color/black" />-->
+
+<!--                    </LinearLayout>-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:text="Check List Appr By"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:textColor="@android:color/black" />-->
+
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvCheckListApprBy"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:textColor="@android:color/black" />-->
+
+<!--                    </LinearLayout>-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:text="Check List Appr Date"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:textColor="@android:color/black" />-->
+
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvCheckListApprDate"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:textColor="@android:color/black" />-->
+
+<!--                    </LinearLayout>-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:text="Notice Gen On"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:textColor="@android:color/black" />-->
+
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvNoticeGenOn"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:textColor="@android:color/black" />-->
+
+<!--                    </LinearLayout>-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:text="RI Prov Acc"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:textColor="@android:color/black" />-->
+
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvRI_ProvAcc"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:textColor="@android:color/black" />-->
+
+<!--                    </LinearLayout>-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:text="RI Prov Acc Date"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:textColor="@android:color/black" />-->
+
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvRI_ProvAccDate"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:textColor="@android:color/black" />-->
+
+<!--                    </LinearLayout>-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:text="Surveyor Appr Date"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:textColor="@android:color/black" />-->
+
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvSurveyorApprDate"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:textColor="@android:color/black" />-->
+
+<!--                    </LinearLayout>-->
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:layout_weight="1"
+                android:text="Stage Wise Report"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@android:color/black" />
+
+        <LinearLayout
+            android:id="@+id/layoutStageWiseStatus"
+            android:layout_width="match_parent"
+            android:layout_height="640dp"
+            android:orientation="vertical">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:scrollbars="vertical"/>
+        </LinearLayout>
 
         </LinearLayout>
 
