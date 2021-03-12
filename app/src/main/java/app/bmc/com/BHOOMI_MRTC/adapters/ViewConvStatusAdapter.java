@@ -25,13 +25,15 @@ public class ViewConvStatusAdapter extends RecyclerView.Adapter<ViewConvStatusAd
     private final ArrayList<String> Values2;
     private final Context context1;
     private final ArrayList<Integer> Images;
+    private final ArrayList<Boolean> isShow;
     Animation animSlideDown, animSlideUp;
     boolean layOpen = false;
 
-    public ViewConvStatusAdapter(Context context2, ArrayList<String> values1, ArrayList<String> values2, ArrayList<Integer> images){
+    public ViewConvStatusAdapter(Context context2, ArrayList<String> values1, ArrayList<String> values2, ArrayList<Integer> images, ArrayList<Boolean> is_show){
         Values1 = values1;
         Values2 = values2;
         Images = images;
+        isShow = is_show;
         context1 = context2;
     }
 
@@ -53,14 +55,15 @@ public class ViewConvStatusAdapter extends RecyclerView.Adapter<ViewConvStatusAd
         holder.ivBounceArrowUp.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
 
         holder.linLay.setOnClickListener(v -> {
+            layOpen = isShow.get(position);
             if (layOpen){
-                layOpen = false;
+                isShow.set(position, false);
                 holder.txtDescription.setVisibility(View.GONE);
                 holder.txtDescription.startAnimation(animSlideUp);
                 holder.ivBounceArrowDown.setVisibility(View.VISIBLE);
                 holder.ivBounceArrowUp.setVisibility(View.GONE);
             } else {
-                layOpen = true;
+                isShow.set(position, true);
                 holder.txtDescription.setVisibility(View.VISIBLE);
                 holder.txtDescription.startAnimation(animSlideDown);
                 holder.ivBounceArrowDown.setVisibility(View.GONE);

@@ -399,4 +399,5 @@
     <string name="mr_no">ಎಮ್.ಆರ್ ಸಂಖ್ಯೆ</string>
     <string name="land_conversion_application_status">ಭೂ ಪರಿವರ್ತನೆ ಅರ್ಜಿ ಸ್ಥಿತಿ</string>
     <string name="stage_wise_status">ಹಂತವಾರು ಸ್ಥಿತಿ</string>
+    <string name="know_your_landid">Know your LandID</string>
 </resources>

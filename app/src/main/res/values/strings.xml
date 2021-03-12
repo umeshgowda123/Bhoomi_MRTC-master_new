@@ -442,4 +442,5 @@
     <string name="mr_no">MR No.</string>
     <string name="land_conversion_application_status">Land Conversion Application Status</string>
     <string name="stage_wise_status">Stage wise Status</string>
+    <string name="know_your_landid">Know your LandID</string>
 </resources>

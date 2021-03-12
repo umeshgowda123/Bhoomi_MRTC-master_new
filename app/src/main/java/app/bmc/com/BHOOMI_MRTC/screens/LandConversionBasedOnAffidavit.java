@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -32,7 +30,6 @@ import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.adapters.LandConversionBasedOnAffidavitAdapter;
 import app.bmc.com.BHOOMI_MRTC.adapters.ViewConvStatusAdapter;
 import app.bmc.com.BHOOMI_MRTC.model.Afdvt_ReqSts_BasedOnAfdvtIdTable;
-import app.bmc.com.BHOOMI_MRTC.model.GetStatusBasedOnIDClass;
 
 public class LandConversionBasedOnAffidavit extends AppCompatActivity {
 
@@ -42,6 +39,7 @@ public class LandConversionBasedOnAffidavit extends AppCompatActivity {
     ArrayList<String> models;
     ArrayList<String> txtHeader;
     ArrayList<Integer> Images;
+    ArrayList<Boolean> isShow;
     RecyclerView recyclerView;
     RecyclerView.Adapter recyclerView_Adapter;
     RecyclerView.LayoutManager recyclerViewLayoutManager;
@@ -73,6 +71,7 @@ public class LandConversionBasedOnAffidavit extends AppCompatActivity {
         models = new ArrayList<>();
         txtHeader = new ArrayList<>();
         Images = new ArrayList<>();
+        isShow = new ArrayList<>();
 
         models.add(0, "" + showText_notEnt);
         models.add(1, "" + showText_notEnt);
@@ -91,6 +90,12 @@ public class LandConversionBasedOnAffidavit extends AppCompatActivity {
         Images.add(2, R.drawable.ic_baseline_adjust_24);
         Images.add(3, R.drawable.ic_baseline_adjust_24);
         Images.add(4, R.drawable.ic_baseline_adjust_24);
+
+        isShow.add(0, false);
+        isShow.add(1, false);
+        isShow.add(2, false);
+        isShow.add(3, false);
+        isShow.add(4, false);
 
         String AFFIDAVIT_ResponseData = (String) getIntent().getExtras().getSerializable("AFFIDAVIT_ResponseData");
 
@@ -234,7 +239,7 @@ public class LandConversionBasedOnAffidavit extends AppCompatActivity {
 
                 recyclerViewLayoutManager = new GridLayoutManager(this,1);
                 recyclerView.setLayoutManager(recyclerViewLayoutManager);
-                recyclerView_Adapter = new ViewConvStatusAdapter(this, txtHeader,models, Images);
+                recyclerView_Adapter = new ViewConvStatusAdapter(this, txtHeader,models, Images, isShow);
                 recyclerView.setAdapter(recyclerView_Adapter);
 
             } catch (Exception e){
