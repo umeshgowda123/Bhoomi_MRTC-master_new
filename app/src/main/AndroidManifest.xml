@@ -10,6 +10,7 @@
     <application
         android:allowBackup="true"
         android:configChanges="locale"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
@@ -17,9 +18,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
-        android:fullBackupContent="true"
         android:usesCleartextTraffic="true"
         tools:targetApi="n">
+        <activity android:name=".screens.Know_Your_LandID"></activity>
         <activity android:name=".screens.AppLauncher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -116,23 +117,18 @@
         <activity
             android:name=".screens.Download_Conversion_order"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".screens.ConversionFinalOrders_BasedOnReq_ID"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".screens.Endorsement_ReportWebView"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".screens.RestrictionOnLand"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".screens.RestrictionOnLandReport"
             android:theme="@style/AppTheme.NoActionBar" />
-
     </application>
 
 </manifest>

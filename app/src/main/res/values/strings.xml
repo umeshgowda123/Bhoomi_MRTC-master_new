@@ -13,7 +13,6 @@
     <string name="url_token">https://clws.karnataka.gov.in/service12/</string>
 
 
-
     <string name="app_name">Bhoomi</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -49,8 +48,8 @@
     <string name="app_kannada">Kannada</string>
     <string name="app_english">English</string>
     <string name="language">Language</string>
-        <string name="district">District</string>
-        <string name="taluk">Taluk</string>
+    <string name="district">District</string>
+    <string name="taluk">Taluk</string>
     <string name="hobli">Hobli</string>
     <string name="village">Village</string>
     <string name="survey_no">Survey No</string>
@@ -443,4 +442,5 @@
     <string name="land_conversion_application_status">Land Conversion Application Status</string>
     <string name="stage_wise_status">Stage wise Status</string>
     <string name="know_your_landid">Know your LandID</string>
+    <string name="know_your_land_id">Know Your Land ID</string>
 </resources>

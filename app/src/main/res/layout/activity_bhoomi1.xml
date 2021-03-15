@@ -363,11 +363,12 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/layout_know_landID"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
-                        android:layout_weight="2"
+                        android:layout_weight="1"
                         android:orientation="vertical">
 
                         <ImageView
@@ -375,9 +376,7 @@
                             android:layout_width="65dp"
                             android:layout_height="65dp"
                             android:layout_gravity="center"
-                            android:paddingStart="2dip"
-                            android:paddingEnd="5dip"
-                            android:src="@drawable/restriction_on_land"
+                            android:src="@drawable/id"
                             android:contentDescription="@string/restriction_on_land" />
 
                         <TextView
@@ -391,8 +390,11 @@
 
                     </LinearLayout>
                     <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
                         android:orientation="vertical">
                     </LinearLayout>
 
@@ -533,6 +535,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
+                    android:layout_margin="10dp"
                     android:orientation="horizontal">
 
                     <View
@@ -540,7 +543,7 @@
                         android:layout_height="1dp"
                         android:layout_gravity="center"
                         android:layout_weight=".5"
-                        android:background="@android:color/white" />
+                        android:background="@color/colorGrey" />
 
                     <TextView
                         android:layout_width="0dp"
@@ -559,7 +562,7 @@
                         android:layout_height="1dp"
                         android:layout_gravity="center"
                         android:layout_weight=".5"
-                        android:background="@android:color/white" />
+                        android:background="@color/colorGrey" />
                 </LinearLayout>
 
 

@@ -64,6 +64,7 @@ public class BhoomiHomePage extends AppCompatActivity {
     LinearLayout layout_mutation_status;
     LinearLayout view_land_conversion, download_Conversion_order;
     LinearLayout layout_restriction_land;
+    LinearLayout layout_know_landID;
 
     private static final int REQ_CODE_VERSION_UPDATE = 530;
     private AppUpdateManager appUpdateManager;
@@ -110,6 +111,7 @@ public class BhoomiHomePage extends AppCompatActivity {
         layout_mutation_status =  findViewById(R.id.layout_mutation_status);
         view_land_conversion = findViewById(R.id.view_land_conversion);
         download_Conversion_order = findViewById(R.id.download_Conversion_order);
+        layout_know_landID = findViewById(R.id.layout_know_landID);
 
         Intent i = getIntent();
         clearData = i.getBooleanExtra("clearData", false);
@@ -175,6 +177,11 @@ public class BhoomiHomePage extends AppCompatActivity {
 
         download_Conversion_order.setOnClickListener(v -> {
             Intent intent = new Intent(BhoomiHomePage.this, Download_Conversion_order.class);
+            startActivity(intent);
+        });
+
+        layout_know_landID.setOnClickListener(v -> {
+            Intent intent = new Intent(BhoomiHomePage.this, Know_Your_LandID.class);
             startActivity(intent);
         });
 
