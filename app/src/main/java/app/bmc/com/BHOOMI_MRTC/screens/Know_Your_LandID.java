@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -51,6 +52,8 @@ import app.bmc.com.BHOOMI_MRTC.interfaces.DistrictModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.HobliModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.TalukModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.VillageModelInterface;
+import app.bmc.com.BHOOMI_MRTC.model.ClsAppLgs;
+import app.bmc.com.BHOOMI_MRTC.model.ClsReqLandID;
 import app.bmc.com.BHOOMI_MRTC.model.Get_Surnoc_HissaRequest;
 import app.bmc.com.BHOOMI_MRTC.model.Hissa_Response;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
@@ -69,6 +72,7 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
     MaterialBetterSpinner sp_landid_village;
     EditText et_landid_surveyno;
     Button btn_landid_go;
+    MaterialBetterSpinner sp_surnc;
     MaterialBetterSpinner sp_landid_hissa;
     Button btn_landid_fetch;
     List<DistrictModelInterface> districtData;
@@ -94,6 +98,8 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
 
     String accessToken, tokenType;
 
+    int AppType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,6 +123,7 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
         sp_landid_taluk = findViewById(R.id.sp_landid_taluk);
         sp_landid_hobli = findViewById(R.id.sp_landid_hobli);
         sp_landid_village = findViewById(R.id.sp_landid_village);
+        sp_surnc = findViewById(R.id.sp_surnc);
         sp_landid_hissa = findViewById(R.id.sp_landid_hissa);
         et_landid_surveyno = findViewById(R.id.et_landid_surveyno);
         btn_landid_go = findViewById(R.id.btn_landid_go);
@@ -127,6 +134,7 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
         sp_landid_taluk.setAdapter(defaultArrayAdapter);
         sp_landid_hobli.setAdapter(defaultArrayAdapter);
         sp_landid_village.setAdapter(defaultArrayAdapter);
+        sp_surnc.setAdapter(defaultArrayAdapter);
         sp_landid_hissa.setAdapter(defaultArrayAdapter);
         sp_landid_district.setAdapter(defaultArrayAdapter);
 
@@ -134,6 +142,9 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
                         DataBaseHelper.class, getString(R.string.db_name)).build();
+
+        Intent i = getIntent();
+        AppType = i.getIntExtra("AppType", 0);
 
         Observable<List<? extends DistrictModelInterface>> districtDataObservable = Observable.fromCallable(() -> language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getDistinctDistricts() : dataBaseHelper.daoAccess().getDistinctDistrictsKannada());
         districtDataObservable
@@ -189,10 +200,12 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
         sp_landid_taluk.setText("");
         sp_landid_hobli.setText("");
         sp_landid_village.setText("");
+        sp_surnc.setText("");
         sp_landid_hissa.setText("");
         sp_landid_taluk.setAdapter(defaultArrayAdapter);
         sp_landid_hobli.setAdapter(defaultArrayAdapter);
         sp_landid_village.setAdapter(defaultArrayAdapter);
+        sp_surnc.setAdapter(defaultArrayAdapter);
         sp_landid_hissa.setAdapter(defaultArrayAdapter);
         et_landid_surveyno.setText("");
 
@@ -234,9 +247,11 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
         sp_landid_taluk.setOnItemClickListener((parent, view, position, id) -> {
             sp_landid_hobli.setText("");
             sp_landid_village.setText("");
+            sp_surnc.setText("");
             sp_landid_hissa.setText("");
             sp_landid_hobli.setAdapter(defaultArrayAdapter);
             sp_landid_village.setAdapter(defaultArrayAdapter);
+            sp_surnc.setAdapter(defaultArrayAdapter);
             sp_landid_hissa.setAdapter(defaultArrayAdapter);
             et_landid_surveyno.setText("");
 
@@ -277,8 +292,10 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
 
         sp_landid_hobli.setOnItemClickListener((parent, view, position, id) -> {
             sp_landid_village.setText("");
+            sp_surnc.setText("");
             sp_landid_hissa.setText("");
             sp_landid_village.setAdapter(defaultArrayAdapter);
+            sp_surnc.setAdapter(defaultArrayAdapter);
             sp_landid_hissa.setAdapter(defaultArrayAdapter);
             et_landid_surveyno.setText("");
 
@@ -318,17 +335,24 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
         });
 
         sp_landid_village.setOnItemClickListener((parent, view, position, id) -> {
+            sp_surnc.setText("");
             sp_landid_hissa.setText("");
+            sp_surnc.setAdapter(defaultArrayAdapter);
             sp_landid_hissa.setAdapter(defaultArrayAdapter);
             village_id = villageData.get(position).getVLM_VLG_ID();
+        });
+
+        sp_surnc.setOnItemClickListener((parent, view, position, id) -> {
+            sp_landid_hissa.setText("");
+            sp_landid_hissa.setAdapter(defaultArrayAdapter);
+            suroc = hissa_responseList.get(position).getSurnoc();
         });
 
         sp_landid_hissa.setOnItemClickListener((parent, view, position, id) -> {
             land_no = hissa_responseList.get(position).getLand_code();
             hissa = hissa_responseList.get(position).getHissa_no();
             suroc = hissa_responseList.get(position).getSurnoc();
-        }
-        );
+        });
 
 
         btn_landid_go.setOnClickListener(v -> {
@@ -373,6 +397,10 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
             } else {
                 if (isNetworkAvailable()){
                     try {
+                        sp_surnc.setText("");
+                        sp_landid_hissa.setText("");
+                        sp_surnc.setAdapter(defaultArrayAdapter);
+                        sp_landid_hissa.setAdapter(defaultArrayAdapter);
                         mTaskFragment.startBackgroundTask_GenerateToken(getString(R.string.url_token));
                     } catch (Exception e){
                         Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
@@ -390,6 +418,7 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
             String villageName = sp_landid_village.getText().toString().trim();
             surveyNo = et_landid_surveyno.getText().toString().trim();
 
+            String surnoc = sp_surnc.getText().toString().trim();
             String hissa = sp_landid_hissa.getText().toString().trim();
             View focus = null;
             boolean status = false;
@@ -413,6 +442,10 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
                 focus = et_landid_surveyno;
                 status = true;
                 et_landid_surveyno.setError(getString(R.string.survey_no_err));
+            }else if (TextUtils.isEmpty(surnoc)) {
+                focus = sp_surnc;
+                status = true;
+                sp_surnc.setError(getString(R.string.surnoc_err));
             }else if (TextUtils.isEmpty(hissa)) {
                 focus = sp_landid_hissa;
                 status = true;
@@ -422,7 +455,16 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
                 focus.requestFocus();
             } else {
                 if (isNetworkAvailable()) {
-                    Toast.makeText(this, "Not Implemented", Toast.LENGTH_SHORT).show();
+                    try {
+                        ClsAppLgs objClsAppLgs = new ClsAppLgs();
+                        objClsAppLgs.setAppID(1);
+                        objClsAppLgs.setAppType(AppType);
+                        objClsAppLgs.setIPAddress("");
+
+                        mTaskFragment.startBackgroundTask_AppLgs(objClsAppLgs, getString(R.string.rest_service_url), tokenType, accessToken);
+                    } catch (Exception e){
+                        Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }else {
                     selfDestruct();
                 }
@@ -456,12 +498,6 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
 
         });
         alertDialog.show();
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
     }
 
     @Override
@@ -623,7 +659,9 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
 
     @Override
     public void onPreExecuteToken() {
-
+        progressBar = findViewById(R.id.progress_circular);
+        if (progressBar != null)
+            progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -654,9 +692,112 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
 
     @Override
     public void onPostResponseError_Token(String errorResponse) {
-        Log.d("ERR_msg", errorResponse+"");
+        if (progressBar != null)
+            progressBar.setVisibility(View.GONE);
         Toast.makeText(this, ""+errorResponse, Toast.LENGTH_SHORT).show();
-//        Toast.makeText(this, "Authorization has been denied for this request.", Toast.LENGTH_SHORT).show();
+    }
 
+    @Override
+    public void onPreExecuteGetBhoomiLandId() {
+        progressBar = findViewById(R.id.progress_circular);
+        if (progressBar != null)
+            progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onPostResponseSuccessGetBhoomiLandID(String data) {
+        if (progressBar != null)
+            progressBar.setVisibility(View.GONE);
+
+        if (data.equalsIgnoreCase("") || data.contains("Details Not Found")) {
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Know_Your_LandID.this, R.style.MyDialogTheme);
+            builder.setTitle(getString(R.string.status))
+                    .setMessage(getString(R.string.no_data_found_for_this_record))
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
+            final android.app.AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        } else if(data.matches("[0-9]+") && data.length()==12) {
+            Intent i = new Intent(Know_Your_LandID.this, ViewBhoomiLandID.class);
+            i.putExtra("bhoomiLandID", ""+data);
+            startActivity(i);
+        } else {
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Know_Your_LandID.this, R.style.MyDialogTheme);
+            builder.setTitle(getString(R.string.status))
+                    //.setMessage(getString(R.string.something_went_wrong_pls_try_again))
+                    .setMessage(data)
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
+            final android.app.AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        }
+    }
+
+    @Override
+    public void onPostResponseError_BhoomiLandID(String data) {
+        if (progressBar != null)
+            progressBar.setVisibility(View.GONE);
+
+        if (data.contains("CertPathValidatorException")){
+            Toast.makeText(getApplicationContext(), ""+data, Toast.LENGTH_SHORT).show();
+        } else {
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Know_Your_LandID.this, R.style.MyDialogTheme);
+            builder.setTitle(getString(R.string.status))
+                    .setMessage(""+data)
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
+            final android.app.AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        }
+    }
+
+    @Override
+    public void onPreExecute_AppLgs() {
+        if (progressBar!=null)
+            progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onPostResponseSuccess_AppLgs(String data) {
+        Log.d("AppLgsRes", ""+data);
+        ClsReqLandID objClsReqLandID = new ClsReqLandID();
+        objClsReqLandID.setBhm_dist_code(district_id);
+        objClsReqLandID.setBhm_taluk_code(taluk_id);
+        objClsReqLandID.setBhm_hobli_code(hobli_id);
+        objClsReqLandID.setBhm_village_code(village_id);
+        objClsReqLandID.setBhm_land_code(land_no);
+
+        mTaskFragment.startBackgroundTask_GetBhoomiLandID(objClsReqLandID, getString(R.string.rest_service_url), tokenType, accessToken);
+    }
+
+    @Override
+    public void onPostResponseError_AppLgs(String data) {
+        Log.d("AppLgsRes", ""+data);
+        ClsReqLandID objClsReqLandID = new ClsReqLandID();
+        objClsReqLandID.setBhm_dist_code(district_id);
+        objClsReqLandID.setBhm_taluk_code(taluk_id);
+        objClsReqLandID.setBhm_hobli_code(hobli_id);
+        objClsReqLandID.setBhm_village_code(village_id);
+        objClsReqLandID.setBhm_land_code(land_no);
+
+        mTaskFragment.startBackgroundTask_GetBhoomiLandID(objClsReqLandID, getString(R.string.rest_service_url), tokenType, accessToken);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mTaskFragment.terminateExecutionOfBackTaskGetBhoomiLandID();
     }
 }

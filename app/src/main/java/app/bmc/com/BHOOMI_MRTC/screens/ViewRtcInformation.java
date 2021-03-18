@@ -94,7 +94,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
     private DataBaseHelper dataBaseHelper;
     ArrayAdapter<String> defaultArrayAdapter;
     Get_Surnoc_HissaRequest get_surnoc_hissaRequest;
-
+    int AppType;
     String accessToken, tokenType;
 
     @Override
@@ -135,6 +135,9 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
                         DataBaseHelper.class, getString(R.string.db_name)).build();
+
+        Intent i = getIntent();
+        AppType = i.getIntExtra("AppType", 0);
 
         Observable<List<? extends DistrictModelInterface>> districtDataObservable = Observable.fromCallable(() -> language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getDistinctDistricts() : dataBaseHelper.daoAccess().getDistinctDistrictsKannada());
         districtDataObservable
@@ -397,6 +400,8 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
             } else {
 //                surveyNo = Integer.parseInt(edittext_survey.getText().toString().trim());
                 if (isNetworkAvailable()) {
+                    spinner_hissa.setText("");
+                    spinner_hissa.setAdapter(defaultArrayAdapter);
                     mTaskFragment.startBackgroundTask_GenerateToken(getString(R.string.url_token));
                 }
                 else {
@@ -454,6 +459,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
                 intent.putExtra("surveyNo",surveyNo+"");
                 intent.putExtra("hissa_str",""+hissa_str);
                 intent.putExtra("RTC", "RTC");
+                intent.putExtra("AppType", AppType);
                 startActivity(intent);
 
             }
@@ -621,6 +627,35 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
     @Override
     public void onPostResponseError_Token(String errorResponse) {
         Toast.makeText(this, ""+errorResponse, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onPreExecuteGetBhoomiLandId() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccessGetBhoomiLandID(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_BhoomiLandID(String data) {
+
+    }
+
+    @Override
+    public void onPreExecute_AppLgs() {
+    }
+
+    @Override
+    public void onPostResponseSuccess_AppLgs(String data) {
+        Log.d("AppLgsRes", ""+data);
+    }
+
+    @Override
+    public void onPostResponseError_AppLgs(String data) {
+        Log.d("AppLgsRes", ""+data);
     }
 
     public void onPostResponseError_FORHISSA(String data, int count) {

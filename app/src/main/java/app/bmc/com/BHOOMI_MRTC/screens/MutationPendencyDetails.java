@@ -46,6 +46,7 @@ import app.bmc.com.BHOOMI_MRTC.interfaces.MPD_RES_Interface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.TalukModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.VillageModelInterface;
 import app.bmc.com.BHOOMI_MRTC.model.BHOOMI_API_Response;
+import app.bmc.com.BHOOMI_MRTC.model.ClsAppLgs;
 import app.bmc.com.BHOOMI_MRTC.model.MPD_RES_Data;
 import app.bmc.com.BHOOMI_MRTC.model.MPD_TABLE;
 import app.bmc.com.BHOOMI_MRTC.retrofit.AuthorizationClient;
@@ -97,6 +98,8 @@ public class MutationPendencyDetails extends AppCompatActivity implements RtcVie
     String tokenType, accessToken;
     private RtcViewInfoBackGroundTaskFragment mTaskFragment;
 
+    int AppType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,6 +129,9 @@ public class MutationPendencyDetails extends AppCompatActivity implements RtcVie
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
                         DataBaseHelper.class, getString(R.string.db_name)).build();
+
+        Intent i = getIntent();
+        AppType = i.getIntExtra("AppType", 0);
 
         defaultArrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_single_choice, new String[]{});
@@ -685,12 +691,18 @@ public class MutationPendencyDetails extends AppCompatActivity implements RtcVie
             alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
         } else {
             try {
-                    Get_MutationPendencyDetailsResponse(tokenType, accessToken);
+                ClsAppLgs objClsAppLgs = new ClsAppLgs();
+                objClsAppLgs.setAppID(1);
+                objClsAppLgs.setAppType(AppType);
+                objClsAppLgs.setIPAddress("");
+
+                mTaskFragment.startBackgroundTask_AppLgs(objClsAppLgs, getString(R.string.rest_service_url), tokenType, accessToken);
+
 //                JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
 //                mTaskFragment.startBackgroundTask_GetDetails_VilWise(jsonObject, getString(R.string.rest_service_url), tokenType, accessToken);
 
             } catch (Exception e){
-                Log.d("ExcepSuccessGetToken",e.getLocalizedMessage()+"");
+                e.printStackTrace();
                 Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         }
@@ -703,6 +715,38 @@ public class MutationPendencyDetails extends AppCompatActivity implements RtcVie
 //        Toast.makeText(this, "Authorization has been denied for this request.", Toast.LENGTH_SHORT).show();
 
     }
+
+    @Override
+    public void onPreExecuteGetBhoomiLandId() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccessGetBhoomiLandID(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_BhoomiLandID(String data) {
+
+    }
+
+    @Override
+    public void onPreExecute_AppLgs() {
+    }
+
+    @Override
+    public void onPostResponseSuccess_AppLgs(String data) {
+        Log.d("AppLgsRes", ""+data);
+        Get_MutationPendencyDetailsResponse(tokenType, accessToken);
+    }
+
+    @Override
+    public void onPostResponseError_AppLgs(String data) {
+        Log.d("AppLgsRes", ""+data);
+        Get_MutationPendencyDetailsResponse(tokenType, accessToken);
+    }
+
     public void Get_MutationPendencyDetailsResponse(String token_type, String token){
 
         apiInterface = AuthorizationClient.getClient(getResources().getString(R.string.rest_service_url),token_type,token).create(PariharaIndividualReportInteface.class);
@@ -740,12 +784,12 @@ public class MutationPendencyDetails extends AppCompatActivity implements RtcVie
 
 
                                     @Override
-                                    public void onSubscribe(Disposable d) {
+                                    public void onSubscribe(@NonNull Disposable d) {
 
                                     }
 
                                     @Override
-                                    public void onNext(Integer integer) {
+                                    public void onNext(@NonNull Integer integer) {
                                         List<MPD_TABLE> MPD_List = loadData();
                                         if (integer < 6) {
                                             createMPDData(MPD_List);
@@ -755,7 +799,7 @@ public class MutationPendencyDetails extends AppCompatActivity implements RtcVie
                                     }
 
                                     @Override
-                                    public void onError(Throwable e) {
+                                    public void onError(@NonNull Throwable e) {
                                         Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                                     }
 
@@ -777,7 +821,6 @@ public class MutationPendencyDetails extends AppCompatActivity implements RtcVie
             public void onFailure(@NonNull Call<BHOOMI_API_Response> call, @NonNull Throwable t) {
                 call.cancel();
                 progressDialog.dismiss();
-                Log.d("t :::::::::::::", t.getLocalizedMessage()+"");
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });

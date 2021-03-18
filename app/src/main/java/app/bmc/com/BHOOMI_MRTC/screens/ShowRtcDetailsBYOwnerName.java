@@ -358,6 +358,35 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity implements RtcV
     }
 
     @Override
+    public void onPreExecuteGetBhoomiLandId() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccessGetBhoomiLandID(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_BhoomiLandID(String data) {
+
+    }
+
+    @Override
+    public void onPreExecute_AppLgs() {
+    }
+
+    @Override
+    public void onPostResponseSuccess_AppLgs(String data) {
+        Log.d("AppLgsRes", ""+data);
+    }
+
+    @Override
+    public void onPostResponseError_AppLgs(String data) {
+        Log.d("AppLgsRes", ""+data);
+    }
+
+    @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;

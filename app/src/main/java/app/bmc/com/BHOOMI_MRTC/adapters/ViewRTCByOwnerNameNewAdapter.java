@@ -95,6 +95,7 @@ public class ViewRTCByOwnerNameNewAdapter extends BaseAdapter implements Filtera
             intent.putExtra("surveyNo", survey_no + "");
             intent.putExtra("hissa_str", hissa_no);
             intent.putExtra("RTC", "RTC");
+            intent.putExtra("AppType", 3);
             mContext.startActivity(intent);
 
         });

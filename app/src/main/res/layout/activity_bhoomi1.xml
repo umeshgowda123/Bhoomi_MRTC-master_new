@@ -386,7 +386,7 @@
                             android:paddingStart="2dip"
                             android:paddingEnd="5dip"
                             android:textColor="#26A69A"
-                            android:text="@string/know_your_landid" />
+                            android:text="@string/know_your_land_id" />
 
                     </LinearLayout>
                     <LinearLayout

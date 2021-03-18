@@ -44,6 +44,7 @@ import app.bmc.com.BHOOMI_MRTC.fragments.CultivatorDetailsFragment;
 import app.bmc.com.BHOOMI_MRTC.fragments.LandDetailsFragment;
 import app.bmc.com.BHOOMI_MRTC.fragments.OwnerDetailsFragment;
 import app.bmc.com.BHOOMI_MRTC.interfaces.VR_RES_Interface;
+import app.bmc.com.BHOOMI_MRTC.model.ClsAppLgs;
 import app.bmc.com.BHOOMI_MRTC.model.Staticinfopahani;
 import app.bmc.com.BHOOMI_MRTC.model.VR_INFO;
 import app.bmc.com.BHOOMI_MRTC.model.Villagedetails;
@@ -81,6 +82,8 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
 
     String input;
 
+    int AppType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,11 +93,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-       /* getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-
-*/
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -112,6 +111,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
         surveyNo = i.getStringExtra("surveyNo");
         hissa_str = i.getStringExtra("hissa_str");
         RTC = i.getStringExtra("RTC");
+        AppType = i.getIntExtra("AppType", 0);
 
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
@@ -150,12 +150,12 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                             .subscribe(new Observer<List<? extends VR_RES_Interface>>() {
 
                                 @Override
-                                public void onSubscribe(Disposable d) {
+                                public void onSubscribe(@NonNull Disposable d) {
 
                                 }
 
                                 @Override
-                                public void onNext(List<? extends VR_RES_Interface> vrdistidList) {
+                                public void onNext(@NonNull List<? extends VR_RES_Interface> vrdistidList) {
 
 
                                     VR_RES_Data = (List<VR_RES_Interface>) vrdistidList;
@@ -227,6 +227,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                                     }
                                     else {
                                         progressBar.setVisibility(View.VISIBLE);
+
                                         try {
                                             mTaskFragment.startBackgroundTask_GenerateToken(getString(R.string.url_token));
 
@@ -237,7 +238,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                                 }
 
                                 @Override
-                                public void onError(Throwable e) {
+                                public void onError(@NonNull Throwable e) {
 
                                 }
 
@@ -301,15 +302,14 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
     public void onPreExecute2() {
         if (progressBar!=null)
             progressBar.setVisibility(View.VISIBLE);
-
     }
 
     @Override
     public void onPostResponseSuccess2(String data) {
-        Log.d("DATA rtcdetails_success",""+data);
+        if (progressBar != null)
+            progressBar.setVisibility(View.GONE);
+
         if (data.contains("No value for rtc") || data.contains("Please try again later")) {
-            if (progressBar != null)
-                progressBar.setVisibility(View.GONE);
             final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(RtcDetails.this, R.style.MyDialogTheme);
             builder.setTitle(getString(R.string.status))
                     .setMessage(data+"")
@@ -323,8 +323,6 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
             alert.show();
             alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
         }else {
-            if (progressBar != null)
-                progressBar.setVisibility(View.GONE);
             XmlToJson xmlToJson = new XmlToJson.Builder(data.replace("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>", "").trim()).build();
             // convert to a JSONObject
             //JSONObject jsonObject = xmlToJson.toJson();
@@ -459,7 +457,9 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
 
     @Override
     public void onPreExecuteToken() {
-
+        progressBar = findViewById(R.id.progress_circular);
+        if (progressBar != null)
+            progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -478,8 +478,13 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
             alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
         } else {
             try {
-                JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
-                mTaskFragment.startBackgroundTask2(jsonObject, getString(R.string.rest_service_url),TokenType, AccessToken);
+
+                ClsAppLgs objClsAppLgs = new ClsAppLgs();
+                objClsAppLgs.setAppID(1);
+                objClsAppLgs.setAppType(AppType);
+                objClsAppLgs.setIPAddress("");
+
+                mTaskFragment.startBackgroundTask_AppLgs(objClsAppLgs, getString(R.string.rest_service_url), tokenType, accessToken);
             } catch (Exception e){
                 Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -489,6 +494,41 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
     @Override
     public void onPostResponseError_Token(String errorResponse) {
         Toast.makeText(this, ""+errorResponse, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onPreExecuteGetBhoomiLandId() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccessGetBhoomiLandID(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_BhoomiLandID(String data) {
+
+    }
+
+    @Override
+    public void onPreExecute_AppLgs() {
+        if (progressBar!=null)
+            progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onPostResponseSuccess_AppLgs(String data) {
+        Log.d("AppLgsResSuc", ""+data);
+        JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
+        mTaskFragment.startBackgroundTask2(jsonObject, getString(R.string.rest_service_url),tokenType, accessToken);
+    }
+
+    @Override
+    public void onPostResponseError_AppLgs(String data) {
+        Log.d("AppLgsResErr", ""+data);
+        JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
+        mTaskFragment.startBackgroundTask2(jsonObject, getString(R.string.rest_service_url),tokenType, accessToken);
     }
 
     @Override
@@ -524,12 +564,12 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
 
 
                         @Override
-                        public void onSubscribe(Disposable d) {
+                        public void onSubscribe(@NonNull Disposable d) {
 
                         }
 
                         @Override
-                        public void onNext(Integer integer) {
+                        public void onNext(@NonNull Integer integer) {
                             List<VR_INFO> vr_info_List = loadData();
                             if (integer < 6) {
                                 createVRTCData(vr_info_List);
@@ -539,7 +579,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                         }
 
                         @Override
-                        public void onError(Throwable e) {
+                        public void onError(@NonNull Throwable e) {
                             Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                         }
 
@@ -702,19 +742,19 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
 
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Long[] longs) {
+                    public void onNext(@NonNull Long[] longs) {
 //                        Intent intent = new Intent(ViewRtcInformation.this, BhoomiHomePage.class);
 //                        startActivity(intent);
 //                        finish();
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
                         Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
 
                     }
@@ -736,17 +776,17 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
 
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer integer) {
+                    public void onNext(@NonNull Integer integer) {
 
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
                         Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                     }
 

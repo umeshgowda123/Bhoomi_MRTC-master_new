@@ -51,6 +51,7 @@ import app.bmc.com.BHOOMI_MRTC.interfaces.LandConversion_Final_Order_Interface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.TalukModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.VillageModelInterface;
 import app.bmc.com.BHOOMI_MRTC.model.BHOOMI_API_Response;
+import app.bmc.com.BHOOMI_MRTC.model.ClsAppLgs;
 import app.bmc.com.BHOOMI_MRTC.model.LandConversion_Final_Order_TABLE;
 import app.bmc.com.BHOOMI_MRTC.retrofit.AuthorizationClient;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
@@ -63,7 +64,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Download_Conversion_order extends AppCompatActivity implements RtcViewInfoBackGroundTaskFragment.BackgroundCallBackRtcViewInfo {
+public class LandConversionFinalOrder extends AppCompatActivity implements RtcViewInfoBackGroundTaskFragment.BackgroundCallBackRtcViewInfo {
 
     RadioGroup rgForSelection;
     RadioButton rbRequestID, rbSurveyNo;
@@ -102,6 +103,8 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
 
     String tokenType, accessToken;
 
+    int AppType;
+
     private RtcViewInfoBackGroundTaskFragment mTaskFragment;
 
     @Override
@@ -135,6 +138,9 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
         sp_sum_village  =  findViewById(R.id.sp_sum_village);
         etSurveyNumber = findViewById(R.id.etSurveyNumber);
 
+        Intent i = getIntent();
+        AppType = i.getIntExtra("AppType", 0);
+
         FragmentManager fm = getSupportFragmentManager();
         mTaskFragment = (RtcViewInfoBackGroundTaskFragment) fm.findFragmentByTag(RtcViewInfoBackGroundTaskFragment.TAG_HEADLESS_FRAGMENT);
 
@@ -145,7 +151,7 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
             fm.beginTransaction().add(mTaskFragment, RtcViewInfoBackGroundTaskFragment.TAG_HEADLESS_FRAGMENT).commit();
         }
 
-        progressDialog = new ProgressDialog(Download_Conversion_order.this);
+        progressDialog = new ProgressDialog(LandConversionFinalOrder.this);
         progressDialog.setMessage(getString(R.string.please_wait));
         progressDialog.setCancelable(false);
 
@@ -290,7 +296,7 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
                         @Override
                         public void onNext(List<? extends TalukModelInterface> talukDataList) {
                             talukData = (List<TalukModelInterface>) talukDataList;
-                            ArrayAdapter<TalukModelInterface> talukArrayAdapter = new ArrayAdapter<>(Download_Conversion_order.this,
+                            ArrayAdapter<TalukModelInterface> talukArrayAdapter = new ArrayAdapter<>(LandConversionFinalOrder.this,
                                     android.R.layout.simple_list_item_single_choice, talukData);
                             sp_sum_taluk.setAdapter(talukArrayAdapter);
                         }
@@ -331,7 +337,7 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
                         @Override
                         public void onNext(List<? extends HobliModelInterface> hobliDataList) {
                             hobliData = (List<HobliModelInterface>) hobliDataList;
-                            ArrayAdapter<HobliModelInterface> hobliArrayAdapter = new ArrayAdapter<>(Download_Conversion_order.this,
+                            ArrayAdapter<HobliModelInterface> hobliArrayAdapter = new ArrayAdapter<>(LandConversionFinalOrder.this,
                                     android.R.layout.simple_list_item_single_choice, hobliData);
                             sp_sum_hobli.setAdapter(hobliArrayAdapter);
                         }
@@ -369,7 +375,7 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
                         @Override
                         public void onNext(List<? extends VillageModelInterface> villageDataList) {
                             villageData = (List<VillageModelInterface>) villageDataList;
-                            ArrayAdapter<VillageModelInterface> villageArrayAdapter = new ArrayAdapter<>(Download_Conversion_order.this,
+                            ArrayAdapter<VillageModelInterface> villageArrayAdapter = new ArrayAdapter<>(LandConversionFinalOrder.this,
                                     android.R.layout.simple_list_item_single_choice, villageData);
                             sp_sum_village.setAdapter(villageArrayAdapter);
                         }
@@ -454,7 +460,7 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
 
                                                 String sno_RES = LCFO_DATA.get(0).getSNO_RES();
                                                 if(sno_RES == null || sno_RES.equals("") || sno_RES.equals("[{\"Result\":\"Details not found\"}]")) {
-                                                    final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Download_Conversion_order.this, R.style.MyDialogTheme);
+                                                    final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversionFinalOrder.this, R.style.MyDialogTheme);
                                                     builder.setTitle(getString(R.string.status))
                                                             .setMessage(getString(R.string.no_data_found_for_this_record))
                                                             .setIcon(R.drawable.ic_notifications_black_24dp)
@@ -465,7 +471,7 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
                                                     alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
                                                 } else {
 
-                                                    Intent intent = new Intent(Download_Conversion_order.this, ConversionFinalOrders_BasedOnReq_ID.class);
+                                                    Intent intent = new Intent(LandConversionFinalOrder.this, ConversionFinalOrders_BasedOnReq_ID.class);
                                                     intent.putExtra("LandConversionFinalOrders", "" + sno_RES);
                                                     startActivity(intent);
                                                 }
@@ -526,7 +532,7 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
 
                                                 String req_RES = LCFO_DATA.get(0).getREQUEST_ID_RES();
                                                 if(req_RES == null || req_RES.equals("") || req_RES.equals("[{\"Result\":\"Details not found\"}]")) {
-                                                    final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Download_Conversion_order.this, R.style.MyDialogTheme);
+                                                    final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversionFinalOrder.this, R.style.MyDialogTheme);
                                                     builder.setTitle(getString(R.string.status))
                                                             .setMessage(getString(R.string.no_data_found_for_this_record))
                                                             .setIcon(R.drawable.ic_notifications_black_24dp)
@@ -536,7 +542,7 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
                                                     alert.show();
                                                     alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
                                                 } else {
-                                                    Intent intent = new Intent(Download_Conversion_order.this, ConversionFinalOrders_BasedOnReq_ID.class);
+                                                    Intent intent = new Intent(LandConversionFinalOrder.this, ConversionFinalOrders_BasedOnReq_ID.class);
                                                     intent.putExtra("LandConversionFinalOrders", "" + req_RES);
                                                     startActivity(intent);
                                                 }
@@ -563,9 +569,9 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
                     } else {
                         assert savedInstanceState != null;
                         if (savedInstanceState.isEmpty()) {
-                            Toast.makeText(Download_Conversion_order.this, "Please Enter Affidavit Number", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LandConversionFinalOrder.this, "Please Enter Affidavit Number", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(Download_Conversion_order.this, "Invalid Affidavit Number", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LandConversionFinalOrder.this, "Invalid Affidavit Number", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -587,7 +593,7 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
 
 
     public void selfDestruct() {
-        AlertDialog alertDialog = new AlertDialog.Builder(Download_Conversion_order.this).create();
+        AlertDialog alertDialog = new AlertDialog.Builder(LandConversionFinalOrder.this).create();
         // alertDialog.setTitle("Reset...");
         alertDialog.setMessage(getString(R.string.please_enable_internet_connection));
         alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.ok), (dialog, which) -> {
@@ -725,7 +731,7 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
 
                     progressDialog.dismiss();
                     if(ReqID_RES == null || ReqID_RES.equals("") || ReqID_RES.equals("[{\"Result\":\"Details not found\"}]")) {
-                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Download_Conversion_order.this, R.style.MyDialogTheme);
+                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversionFinalOrder.this, R.style.MyDialogTheme);
                         builder.setTitle(getString(R.string.status))
                                 .setMessage(getString(R.string.no_data_found_for_this_record))
                                 .setIcon(R.drawable.ic_notifications_black_24dp)
@@ -772,7 +778,7 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
                                     public void onComplete() {
                                         progressDialog.dismiss();
 
-                                        Intent intent = new Intent(Download_Conversion_order.this, ConversionFinalOrders_BasedOnReq_ID.class);
+                                        Intent intent = new Intent(LandConversionFinalOrder.this, ConversionFinalOrders_BasedOnReq_ID.class);
                                         intent.putExtra("LandConversionFinalOrders", "" + ReqID_RES);
                                         startActivity(intent);
                                     }
@@ -807,7 +813,7 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
 
                     progressDialog.dismiss();
                     if(SNO_RES == null || SNO_RES.equals("") || SNO_RES.contains("Details not found")) {
-                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Download_Conversion_order.this, R.style.MyDialogTheme);
+                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversionFinalOrder.this, R.style.MyDialogTheme);
                         builder.setTitle(getString(R.string.status))
                                 .setMessage(getString(R.string.no_data_found_for_this_record))
                                 .setIcon(R.drawable.ic_notifications_black_24dp)
@@ -855,7 +861,7 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
                                     public void onComplete() {
                                         progressDialog.dismiss();
 
-                                        Intent intent = new Intent(Download_Conversion_order.this, ConversionFinalOrders_BasedOnReq_ID.class);
+                                        Intent intent = new Intent(LandConversionFinalOrder.this, ConversionFinalOrders_BasedOnReq_ID.class);
                                         intent.putExtra("LandConversionFinalOrders", "" + SNO_RES);
                                         startActivity(intent);
                                     }
@@ -968,7 +974,7 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
         accessToken = AccessToken;
         tokenType = TokenType;
         if (AccessToken == null || AccessToken.equals("") || AccessToken.contains("INVALID")||TokenType == null || TokenType.equals("") || TokenType.contains("INVALID")) {
-            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Download_Conversion_order.this, R.style.MyDialogTheme);
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(LandConversionFinalOrder.this, R.style.MyDialogTheme);
             builder.setTitle(getString(R.string.status))
                     .setMessage(getString(R.string.something_went_wrong_pls_try_again))
                     .setIcon(R.drawable.ic_notifications_black_24dp)
@@ -979,13 +985,13 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
             alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
         } else {
             try {
-                if (strSelected.equals(getString(R.string.request_id))) {
-                    Log.d("request_id","request_id");
-                    ReqID_Response(tokenType, accessToken);
-                }else if (strSelected.equals(getString(R.string.survey_no_wise))){
-                    Log.d("survey_no_wise","survey_no_wise");
-                    SNO_Response(tokenType, accessToken);
-                }
+                ClsAppLgs objClsAppLgs = new ClsAppLgs();
+                objClsAppLgs.setAppID(1);
+                objClsAppLgs.setAppType(AppType);
+                objClsAppLgs.setIPAddress("");
+
+                mTaskFragment.startBackgroundTask_AppLgs(objClsAppLgs, getString(R.string.rest_service_url), tokenType, accessToken);
+
 //                JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
 //                mTaskFragment.startBackgroundTask_GetDetails_VilWise(jsonObject, getString(R.string.rest_service_url), tokenType, accessToken);
 
@@ -1001,5 +1007,48 @@ public class Download_Conversion_order extends AppCompatActivity implements RtcV
         Log.d("ERR_msg", errorResponse+"");
         Toast.makeText(this, ""+errorResponse, Toast.LENGTH_SHORT).show();
 //        Toast.makeText(this, "Authorization has been denied for this request.", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onPreExecuteGetBhoomiLandId() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccessGetBhoomiLandID(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_BhoomiLandID(String data) {
+
+    }
+
+    @Override
+    public void onPreExecute_AppLgs() {
+    }
+
+    @Override
+    public void onPostResponseSuccess_AppLgs(String data) {
+        Log.d("AppLgsRes", ""+data);
+        if (strSelected.equals(getString(R.string.request_id))) {
+            Log.d("request_id","request_id");
+            ReqID_Response(tokenType, accessToken);
+        }else if (strSelected.equals(getString(R.string.survey_no_wise))){
+            Log.d("survey_no_wise","survey_no_wise");
+            SNO_Response(tokenType, accessToken);
+        }
+    }
+
+    @Override
+    public void onPostResponseError_AppLgs(String data) {
+        Log.d("AppLgsRes", ""+data);
+        if (strSelected.equals(getString(R.string.request_id))) {
+            Log.d("request_id","request_id");
+            ReqID_Response(tokenType, accessToken);
+        }else if (strSelected.equals(getString(R.string.survey_no_wise))){
+            Log.d("survey_no_wise","survey_no_wise");
+            SNO_Response(tokenType, accessToken);
+        }
     }
 }

@@ -71,6 +71,7 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
     private int hobli_id;
     private int village_id;
     boolean clearData;
+    int AppType;
 
 //    String SOAP_ACTION2 = "http://tempuri.org/GetDetails_VillageWise_JSON";
 //    public final String OPERATION_NAME2 = "GetDetails_VillageWise_JSON";  //Method_name
@@ -120,6 +121,7 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
 
         Intent i = getIntent();
         clearData = i.getBooleanExtra("clearData", false);
+        AppType = i.getIntExtra("AppType", 0);
 
         if (clearData){
             deleteDBData();

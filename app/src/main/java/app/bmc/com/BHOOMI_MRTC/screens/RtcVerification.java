@@ -8,6 +8,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
@@ -37,6 +39,7 @@ import app.bmc.com.BHOOMI_MRTC.backgroundtasks.RtcViewInfoBackGroundTaskFragment
 import app.bmc.com.BHOOMI_MRTC.backgroundtasks.RtcXmlverificationBackGroundTask;
 import app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper;
 import app.bmc.com.BHOOMI_MRTC.interfaces.RTCV_RES_Interface;
+import app.bmc.com.BHOOMI_MRTC.model.ClsAppLgs;
 import app.bmc.com.BHOOMI_MRTC.model.RTC_VERIFICATION_TABLE;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -59,6 +62,8 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
 
     String accessToken, tokenType;
     JsonObject jsonObject;
+
+    int AppType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +90,9 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
                         DataBaseHelper.class, getString(R.string.db_name)).build();
+
+        Intent i = getIntent();
+        AppType = i.getIntExtra("AppType", 0);
 
         FragmentManager fm = getSupportFragmentManager();
         mTaskFragment = (RtcXmlverificationBackGroundTask) fm.findFragmentByTag(RtcXmlverificationBackGroundTask.TAG_HEADLESS_FRAGMENT);
@@ -192,12 +200,12 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
                             .subscribe(new Observer<List<? extends RTCV_RES_Interface>>() {
 
                                 @Override
-                                public void onSubscribe(Disposable d) {
+                                public void onSubscribe(@NonNull Disposable d) {
 
                                 }
 
                                 @Override
-                                public void onNext(List<? extends RTCV_RES_Interface> rtcv_res_interfaces_list) {
+                                public void onNext(@NonNull List<? extends RTCV_RES_Interface> rtcv_res_interfaces_list) {
 //                                    progressBar.setVisibility(View.GONE);
 
                                     RTCV_data = (List<RTCV_RES_Interface>) rtcv_res_interfaces_list;
@@ -239,7 +247,7 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
                                 }
 
                                 @Override
-                                public void onError(Throwable e) {
+                                public void onError(@NonNull Throwable e) {
 
                                 }
 
@@ -309,12 +317,12 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
 
 
                         @Override
-                        public void onSubscribe(Disposable d) {
+                        public void onSubscribe(@NonNull Disposable d) {
 
                         }
 
                         @Override
-                        public void onNext(Integer integer) {
+                        public void onNext(@NonNull Integer integer) {
                             List<RTC_VERIFICATION_TABLE> rtc_verification_tableList = loadData();
                             if (integer < 6) {
                                 createRTCVTABLE_Data(rtc_verification_tableList, data);
@@ -324,7 +332,7 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
                         }
 
                         @Override
-                        public void onError(Throwable e) {
+                        public void onError(@NonNull Throwable e) {
                             Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                         }
 
@@ -443,7 +451,12 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
         } else {
             try {
                 progressBar.setVisibility(View.VISIBLE);
-                mTaskFragment.startBackgroundTask(jsonObject, tokenType, accessToken);
+                ClsAppLgs objClsAppLgs = new ClsAppLgs();
+                objClsAppLgs.setAppID(1);
+                objClsAppLgs.setAppType(AppType);
+                objClsAppLgs.setIPAddress("");
+
+                mTaskFragment_2.startBackgroundTask_AppLgs(objClsAppLgs, getString(R.string.rest_service_url), tokenType, accessToken);
             } catch (Exception e){
                 Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -456,6 +469,37 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
         Toast.makeText(this, errorResponse+"", Toast.LENGTH_SHORT).show();
 //        Toast.makeText(this, "Authorization has been denied for this request.", Toast.LENGTH_SHORT).show();
 
+    }
+
+    @Override
+    public void onPreExecuteGetBhoomiLandId() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccessGetBhoomiLandID(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_BhoomiLandID(String data) {
+
+    }
+
+    @Override
+    public void onPreExecute_AppLgs() {
+    }
+
+    @Override
+    public void onPostResponseSuccess_AppLgs(String data) {
+        Log.d("AppLgsRes", ""+data);
+        mTaskFragment.startBackgroundTask(jsonObject, tokenType, accessToken);
+    }
+
+    @Override
+    public void onPostResponseError_AppLgs(String data) {
+        Log.d("AppLgsRes", ""+data);
+        mTaskFragment.startBackgroundTask(jsonObject, tokenType, accessToken);
     }
 
     @Override
@@ -491,16 +535,16 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
 
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Long[] longs) {
+                    public void onNext(@NonNull Long[] longs) {
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
                         Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
 
                     }
@@ -525,17 +569,17 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
 
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer integer) {
+                    public void onNext(@NonNull Integer integer) {
 
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
                         Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                     }
 

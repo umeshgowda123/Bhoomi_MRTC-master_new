@@ -15,12 +15,13 @@ import com.google.gson.JsonObject;
 
 import org.jetbrains.annotations.NotNull;
 
-import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.api.PariharaIndividualReportInteface;
 import app.bmc.com.BHOOMI_MRTC.api.RtcViewInformationApi;
 import app.bmc.com.BHOOMI_MRTC.model.BHOOMI_API_Response;
+import app.bmc.com.BHOOMI_MRTC.model.ClsReqLandID;
 import app.bmc.com.BHOOMI_MRTC.model.Get_Surnoc_HissaRequest;
 import app.bmc.com.BHOOMI_MRTC.model.TokenRes;
+import app.bmc.com.BHOOMI_MRTC.model.ClsAppLgs;
 import app.bmc.com.BHOOMI_MRTC.retrofit.PariharaIndividualreportClient;
 import app.bmc.com.BHOOMI_MRTC.retrofit.AuthorizationClient;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
@@ -40,6 +41,8 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
     Call<BHOOMI_API_Response> getRtcResponse_call;
     Call<BHOOMI_API_Response> getLandRestrictionResultCall;
     Call<BHOOMI_API_Response> getCultivatorResponse_Call;
+    Call<BHOOMI_API_Response> getBhoomiLandID_Call;
+    Call<BHOOMI_API_Response> AppLgs_resultCall;
 
     PariharaIndividualReportInteface apiInterface;
     Call<TokenRes> callToken;
@@ -134,6 +137,18 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         }
     }
 
+    public void startBackgroundTask_GetBhoomiLandID(ClsReqLandID objClsReqLandID, String url, String token_type, String token){
+        if (!isTaskExecuting) {
+            GetBhoomiLandId(objClsReqLandID, url, token_type, token);
+        }
+    }
+
+    public void startBackgroundTask_AppLgs(ClsAppLgs objClsAppLgs, String url, String token_type, String token) {
+        if (!isTaskExecuting) {
+            FnPutAppLgs(objClsAppLgs, url, token_type, token);
+        }
+    }
+
     private void GetToken(String url) {
         isTaskExecuting = true;
         if (backgroundCallBack != null)
@@ -159,12 +174,9 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
                 } else {
                     isTaskExecuting = false;
                     if (backgroundCallBack != null) {
-
                         String errorResponse = response.message();
-
                         backgroundCallBack.onPostResponseError_Token(errorResponse);
                     }
-
                 }
                 }
 
@@ -173,9 +185,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
                     isTaskExecuting = false;
                     error.printStackTrace();
                     if (backgroundCallBack != null) {
-
                         String errorResponse = error.getMessage();
-                        Log.d("ERR_RES", "" + errorResponse);
                         backgroundCallBack.onPostResponseError_Token(errorResponse);
                     }
                 }
@@ -342,6 +352,53 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         }
     }
 
+    public void GetBhoomiLandId(ClsReqLandID objClsReqLandID, String url, String token_type, String token){
+        isTaskExecuting = true;
+        if (backgroundCallBack != null)
+            backgroundCallBack.onPreExecuteGetBhoomiLandId();
+
+        Retrofit retrofit = AuthorizationClient.getClient(url,token_type,token);
+        PariharaIndividualReportInteface service = retrofit.create(PariharaIndividualReportInteface.class);
+        getBhoomiLandID_Call = service.FnGet_BhoomiLandId(objClsReqLandID);
+        getBhoomiLandID_Call.enqueue(new Callback<BHOOMI_API_Response>() {
+            @Override
+            public void onResponse(@NonNull Call<BHOOMI_API_Response> call, @NonNull Response<BHOOMI_API_Response> response) {
+                if (response.isSuccessful()) {
+                    BHOOMI_API_Response viewResult = response.body();
+                    //String get_rtc_data_result = response.body();
+                    isTaskExecuting = false;
+                    if (backgroundCallBack != null) {
+                        assert viewResult != null;
+                        backgroundCallBack.onPostResponseSuccessGetBhoomiLandID(viewResult.getBhoomI_API_Response());
+                    }
+                } else {
+                    isTaskExecuting = false;
+                    if (backgroundCallBack != null) {
+                        String errorResponse = response.message();
+                        backgroundCallBack.onPostResponseError_BhoomiLandID(errorResponse);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<BHOOMI_API_Response> call, @NonNull Throwable t) {
+                isTaskExecuting = false;
+                t.printStackTrace();
+                if (backgroundCallBack != null) {
+                    String errorResponse = t.getMessage();
+                    Log.d("Err_msg", errorResponse + "");
+                    backgroundCallBack.onPostResponseError_BhoomiLandID(errorResponse);
+                }
+            }
+        });
+    }
+
+    public void terminateExecutionOfBackTaskGetBhoomiLandID(){
+        if (getBhoomiLandID_Call != null && getBhoomiLandID_Call.isExecuted()) {
+            getBhoomiLandID_Call.cancel();
+        }
+    }
+
     private void getLandRestrictionResult(JsonObject input, String url, String token_type, String token){
         isTaskExecuting = true;
         if (backgroundCallBack != null)
@@ -478,11 +535,51 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
     }
 
     public void terminateExecutionOfGetDetails_VillageWise_JSONResponse(){
-        Log.d("Task1", "Entered");
         if (getLandRestrictionResultCall != null && getLandRestrictionResultCall.isExecuted()) {
             getLandRestrictionResultCall.cancel();
         }
     }
+
+    private void FnPutAppLgs(ClsAppLgs objClsAppLgs, String url, String token_type, String token){
+        isTaskExecuting = true;
+        if (backgroundCallBack != null)
+            backgroundCallBack.onPreExecute_AppLgs();
+
+        Retrofit retrofit = AuthorizationClient.getClient(url, token_type, token);
+        PariharaIndividualReportInteface service = retrofit.create(PariharaIndividualReportInteface.class);
+        AppLgs_resultCall = service.FnAppLgs(objClsAppLgs);
+        AppLgs_resultCall.enqueue(new Callback<BHOOMI_API_Response>() {
+            @Override
+            public void onResponse(@NonNull Call<BHOOMI_API_Response> call, @NonNull Response<BHOOMI_API_Response> response) {
+                if (response.isSuccessful()) {
+                    BHOOMI_API_Response bhoomi_api_response = response.body();
+                    assert bhoomi_api_response != null;
+                    String data = bhoomi_api_response.getBhoomI_API_Response();
+                    isTaskExecuting = false;
+                    if (backgroundCallBack != null) {
+                        backgroundCallBack.onPostResponseSuccess_AppLgs(data);
+                    }
+                } else {
+                    isTaskExecuting = false;
+                    if (backgroundCallBack != null) {
+                        String errorResponse = response.message();
+                        backgroundCallBack.onPostResponseError_AppLgs(errorResponse);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<BHOOMI_API_Response> call, @NonNull Throwable t) {
+                isTaskExecuting = false;
+                t.printStackTrace();
+                if (backgroundCallBack != null) {
+                    String errorResponse = t.getMessage();
+                    backgroundCallBack.onPostResponseError_AppLgs(errorResponse);
+                }
+            }
+        });
+    }
+
     public interface BackgroundCallBackRtcViewInfo {
 
         void onPreExecute1();
@@ -517,6 +614,14 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         void onPreExecuteToken();
         void onPostResponseSuccessGetToken(String TokenType, String AccessToken );
         void onPostResponseError_Token(String errorResponse);
+
+        void onPreExecuteGetBhoomiLandId();
+        void onPostResponseSuccessGetBhoomiLandID(String data);
+        void onPostResponseError_BhoomiLandID(String data);
+
+        void onPreExecute_AppLgs();
+        void onPostResponseSuccess_AppLgs(String data);
+        void onPostResponseError_AppLgs(String data);
 
     }
 }

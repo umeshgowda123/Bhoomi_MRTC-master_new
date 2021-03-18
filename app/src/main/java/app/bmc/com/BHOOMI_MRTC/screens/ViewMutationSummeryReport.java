@@ -46,6 +46,7 @@ import app.bmc.com.BHOOMI_MRTC.interfaces.HobliModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.MSR_RES_Interface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.TalukModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.VillageModelInterface;
+import app.bmc.com.BHOOMI_MRTC.model.ClsAppLgs;
 import app.bmc.com.BHOOMI_MRTC.model.MSR_RES_Data;
 import app.bmc.com.BHOOMI_MRTC.model.MS_REPORT_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.BHOOMI_API_Response;
@@ -98,6 +99,8 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
 
     String tokenType, accessToken;
 
+    int AppType;
+
     private RtcViewInfoBackGroundTaskFragment mTaskFragment;
 
     @Override
@@ -130,6 +133,9 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
                         DataBaseHelper.class, getString(R.string.db_name)).build();
+
+        Intent i = getIntent();
+        AppType = i.getIntExtra("AppType", 0);
 
         defaultArrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_single_choice, new String[]{});
@@ -692,7 +698,13 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
             alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
         } else {
             try {
-                Get_MutationSummeryReportResponse(tokenType, accessToken);
+                ClsAppLgs objClsAppLgs = new ClsAppLgs();
+                objClsAppLgs.setAppID(1);
+                objClsAppLgs.setAppType(AppType);
+                objClsAppLgs.setIPAddress("");
+
+                mTaskFragment.startBackgroundTask_AppLgs(objClsAppLgs, getString(R.string.rest_service_url), tokenType, accessToken);
+
 //                JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
 //                mTaskFragment.startBackgroundTask_GetDetails_VilWise(jsonObject, getString(R.string.rest_service_url), tokenType, accessToken);
 
@@ -709,6 +721,37 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
         Toast.makeText(this, ""+errorResponse, Toast.LENGTH_SHORT).show();
 //        Toast.makeText(this, "Authorization has been denied for this request.", Toast.LENGTH_SHORT).show();
 
+    }
+
+    @Override
+    public void onPreExecuteGetBhoomiLandId() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccessGetBhoomiLandID(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_BhoomiLandID(String data) {
+
+    }
+
+    @Override
+    public void onPreExecute_AppLgs() {
+    }
+
+    @Override
+    public void onPostResponseSuccess_AppLgs(String data) {
+        Log.d("AppLgsRes", ""+data);
+        Get_MutationSummeryReportResponse(tokenType, accessToken);
+    }
+
+    @Override
+    public void onPostResponseError_AppLgs(String data) {
+        Log.d("AppLgsRes", ""+data);
+        Get_MutationSummeryReportResponse(tokenType, accessToken);
     }
 
     public void Get_MutationSummeryReportResponse(String token_type, String token){

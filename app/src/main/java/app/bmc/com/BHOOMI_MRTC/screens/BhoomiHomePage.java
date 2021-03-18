@@ -129,59 +129,78 @@ public class BhoomiHomePage extends AppCompatActivity {
         //createMaintenanceTbl();
 
         layout_viewRtc.setOnClickListener(v -> {
+            //Service_TYPE Code: 1, App_TYPE ID: 1
             Intent intent = new Intent(BhoomiHomePage.this, ViewRtcInformation.class);
+            intent.putExtra("AppType", 1);
             startActivity(intent);
         });
 
         layout_rtc_verify.setOnClickListener(v -> {
+            //Service_TYPE Code: 1, App_TYPE ID: 2
             Intent intent = new Intent(BhoomiHomePage.this, RtcVerification.class);
+            intent.putExtra("AppType", 2);
             startActivity(intent);
         });
 
 
         layout_view_rtc_ownerName.setOnClickListener(v -> {
+            //Service_TYPE Code: 1, App_TYPE ID: 3
             Intent intent = new Intent(BhoomiHomePage.this, ViewRtcInformationByOwnerName.class);
+            intent.putExtra("AppType", 3);
             startActivity(intent);
         });
 
         layout_mutation_pendency.setOnClickListener(v -> {
+            //Service_TYPE Code: 1, App_TYPE ID: 4
             Intent intent = new Intent(BhoomiHomePage.this,MutationPendencyDetails.class);
+            intent.putExtra("AppType", 4);
             startActivity(intent);
         });
 
 
         layout_mut_summery.setOnClickListener(v -> {
+            //Service_TYPE Code: 1, App_TYPE ID: 5
             Intent intent = new Intent(BhoomiHomePage.this,ViewMutationSummeryReport.class);
+            intent.putExtra("AppType", 5);
             startActivity(intent);
         });
 
 
 
         layout_mutation_status.setOnClickListener(v -> {
-
+            //Service_TYPE Code: 1, App_TYPE ID: 6
             Intent intent = new Intent(BhoomiHomePage.this,ViewMutationStatusInformation.class);
+            intent.putExtra("AppType", 6);
             startActivity(intent);
         });
 
 
         layout_restriction_land.setOnClickListener(v -> {
-            Intent in = new Intent(BhoomiHomePage.this,RestrictionOnLand.class);
-            startActivity(in);
+            //Service_TYPE Code: 1, App_TYPE ID: 7
+            Intent intent = new Intent(BhoomiHomePage.this,RestrictionOnLand.class);
+            intent.putExtra("AppType", 7);
+            startActivity(intent);
         });
 
 
         view_land_conversion.setOnClickListener(v -> {
-            Intent intent = new Intent(BhoomiHomePage.this,LandConversion.class);
+            //Service_TYPE Code: 1, App_TYPE ID: 8
+            Intent intent = new Intent(BhoomiHomePage.this, LandConversionReqStatus.class);
+            intent.putExtra("AppType", 8);
             startActivity(intent);
         });
 
         download_Conversion_order.setOnClickListener(v -> {
-            Intent intent = new Intent(BhoomiHomePage.this, Download_Conversion_order.class);
+            //Service_TYPE Code: 1, App_TYPE ID: 9
+            Intent intent = new Intent(BhoomiHomePage.this, LandConversionFinalOrder.class);
+            intent.putExtra("AppType", 9);
             startActivity(intent);
         });
 
         layout_know_landID.setOnClickListener(v -> {
+            //Service_TYPE Code: 1, App_TYPE ID: 25
             Intent intent = new Intent(BhoomiHomePage.this, Know_Your_LandID.class);
+            intent.putExtra("AppType", 25);
             startActivity(intent);
         });
 

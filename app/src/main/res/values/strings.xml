@@ -59,6 +59,7 @@
     <string name="hobli_err">Hobli is required</string>
     <string name="village_err">Village is required</string>
     <string name="survey_no_err">Survey Number is required</string>
+    <string name="surnoc_err">Surnoc is required</string>
     <string name="hissa_err">Hissa is required</string>
     <string name="validfrom">Valid From</string>
     <string name="land_code">Land Code</string>
@@ -441,6 +442,6 @@
     <string name="mr_no">MR No.</string>
     <string name="land_conversion_application_status">Land Conversion Application Status</string>
     <string name="stage_wise_status">Stage wise Status</string>
-    <string name="know_your_landid">Know your LandID</string>
     <string name="know_your_land_id">Know Your Land ID</string>
+    <string name="your_land_id">Your Land ID</string>
 </resources>

@@ -55,6 +55,7 @@
     <string name="hobli_err">ಹೋಬಳಿ ಅಗತ್ಯವಿದೆ</string>
     <string name="village_err">ಗ್ರಾಮ ಅಗತ್ಯವಿದೆ</string>
     <string name="survey_no_err">ಸರ್ವೇ ನಂಬರ್ ಅಗತ್ಯವಿದೆ</string>
+    <string name="surnoc_err">ಸರ್ ನಾಕ್ ಅಗತ್ಯವಿದೆ</string>
     <string name="hissa_err">ಹಿಸ್ಸಾ ಅಗತ್ಯವಿದೆ</string>
     <string name="validfrom">ನಿಂದ ಮಾನ್ಯ</string>
     <string name="year_season">1.ವರ್ಷ ಮತ್ತು ಕಾಲ</string>
@@ -399,5 +400,6 @@
     <string name="mr_no">ಎಮ್.ಆರ್ ಸಂಖ್ಯೆ</string>
     <string name="land_conversion_application_status">ಭೂ ಪರಿವರ್ತನೆ ಅರ್ಜಿ ಸ್ಥಿತಿ</string>
     <string name="stage_wise_status">ಹಂತವಾರು ಸ್ಥಿತಿ</string>
-    <string name="know_your_landid">Know your LandID</string>
+    <string name="know_your_land_id">Know Your Land ID</string>
+    <string name="your_land_id">Your Land ID</string>
 </resources>

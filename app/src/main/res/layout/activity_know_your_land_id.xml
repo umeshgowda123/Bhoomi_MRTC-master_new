@@ -164,6 +164,17 @@
                     android:textColor="@android:color/white" />
 
                 <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                    android:id="@+id/sp_surnc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp"
+                    android:hint="@string/surnoc_no"
+                    android:textColorHint="@color/hint_before_float_rtc"
+                    app:met_floatingLabel="normal"
+                    app:met_floatingLabelTextColor="@color/hint_rtc" />
+
+                <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
                     android:id="@+id/sp_landid_hissa"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

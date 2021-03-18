@@ -3,7 +3,9 @@ package app.bmc.com.BHOOMI_MRTC.api;
 import com.google.gson.JsonObject;
 
 import app.bmc.com.BHOOMI_MRTC.model.BHOOMI_API_Response;
+import app.bmc.com.BHOOMI_MRTC.model.ClsReqLandID;
 import app.bmc.com.BHOOMI_MRTC.model.TokenRes;
+import app.bmc.com.BHOOMI_MRTC.model.ClsAppLgs;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -14,14 +16,14 @@ import retrofit2.http.Path;
 
 public interface PariharaIndividualReportInteface {
 
-
+    @POST("api/values/FnAppLgs")
+    Call<BHOOMI_API_Response> FnAppLgs(@Body ClsAppLgs objClsAppLgs);
 
 
     @Headers({"content-type: text/json; charset=utf-8"})
     @POST("api/values/GetMutationPendencyDetails/{pCensus_dist_code}/{pCensus_Taluk_Code}/{pHobliCode}/{pVillageCode}")
     Call<BHOOMI_API_Response> getMutationPendingDetails(@Path("pCensus_dist_code") int pCensus_dist_code, @Path("pCensus_Taluk_Code") int pCensus_Taluk_Code,
                                                         @Path("pHobliCode") int pHobliCode, @Path("pVillageCode") int pVillageCode);
-
 
 
     @Headers({"content-type: text/json; charset=utf-8"})
@@ -60,10 +62,19 @@ public interface PariharaIndividualReportInteface {
     @Headers({"content-type: text/json; charset=utf-8"})
     @POST("api/values/GetLandRestriction_RAW/")
     Call<BHOOMI_API_Response> fnGetLandRestrictionResult(
-            @Body JsonObject input);
+            @Body JsonObject input
+    );
+
+    @POST("api/values/FnGet_BhoomiLandId/")
+    Call<BHOOMI_API_Response> FnGet_BhoomiLandId(
+            @Body ClsReqLandID objReqLandID);
 
     @FormUrlEncoded
     @POST("token")
-    Call<TokenRes> getToken(@Field("username") String email, @Field("password") String password, @Field("grant_type") String granttype);
+    Call<TokenRes> getToken(
+            @Field("username") String email,
+            @Field("password") String password,
+            @Field("grant_type") String granttype
+    );
 
 }

@@ -18,6 +18,25 @@ public interface RtcViewInformationApi {
             @Body Get_Surnoc_HissaRequest get_surnoc_hissaRequest
     );
 
+    @POST("api/values/GetSurnocNo/{pCensus_dist_code}/{pCensus_Taluk_Code}/{pHoblicode}/{pVillagecode}/{pSurvey_no}")
+    Call<BHOOMI_API_Response> GetSurnocNo(
+            @Path("pCensus_dist_code") int pCensus_dist_code,
+            @Path("pCensus_Taluk_Code") int pCensus_Taluk_Code,
+            @Path("pHoblicode") int pHoblicode,
+            @Path("pVillagecode") int pVillagecode,
+            @Path("pSurvey_no") int pSurvey_no
+    );
+
+    @POST("api/values/GetHissaNo/{pCensus_dist_code}/{pCensus_Taluk_Code}/{pHoblicode}/{pVillagecode}/{pSurvey_no}/{pSurnoc}")
+    Call<BHOOMI_API_Response> GetHissaNo(
+            @Path("pCensus_dist_code") int pCensus_dist_code,
+            @Path("pCensus_Taluk_Code") int pCensus_Taluk_Code,
+            @Path("pHoblicode") int pHoblicode,
+            @Path("pVillagecode") int pVillagecode,
+            @Path("pSurvey_no") int pSurvey_no,
+            @Path("pSurnoc") int pSurnoc
+    );
+
     @Headers({"content-type: text/json; charset=utf-8"})
     @POST("api/values/get_rtc_data/")
     Call<BHOOMI_API_Response> getRtcResponse(

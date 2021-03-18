@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -41,6 +42,7 @@ import app.bmc.com.BHOOMI_MRTC.adapters.RestrictionOnLandReportAdapter;
 import app.bmc.com.BHOOMI_MRTC.backgroundtasks.RtcViewInfoBackGroundTaskFragment;
 import app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper;
 import app.bmc.com.BHOOMI_MRTC.interfaces.RLR_RES_Interface;
+import app.bmc.com.BHOOMI_MRTC.model.ClsAppLgs;
 import app.bmc.com.BHOOMI_MRTC.model.R_LAND_REPORT_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.RestrictionOnLandReportTable;
 import io.reactivex.Observable;
@@ -63,6 +65,8 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
     String strData;
     List<RLR_RES_Interface> RLR_RES_Data;
     String AccessToken, TokenType;
+    JsonObject jsonObject;
+    int AppType;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -108,6 +112,7 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
             hissa = intent.getStringExtra("hi_no");
             AccessToken = intent.getStringExtra("AccessToken");
             TokenType = intent.getStringExtra("TokenType");
+            AppType = intent.getIntExtra("AppType", 0);
 
         }
         if (isNetworkAvailable()){
@@ -176,9 +181,15 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                                     }
                                 }
                                 else {
-                                    JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
+                                    jsonObject = new JsonParser().parse(input).getAsJsonObject();
                                     progressBar.setVisibility(View.VISIBLE);
-                                    mTaskFragment.startBackgroundTask4(jsonObject, getString(R.string.rest_service_url),TokenType,AccessToken);
+
+                                    ClsAppLgs objClsAppLgs = new ClsAppLgs();
+                                    objClsAppLgs.setAppID(1);
+                                    objClsAppLgs.setAppType(AppType);
+                                    objClsAppLgs.setIPAddress("");
+
+                                    mTaskFragment.startBackgroundTask_AppLgs(objClsAppLgs, getString(R.string.rest_service_url), TokenType, AccessToken);
                                 }
                             }
 
@@ -301,6 +312,37 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
     @Override
     public void onPostResponseError_Token(String errorResponse) {
 
+    }
+
+    @Override
+    public void onPreExecuteGetBhoomiLandId() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccessGetBhoomiLandID(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_BhoomiLandID(String data) {
+
+    }
+
+    @Override
+    public void onPreExecute_AppLgs() {
+    }
+
+    @Override
+    public void onPostResponseSuccess_AppLgs(String data) {
+        Log.d("AppLgsRes", ""+data);
+        mTaskFragment.startBackgroundTask4(jsonObject, getString(R.string.rest_service_url),TokenType,AccessToken);
+    }
+
+    @Override
+    public void onPostResponseError_AppLgs(String data) {
+        Log.d("AppLgsRes", ""+data);
+        mTaskFragment.startBackgroundTask4(jsonObject, getString(R.string.rest_service_url),TokenType,AccessToken);
     }
 
     @Override

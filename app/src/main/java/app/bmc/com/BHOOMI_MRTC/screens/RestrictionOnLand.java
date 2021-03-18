@@ -103,6 +103,8 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
 
     String accessToken, tokenType;
 
+    int AppType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,6 +146,9 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
                         DataBaseHelper.class, getString(R.string.db_name)).build();
+
+        Intent i = getIntent();
+        AppType = i.getIntExtra("AppType", 0);
 
         Observable<List<? extends DistrictModelInterface>> districtDataObservable = Observable.fromCallable(() -> language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getDistinctDistricts() : dataBaseHelper.daoAccess().getDistinctDistrictsKannada());
         districtDataObservable
@@ -440,6 +445,7 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
                 intent.putExtra("hi_no", hissa + "");
                 intent.putExtra("AccessToken", accessToken);
                 intent.putExtra("TokenType", tokenType);
+                intent.putExtra("AppType", AppType);
                 startActivity(intent);
             }
         });
@@ -605,6 +611,35 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
         Log.d("ERR_msg", errorResponse+"");
         Toast.makeText(this, ""+errorResponse, Toast.LENGTH_SHORT).show();
 //        Toast.makeText(this, "Authorization has been denied for this request.", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onPreExecuteGetBhoomiLandId() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccessGetBhoomiLandID(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_BhoomiLandID(String data) {
+
+    }
+
+    @Override
+    public void onPreExecute_AppLgs() {
+    }
+
+    @Override
+    public void onPostResponseSuccess_AppLgs(String data) {
+        Log.d("AppLgsRes", ""+data);
+    }
+
+    @Override
+    public void onPostResponseError_AppLgs(String data) {
+        Log.d("AppLgsRes", ""+data);
     }
 
     @Override

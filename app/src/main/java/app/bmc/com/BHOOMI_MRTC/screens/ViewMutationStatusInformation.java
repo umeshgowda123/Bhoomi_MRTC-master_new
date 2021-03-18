@@ -51,6 +51,7 @@ import app.bmc.com.BHOOMI_MRTC.interfaces.HobliModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.TalukModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.VMS_RES_Interface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.VillageModelInterface;
+import app.bmc.com.BHOOMI_MRTC.model.ClsAppLgs;
 import app.bmc.com.BHOOMI_MRTC.model.Get_Surnoc_HissaRequest;
 import app.bmc.com.BHOOMI_MRTC.model.Hissa_Response;
 import app.bmc.com.BHOOMI_MRTC.model.V_MUTATION_STATUS_TABLE;
@@ -103,6 +104,8 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
     String accessToken, tokenType;
 
+    int AppType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,6 +148,9 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
         dataBaseHelper =
                 Room.databaseBuilder(getApplicationContext(),
                         DataBaseHelper.class, getString(R.string.db_name)).build();
+
+        Intent i = getIntent();
+        AppType = i.getIntExtra("AppType", 0);
 
         Observable<List<? extends DistrictModelInterface>> districtDataObservable = Observable.fromCallable(() -> language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getDistinctDistricts() : dataBaseHelper.daoAccess().getDistinctDistrictsKannada());
         districtDataObservable
@@ -496,34 +502,39 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
                                     VMS_RES_Data = (List<VMS_RES_Interface>) vms_res_interfaces_list;
                                     if (vms_res_interfaces_list.size() != 0) {
-                                        for (int i = 0; i <= vms_res_interfaces_list.size()-1; i++) {
+                                            for (int i = 0; i <= vms_res_interfaces_list.size()-1; i++) {
 
-                                            String Response = VMS_RES_Data.get(0).getVMS_RES();
-                                            if (Response.contains("Details not found") || Response.isEmpty()) {
-                                                final AlertDialog.Builder builder = new AlertDialog.Builder(ViewMutationStatusInformation.this, R.style.MyDialogTheme);
-                                                builder.setTitle(getString(R.string.mutation_status))
-                                                        .setMessage(getString(R.string.no_mutations_are_pending_in_this_survey_no))
-                                                        .setIcon(R.drawable.ic_notifications_black_24dp)
-                                                        .setCancelable(false)
-                                                        .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
-                                                final AlertDialog alert = builder.create();
-                                                alert.show();
-                                                alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-                                            } else {
-                                                try {
-                                                    Intent intent = new Intent(ViewMutationStatusInformation.this, ShowMutationStatusDetails.class);
-                                                    intent.putExtra("status_response_data", "" + Response);
-                                                    startActivity(intent);
-                                                } catch (Exception e) {
-                                                    e.printStackTrace();
+                                                String Response = VMS_RES_Data.get(0).getVMS_RES();
+                                                if (Response.contains("Details not found") || Response.isEmpty()) {
+                                                    final AlertDialog.Builder builder = new AlertDialog.Builder(ViewMutationStatusInformation.this, R.style.MyDialogTheme);
+                                                    builder.setTitle(getString(R.string.mutation_status))
+                                                            .setMessage(getString(R.string.no_mutations_are_pending_in_this_survey_no))
+                                                            .setIcon(R.drawable.ic_notifications_black_24dp)
+                                                            .setCancelable(false)
+                                                            .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
+                                                    final AlertDialog alert = builder.create();
+                                                    alert.show();
+                                                    alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+                                                } else {
+                                                    try {
+                                                        Intent intent = new Intent(ViewMutationStatusInformation.this, ShowMutationStatusDetails.class);
+                                                        intent.putExtra("status_response_data", "" + Response);
+                                                        startActivity(intent);
+                                                    } catch (Exception e) {
+                                                        e.printStackTrace();
+                                                    }
                                                 }
                                             }
-                                        }
                                         } else {
+                                            ClsAppLgs objClsAppLgs = new ClsAppLgs();
+                                            objClsAppLgs.setAppID(1);
+                                            objClsAppLgs.setAppType(AppType);
+                                            objClsAppLgs.setIPAddress("");
+
+                                            mTaskFragment.startBackgroundTask_AppLgs(objClsAppLgs, getString(R.string.rest_service_url), tokenType, accessToken);
                                             //5/6/5/1/1714
-                                            mTaskFragment.startBackgroundTask3(district_id, taluk_id, hobli_id, village_id, land_no, getString(R.string.rest_service_url),tokenType,accessToken);
 //                                            mTaskFragment.startBackgroundTask3(1, 1, 1, 1, 969,getString(R.string.rest_service_url),tokenType,accessToken);
-                                        }
+                                    }
                                 }
 
                                 @Override
@@ -776,6 +787,37 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
         Log.d("ERR_msg", errorResponse+"");
         Toast.makeText(this, ""+errorResponse, Toast.LENGTH_SHORT).show();
 //        Toast.makeText(this, "Authorization has been denied for this request.", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onPreExecuteGetBhoomiLandId() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccessGetBhoomiLandID(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_BhoomiLandID(String data) {
+
+    }
+
+    @Override
+    public void onPreExecute_AppLgs() {
+    }
+
+    @Override
+    public void onPostResponseSuccess_AppLgs(String data) {
+        Log.d("AppLgsRes", ""+data);
+        mTaskFragment.startBackgroundTask3(district_id, taluk_id, hobli_id, village_id, land_no, getString(R.string.rest_service_url),tokenType,accessToken);
+    }
+
+    @Override
+    public void onPostResponseError_AppLgs(String data) {
+        Log.d("AppLgsRes", ""+data);
+        mTaskFragment.startBackgroundTask3(district_id, taluk_id, hobli_id, village_id, land_no, getString(R.string.rest_service_url),tokenType,accessToken);
     }
 
     @Override
