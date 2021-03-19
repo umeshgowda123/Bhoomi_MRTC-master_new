@@ -1051,4 +1051,34 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
             SNO_Response(tokenType, accessToken);
         }
     }
+
+    @Override
+    public void onPreExecute_GetSurnocNo() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess_GetSurnocNo(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_GetSurnocNo(String data) {
+
+    }
+
+    @Override
+    public void onPreExecute_GetHissaNo() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess_GetHissaNo(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_GetHissaNo(String data) {
+
+    }
 }

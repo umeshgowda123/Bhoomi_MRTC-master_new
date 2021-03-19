@@ -387,6 +387,36 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity implements RtcV
     }
 
     @Override
+    public void onPreExecute_GetSurnocNo() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess_GetSurnocNo(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_GetSurnocNo(String data) {
+
+    }
+
+    @Override
+    public void onPreExecute_GetHissaNo() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess_GetHissaNo(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_GetHissaNo(String data) {
+
+    }
+
+    @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;

@@ -754,6 +754,36 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
         Get_MutationSummeryReportResponse(tokenType, accessToken);
     }
 
+    @Override
+    public void onPreExecute_GetSurnocNo() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess_GetSurnocNo(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_GetSurnocNo(String data) {
+
+    }
+
+    @Override
+    public void onPreExecute_GetHissaNo() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess_GetHissaNo(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_GetHissaNo(String data) {
+
+    }
+
     public void Get_MutationSummeryReportResponse(String token_type, String token){
         progressDialog = new ProgressDialog(ViewMutationSummeryReport.this);
         progressDialog.setMessage(getString(R.string.please_wait));

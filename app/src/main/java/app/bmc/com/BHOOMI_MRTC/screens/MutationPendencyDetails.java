@@ -747,6 +747,36 @@ public class MutationPendencyDetails extends AppCompatActivity implements RtcVie
         Get_MutationPendencyDetailsResponse(tokenType, accessToken);
     }
 
+    @Override
+    public void onPreExecute_GetSurnocNo() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess_GetSurnocNo(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_GetSurnocNo(String data) {
+
+    }
+
+    @Override
+    public void onPreExecute_GetHissaNo() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess_GetHissaNo(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_GetHissaNo(String data) {
+
+    }
+
     public void Get_MutationPendencyDetailsResponse(String token_type, String token){
 
         apiInterface = AuthorizationClient.getClient(getResources().getString(R.string.rest_service_url),token_type,token).create(PariharaIndividualReportInteface.class);

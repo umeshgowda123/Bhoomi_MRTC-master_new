@@ -33,6 +33,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
@@ -56,6 +58,8 @@ import app.bmc.com.BHOOMI_MRTC.model.ClsAppLgs;
 import app.bmc.com.BHOOMI_MRTC.model.ClsReqLandID;
 import app.bmc.com.BHOOMI_MRTC.model.Get_Surnoc_HissaRequest;
 import app.bmc.com.BHOOMI_MRTC.model.Hissa_Response;
+import app.bmc.com.BHOOMI_MRTC.model.Hissa_Separate_Response;
+import app.bmc.com.BHOOMI_MRTC.model.Surnoc_Response;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
 import fr.arnaudguyon.xmltojsonlib.XmlToJson;
 import io.reactivex.Observable;
@@ -86,7 +90,11 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
     int land_no;
     String hissa;
     String suroc;
-    List<Hissa_Response> hissa_responseList;
+//    List<Hissa_Response> hissa_responseList;
+
+    List<Surnoc_Response> surnoc_responseList;
+    List<Hissa_Separate_Response> hissa_responseList;
+
     String surveyNo;
     RtcViewInfoBackGroundTaskFragment mTaskFragment;
     ProgressBar progressBar;
@@ -99,6 +107,7 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
     String accessToken, tokenType;
 
     int AppType;
+    String input, input2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -345,14 +354,35 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
         sp_surnc.setOnItemClickListener((parent, view, position, id) -> {
             sp_landid_hissa.setText("");
             sp_landid_hissa.setAdapter(defaultArrayAdapter);
-            suroc = hissa_responseList.get(position).getSurnoc();
+            suroc = surnoc_responseList.get(position).getSurnoc();
+
+            input2 = "{" +
+                    "\"pCensus_dist_code\": \""+district_id+"\"," +
+                    "\"pCensus_Taluk_Code\": \""+taluk_id+"\"," +
+                    "\"pHoblicode\":\""+hobli_id+"\"," +
+                    "\"pVillagecode\": \""+village_id+"\"," +
+                    "\"pSurvey_no\": \""+surveyNo+"\"," +
+                    "\"pSurnoc\": \""+suroc+"\"" +
+                    "}";
+            JsonObject jsonObject = new JsonParser().parse(input2).getAsJsonObject();
+            mTaskFragment.startBackgroundTask_GetHissaNo(jsonObject, getString(R.string.rest_service_url),tokenType, accessToken);
+
+
+
+
         });
 
         sp_landid_hissa.setOnItemClickListener((parent, view, position, id) -> {
+
+            suroc = surnoc_responseList.get(position).getSurnoc();
             land_no = hissa_responseList.get(position).getLand_code();
             hissa = hissa_responseList.get(position).getHissa_no();
-            suroc = hissa_responseList.get(position).getSurnoc();
+
+            Log.d("suroc~~~", suroc+"");
+            Log.d("land_no~~~", land_no+"");
+            Log.d("hissa~~~", hissa+"");
         });
+
 
 
         btn_landid_go.setOnClickListener(v -> {
@@ -368,6 +398,16 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
             get_surnoc_hissaRequest.setBhm_hobli_code(String.valueOf(hobli_id));
             get_surnoc_hissaRequest.setVillage_code(String.valueOf(village_id));
             get_surnoc_hissaRequest.setSurvey_no(surveyNo);
+
+            input = "{" +
+                    "\"pCensus_dist_code\": \""+district_id+"\"," +
+                    "\"pCensus_Taluk_Code\": \""+taluk_id+"\"," +
+                    "\"pHoblicode\":\""+hobli_id+"\"," +
+                    "\"pVillagecode\": \""+village_id+"\"," +
+                    "\"pSurvey_no\": \""+surveyNo+"\"" +
+                    "}";
+
+
 
             View focus = null;
             boolean status = false;
@@ -502,89 +542,16 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
 
     @Override
     public void onPreExecute1() {
-        progressBar  = findViewById(R.id.progress_circular);
-        if (progressBar != null)
-            progressBar.setVisibility(View.VISIBLE);
+
     }
     @Override
     public void onPostResponseSuccess1(String data) {
-        if (progressBar != null)
-            progressBar.setVisibility(View.GONE);
 
-        if (TextUtils.isEmpty(data) || data.contains("No Data Found")) {
-            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Know_Your_LandID.this, R.style.MyDialogTheme);
-            builder.setTitle(getString(R.string.status))
-                    .setMessage(getString(R.string.no_data_found_for_this_survey_no))
-                    .setIcon(R.drawable.ic_notifications_black_24dp)
-                    .setCancelable(false)
-                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
-                        dialog.cancel();
-                        et_landid_surveyno.setText("");
-                    });
-            final android.app.AlertDialog alert = builder.create();
-            alert.show();
-            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-        } else if (data.contains("is busy")){
-            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Know_Your_LandID.this, R.style.MyDialogTheme);
-            builder.setTitle(getString(R.string.status))
-                    .setMessage(getString(R.string.server_is_busy_please_try_again_later))
-                    .setIcon(R.drawable.ic_notifications_black_24dp)
-                    .setCancelable(false)
-                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
-            final android.app.AlertDialog alert = builder.create();
-            alert.show();
-            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-        } else {
-
-            //progressDoalog.dismiss();
-            XmlToJson xmlToJson = new XmlToJson.Builder(data).build();
-
-
-            // convert to a formatted Json String
-            String formatted = xmlToJson.toFormattedString();
-            Object object;
-            try {
-                JSONObject obj = new JSONObject(formatted.replace("\n", ""));
-                JSONObject documentElement = obj.getJSONObject("DocumentElement");
-                object = documentElement.get("DS_RTC");
-                JSONArray ds_rtc = new JSONArray();
-                if (object instanceof JSONObject) {
-                    ds_rtc.put(object);
-                } else {
-                    ds_rtc = (JSONArray) object;
-                }
-                Type listType = new TypeToken<ArrayList<Hissa_Response>>() {
-                }.getType();
-                hissa_responseList = new Gson().fromJson(ds_rtc.toString(), listType);
-                ArrayAdapter<Hissa_Response> villageArrayAdapter = new ArrayAdapter<>(Know_Your_LandID.this,
-                        android.R.layout.simple_list_item_single_choice, hissa_responseList);
-                sp_landid_hissa.setAdapter(villageArrayAdapter);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-            }
-        }
     }
 
     @Override
     public void onPostResponseError_FORHISSA(String data, int count) {
-        if (progressBar != null)
-            progressBar.setVisibility(View.GONE);
 
-        if (data.contains("CertPathValidatorException")){
-            Toast.makeText(getApplicationContext(), ""+data, Toast.LENGTH_SHORT).show();
-        } else {
-            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Know_Your_LandID.this, R.style.MyDialogTheme);
-            builder.setTitle(getString(R.string.status))
-                    .setMessage(getString(R.string.server_is_busy_please_try_again_later))
-                    .setIcon(R.drawable.ic_notifications_black_24dp)
-                    .setCancelable(false)
-                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
-            final android.app.AlertDialog alert = builder.create();
-            alert.show();
-            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
-        }
     }
 
     @Override
@@ -681,8 +648,9 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
             alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
         } else {
             try {
-                //JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
-                mTaskFragment.startBackgroundTask1(get_surnoc_hissaRequest, getString(R.string.rest_service_url), TokenType, AccessToken);
+                JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
+//                mTaskFragment.startBackgroundTask1(get_surnoc_hissaRequest, getString(R.string.rest_service_url), TokenType, AccessToken);
+                mTaskFragment.startBackgroundTask_GetSurnocNo(jsonObject, getString(R.string.rest_service_url), TokenType, AccessToken);
 
             } catch (Exception e){
                 Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
@@ -787,6 +755,143 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
         objClsReqLandID.setBhm_land_code(land_no);
 
         mTaskFragment.startBackgroundTask_GetBhoomiLandID(objClsReqLandID, getString(R.string.rest_service_url), tokenType, accessToken);
+    }
+
+    @Override
+    public void onPreExecute_GetSurnocNo() {
+        progressBar  = findViewById(R.id.progress_circular);
+        if (progressBar != null)
+            progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onPostResponseSuccess_GetSurnocNo(String data) {
+
+        Log.d("GetSurnocNo~~~~",data+"");
+
+        if (progressBar != null)
+            progressBar.setVisibility(View.GONE);
+
+        if (TextUtils.isEmpty(data) || data.contains("No Data Found")) {
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Know_Your_LandID.this, R.style.MyDialogTheme);
+            builder.setTitle(getString(R.string.status))
+                    .setMessage(getString(R.string.no_data_found_for_this_survey_no))
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
+                        dialog.cancel();
+                        et_landid_surveyno.setText("");
+                    });
+            final android.app.AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        } else if (data.contains("is busy")){
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Know_Your_LandID.this, R.style.MyDialogTheme);
+            builder.setTitle(getString(R.string.status))
+                    .setMessage(getString(R.string.server_is_busy_please_try_again_later))
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
+            final android.app.AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        } else {
+            try {
+                JSONArray jsonArray = new JSONArray(data);
+
+                Type listType = new TypeToken<ArrayList<Surnoc_Response>>() {
+                }.getType();
+                surnoc_responseList = new Gson().fromJson(jsonArray.toString(), listType);
+                ArrayAdapter<Surnoc_Response> arrayAdapter = new ArrayAdapter<>(Know_Your_LandID.this,
+                        android.R.layout.simple_list_item_single_choice, surnoc_responseList);
+                sp_surnc.setAdapter(arrayAdapter);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    @Override
+    public void onPostResponseError_GetSurnocNo(String data) {
+        if (progressBar != null)
+            progressBar.setVisibility(View.GONE);
+
+        if (data.contains("CertPathValidatorException")){
+            Toast.makeText(getApplicationContext(), ""+data, Toast.LENGTH_SHORT).show();
+        } else {
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Know_Your_LandID.this, R.style.MyDialogTheme);
+            builder.setTitle(getString(R.string.status))
+                    .setMessage(getString(R.string.server_is_busy_please_try_again_later))
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
+            final android.app.AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        }
+    }
+
+    @Override
+    public void onPreExecute_GetHissaNo() {
+        progressBar  = findViewById(R.id.progress_circular);
+        if (progressBar != null)
+            progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onPostResponseSuccess_GetHissaNo(String data) {
+
+        Log.d("GetHissaNo~~~~",data+"");
+
+        if (progressBar != null)
+            progressBar.setVisibility(View.GONE);
+
+        if (TextUtils.isEmpty(data) || data.contains("No Data Found")) {
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Know_Your_LandID.this, R.style.MyDialogTheme);
+            builder.setTitle(getString(R.string.status))
+                    .setMessage(getString(R.string.no_data_found_for_this_survey_no))
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
+                        dialog.cancel();
+
+                    });
+            final android.app.AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        } else if (data.contains("is busy")){
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Know_Your_LandID.this, R.style.MyDialogTheme);
+            builder.setTitle(getString(R.string.status))
+                    .setMessage(getString(R.string.server_is_busy_please_try_again_later))
+                    .setIcon(R.drawable.ic_notifications_black_24dp)
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
+            final android.app.AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
+        } else {
+            try {
+                JSONArray jsonArray = new JSONArray(data);
+
+                Type listType = new TypeToken<ArrayList<Hissa_Separate_Response>>() {
+                }.getType();
+                hissa_responseList = new Gson().fromJson(jsonArray.toString(), listType);
+                ArrayAdapter<Hissa_Separate_Response> arrayAdapter = new ArrayAdapter<>(Know_Your_LandID.this,
+                        android.R.layout.simple_list_item_single_choice, hissa_responseList);
+                sp_landid_hissa.setAdapter(arrayAdapter);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    @Override
+    public void onPostResponseError_GetHissaNo(String data) {
+
     }
 
     @Override

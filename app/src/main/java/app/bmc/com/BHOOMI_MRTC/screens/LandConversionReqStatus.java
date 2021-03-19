@@ -624,6 +624,36 @@ public class LandConversionReqStatus extends AppCompatActivity implements RtcVie
         }
     }
 
+    @Override
+    public void onPreExecute_GetSurnocNo() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess_GetSurnocNo(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_GetSurnocNo(String data) {
+
+    }
+
+    @Override
+    public void onPreExecute_GetHissaNo() {
+
+    }
+
+    @Override
+    public void onPostResponseSuccess_GetHissaNo(String data) {
+
+    }
+
+    @Override
+    public void onPostResponseError_GetHissaNo(String data) {
+
+    }
+
     public void LandConversionBasedOnAffidavitIDResponse(String token_type, String token){
 
         apiInterface = AuthorizationClient.getClient(getString(R.string.rest_service_url),token_type,token).create(PariharaIndividualReportInteface.class);
