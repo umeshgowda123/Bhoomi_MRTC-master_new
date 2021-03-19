@@ -18,6 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import app.bmc.com.BHOOMI_MRTC.api.PariharaIndividualReportInteface;
 import app.bmc.com.BHOOMI_MRTC.api.RtcViewInformationApi;
 import app.bmc.com.BHOOMI_MRTC.model.BHOOMI_API_Response;
+import app.bmc.com.BHOOMI_MRTC.model.ClsKnowID_Get_Surnoc_Hissa;
 import app.bmc.com.BHOOMI_MRTC.model.ClsReqLandID;
 import app.bmc.com.BHOOMI_MRTC.model.Get_Surnoc_HissaRequest;
 import app.bmc.com.BHOOMI_MRTC.model.TokenRes;
@@ -151,12 +152,12 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         }
     }
 
-    public void startBackgroundTask_GetSurnocNo(JsonObject input, String url, String token_type, String token){
+    public void startBackgroundTask_GetSurnocNo(ClsKnowID_Get_Surnoc_Hissa input, String url, String token_type, String token){
         if (!isTaskExecuting) {
             GetSurnocNo(input, url, token_type, token);
         }
     }
-    public void startBackgroundTask_GetHissaNo(JsonObject input, String url, String token_type, String token){
+    public void startBackgroundTask_GetHissaNo(ClsKnowID_Get_Surnoc_Hissa input, String url, String token_type, String token){
         if (!isTaskExecuting) {
             GetHissaNo(input, url, token_type, token);
         }
@@ -588,7 +589,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         });
     }
 
-    private void GetSurnocNo(JsonObject input,String url, String token_type, String token){
+    private void GetSurnocNo(ClsKnowID_Get_Surnoc_Hissa input,String url, String token_type, String token){
         isTaskExecuting = true;
         if (backgroundCallBack != null)
             backgroundCallBack.onPreExecute_GetSurnocNo();
@@ -628,7 +629,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         });
     }
 
-    private void GetHissaNo(JsonObject input,String url, String token_type, String token){
+    private void GetHissaNo(ClsKnowID_Get_Surnoc_Hissa input, String url, String token_type, String token){
         isTaskExecuting = true;
         if (backgroundCallBack != null)
             backgroundCallBack.onPreExecute_GetHissaNo();

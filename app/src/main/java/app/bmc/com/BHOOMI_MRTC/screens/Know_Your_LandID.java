@@ -39,7 +39,7 @@ import com.google.gson.reflect.TypeToken;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
+
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -55,13 +55,14 @@ import app.bmc.com.BHOOMI_MRTC.interfaces.HobliModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.TalukModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.VillageModelInterface;
 import app.bmc.com.BHOOMI_MRTC.model.ClsAppLgs;
+import app.bmc.com.BHOOMI_MRTC.model.ClsKnowID_Get_Surnoc_Hissa;
 import app.bmc.com.BHOOMI_MRTC.model.ClsReqLandID;
 import app.bmc.com.BHOOMI_MRTC.model.Get_Surnoc_HissaRequest;
-import app.bmc.com.BHOOMI_MRTC.model.Hissa_Response;
+
 import app.bmc.com.BHOOMI_MRTC.model.Hissa_Separate_Response;
 import app.bmc.com.BHOOMI_MRTC.model.Surnoc_Response;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
-import fr.arnaudguyon.xmltojsonlib.XmlToJson;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -102,7 +103,9 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
     DataBaseHelper dataBaseHelper;
     TextView tvSetTite;
     ArrayAdapter<String> defaultArrayAdapter;
-    Get_Surnoc_HissaRequest get_surnoc_hissaRequest;
+//    Get_Surnoc_HissaRequest get_surnoc_hissaRequest;
+    ClsKnowID_Get_Surnoc_Hissa clsKnowID_get_hissa;
+    ClsKnowID_Get_Surnoc_Hissa clsKnowID_get_surnoc;
 
     String accessToken, tokenType;
 
@@ -356,16 +359,24 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
             sp_landid_hissa.setAdapter(defaultArrayAdapter);
             suroc = surnoc_responseList.get(position).getSurnoc();
 
-            input2 = "{" +
-                    "\"pCensus_dist_code\": \""+district_id+"\"," +
-                    "\"pCensus_Taluk_Code\": \""+taluk_id+"\"," +
-                    "\"pHoblicode\":\""+hobli_id+"\"," +
-                    "\"pVillagecode\": \""+village_id+"\"," +
-                    "\"pSurvey_no\": \""+surveyNo+"\"," +
-                    "\"pSurnoc\": \""+suroc+"\"" +
-                    "}";
-            JsonObject jsonObject = new JsonParser().parse(input2).getAsJsonObject();
-            mTaskFragment.startBackgroundTask_GetHissaNo(jsonObject, getString(R.string.rest_service_url),tokenType, accessToken);
+            clsKnowID_get_hissa = new ClsKnowID_Get_Surnoc_Hissa();
+            clsKnowID_get_hissa.setpCensus_dist_code(String.valueOf(district_id));
+            clsKnowID_get_hissa.setpCensus_Taluk_Code(String.valueOf(taluk_id));
+            clsKnowID_get_hissa.setpHoblicode(String.valueOf(hobli_id));
+            clsKnowID_get_hissa.setpVillagecode(String.valueOf(village_id));
+            clsKnowID_get_hissa.setpSurvey_no(surveyNo);
+            clsKnowID_get_hissa.setpSurnoc(suroc);
+
+//            input2 = "{" +
+//                    "\"pCensus_dist_code\": \""+district_id+"\"," +
+//                    "\"pCensus_Taluk_Code\": \""+taluk_id+"\"," +
+//                    "\"pHoblicode\":\""+hobli_id+"\"," +
+//                    "\"pVillagecode\": \""+village_id+"\"," +
+//                    "\"pSurvey_no\": \""+surveyNo+"\"," +
+//                    "\"pSurnoc\": \""+suroc+"\"" +
+//                    "}";
+//            JsonObject jsonObject = new JsonParser().parse(input2).getAsJsonObject();
+            mTaskFragment.startBackgroundTask_GetHissaNo(clsKnowID_get_hissa, getString(R.string.rest_service_url),tokenType, accessToken);
 
 
 
@@ -392,20 +403,22 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
             String villageName = sp_landid_village.getText().toString().trim();
             surveyNo = et_landid_surveyno.getText().toString().trim();
 
-            get_surnoc_hissaRequest = new Get_Surnoc_HissaRequest();
-            get_surnoc_hissaRequest.setBhm_dist_code(String.valueOf(district_id));
-            get_surnoc_hissaRequest.setBhm_taluk_code(String.valueOf(taluk_id));
-            get_surnoc_hissaRequest.setBhm_hobli_code(String.valueOf(hobli_id));
-            get_surnoc_hissaRequest.setVillage_code(String.valueOf(village_id));
-            get_surnoc_hissaRequest.setSurvey_no(surveyNo);
+            clsKnowID_get_surnoc = new ClsKnowID_Get_Surnoc_Hissa();
+            clsKnowID_get_surnoc.setpCensus_dist_code(String.valueOf(district_id));
+            clsKnowID_get_surnoc.setpCensus_Taluk_Code(String.valueOf(taluk_id));
+            clsKnowID_get_surnoc.setpHoblicode(String.valueOf(hobli_id));
+            clsKnowID_get_surnoc.setpVillagecode(String.valueOf(village_id));
+            clsKnowID_get_surnoc.setpSurvey_no(surveyNo);
 
-            input = "{" +
-                    "\"pCensus_dist_code\": \""+district_id+"\"," +
-                    "\"pCensus_Taluk_Code\": \""+taluk_id+"\"," +
-                    "\"pHoblicode\":\""+hobli_id+"\"," +
-                    "\"pVillagecode\": \""+village_id+"\"," +
-                    "\"pSurvey_no\": \""+surveyNo+"\"" +
-                    "}";
+
+
+//            input = "{" +
+//                    "\"pCensus_dist_code\": \""+district_id+"\"," +
+//                    "\"pCensus_Taluk_Code\": \""+taluk_id+"\"," +
+//                    "\"pHoblicode\":\""+hobli_id+"\"," +
+//                    "\"pVillagecode\": \""+village_id+"\"," +
+//                    "\"pSurvey_no\": \""+surveyNo+"\"" +
+//                    "}";
 
 
 
@@ -648,9 +661,8 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
             alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
         } else {
             try {
-                JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
-//                mTaskFragment.startBackgroundTask1(get_surnoc_hissaRequest, getString(R.string.rest_service_url), TokenType, AccessToken);
-                mTaskFragment.startBackgroundTask_GetSurnocNo(jsonObject, getString(R.string.rest_service_url), TokenType, AccessToken);
+//                JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
+                mTaskFragment.startBackgroundTask_GetSurnocNo(clsKnowID_get_surnoc, getString(R.string.rest_service_url), TokenType, AccessToken);
 
             } catch (Exception e){
                 Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();

@@ -2,6 +2,7 @@ package app.bmc.com.BHOOMI_MRTC.api;
 
 import com.google.gson.JsonObject;
 
+import app.bmc.com.BHOOMI_MRTC.model.ClsKnowID_Get_Surnoc_Hissa;
 import app.bmc.com.BHOOMI_MRTC.model.Get_Surnoc_HissaRequest;
 import app.bmc.com.BHOOMI_MRTC.model.BHOOMI_API_Response;
 import retrofit2.Call;
@@ -18,36 +19,17 @@ public interface RtcViewInformationApi {
             @Body Get_Surnoc_HissaRequest get_surnoc_hissaRequest
     );
 
-//    @POST("api/values/GetSurnocNo/{pCensus_dist_code}/{pCensus_Taluk_Code}/{pHoblicode}/{pVillagecode}/{pSurvey_no}")
-//    Call<BHOOMI_API_Response> GetSurnocNo(
-//            @Path("pCensus_dist_code") int pCensus_dist_code,
-//            @Path("pCensus_Taluk_Code") int pCensus_Taluk_Code,
-//            @Path("pHoblicode") int pHoblicode,
-//            @Path("pVillagecode") int pVillagecode,
-//            @Path("pSurvey_no") int pSurvey_no
-//    );
-
     @Headers({"content-type: text/json; charset=utf-8"})
     @POST("api/values/GetSurnocNo/")
     Call<BHOOMI_API_Response> GetSurnocNo(
-            @Body JsonObject input
+            @Body ClsKnowID_Get_Surnoc_Hissa input
     );
 
     @Headers({"content-type: text/json; charset=utf-8"})
     @POST("api/values/GetHissaNo/")
     Call<BHOOMI_API_Response> GetHissaNo(
-            @Body JsonObject input
+            @Body ClsKnowID_Get_Surnoc_Hissa input
     );
-
-//    @POST("api/values/GetHissaNo/{pCensus_dist_code}/{pCensus_Taluk_Code}/{pHoblicode}/{pVillagecode}/{pSurvey_no}/{pSurnoc}")
-//    Call<BHOOMI_API_Response> GetHissaNo(
-//            @Path("pCensus_dist_code") int pCensus_dist_code,
-//            @Path("pCensus_Taluk_Code") int pCensus_Taluk_Code,
-//            @Path("pHoblicode") int pHoblicode,
-//            @Path("pVillagecode") int pVillagecode,
-//            @Path("pSurvey_no") int pSurvey_no,
-//            @Path("pSurnoc") int pSurnoc
-//    );
 
     @Headers({"content-type: text/json; charset=utf-8"})
     @POST("api/values/get_rtc_data/")
