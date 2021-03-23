@@ -144,6 +144,9 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
         sp_sum_hobli.setAdapter(defaultArrayAdapter);
         sp_sum_village.setAdapter(defaultArrayAdapter);
 
+        progressDialog = new ProgressDialog(ViewMutationSummeryReport.this);
+        progressDialog.setMessage(getString(R.string.please_wait));
+        progressDialog.setCancelable(false);
 
         Observable<List<? extends DistrictModelInterface>> districtDataObservable = Observable.fromCallable(() -> language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getDistinctDistricts() : dataBaseHelper.daoAccess().getDistinctDistrictsKannada());
         districtDataObservable
@@ -153,12 +156,12 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
 
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(List<? extends DistrictModelInterface> mst_vlmList) {
+                    public void onNext(@NonNull List<? extends DistrictModelInterface> mst_vlmList) {
 
                         districtData = (List<DistrictModelInterface>) mst_vlmList;
                         ArrayAdapter<DistrictModelInterface> districtArrayAdapter = new ArrayAdapter<>(getApplicationContext(),
@@ -167,7 +170,7 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
 
                     }
 
@@ -187,45 +190,6 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
             mTaskFragment = new RtcViewInfoBackGroundTaskFragment();
             fm.beginTransaction().add(mTaskFragment, RtcViewInfoBackGroundTaskFragment.TAG_HEADLESS_FRAGMENT).commit();
         }
-//        dataBaseHelper =
-//                Room.databaseBuilder(getApplicationContext(),
-//                        DataBaseHelper.class, getString(R.string.db_name)).build();
-//        Observable<String> stringObservable;
-//        stringObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getMaintenanceStatus(5));
-//        stringObservable
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Observer<String>() {
-//
-//
-//                    @Override
-//                    public void onSubscribe(Disposable d) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(String str) {
-//                        if (str.equals("false")){
-//                            android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(ViewMutationSummeryReport.this).create();
-//                            alertDialog.setTitle(getString(R.string.status));
-//                            alertDialog.setMessage(getString(R.string.this_service_is_under_maintenance));
-//                            alertDialog.setCancelable(false);
-//                            alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE,getString(R.string.ok), (dialog, which) -> onBackPressed());
-//                            alertDialog.show();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        e.printStackTrace();
-//                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//
-//                    }
-//                });
 
     }
 
@@ -249,12 +213,12 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
 
 
                         @Override
-                        public void onSubscribe(Disposable d) {
+                        public void onSubscribe(@NonNull Disposable d) {
 
                         }
 
                         @Override
-                        public void onNext(List<? extends TalukModelInterface> talukDataList) {
+                        public void onNext(@NonNull List<? extends TalukModelInterface> talukDataList) {
                             talukData = (List<TalukModelInterface>) talukDataList;
                             ArrayAdapter<TalukModelInterface> talukArrayAdapter = new ArrayAdapter<>(ViewMutationSummeryReport.this,
                                     android.R.layout.simple_list_item_single_choice, talukData);
@@ -262,7 +226,7 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
                         }
 
                         @Override
-                        public void onError(Throwable e) {
+                        public void onError(@NonNull Throwable e) {
 
                         }
 
@@ -292,12 +256,12 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
 
 
                         @Override
-                        public void onSubscribe(Disposable d) {
+                        public void onSubscribe(@NonNull Disposable d) {
 
                         }
 
                         @Override
-                        public void onNext(List<? extends HobliModelInterface> hobliDataList) {
+                        public void onNext(@NonNull List<? extends HobliModelInterface> hobliDataList) {
                             hobliData = (List<HobliModelInterface>) hobliDataList;
                             ArrayAdapter<HobliModelInterface> hobliArrayAdapter = new ArrayAdapter<>(ViewMutationSummeryReport.this,
                                     android.R.layout.simple_list_item_single_choice, hobliData);
@@ -305,7 +269,7 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
                         }
 
                         @Override
-                        public void onError(Throwable e) {
+                        public void onError(@NonNull Throwable e) {
 
                         }
 
@@ -336,7 +300,7 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
                         }
 
                         @Override
-                        public void onNext(List<? extends VillageModelInterface> villageDataList) {
+                        public void onNext(@NonNull List<? extends VillageModelInterface> villageDataList) {
                             villageData = (List<VillageModelInterface>) villageDataList;
                             ArrayAdapter<VillageModelInterface> villageArrayAdapter = new ArrayAdapter<>(ViewMutationSummeryReport.this,
                                     android.R.layout.simple_list_item_single_choice, villageData);
@@ -344,7 +308,7 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
                         }
 
                         @Override
-                        public void onError(Throwable e) {
+                        public void onError(@NonNull Throwable e) {
 
                         }
 
@@ -404,12 +368,12 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
                             .subscribe(new Observer<List<? extends MSR_RES_Interface>>() {
 
                                 @Override
-                                public void onSubscribe(Disposable d) {
+                                public void onSubscribe(@NonNull Disposable d) {
 
                                 }
 
                                 @Override
-                                public void onNext(List<? extends MSR_RES_Interface> msr_res_interfaces_List) {
+                                public void onNext(@NonNull List<? extends MSR_RES_Interface> msr_res_interfaces_List) {
 
 
                                     MSR_RES_Data = (List<MSR_RES_Data>) msr_res_interfaces_List;
@@ -440,7 +404,7 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
                                 }
 
                                 @Override
-                                public void onError(Throwable e) {
+                                public void onError(@NonNull Throwable e) {
 
                                 }
 
@@ -517,17 +481,17 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
 
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Long[] longs) {
+                    public void onNext(@NonNull Long[] longs) {
 
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
                         Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
 
                     }
@@ -549,18 +513,18 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
 
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer integer) {
+                    public void onNext(@NonNull Integer integer) {
 
 
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
                         Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                     }
 
@@ -679,7 +643,7 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
 
     @Override
     public void onPreExecuteToken() {
-
+        progressDialog.show();
     }
 
     @Override
@@ -740,17 +704,16 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
 
     @Override
     public void onPreExecute_AppLgs() {
+        progressDialog.show();
     }
 
     @Override
     public void onPostResponseSuccess_AppLgs(String data) {
-        Log.d("AppLgsRes", ""+data);
         Get_MutationSummeryReportResponse(tokenType, accessToken);
     }
 
     @Override
     public void onPostResponseError_AppLgs(String data) {
-        Log.d("AppLgsRes", ""+data);
         Get_MutationSummeryReportResponse(tokenType, accessToken);
     }
 
@@ -785,9 +748,6 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
     }
 
     public void Get_MutationSummeryReportResponse(String token_type, String token){
-        progressDialog = new ProgressDialog(ViewMutationSummeryReport.this);
-        progressDialog.setMessage(getString(R.string.please_wait));
-        progressDialog.setCancelable(false);
         progressDialog.show();
         apiInterface = AuthorizationClient.getClient(getResources().getString(R.string.rest_service_url),token_type,token).create(PariharaIndividualReportInteface.class);
         try {
@@ -824,12 +784,12 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
 
 
                                         @Override
-                                        public void onSubscribe(Disposable d) {
+                                        public void onSubscribe(@NonNull Disposable d) {
 
                                         }
 
                                         @Override
-                                        public void onNext(Integer integer) {
+                                        public void onNext(@NonNull Integer integer) {
                                             List<MS_REPORT_TABLE> MPD_List = loadData();
                                             if (integer < 6) {
                                                 createMSRTable_Data(MPD_List);
@@ -840,7 +800,7 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
                                         }
 
                                         @Override
-                                        public void onError(Throwable e) {
+                                        public void onError(@NonNull Throwable e) {
                                             Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                                         }
 
@@ -864,10 +824,6 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
                     Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
-//
-//                Intent intent = new Intent(ViewMutationSummeryReport.this, ShowMutationSummeryReport.class);
-//                intent.putExtra("html_response_data", result.getGetMutationSummaryReportResult());
-//                startActivity(intent);
         }
         catch (NumberFormatException e) {
             progressDialog.dismiss();

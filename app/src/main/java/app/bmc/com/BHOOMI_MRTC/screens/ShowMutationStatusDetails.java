@@ -8,8 +8,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -83,39 +81,6 @@ public class ShowMutationStatusDetails extends AppCompatActivity {
         Images = new ArrayList<>();
         isShow = new ArrayList<>();
 
-        models.add(0, "" + showText_notEnt);
-        models.add(1, "" + showText_notEnt);
-        models.add(2, "" + showText_notEnt);
-        models.add(3, "" + showText_notEnt);
-        models.add(4, "" + showText_notEnt);
-        models.add(5, "" + showText_notEnt);
-        models.add(6, "" + showText_notEnt);
-
-        txtHeader.add(0, "");
-        txtHeader.add(1, "");
-        txtHeader.add(2, "");
-        txtHeader.add(3, "");
-        txtHeader.add(4, "");
-        txtHeader.add(5, "");
-        txtHeader.add(6, "");
-
-        Images.add(0, R.drawable.ic_baseline_adjust_24);
-        Images.add(1, R.drawable.ic_baseline_adjust_24);
-        Images.add(2, R.drawable.ic_baseline_adjust_24);
-        Images.add(3, R.drawable.ic_baseline_adjust_24);
-        Images.add(4, R.drawable.ic_baseline_adjust_24);
-        Images.add(5, R.drawable.ic_baseline_adjust_24);
-        Images.add(6, R.drawable.ic_baseline_adjust_24);
-
-
-        isShow.add(0, false);
-        isShow.add(1, false);
-        isShow.add(2, false);
-        isShow.add(3, false);
-        isShow.add(4, false);
-        isShow.add(5, false);
-        isShow.add(6, false);
-
         String status_data_response = getIntent().getStringExtra("status_response_data");
 
         showData(status_data_response);
@@ -124,18 +89,6 @@ public class ShowMutationStatusDetails extends AppCompatActivity {
     private void showData(String status_data_response) {
 
         try {
-
-//            XmlToJson xmlToJson = new XmlToJson.Builder(status_data_response.replace("\\r\\n", "").trim()).build();
-//            Log.d("xmlToJson_Formatted", ""+xmlToJson.toFormattedString());
-//            String formatted = xmlToJson.toFormattedString().replace("\n", "");
-//            Log.d("formatted",""+formatted);
-//
-//            JSONObject responseObject = new JSONObject(formatted);
-//            Log.d("responseObject",""+responseObject);
-//            JSONObject mutationDetails =  responseObject.getJSONObject("NewDataSet");
-//            Log.d("mutation_NewDataSet",""+mutationDetails);
-//            JSONArray mutationEntries = null;
-
             JSONObject obj1 = new JSONObject(status_data_response);
             String form = String.valueOf(obj1);
             form = form.replace("{\"MutationStatus\":{", "{\"MutationStatus\":[{");
@@ -147,7 +100,6 @@ public class ShowMutationStatusDetails extends AppCompatActivity {
 
             if(status_data_response.contains("MutationStatus"))
             {
-                //tableEntries = new JSONArray(form);
                 tableEntries = obj.getJSONArray("MutationStatus");
                 Type listType = new TypeToken<List<MutationStatusData>>() {
                 }.getType();
@@ -161,7 +113,6 @@ public class ShowMutationStatusDetails extends AppCompatActivity {
 
         if (myPendingDataList.size() > 0) {
 
-            Log.d("SIZEEEEE",myPendingDataList.size()+"");
             tvApplicationNo.setText(myPendingDataList.get(0).getAPPL_NO());
             tvTransactionNo.setText(myPendingDataList.get(0).getTRAN_NO());
             tvMRNo.setText(myPendingDataList.get(0).getMR_NO());
@@ -170,6 +121,56 @@ public class ShowMutationStatusDetails extends AppCompatActivity {
             tvMutationType.setText(myPendingDataList.get(0).getMUTATION_TYPE());
             tvMutationStatusEng.setText(myPendingDataList.get(0).getMUTAION_STATUS_ENG());
             tvMutationStatusKan.setText(myPendingDataList.get(0).getMUTAION_STATUS_KN());
+
+            String TypeOfMutCode = myPendingDataList.get(0).getTypeOfMutCode();
+
+            if (TypeOfMutCode.equals("21") || TypeOfMutCode.equals("22")){
+                models.add(0, "" + showText_notEnt);
+                models.add(1, "" + showText_notEnt);
+                models.add(2, "" + showText_notEnt);
+                models.add(3, "" + showText_notEnt);
+                models.add(4, "" + showText_notEnt);
+                models.add(5, "" + showText_notEnt);
+
+                txtHeader.add(0, "");
+                txtHeader.add(1, "");
+                txtHeader.add(2, "");
+                txtHeader.add(3, "");
+                txtHeader.add(4, "");
+                txtHeader.add(5, "");
+
+                Images.add(0, R.drawable.ic_baseline_adjust_24);
+                Images.add(1, R.drawable.ic_baseline_adjust_24);
+                Images.add(2, R.drawable.ic_baseline_adjust_24);
+                Images.add(3, R.drawable.ic_baseline_adjust_24);
+                Images.add(4, R.drawable.ic_baseline_adjust_24);
+                Images.add(5, R.drawable.ic_baseline_adjust_24);
+
+
+                isShow.add(0, false);
+                isShow.add(1, false);
+                isShow.add(2, false);
+                isShow.add(3, false);
+                isShow.add(4, false);
+                isShow.add(5, false);
+            } else {
+                models.add(0, "" + showText_notEnt);
+                models.add(1, "" + showText_notEnt);
+                models.add(2, "" + showText_notEnt);
+
+                txtHeader.add(0, "");
+                txtHeader.add(1, "");
+                txtHeader.add(2, "");
+
+                Images.add(0, R.drawable.ic_baseline_adjust_24);
+                Images.add(1, R.drawable.ic_baseline_adjust_24);
+                Images.add(2, R.drawable.ic_baseline_adjust_24);
+
+
+                isShow.add(0, false);
+                isShow.add(1, false);
+                isShow.add(2, false);
+            }
 
             displayAppStatus();
 
@@ -209,73 +210,42 @@ public class ShowMutationStatusDetails extends AppCompatActivity {
                         String SurveyorApprDate = myPendingDataList.get(j).getSurveyorApprDate() + "";
                         String TypeOfMutCode = myPendingDataList.get(j).getTypeOfMutCode()+"";
 
-                        String NoticePeriod = "30 Days";
-
                         if (TypeOfMutCode.equals("21") || TypeOfMutCode.equals("22")){
 
-                            Log.d("TypeOfMutCode",TypeOfMutCode);
-
-                            txtHeader.set(0, "Data Entry");
-                            models.set(0, "Transaction Entered By : "+ TranEnteredBy +"\n" +" Transaction Entered on : "+TranEnteredDate);
+                            txtHeader.set(0, getString(R.string.data_entry));
+                            models.set(0, getString(R.string.tansaction_entered_by)+ TranEnteredBy +"\n" +getString(R.string.transaction_entered_on)+TranEnteredDate);
                             Images.set(0, R.drawable.ic_baseline_check_circle_24);
 
-                            txtHeader.set(1, "Checklist Approval");
-                            models.set(1, "\n" + "Checklist Approved By : "+ CheckListApprBy+"\n" +" Approved On : "+CheckListApprDate);
+                            txtHeader.set(1, getString(R.string.checlist_approval));
+                            models.set(1, "\n" + getString(R.string.checklist_approved_by)+ CheckListApprBy+"\n" +getString(R.string.approved_on)+CheckListApprDate);
                             Images.set(1, R.drawable.ic_baseline_check_circle_24);
 
-                            txtHeader.set(2, "Notice Generation (Form 21)");
-                            models.set(2, "\n" + "Notice Generated on : "+NoticeGenOn +"\n" +"Notice Period : "+NoticePeriod);
+                            txtHeader.set(2, getString(R.string.notice_generation_form_21));
+                            models.set(2, "\n" + getString(R.string.notice_generated_on)+NoticeGenOn +"\n" +getString(R.string.notice_period)+" "+getString(R.string.notice_period_days));
                             Images.set(2, R.drawable.ic_baseline_check_circle_24);
 
-                            txtHeader.set(3, "RI Provisional Acceptance");
-                            models.set(3, "\n" + "Provisional Accepted : "+RI_ProvAcc +"\n" +" Approved On : "+RI_ProvAccDate);
+                            txtHeader.set(3, getString(R.string.ri_provisional_acceptance));
+                            models.set(3, "\n" + getString(R.string.provision_accepted)+RI_ProvAcc +"\n" +getString(R.string.approved_on)+RI_ProvAccDate);
                             Images.set(3, R.drawable.ic_baseline_access_time_24);
 
-                            txtHeader.set(4, "File Acknowledged By RI");
-                            models.set(4, "\n" + "Yes"); // Yes is the Default value
-                            Images.set(4, R.drawable.ic_baseline_check_circle_24);
+                            txtHeader.set(4, getString(R.string.hissa_assignment_by_syrvey_supervisor));// Yes is the Default value
+                            models.set(4, "\n"+ getString(R.string.new_hissa_assigned_as_per_11e)+ "Yes" +"\n"+ getString(R.string.assigned_on)+SurveyorApprDate );
+                            Images.set(4, R.drawable.ic_baseline_access_time_24);
 
-                            txtHeader.set(5, "Hissa Assignment By Survey Supervisor");// Yes is the Default value
-                            models.set(5, "\n"+ "New Hissa Assigned as per 11 E : "+ "Yes" +"\n"+ "Assigned On: "+SurveyorApprDate );
+                            txtHeader.set(5, getString(R.string.final_approval));
+                            models.set(5, "\n" + getString(R.string.pending));
                             Images.set(5, R.drawable.ic_baseline_access_time_24);
-
-                            txtHeader.set(6, "Final Approval");
-                            models.set(6, "\n" + "Pending");
-                            Images.set(6, R.drawable.ic_baseline_access_time_24);
-                        }
-                        else {
-
-                            txtHeader.clear();
-                            models.clear();
-                            Images.clear();
-                            isShow.clear();
-
-                            models.add(0, "" + showText_notEnt);
-                            models.add(1, "" + showText_notEnt);
-                            models.add(2, "" + showText_notEnt);
-
-                            txtHeader.add(0, "");
-                            txtHeader.add(1, "");
-                            txtHeader.add(2, "");
-
-                            Images.add(0, R.drawable.ic_baseline_adjust_24);
-                            Images.add(1, R.drawable.ic_baseline_adjust_24);
-                            Images.add(2, R.drawable.ic_baseline_adjust_24);
-
-                            isShow.add(0, false);
-                            isShow.add(1, false);
-                            isShow.add(2, false);
-
-                            txtHeader.set(0, "Data Entry");
-                            models.set(0, "Transaction Entered By : "+ TranEnteredBy +"\n" +" Transaction Entered on : "+TranEnteredDate);
+                        } else {
+                            txtHeader.set(0, getString(R.string.data_entry));
+                            models.set(0, getString(R.string.tansaction_entered_by)+ TranEnteredBy +"\n" +getString(R.string.transaction_entered_on)+TranEnteredDate);
                             Images.set(0, R.drawable.ic_baseline_check_circle_24);
 
-                            txtHeader.set(1, "Checklist Approval");
-                            models.set(1, "\n" + "Checklist Approved By : "+ CheckListApprBy+"\n" +" Approved On : "+CheckListApprDate);
+                            txtHeader.set(1, getString(R.string.checlist_approval));
+                            models.set(1, "\n" + getString(R.string.checklist_approved_by)+ CheckListApprBy+"\n" +getString(R.string.approved_on)+CheckListApprDate);
                             Images.set(1, R.drawable.ic_baseline_check_circle_24);
 
-                            txtHeader.set(2, "Final Approval");
-                            models.set(2, "\n" + "Pending");
+                            txtHeader.set(2, getString(R.string.final_approval));
+                            models.set(2, "\n" + getString(R.string.pending));
                             Images.set(2, R.drawable.ic_baseline_access_time_24);
                         }
                     }

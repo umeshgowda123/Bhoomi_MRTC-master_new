@@ -79,6 +79,18 @@ public class ConversionFinalOrders_BasedOnReq_ID extends AppCompatActivity {
                 }
             } catch (JSONException e){
                 e.printStackTrace();
+                final AlertDialog.Builder builder = new AlertDialog.Builder(ConversionFinalOrders_BasedOnReq_ID.this, R.style.MyDialogTheme);
+                builder.setTitle(getString(R.string.status))
+                        .setMessage(getString(R.string.something_went_wrong_pls_try_again))
+                        .setIcon(R.drawable.ic_notifications_black_24dp)
+                        .setCancelable(false)
+                        .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
+                            dialog.cancel();
+                            finish();
+                        });
+                final AlertDialog alert = builder.create();
+                alert.show();
+                alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(18);
             }
         } else {
             Toast.makeText(getApplicationContext(), "Null", Toast.LENGTH_SHORT).show();

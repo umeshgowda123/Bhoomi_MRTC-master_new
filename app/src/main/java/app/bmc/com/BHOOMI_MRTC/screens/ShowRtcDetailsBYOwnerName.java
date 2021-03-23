@@ -379,6 +379,9 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity implements RtcV
 
     @Override
     public void onPreExecute_AppLgs() {
+        progressBar = findViewById(R.id.progress_circular);
+        if (progressBar != null)
+            progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override

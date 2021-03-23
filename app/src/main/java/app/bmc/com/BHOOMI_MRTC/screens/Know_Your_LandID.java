@@ -21,7 +21,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -88,7 +87,6 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
     int land_no;
     String hissa;
     String suroc;
-//    List<Hissa_Response> hissa_responseList;
 
     List<Surnoc_Response> surnoc_responseList;
     List<Hissa_Separate_Response> hissa_responseList;
@@ -100,14 +98,12 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
     DataBaseHelper dataBaseHelper;
     TextView tvSetTite;
     ArrayAdapter<String> defaultArrayAdapter;
-//    Get_Surnoc_HissaRequest get_surnoc_hissaRequest;
     ClsKnowID_Get_Surnoc_Hissa clsKnowID_get_hissa;
     ClsKnowID_Get_Surnoc_Hissa clsKnowID_get_surnoc;
 
     String accessToken, tokenType;
 
     int AppType;
-//    String input, input2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,7 +123,6 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
         language = sp.getString(Constants.LANGUAGE, "en");
         setLocale(language);
 
-        //dbManager = new DBManager(ViewRtcInformation.this);
         sp_landid_district = findViewById(R.id.sp_landid_district);
         sp_landid_taluk = findViewById(R.id.sp_landid_taluk);
         sp_landid_hobli = findViewById(R.id.sp_landid_hobli);
@@ -364,28 +359,13 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
             clsKnowID_get_hissa.setpSurvey_no(surveyNo);
             clsKnowID_get_hissa.setpSurnoc(suroc);
 
-//            input2 = "{" +
-//                    "\"pCensus_dist_code\": \""+district_id+"\"," +
-//                    "\"pCensus_Taluk_Code\": \""+taluk_id+"\"," +
-//                    "\"pHoblicode\":\""+hobli_id+"\"," +
-//                    "\"pVillagecode\": \""+village_id+"\"," +
-//                    "\"pSurvey_no\": \""+surveyNo+"\"," +
-//                    "\"pSurnoc\": \""+suroc+"\"" +
-//                    "}";
-//            JsonObject jsonObject = new JsonParser().parse(input2).getAsJsonObject();
             mTaskFragment.startBackgroundTask_GetHissaNo(clsKnowID_get_hissa, getString(R.string.rest_service_url),tokenType, accessToken);
-
-
-
 
         });
 
         sp_landid_hissa.setOnItemClickListener((parent, view, position, id) -> {
-
-
             land_no = hissa_responseList.get(position).getLand_code();
             hissa = hissa_responseList.get(position).getHissa_no();
-
         });
 
 
@@ -403,18 +383,6 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
             clsKnowID_get_surnoc.setpHoblicode(String.valueOf(hobli_id));
             clsKnowID_get_surnoc.setpVillagecode(String.valueOf(village_id));
             clsKnowID_get_surnoc.setpSurvey_no(surveyNo);
-
-
-
-//            input = "{" +
-//                    "\"pCensus_dist_code\": \""+district_id+"\"," +
-//                    "\"pCensus_Taluk_Code\": \""+taluk_id+"\"," +
-//                    "\"pHoblicode\":\""+hobli_id+"\"," +
-//                    "\"pVillagecode\": \""+village_id+"\"," +
-//                    "\"pSurvey_no\": \""+surveyNo+"\"" +
-//                    "}";
-
-
 
             View focus = null;
             boolean status = false;
@@ -655,9 +623,7 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
             alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
         } else {
             try {
-//                JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
                 mTaskFragment.startBackgroundTask_GetSurnocNo(clsKnowID_get_surnoc, getString(R.string.rest_service_url), TokenType, AccessToken);
-
             } catch (Exception e){
                 Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -739,7 +705,7 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
 
     @Override
     public void onPostResponseSuccess_AppLgs(String data) {
-        Log.d("AppLgsRes", ""+data);
+
         ClsReqLandID objClsReqLandID = new ClsReqLandID();
         objClsReqLandID.setBhm_dist_code(district_id);
         objClsReqLandID.setBhm_taluk_code(taluk_id);
@@ -752,7 +718,7 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
 
     @Override
     public void onPostResponseError_AppLgs(String data) {
-        Log.d("AppLgsRes", ""+data);
+
         ClsReqLandID objClsReqLandID = new ClsReqLandID();
         objClsReqLandID.setBhm_dist_code(district_id);
         objClsReqLandID.setBhm_taluk_code(taluk_id);
@@ -772,9 +738,6 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
 
     @Override
     public void onPostResponseSuccess_GetSurnocNo(String data) {
-
-        Log.d("GetSurnocNo~~~~",data+"");
-
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
 
@@ -848,9 +811,6 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
 
     @Override
     public void onPostResponseSuccess_GetHissaNo(String data) {
-
-        Log.d("GetHissaNo~~~~",data+"");
-
         if (progressBar != null)
             progressBar.setVisibility(View.GONE);
 
@@ -860,10 +820,7 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
                     .setMessage(getString(R.string.no_data_found_for_this_survey_no))
                     .setIcon(R.drawable.ic_notifications_black_24dp)
                     .setCancelable(false)
-                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> {
-                        dialog.cancel();
-
-                    });
+                    .setPositiveButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
             final android.app.AlertDialog alert = builder.create();
             alert.show();
             alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
@@ -910,7 +867,5 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
     protected void onStop() {
         super.onStop();
         mTaskFragment.terminateExecutionOfBackTaskGetBhoomiLandID();
-        mTaskFragment.terminateExecutionOf_GetSurnocNo();
-        mTaskFragment.terminateExecutionOf_GetHissaNo();
     }
 }

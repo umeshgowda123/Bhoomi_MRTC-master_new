@@ -733,17 +733,16 @@ public class MutationPendencyDetails extends AppCompatActivity implements RtcVie
 
     @Override
     public void onPreExecute_AppLgs() {
+        progressDialog.show();
     }
 
     @Override
     public void onPostResponseSuccess_AppLgs(String data) {
-        Log.d("AppLgsRes", ""+data);
         Get_MutationPendencyDetailsResponse(tokenType, accessToken);
     }
 
     @Override
     public void onPostResponseError_AppLgs(String data) {
-        Log.d("AppLgsRes", ""+data);
         Get_MutationPendencyDetailsResponse(tokenType, accessToken);
     }
 

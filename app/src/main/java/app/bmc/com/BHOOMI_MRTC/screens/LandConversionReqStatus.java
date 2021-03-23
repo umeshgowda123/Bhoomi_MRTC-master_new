@@ -602,6 +602,7 @@ public class LandConversionReqStatus extends AppCompatActivity implements RtcVie
 
     @Override
     public void onPreExecute_AppLgs() {
+        progressDialog.show();
     }
 
     @Override

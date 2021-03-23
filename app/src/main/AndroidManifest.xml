@@ -29,11 +29,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".screens.ViewMutationStatusReport"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
             android:name=".screens.ShowMutationSummeryReport"
             android:configChanges="orientation|keyboardHidden" />
         <activity

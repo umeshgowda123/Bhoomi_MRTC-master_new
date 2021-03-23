@@ -444,4 +444,21 @@
     <string name="stage_wise_status">Stage wise Status</string>
     <string name="know_your_land_id">Know Your Land ID</string>
     <string name="your_land_id">Your Land ID</string>
+    <string name="data_entry">Data Entry</string>
+    <string name="tansaction_entered_by">"Transaction Entered By : "</string>
+    <string name="transaction_entered_on">"Transaction Entered on : "</string>
+    <string name="checlist_approval">Checklist Approval</string>
+    <string name="checklist_approved_by">"Checklist Approved By : "</string>
+    <string name="approved_on">"Approved On : "</string>
+    <string name="notice_generation_form_21">Notice Generation (Form 21)</string>
+    <string name="notice_generated_on">"Notice Generated on : "</string>
+    <string name="notice_period">"Notice Period : "</string>
+    <string name="ri_provisional_acceptance">RI Provisional Acceptance</string>
+    <string name="provision_accepted">"Provisional Accepted : "</string>
+    <string name="hissa_assignment_by_syrvey_supervisor">Hissa Assignment By Survey Supervisor</string>
+    <string name="new_hissa_assigned_as_per_11e">"New Hissa Assigned as per 11 E : "</string>
+    <string name="assigned_on">"Assigned On: "</string>
+    <string name="final_approval">Final Approval</string>
+    <string name="pending">Pending</string>
+    <string name="notice_period_days">30 Days</string>
 </resources>

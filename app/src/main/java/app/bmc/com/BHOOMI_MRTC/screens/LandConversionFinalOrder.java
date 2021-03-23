@@ -21,7 +21,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -215,12 +214,12 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
 
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(List<? extends DistrictModelInterface> mst_vlmList) {
+                    public void onNext(@NonNull List<? extends DistrictModelInterface> mst_vlmList) {
 
                         districtData = (List<DistrictModelInterface>) mst_vlmList;
                         ArrayAdapter<DistrictModelInterface> districtArrayAdapter = new ArrayAdapter<DistrictModelInterface>(getApplicationContext(),
@@ -229,7 +228,7 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
 
                     }
 
@@ -240,7 +239,7 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
                 });
 
         rgForSelection.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.rbRequestID) {
@@ -289,12 +288,12 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
 
 
                         @Override
-                        public void onSubscribe(Disposable d) {
+                        public void onSubscribe(@NonNull Disposable d) {
 
                         }
 
                         @Override
-                        public void onNext(List<? extends TalukModelInterface> talukDataList) {
+                        public void onNext(@NonNull List<? extends TalukModelInterface> talukDataList) {
                             talukData = (List<TalukModelInterface>) talukDataList;
                             ArrayAdapter<TalukModelInterface> talukArrayAdapter = new ArrayAdapter<>(LandConversionFinalOrder.this,
                                     android.R.layout.simple_list_item_single_choice, talukData);
@@ -302,7 +301,7 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
                         }
 
                         @Override
-                        public void onError(Throwable e) {
+                        public void onError(@NonNull Throwable e) {
 
                         }
 
@@ -330,12 +329,12 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
 
 
                         @Override
-                        public void onSubscribe(Disposable d) {
+                        public void onSubscribe(@NonNull Disposable d) {
 
                         }
 
                         @Override
-                        public void onNext(List<? extends HobliModelInterface> hobliDataList) {
+                        public void onNext(@NonNull List<? extends HobliModelInterface> hobliDataList) {
                             hobliData = (List<HobliModelInterface>) hobliDataList;
                             ArrayAdapter<HobliModelInterface> hobliArrayAdapter = new ArrayAdapter<>(LandConversionFinalOrder.this,
                                     android.R.layout.simple_list_item_single_choice, hobliData);
@@ -343,7 +342,7 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
                         }
 
                         @Override
-                        public void onError(Throwable e) {
+                        public void onError(@NonNull Throwable e) {
 
                         }
 
@@ -368,12 +367,12 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
 
 
                         @Override
-                        public void onSubscribe(Disposable d) {
+                        public void onSubscribe(@NonNull Disposable d) {
 
                         }
 
                         @Override
-                        public void onNext(List<? extends VillageModelInterface> villageDataList) {
+                        public void onNext(@NonNull List<? extends VillageModelInterface> villageDataList) {
                             villageData = (List<VillageModelInterface>) villageDataList;
                             ArrayAdapter<VillageModelInterface> villageArrayAdapter = new ArrayAdapter<>(LandConversionFinalOrder.this,
                                     android.R.layout.simple_list_item_single_choice, villageData);
@@ -381,7 +380,7 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
                         }
 
                         @Override
-                        public void onError(Throwable e) {
+                        public void onError(@NonNull Throwable e) {
 
                         }
 
@@ -447,12 +446,12 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
                                 .subscribe(new Observer<List<? extends LandConversion_Final_Order_Interface>>() {
 
                                     @Override
-                                    public void onSubscribe(Disposable d) {
+                                    public void onSubscribe(@NonNull Disposable d) {
 
                                     }
 
                                     @Override
-                                    public void onNext(List<? extends LandConversion_Final_Order_Interface> nterfaces_List) {
+                                    public void onNext(@NonNull List<? extends LandConversion_Final_Order_Interface> nterfaces_List) {
 
                                         LCFO_DATA = (List<LandConversion_Final_Order_Interface>) nterfaces_List;
                                         if (nterfaces_List.size()!=0) {
@@ -483,7 +482,7 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
                                     }
 
                                     @Override
-                                    public void onError(Throwable e) {
+                                    public void onError(@NonNull Throwable e) {
 
                                     }
 
@@ -517,12 +516,12 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
                                 .subscribe(new Observer<List<? extends LandConversion_Final_Order_Interface>>() {
 
                                     @Override
-                                    public void onSubscribe(Disposable d) {
+                                    public void onSubscribe(@NonNull Disposable d) {
 
                                     }
 
                                     @Override
-                                    public void onNext(List<? extends LandConversion_Final_Order_Interface> nterfaces_List) {
+                                    public void onNext(@NonNull List<? extends LandConversion_Final_Order_Interface> nterfaces_List) {
 
 
                                         LCFO_DATA = (List<LandConversion_Final_Order_Interface>) nterfaces_List;
@@ -555,7 +554,7 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
                                     }
 
                                     @Override
-                                    public void onError(Throwable e) {
+                                    public void onError(@NonNull Throwable e) {
 
                                     }
 
@@ -642,17 +641,17 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
 
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Long[] longs) {
+                    public void onNext(@NonNull Long[] longs) {
 
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
                         Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
 
                     }
@@ -677,17 +676,17 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
 
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer integer) {
+                    public void onNext(@NonNull Integer integer) {
 
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
                         Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                     }
 
@@ -755,12 +754,12 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
 
 
                                     @Override
-                                    public void onSubscribe(Disposable d) {
+                                    public void onSubscribe(@NonNull Disposable d) {
 
                                     }
 
                                     @Override
-                                    public void onNext(Integer integer) {
+                                    public void onNext(@NonNull Integer integer) {
                                         List<LandConversion_Final_Order_TABLE> LCFO_List = loadData();
                                         if (integer < 6) {
                                             createLandConversion_Final_Order_TABLEData(LCFO_List);
@@ -770,7 +769,7 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
                                     }
 
                                     @Override
-                                    public void onError(Throwable e) {
+                                    public void onError(@NonNull Throwable e) {
                                         Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                                     }
 
@@ -838,12 +837,12 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
 
 
                                     @Override
-                                    public void onSubscribe(Disposable d) {
+                                    public void onSubscribe(@NonNull Disposable d) {
 
                                     }
 
                                     @Override
-                                    public void onNext(Integer integer) {
+                                    public void onNext(@NonNull Integer integer) {
                                         List<LandConversion_Final_Order_TABLE> LCFO_List = loadData();
                                         if (integer < 6) {
                                             createLandConversion_Final_Order_TABLEData(LCFO_List);
@@ -853,7 +852,7 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
                                     }
 
                                     @Override
-                                    public void onError(Throwable e) {
+                                    public void onError(@NonNull Throwable e) {
                                         Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                                     }
 
@@ -996,7 +995,7 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
 //                mTaskFragment.startBackgroundTask_GetDetails_VilWise(jsonObject, getString(R.string.rest_service_url), tokenType, accessToken);
 
             } catch (Exception e){
-                Log.d("ExcepSuccessGetToken",e.getLocalizedMessage()+"");
+                e.printStackTrace();
                 Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         }
@@ -1004,9 +1003,8 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
 
     @Override
     public void onPostResponseError_Token(String errorResponse) {
-        Log.d("ERR_msg", errorResponse+"");
+        progressDialog.dismiss();
         Toast.makeText(this, ""+errorResponse, Toast.LENGTH_SHORT).show();
-//        Toast.makeText(this, "Authorization has been denied for this request.", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -1026,28 +1024,23 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
 
     @Override
     public void onPreExecute_AppLgs() {
+        progressDialog.show();
     }
 
     @Override
     public void onPostResponseSuccess_AppLgs(String data) {
-        Log.d("AppLgsRes", ""+data);
         if (strSelected.equals(getString(R.string.request_id))) {
-            Log.d("request_id","request_id");
             ReqID_Response(tokenType, accessToken);
         }else if (strSelected.equals(getString(R.string.survey_no_wise))){
-            Log.d("survey_no_wise","survey_no_wise");
             SNO_Response(tokenType, accessToken);
         }
     }
 
     @Override
     public void onPostResponseError_AppLgs(String data) {
-        Log.d("AppLgsRes", ""+data);
         if (strSelected.equals(getString(R.string.request_id))) {
-            Log.d("request_id","request_id");
             ReqID_Response(tokenType, accessToken);
         }else if (strSelected.equals(getString(R.string.survey_no_wise))){
-            Log.d("survey_no_wise","survey_no_wise");
             SNO_Response(tokenType, accessToken);
         }
     }
