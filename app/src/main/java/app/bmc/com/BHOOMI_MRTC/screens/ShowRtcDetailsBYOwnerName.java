@@ -23,8 +23,6 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
@@ -37,6 +35,7 @@ import java.util.Objects;
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.adapters.ViewRTCByOwnerNameNewAdapter;
 import app.bmc.com.BHOOMI_MRTC.backgroundtasks.RtcViewInfoBackGroundTaskFragment;
+import app.bmc.com.BHOOMI_MRTC.model.OwnerName_InputParameter_GetDetails_VilWise;
 import app.bmc.com.BHOOMI_MRTC.model.RTCByOwnerNameResponse;
 
 import static java.util.Comparator.comparing;
@@ -54,8 +53,9 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity implements RtcV
     String distId, talkId, hblId, village_id;
     ArrayList<String> distId_array = new ArrayList<>(), talkId_array = new ArrayList<>(), hblId_array = new ArrayList<>(), village_id_array = new ArrayList<>();
 
+    OwnerName_InputParameter_GetDetails_VilWise ownerName_inputParameter_getDetails_vilWise;
     Intent intent;
-    String input;
+//    String input;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,13 +105,18 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity implements RtcV
             hblId = intent.getStringExtra("hblId");
             village_id = intent.getStringExtra("village_id");
 
-            input = "{" +
-                    "\"pDistrictCode\": \""+distId+"\"," +
-                    "\"pTalukCode\": \""+talkId+"\"," +
-                    "\"pHobliCode\":\""+hblId+"\"," +
-                    "\"pVillageCode\": \""+village_id+"\"" +
-                    "}";
+//            input = "{" +
+//                    "\"pDistrictCode\": \""+distId+"\"," +
+//                    "\"pTalukCode\": \""+talkId+"\"," +
+//                    "\"pHobliCode\":\""+hblId+"\"," +
+//                    "\"pVillageCode\": \""+village_id+"\"" +
+//                    "}";
 
+            ownerName_inputParameter_getDetails_vilWise = new OwnerName_InputParameter_GetDetails_VilWise();
+            ownerName_inputParameter_getDetails_vilWise.setpDistrictCode(distId);
+            ownerName_inputParameter_getDetails_vilWise.setpTalukCode(talkId);
+            ownerName_inputParameter_getDetails_vilWise.setpHobliCode(hblId);
+            ownerName_inputParameter_getDetails_vilWise.setpVillageCode(village_id);
 
             if (isNetworkAvailable()){
                 try {
@@ -347,8 +352,8 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity implements RtcV
             alert.show();
             alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
         } else {
-            JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
-            mTaskFragment.startBackgroundTask_GetDetails_VilWise(jsonObject, getString(R.string.rest_service_url),TokenType, AccessToken);
+//            JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
+            mTaskFragment.startBackgroundTask_GetDetails_VilWise(ownerName_inputParameter_getDetails_vilWise, getString(R.string.rest_service_url),TokenType, AccessToken);
         }
     }
 

@@ -1,10 +1,11 @@
 package app.bmc.com.BHOOMI_MRTC.api;
 
-import com.google.gson.JsonObject;
 
 import app.bmc.com.BHOOMI_MRTC.model.ClsKnowID_Get_Surnoc_Hissa;
+import app.bmc.com.BHOOMI_MRTC.model.ClsReqLandID;
 import app.bmc.com.BHOOMI_MRTC.model.Get_Surnoc_HissaRequest;
 import app.bmc.com.BHOOMI_MRTC.model.BHOOMI_API_Response;
+import app.bmc.com.BHOOMI_MRTC.model.OwnerName_InputParameter_GetDetails_VilWise;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Headers;
@@ -34,7 +35,7 @@ public interface RtcViewInformationApi {
     @Headers({"content-type: text/json; charset=utf-8"})
     @POST("api/values/get_rtc_data/")
     Call<BHOOMI_API_Response> getRtcResponse(
-            @Body JsonObject input
+            @Body ClsReqLandID input
     );
 
 
@@ -52,13 +53,18 @@ public interface RtcViewInformationApi {
     @Headers({"content-type: text/json; charset=utf-8"})
     @POST("api/values/get_tc_data/")
     Call<BHOOMI_API_Response> getRtcCultivator(
-            @Body JsonObject input
+            @Body ClsReqLandID input
     );
 
+//    @Headers({"content-type: text/json; charset=utf-8"})
+//    @POST("api/values/GetDetails_VillageWise_JSON/")
+//    Call<BHOOMI_API_Response> GetDetails_VillageWise_JSON(
+//            @Body JsonObject input
+//    );
     @Headers({"content-type: text/json; charset=utf-8"})
     @POST("api/values/GetDetails_VillageWise_JSON/")
     Call<BHOOMI_API_Response> GetDetails_VillageWise_JSON(
-            @Body JsonObject input
+            @Body OwnerName_InputParameter_GetDetails_VilWise input
     );
 
 

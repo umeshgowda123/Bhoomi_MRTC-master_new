@@ -2,6 +2,7 @@ package app.bmc.com.BHOOMI_MRTC.model;
 
 public class ClsReqLandID {
     public int Bhm_dist_code, Bhm_taluk_code, Bhm_hobli_code, Bhm_village_code, Bhm_land_code;
+    public int village_code, land_code;
 
     public int getBhm_dist_code() {
         return Bhm_dist_code;
@@ -41,5 +42,13 @@ public class ClsReqLandID {
 
     public void setBhm_land_code(int bhm_land_code) {
         Bhm_land_code = bhm_land_code;
+    }
+
+    public void setLand_code(int land_code) {
+        this.land_code = land_code;
+    }
+
+    public void setVillage_code(int village_code) {
+        this.village_code = village_code;
     }
 }

@@ -2,7 +2,6 @@ package app.bmc.com.BHOOMI_MRTC.screens;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -26,10 +25,6 @@ import android.widget.Toast;
 import androidx.fragment.app.FragmentManager;
 import androidx.room.Room;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -40,6 +35,7 @@ import app.bmc.com.BHOOMI_MRTC.backgroundtasks.RtcXmlverificationBackGroundTask;
 import app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper;
 import app.bmc.com.BHOOMI_MRTC.interfaces.RTCV_RES_Interface;
 import app.bmc.com.BHOOMI_MRTC.model.ClsAppLgs;
+import app.bmc.com.BHOOMI_MRTC.model.RTCXML_InputParameter_Class;
 import app.bmc.com.BHOOMI_MRTC.model.RTC_VERIFICATION_TABLE;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -61,8 +57,8 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
     List<RTCV_RES_Interface> RTCV_data;
 
     String accessToken, tokenType;
-    JsonObject jsonObject;
 
+    RTCXML_InputParameter_Class rtcxml_inputParameter_class;
     int AppType;
 
     @Override
@@ -184,12 +180,17 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
 
                     String passcode = getString(R.string.passcode);
                     String saltkey = getString(R.string.saltkey);
-                    String values1;
-                    values1 = "{" + "\"pReferenceNo\":" + referenceNo + ","
-                            + "\"pPasscode\":" + passcode + ","
-                            + "\"pSaltkey\":\"" + saltkey + "\""
-                            + "}";
-                    jsonObject = new JsonParser().parse(values1).getAsJsonObject();
+//                    String values1;
+//                    values1 = "{" + "\"pReferenceNo\":" + referenceNo + ","
+//                            + "\"pPasscode\":" + passcode + ","
+//                            + "\"pSaltkey\":\"" + saltkey + "\""
+//                            + "}";
+//                    jsonObject = new JsonParser().parse(values1).getAsJsonObject();
+                    rtcxml_inputParameter_class = new RTCXML_InputParameter_Class();
+                    rtcxml_inputParameter_class.setpReferenceNo(referenceNo);
+                    rtcxml_inputParameter_class.setpPasscode(passcode);
+                    rtcxml_inputParameter_class.setpSaltkey(saltkey);
+
 
                     //---------------------------------------------------------------------------
 
@@ -493,13 +494,13 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
     @Override
     public void onPostResponseSuccess_AppLgs(String data) {
         Log.d("AppLgsRes", ""+data);
-        mTaskFragment.startBackgroundTask(jsonObject, tokenType, accessToken);
+        mTaskFragment.startBackgroundTask(rtcxml_inputParameter_class, tokenType, accessToken);
     }
 
     @Override
     public void onPostResponseError_AppLgs(String data) {
         Log.d("AppLgsRes", ""+data);
-        mTaskFragment.startBackgroundTask(jsonObject, tokenType, accessToken);
+        mTaskFragment.startBackgroundTask(rtcxml_inputParameter_class, tokenType, accessToken);
     }
 
     @Override

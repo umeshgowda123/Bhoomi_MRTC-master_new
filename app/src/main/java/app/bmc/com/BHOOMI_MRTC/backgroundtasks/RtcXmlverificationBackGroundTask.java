@@ -8,13 +8,12 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.google.gson.JsonObject;
-
 import org.jetbrains.annotations.NotNull;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.api.RtcXmlVerificationApi;
 import app.bmc.com.BHOOMI_MRTC.model.BHOOMI_API_Response;
+import app.bmc.com.BHOOMI_MRTC.model.RTCXML_InputParameter_Class;
 import app.bmc.com.BHOOMI_MRTC.retrofit.AuthorizationClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -77,13 +76,13 @@ public class RtcXmlverificationBackGroundTask extends Fragment {
 //            getRtcVerificationResponse(referenceNo);
 //        }
 //    }
-    public void startBackgroundTask(JsonObject jsonObject, String token_type, String token) {
+    public void startBackgroundTask(RTCXML_InputParameter_Class input, String token_type, String token) {
         if (!isTaskExecuting) {
-            getRtcVerificationResponse(jsonObject, token_type, token);
+            getRtcVerificationResponse(input, token_type, token);
         }
     }
 
-    private void getRtcVerificationResponse(JsonObject jsonObject, String token_type, String token) {
+    private void getRtcVerificationResponse(RTCXML_InputParameter_Class jsonObject, String token_type, String token) {
         try {
             isTaskExecuting = true;
             if (backgroundCallBack != null)
@@ -102,7 +101,6 @@ public class RtcXmlverificationBackGroundTask extends Fragment {
 
                         isTaskExecuting = false;
                         backgroundCallBack.onPostResponseSuccess1(data);
-
 
                     } else {
                         isTaskExecuting = false;

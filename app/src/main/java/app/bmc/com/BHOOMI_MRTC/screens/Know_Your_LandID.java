@@ -33,8 +33,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
@@ -57,7 +55,6 @@ import app.bmc.com.BHOOMI_MRTC.interfaces.VillageModelInterface;
 import app.bmc.com.BHOOMI_MRTC.model.ClsAppLgs;
 import app.bmc.com.BHOOMI_MRTC.model.ClsKnowID_Get_Surnoc_Hissa;
 import app.bmc.com.BHOOMI_MRTC.model.ClsReqLandID;
-import app.bmc.com.BHOOMI_MRTC.model.Get_Surnoc_HissaRequest;
 
 import app.bmc.com.BHOOMI_MRTC.model.Hissa_Separate_Response;
 import app.bmc.com.BHOOMI_MRTC.model.Surnoc_Response;
@@ -110,7 +107,7 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
     String accessToken, tokenType;
 
     int AppType;
-    String input, input2;
+//    String input, input2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -385,13 +382,10 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
 
         sp_landid_hissa.setOnItemClickListener((parent, view, position, id) -> {
 
-            suroc = surnoc_responseList.get(position).getSurnoc();
+
             land_no = hissa_responseList.get(position).getLand_code();
             hissa = hissa_responseList.get(position).getHissa_no();
 
-            Log.d("suroc~~~", suroc+"");
-            Log.d("land_no~~~", land_no+"");
-            Log.d("hissa~~~", hissa+"");
         });
 
 
@@ -916,5 +910,7 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
     protected void onStop() {
         super.onStop();
         mTaskFragment.terminateExecutionOfBackTaskGetBhoomiLandID();
+        mTaskFragment.terminateExecutionOf_GetSurnocNo();
+        mTaskFragment.terminateExecutionOf_GetHissaNo();
     }
 }

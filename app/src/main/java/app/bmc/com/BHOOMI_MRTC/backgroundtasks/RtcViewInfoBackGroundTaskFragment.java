@@ -21,6 +21,7 @@ import app.bmc.com.BHOOMI_MRTC.model.BHOOMI_API_Response;
 import app.bmc.com.BHOOMI_MRTC.model.ClsKnowID_Get_Surnoc_Hissa;
 import app.bmc.com.BHOOMI_MRTC.model.ClsReqLandID;
 import app.bmc.com.BHOOMI_MRTC.model.Get_Surnoc_HissaRequest;
+import app.bmc.com.BHOOMI_MRTC.model.OwnerName_InputParameter_GetDetails_VilWise;
 import app.bmc.com.BHOOMI_MRTC.model.TokenRes;
 import app.bmc.com.BHOOMI_MRTC.model.ClsAppLgs;
 import app.bmc.com.BHOOMI_MRTC.retrofit.PariharaIndividualreportClient;
@@ -103,7 +104,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         }
     }
 
-    public void startBackgroundTask2(JsonObject input, String url,String token_type, String token) {
+    public void startBackgroundTask2(ClsReqLandID input, String url,String token_type, String token) {
         if (!isTaskExecuting) {
             getRtcResponse(input, url, token_type, token);
         }
@@ -122,13 +123,13 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
 
     }
 
-    public void startBackgroundTaskCultivatorData(JsonObject input, String url, String token_type, String token) {
+    public void startBackgroundTaskCultivatorData(ClsReqLandID input, String url, String token_type, String token) {
         if (!isTaskExecuting) {
             getCultivatorResponse(input, url, token_type,token);
         }
     }
 
-    public void startBackgroundTask_GetDetails_VilWise(JsonObject input, String url, String token_type, String token) {
+    public void startBackgroundTask_GetDetails_VilWise(OwnerName_InputParameter_GetDetails_VilWise input, String url, String token_type, String token) {
         if (!isTaskExecuting) {
             GetDetails_VillageWise_JSON(input, url, token_type, token);
         }
@@ -264,7 +265,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
     }
 
 
-    private void getRtcResponse(JsonObject input, String url, String token_type, String token) {
+    private void getRtcResponse(ClsReqLandID input, String url, String token_type, String token) {
         isTaskExecuting = true;
         if (backgroundCallBack != null)
             backgroundCallBack.onPreExecute2();
@@ -460,7 +461,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
     }
 
 
-    private void getCultivatorResponse(JsonObject input, String url, String token_type, String token) {
+    private void getCultivatorResponse(ClsReqLandID input, String url, String token_type, String token) {
         isTaskExecuting = true;
         if (backgroundCallBack != null)
             backgroundCallBack.onPreExecute2();
@@ -505,7 +506,7 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
         }
     }
 
-    private void GetDetails_VillageWise_JSON(JsonObject input, String url,  String token_type, String token){
+    private void GetDetails_VillageWise_JSON(OwnerName_InputParameter_GetDetails_VilWise input, String url,  String token_type, String token){
         isTaskExecuting = true;
         if (backgroundCallBack != null)
             backgroundCallBack.onPreExecute5();
@@ -628,6 +629,11 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
             }
         });
     }
+    public void terminateExecutionOf_GetSurnocNo(){
+        if (get_surnoc_Call != null && get_surnoc_Call.isExecuted()) {
+            get_surnoc_Call.cancel();
+        }
+    }
 
     private void GetHissaNo(ClsKnowID_Get_Surnoc_Hissa input, String url, String token_type, String token){
         isTaskExecuting = true;
@@ -667,6 +673,11 @@ public class RtcViewInfoBackGroundTaskFragment extends Fragment {
                 }
             }
         });
+    }
+    public void terminateExecutionOf_GetHissaNo(){
+        if (get_hissaNo_Call != null && get_hissaNo_Call.isExecuted()) {
+            get_hissaNo_Call.cancel();
+        }
     }
 
 

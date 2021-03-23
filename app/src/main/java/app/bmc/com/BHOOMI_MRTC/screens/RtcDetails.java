@@ -1,6 +1,6 @@
 package app.bmc.com.BHOOMI_MRTC.screens;
 
-import android.annotation.SuppressLint;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -27,8 +27,6 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -45,6 +43,7 @@ import app.bmc.com.BHOOMI_MRTC.fragments.LandDetailsFragment;
 import app.bmc.com.BHOOMI_MRTC.fragments.OwnerDetailsFragment;
 import app.bmc.com.BHOOMI_MRTC.interfaces.VR_RES_Interface;
 import app.bmc.com.BHOOMI_MRTC.model.ClsAppLgs;
+import app.bmc.com.BHOOMI_MRTC.model.ClsReqLandID;
 import app.bmc.com.BHOOMI_MRTC.model.Staticinfopahani;
 import app.bmc.com.BHOOMI_MRTC.model.VR_INFO;
 import app.bmc.com.BHOOMI_MRTC.model.Villagedetails;
@@ -80,7 +79,8 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
 
     private List<VR_RES_Interface> VR_RES_Data;
 
-    String input;
+//    String input;
+    ClsReqLandID clsReqLandID;
 
     int AppType;
 
@@ -132,13 +132,19 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                 progressBar.setVisibility(View.VISIBLE);
         }
 
-        input = "{" +
-                "\"Bhm_dist_code\": \""+distId+"\"," +
-                "\"Bhm_taluk_code\": \""+talkId+"\"," +
-                "\"Bhm_hobli_code\":\""+hblId+"\"," +
-                "\"village_code\": \""+villId+"\"," +
-                "\"land_code\": \""+land_no+"\"" +
-                "}";
+        clsReqLandID = new ClsReqLandID();
+        clsReqLandID.setBhm_dist_code(Integer.parseInt(distId));
+        clsReqLandID.setBhm_taluk_code(Integer.parseInt(talkId));
+        clsReqLandID.setBhm_hobli_code(Integer.parseInt(hblId));
+        clsReqLandID.setVillage_code(Integer.parseInt(villId));
+        clsReqLandID.setLand_code(Integer.parseInt(land_no));
+//        input = "{" +
+//                "\"Bhm_dist_code\": \""+distId+"\"," +
+//                "\"Bhm_taluk_code\": \""+talkId+"\"," +
+//                "\"Bhm_hobli_code\":\""+hblId+"\"," +
+//                "\"village_code\": \""+villId+"\"," +
+//                "\"land_code\": \""+land_no+"\"" +
+//                "}";
 
         if (RTC.equals("RTC")) {
             if (distId != null && talkId != null && hblId != null && villId != null && land_no != null) {
@@ -370,8 +376,8 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                     }
                 }
                 try {
-                    JsonObject jsonObject1 = new JsonParser().parse(input).getAsJsonObject();
-                    mTaskFragment.startBackgroundTaskCultivatorData(jsonObject1, getString(R.string.rest_service_url), tokenType, accessToken);
+//                    JsonObject jsonObject1 = new JsonParser().parse(input).getAsJsonObject();
+                    mTaskFragment.startBackgroundTaskCultivatorData(clsReqLandID, getString(R.string.rest_service_url), tokenType, accessToken);
                 } catch (Exception e){
                     Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -520,15 +526,15 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
     @Override
     public void onPostResponseSuccess_AppLgs(String data) {
         Log.d("AppLgsResSuc", ""+data);
-        JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
-        mTaskFragment.startBackgroundTask2(jsonObject, getString(R.string.rest_service_url),tokenType, accessToken);
+//        JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
+        mTaskFragment.startBackgroundTask2(clsReqLandID, getString(R.string.rest_service_url),tokenType, accessToken);
     }
 
     @Override
     public void onPostResponseError_AppLgs(String data) {
         Log.d("AppLgsResErr", ""+data);
-        JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
-        mTaskFragment.startBackgroundTask2(jsonObject, getString(R.string.rest_service_url),tokenType, accessToken);
+//        JsonObject jsonObject = new JsonParser().parse(input).getAsJsonObject();
+        mTaskFragment.startBackgroundTask2(clsReqLandID, getString(R.string.rest_service_url),tokenType, accessToken);
     }
 
     @Override
