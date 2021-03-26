@@ -498,8 +498,9 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
 
                                 @Override
                                 public void onNext(@NonNull List<? extends VMS_RES_Interface> vms_res_interfaces_list) {
-                                    progressBar.setVisibility(View.GONE);
-
+                                    if (progressBar != null) {
+                                        progressBar.setVisibility(View.GONE);
+                                    }
                                     VMS_RES_Data = (List<VMS_RES_Interface>) vms_res_interfaces_list;
                                     if (vms_res_interfaces_list.size() != 0) {
                                             for (int i = 0; i <= vms_res_interfaces_list.size()-1; i++) {

@@ -63,6 +63,17 @@ public class MutationStatusData {
 
 
 
+    @SerializedName("MutStatusCode")
+    @Expose
+    private String MutStatusCode;
+
+    @SerializedName("MutPendingStage")
+    @Expose
+    private String MutPendingStage;
+
+
+
+
     @SerializedName("TranEnteredBy")
     @Expose
     private String TranEnteredBy;
@@ -213,6 +224,22 @@ public class MutationStatusData {
         this.SURVEY_NO = SURVEY_NO;
     }
 
+
+    public String getMutStatusCode() {
+        return MutStatusCode;
+    }
+
+    public void setMutStatusCode(String mutStatusCode) {
+        MutStatusCode = mutStatusCode;
+    }
+
+    public String getMutPendingStage() {
+        return MutPendingStage;
+    }
+
+    public void setMutPendingStage(String mutPendingStage) {
+        MutPendingStage = mutPendingStage;
+    }
 
     public String getTranEnteredBy() {
         return TranEnteredBy;

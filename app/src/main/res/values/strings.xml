@@ -461,4 +461,7 @@
     <string name="final_approval">Final Approval</string>
     <string name="pending">Pending</string>
     <string name="notice_period_days">30 Days</string>
+    <string name="File_Acknowldeged_By_RI">File Acknowldeged By RI</string>
+    <string name="RI">RI</string>
+    <string name="survey_upervisor">Survey Supervisor</string>
 </resources>

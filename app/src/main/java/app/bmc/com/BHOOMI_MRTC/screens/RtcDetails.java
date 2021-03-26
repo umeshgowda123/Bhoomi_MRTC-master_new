@@ -232,8 +232,9 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
                                         }
                                     }
                                     else {
-                                        progressBar.setVisibility(View.VISIBLE);
-
+                                        if (progressBar != null) {
+                                            progressBar.setVisibility(View.VISIBLE);
+                                        }
                                         try {
                                             mTaskFragment.startBackgroundTask_GenerateToken(getString(R.string.url_token));
 

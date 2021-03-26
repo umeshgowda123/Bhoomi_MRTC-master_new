@@ -867,5 +867,7 @@ public class Know_Your_LandID extends AppCompatActivity implements RtcViewInfoBa
     protected void onStop() {
         super.onStop();
         mTaskFragment.terminateExecutionOfBackTaskGetBhoomiLandID();
+        mTaskFragment.terminateExecutionOf_GetSurnocNo();
+        mTaskFragment.terminateExecutionOf_GetHissaNo();
     }
 }

@@ -141,8 +141,9 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
 
                             @Override
                             public void onNext(List<? extends RLR_RES_Interface> rlr_res_interfaces_list) {
-                                progressBar.setVisibility(View.GONE);
-
+                                if (progressBar != null) {
+                                    progressBar.setVisibility(View.GONE);
+                                }
                                 RLR_RES_Data = (List<RLR_RES_Interface>) rlr_res_interfaces_list;
 //                                RLR_RES_Data = (List<RLR_RES_Interface>) rlr_res_interfaces_list;
                                 if (rlr_res_interfaces_list.size()!=0) {
@@ -182,8 +183,9 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                                 }
                                 else {
                                     jsonObject = new JsonParser().parse(input).getAsJsonObject();
-                                    progressBar.setVisibility(View.VISIBLE);
-
+                                    if (progressBar != null) {
+                                        progressBar.setVisibility(View.VISIBLE);
+                                    }
                                     ClsAppLgs objClsAppLgs = new ClsAppLgs();
                                     objClsAppLgs.setAppID(1);
                                     objClsAppLgs.setAppType(AppType);
@@ -270,7 +272,9 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
 
     @Override
     public void onPreExecute4() {
-        progressBar.setVisibility(View.VISIBLE);
+        if (progressBar != null) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
     }
 
 
@@ -385,7 +389,9 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
 
     @Override
     public void onPostResponseSuccess4(String data) {
-        progressBar.setVisibility(View.GONE);
+        if (progressBar != null) {
+            progressBar.setVisibility(View.GONE);
+        }
         strData = data;
         if (data==null || data.equals("")){
             final AlertDialog.Builder builder = new AlertDialog.Builder(RestrictionOnLandReport.this, R.style.MyDialogTheme);

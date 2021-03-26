@@ -209,44 +209,161 @@ public class ShowMutationStatusDetails extends AppCompatActivity {
                         String RI_ProvAccDate = myPendingDataList.get(j).getRI_ProvAccDate() + "";
                         String SurveyorApprDate = myPendingDataList.get(j).getSurveyorApprDate() + "";
                         String TypeOfMutCode = myPendingDataList.get(j).getTypeOfMutCode()+"";
+                        String stage = myPendingDataList.get(j).getMutPendingStage()+"";
 
                         if (TypeOfMutCode.equals("21") || TypeOfMutCode.equals("22")){
-
                             txtHeader.set(0, getString(R.string.data_entry));
-                            models.set(0, getString(R.string.tansaction_entered_by)+ TranEnteredBy +"\n" +getString(R.string.transaction_entered_on)+TranEnteredDate);
-                            Images.set(0, R.drawable.ic_baseline_check_circle_24);
+                            models.set(0, getString(R.string.tansaction_entered_by) + TranEnteredBy + "\n" + getString(R.string.transaction_entered_on) + TranEnteredDate);
 
-                            txtHeader.set(1, getString(R.string.checlist_approval));
-                            models.set(1, "\n" + getString(R.string.checklist_approved_by)+ CheckListApprBy+"\n" +getString(R.string.approved_on)+CheckListApprDate);
-                            Images.set(1, R.drawable.ic_baseline_check_circle_24);
+                            if (stage.equals(getString(R.string.data_entry))) {
+                            Images.set(0, R.drawable.ic_baseline_access_time_24);
+                            }else
+                            {
+                                Images.set(0, R.drawable.ic_baseline_check_circle_24);
+                            }
 
-                            txtHeader.set(2, getString(R.string.notice_generation_form_21));
-                            models.set(2, "\n" + getString(R.string.notice_generated_on)+NoticeGenOn +"\n" +getString(R.string.notice_period)+" "+getString(R.string.notice_period_days));
-                            Images.set(2, R.drawable.ic_baseline_check_circle_24);
 
-                            txtHeader.set(3, getString(R.string.ri_provisional_acceptance));
-                            models.set(3, "\n" + getString(R.string.provision_accepted)+RI_ProvAcc +"\n" +getString(R.string.approved_on)+RI_ProvAccDate);
-                            Images.set(3, R.drawable.ic_baseline_access_time_24);
+                            if (stage.equals(getString(R.string.checlist_approval))) {
+                                txtHeader.set(1, getString(R.string.checlist_approval));
+                                models.set(1, "\n" + getString(R.string.checklist_approved_by)+ CheckListApprBy+"\n" +getString(R.string.approved_on)+CheckListApprDate);
+                                Images.set(1, R.drawable.ic_baseline_access_time_24);
+                            }else
+                            {
+                                txtHeader.set(1, getString(R.string.checlist_approval));
+                                models.set(1, "\n" + getString(R.string.checklist_approved_by)+ CheckListApprBy+"\n" +getString(R.string.approved_on)+CheckListApprDate);
+                                if (stage.equals(getString(R.string.data_entry))) {
+                                    Images.set(1, R.drawable.ic_baseline_adjust_24);
 
-                            txtHeader.set(4, getString(R.string.hissa_assignment_by_syrvey_supervisor));// Yes is the Default value
-                            models.set(4, "\n"+ getString(R.string.new_hissa_assigned_as_per_11e)+ "Yes" +"\n"+ getString(R.string.assigned_on)+SurveyorApprDate );
-                            Images.set(4, R.drawable.ic_baseline_access_time_24);
+                                }else {
+                                    Images.set(1, R.drawable.ic_baseline_check_circle_24);
+                                }
+                            }
 
-                            txtHeader.set(5, getString(R.string.final_approval));
-                            models.set(5, "\n" + getString(R.string.pending));
-                            Images.set(5, R.drawable.ic_baseline_access_time_24);
+                            if (stage.equals(getString(R.string.notice_generation_form_21))) {
+                                Images.set(2, R.drawable.ic_baseline_access_time_24);
+                                txtHeader.set(2, getString(R.string.notice_generation_form_21));
+                                models.set(2, "\n" + getString(R.string.notice_generated_on)+NoticeGenOn +"\n" +getString(R.string.notice_period)+" "+getString(R.string.notice_period_days));
+                            }else
+                            {
+                                txtHeader.set(2, getString(R.string.notice_generation_form_21));
+                                models.set(2, "\n" + getString(R.string.notice_generated_on)+NoticeGenOn +"\n" +getString(R.string.notice_period)+" "+getString(R.string.notice_period_days));
+
+                                if (stage.equals(getString(R.string.data_entry))||stage.equals(getString(R.string.checlist_approval))) {
+                                    Images.set(2, R.drawable.ic_baseline_adjust_24);
+                                }else {
+
+                                    Images.set(2, R.drawable.ic_baseline_check_circle_24);
+                                }
+                            }
+
+                            if (stage.equals(getString(R.string.RI))) {
+                                Images.set(3, R.drawable.ic_baseline_access_time_24);txtHeader.set(3, getString(R.string.ri_provisional_acceptance));
+                                models.set(3, "\n" + getString(R.string.provision_accepted)+RI_ProvAcc +"\n" +getString(R.string.approved_on)+RI_ProvAccDate);
+                            }else
+                            {
+                                txtHeader.set(3, getString(R.string.ri_provisional_acceptance));
+                                models.set(3, "\n" + getString(R.string.provision_accepted)+RI_ProvAcc +"\n" +getString(R.string.approved_on)+RI_ProvAccDate);
+                                if (stage.equals(getString(R.string.data_entry))||stage.equals(getString(R.string.checlist_approval))
+                                        ||stage.equals(getString(R.string.notice_generation_form_21))) {
+                                    Images.set(3, R.drawable.ic_baseline_adjust_24);
+                                }else {
+                                    Images.set(3, R.drawable.ic_baseline_check_circle_24);
+                                }
+                            }
+//                            txtHeader.set(4, getString(R.string.File_Acknowldeged_By_RI));// Yes is the Default value
+//                            models.set(4, "\n"+ RI_ProvAcc+"" );
+//                            Images.set(4, R.drawable.ic_baseline_access_time_24);
+
+                            if (stage.equals(getString(R.string.survey_upervisor))) {
+                                Images.set(4, R.drawable.ic_baseline_access_time_24);
+                                txtHeader.set(4, getString(R.string.hissa_assignment_by_syrvey_supervisor));// Yes is the Default value
+                                models.set(4, "\n"+ getString(R.string.new_hissa_assigned_as_per_11e)+ "" +"\n"+ getString(R.string.assigned_on)+SurveyorApprDate );
+                            }else
+                            {
+                                txtHeader.set(4, getString(R.string.hissa_assignment_by_syrvey_supervisor));// Yes is the Default value
+                                models.set(4, "\n"+ getString(R.string.new_hissa_assigned_as_per_11e)+ "" +"\n"+ getString(R.string.assigned_on)+SurveyorApprDate );
+
+                                if (stage.equals(getString(R.string.data_entry))||stage.equals(getString(R.string.checlist_approval))
+                                        ||stage.equals(getString(R.string.notice_generation_form_21))||stage.equals(getString(R.string.RI))) {
+                                    Images.set(4, R.drawable.ic_baseline_adjust_24);
+                                }else {
+                                    Images.set(4, R.drawable.ic_baseline_check_circle_24);
+                                }
+                            }
+
+                            if (stage.equals(getString(R.string.final_approval))) {
+                                Images.set(5, R.drawable.ic_baseline_access_time_24);
+                                txtHeader.set(5, getString(R.string.final_approval));
+                                models.set(5, "\n" + getString(R.string.pending));
+                            }else {
+                                txtHeader.set(5, getString(R.string.final_approval));
+                                models.set(5, "\n" + getString(R.string.pending));
+                                if (stage.equals(getString(R.string.data_entry))||stage.equals(getString(R.string.checlist_approval))
+                                        ||stage.equals(getString(R.string.notice_generation_form_21))||stage.equals(getString(R.string.RI))
+                                        ||stage.equals(getString(R.string.survey_upervisor))) {
+                                    Images.set(5, R.drawable.ic_baseline_adjust_24);
+                                } else {
+                                    Images.set(5, R.drawable.ic_baseline_check_circle_24);
+                                }
+                            }
                         } else {
+
                             txtHeader.set(0, getString(R.string.data_entry));
                             models.set(0, getString(R.string.tansaction_entered_by)+ TranEnteredBy +"\n" +getString(R.string.transaction_entered_on)+TranEnteredDate);
-                            Images.set(0, R.drawable.ic_baseline_check_circle_24);
 
-                            txtHeader.set(1, getString(R.string.checlist_approval));
-                            models.set(1, "\n" + getString(R.string.checklist_approved_by)+ CheckListApprBy+"\n" +getString(R.string.approved_on)+CheckListApprDate);
-                            Images.set(1, R.drawable.ic_baseline_check_circle_24);
+                            if (stage.equals(getString(R.string.data_entry))) {
+                                Images.set(0, R.drawable.ic_baseline_access_time_24);
+                            }else
+                            {
+                                Images.set(0, R.drawable.ic_baseline_check_circle_24);
+                            }
+                            if (stage.equals(getString(R.string.checlist_approval))) {
+                                txtHeader.set(1, getString(R.string.checlist_approval));
+                                models.set(1, "\n" + getString(R.string.checklist_approved_by)+ CheckListApprBy+"\n" +getString(R.string.approved_on)+CheckListApprDate);
+                                Images.set(1, R.drawable.ic_baseline_access_time_24);
+                            }else
+                            {
+                                txtHeader.set(1, getString(R.string.checlist_approval));
+                                models.set(1, "\n" + getString(R.string.checklist_approved_by)+ CheckListApprBy+"\n" +getString(R.string.approved_on)+CheckListApprDate);
+                                if (stage.equals(getString(R.string.data_entry))) {
+                                    Images.set(1, R.drawable.ic_baseline_adjust_24);
 
-                            txtHeader.set(2, getString(R.string.final_approval));
-                            models.set(2, "\n" + getString(R.string.pending));
-                            Images.set(2, R.drawable.ic_baseline_access_time_24);
+                                }else {
+                                    Images.set(1, R.drawable.ic_baseline_check_circle_24);
+                                }
+                            }
+
+
+//                            txtHeader.set(1, getString(R.string.checlist_approval));
+//                            models.set(1, "\n" + getString(R.string.checklist_approved_by)+ CheckListApprBy+"\n" +getString(R.string.approved_on)+CheckListApprDate);
+//
+//                            if (stage.equals(getString(R.string.checlist_approval))) {
+//                                Images.set(1, R.drawable.ic_baseline_access_time_24);
+//                            }else
+//                            {
+//                                Images.set(1, R.drawable.ic_baseline_check_circle_24);
+//                            }
+//                            txtHeader.set(2, getString(R.string.final_approval));
+//                            models.set(2, "\n" + "");
+
+
+
+                            if (stage.equals(getString(R.string.final_approval))) {
+                                Images.set(2, R.drawable.ic_baseline_access_time_24);
+                                txtHeader.set(2, getString(R.string.final_approval));
+                                models.set(2, "\n" + getString(R.string.pending));
+                            }else {
+                                txtHeader.set(2, getString(R.string.final_approval));
+                                models.set(2, "\n" + getString(R.string.pending));
+                                if (stage.equals(getString(R.string.data_entry)) || stage.equals(getString(R.string.checlist_approval))) {
+                                    Images.set(2, R.drawable.ic_baseline_adjust_24);
+                                } else {
+                                    Images.set(2, R.drawable.ic_baseline_check_circle_24);
+                                }
+
+                            }
+
+
                         }
                     }
                 recyclerViewLayoutManager = new GridLayoutManager(this,1);

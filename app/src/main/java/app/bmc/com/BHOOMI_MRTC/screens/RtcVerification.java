@@ -451,7 +451,9 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
             alert.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextSize(18);
         } else {
             try {
-                progressBar.setVisibility(View.VISIBLE);
+                if (progressBar != null) {
+                    progressBar.setVisibility(View.VISIBLE);
+                }
                 ClsAppLgs objClsAppLgs = new ClsAppLgs();
                 objClsAppLgs.setAppID(1);
                 objClsAppLgs.setAppType(AppType);
