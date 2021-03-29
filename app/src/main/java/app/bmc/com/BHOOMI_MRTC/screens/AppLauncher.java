@@ -1,5 +1,6 @@
 package app.bmc.com.BHOOMI_MRTC.screens;
 
+import androidx.annotation.NonNull;
 import androidx.room.Room;
 
 import android.content.Intent;
@@ -71,12 +72,12 @@ public class AppLauncher extends AppCompatActivity {
 
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer integer) {
+                    public void onNext(@NonNull Integer integer) {
 
                         if (integer == 0) {
                             List<MST_VLM> mst_vlmList = loadDataFromCsv();
@@ -88,7 +89,7 @@ public class AppLauncher extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
                         e.printStackTrace();
                         Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                         Log.d("1st", e.getLocalizedMessage()+"");
@@ -164,12 +165,12 @@ public class AppLauncher extends AppCompatActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Integer>() {
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer integer) {
+                    public void onNext(@NonNull Integer integer) {
                         if(integer == 0){
                             createUPDATE_DateTbl(currentDate, true);
                         } else {
@@ -178,7 +179,7 @@ public class AppLauncher extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
 
                     }
 
@@ -196,17 +197,17 @@ public class AppLauncher extends AppCompatActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Long>() {
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Long longs) {
+                    public void onNext(@NonNull Long longs) {
 
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
 
                     }
 
@@ -229,12 +230,12 @@ public class AppLauncher extends AppCompatActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(String s) {
+                    public void onNext(@NonNull String s) {
                         if (s!=null){
 //                            try {
 //                                Date currentDate = df.parse(curDate);
@@ -266,7 +267,7 @@ public class AppLauncher extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
 
                     }
 
@@ -285,17 +286,17 @@ public class AppLauncher extends AppCompatActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Integer>() {
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer integer) {
+                    public void onNext(@NonNull Integer integer) {
 
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
 
                     }
 
@@ -315,18 +316,18 @@ public class AppLauncher extends AppCompatActivity {
 
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Long[] longs) {
+                    public void onNext(@NonNull Long[] longs) {
                         Log.d("Status_AppLau", "enter3 CreatedMasterData");
                         verifyUPDDate(currentDate);
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
                         e.printStackTrace();
                         Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                         Log.d("2nd", e.getLocalizedMessage()+"");

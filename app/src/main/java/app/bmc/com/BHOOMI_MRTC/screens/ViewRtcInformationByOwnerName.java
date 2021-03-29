@@ -1,11 +1,12 @@
 package app.bmc.com.BHOOMI_MRTC.screens;
 
-import androidx.fragment.app.FragmentManager;
+
+import androidx.annotation.NonNull;
 import androidx.room.Room;
 
-import android.app.AlertDialog;
+
 import android.content.Context;
-import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -21,33 +22,30 @@ import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 
 import android.util.DisplayMetrics;
-import android.util.Log;
+
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ProgressBar;
+
 import android.widget.Toast;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
 import app.bmc.com.BHOOMI_MRTC.R;
-import app.bmc.com.BHOOMI_MRTC.backgroundtasks.RtcViewInfoBackGroundTaskFragment;
+
 import app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper;
 import app.bmc.com.BHOOMI_MRTC.interfaces.DistrictModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.HobliModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.TalukModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.VillageModelInterface;
-import app.bmc.com.BHOOMI_MRTC.model.RTCByOwnerNameResponse;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -135,12 +133,12 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
 
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(List<? extends DistrictModelInterface> mst_vlmList) {
+                    public void onNext(@NonNull List<? extends DistrictModelInterface> mst_vlmList) {
 
                         districtData = (List<DistrictModelInterface>) mst_vlmList;
                         ArrayAdapter<DistrictModelInterface> districtArrayAdapter = new ArrayAdapter<>(getApplicationContext(),
@@ -149,7 +147,7 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
 
                     }
 
@@ -161,46 +159,6 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
 
 
         onClickAction();
-
-//        dataBaseHelper =
-//                Room.databaseBuilder(getApplicationContext(),
-//                        DataBaseHelper.class, getString(R.string.db_name)).build();
-//        Observable<String> stringObservable;
-//        stringObservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getMaintenanceStatus(3));
-//        stringObservable
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Observer<String>() {
-//
-//
-//                    @Override
-//                    public void onSubscribe(Disposable d) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(String str) {
-//                        if (str.equals("false")){
-//                            AlertDialog alertDialog = new AlertDialog.Builder(ViewRtcInformationByOwnerName.this).create();
-//                            alertDialog.setTitle(getString(R.string.status));
-//                            alertDialog.setMessage(getString(R.string.this_service_is_under_maintenance));
-//                            alertDialog.setCancelable(false);
-//                            alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE,getString(R.string.ok), (dialog, which) -> onBackPressed());
-//                            alertDialog.show();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        e.printStackTrace();
-//                        Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//
-//                    }
-//                });
 
     }
 
@@ -223,12 +181,12 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
 
 
                         @Override
-                        public void onSubscribe(Disposable d) {
+                        public void onSubscribe(@NonNull Disposable d) {
 
                         }
 
                         @Override
-                        public void onNext(List<? extends TalukModelInterface> talukDataList) {
+                        public void onNext(@NonNull List<? extends TalukModelInterface> talukDataList) {
                             talukData = (List<TalukModelInterface>) talukDataList;
                             ArrayAdapter<TalukModelInterface> talukArrayAdapter = new ArrayAdapter<>(ViewRtcInformationByOwnerName.this,
                                     android.R.layout.simple_list_item_single_choice, talukData);
@@ -236,7 +194,7 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onError(Throwable e) {
+                        public void onError(@NonNull Throwable e) {
 
                         }
 
@@ -265,12 +223,12 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
 
 
                         @Override
-                        public void onSubscribe(Disposable d) {
+                        public void onSubscribe(@NonNull Disposable d) {
 
                         }
 
                         @Override
-                        public void onNext(List<? extends HobliModelInterface> hobliDataList) {
+                        public void onNext(@NonNull List<? extends HobliModelInterface> hobliDataList) {
                             hobliData = (List<HobliModelInterface>) hobliDataList;
                             ArrayAdapter<HobliModelInterface> hobliArrayAdapter = new ArrayAdapter<>(ViewRtcInformationByOwnerName.this,
                                     android.R.layout.simple_list_item_single_choice, hobliData);
@@ -278,7 +236,7 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onError(Throwable e) {
+                        public void onError(@NonNull Throwable e) {
 
                         }
 
@@ -301,12 +259,12 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
 
 
                         @Override
-                        public void onSubscribe(Disposable d) {
+                        public void onSubscribe(@NonNull Disposable d) {
 
                         }
 
                         @Override
-                        public void onNext(List<? extends VillageModelInterface> villageDataList) {
+                        public void onNext(@NonNull List<? extends VillageModelInterface> villageDataList) {
                             villageData = (List<VillageModelInterface>) villageDataList;
                             ArrayAdapter<VillageModelInterface> villageArrayAdapter = new ArrayAdapter<>(ViewRtcInformationByOwnerName.this,
                                     android.R.layout.simple_list_item_single_choice, villageData);
@@ -314,7 +272,7 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onError(Throwable e) {
+                        public void onError(@NonNull Throwable e) {
 
                         }
 
@@ -369,7 +327,7 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.internet_not_available, Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -406,17 +364,17 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
 
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer integer) {
+                    public void onNext(@NonNull Integer integer) {
 
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
                         Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                     }
 

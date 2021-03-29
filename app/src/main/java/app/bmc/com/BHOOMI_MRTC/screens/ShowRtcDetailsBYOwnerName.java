@@ -127,7 +127,7 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity implements RtcV
                     Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 }
             }else {
-                Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), R.string.internet_not_available, Toast.LENGTH_LONG).show();
             }
         }
 

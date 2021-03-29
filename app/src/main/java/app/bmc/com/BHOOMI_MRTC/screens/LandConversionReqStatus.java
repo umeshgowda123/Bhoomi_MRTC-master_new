@@ -193,12 +193,12 @@ public class LandConversionReqStatus extends AppCompatActivity implements RtcVie
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(new Observer<List<? extends LandConversion_Interface>>() {
                                 @Override
-                                public void onSubscribe(Disposable d) {
+                                public void onSubscribe(@NonNull Disposable d) {
 
                                 }
 
                                 @Override
-                                public void onNext(List<? extends LandConversion_Interface> landConversion_interfaces_list) {
+                                public void onNext(@NonNull List<? extends LandConversion_Interface> landConversion_interfaces_list) {
 
                                     LandConversion_Data = (List<LandConversion_Interface>) landConversion_interfaces_list;
                                     if (landConversion_interfaces_list.size() != 0) {
@@ -267,12 +267,12 @@ public class LandConversionReqStatus extends AppCompatActivity implements RtcVie
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(new Observer<List<? extends LandConversion_Interface>>() {
                                 @Override
-                                public void onSubscribe(Disposable d) {
+                                public void onSubscribe(@NonNull Disposable d) {
 
                                 }
 
                                 @Override
-                                public void onNext(List<? extends LandConversion_Interface> landConversion_interfaces_list) {
+                                public void onNext(@NonNull List<? extends LandConversion_Interface> landConversion_interfaces_list) {
 
                                     LandConversion_Data = (List<LandConversion_Interface>) landConversion_interfaces_list;
                                     if (landConversion_interfaces_list.size()!=0) {
@@ -316,7 +316,7 @@ public class LandConversionReqStatus extends AppCompatActivity implements RtcVie
                                 }
 
                                 @Override
-                                public void onError(Throwable e) {
+                                public void onError(@NonNull Throwable e) {
 
                                 }
 
@@ -389,17 +389,17 @@ public class LandConversionReqStatus extends AppCompatActivity implements RtcVie
 
 
                 @Override
-                public void onSubscribe(Disposable d) {
+                public void onSubscribe(@NonNull Disposable d) {
 
                 }
 
                 @Override
-                public void onNext(Long[] longs) {
+                public void onNext(@NonNull Long[] longs) {
 
                 }
 
                 @Override
-                public void onError(Throwable e) {
+                public void onError(@NonNull Throwable e) {
                     Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
 
                 }
@@ -424,17 +424,17 @@ public class LandConversionReqStatus extends AppCompatActivity implements RtcVie
 
 
                 @Override
-                public void onSubscribe(Disposable d) {
+                public void onSubscribe(@NonNull Disposable d) {
 
                 }
 
                 @Override
-                public void onNext(Integer integer) {
+                public void onNext(@NonNull Integer integer) {
 
                 }
 
                 @Override
-                public void onError(Throwable e) {
+                public void onError(@NonNull Throwable e) {
                     Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                 }
 
@@ -715,12 +715,12 @@ public class LandConversionReqStatus extends AppCompatActivity implements RtcVie
 
 
                                     @Override
-                                    public void onSubscribe(Disposable d) {
+                                    public void onSubscribe(@NonNull Disposable d) {
 
                                     }
 
                                     @Override
-                                    public void onNext(Integer integer) {
+                                    public void onNext(@NonNull Integer integer) {
                                         List<LandConversion_TABLE> LandConversion_list = loadData();
                                         if (integer < 6) {
                                             createLandConversion_Data(LandConversion_list);
@@ -730,7 +730,7 @@ public class LandConversionReqStatus extends AppCompatActivity implements RtcVie
                                     }
 
                                     @Override
-                                    public void onError(Throwable e) {
+                                    public void onError(@NonNull Throwable e) {
                                         Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                                     }
 
@@ -810,12 +810,12 @@ public class LandConversionReqStatus extends AppCompatActivity implements RtcVie
 
 
                                     @Override
-                                    public void onSubscribe(Disposable d) {
+                                    public void onSubscribe(@NonNull Disposable d) {
 
                                     }
 
                                     @Override
-                                    public void onNext(Integer integer) {
+                                    public void onNext(@NonNull Integer integer) {
                                         List<LandConversion_TABLE> LandConversion_list = loadData();
                                         if (integer < 6) {
                                             createLandConversion_Data(LandConversion_list);
@@ -825,7 +825,7 @@ public class LandConversionReqStatus extends AppCompatActivity implements RtcVie
                                     }
 
                                     @Override
-                                    public void onError(Throwable e) {
+                                    public void onError(@NonNull Throwable e) {
                                         Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                                     }
 

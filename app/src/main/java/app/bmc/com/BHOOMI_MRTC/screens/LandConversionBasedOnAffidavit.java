@@ -41,7 +41,7 @@ public class LandConversionBasedOnAffidavit extends AppCompatActivity {
     ArrayList<Integer> Images;
     ArrayList<Boolean> isShow;
     RecyclerView recyclerView;
-    RecyclerView.Adapter recyclerView_Adapter;
+    ViewConvStatusAdapter recyclerView_Adapter;
     RecyclerView.LayoutManager recyclerViewLayoutManager;
     LinearLayout layoutStageWiseStatus;
     String showText_notEnt = "Still Not Entered to this Stage";

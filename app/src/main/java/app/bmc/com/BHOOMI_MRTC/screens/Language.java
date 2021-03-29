@@ -10,10 +10,8 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.util.DisplayMetrics;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -25,10 +23,6 @@ import app.bmc.com.BHOOMI_MRTC.util.Constants;
 
 
 public class Language extends AppCompatActivity {
-
-
-    private ListView listLanguage;
-
 
 
     @Override
@@ -53,24 +47,21 @@ public class Language extends AppCompatActivity {
         }
 
 
-        listLanguage= findViewById(R.id.listLanguage);
+        ListView listLanguage = findViewById(R.id.listLanguage);
 
         String[] language_Selection_array = getResources().getStringArray(R.array.app_languages);
-        ArrayAdapter<String> languageAdapter =  new ArrayAdapter<String>(getApplicationContext(),R.layout.language_selection_item,R.id.tvlanguageSelection,language_Selection_array);
+        ArrayAdapter<String> languageAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.language_selection_item, R.id.tvlanguageSelection, language_Selection_array);
         listLanguage.setAdapter(languageAdapter);
 
 
 
-        listLanguage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String code=  position==1?"en":"kn";
-                SharedPreferences sp = getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE);
-                sp.edit().putString(Constants.LANGUAGE, code).apply();
-                setLocale(code);
+        listLanguage.setOnItemClickListener((parent, view, position, id) -> {
+            String code=  position==1?"en":"kn";
+            SharedPreferences sp = getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE);
+            sp.edit().putString(Constants.LANGUAGE, code).apply();
+            setLocale(code);
 
 
-            }
         });
     }
 

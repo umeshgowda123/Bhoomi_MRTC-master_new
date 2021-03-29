@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -32,8 +33,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.room.Room;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
@@ -42,11 +41,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -61,7 +56,6 @@ import app.bmc.com.BHOOMI_MRTC.interfaces.TalukModelInterface;
 import app.bmc.com.BHOOMI_MRTC.interfaces.VillageModelInterface;
 import app.bmc.com.BHOOMI_MRTC.model.Get_Surnoc_HissaRequest;
 import app.bmc.com.BHOOMI_MRTC.model.Hissa_Response;
-import app.bmc.com.BHOOMI_MRTC.model.R_LAND_REPORT_TABLE;
 import app.bmc.com.BHOOMI_MRTC.util.Constants;
 import fr.arnaudguyon.xmltojsonlib.XmlToJson;
 import io.reactivex.Observable;
@@ -158,12 +152,12 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
 
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(List<? extends DistrictModelInterface> mst_vlmList) {
+                    public void onNext(@NonNull List<? extends DistrictModelInterface> mst_vlmList) {
 
                         districtData = (List<DistrictModelInterface>) mst_vlmList;
                         ArrayAdapter<DistrictModelInterface> districtArrayAdapter = new ArrayAdapter<>(getApplicationContext(),
@@ -172,7 +166,7 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
 
                     }
 
@@ -221,12 +215,12 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
 
 
                         @Override
-                        public void onSubscribe(Disposable d) {
+                        public void onSubscribe(@NonNull Disposable d) {
 
                         }
 
                         @Override
-                        public void onNext(List<? extends TalukModelInterface> talukDataList) {
+                        public void onNext(@NonNull List<? extends TalukModelInterface> talukDataList) {
                             talukData = (List<TalukModelInterface>) talukDataList;
                             ArrayAdapter<TalukModelInterface> talukArrayAdapter = new ArrayAdapter<>(RestrictionOnLand.this,
                                     android.R.layout.simple_list_item_single_choice, talukData);
@@ -234,7 +228,7 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
                         }
 
                         @Override
-                        public void onError(Throwable e) {
+                        public void onError(@NonNull Throwable e) {
 
                         }
 
@@ -266,12 +260,12 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
 
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(List<? extends HobliModelInterface> hobliDataList) {
+                    public void onNext(@NonNull List<? extends HobliModelInterface> hobliDataList) {
                         hobliData = (List<HobliModelInterface>) hobliDataList;
                         ArrayAdapter<HobliModelInterface> hobliArrayAdapter = new ArrayAdapter<>(RestrictionOnLand.this,
                                 android.R.layout.simple_list_item_single_choice, hobliData);
@@ -279,7 +273,7 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
 
                     }
 
@@ -307,12 +301,12 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
 
 
                         @Override
-                        public void onSubscribe(Disposable d) {
+                        public void onSubscribe(@NonNull Disposable d) {
 
                         }
 
                         @Override
-                        public void onNext(List<? extends VillageModelInterface> villageDataList) {
+                        public void onNext(@NonNull List<? extends VillageModelInterface> villageDataList) {
                             villageData = (List<VillageModelInterface>) villageDataList;
                             ArrayAdapter<VillageModelInterface> villageArrayAdapter = new ArrayAdapter<>(RestrictionOnLand.this,
                                     android.R.layout.simple_list_item_single_choice, villageData);
@@ -320,7 +314,7 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
                         }
 
                         @Override
-                        public void onError(Throwable e) {
+                        public void onError(@NonNull Throwable e) {
 
                         }
 
@@ -393,9 +387,9 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
                         Toast.makeText(getApplicationContext(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-                else
-                    Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
-
+                else {
+                    Toast.makeText(getApplicationContext(), R.string.internet_not_available, Toast.LENGTH_LONG).show();
+                }
             }
         });
         btn_go_hissa.setOnClickListener(v -> {

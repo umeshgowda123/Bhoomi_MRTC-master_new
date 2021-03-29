@@ -295,7 +295,7 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
 
 
                         @Override
-                        public void onSubscribe(Disposable d) {
+                        public void onSubscribe(@NonNull Disposable d) {
 
                         }
 
@@ -437,9 +437,7 @@ public class ViewMutationSummeryReport extends AppCompatActivity implements RtcV
         AlertDialog alertDialog = new AlertDialog.Builder(ViewMutationSummeryReport.this).create();
         // alertDialog.setTitle("Reset...");
         alertDialog.setMessage(getString(R.string.please_enable_internet_connection));
-        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.ok), (dialog, which) -> {
-            dialog.dismiss();
-        });
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.ok), (dialog, which) -> dialog.dismiss());
         alertDialog.show();
     }
 

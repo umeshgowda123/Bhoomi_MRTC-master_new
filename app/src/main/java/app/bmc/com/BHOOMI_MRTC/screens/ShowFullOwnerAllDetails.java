@@ -2,6 +2,8 @@ package app.bmc.com.BHOOMI_MRTC.screens;
 
 import android.os.Build;
 import com.google.android.material.tabs.TabLayout;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -21,11 +23,11 @@ import app.bmc.com.BHOOMI_MRTC.model.Villagedetails;
 
 public class ShowFullOwnerAllDetails extends AppCompatActivity {
 
-    private Villagedetails villagedetails = new Villagedetails();
-    private Staticinfopahani staticinfopahani = new Staticinfopahani();
+    Villagedetails villagedetails = new Villagedetails();
+    Staticinfopahani staticinfopahani = new Staticinfopahani();
 
-    private ViewPager viewPager;
-    private TabLayout tabLayout;
+    ViewPager viewPager;
+    TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +40,12 @@ public class ShowFullOwnerAllDetails extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        String land_code = getIntent().getStringExtra("land_code");
-        String main_owner_no = getIntent().getStringExtra("main_owner_no");
-        String owner_no = getIntent().getStringExtra("owner_no");
-        String owner = getIntent().getStringExtra("owner");
-        String surnoc = getIntent().getStringExtra("surnoc");
-        String hissa_no = getIntent().getStringExtra("hissa_no");
+//        String land_code = getIntent().getStringExtra("land_code");
+//        String main_owner_no = getIntent().getStringExtra("main_owner_no");
+//        String owner_no = getIntent().getStringExtra("owner_no");
+//        String owner = getIntent().getStringExtra("owner");
+//        String surnoc = getIntent().getStringExtra("surnoc");
+//        String hissa_no = getIntent().getStringExtra("hissa_no");
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -72,6 +74,7 @@ public class ShowFullOwnerAllDetails extends AppCompatActivity {
             super(fm);
         }
 
+        @NonNull
         @Override
         public Fragment getItem(int position) {
             Fragment fragment = null;
@@ -84,7 +87,7 @@ public class ShowFullOwnerAllDetails extends AppCompatActivity {
                 bundle.putString("Hobli", villagedetails.getHobliname());
                 bundle.putString("Village", villagedetails.getVillagename());
                 bundle.putString("Survey", getIntent().getStringExtra("survey"));
-                bundle.putString("Valid", staticinfopahani.getValidfrom().toString().replace("Valid from", ""));
+                bundle.putString("Valid", staticinfopahani.getValidfrom().replace("Valid from", ""));
                 fragment.setArguments(bundle);
 
             } else if (position == 1) {
@@ -97,7 +100,7 @@ public class ShowFullOwnerAllDetails extends AppCompatActivity {
                 bundle.putString("Hobli", villagedetails.getHobliname());
                 bundle.putString("Village", villagedetails.getVillagename());
                 bundle.putString("Survey", getIntent().getStringExtra("survey"));
-                bundle.putString("Valid", staticinfopahani.getValidfrom().toString().replace("Valid from", ""));
+                bundle.putString("Valid", staticinfopahani.getValidfrom().replace("Valid from", ""));
 
                 fragment.setArguments(bundle);
             } else if (position == 2) {
@@ -109,7 +112,7 @@ public class ShowFullOwnerAllDetails extends AppCompatActivity {
                 bundle.putString("Hobli", villagedetails.getHobliname());
                 bundle.putString("Village", villagedetails.getVillagename());
                 bundle.putString("Survey", getIntent().getStringExtra("survey"));
-                bundle.putString("Valid", staticinfopahani.getValidfrom().toString().replace("Valid from", ""));
+                bundle.putString("Valid", staticinfopahani.getValidfrom().replace("Valid from", ""));
 
                 fragment.setArguments(bundle);
             }

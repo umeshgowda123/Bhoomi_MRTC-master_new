@@ -30,11 +30,11 @@ import fr.arnaudguyon.xmltojsonlib.XmlToJson;
 public class ShowMutationPendencyDetails extends AppCompatActivity {
 
 
-    private String pending_data_response;
+    String pending_data_response;
 
     private List<MutualPendacyData> myPendingDataList = new ArrayList<>();
 
-    private MutulalDetailsAdapter cadapter;
+    MutulalDetailsAdapter cadapter;
 
     private RecyclerView rvMutationPendency;
 

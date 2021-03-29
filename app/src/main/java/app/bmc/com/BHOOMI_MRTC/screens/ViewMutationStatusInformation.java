@@ -87,8 +87,8 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
     private int hobli_id;
     private int village_id;
     private int land_no;
-    private String hissa;
-    private String suroc;
+    String hissa;
+    String suroc;
     private List<Hissa_Response> hissa_responseList;
     private RtcViewInfoBackGroundTaskFragment mTaskFragment;
     private ProgressBar progressBar;
@@ -437,7 +437,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                     }
                 }
                 else
-                    Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.internet_not_available, Toast.LENGTH_LONG).show();
             }
         });
         btn_fetch.setOnClickListener(v -> {
@@ -552,7 +552,7 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
                     //---------------------------------------------------------------------------
 
                 } else
-                    Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.internet_not_available, Toast.LENGTH_LONG).show();
 
             }
         });

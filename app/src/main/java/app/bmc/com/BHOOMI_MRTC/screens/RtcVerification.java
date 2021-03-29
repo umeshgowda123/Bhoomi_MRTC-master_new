@@ -261,7 +261,7 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
                     //---------------------------------------------------------------------------
 //                    mTaskFragment.startBackgroundTask(jsonObject);
                 } else {
-                    Toast.makeText(getApplicationContext(), "Internet Not Available", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.internet_not_available, Toast.LENGTH_LONG).show();
                 }
             }
         });

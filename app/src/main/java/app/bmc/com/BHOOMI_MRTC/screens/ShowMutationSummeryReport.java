@@ -1,5 +1,6 @@
 package app.bmc.com.BHOOMI_MRTC.screens;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ public class ShowMutationSummeryReport extends AppCompatActivity {
     }
 
 
+    @SuppressLint("SetJavaScriptEnabled")
     private void showData(String htmlResponseData) {
 
         try {

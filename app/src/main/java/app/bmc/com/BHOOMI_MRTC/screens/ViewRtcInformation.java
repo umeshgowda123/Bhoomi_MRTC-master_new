@@ -405,7 +405,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
                     mTaskFragment.startBackgroundTask_GenerateToken(getString(R.string.url_token));
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.internet_not_available, Toast.LENGTH_LONG).show();
                 }
             }
         });

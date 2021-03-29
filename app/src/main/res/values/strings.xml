@@ -408,15 +408,6 @@
     <string name="any_trnsc_running">Any Transaction Running?</string>
     <string name="pyki_rtc">Is This RTC is Pyki RTC?</string>
     <string name="details_not_found">Details not found</string>
-    <string name="col1">View RTC Information</string>
-    <string name="col2">Rtc Xml Verification</string>
-    <string name="col3">View Rtc By OwnerName</string>
-    <string name="col4">Mutation Pendency Details</string>
-    <string name="col5">Mutation Summary Report</string>
-    <string name="col6">View Mutation Status</string>
-    <string name="col7">Restriction on Land</string>
-    <string name="col8">Land Conversion Request Status</string>
-    <string name="col9">Land Conversion Final Orders</string>
     <string name="no_mutations_are_pending_in_this_survey_no">No Mutations are pending in this Survey Number</string>
     <string name="ok">OK</string>
     <string name="status">Status</string>
@@ -461,7 +452,8 @@
     <string name="final_approval">Final Approval</string>
     <string name="pending">Pending</string>
     <string name="notice_period_days">30 Days</string>
-    <string name="File_Acknowldeged_By_RI">File Acknowldeged By RI</string>
+    <string name="File_Acknowldeged_By_RI">File Acknowledged By RI</string>
     <string name="RI">RI</string>
     <string name="survey_upervisor">Survey Supervisor</string>
+    <string name="internet_not_available">Internet not available</string>
 </resources>

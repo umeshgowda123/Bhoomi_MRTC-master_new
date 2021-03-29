@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -135,12 +136,12 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                         .subscribe(new Observer<List<? extends RLR_RES_Interface>>() {
 
                             @Override
-                            public void onSubscribe(Disposable d) {
+                            public void onSubscribe(@NonNull Disposable d) {
 
                             }
 
                             @Override
-                            public void onNext(List<? extends RLR_RES_Interface> rlr_res_interfaces_list) {
+                            public void onNext(@NonNull List<? extends RLR_RES_Interface> rlr_res_interfaces_list) {
                                 if (progressBar != null) {
                                     progressBar.setVisibility(View.GONE);
                                 }
@@ -196,7 +197,7 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                             }
 
                             @Override
-                            public void onError(Throwable e) {
+                            public void onError(@NonNull Throwable e) {
 
                             }
 
@@ -213,7 +214,7 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
             }
             //new GetRestrictionOnLandReport(district_id,taluk_id,hobli_id,village_id,surveyNo,suroc,hissa).execute();
         }else {
-            Toast.makeText(getApplicationContext(), "Internet not available", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.internet_not_available, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -420,12 +421,12 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
 
 
                             @Override
-                            public void onSubscribe(Disposable d) {
+                            public void onSubscribe(@NonNull Disposable d) {
 
                             }
 
                             @Override
-                            public void onNext(Integer integer) {
+                            public void onNext(@NonNull Integer integer) {
                                 List<R_LAND_REPORT_TABLE> RLR_list = loadData();
                                 if (integer < 6) {
                                     createRLRTABLE_Data(RLR_list);
@@ -435,7 +436,7 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
                             }
 
                             @Override
-                            public void onError(Throwable e) {
+                            public void onError(@NonNull Throwable e) {
                                 Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                             }
 
@@ -562,16 +563,16 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
 
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Long[] longs) {
+                    public void onNext(@NonNull Long[] longs) {
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
                         Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
 
                     }
@@ -593,17 +594,17 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
 
 
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Integer integer) {
+                    public void onNext(@NonNull Integer integer) {
 
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
                         Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                     }
 
