@@ -36,6 +36,7 @@ import io.reactivex.schedulers.Schedulers;
 
 import static app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper.MIGRATION_1_2;
 import static app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper.MIGRATION_2_3;
+import static app.bmc.com.BHOOMI_MRTC.database.DataBaseHelper.MIGRATION_3_4;
 
 public class AppLauncher extends AppCompatActivity {
     private DataBaseHelper dataBaseHelper;
@@ -60,7 +61,7 @@ public class AppLauncher extends AppCompatActivity {
         Log.d("currentDate", ""+currentDate);
 
         dataBaseHelper = Room.databaseBuilder(AppLauncher.this, DataBaseHelper.class, getString(R.string.db_name))
-                .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+                .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
                 .build();
 
         Observable<Integer> noOfRows;

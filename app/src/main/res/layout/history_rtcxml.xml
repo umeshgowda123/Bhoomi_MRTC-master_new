@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_RTCXML"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@android:color/white"
+        android:padding="8dp">
+
+
+        <TextView
+            android:id="@+id/tvrtcxml_ref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".3"
+            android:text="Rtc_xml_verification_Number"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvRTC_refData"
+            android:layout_weight=".3"
+            android:text="Rtc_xml_Data"
+            android:visibility="gone"
+            android:textColor="@android:color/black" />
+
+
+    </TableRow>
+</LinearLayout>
+

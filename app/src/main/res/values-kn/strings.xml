@@ -12,6 +12,9 @@
     <string name="rest_service_url">https://clws.karnataka.gov.in/service12/</string>
     <string name="url_token">https://clws.karnataka.gov.in/service12/</string>
 
+<!--    <string name="rest_service_url">https://clws.karnataka.gov.in/TestService12/</string>-->
+<!--    <string name="url_token">https://clws.karnataka.gov.in/TestService12/</string>-->
+
     <string name="app_name">Bhoomi</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -315,7 +318,7 @@
     <string name="please_enter_rationcard_num">ದಯವಿಟ್ಟು ರೇಷನ್‌ಕಾರ್ಡ್ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ.</string>
     <string name="land_conversion">ಭೂ ಪರಿವರ್ತನೆ</string>
     <string name="land_conversion_request_status">ಭೂ ಪರಿವರ್ತನೆಯ ವಿನಂತಿಯ ಸ್ಥಿತಿ</string>
-    <string name="ver_1_0_0">Ver: 5.0.0</string>
+    <string name="ver_1_0_0">Ver: 6.0.0</string>
     <string name="copyright_bhoomi_monitoring_cell_2020_all_right_reserved">Copyright© Bhoomi Monitoring Cell - 2020  All Right Reserved</string>
     <string name="request_id">ವಿನಂತಿ ಸಂಖ್ಯಾವಾರು</string>
     <string name="survey_no_wise">ಸರ್ವೆ ನಂಬರಿನವಾರು</string>
@@ -414,4 +417,18 @@
     <string name="RI">ರಾಜಸ್ವನಿರೀಕ್ಷಕ</string>
     <string name="survey_upervisor">ಸರ್ವೆ ಸೂಪರ್ ವೈಸರ್ </string>
     <string name="internet_not_available">ಇಂಟರ್ನೆಟ್ ಲಭ್ಯವಿಲ್ಲ</string>
+
+    <string name="history">ಇತಿಹಾಸ</string>
+    <string name="MST_DistColumnName">VLM_DKN_NM</string>
+    <string name="MST_TalukColumnName">VLM_TKN_NM</string>
+    <string name="MST_HobliColumnName">VLM_HKN_NM</string>
+    <string name="MST_VillColumnName">VLM_VKN_NM</string>
+
+<!--    <string name="MST_DistColumnName">ಜಿಲ್ಲೆ</string>-->
+<!--    <string name="MST_TalukColumnName">ತಾಲ್ಲೂಕು</string>-->
+<!--    <string name="MST_HobliColumnName">ಹೋಬಳಿ</string>-->
+<!--    <string name="MST_VillColumnName">ಗ್ರಾಮ</string>-->
+
+
+
 </resources>

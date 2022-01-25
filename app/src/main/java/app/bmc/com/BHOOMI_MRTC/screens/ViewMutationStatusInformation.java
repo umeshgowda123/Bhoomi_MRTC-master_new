@@ -18,6 +18,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -784,6 +786,28 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.history,menu);
+
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id ==R.id.menu_item_history)
+        {
+            Intent intent = new Intent(ViewMutationStatusInformation.this, Serach_History.class);
+            intent.putExtra("APPType", AppType);
+            startActivity(intent);
+
+        }
+        return  super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
     public void onPostResponseError_Token(String errorResponse) {
         Log.d("ERR_msg", errorResponse+"");
         Toast.makeText(this, ""+errorResponse, Toast.LENGTH_SHORT).show();
@@ -965,6 +989,11 @@ public class ViewMutationStatusInformation extends AppCompatActivity implements 
             v_mutation_status_table.setVMS_HBL_ID(hobli_id);
             v_mutation_status_table.setVMS_VLG_ID(village_id);
             v_mutation_status_table.setVMS_LAND_NO(land_no);
+
+            v_mutation_status_table.setVMS_SURVEY_NO(surveyNo);
+            v_mutation_status_table.setVMS_SERNOC(suroc);
+            v_mutation_status_table.setVMS_HISSA(hissa);
+
             v_mutation_status_table.setVMS_RES(restostoreinDBandSMSD+"");
             v_mutation_status_tables_arr.add(v_mutation_status_table);
 

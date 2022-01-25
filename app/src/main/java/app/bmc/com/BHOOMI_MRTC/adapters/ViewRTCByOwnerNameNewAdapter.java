@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.model.RTCByOwnerNameResponse;
@@ -27,7 +28,7 @@ public class ViewRTCByOwnerNameNewAdapter extends BaseAdapter implements Filtera
     private String distId_int, talkId_int, hblId_int, villId_int;
     private String land_code_int;
     public String owner;
-    public String survey_no;
+    public Integer survey_no;
     public String surnoc;
     public String hissa_no;
 
@@ -81,7 +82,8 @@ public class ViewRTCByOwnerNameNewAdapter extends BaseAdapter implements Filtera
             villId_int = villId.get(position);
             land_code_int = dataList.get(position).land_code;
             owner = dataList.get(position).owner;
-            survey_no = (dataList.get(position).survey_no)+"";
+//            survey_no = (dataList.get(position).survey_no)+"";
+            survey_no = dataList.get(position).survey_no;
             surnoc = dataList.get(position).surnoc;
             hissa_no = dataList.get(position).hissa_no;
 
@@ -129,12 +131,19 @@ public class ViewRTCByOwnerNameNewAdapter extends BaseAdapter implements Filtera
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults results = new FilterResults();
+//
+//            Integer str1 =survey_no;
+//            String str2 = Integer.toString(str1);
+
             if (constraint != null && constraint.length() > 0) {
-                constraint = constraint.toString();
+
                 ArrayList<RTCByOwnerNameResponse> filter = new ArrayList<>();
+
                 for (int i = 0; i < filterList.size(); i++)
                 {
-                    if (filterList.get(i).owner.contains(constraint) || filterList.get(i).survey_no.contains(constraint)){
+
+                    String survey_no = String.valueOf(filterList.get(i).survey_no);
+                    if (filterList.get(i).owner.contains(constraint) || survey_no.contains(constraint)){
                         RTCByOwnerNameResponse rtcByOwnerNameResponse = new RTCByOwnerNameResponse(filterList.get(i).getLand_code(),
                                 filterList.get(i).getMain_owner_no(),filterList.get(i).getOwner_no(),filterList.get(i).getOwner(),filterList.get(i).getSurvey_no(),
                                 filterList.get(i).getSurnoc(),filterList.get(i).getHissa_no(),filterList.get(i).getDistId(),filterList.get(i).getTalkId(),filterList.get(i).getHblId());
@@ -156,6 +165,7 @@ public class ViewRTCByOwnerNameNewAdapter extends BaseAdapter implements Filtera
 
             dataList = (ArrayList<RTCByOwnerNameResponse>) results.values;
             notifyDataSetChanged();
+
 
         }
     }

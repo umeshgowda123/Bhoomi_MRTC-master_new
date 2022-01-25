@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -266,6 +268,27 @@ public class RtcVerification extends AppCompatActivity implements RtcXmlverifica
             }
         });
         clearReferenceNoBtn.setOnClickListener(v -> referenceNumber.setText(""));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.history,menu);
+
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id ==R.id.menu_item_history)
+        {
+            Intent intent = new Intent(RtcVerification.this, Serach_History.class);
+            intent.putExtra("APPType", AppType);
+            startActivity(intent);
+
+        }
+        return  super.onOptionsItemSelected(item);
     }
 
 

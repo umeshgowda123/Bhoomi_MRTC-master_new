@@ -328,6 +328,7 @@
                     </LinearLayout>
 
                 </TableRow>
+
                 <TableRow
                     android:divider="@color/colorPrimary"
                     android:showDividers="middle">
@@ -377,6 +378,7 @@
                             android:layout_height="65dp"
                             android:layout_gravity="center"
                             android:src="@drawable/id"
+                            android:visibility="gone"
                             android:contentDescription="@string/restriction_on_land" />
 
                         <TextView
@@ -385,6 +387,7 @@
                             android:gravity="center"
                             android:paddingStart="2dip"
                             android:paddingEnd="5dip"
+                            android:visibility="gone"
                             android:textColor="#26A69A"
                             android:text="@string/know_your_land_id" />
 

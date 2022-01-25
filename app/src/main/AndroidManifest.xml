@@ -20,7 +20,7 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:targetApi="n">
-        <activity android:name=".screens.Know_Your_LandID"></activity>
+        <activity android:name=".screens.Know_Your_LandID" />
         <activity android:name=".screens.AppLauncher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -126,6 +126,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".screens.ViewBhoomiLandID"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".screens.Serach_History"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

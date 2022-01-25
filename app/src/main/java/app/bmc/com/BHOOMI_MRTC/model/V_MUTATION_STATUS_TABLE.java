@@ -20,6 +20,37 @@ public class V_MUTATION_STATUS_TABLE {
     private int VMS_LAND_NO;
     @ColumnInfo(name = "VMS_RES")
     private String VMS_RES;
+    //Add 3 column
+    @ColumnInfo(name = "VMS_SURVEY_NO")
+    private String VMS_SURVEY_NO;
+    @ColumnInfo(name = "VMS_SERNOC")
+    private String VMS_SERNOC;
+    @ColumnInfo(name = "VMS_HISSA")
+    private String VMS_HISSA;
+
+    public String getVMS_SURVEY_NO() {
+        return VMS_SURVEY_NO;
+    }
+
+    public void setVMS_SURVEY_NO(String VMS_SURVEY_NO) {
+        this.VMS_SURVEY_NO = VMS_SURVEY_NO;
+    }
+
+    public String getVMS_SERNOC() {
+        return VMS_SERNOC;
+    }
+
+    public void setVMS_SERNOC(String VMS_SERNOC) {
+        this.VMS_SERNOC = VMS_SERNOC;
+    }
+
+    public String getVMS_HISSA() {
+        return VMS_HISSA;
+    }
+
+    public void setVMS_HISSA(String VMS_HISSA) {
+        this.VMS_HISSA = VMS_HISSA;
+    }
 
     public int getId() {
         return id;

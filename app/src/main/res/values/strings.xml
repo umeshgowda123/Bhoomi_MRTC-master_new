@@ -12,6 +12,9 @@
     <string name="rest_service_url">https://clws.karnataka.gov.in/service12/</string>
     <string name="url_token">https://clws.karnataka.gov.in/service12/</string>
 
+    <!--    <string name="rest_service_url">https://clws.karnataka.gov.in/TestService12/</string>-->
+    <!--    <string name="url_token">https://clws.karnataka.gov.in/TestService12/</string>-->
+
 
     <string name="app_name">Bhoomi</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -52,7 +55,7 @@
     <string name="taluk">Taluk</string>
     <string name="hobli">Hobli</string>
     <string name="village">Village</string>
-    <string name="survey_no">Survey No</string>
+    <string name="survey_no">SurveyNo</string>
     <string name="hissa">Hissa</string>
     <string name="district_err">District is required</string>
     <string name="taluk_err">Taluk is required</string>
@@ -357,7 +360,7 @@
     <string name="please_enter_rationcard_num">Please Enter RationCard Num.</string>
     <string name="land_conversion">Land Conversion</string>
     <string name="land_conversion_request_status">Land Conversion Request Status</string>
-    <string name="ver_1_0_0">Ver: 5.0.0</string>
+    <string name="ver_1_0_0">Ver: 6.0.0</string>
     <string name="copyright_bhoomi_monitoring_cell_2020_all_right_reserved">Copyright© Bhoomi Monitoring Cell - 2020  All Right Reserved</string>
     <string name="request_id">Request ID Wise</string>
     <string name="survey_no_wise">Survey No. Wise</string>
@@ -413,7 +416,7 @@
     <string name="status">Status</string>
     <string name="no_data_found_for_this_survey_no">No Data Found For This Survey No.</string>
     <string name="this_service_is_under_maintenance">This Service is Under Maintenance</string>
-    <string name="no_data_found_for_this_record">No Data Found For This Record</string>
+    <string name="no_data_found_for_this_record">No Data Found For This Survey No.</string>
     <string name="please_enable_internet_connection">Please Enable Internet Connection</string>
     <string name="please_wait">Please Wait…</string>
     <string name="invalid_affidavit_id">Invalid Affidavit ID</string>
@@ -456,4 +459,14 @@
     <string name="RI">RI</string>
     <string name="survey_upervisor">Survey Supervisor</string>
     <string name="internet_not_available">Internet not available</string>
+
+
+    <string name="history">History</string>
+
+    <string name="MST_DistColumnName">VLM_DST_NM</string>
+    <string name="MST_TalukColumnName">VLM_TLK_NM</string>
+    <string name="MST_HobliColumnName">VLM_HBL_NM</string>
+    <string name="MST_VillColumnName">VLM_VLG_NM</string>
+
+
 </resources>

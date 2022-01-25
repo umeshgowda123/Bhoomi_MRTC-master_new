@@ -1,14 +1,10 @@
 package app.bmc.com.BHOOMI_MRTC.screens;
 
+import static java.util.Comparator.comparing;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentManager;
-
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -21,6 +17,11 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -37,8 +38,6 @@ import app.bmc.com.BHOOMI_MRTC.adapters.ViewRTCByOwnerNameNewAdapter;
 import app.bmc.com.BHOOMI_MRTC.backgroundtasks.RtcViewInfoBackGroundTaskFragment;
 import app.bmc.com.BHOOMI_MRTC.model.OwnerName_InputParameter_GetDetails_VilWise;
 import app.bmc.com.BHOOMI_MRTC.model.RTCByOwnerNameResponse;
-
-import static java.util.Comparator.comparing;
 
 public class ShowRtcDetailsBYOwnerName extends AppCompatActivity implements RtcViewInfoBackGroundTaskFragment.BackgroundCallBackRtcViewInfo {
 
@@ -134,12 +133,15 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity implements RtcV
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+
+
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 adapter.getFilter().filter(newText);
+
                 return false;
             }
         });
@@ -285,6 +287,7 @@ public class ShowRtcDetailsBYOwnerName extends AppCompatActivity implements RtcV
                 adapter= new ViewRTCByOwnerNameNewAdapter(rtcByOwnerNameResponseList,getApplicationContext(), distId_array, talkId_array, hblId_array, village_id_array);
 
                 lv_OwnerDetails.setAdapter(adapter);
+
 
             } catch (Throwable e) {
                 e.printStackTrace();

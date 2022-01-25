@@ -17,11 +17,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="0dp"
-        android:paddingHorizontal="30dp"
         android:gravity="center"
+        android:paddingHorizontal="30dp"
         android:text="@string/copyright_bhoomi_monitoring_cell_2020_all_right_reserved"
         android:textColor="@android:color/white"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="match_parent"

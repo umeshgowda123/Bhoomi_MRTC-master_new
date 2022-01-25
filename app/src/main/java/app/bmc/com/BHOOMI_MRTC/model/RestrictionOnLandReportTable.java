@@ -16,6 +16,8 @@ public class RestrictionOnLandReportTable {
     public String main_owner_no;
     public String pyki_surveyor_desc;
 
+
+
     public String getSurveyNumber() {
         return SurveyNumber;
     }
@@ -51,6 +53,7 @@ public class RestrictionOnLandReportTable {
     public String getPyki() {
         return pyki;
     }
+
 
     public String getPyki_auto() {
         return pyki_auto;

@@ -62,8 +62,10 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
     RtcViewInfoBackGroundTaskFragment mTaskFragment;
     private ProgressBar progressBar;
     String distId, talkId, hblId, villId;
-    String land_no, survey, RTC, hissa_str, surveyNo;
+    String land_no, survey, RTC, hissa_str, surveyNo,surnoc;
     public String owner;
+
+
 
     String LandDetailsFragment;
     String survey_new;
@@ -109,6 +111,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
         land_no = i.getStringExtra("land_code");
         survey = i.getStringExtra("survey");
         surveyNo = i.getStringExtra("surveyNo");
+        surnoc = i.getStringExtra("surnoc");
         hissa_str = i.getStringExtra("hissa_str");
         RTC = i.getStringExtra("RTC");
         AppType = i.getIntExtra("AppType", 0);
@@ -748,6 +751,7 @@ public class RtcDetails extends AppCompatActivity implements RtcViewInfoBackGrou
             vr_info.setVR_VLG_ID(Integer.parseInt(villId));
             vr_info.setVR_LAND_NO(Integer.parseInt(land_no));
             vr_info.setVR_SNO(surveyNo);
+            vr_info.setVR_surnoc(surnoc);
             vr_info.setVR_HISSA_NM(hissa_str);
             vr_info.setVR_LAND_OWNER_RES(formattedLand);
             vr_info.setVR_CULT_RES(formattedCult);

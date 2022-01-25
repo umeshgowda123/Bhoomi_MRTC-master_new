@@ -64,7 +64,7 @@ public class BhoomiHomePage extends AppCompatActivity {
     LinearLayout layout_mutation_status;
     LinearLayout view_land_conversion, download_Conversion_order;
     LinearLayout layout_restriction_land;
-    LinearLayout layout_know_landID;
+    LinearLayout layout_know_landID;  //LinearLayout linearLayout_bhoomi;LinearLayout layout_viewRtc;linearLayout_bhoomi = findViewById(R.id.linearLayout_bhoomi);layout_viewRtc =  findViewById(R.id.layout_viewRtc);
 
     private static final int REQ_CODE_VERSION_UPDATE = 530;
     private AppUpdateManager appUpdateManager;

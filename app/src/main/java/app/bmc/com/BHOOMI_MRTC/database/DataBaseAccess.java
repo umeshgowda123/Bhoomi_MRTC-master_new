@@ -7,29 +7,38 @@ import androidx.room.Query;
 import java.util.List;
 
 import app.bmc.com.BHOOMI_MRTC.model.CalamityDetails;
+import app.bmc.com.BHOOMI_MRTC.model.DTHVName;
 import app.bmc.com.BHOOMI_MRTC.model.DistrictData;
 import app.bmc.com.BHOOMI_MRTC.model.DistrictDataKannada;
 import app.bmc.com.BHOOMI_MRTC.model.HobliData;
 import app.bmc.com.BHOOMI_MRTC.model.HobliDataKannada;
+import app.bmc.com.BHOOMI_MRTC.model.LandConFinal_Data_History;
+import app.bmc.com.BHOOMI_MRTC.model.LandCon_Data_History;
 import app.bmc.com.BHOOMI_MRTC.model.LandConversion_Final_Order_RES_Data;
 import app.bmc.com.BHOOMI_MRTC.model.LandConversion_Final_Order_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.LandConversion_RES_Data;
 import app.bmc.com.BHOOMI_MRTC.model.LandConversion_TABLE;
+import app.bmc.com.BHOOMI_MRTC.model.MPD_Data_History;
 import app.bmc.com.BHOOMI_MRTC.model.MPD_RES_Data;
 import app.bmc.com.BHOOMI_MRTC.model.MPD_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.MSR_RES_Data;
 import app.bmc.com.BHOOMI_MRTC.model.MST_VLM;
+import app.bmc.com.BHOOMI_MRTC.model.MSV_Data_History;
+import app.bmc.com.BHOOMI_MRTC.model.MS_Data_History;
 import app.bmc.com.BHOOMI_MRTC.model.MS_REPORT_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.Maintenance_Flags;
 import app.bmc.com.BHOOMI_MRTC.model.PacsBankMasterData;
 import app.bmc.com.BHOOMI_MRTC.model.RLR_RES_Data;
+import app.bmc.com.BHOOMI_MRTC.model.RLand_Data_History;
 import app.bmc.com.BHOOMI_MRTC.model.RTCV_Data;
+import app.bmc.com.BHOOMI_MRTC.model.RTCV_Data_history;
 import app.bmc.com.BHOOMI_MRTC.model.RTC_VERIFICATION_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.R_LAND_REPORT_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.SeasonDetails;
 import app.bmc.com.BHOOMI_MRTC.model.TalukData;
 import app.bmc.com.BHOOMI_MRTC.model.TalukDataKannda;
 import app.bmc.com.BHOOMI_MRTC.model.VMS_RES_Data;
+import app.bmc.com.BHOOMI_MRTC.model.VR_INFO_HISTORY;
 import app.bmc.com.BHOOMI_MRTC.model.VR_RES_Data;
 import app.bmc.com.BHOOMI_MRTC.model.VR_INFO;
 import app.bmc.com.BHOOMI_MRTC.model.V_MUTATION_STATUS_TABLE;
@@ -165,6 +174,41 @@ public interface DataBaseAccess {
     @Query("DELETE FROM VR_INFO")
     int deleteResponseRow();
 
+    //----------------------------------------DB Fun for Show History Details  ----------------------------------------------
+
+       @Query("select VLM_DST_NM as DistName, VLM_TLK_NM as TalukName, VLM_HBL_NM as HobliName, VLM_VLG_NM as VillageName FROM MST_VLM WHERE VLM_DST_ID = :VLM_DST_ID and VLM_TLK_ID = :VLM_TLK_ID and VLM_HBL_ID = :VLM_HBL_ID and VLM_VLG_ID = :VLM_VLG_ID")
+    List<DTHVName> getDTHVNamesByCodes(int VLM_DST_ID, int VLM_TLK_ID, int VLM_HBL_ID, int VLM_VLG_ID);
+
+       @Query("select * from VR_INFO ")
+       List<VR_INFO_HISTORY> getDTHNameByName();
+
+
+    @Query("SELECT * FROM RTC_VERIFICATION_TABLE")
+    List<RTCV_Data_history> getRTCREFF_RES();
+
+    @Query("SELECT * FROM MPD_TABLE")
+    List<MPD_Data_History> getMPD_History();
+
+
+    @Query("SELECT * FROM MS_REPORT_TABLE")
+    List<MS_Data_History> getMS_History();
+
+
+    @Query("SELECT * FROM V_MUTATION_STATUS_TABLE")
+    List<MSV_Data_History> getMSV_History();
+
+    @Query("SELECT * FROM R_LAND_REPORT_TABLE")
+    List<RLand_Data_History> getRLand_History();
+
+
+    @Query("SELECT * FROM LandConversion_TABLE")
+    List<LandCon_Data_History> getLandCon_History();
+
+
+
+    @Query("SELECT * FROM LandConversion_Final_Order_TABLE")
+    List<LandConFinal_Data_History> getLandConFinal_History();
+
     //----------------------------------------DB Fun for Mutation Pendency Details  ----------------------------------------------
     @Insert
     Long[] insertMPDData(List<MPD_TABLE> MPD_List);
@@ -217,7 +261,7 @@ public interface DataBaseAccess {
     @Query("DELETE FROM R_LAND_REPORT_TABLE")
     int deleteAllRLRResponse();
 
-    //----------------------------------------DB Fun for RestrictionOnLandReport ----------------------------------------------
+    //----------------------------------------DB Fun for Mutation Status Details ----------------------------------------------
 
     @Insert
     Long[] insertViewMutationStatusTableData(List<V_MUTATION_STATUS_TABLE> VMS_Table);
@@ -290,5 +334,6 @@ public interface DataBaseAccess {
 
     @Query("DELETE FROM LandConversion_Final_Order_TABLE")
     int deleteLandConversion_Final_Order_Response();
+
 
 }

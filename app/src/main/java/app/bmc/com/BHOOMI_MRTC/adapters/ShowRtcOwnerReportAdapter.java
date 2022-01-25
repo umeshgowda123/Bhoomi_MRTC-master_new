@@ -25,7 +25,7 @@ public class ShowRtcOwnerReportAdapter extends ArrayAdapter<RTCByOwnerNameRespon
     private String distId_int, talkId_int, hblId_int, villId_int;
     private String land_code_int;
     public String owner;
-    public String survey_no;
+    public Integer survey_no;
     public String surnoc;
     public String hissa_no;
 

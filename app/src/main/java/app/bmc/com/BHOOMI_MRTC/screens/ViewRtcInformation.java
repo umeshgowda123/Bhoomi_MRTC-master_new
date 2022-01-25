@@ -1,12 +1,7 @@
 package app.bmc.com.BHOOMI_MRTC.screens;
 
-import androidx.annotation.NonNull;
-import androidx.room.Room;
-
 import android.app.AlertDialog;
-
 import android.content.Context;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -15,12 +10,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -28,15 +22,18 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
+import androidx.room.Room;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
-
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -96,6 +93,10 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
     Get_Surnoc_HissaRequest get_surnoc_hissaRequest;
     int AppType;
     String accessToken, tokenType;
+
+
+
+    public ActionBarDrawerToggle actionBarDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -239,6 +240,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
             spinner_hissa.setAdapter(defaultArrayAdapter);
             edittext_survey.setText("");
             district_id = districtData.get(position).getVLM_DST_ID();
+//            dist_Name = districtData.get(position).get
             Observable<List<? extends TalukModelInterface>> talukDataObservable = Observable.fromCallable(() -> language.equalsIgnoreCase(Constants.LANGUAGE_EN) ? dataBaseHelper.daoAccess().getTalukByDistrictId(String.valueOf(district_id)) : dataBaseHelper.daoAccess().getTalukByDistrictIdKannada(String.valueOf(district_id)));
             talukDataObservable
                     .subscribeOn(Schedulers.io())
@@ -355,6 +357,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
             land_no = hissa_responseList.get(position).getLand_code();
             hissa = hissa_responseList.get(position).getHissa_no();
             suroc = hissa_responseList.get(position).getSurnoc();
+
         }
         );
         btn_go.setOnClickListener(v -> {
@@ -364,6 +367,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
             String hobliName = spinner_hobli.getText().toString().trim();
             String villageName = spinner_village.getText().toString().trim();
             surveyNo = edittext_survey.getText().toString().trim();
+
 
             get_surnoc_hissaRequest = new Get_Surnoc_HissaRequest();
             get_surnoc_hissaRequest.setBhm_dist_code(String.valueOf(district_id));
@@ -457,6 +461,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
                 intent.putExtra("land_code",""+land_no);
                 intent.putExtra("survey", surveyNo + "/" + suroc + "/" + hissa);
                 intent.putExtra("surveyNo",surveyNo+"");
+                intent.putExtra("surnoc",""+suroc);
                 intent.putExtra("hissa_str",""+hissa_str);
                 intent.putExtra("RTC", "RTC");
                 intent.putExtra("AppType", AppType);
@@ -464,6 +469,27 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
 
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.history,menu);
+
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id ==R.id.menu_item_history)
+        {
+            Intent intent = new Intent(ViewRtcInformation.this, Serach_History.class);
+            intent.putExtra("APPType", AppType);
+            startActivity(intent);
+
+        }
+        return  super.onOptionsItemSelected(item);
     }
 
     @Override

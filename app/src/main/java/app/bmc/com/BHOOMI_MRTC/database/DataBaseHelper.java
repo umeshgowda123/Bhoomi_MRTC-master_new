@@ -26,12 +26,11 @@ import app.bmc.com.BHOOMI_MRTC.model.YearDetails;
 @Database(entities = {MST_VLM.class, Maintenance_Flags.class, YearDetails.class, SeasonDetails.class,
         CalamityDetails.class, PacsBankMasterData.class, VR_INFO.class, MPD_TABLE.class,
         MS_REPORT_TABLE.class, R_LAND_REPORT_TABLE.class, V_MUTATION_STATUS_TABLE.class, RTC_VERIFICATION_TABLE.class,
-        LandConversion_TABLE.class, LandConversion_Final_Order_TABLE.class, UPDATED_DATE.class}, version = 3, exportSchema = false)
+        LandConversion_TABLE.class, LandConversion_Final_Order_TABLE.class, UPDATED_DATE.class}, version = 4, exportSchema = false)
 public abstract class DataBaseHelper extends RoomDatabase {
     public abstract DataBaseAccess daoAccess();
 
     public static final Migration MIGRATION_1_2 = new Migration(1, 2) {
-
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL("DROP TABLE MST_VLM");
@@ -47,6 +46,18 @@ public abstract class DataBaseHelper extends RoomDatabase {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL("DROP TABLE BankMasterData");
+        }
+    };
+
+    public static final Migration MIGRATION_3_4 = new Migration(3, 4) {
+
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+
+            database.execSQL("ALTER TABLE VR_INFO ADD COLUMN surnoc TEXT ");
+            database.execSQL("ALTER TABLE V_MUTATION_STATUS_TABLE ADD COLUMN VMS_SURVEY_NO TEXT ");
+            database.execSQL("ALTER TABLE V_MUTATION_STATUS_TABLE ADD COLUMN VMS_SERNOC TEXT ");
+            database.execSQL("ALTER TABLE V_MUTATION_STATUS_TABLE ADD COLUMN VMS_HISSA TEXT ");
         }
     };
 }

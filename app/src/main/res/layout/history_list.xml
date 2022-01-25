@@ -1,0 +1,224 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/list_layout"
+    android:orientation="horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvdstNAME"
+        android:layout_weight=".3"
+        android:text="@string/district"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvtlkNAME"
+        android:layout_weight=".3"
+        android:text="@string/taluk"
+        android:textColor="@android:color/black" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvhlbNAME"
+        android:layout_weight=".3"
+        android:gravity="center"
+        android:text="@string/hobli"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvvllNAME"
+        android:layout_weight=".3"
+        android:gravity="center"
+        android:text="@string/village"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvsryNo"
+        android:layout_weight=".3"
+        android:gravity="center"
+        android:text="@string/survey_no"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvrtcxml_ref"
+        android:layout_weight=".3"
+        android:text="RTC_XML_Ref NO"
+        android:textColor="@android:color/black" />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvRTC_refData"
+        android:layout_weight=".3"
+        android:text="Rtc_xml_Data"
+        android:visibility="gone"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvsernocNo"
+        android:layout_weight=".3"
+        android:gravity="center"
+        android:text="@string/hissa"
+        android:visibility="gone"
+        android:textColor="@android:color/black" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvhissaNo"
+        android:layout_weight=".3"
+        android:gravity="center"
+        android:text="@string/surnoc_no"
+        android:visibility="gone"
+        android:textColor="@android:color/black" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvMPDRES"
+        android:layout_weight=".3"
+        android:gravity="center"
+        android:text="@string/mutation_pendencey_details"
+        android:visibility="gone"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvMSRES"
+        android:layout_weight=".3"
+        android:gravity="center"
+        android:text="@string/mutation_status"
+        android:visibility="gone"
+        android:textColor="@android:color/black" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvMSVRES"
+        android:layout_weight=".3"
+        android:gravity="center"
+        android:text="@string/view_mutation_status"
+        android:visibility="gone"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvMSVLandID"
+        android:layout_weight=".3"
+        android:gravity="center"
+        android:text="@string/land_code"
+        android:visibility="gone"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvRLand"
+        android:layout_weight=".3"
+        android:gravity="center"
+        android:text="@string/restriction_on_land_report"
+        android:visibility="gone"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvLandConAffID"
+        android:layout_weight=".3"
+        android:gravity="center"
+        android:text="@string/affidavit_id"
+        android:textColor="@android:color/black" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvLandConAffRES"
+        android:layout_weight=".3"
+        android:gravity="center"
+        android:text="affidavit_id_RES"
+        android:visibility="gone"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvLandConUserID_1"
+        android:layout_weight=".3"
+        android:gravity="center"
+        android:text="@string/user_id"
+        android:textColor="@android:color/black" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvLandConUserRES"
+        android:layout_weight=".3"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="User_RES"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvLandConFinalRequesID"
+        android:layout_weight=".3"
+        android:gravity="center"
+        android:text="@string/request_id"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvLandConFinalSurveyNo"
+        android:layout_weight=".3"
+        android:gravity="center"
+        android:text="@string/survey_no_wise"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvLandConFinalRequesID_RES"
+        android:layout_weight=".3"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="@string/request_id"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvLandConFinalSurveyNo_RES"
+        android:layout_weight=".3"
+        android:visibility="gone"
+        android:gravity="center"
+        android:text="@string/survey_no_wise"
+        android:textColor="@android:color/black" />
+
+
+
+
+</LinearLayout>

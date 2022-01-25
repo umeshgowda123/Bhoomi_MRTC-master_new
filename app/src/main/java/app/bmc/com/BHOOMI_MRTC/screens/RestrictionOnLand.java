@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -510,6 +512,27 @@ public class RestrictionOnLand extends AppCompatActivity implements RtcViewInfoB
                 Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.history,menu);
+
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id ==R.id.menu_item_history)
+        {
+            Intent intent = new Intent(RestrictionOnLand.this, Serach_History.class);
+            intent.putExtra("APPType", AppType);
+            startActivity(intent);
+
+        }
+        return  super.onOptionsItemSelected(item);
     }
 
 

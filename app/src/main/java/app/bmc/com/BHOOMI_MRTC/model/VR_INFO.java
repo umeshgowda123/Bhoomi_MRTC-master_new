@@ -27,6 +27,18 @@ public class VR_INFO {
     private String VR_LAND_OWNER_RES;
     @ColumnInfo(name = "VR_CULT_RES")
     private String VR_CULT_RES;
+//ADD NEW COLUMN
+    @ColumnInfo(name = "surnoc")
+    private String VR_surnoc;
+
+
+    public String getVR_surnoc() {
+        return VR_surnoc;
+    }
+
+    public void setVR_surnoc(String VR_surnoc) {
+        this.VR_surnoc = VR_surnoc;
+    }
 
     public int getId() {
         return id;
