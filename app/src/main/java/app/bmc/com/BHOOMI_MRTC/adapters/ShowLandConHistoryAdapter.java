@@ -16,12 +16,12 @@ import java.util.List;
 import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.model.LandCon_Data_History;
 import app.bmc.com.BHOOMI_MRTC.screens.LandConversionBasedOnAffidavit;
-import app.bmc.com.BHOOMI_MRTC.screens.RtcVerificationData;
+import app.bmc.com.BHOOMI_MRTC.screens.LandConversionBasedOnUserId;
 
 
 public class ShowLandConHistoryAdapter extends ArrayAdapter<LandCon_Data_History> {
 
-    private Context mContext;
+    private final Context mContext;
 
     String AFFIDAVIT_ID,AFFIDAVIT_RES,USER_ID,USER_RES;
 
@@ -35,13 +35,13 @@ public class ShowLandConHistoryAdapter extends ArrayAdapter<LandCon_Data_History
         // Get the data item for this position
         LandCon_Data_History dataModel = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
-        final ShowLandConHistoryAdapter.ViewHolder viewHolder; // view lookup cache stored in tag
+        final ViewHolder viewHolder; // view lookup cache stored in tag
         if (convertView == null) {
             convertView= LayoutInflater.from(mContext).inflate(R.layout.history_list,parent, false);
-            viewHolder= new ShowLandConHistoryAdapter.ViewHolder(convertView);
+            viewHolder= new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
-            viewHolder = (ShowLandConHistoryAdapter.ViewHolder) convertView.getTag();
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
         assert dataModel != null;
@@ -59,7 +59,7 @@ public class ShowLandConHistoryAdapter extends ArrayAdapter<LandCon_Data_History
             USER_ID = dataModel.getUSER_ID();
             USER_RES = dataModel.getUSER_RES();
 
-
+            if(AFFIDAVIT_ID != null){
             Intent intent = new Intent(mContext.getApplicationContext(), LandConversionBasedOnAffidavit.class);//2 methods
 //            intent.putExtra("refnum",""+refNumber);
 //            intent.putExtra("refData",""+refData);
@@ -69,6 +69,15 @@ public class ShowLandConHistoryAdapter extends ArrayAdapter<LandCon_Data_History
 
             intent.putExtra("AppType", 8);
             getContext().startActivity(intent);
+            } else if(USER_ID != null){
+                Intent intent = new Intent(mContext.getApplicationContext(), LandConversionBasedOnUserId.class);
+                intent.putExtra("USER_ID", USER_ID);
+//                intent.putExtra("tokenType", tokenType);
+//                intent.putExtra("accessToken", accessToken);
+                intent.putExtra("AppType", 8);
+                getContext().startActivity(intent);
+
+            }
 
         });
 

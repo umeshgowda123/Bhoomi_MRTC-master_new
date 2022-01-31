@@ -159,7 +159,7 @@ public class RestrictionOnLandReport extends AppCompatActivity implements RtcVie
 
                                             Log.d("TAG", "onNext: "+restrictionOnLandReportTableList.size());
 
-                                            if (restrictionOnLandReportTableList.size() != 0) {
+                                            if (restrictionOnLandReportTableList.size()  == 0) {
                                                 final AlertDialog.Builder builder = new AlertDialog.Builder(RestrictionOnLandReport.this, R.style.MyDialogTheme);
                                                 builder.setTitle(getString(R.string.status))
                                                         .setMessage(getString(R.string.no_data_found_for_this_record))
