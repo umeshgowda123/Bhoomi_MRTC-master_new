@@ -17,6 +17,7 @@ import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.model.LandCon_Data_History;
 import app.bmc.com.BHOOMI_MRTC.screens.LandConversionBasedOnAffidavit;
 import app.bmc.com.BHOOMI_MRTC.screens.LandConversionBasedOnUserId;
+import app.bmc.com.BHOOMI_MRTC.screens.RtcDetails;
 
 
 public class ShowLandConHistoryAdapter extends ArrayAdapter<LandCon_Data_History> {
@@ -60,20 +61,18 @@ public class ShowLandConHistoryAdapter extends ArrayAdapter<LandCon_Data_History
             USER_RES = dataModel.getUSER_RES();
 
             if(AFFIDAVIT_ID != null){
-            Intent intent = new Intent(mContext.getApplicationContext(), LandConversionBasedOnAffidavit.class);//2 methods
-//            intent.putExtra("refnum",""+refNumber);
-//            intent.putExtra("refData",""+refData);
-//            intent.putExtra("RTCXML", "RTCXML");USER_ID
-            intent.putExtra("AFFIDAVIT_ResponseData", AFFIDAVIT_RES);
-            intent.putExtra("AFFIDAVIT_ID", AFFIDAVIT_ID);
+                Intent intent = new Intent(mContext.getApplicationContext(), LandConversionBasedOnAffidavit.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-            intent.putExtra("AppType", 8);
-            getContext().startActivity(intent);
+                intent.putExtra("AFFIDAVIT_ResponseData", AFFIDAVIT_RES);
+//                intent.putExtra("AFFIDAVIT_ID", AFFIDAVIT_ID);
+
+                intent.putExtra("AppType", 8);
+                getContext().startActivity(intent);
             } else if(USER_ID != null){
-                Intent intent = new Intent(mContext.getApplicationContext(), LandConversionBasedOnUserId.class);
+//                Intent intent = new Intent(getContext(), RtcDetails.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                Intent intent = new Intent(mContext.getApplicationContext(), LandConversionBasedOnUserId.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("USER_ID", USER_ID);
-//                intent.putExtra("tokenType", tokenType);
-//                intent.putExtra("accessToken", accessToken);
                 intent.putExtra("AppType", 8);
                 getContext().startActivity(intent);
 
@@ -92,35 +91,17 @@ public class ShowLandConHistoryAdapter extends ArrayAdapter<LandCon_Data_History
 
         ViewHolder(View view) {
 
-            tvShowRtcXmlRefnum = view.findViewById(R.id.tvrtcxml_ref);
-            tvShowRtcXmlRefnumData = view.findViewById(R.id.tvRTC_refData);
-            tvShowDstName = view.findViewById(R.id.tvdstNAME);
-            tvShowTlkName = view.findViewById(R.id.tvtlkNAME);
-            tvShowHlbName = view.findViewById(R.id.tvhlbNAME);
-            tvShowVllName = view.findViewById(R.id.tvvllNAME);
-            tvShowSurveyNo = view.findViewById(R.id.tvsryNo);
-            tvShowSurnocNo = view.findViewById(R.id.tvsernocNo);
-            tvShowHissaNo = view.findViewById(R.id.tvhissaNo);
-
             tvShowlandConAffid = view.findViewById(R.id.tvLandConAffID);
             tvShowlandConAffRES = view.findViewById(R.id.tvLandConAffRES);
             tvShowlandConUserId = view.findViewById(R.id.tvLandConUserID_1);
             tvShowlandConUseRES = view.findViewById(R.id.tvLandConUserRES);
 
 
-            tvlandConFinalReqestId=view.findViewById(R.id.tvLandConFinalRequesID);
-            tvLandConFinalSurveyNo=view.findViewById(R.id.tvLandConFinalSurveyNo);
+            tvShowlandConAffid.setVisibility(View.VISIBLE);
+            tvShowlandConUserId.setVisibility(View.VISIBLE);
 
-            tvShowDstName.setVisibility(View.GONE);
-            tvShowTlkName.setVisibility(View.GONE);
-            tvShowHlbName.setVisibility(View.GONE);
-            tvShowVllName.setVisibility(View.GONE);
-            tvShowSurveyNo.setVisibility(View.GONE);
-            tvShowRtcXmlRefnum.setVisibility(View.GONE);
-            tvlandConFinalReqestId.setVisibility(View.GONE);
-            tvShowlandConAffid.setVisibility(View.GONE);
-            tvShowlandConUserId.setVisibility(View.GONE);
-            tvLandConFinalSurveyNo.setVisibility(View.GONE);
+            list_layout = view.findViewById(R.id.list_layout);
+
 
             list_layout = view.findViewById(R.id.list_layout);
 

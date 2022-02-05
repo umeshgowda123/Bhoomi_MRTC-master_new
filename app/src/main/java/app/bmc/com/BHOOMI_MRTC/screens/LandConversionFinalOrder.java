@@ -256,6 +256,14 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
                     etSurveyNumber.setText("");
                     etSurveyNumber.setError(null);
 
+                    district_id= Integer.parseInt(null);
+                    taluk_id= Integer.parseInt(null);
+                    hobli_id= Integer.parseInt(null);
+                    village_id= Integer.parseInt(null);
+                    SNO_RES=null;
+                    surveyNumber=null;
+
+
                     imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0);
 
                 } else if(checkedId == R.id.rbSurveyNo) {
@@ -265,6 +273,9 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
 
                     etRequestID.setText("");
                     etRequestID.setError(null);
+
+                    requestID=null;
+                    ReqID_RES=null;
 
                     imm.hideSoftInputFromWindow(etRequestID.getWindowToken(), 0);
                     //imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
@@ -638,14 +649,14 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
 
         try {
             LandConversion_Final_Order_TABLE table = new LandConversion_Final_Order_TABLE();
-            table.setREQUEST_ID(requestID+"");
-            table.setREQUEST_ID_RES(ReqID_RES+"");
+            table.setREQUEST_ID(requestID);
+            table.setREQUEST_ID_RES(ReqID_RES);
             table.setDST_ID(district_id+"");
             table.setTLK_ID(taluk_id+"");
             table.setHBL_ID(hobli_id+"");
             table.setVLG_ID(village_id+"");
-            table.setS_NO(surveyNumber+"");
-            table.setSNO_RES(SNO_RES+"");
+            table.setS_NO(surveyNumber);
+            table.setSNO_RES(SNO_RES);
             tables_arr.add(table);
 
         } catch (Exception e) {

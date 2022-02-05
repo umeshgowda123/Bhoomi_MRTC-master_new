@@ -54,7 +54,7 @@ public class ShowRTCXMLAdapter extends ArrayAdapter<RTCV_Data_history> {
             refData = dataModel.getREFF_RES();
 
 
-            Intent intent = new Intent(mContext.getApplicationContext(), RtcVerificationData.class);
+            Intent intent = new Intent(mContext.getApplicationContext(), RtcVerificationData.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //            intent.putExtra("refnum",""+refNumber);
 //            intent.putExtra("refData",""+refData);
             intent.putExtra("RTCXML", "RTCXML");
@@ -70,8 +70,7 @@ public class ShowRTCXMLAdapter extends ArrayAdapter<RTCV_Data_history> {
 
 
     static class ViewHolder {
-        TextView tvShowRtcXmlRefnum,tvShowRtcXmlRefnumData,tvShowDstName,tvShowTlkName,tvShowHlbName,tvShowVllName, tvShowSurveyNo,tvShowSurnocNo,tvShowHissaNo;
-        TextView tvlandConAffID,tvlandCOnUserID,tvLandConFinalRequesID,tvLandConFinalSurveyNo;
+        TextView tvShowRtcXmlRefnum,tvShowRtcXmlRefnumData;
 
         LinearLayout list_layout;
 
@@ -79,28 +78,9 @@ public class ShowRTCXMLAdapter extends ArrayAdapter<RTCV_Data_history> {
 
             tvShowRtcXmlRefnum = view.findViewById(R.id.tvrtcxml_ref);
             tvShowRtcXmlRefnumData = view.findViewById(R.id.tvRTC_refData);
-            tvShowDstName = view.findViewById(R.id.tvdstNAME);
-            tvShowTlkName = view.findViewById(R.id.tvtlkNAME);
-            tvShowHlbName = view.findViewById(R.id.tvhlbNAME);
-            tvShowVllName = view.findViewById(R.id.tvvllNAME);
-            tvShowSurveyNo = view.findViewById(R.id.tvsryNo);
-            tvShowSurnocNo = view.findViewById(R.id.tvsernocNo);
-            tvShowHissaNo = view.findViewById(R.id.tvhissaNo);
 
-            tvlandConAffID = view.findViewById(R.id.tvLandConAffID);
-            tvlandCOnUserID = view.findViewById(R.id.tvLandConUserID_1);
-            tvLandConFinalRequesID = view.findViewById(R.id.tvLandConFinalRequesID);
-            tvLandConFinalSurveyNo = view.findViewById(R.id.tvLandConFinalSurveyNo);
 
-            tvShowDstName.setVisibility(View.GONE);
-            tvShowTlkName.setVisibility(View.GONE);
-            tvShowHlbName.setVisibility(View.GONE);
-            tvShowVllName.setVisibility(View.GONE);
-            tvShowSurveyNo.setVisibility(View.GONE);
-            tvlandConAffID.setVisibility(View.GONE);
-            tvlandCOnUserID.setVisibility(View.GONE);
-            tvLandConFinalRequesID.setVisibility(View.GONE);
-            tvLandConFinalSurveyNo.setVisibility(View.GONE);
+            tvShowRtcXmlRefnum.setVisibility(View.VISIBLE);
 
             list_layout = view.findViewById(R.id.list_layout);
 

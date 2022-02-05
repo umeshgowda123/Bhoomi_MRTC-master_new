@@ -69,7 +69,7 @@ public class ShowHistoryDataAdapter extends ArrayAdapter<VR_INFO_HISTORY> {
             hissa_int =dataModel.getVR_HISSA_NM();
 
 
-            Intent intent = new Intent(mContext.getApplicationContext(), RtcDetails.class);
+            Intent intent = new Intent(mContext.getApplicationContext(), RtcDetails.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("distId",""+distId_int);
             intent.putExtra("talkId",""+talkId_int);
             intent.putExtra("hblId",""+hblId_int);
@@ -91,7 +91,6 @@ public class ShowHistoryDataAdapter extends ArrayAdapter<VR_INFO_HISTORY> {
     static class ViewHolder {
         TextView tvShowDstName,tvShowTlkName,tvShowHlbName,tvShowVllName, tvShowSurveyNo,tvShowSurnocNo,tvShowHissaNo,tvShowRtcXmlRefnum;
         LinearLayout list_layout;
-        TextView tvlandConAffID,tvlandCOnUserID,tvLandConFinalRequesID,tvLandConFinalSurveyNo;
 
 
         ViewHolder(View view) {
@@ -105,17 +104,13 @@ public class ShowHistoryDataAdapter extends ArrayAdapter<VR_INFO_HISTORY> {
             tvShowSurnocNo = view.findViewById(R.id.tvsernocNo);
             tvShowHissaNo = view.findViewById(R.id.tvhissaNo);
 
-            tvlandConAffID = view.findViewById(R.id.tvLandConAffID);
-            tvlandCOnUserID = view.findViewById(R.id.tvLandConUserID_1);
-            tvLandConFinalRequesID = view.findViewById(R.id.tvLandConFinalRequesID);
-            tvLandConFinalSurveyNo = view.findViewById(R.id.tvLandConFinalSurveyNo);
 
+            tvShowDstName.setVisibility(View.VISIBLE);
+            tvShowTlkName.setVisibility(View.VISIBLE);
+            tvShowHlbName.setVisibility(View.VISIBLE);
+            tvShowVllName.setVisibility(View.VISIBLE);
+            tvShowSurveyNo.setVisibility(View.VISIBLE);
 
-            tvShowRtcXmlRefnum.setVisibility(View.GONE);
-            tvlandConAffID.setVisibility(View.GONE);
-            tvlandCOnUserID.setVisibility(View.GONE);
-            tvLandConFinalRequesID.setVisibility(View.GONE);
-            tvLandConFinalSurveyNo.setVisibility(View.GONE);
 
             list_layout = view.findViewById(R.id.list_layout);
 

@@ -147,6 +147,8 @@ public class LandConversionReqStatus extends AppCompatActivity implements RtcVie
                 etRadioText.setHint(R.string.enter_affidavit_id);
                 etRadioText.setInputType(InputType.TYPE_CLASS_NUMBER);
                 etRadioText.setText("");
+                userID = null;
+                User_res = null;
                 rb_UserID.setChecked(false);
             }
         });
@@ -158,6 +160,8 @@ public class LandConversionReqStatus extends AppCompatActivity implements RtcVie
                 etRadioText.setHint(R.string.enter_user_ID);
                 etRadioText.setInputType(InputType.TYPE_CLASS_TEXT);
                 etRadioText.setText("");
+                affidavitID = null;
+                Affidavit_res = null;
                 rb_AffidavitID.setChecked(false);
             }
         });
@@ -369,10 +373,10 @@ public class LandConversionReqStatus extends AppCompatActivity implements RtcVie
         List<LandConversion_TABLE> LandConversion_tables_arr = new ArrayList<>();
         try {
             LandConversion_TABLE LandConversion_table = new LandConversion_TABLE();
-            LandConversion_table.setAFFIDAVIT_ID(affidavitID+"");
-            LandConversion_table.setAFFIDAVIT_RES(Affidavit_res+"");
-            LandConversion_table.setUSER_ID(userID+"");
-            LandConversion_table.setUSER_RES(User_res+"");
+            LandConversion_table.setAFFIDAVIT_ID(affidavitID);
+            LandConversion_table.setAFFIDAVIT_RES(Affidavit_res);
+            LandConversion_table.setUSER_ID(userID);
+            LandConversion_table.setUSER_RES(User_res);
             LandConversion_tables_arr.add(LandConversion_table);
 
         } catch (Exception e) {

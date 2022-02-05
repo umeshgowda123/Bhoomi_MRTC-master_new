@@ -51,7 +51,7 @@ public class ShowLandConFinalHistoryAdapter extends ArrayAdapter<LandConFinal_Da
         viewHolder.tvShowVllName.setText(dataModel.getLandFinal_VillageName());
 
         viewHolder.tvShowlandConFinalReqestId.setText(dataModel.getREQUEST_ID());
-        viewHolder.tvShowlandConFinalServayNo.setText(dataModel.getS_NO());
+        viewHolder.tvShowSurveyNo.setText(dataModel.getS_NO());
         viewHolder.tvShowlandConFinalReqestId_RES.setText(dataModel.getREQUEST_ID_RES());
         viewHolder.tvShowlandConFinalServayNo_RES.setText(dataModel.getSNO_RES());
 
@@ -70,13 +70,8 @@ public class ShowLandConFinalHistoryAdapter extends ArrayAdapter<LandConFinal_Da
             LandConFinalServayNo_report = dataModel.getSNO_RES();
 
 
-            Intent intent = new Intent(mContext.getApplicationContext(), ConversionFinalOrders_BasedOnReq_ID.class);//2 methods
-//            intent.putExtra("refnum",""+refNumber);
-//            intent.putExtra("refData",""+refData);
-//            intent.putExtra("RTCXML", "RTCXML");USER_ID
+            Intent intent = new Intent(mContext.getApplicationContext(), ConversionFinalOrders_BasedOnReq_ID.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("LandConversionFinalOrders", LandConFinalRequesID_report);
-//            intent.putExtra("USER_ID", USER_ID);
-
             intent.putExtra("AppType", 9);
             getContext().startActivity(intent);
 
@@ -87,45 +82,33 @@ public class ShowLandConFinalHistoryAdapter extends ArrayAdapter<LandConFinal_Da
 
 
     static class ViewHolder {
-        TextView tvShowRtcXmlRefnum,tvShowRtcXmlRefnumData,tvShowDstName,tvShowTlkName,tvShowHlbName,tvShowVllName, tvShowSurveyNo,tvShowSurnocNo,tvShowHissaNo;
-        TextView tvShowlandConAffid,tvShowlandConAffRES,tvShowlandConUserId,tvShowlandConUseRES;
-        TextView tvShowlandConFinalReqestId,tvShowlandConFinalServayNo,tvShowlandConFinalReqestId_RES,tvShowlandConFinalServayNo_RES;
+        TextView tvShowDstName,tvShowTlkName,tvShowHlbName,tvShowVllName, tvShowSurveyNo;
+        TextView tvShowlandConFinalReqestId,tvShowlandConFinalReqestId_RES,tvShowlandConFinalServayNo_RES;
 
         LinearLayout list_layout;
 
         ViewHolder(View view) {
 
-            tvShowRtcXmlRefnum = view.findViewById(R.id.tvrtcxml_ref);
-            tvShowRtcXmlRefnumData = view.findViewById(R.id.tvRTC_refData);
+
             tvShowDstName = view.findViewById(R.id.tvdstNAME);
             tvShowTlkName = view.findViewById(R.id.tvtlkNAME);
             tvShowHlbName = view.findViewById(R.id.tvhlbNAME);
             tvShowVllName = view.findViewById(R.id.tvvllNAME);
             tvShowSurveyNo = view.findViewById(R.id.tvsryNo);
-            tvShowSurnocNo = view.findViewById(R.id.tvsernocNo);
-            tvShowHissaNo = view.findViewById(R.id.tvhissaNo);
 
-            tvShowlandConAffid = view.findViewById(R.id.tvLandConAffID);
-            tvShowlandConAffRES = view.findViewById(R.id.tvLandConAffRES);
-            tvShowlandConUserId = view.findViewById(R.id.tvLandConUserID_1);
-            tvShowlandConUseRES = view.findViewById(R.id.tvLandConUserRES);
 
             tvShowlandConFinalReqestId = view.findViewById(R.id.tvLandConFinalRequesID);
-            tvShowlandConFinalServayNo = view.findViewById(R.id.tvLandConFinalSurveyNo);
-            tvShowlandConFinalReqestId_RES = view.findViewById(R.id.tvLandConFinalRequesID_RES);
+             tvShowlandConFinalReqestId_RES = view.findViewById(R.id.tvLandConFinalRequesID_RES);
             tvShowlandConFinalServayNo_RES = view.findViewById(R.id.tvLandConFinalSurveyNo_RES);
 
 
 
-            tvShowDstName.setVisibility(View.GONE);
-            tvShowTlkName.setVisibility(View.GONE);
-            tvShowHlbName.setVisibility(View.GONE);
-            tvShowVllName.setVisibility(View.GONE);
-            tvShowSurveyNo.setVisibility(View.GONE);
-            tvShowRtcXmlRefnum.setVisibility(View.GONE);
-            tvShowlandConAffid.setVisibility(View.GONE);
-            tvShowlandConUserId.setVisibility(View.GONE);
-
+            tvShowDstName.setVisibility(View.VISIBLE);
+            tvShowTlkName.setVisibility(View.VISIBLE);
+            tvShowHlbName.setVisibility(View.VISIBLE);
+            tvShowVllName.setVisibility(View.VISIBLE);
+            tvShowSurveyNo.setVisibility(View.VISIBLE);
+            tvShowlandConFinalReqestId.setVisibility(View.VISIBLE);
 
             list_layout = view.findViewById(R.id.list_layout);
 

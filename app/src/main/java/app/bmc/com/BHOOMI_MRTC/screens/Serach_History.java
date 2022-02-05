@@ -47,7 +47,6 @@ public class Serach_History extends AppCompatActivity {
     TextView tvdist,tvtlk,tvhlb,tvvill,tvhissa,tvsurvaynum,tvref,tvrefdata,tvlandConAffID,tvlandCOnUserID;
     TextView tvLandConFinalRequesID,tvLandConFinalSurveyNo;
 
-    String UserID,AffID, AffIDRES ;
 
 
     private ShowHistoryDataAdapter adapter;
@@ -58,6 +57,7 @@ public class Serach_History extends AppCompatActivity {
     private ShowRLandHistoryAdapter adapter5;
     private ShowLandConHistoryAdapter adapter6;
     private ShowLandConFinalHistoryAdapter adapter7;
+//   private ShowRTCInfoByOwerNameAdapter adapter8;
 
 
     private List<DTHVName> DTHVName_Data;
@@ -103,7 +103,7 @@ public class Serach_History extends AppCompatActivity {
         tvlandCOnUserID = findViewById(R.id.tvLandConUserID_1);
 
         tvLandConFinalRequesID = findViewById(R.id.tvLandConFinalRequesID);
-        tvLandConFinalSurveyNo = findViewById(R.id.tvLandConFinalSurveyNo);
+//        tvLandConFinalSurveyNo = findViewById(R.id.tvLandConFinalSurveyNo);
 
 
         Intent intent = getIntent();
@@ -116,11 +116,6 @@ public class Serach_History extends AppCompatActivity {
             tvvill.setVisibility(View.VISIBLE);
             tvsurvaynum.setVisibility(View.VISIBLE);
 
-            tvref.setVisibility(View.GONE);
-            tvlandConAffID.setVisibility(View.GONE);
-            tvlandCOnUserID.setVisibility(View.GONE);
-            tvLandConFinalRequesID.setVisibility(View.GONE);
-            tvLandConFinalSurveyNo.setVisibility(View.GONE);
 
             Observable<List<VR_INFO_HISTORY>> historydataName = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getDTHNameByName());
             historydataName
@@ -202,15 +197,6 @@ public class Serach_History extends AppCompatActivity {
                     });
         } else if (APPType == 2) {
 
-            tvdist.setVisibility(View.GONE);
-            tvtlk.setVisibility(View.GONE);
-            tvhlb.setVisibility(View.GONE);
-            tvvill.setVisibility(View.GONE);
-            tvsurvaynum.setVisibility(View.GONE);
-            tvlandConAffID.setVisibility(View.GONE);
-            tvlandCOnUserID.setVisibility(View.GONE);
-            tvLandConFinalRequesID.setVisibility(View.GONE);
-            tvLandConFinalSurveyNo.setVisibility(View.GONE);
 
             tvref.setVisibility(View.VISIBLE);
 
@@ -266,12 +252,6 @@ public class Serach_History extends AppCompatActivity {
             tvhlb.setVisibility(View.VISIBLE);
             tvvill.setVisibility(View.VISIBLE);
 
-            tvlandConAffID.setVisibility(View.GONE);
-            tvlandCOnUserID.setVisibility(View.GONE);
-            tvLandConFinalRequesID.setVisibility(View.GONE);
-            tvLandConFinalSurveyNo.setVisibility(View.GONE);
-            tvsurvaynum.setVisibility(View.GONE);
-            tvref.setVisibility(View.GONE);
 
             Observable<List<MPD_Data_History>> MPDhistorydata = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getMPD_History());
             MPDhistorydata
@@ -359,12 +339,6 @@ public class Serach_History extends AppCompatActivity {
             tvhlb.setVisibility(View.VISIBLE);
             tvvill.setVisibility(View.VISIBLE);
             tvsurvaynum.setVisibility(View.VISIBLE);
-
-            tvlandConAffID.setVisibility(View.GONE);
-            tvlandCOnUserID.setVisibility(View.GONE);
-            tvLandConFinalRequesID.setVisibility(View.GONE);
-            tvLandConFinalSurveyNo.setVisibility(View.GONE);
-            tvref.setVisibility(View.GONE);
 
             Observable<List<MS_Data_History>> MShistorydata = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getMS_History());
             MShistorydata
@@ -455,12 +429,6 @@ public class Serach_History extends AppCompatActivity {
             tvvill.setVisibility(View.VISIBLE);
             tvsurvaynum.setVisibility(View.VISIBLE);
 
-            tvlandConAffID.setVisibility(View.GONE);
-            tvlandCOnUserID.setVisibility(View.GONE);
-            tvLandConFinalRequesID.setVisibility(View.GONE);
-            tvLandConFinalSurveyNo.setVisibility(View.GONE);
-            tvhissa.setVisibility(View.GONE);
-            tvref.setVisibility(View.GONE);
 
             Observable<List<MSV_Data_History>> MSVhistorydata = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getMSV_History());
             MSVhistorydata
@@ -557,13 +525,6 @@ public class Serach_History extends AppCompatActivity {
             tvvill.setVisibility(View.VISIBLE);
             tvsurvaynum.setVisibility(View.VISIBLE);
 
-            tvref.setVisibility(View.GONE);
-            tvlandConAffID.setVisibility(View.GONE);
-            tvlandCOnUserID.setVisibility(View.GONE);
-            tvLandConFinalRequesID.setVisibility(View.GONE);
-            tvLandConFinalSurveyNo.setVisibility(View.GONE);
-
-
             Observable<List<RLand_Data_History>> RLandhistorydata = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getRLand_History());
             RLandhistorydata
                     .subscribeOn(Schedulers.io())
@@ -647,22 +608,13 @@ public class Serach_History extends AppCompatActivity {
                     });
         }  else if (APPType == 8) {
 
-            tvdist.setVisibility(View.GONE);
-            tvtlk.setVisibility(View.GONE);
-            tvhlb.setVisibility(View.GONE);
-            tvvill.setVisibility(View.GONE);
-            tvsurvaynum.setVisibility(View.GONE);
-            tvref.setVisibility(View.GONE);
-            tvLandConFinalRequesID.setVisibility(View.GONE);
-            tvLandConFinalSurveyNo.setVisibility(View.GONE);
-
             tvlandConAffID.setVisibility(View.VISIBLE);
             tvlandCOnUserID.setVisibility(View.VISIBLE);
 
             Observable<List<LandCon_Data_History>> LandCon_historydata = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getLandCon_History());
             LandCon_historydata
                     .subscribeOn(Schedulers.io())
-                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Observer<List<LandCon_Data_History>>() {
                         @Override
                         public void onSubscribe(@NonNull Disposable d) {
@@ -673,7 +625,7 @@ public class Serach_History extends AppCompatActivity {
                         public void onNext(@NonNull List<LandCon_Data_History> LandCon_history) {
                             Log.d("TAG", "onNext: " + LandCon_history.size());
 
-                            LandCon_data_history = (List<LandCon_Data_History>) LandCon_history;
+//                            LandCon_data_history = (List<LandCon_Data_History>) LandCon_history;
 //                            int i;
 //                            for (i = 0; i < LandCon_data_history.size(); i++) {
 //
@@ -688,12 +640,12 @@ public class Serach_History extends AppCompatActivity {
 //                                LandCon_history.get(i).setUSER_ID(UserID);
 //                                LandCon_history.get(i).setAFFIDAVIT_RES(AffIDRES);
 //                                LandCon_history.get(i).setUSER_RES(UserIDRES);
-//                                adapter6 = new ShowLandConHistoryAdapter(LandCon_history, getApplicationContext());
-//                                historyList.setAdapter(adapter6);
-//                                Log.i("select the DATA", " " + historyList);
+////                                adapter6 = new ShowLandConHistoryAdapter(LandCon_history, getApplicationContext());
+////                                historyList.setAdapter(adapter6);
+////                                Log.i("select the DATA", " " + historyList);
+//
 
-
-                               adapter6 = new ShowLandConHistoryAdapter(LandCon_history, getApplicationContext());
+                                adapter6 = new ShowLandConHistoryAdapter(LandCon_history, getApplicationContext());
                                 historyList.setAdapter(adapter6);
                                 Log.i("select the DATA", " " + historyList);
 
@@ -710,22 +662,18 @@ public class Serach_History extends AppCompatActivity {
                     });
         } else if (APPType == 9) {
 
-            tvdist.setVisibility(View.GONE);
-            tvtlk.setVisibility(View.GONE);
-            tvhlb.setVisibility(View.GONE);
-            tvvill.setVisibility(View.GONE);
-            tvsurvaynum.setVisibility(View.GONE);
-            tvref.setVisibility(View.GONE);
-            tvhissa.setVisibility(View.GONE);
-            tvlandConAffID.setVisibility(View.GONE);
-            tvlandCOnUserID.setVisibility(View.GONE);
+            tvdist.setVisibility(View.VISIBLE);
+            tvtlk.setVisibility(View.VISIBLE);
+            tvhlb.setVisibility(View.VISIBLE);
+            tvvill.setVisibility(View.VISIBLE);
+            tvsurvaynum.setVisibility(View.VISIBLE);
 
             tvLandConFinalRequesID.setVisibility(View.VISIBLE);
 
             Observable<List<LandConFinal_Data_History>> LandConFinal_historydata = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getLandConFinal_History());
             LandConFinal_historydata
                     .subscribeOn(Schedulers.io())
-                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Observer<List<LandConFinal_Data_History>>() {
                         @Override
                         public void onSubscribe(@NonNull Disposable d) {
@@ -750,7 +698,6 @@ public class Serach_History extends AppCompatActivity {
                                 String SNO_RES = LandConFinal_data_history.get(i).getSNO_RES();
 
                                 Log.d("history_name", "" + distID + ", " + talukID + ", " + hobliID + ", " + villID);
-
                                 Observable<List<DTHVName>> historydataobservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getDTHVNamesByCodes(distID, talukID, hobliID, villID));
                                 int finalI = i;
                                 historydataobservable
@@ -766,6 +713,7 @@ public class Serach_History extends AppCompatActivity {
                                             public void onNext(@NonNull List<DTHVName> dthvData) {
                                                 Log.d("TAG", "onNext: " + dthvData.size());
                                                 DTHVName_Data = (List<DTHVName>) dthvData;
+
                                                 for (int j = 0; j < DTHVName_Data.size(); j++) {
                                                     String distName = DTHVName_Data.get(j).getDistName();
                                                     String talName = DTHVName_Data.get(j).getTalukName();
@@ -779,15 +727,12 @@ public class Serach_History extends AppCompatActivity {
                                                     LandConFinal_data_history.get(finalI).setLandFinal_VillageName(VillName);
                                                     LandConFinal_data_history.get(finalI).setS_NO(survayNo);
 
-                                                    LandConFinal_data_history.get(finalI).setREQUEST_ID(REQUEST_ID);
-                                                    LandConFinal_data_history.get(finalI).setREQUEST_ID_RES(REQUEST_ID_RES);
-                                                    LandConFinal_data_history.get(finalI).setSNO_RES(SNO_RES);
-
                                                     adapter7 = new ShowLandConFinalHistoryAdapter(LandConFinal_data_history, getApplicationContext());
                                                     historyList.setAdapter(adapter7);
-                                                    Log.i("select the DATA", " ");
+
                                                 }
                                             }
+
                                             @Override
                                             public void onError(@NonNull Throwable e) {
 
@@ -811,6 +756,94 @@ public class Serach_History extends AppCompatActivity {
                     });
 
         }
+//        else if (APPType ==3){
+//            tvdist.setVisibility(View.VISIBLE);
+//            tvtlk.setVisibility(View.VISIBLE);
+//            tvhlb.setVisibility(View.VISIBLE);
+//            tvvill.setVisibility(View.VISIBLE);
+//            tvsurvaynum.setVisibility(View.VISIBLE);
+//
+//
+//            Observable<List<VR_INFO_HISTORY>> historydataName = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getDTHNameByName());
+//            historydataName
+//                    .subscribeOn(Schedulers.io())
+//                    .subscribeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(new Observer<List<VR_INFO_HISTORY>>() {
+//                        @Override
+//                        public void onSubscribe(@NonNull Disposable d) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onNext(@NonNull List<VR_INFO_HISTORY> historyData) {
+//                            Log.d("TAG", "onNext: " + historyData.size());
+//                            HistoryName = (List<VR_INFO_HISTORY>) historyData;
+//                            int i;
+//                            for (i = 0; i < HistoryName.size(); i++) {
+//                                int distID = HistoryName.get(i).getVR_DST_ID();
+//                                int talukID = HistoryName.get(i).getVR_TLK_ID();
+//                                int hobliID = HistoryName.get(i).getVR_HBL_ID();
+//                                int villID = HistoryName.get(i).getVR_VLG_ID();
+//
+//                                Log.d("history_name", "" + distID + ", " + talukID + ", " + hobliID + ", " + villID);
+//
+//                                Observable<List<DTHVName>> historydataobservable = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getDTHVNamesByCodes(distID, talukID, hobliID, villID));
+//                                int finalI = i;
+//                                historydataobservable
+//                                        .subscribeOn(Schedulers.io())
+//                                        .observeOn(AndroidSchedulers.mainThread())
+//                                        .subscribe(new Observer<List<DTHVName>>() {
+//                                            @Override
+//                                            public void onSubscribe(@NonNull Disposable d) {
+//
+//                                            }
+//
+//                                            @Override
+//                                            public void onNext(@NonNull List<DTHVName> dthvData) {
+//                                                Log.d("TAG", "onNext: " + dthvData.size());
+//                                                DTHVName_Data = (List<DTHVName>) dthvData;
+//                                                for (int j = 0; j < DTHVName_Data.size(); j++) {
+//                                                    String distName = DTHVName_Data.get(j).getDistName();
+//                                                    String talName = DTHVName_Data.get(j).getTalukName();
+//                                                    String HobliName = DTHVName_Data.get(j).getHobliName();
+//                                                    String VillName = DTHVName_Data.get(j).getVillageName();
+//                                                    Log.d("Val", "" + distName + ", " + talName + ", " + HobliName + ", " + VillName);
+//
+//                                                    historyData.get(finalI).setHistory_DistName(distName);
+//                                                    historyData.get(finalI).setHistory_TalukName(talName);
+//                                                    historyData.get(finalI).setHistory_HobliName(HobliName);
+//                                                    historyData.get(finalI).setHistory_VillageName(VillName);
+//                                                    adapter8 = new ShowRTCInfoByOwerNameAdapter(historyData, getApplicationContext());
+//                                                    historyList.setAdapter(adapter8);
+//
+//                                                }
+//                                            }
+//
+//                                            @Override
+//                                            public void onError(@NonNull Throwable e) {
+//
+//                                            }
+//
+//                                            @Override
+//                                            public void onComplete() {
+//
+//                                            }
+//                                        });
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onError(@NonNull Throwable e) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onComplete() {
+//
+//                        }
+//                    });
+//
+//        }
     }
 
     @Override
