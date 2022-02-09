@@ -337,18 +337,7 @@ public class ViewRtcInformationByOwnerName extends AppCompatActivity {
 
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        int id = item.getItemId();
-//        if (id ==R.id.menu_item_history)
-//        {
-//            Intent intent = new Intent(ViewRtcInformationByOwnerName.this, Serach_History.class);
-//            intent.putExtra("APPType", AppType);
-//            startActivity(intent);
-//
-//        }
-//        return  super.onOptionsItemSelected(item);
-//    }
+
 
 
     private boolean isNetworkAvailable() {

@@ -174,7 +174,7 @@ public interface DataBaseAccess {
     @Query("DELETE FROM VR_INFO")
     int deleteResponseRow();
 
-    //----------------------------------------DB Fun for Show History Details  ----------------------------------------------
+    //----------------------------------------DB Fun for Show History Details UMESH GOWDA ----------------------------------------------
 
        @Query("select VLM_DST_NM as DistName, VLM_TLK_NM as TalukName, VLM_HBL_NM as HobliName, VLM_VLG_NM as VillageName FROM MST_VLM WHERE VLM_DST_ID = :VLM_DST_ID and VLM_TLK_ID = :VLM_TLK_ID and VLM_HBL_ID = :VLM_HBL_ID and VLM_VLG_ID = :VLM_VLG_ID")
     List<DTHVName> getDTHVNamesByCodes(int VLM_DST_ID, int VLM_TLK_ID, int VLM_HBL_ID, int VLM_VLG_ID);

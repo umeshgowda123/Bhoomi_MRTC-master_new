@@ -93,6 +93,14 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
     private int hobli_id;
     private int village_id;
 
+    private String district_name = Integer.toString(district_id);
+    private String taluk_name = Integer.toString(taluk_id);
+    private String hobli_name = Integer.toString(hobli_id);
+    private String village_name = Integer.toString(village_id);
+
+    int i=10;
+    String s=Integer.toString(i);//Now it will return "10"
+
     private ProgressDialog progressDialog;
 
     String ReqID_RES, SNO_RES;
@@ -256,10 +264,17 @@ public class LandConversionFinalOrder extends AppCompatActivity implements RtcVi
                     etSurveyNumber.setText("");
                     etSurveyNumber.setError(null);
 
-                    district_id= Integer.parseInt(null);
-                    taluk_id= Integer.parseInt(null);
-                    hobli_id= Integer.parseInt(null);
-                    village_id= Integer.parseInt(null);
+//                    district_id= Integer.parseInt(null);
+//                    taluk_id= Integer.parseInt(null);
+//                    hobli_id= Integer.parseInt(null);
+//                    village_id= Integer.parseInt(null);
+
+
+
+                    district_name=null;
+                    taluk_name = null;
+                    hobli_name = null;
+                    village_name  = null;
                     SNO_RES=null;
                     surveyNumber=null;
 

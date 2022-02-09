@@ -22,7 +22,7 @@ public class ShowLandConFinalHistoryAdapter extends ArrayAdapter<LandConFinal_Da
     private Context mContext;
 
 
-    private String surveyNo_final,LandConFinalRequesID,LandConFinalRequesID_report,LandConFinalServayNo_report;
+    private String LandConFinalRequesID_report,LandConFinalSNo_report,LandConFinalRequesID,survaynum;
     int distId_final, talkId_final, hblId_final, villId_final;
 
 
@@ -64,16 +64,24 @@ public class ShowLandConFinalHistoryAdapter extends ArrayAdapter<LandConFinal_Da
             hblId_final = dataModel.getHBL_ID();
             villId_final = dataModel.getVLG_ID();
 
-            surveyNo_final = dataModel.getS_NO();
+            survaynum = dataModel.getS_NO();
+            LandConFinalSNo_report=dataModel.getSNO_RES();
             LandConFinalRequesID = dataModel.getREQUEST_ID();
             LandConFinalRequesID_report = dataModel.getREQUEST_ID_RES();
-            LandConFinalServayNo_report = dataModel.getSNO_RES();
 
 
+            if(LandConFinalRequesID != null){
             Intent intent = new Intent(mContext.getApplicationContext(), ConversionFinalOrders_BasedOnReq_ID.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("LandConversionFinalOrders", LandConFinalRequesID_report);
             intent.putExtra("AppType", 9);
             getContext().startActivity(intent);
+            } else if (LandConFinalSNo_report != null)
+            {
+                Intent intent = new Intent(mContext.getApplicationContext(), ConversionFinalOrders_BasedOnReq_ID.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("LandConversionFinalOrders", LandConFinalSNo_report);
+                intent.putExtra("AppType", 9);
+                getContext().startActivity(intent);
+            }
 
         });
 
