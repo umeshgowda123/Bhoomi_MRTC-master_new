@@ -200,14 +200,23 @@ public interface DataBaseAccess {
     @Query("SELECT * FROM R_LAND_REPORT_TABLE")
     List<RLand_Data_History> getRLand_History();
 
+//
+//    @Query("SELECT * FROM LandConversion_TABLE ")
+//    List<LandCon_Data_History> getLandCon_History();
 
-    @Query("SELECT * FROM LandConversion_TABLE")
-    List<LandCon_Data_History> getLandCon_History();
+    @Query("SELECT * FROM LandConversion_TABLE where AFFIDAVIT_ID is not null")
+    List<LandCon_Data_History> getLandCon_Aff_History();
+
+    @Query("SELECT * FROM LandConversion_TABLE where USER_ID is not null")
+    List<LandCon_Data_History> getLandCon_user_History();
 
 
+    @Query("SELECT * FROM LandConversion_Final_Order_TABLE  where S_NO is not null and DST_ID is not null and TLK_ID is not null and HBL_ID is not null and VLG_ID is not null")
+    List<LandConFinal_Data_History> getLandConFinal_survayNum_History();
 
-    @Query("SELECT * FROM LandConversion_Final_Order_TABLE")
-    List<LandConFinal_Data_History> getLandConFinal_History();
+    @Query("SELECT * FROM LandConversion_Final_Order_TABLE  where REQUEST_ID is not null")
+    List<LandConFinal_Data_History> getLandConFinal_RequestId_History();
+
 
     //----------------------------------------DB Fun for Mutation Pendency Details  ----------------------------------------------
     @Insert

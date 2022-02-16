@@ -22,7 +22,9 @@ public class ShowLandConFinalHistoryAdapter extends ArrayAdapter<LandConFinal_Da
     private Context mContext;
 
 
-    private String LandConFinalRequesID_report,LandConFinalSNo_report,LandConFinalRequesID,survaynum;
+    private String LandConFinalRequesID_report;
+    private String LandConFinalSNo_report;
+    private String LandConFinalRequesID;
     int distId_final, talkId_final, hblId_final, villId_final;
 
 
@@ -64,7 +66,6 @@ public class ShowLandConFinalHistoryAdapter extends ArrayAdapter<LandConFinal_Da
             hblId_final = dataModel.getHBL_ID();
             villId_final = dataModel.getVLG_ID();
 
-            survaynum = dataModel.getS_NO();
             LandConFinalSNo_report=dataModel.getSNO_RES();
             LandConFinalRequesID = dataModel.getREQUEST_ID();
             LandConFinalRequesID_report = dataModel.getREQUEST_ID_RES();
@@ -75,8 +76,8 @@ public class ShowLandConFinalHistoryAdapter extends ArrayAdapter<LandConFinal_Da
             intent.putExtra("LandConversionFinalOrders", LandConFinalRequesID_report);
             intent.putExtra("AppType", 9);
             getContext().startActivity(intent);
-            } else if (LandConFinalSNo_report != null)
-            {
+            }
+            else if (LandConFinalSNo_report != null) {
                 Intent intent = new Intent(mContext.getApplicationContext(), ConversionFinalOrders_BasedOnReq_ID.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("LandConversionFinalOrders", LandConFinalSNo_report);
                 intent.putExtra("AppType", 9);

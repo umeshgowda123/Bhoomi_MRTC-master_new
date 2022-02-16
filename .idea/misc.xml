@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/bhoomi/AndroidStudioProjects/Bhoomi_MRTC-master/app/src/main/res/drawable-xhdpi/layout_border.xml" value="0.25" />
         <entry key="..\:/Users/bhoomi/AndroidStudioProjects/Bhoomi_MRTC-master/app/src/main/res/drawable/edit_text_bg.xml" value="0.2203125" />
         <entry key="..\:/Users/bhoomi/AndroidStudioProjects/Bhoomi_MRTC-master/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.2203125" />
         <entry key="..\:/Users/bhoomi/AndroidStudioProjects/Bhoomi_MRTC-master/app/src/main/res/drawable/shp.xml" value="0.2203125" />
@@ -26,7 +27,7 @@
         <entry key="..\:/Users/bhoomi/AndroidStudioProjects/Bhoomi_MRTC-master/app/src/main/res/layout/activity_rtc_details.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/bhoomi/AndroidStudioProjects/Bhoomi_MRTC-master/app/src/main/res/layout/activity_rtc_verification.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/bhoomi/AndroidStudioProjects/Bhoomi_MRTC-master/app/src/main/res/layout/activity_rtc_verification_data.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/bhoomi/AndroidStudioProjects/Bhoomi_MRTC-master/app/src/main/res/layout/activity_serach_history.xml" value="0.33" />
+        <entry key="..\:/Users/bhoomi/AndroidStudioProjects/Bhoomi_MRTC-master/app/src/main/res/layout/activity_serach_history.xml" value="0.22" />
         <entry key="..\:/Users/bhoomi/AndroidStudioProjects/Bhoomi_MRTC-master/app/src/main/res/layout/activity_settings.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/bhoomi/AndroidStudioProjects/Bhoomi_MRTC-master/app/src/main/res/layout/activity_show_mutation_pendency_details.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/bhoomi/AndroidStudioProjects/Bhoomi_MRTC-master/app/src/main/res/layout/activity_show_rtc_details_byowner_name.xml" value="0.33" />
@@ -46,11 +47,13 @@
         <entry key="..\:/Users/bhoomi/AndroidStudioProjects/Bhoomi_MRTC-master/app/src/main/res/layout/list_owner_report.xml" value="0.33" />
         <entry key="..\:/Users/bhoomi/AndroidStudioProjects/Bhoomi_MRTC-master/app/src/main/res/layout/mutation_status_details_list.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/bhoomi/AndroidStudioProjects/Bhoomi_MRTC-master/app/src/main/res/layout/owner_list.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/bhoomi/AndroidStudioProjects/Bhoomi_MRTC-master/app/src/main/res/layout/pacs_loan_details.xml" value="0.5" />
         <entry key="..\:/Users/bhoomi/AndroidStudioProjects/Bhoomi_MRTC-master/app/src/main/res/layout/report_content.xml" value="0.5" />
         <entry key="..\:/Users/bhoomi/AndroidStudioProjects/Bhoomi_MRTC-master/app/src/main/res/layout/restriction_on_land_report_row.xml" value="0.4583333333333333" />
         <entry key="..\:/Users/bhoomi/AndroidStudioProjects/Bhoomi_MRTC-master/app/src/main/res/layout/show_individual_parihara_details.xml" value="0.25" />
         <entry key="..\:/Users/bhoomi/AndroidStudioProjects/Bhoomi_MRTC-master/app/src/main/res/layout/sketch_row.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/bhoomi/AndroidStudioProjects/Bhoomi_MRTC-master/app/src/main/res/layout/tree_layout.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/bhoomi/AndroidStudioProjects/Bhoomi_MRTC-master/app/src/main/res/layout/view_conv_status.xml" value="0.1921875" />
         <entry key="..\:/Users/bhoomi/AndroidStudioProjects/Bhoomi_MRTC-master/app/src/main/res/menu-v26/history.xml" value="0.5" />
         <entry key="..\:/Users/bhoomi/AndroidStudioProjects/Bhoomi_MRTC-master/app/src/main/res/menu/activity_bhoomi_drawer.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/bhoomi/AndroidStudioProjects/Bhoomi_MRTC-master/app/src/main/res/menu/bhoomi.xml" value="0.20416666666666666" />

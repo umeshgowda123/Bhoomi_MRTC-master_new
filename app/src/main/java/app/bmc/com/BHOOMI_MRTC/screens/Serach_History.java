@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -42,15 +43,15 @@ import io.reactivex.schedulers.Schedulers;
 
 public class Serach_History extends AppCompatActivity {
 
-    private ListView historyList;
+    private ListView historyList, historyList1;
+    private TableLayout tableLayout;
     DataBaseHelper dataBaseHelper;
-    TextView tvdist,tvtlk,tvhlb,tvvill,tvhissa,tvsurvaynum,tvref,tvrefdata,tvlandConAffID,tvlandCOnUserID;
-    TextView tvLandConFinalRequesID,tvLandConFinalSurveyNo;
-
+    TextView tvdist, tvtlk, tvhlb, tvvill, tvhissa, tvsurvaynum, tvref, tvrefdata, tvlandConAffID, tvlandCOnUserID;
+    TextView tvLandConFinalRequesID;
 
 
     private ShowHistoryDataAdapter adapter;
-   private  ShowRTCXMLAdapter adapter1;
+    private ShowRTCXMLAdapter adapter1;
     private ShowMPDHistoryAdapter adapter2;
     private ShowMSHistoryAdapter adapter3;
     private ShowMSVHistoryAdapter adapter4;
@@ -60,7 +61,7 @@ public class Serach_History extends AppCompatActivity {
 
 
     private List<DTHVName> DTHVName_Data;
-    private  List<VR_INFO_HISTORY> HistoryName;
+    private List<VR_INFO_HISTORY> HistoryName;
     private List<MPD_Data_History> MPD_data_history;
     private List<MS_Data_History> MS_data_history;
     private List<MSV_Data_History> MSV_data_history;
@@ -85,6 +86,8 @@ public class Serach_History extends AppCompatActivity {
                 DataBaseHelper.class, getString(R.string.db_name)).build();
 
         historyList = findViewById(R.id.lv_show_history);
+        historyList1 = findViewById(R.id.lv_show_history1);
+        tableLayout = findViewById(R.id.tbl2);
 
 
         tvdist = findViewById(R.id.tvdstNAME);
@@ -433,7 +436,7 @@ public class Serach_History extends AppCompatActivity {
                                 int villID = MSV_data_history.get(i).getVMS_VLG_ID();
                                 String hissa = MSV_data_history.get(i).getVMS_HISSA();
                                 String survayNo = MSV_data_history.get(i).getVMS_SURVEY_NO();
-                                String sarnoc  = MSV_data_history.get(i).getVMS_SERNOC();
+                                String sarnoc = MSV_data_history.get(i).getVMS_SERNOC();
 
 
                                 Log.d("history_name", "" + distID + ", " + talukID + ", " + hobliID + ", " + villID + ", " + survayNo + ", " + hissa);
@@ -582,12 +585,14 @@ public class Serach_History extends AppCompatActivity {
 
                         }
                     });
-        }  else if (APPType == 8) {
+        } else if (APPType == 8) {
 
             tvlandConAffID.setVisibility(View.VISIBLE);
             tvlandCOnUserID.setVisibility(View.VISIBLE);
+            historyList1.setVisibility(View.VISIBLE);
+            tableLayout.setVisibility(View.VISIBLE);
 
-            Observable<List<LandCon_Data_History>> LandCon_historydata = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getLandCon_History());
+            Observable<List<LandCon_Data_History>> LandCon_historydata = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getLandCon_Aff_History());
             LandCon_historydata
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -601,16 +606,48 @@ public class Serach_History extends AppCompatActivity {
                         public void onNext(@NonNull List<LandCon_Data_History> LandCon_history) {
                             Log.d("TAG", "onNext: " + LandCon_history.size());
 
-                                adapter6 = new ShowLandConHistoryAdapter(LandCon_history, getApplicationContext());
-                                historyList.setAdapter(adapter6);
-                                Log.i("select the DATA", " " + historyList);
+                            adapter6 = new ShowLandConHistoryAdapter(LandCon_history, getApplicationContext());
+                            historyList.setAdapter(adapter6);
+                            Log.i("select the DATA", " " + historyList);
 
-                            }
+                            Observable<List<LandCon_Data_History>> LandCon_historydata = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getLandCon_user_History());
+                            LandCon_historydata
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(new Observer<List<LandCon_Data_History>>() {
+                                        @Override
+                                        public void onSubscribe(@NonNull Disposable d) {
+
+                                        }
+
+                                        @Override
+                                        public void onNext(@NonNull List<LandCon_Data_History> LandCon_history) {
+                                            Log.d("TAG", "onNext: " + LandCon_history.size());
+
+                                            adapter6 = new ShowLandConHistoryAdapter(LandCon_history, getApplicationContext());
+                                            historyList1.setAdapter(adapter6);
+                                            Log.i("select the DATA", " " + historyList1);
+
+                                        }
+
+                                        @Override
+                                        public void onError(@NonNull Throwable e) {
+
+                                        }
+
+                                        @Override
+                                        public void onComplete() {
+
+                                        }
+                                    });
+
+                        }
 
                         @Override
                         public void onError(@NonNull Throwable e) {
 
                         }
+
                         @Override
                         public void onComplete() {
 
@@ -623,10 +660,12 @@ public class Serach_History extends AppCompatActivity {
             tvhlb.setVisibility(View.VISIBLE);
             tvvill.setVisibility(View.VISIBLE);
             tvsurvaynum.setVisibility(View.VISIBLE);
+            tableLayout.setVisibility(View.VISIBLE);
+            historyList1.setVisibility(View.VISIBLE);
 
             tvLandConFinalRequesID.setVisibility(View.VISIBLE);
 
-            Observable<List<LandConFinal_Data_History>> LandConFinal_historydata = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getLandConFinal_History());
+            Observable<List<LandConFinal_Data_History>> LandConFinal_historydata = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getLandConFinal_survayNum_History());
             LandConFinal_historydata
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -648,9 +687,9 @@ public class Serach_History extends AppCompatActivity {
                                 int villID = LandConFinal_data_history.get(i).getVLG_ID();
                                 String survayNo = LandConFinal_data_history.get(i).getS_NO();
 
-
-                                String REQUEST_ID = LandConFinal_data_history.get(i).getREQUEST_ID();
-                                String REQUEST_ID_RES = LandConFinal_data_history.get(i).getREQUEST_ID_RES();
+//
+//                                String REQUEST_ID = LandConFinal_data_history.get(i).getREQUEST_ID();
+//                                String REQUEST_ID_RES = LandConFinal_data_history.get(i).getREQUEST_ID_RES();
                                 String SNO_RES = LandConFinal_data_history.get(i).getSNO_RES();
 
                                 Log.d("history_name", "" + distID + ", " + talukID + ", " + hobliID + ", " + villID);
@@ -670,7 +709,7 @@ public class Serach_History extends AppCompatActivity {
                                             public void onNext(@NonNull List<DTHVName> dthvData) {
                                                 Log.d("TAG", "onNext: " + dthvData.size());
                                                 DTHVName_Data = (List<DTHVName>) dthvData;
-                                                if(dthvData.size()>0) {
+                                                if (dthvData.size() > 0) {
                                                     for (int j = 0; j < DTHVName_Data.size(); j++) {
                                                         String distName = DTHVName_Data.get(j).getDistName();
                                                         String talName = DTHVName_Data.get(j).getTalukName();
@@ -684,28 +723,79 @@ public class Serach_History extends AppCompatActivity {
                                                         LandConFinal_data_history.get(finalI).setLandFinal_VillageName(VillName);
                                                         LandConFinal_data_history.get(finalI).setS_NO(survayNo);
 
-                                                        LandConFinal_data_history.get(finalI).setREQUEST_ID(REQUEST_ID);
-                                                        LandConFinal_data_history.get(finalI).setREQUEST_ID_RES(REQUEST_ID_RES);
+//                                                        LandConFinal_data_history.get(finalI).setREQUEST_ID(REQUEST_ID);
+//                                                        LandConFinal_data_history.get(finalI).setREQUEST_ID_RES(REQUEST_ID_RES);
                                                         LandConFinal_data_history.get(finalI).setSNO_RES(SNO_RES);
 
                                                         adapter7 = new ShowLandConFinalHistoryAdapter(LandConFinal_data_history, getApplicationContext());
                                                         historyList.setAdapter(adapter7);
                                                     }
-                                                } else {
-                                                    LandConFinal_data_history.get(finalI).setLandFinal_DistName(null);
-                                                    LandConFinal_data_history.get(finalI).setLandFinal_TalukName(null);
-                                                    LandConFinal_data_history.get(finalI).setLandFinal_HobliName(null);
-                                                    LandConFinal_data_history.get(finalI).setLandFinal_VillageName(null);
-                                                    LandConFinal_data_history.get(finalI).setS_NO(null);
-
-                                                    LandConFinal_data_history.get(finalI).setREQUEST_ID(REQUEST_ID);
-                                                    LandConFinal_data_history.get(finalI).setREQUEST_ID_RES(REQUEST_ID_RES);
-                                                    LandConFinal_data_history.get(finalI).setSNO_RES(SNO_RES);
-
-                                                    adapter7 = new ShowLandConFinalHistoryAdapter(LandConFinal_data_history, getApplicationContext());
-                                                    historyList.setAdapter(adapter7);
                                                 }
+//                                                } else {
+//                                                    LandConFinal_data_history.get(finalI).setLandFinal_DistName(null);
+//                                                    LandConFinal_data_history.get(finalI).setLandFinal_TalukName(null);
+//                                                    LandConFinal_data_history.get(finalI).setLandFinal_HobliName(null);
+//                                                    LandConFinal_data_history.get(finalI).setLandFinal_VillageName(null);
+//                                                    LandConFinal_data_history.get(finalI).setS_NO(null);
+//
+//                                                    LandConFinal_data_history.get(finalI).setREQUEST_ID(REQUEST_ID);
+//                                                    LandConFinal_data_history.get(finalI).setREQUEST_ID_RES(REQUEST_ID_RES);
+//                                                    LandConFinal_data_history.get(finalI).setSNO_RES(SNO_RES);
+//
+//                                                    adapter7 = new ShowLandConFinalHistoryAdapter(LandConFinal_data_history, getApplicationContext());
+//                                                    historyList.setAdapter(adapter7);
+//                                                }
+                                                Observable<List<LandConFinal_Data_History>> LandConFinal_historydata = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getLandConFinal_RequestId_History());
+                                                LandConFinal_historydata
+                                                        .subscribeOn(Schedulers.io())
+                                                        .observeOn(AndroidSchedulers.mainThread())
+                                                        .subscribe(new Observer<List<LandConFinal_Data_History>>() {
+                                                            @Override
+                                                            public void onSubscribe(@NonNull Disposable d) {
+
+                                                            }
+
+                                                            @Override
+                                                            public void onNext(@NonNull List<LandConFinal_Data_History> LandConFinal_history) {
+                                                                Log.d("TAG", "onNext: " + LandConFinal_history.size());
+
+                                                                LandConFinal_data_history = (List<LandConFinal_Data_History>) LandConFinal_history;
+                                                                int i ;
+
+                                                                for (i = 0; i < LandConFinal_data_history.size(); i++) {
+//
+//                                                                LandConFinal_data_history.get(i).setLandFinal_DistName(null);
+//                                                                LandConFinal_data_history.get(i).setLandFinal_TalukName(null);
+//                                                                LandConFinal_data_history.get(i).setLandFinal_HobliName(null);
+//                                                                LandConFinal_data_history.get(i).setLandFinal_VillageName(null);
+//                                                                LandConFinal_data_history.get(i).setS_NO(null);
+//                                                                LandConFinal_data_history.get(i).setSNO_RES(null);
+
+                                                                String REQUEST_ID = LandConFinal_data_history.get(finalI).getREQUEST_ID();
+                                                                String REQUEST_ID_RES = LandConFinal_data_history.get(finalI).getREQUEST_ID_RES();
+                                                                LandConFinal_data_history.get(finalI).setREQUEST_ID(REQUEST_ID);
+                                                                LandConFinal_data_history.get(finalI).setREQUEST_ID_RES(REQUEST_ID_RES);
+
+                                                                adapter7 = new ShowLandConFinalHistoryAdapter(LandConFinal_data_history, getApplicationContext());
+                                                                historyList1.setAdapter(adapter7);
+                                                                Log.i("select the DATA", " " + historyList1);
+                                                            }
+                                                            }
+
+
+                                                            @Override
+                                                            public void onError(@NonNull Throwable e) {
+
+                                                            }
+
+                                                            @Override
+                                                            public void onComplete() {
+
+                                                            }
+                                                        });
+
                                             }
+
                                             @Override
                                             public void onError(@NonNull Throwable e) {
 
@@ -718,10 +808,12 @@ public class Serach_History extends AppCompatActivity {
                                         });
                             }
                         }
+
                         @Override
                         public void onError(@NonNull Throwable e) {
 
                         }
+
                         @Override
                         public void onComplete() {
 

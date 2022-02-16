@@ -17,7 +17,6 @@ import app.bmc.com.BHOOMI_MRTC.R;
 import app.bmc.com.BHOOMI_MRTC.model.LandCon_Data_History;
 import app.bmc.com.BHOOMI_MRTC.screens.LandConversionBasedOnAffidavit;
 import app.bmc.com.BHOOMI_MRTC.screens.LandConversionBasedOnUserId;
-import app.bmc.com.BHOOMI_MRTC.screens.RtcDetails;
 
 
 public class ShowLandConHistoryAdapter extends ArrayAdapter<LandCon_Data_History> {
@@ -69,7 +68,6 @@ public class ShowLandConHistoryAdapter extends ArrayAdapter<LandCon_Data_History
                 intent.putExtra("AppType", 8);
                 getContext().startActivity(intent);
             } else if(USER_ID != null){
-//                Intent intent = new Intent(getContext(), RtcDetails.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
                 Intent intent = new Intent(mContext.getApplicationContext(), LandConversionBasedOnUserId.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("USER_ID", USER_ID);
@@ -85,8 +83,7 @@ public class ShowLandConHistoryAdapter extends ArrayAdapter<LandCon_Data_History
 
 
     static class ViewHolder {
-        TextView tvShowRtcXmlRefnum,tvShowRtcXmlRefnumData,tvShowDstName,tvShowTlkName,tvShowHlbName,tvShowVllName, tvShowSurveyNo,tvShowSurnocNo,tvShowHissaNo;
-        TextView tvShowlandConAffid,tvShowlandConAffRES,tvShowlandConUserId,tvShowlandConUseRES,tvlandConFinalReqestId,tvLandConFinalSurveyNo;
+        TextView tvShowlandConAffid,tvShowlandConAffRES,tvShowlandConUserId,tvShowlandConUseRES;
         LinearLayout list_layout;
 
         ViewHolder(View view) {
@@ -103,7 +100,6 @@ public class ShowLandConHistoryAdapter extends ArrayAdapter<LandCon_Data_History
             list_layout = view.findViewById(R.id.list_layout);
 
 
-            list_layout = view.findViewById(R.id.list_layout);
 
         }
     }
