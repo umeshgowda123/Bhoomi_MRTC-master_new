@@ -771,10 +771,10 @@ public class Serach_History extends AppCompatActivity {
 //                                                                LandConFinal_data_history.get(i).setS_NO(null);
 //                                                                LandConFinal_data_history.get(i).setSNO_RES(null);
 
-                                                                String REQUEST_ID = LandConFinal_data_history.get(finalI).getREQUEST_ID();
-                                                                String REQUEST_ID_RES = LandConFinal_data_history.get(finalI).getREQUEST_ID_RES();
-                                                                LandConFinal_data_history.get(finalI).setREQUEST_ID(REQUEST_ID);
-                                                                LandConFinal_data_history.get(finalI).setREQUEST_ID_RES(REQUEST_ID_RES);
+                                                                String REQUEST_ID = LandConFinal_data_history.get(i).getREQUEST_ID();
+                                                                String REQUEST_ID_RES = LandConFinal_data_history.get(i).getREQUEST_ID_RES();
+                                                                LandConFinal_data_history.get(i).setREQUEST_ID(REQUEST_ID);
+                                                                LandConFinal_data_history.get(i).setREQUEST_ID_RES(REQUEST_ID_RES);
 
                                                                 adapter7 = new ShowLandConFinalHistoryAdapter(LandConFinal_data_history, getApplicationContext());
                                                                 historyList1.setAdapter(adapter7);
