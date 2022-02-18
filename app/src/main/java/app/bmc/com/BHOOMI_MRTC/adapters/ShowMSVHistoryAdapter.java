@@ -52,7 +52,7 @@ public class ShowMSVHistoryAdapter extends ArrayAdapter<MSV_Data_History> {
         viewHolder.tvShowSurveyNo.setText(dataModel.getVMS_SURVEY_NO() + "/"+dataModel.getVMS_HISSA());
         viewHolder.tvShowSurnocNo.setText(dataModel.getVMS_SERNOC());
         viewHolder.tvShowHissaNo.setText(dataModel.getVMS_HISSA());
-        viewHolder.tvShowMSV_RES.setText(dataModel.getVMS_RES());
+//        viewHolder.tvShowMSV_RES.setText(dataModel.getVMS_RES());
 
         // Return the completed view to render on screen
 
@@ -102,9 +102,9 @@ public class ShowMSVHistoryAdapter extends ArrayAdapter<MSV_Data_History> {
             tvShowSurnocNo = view.findViewById(R.id.tvsernocNo);
             tvShowHissaNo = view.findViewById(R.id.tvhissaNo);
 
-            tvShowMPDRES = view.findViewById(R.id.tvMPDRES);
-            tvShowMS_RES = view.findViewById(R.id.tvMSRES);
-            tvShowMSV_RES = view.findViewById(R.id.tvMSVRES);
+//            tvShowMPDRES = view.findViewById(R.id.tvMPDRES);
+//            tvShowMS_RES = view.findViewById(R.id.tvMSRES);
+//            tvShowMSV_RES = view.findViewById(R.id.tvMSVRES);
 
             tvShowDstName.setVisibility(View.VISIBLE);
             tvShowTlkName.setVisibility(View.VISIBLE);

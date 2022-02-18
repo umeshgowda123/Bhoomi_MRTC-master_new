@@ -50,7 +50,7 @@ public class ShowMSHistoryAdapter extends ArrayAdapter<MS_Data_History> {
         viewHolder.tvShowHlbName.setText(dataModel.getMS_HobliName());
         viewHolder.tvShowVllName.setText(dataModel.getMS_VillageName());
         viewHolder.tvShowSurveyNo.setText(dataModel.getMSR_SNO());
-        viewHolder.tvShowMS_RES.setText(dataModel.getMSR_RES());
+//        viewHolder.tvShowMS_RES.setText(dataModel.getMSR_RES());
 
 
         // Return the completed view to render on screen
@@ -96,8 +96,8 @@ public class ShowMSHistoryAdapter extends ArrayAdapter<MS_Data_History> {
             tvShowSurveyNo = view.findViewById(R.id.tvsryNo);
             tvShowSurnocNo = view.findViewById(R.id.tvsernocNo);
             tvShowHissaNo = view.findViewById(R.id.tvhissaNo);
-            tvShowMPDRES = view.findViewById(R.id.tvMPDRES);
-            tvShowMS_RES = view.findViewById(R.id.tvMSRES);
+//            tvShowMPDRES = view.findViewById(R.id.tvMPDRES);
+//            tvShowMS_RES = view.findViewById(R.id.tvMSRES);
 
 
             tvShowDstName.setVisibility(View.VISIBLE);

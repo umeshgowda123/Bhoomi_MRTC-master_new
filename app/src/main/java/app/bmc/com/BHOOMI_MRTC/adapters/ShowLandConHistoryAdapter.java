@@ -46,9 +46,9 @@ public class ShowLandConHistoryAdapter extends ArrayAdapter<LandCon_Data_History
 
         assert dataModel != null;
         viewHolder.tvShowlandConAffid.setText(dataModel.getAFFIDAVIT_ID());
-        viewHolder.tvShowlandConAffRES.setText(dataModel.getAFFIDAVIT_RES());
+//        viewHolder.tvShowlandConAffRES.setText(dataModel.getAFFIDAVIT_RES());
         viewHolder.tvShowlandConUserId.setText(dataModel.getUSER_ID());
-        viewHolder.tvShowlandConUseRES.setText(dataModel.getUSER_RES());
+//        viewHolder.tvShowlandConUseRES.setText(dataModel.getUSER_RES());
 
         // Return the completed view to render on screen
 
@@ -88,10 +88,10 @@ public class ShowLandConHistoryAdapter extends ArrayAdapter<LandCon_Data_History
 
         ViewHolder(View view) {
 
-            tvShowlandConAffid = view.findViewById(R.id.tvLandConAffID);
-            tvShowlandConAffRES = view.findViewById(R.id.tvLandConAffRES);
-            tvShowlandConUserId = view.findViewById(R.id.tvLandConUserID_1);
-            tvShowlandConUseRES = view.findViewById(R.id.tvLandConUserRES);
+            tvShowlandConAffid = view.findViewById(R.id.tvLandConAffRES);
+//            tvShowlandConAffRES = view.findViewById(R.id.tvLandConAffRES);
+            tvShowlandConUserId = view.findViewById(R.id.tvLandConUserRES);
+//            tvShowlandConUseRES = view.findViewById(R.id.tvLandConUserRES);
 
 
             tvShowlandConAffid.setVisibility(View.VISIBLE);

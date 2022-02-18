@@ -46,7 +46,7 @@ public class ShowMPDHistoryAdapter extends ArrayAdapter<MPD_Data_History> {
         viewHolder.tvShowTlkName.setText(dataModel.getMPD_TalukName());
         viewHolder.tvShowHlbName.setText(dataModel.getMPD_HobliName());
         viewHolder.tvShowVllName.setText(dataModel.getMPD_VillageName());
-        viewHolder.tvShowMPDRES.setText(dataModel.getMPD_RES());
+//        viewHolder.tvShowMPDRES.setText(dataModel.getMPD_RES());
 
 
 
@@ -89,7 +89,7 @@ public class ShowMPDHistoryAdapter extends ArrayAdapter<MPD_Data_History> {
             tvShowSurveyNo = view.findViewById(R.id.tvsryNo);
             tvShowSurnocNo = view.findViewById(R.id.tvsernocNo);
             tvShowHissaNo = view.findViewById(R.id.tvhissaNo);
-            tvShowMPDRES = view.findViewById(R.id.tvMPDRES);
+//            tvShowMPDRES = view.findViewById(R.id.tvMPDRES);
 
 
             tvShowDstName.setVisibility(View.VISIBLE);

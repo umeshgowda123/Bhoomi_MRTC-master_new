@@ -118,7 +118,7 @@
                             android:visibility="gone" />
 
                         <TextView
-                            android:id="@+id/tvrtcxml_ref"
+                            android:id="@+id/tvrtcxml_reff"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="RTC_XML_Ref NO"
@@ -128,18 +128,9 @@
 
 
                         <TextView
-                            android:id="@+id/tvRTC_refData"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Rtc_xml_Data"
-                            android:textColor="@android:color/black"
-                            android:visibility="gone" />
-
-                        <TextView
                             android:id="@+id/tvsernocNo"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-
                             android:gravity="center"
                             android:text="@string/surnoc_no"
                             android:textColor="@android:color/black"
@@ -149,95 +140,21 @@
                             android:id="@+id/tvhissaNo"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-
                             android:gravity="center"
                             android:text="@string/hissa"
                             android:textColor="@android:color/black"
                             android:visibility="gone" />
 
-                        <TextView
-                            android:id="@+id/tvMPDRES"
-                            android:layout_width="60dp"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/mutation_pendencey_details"
-                            android:textColor="@android:color/black"
-                            android:visibility="gone" />
-
-                        <TextView
-                            android:id="@+id/tvMSRES"
-                            android:layout_width="60dp"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/mutation_status"
-                            android:textColor="@android:color/black"
-                            android:visibility="gone" />
-
-                        <TextView
-                            android:id="@+id/tvMSVRES"
-                            android:layout_width="60dp"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/view_mutation_status"
-                            android:textColor="@android:color/black"
-                            android:visibility="gone" />
-
-                        <TextView
-                            android:id="@+id/tvMSVLandID"
-                            android:layout_width="60dp"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/land_code"
-                            android:textColor="@android:color/black"
-                            android:visibility="gone" />
-
-
-                        <TextView
-                            android:id="@+id/tvRLand"
-                            android:layout_width="60dp"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/restriction_on_land_report"
-                            android:textColor="@android:color/black"
-                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/tvLandConAffID"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="80dp"
+                            android:layout_marginStart="40dp"
                             android:text="@string/affidavit_id"
                             android:textColor="@android:color/black"
                             android:visibility="gone" />
 
-                        <TextView
-                            android:id="@+id/tvLandConAffRES"
-                            android:layout_width="60dp"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="affidavit_id_RES"
-                            android:textColor="@android:color/black"
-                            android:visibility="gone" />
-
-
-                        <TextView
-                            android:id="@+id/tvLandConFinalSurveyNo"
-                            android:layout_width="60dp"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/survey_no_wise"
-                            android:textColor="@android:color/black"
-                            android:visibility="gone" />
-
-
-                        <TextView
-                            android:id="@+id/tvLandConFinalSurveyNo_RES"
-                            android:layout_width="60dp"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/survey_no_wise"
-                            android:textColor="@android:color/black"
-                            android:visibility="gone" />
 
                     </TableRow>
 
@@ -263,8 +180,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:visibility="gone"
         android:gravity="center"
-
         android:orientation="vertical">
 
         <HorizontalScrollView
@@ -286,8 +203,7 @@
                 <TableLayout
                     android:id="@+id/tbl2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone">
+                    android:layout_height="wrap_content">
 
                     <TableRow
                         android:layout_width="match_parent"
@@ -300,20 +216,12 @@
                             android:id="@+id/tvLandConUserID_1"
                             android:layout_width="60dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="80dp"
                             android:background="@color/white"
+                            android:layout_marginStart="100dp"
                             android:text="@string/user_id"
                             android:textColor="@android:color/black"
                             android:visibility="gone" />
 
-
-                        <TextView
-                            android:id="@+id/tvLandConUserRES"
-                            android:layout_width="60dp"
-                            android:layout_height="wrap_content"
-                            android:text="UserID_RES"
-                            android:textColor="@android:color/black"
-                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/tvLandConFinalRequesID"
@@ -324,29 +232,20 @@
                             android:textColor="@android:color/black"
                             android:visibility="gone" />
 
-                        <TextView
-                            android:id="@+id/tvLandConFinalRequesID_RES"
-                            android:layout_width="60dp"
-                            android:layout_height="wrap_content"
-                            android:text="@string/request_id"
-                            android:textColor="@android:color/black"
-                            android:visibility="gone" />
-
-
                     </TableRow>
-                </TableLayout>
 
                 <ListView
                     android:id="@+id/lv_show_history1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:layout_gravity="center_vertical"
                     android:background="@color/white"
                     android:divider="@color/colorPrimaryDark"
                     android:dividerHeight=".8sp"
                     android:padding="15dp"
-                    android:scrollbars="vertical"
-                    android:visibility="gone" />
+                    android:scrollbars="vertical" />
+                </TableLayout>
             </LinearLayout>
         </HorizontalScrollView>
     </LinearLayout>

@@ -60,16 +60,7 @@
                 android:visibility="gone" />
 
             <TextView
-                android:id="@+id/tvrtcxml_ref"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="RTC_XML_Ref NO"
-                android:textColor="@android:color/black"
-                android:visibility="gone" />
-
-
-            <TextView
-                android:id="@+id/tvRTC_refData"
+                android:id="@+id/tvRTC_reffData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Rtc_xml_Data"
@@ -80,7 +71,6 @@
                 android:id="@+id/tvsernocNo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
                 android:gravity="center"
                 android:text="@string/surnoc_no"
                 android:textColor="@android:color/black"
@@ -90,70 +80,15 @@
                 android:id="@+id/tvhissaNo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
                 android:gravity="center"
                 android:text="@string/hissa"
                 android:textColor="@android:color/black"
                 android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/tvMPDRES"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/mutation_pendencey_details"
-                android:textColor="@android:color/black"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/tvMSRES"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/mutation_status"
-                android:textColor="@android:color/black"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/tvMSVRES"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/view_mutation_status"
-                android:textColor="@android:color/black"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/tvMSVLandID"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/land_code"
-                android:textColor="@android:color/black"
-                android:visibility="gone" />
-
-
-            <TextView
-                android:id="@+id/tvRLand"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/restriction_on_land_report"
-                android:textColor="@android:color/black"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/tvLandConAffID"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="80dp"
-                android:text="@string/affidavit_id"
-                android:textColor="@android:color/black"
-                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tvLandConAffRES"
-                android:layout_width="60dp"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="affidavit_id_RES"
@@ -161,54 +96,19 @@
                 android:visibility="gone" />
 
 
-            <TextView
-                android:id="@+id/tvLandConFinalSurveyNo"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/survey_no_wise"
-                android:textColor="@android:color/black"
-                android:visibility="gone" />
-
-
-            <TextView
-                android:id="@+id/tvLandConFinalSurveyNo_RES"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/survey_no_wise"
-                android:textColor="@android:color/black"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/tvLandConUserID_1"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:text="@string/user_id"
-                android:textColor="@android:color/black"
-                android:visibility="gone" />
-
 
             <TextView
                 android:id="@+id/tvLandConUserRES"
-                android:layout_width="60dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="UserID_RES"
                 android:textColor="@android:color/black"
                 android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/tvLandConFinalRequesID"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/request_id"
-                android:textColor="@android:color/black"
-                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tvLandConFinalRequesID_RES"
-                android:layout_width="60dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/request_id"
                 android:textColor="@android:color/black"

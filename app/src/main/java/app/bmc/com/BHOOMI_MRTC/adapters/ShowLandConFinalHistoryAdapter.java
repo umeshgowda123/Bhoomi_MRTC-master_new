@@ -51,11 +51,12 @@ public class ShowLandConFinalHistoryAdapter extends ArrayAdapter<LandConFinal_Da
         viewHolder.tvShowTlkName.setText(dataModel.getLandFinal_TalukName());
         viewHolder.tvShowHlbName.setText(dataModel.getLandFinal_TalukName());
         viewHolder.tvShowVllName.setText(dataModel.getLandFinal_VillageName());
+        viewHolder.tvShowSurveyNo.setText(dataModel.getS_NO());
 
         viewHolder.tvShowlandConFinalReqestId.setText(dataModel.getREQUEST_ID());
-        viewHolder.tvShowSurveyNo.setText(dataModel.getS_NO());
-        viewHolder.tvShowlandConFinalReqestId_RES.setText(dataModel.getREQUEST_ID_RES());
-        viewHolder.tvShowlandConFinalServayNo_RES.setText(dataModel.getSNO_RES());
+
+//        viewHolder.tvShowlandConFinalReqestId_RES.setText(dataModel.getREQUEST_ID_RES());
+//        viewHolder.tvShowlandConFinalServayNo_RES.setText(dataModel.getSNO_RES());
 
         // Return the completed view to render on screen
 
@@ -67,11 +68,11 @@ public class ShowLandConFinalHistoryAdapter extends ArrayAdapter<LandConFinal_Da
             villId_final = dataModel.getVLG_ID();
 
             LandConFinalSNo_report=dataModel.getSNO_RES();
-            LandConFinalRequesID = dataModel.getREQUEST_ID();
             LandConFinalRequesID_report = dataModel.getREQUEST_ID_RES();
+            LandConFinalRequesID = dataModel.getREQUEST_ID();
 
 
-            if(LandConFinalRequesID != null){
+            if(LandConFinalRequesID_report != null){
             Intent intent = new Intent(mContext.getApplicationContext(), ConversionFinalOrders_BasedOnReq_ID.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("LandConversionFinalOrders", LandConFinalRequesID_report);
             intent.putExtra("AppType", 9);
@@ -92,12 +93,11 @@ public class ShowLandConFinalHistoryAdapter extends ArrayAdapter<LandConFinal_Da
 
     static class ViewHolder {
         TextView tvShowDstName,tvShowTlkName,tvShowHlbName,tvShowVllName, tvShowSurveyNo;
-        TextView tvShowlandConFinalReqestId,tvShowlandConFinalReqestId_RES,tvShowlandConFinalServayNo_RES;
+        TextView tvShowlandConFinalReqestId ;
 
         LinearLayout list_layout;
 
         ViewHolder(View view) {
-
 
             tvShowDstName = view.findViewById(R.id.tvdstNAME);
             tvShowTlkName = view.findViewById(R.id.tvtlkNAME);
@@ -106,9 +106,9 @@ public class ShowLandConFinalHistoryAdapter extends ArrayAdapter<LandConFinal_Da
             tvShowSurveyNo = view.findViewById(R.id.tvsryNo);
 
 
-            tvShowlandConFinalReqestId = view.findViewById(R.id.tvLandConFinalRequesID);
-             tvShowlandConFinalReqestId_RES = view.findViewById(R.id.tvLandConFinalRequesID_RES);
-            tvShowlandConFinalServayNo_RES = view.findViewById(R.id.tvLandConFinalSurveyNo_RES);
+            tvShowlandConFinalReqestId = view.findViewById(R.id.tvLandConFinalRequesID_RES);
+//             tvShowlandConFinalReqestId_RES = view.findViewById(R.id.tvLandConFinalRequesID_RES);
+//            tvShowlandConFinalServayNo_RES = view.findViewById(R.id.tvLandConFinalSurveyNo_RES);
 
 
 

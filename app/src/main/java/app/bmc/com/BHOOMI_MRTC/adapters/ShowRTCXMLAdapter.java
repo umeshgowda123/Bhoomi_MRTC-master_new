@@ -44,7 +44,7 @@ public class ShowRTCXMLAdapter extends ArrayAdapter<RTCV_Data_history> {
 
         assert dataModel != null;
         viewHolder.tvShowRtcXmlRefnum.setText(dataModel.getREFF_NO());
-        viewHolder.tvShowRtcXmlRefnumData.setText(dataModel.getREFF_RES());
+//        viewHolder.tvShowRtcXmlRefnumData.setText(dataModel.getREFF_RES());
 
         // Return the completed view to render on screen
 
@@ -76,8 +76,8 @@ public class ShowRTCXMLAdapter extends ArrayAdapter<RTCV_Data_history> {
 
         ViewHolder(View view) {
 
-            tvShowRtcXmlRefnum = view.findViewById(R.id.tvrtcxml_ref);
-            tvShowRtcXmlRefnumData = view.findViewById(R.id.tvRTC_refData);
+            tvShowRtcXmlRefnum = view.findViewById(R.id.tvRTC_reffData);
+//            tvShowRtcXmlRefnumData = view.findViewById(R.id.tvRTC_refData);
 
 
             tvShowRtcXmlRefnum.setVisibility(View.VISIBLE);

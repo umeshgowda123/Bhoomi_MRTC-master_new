@@ -21,9 +21,10 @@ import app.bmc.com.BHOOMI_MRTC.screens.RestrictionOnLandReport;
 public class ShowRLandHistoryAdapter extends ArrayAdapter<RLand_Data_History> {
 
     private Context mContext;
-    
 
-    private String surveyNo_int,hissa_int,surnoc_int,RLand_report;
+    private String surveyNo_int;
+    private String hissa_int;
+    private String surnoc_int;
     int distId_int, talkId_int, hblId_int, villId_int;
 
 
@@ -54,7 +55,7 @@ public class ShowRLandHistoryAdapter extends ArrayAdapter<RLand_Data_History> {
         viewHolder.tvShowSurveyNo.setText(dataModel.getRLR_SNO() + "/"+dataModel.getRLR_HISSA());
         viewHolder.tvShowSurnocNo.setText(dataModel.getRLR_SUROC());
         viewHolder.tvShowHissaNo.setText(dataModel.getRLR_HISSA());
-        viewHolder.tvShowRLand.setText(dataModel.getRLR_RES());
+//        viewHolder.tvShowRLand.setText(dataModel.getRLR_RES());
 
         // Return the completed view to render on screen
 
@@ -67,7 +68,6 @@ public class ShowRLandHistoryAdapter extends ArrayAdapter<RLand_Data_History> {
             surveyNo_int =dataModel.getRLR_SNO();
             surnoc_int = dataModel.getRLR_SUROC();
             hissa_int =dataModel.getRLR_HISSA();
-            RLand_report = dataModel.getRLR_RES();
 
 
             Intent intent = new Intent(mContext.getApplicationContext(), RestrictionOnLandReport.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -89,7 +89,7 @@ public class ShowRLandHistoryAdapter extends ArrayAdapter<RLand_Data_History> {
 
 
     static class ViewHolder {
-        TextView tvShowDstName,tvShowTlkName,tvShowHlbName,tvShowVllName, tvShowSurveyNo,tvShowSurnocNo,tvShowHissaNo,tvShowRLand;
+        TextView tvShowDstName,tvShowTlkName,tvShowHlbName,tvShowVllName, tvShowSurveyNo,tvShowSurnocNo,tvShowHissaNo ;
         LinearLayout list_layout;
         ViewHolder(View view) {
 
@@ -100,7 +100,7 @@ public class ShowRLandHistoryAdapter extends ArrayAdapter<RLand_Data_History> {
             tvShowSurveyNo = view.findViewById(R.id.tvsryNo);
             tvShowSurnocNo = view.findViewById(R.id.tvsernocNo);
             tvShowHissaNo = view.findViewById(R.id.tvhissaNo);
-            tvShowRLand = view.findViewById(R.id.tvRLand);
+//            tvShowRLand = view.findViewById(R.id.tvRLand);
 
             tvShowDstName.setVisibility(View.VISIBLE);
             tvShowTlkName.setVisibility(View.VISIBLE);
