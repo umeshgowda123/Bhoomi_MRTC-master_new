@@ -1,5 +1,6 @@
 package app.bmc.com.BHOOMI_MRTC.database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -48,6 +49,8 @@ import app.bmc.com.BHOOMI_MRTC.model.YearDetails;
 
 @Dao
 public interface DataBaseAccess {
+
+
     @Insert
     Long[] insertMasterData(List<MST_VLM> mst_vlmList);
 
@@ -174,7 +177,7 @@ public interface DataBaseAccess {
     @Query("DELETE FROM VR_INFO")
     int deleteResponseRow();
 
-    //----------------------------------------DB Fun for Show History Details UMESH GOWDA ----------------------------------------------
+    //----------------------------------------DB Fun for Show History Details UMESH ----------------------------------------------
 
        @Query("select VLM_DST_NM as DistName, VLM_TLK_NM as TalukName, VLM_HBL_NM as HobliName, VLM_VLG_NM as VillageName FROM MST_VLM WHERE VLM_DST_ID = :VLM_DST_ID and VLM_TLK_ID = :VLM_TLK_ID and VLM_HBL_ID = :VLM_HBL_ID and VLM_VLG_ID = :VLM_VLG_ID")
     List<DTHVName> getDTHVNamesByCodes(int VLM_DST_ID, int VLM_TLK_ID, int VLM_HBL_ID, int VLM_VLG_ID);
@@ -200,9 +203,9 @@ public interface DataBaseAccess {
     @Query("SELECT * FROM R_LAND_REPORT_TABLE")
     List<RLand_Data_History> getRLand_History();
 
-//
-//    @Query("SELECT * FROM LandConversion_TABLE ")
-//    List<LandCon_Data_History> getLandCon_History();
+
+    @Query("SELECT * FROM LandConversion_TABLE ")
+    List<LandCon_Data_History> gettablesize_landConverion();
 
     @Query("SELECT * FROM LandConversion_TABLE where AFFIDAVIT_ID is not null")
     List<LandCon_Data_History> getLandCon_Aff_History();
@@ -210,6 +213,9 @@ public interface DataBaseAccess {
     @Query("SELECT * FROM LandConversion_TABLE where USER_ID is not null")
     List<LandCon_Data_History> getLandCon_user_History();
 
+
+    @Query("SELECT * FROM LANDCONVERSION_FINAL_ORDER_TABLE")
+    List<LandConFinal_Data_History> gettablesize();
 
     @Query("SELECT * FROM LandConversion_Final_Order_TABLE  where S_NO is not null and DST_ID is not null and TLK_ID is not null and HBL_ID is not null and VLG_ID is not null")
     List<LandConFinal_Data_History> getLandConFinal_survayNum_History();

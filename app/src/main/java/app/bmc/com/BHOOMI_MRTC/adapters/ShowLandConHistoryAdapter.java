@@ -2,6 +2,7 @@ package app.bmc.com.BHOOMI_MRTC.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,17 @@ public class ShowLandConHistoryAdapter extends ArrayAdapter<LandCon_Data_History
         }
 
         assert dataModel != null;
+
+        if(TextUtils.isEmpty(dataModel.getAFFIDAVIT_ID())){
+
+            viewHolder.tvShowlandConUserId.setVisibility(View.VISIBLE);
+            viewHolder.tvShowlandConAffid.setVisibility(View.GONE);
+
+        } else {
+            viewHolder.tvShowlandConUserId.setVisibility(View.GONE);
+            viewHolder.tvShowlandConAffid.setVisibility(View.VISIBLE);
+        }
+
         viewHolder.tvShowlandConAffid.setText(dataModel.getAFFIDAVIT_ID());
 //        viewHolder.tvShowlandConAffRES.setText(dataModel.getAFFIDAVIT_RES());
         viewHolder.tvShowlandConUserId.setText(dataModel.getUSER_ID());
@@ -94,8 +106,6 @@ public class ShowLandConHistoryAdapter extends ArrayAdapter<LandCon_Data_History
 //            tvShowlandConUseRES = view.findViewById(R.id.tvLandConUserRES);
 
 
-            tvShowlandConAffid.setVisibility(View.VISIBLE);
-            tvShowlandConUserId.setVisibility(View.VISIBLE);
 
             list_layout = view.findViewById(R.id.list_layout);
 

@@ -2,6 +2,7 @@ package app.bmc.com.BHOOMI_MRTC.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,18 @@ public class ShowRTCXMLAdapter extends ArrayAdapter<RTCV_Data_history> {
         }
 
         assert dataModel != null;
+
+        if(TextUtils.isEmpty(dataModel.getREFF_NO())){
+            viewHolder.tvShowRtcXmlRefnum.setVisibility(View.GONE);
+            viewHolder.nodata.setVisibility(View.GONE);
+
+        } else {
+
+            viewHolder.tvShowRtcXmlRefnum.setVisibility(View.VISIBLE);
+            viewHolder.nodata.setVisibility(View.GONE);
+        }
+
+
         viewHolder.tvShowRtcXmlRefnum.setText(dataModel.getREFF_NO());
 //        viewHolder.tvShowRtcXmlRefnumData.setText(dataModel.getREFF_RES());
 
@@ -70,17 +83,19 @@ public class ShowRTCXMLAdapter extends ArrayAdapter<RTCV_Data_history> {
 
 
     static class ViewHolder {
-        TextView tvShowRtcXmlRefnum,tvShowRtcXmlRefnumData;
+        TextView tvShowRtcXmlRefnum,tvShowRtcXmlRefnumData,nodata;
 
         LinearLayout list_layout;
 
         ViewHolder(View view) {
 
             tvShowRtcXmlRefnum = view.findViewById(R.id.tvRTC_reffData);
+            nodata = view.findViewById(R.id.nodata);
 //            tvShowRtcXmlRefnumData = view.findViewById(R.id.tvRTC_refData);
 
 
-            tvShowRtcXmlRefnum.setVisibility(View.VISIBLE);
+//            tvShowRtcXmlRefnum.setVisibility(View.VISIBLE);
+//            nodata.setVisibility(View.VISIBLE);
 
             list_layout = view.findViewById(R.id.list_layout);
 

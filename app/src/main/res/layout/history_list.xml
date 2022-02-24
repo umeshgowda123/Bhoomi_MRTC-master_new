@@ -15,6 +15,16 @@
             android:background="@android:color/white"
             android:padding="8dp">
 
+
+            <TextView
+                android:id="@+id/nodata"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="No History Data Found"
+                android:visibility="gone"
+                android:textColor="@android:color/black" />
+
             <TextView
                 android:id="@+id/tvdstNAME"
                 android:layout_width="70dp"
