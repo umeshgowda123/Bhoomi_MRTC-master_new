@@ -102,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:text="affidavit_id_RES"
                 android:textColor="@android:color/black"
-                android:visibility="gone" />
+                android:visibility="gone"/>
 
 
 
