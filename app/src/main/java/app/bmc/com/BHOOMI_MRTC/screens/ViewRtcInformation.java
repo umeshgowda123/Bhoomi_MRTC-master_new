@@ -67,6 +67,7 @@ public class ViewRtcInformation extends AppCompatActivity implements RtcViewInfo
     private MaterialBetterSpinner spinner_taluk;
     private MaterialBetterSpinner spinner_hobli;
     private MaterialBetterSpinner spinner_village;
+
     private EditText edittext_survey;
     private Button btn_go;
     private MaterialBetterSpinner spinner_hissa;

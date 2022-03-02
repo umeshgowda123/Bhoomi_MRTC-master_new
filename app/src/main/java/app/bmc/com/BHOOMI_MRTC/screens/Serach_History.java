@@ -259,10 +259,6 @@ public class Serach_History extends AppCompatActivity {
 
         } else if (APPType == 4) {
 
-//            tvdist.setVisibility(View.VISIBLE);
-//            tvtlk.setVisibility(View.VISIBLE);
-//            tvhlb.setVisibility(View.VISIBLE);
-//            tvvill.setVisibility(View.VISIBLE);
 
             Observable<List<MPD_Data_History>> MPDhistorydata = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getMPD_History());
             MPDhistorydata
@@ -363,11 +359,6 @@ public class Serach_History extends AppCompatActivity {
 
         } else if (APPType == 5) {
 
-//            tvdist.setVisibility(View.VISIBLE);
-//            tvtlk.setVisibility(View.VISIBLE);
-//            tvhlb.setVisibility(View.VISIBLE);
-//            tvvill.setVisibility(View.VISIBLE);
-//            tvsurvaynum.setVisibility(View.VISIBLE);
 
             Observable<List<MS_Data_History>> MShistorydata = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getMS_History());
             MShistorydata
@@ -469,13 +460,6 @@ public class Serach_History extends AppCompatActivity {
                     });
 
         } else if (APPType == 6) {
-
-//            tvdist.setVisibility(View.VISIBLE);
-//            tvtlk.setVisibility(View.VISIBLE);
-//            tvhlb.setVisibility(View.VISIBLE);
-//            tvvill.setVisibility(View.VISIBLE);
-//            tvsurvaynum.setVisibility(View.VISIBLE);
-
 
             Observable<List<MSV_Data_History>> MSVhistorydata = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getMSV_History());
             MSVhistorydata
@@ -583,11 +567,6 @@ public class Serach_History extends AppCompatActivity {
 
         } else if (APPType == 7) {
 
-//            tvdist.setVisibility(View.VISIBLE);
-//            tvtlk.setVisibility(View.VISIBLE);
-//            tvhlb.setVisibility(View.VISIBLE);
-//            tvvill.setVisibility(View.VISIBLE);
-//            tvsurvaynum.setVisibility(View.VISIBLE);
 
             Observable<List<RLand_Data_History>> RLandhistorydata = Observable.fromCallable(() -> dataBaseHelper.daoAccess().getRLand_History());
             RLandhistorydata
@@ -689,11 +668,6 @@ public class Serach_History extends AppCompatActivity {
                     });
         } else if (APPType == 8) {
 
-//            tvlandConAffID.setVisibility(View.VISIBLE);
-//            tvlandCOnUserID.setVisibility(View.VISIBLE);
-//            historyList1.setVisibility(View.VISIBLE);
-//            tableLayout.setVisibility(View.VISIBLE);
-//            l1.setVisibility(View.VISIBLE);
             Observable<List<LandCon_Data_History>> tablesize_landCon = Observable.fromCallable(() -> dataBaseHelper.daoAccess().gettablesize_landConverion());
             tablesize_landCon
                     .subscribeOn(Schedulers.io())
@@ -730,13 +704,6 @@ public class Serach_History extends AppCompatActivity {
                                             public void onNext(@NonNull List<LandCon_Data_History> LandCon_history) {
                                                 Log.d("TAG", "onNext: " + LandCon_history.size());
 
-//                            if (LandCon_history.size() <= 0) {
-//                                nodata.setVisibility(View.VISIBLE);
-//                                l1.setVisibility(View.GONE);
-//                                tvlandConAffID.setVisibility(View.GONE);
-//                                historyList.setVisibility(View.GONE);
-//
-//                            } else if (LandCon_history.size() > 0) {
 
                                                 nodata.setVisibility(View.GONE);
                                                 l1.setVisibility(View.VISIBLE);
@@ -747,7 +714,6 @@ public class Serach_History extends AppCompatActivity {
                                                 Log.i("select the DATA", " " + historyList);
 
                                             }
-                                            //}
 
                                             @Override
                                             public void onError(@NonNull Throwable e) {
@@ -772,14 +738,6 @@ public class Serach_History extends AppCompatActivity {
                                             @Override
                                             public void onNext(@NonNull List<LandCon_Data_History> LandCon_history) {
                                                 Log.d("TAG", "onNext: " + LandCon_history.size());
-
-
-//                            if (LandCon_history.size() <= 0) {
-//                                nodata.setVisibility(View.VISIBLE);
-//                                l1.setVisibility(View.GONE);
-//                                historyList.setVisibility(View.GONE);
-//
-//                            } else if (LandCon_history.size() > 0) {
 
                                                 nodata.setVisibility(View.GONE);
                                                 tableLayout.setVisibility(View.VISIBLE);
@@ -820,32 +778,6 @@ public class Serach_History extends AppCompatActivity {
                     });
         } else if (APPType == 9) {
 
-//            tvdist.setVisibility(View.VISIBLE);
-//            tvtlk.setVisibility(View.VISIBLE);
-//            tvhlb.setVisibility(View.VISIBLE);
-//            tvvill.setVisibility(View.VISIBLE);
-//            tvsurvaynum.setVisibility(View.VISIBLE);
-//
-//            tableLayout.setVisibility(View.VISIBLE);
-//            historyList1.setVisibility(View.VISIBLE);
-//            l1.setVisibility(View.VISIBLE);
-//
-//            tvLandConFinalRequesID.setVisibility(View.VISIBLE);
-
-//            File f = context.getDatabasePath(dbName);
-//            long dbSize = f.length();
-////
-//            File tt = context.getDatabasePath(String.valueOf(LandConFinal_data_history));
-//             tt = LandConFinal_data_history.size();
-//
-//            if (LandConFinal_data_history.size() <= 0) {
-//                nodata.setVisibility(View.VISIBLE);
-//                l1.setVisibility(View.GONE);
-//                historyList.setVisibility(View.GONE);
-//                historyList1.setVisibility(View.GONE);
-//                tvLandConFinalRequesID.setVisibility(View.GONE);
-//
-//            } else if (LandConFinal_data_history.size() > 0) {
 
             Observable<List<LandConFinal_Data_History>> tablesize = Observable.fromCallable(() -> dataBaseHelper.daoAccess().gettablesize());
             tablesize
@@ -882,14 +814,7 @@ public class Serach_History extends AppCompatActivity {
                                             @Override
                                             public void onNext(@NonNull List<LandConFinal_Data_History> LandConFinal_history) {
                                                 Log.d("TAG", "onNext: " + LandConFinal_history.size());
-//
-//                            if (LandConFinal_history.size() <= 0)
-//                            {
-//                                nodata.setVisibility(View.VISIBLE);
-//                                l1.setVisibility(View.GONE);
-//                                historyList.setVisibility(View.GONE);
-//
-//                            }else if(LandConFinal_history.size() > 0) {
+
 
                                                 nodata.setVisibility(View.GONE);
                                                 tvdist.setVisibility(View.VISIBLE);
@@ -989,14 +914,7 @@ public class Serach_History extends AppCompatActivity {
                                             public void onNext(@NonNull List<LandConFinal_Data_History> LandConFinal_history) {
                                                 Log.d("TAG", "onNext: " + LandConFinal_history.size());
 
-//                            if (LandConFinal_history.size() <= 0)
-//                            {
-//                                nodata.setVisibility(View.VISIBLE);
-//                                l1.setVisibility(View.GONE);
-//                                historyList.setVisibility(View.GONE);
-//
-//                            }else if(LandConFinal_history.size() > 0) {
-//
+
                                                 l1.setVisibility(View.VISIBLE);
                                                 nodata.setVisibility(View.GONE);
                                                 historyList1.setVisibility(View.VISIBLE);
@@ -1018,8 +936,6 @@ public class Serach_History extends AppCompatActivity {
                                                     Log.i("select the DATA", " " + historyList1);
                                                 }
                                             }
-                                            //}
-
 
                                             @Override
                                             public void onError(@NonNull Throwable e) {

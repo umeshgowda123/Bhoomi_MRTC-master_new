@@ -83,15 +83,16 @@
 
                         <TextView
                             android:id="@+id/tvdstNAME"
-                            android:layout_width="70dp"
+                            android:layout_width="75dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="14dp"
                             android:text="@string/district"
                             android:textColor="@android:color/black"
                             android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/tvtlkNAME"
-                            android:layout_width="70dp"
+                            android:layout_width="75dp"
                             android:layout_height="wrap_content"
                             android:text="@string/taluk"
                             android:textColor="@android:color/black"
@@ -100,7 +101,7 @@
 
                         <TextView
                             android:id="@+id/tvhlbNAME"
-                            android:layout_width="70dp"
+                            android:layout_width="75dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/hobli"
@@ -109,7 +110,7 @@
 
                         <TextView
                             android:id="@+id/tvvllNAME"
-                            android:layout_width="80dp"
+                            android:layout_width="85dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/village"
@@ -259,3 +260,5 @@
     </LinearLayout>
 
 </LinearLayout>
+
+

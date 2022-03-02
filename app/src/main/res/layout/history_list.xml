@@ -100,7 +100,6 @@
                 android:id="@+id/tvLandConAffRES"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:text="affidavit_id_RES"
                 android:textColor="@android:color/black"
                 android:visibility="gone" />

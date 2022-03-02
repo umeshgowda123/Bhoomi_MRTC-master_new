@@ -1,6 +1,5 @@
 package app.bmc.com.BHOOMI_MRTC.database;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -39,9 +38,9 @@ import app.bmc.com.BHOOMI_MRTC.model.SeasonDetails;
 import app.bmc.com.BHOOMI_MRTC.model.TalukData;
 import app.bmc.com.BHOOMI_MRTC.model.TalukDataKannda;
 import app.bmc.com.BHOOMI_MRTC.model.VMS_RES_Data;
+import app.bmc.com.BHOOMI_MRTC.model.VR_INFO;
 import app.bmc.com.BHOOMI_MRTC.model.VR_INFO_HISTORY;
 import app.bmc.com.BHOOMI_MRTC.model.VR_RES_Data;
-import app.bmc.com.BHOOMI_MRTC.model.VR_INFO;
 import app.bmc.com.BHOOMI_MRTC.model.V_MUTATION_STATUS_TABLE;
 import app.bmc.com.BHOOMI_MRTC.model.VillageData;
 import app.bmc.com.BHOOMI_MRTC.model.VillageDataKannada;
