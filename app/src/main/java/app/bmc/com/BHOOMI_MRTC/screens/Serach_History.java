@@ -935,13 +935,14 @@ public class Serach_History extends AppCompatActivity {
                                             public void onNext(@NonNull List<LandConFinal_Data_History> LandConFinal_history) {
                                                 Log.d("TAG", "onNext: " + LandConFinal_history.size());
 
-                                                if (LandConFinal_history.size() < 0) {
+                                                if (LandConFinal_history.size()<0) {
                                                     tvdist.setVisibility(View.GONE);
                                                     tvtlk.setVisibility(View.GONE);
                                                     tvhlb.setVisibility(View.GONE);
                                                     tvvill.setVisibility(View.GONE);
                                                     tvsurvaynum.setVisibility(View.GONE);
                                                     nodata.setVisibility(View.GONE);
+                                                    historyList.setVisibility(View.GONE);
                                                 } else if (LandConFinal_history.size() > 0) {
 
                                                     l1.setVisibility(View.VISIBLE);
