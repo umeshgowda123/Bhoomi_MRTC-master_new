@@ -467,6 +467,7 @@
     <string name="MST_TalukColumnName">VLM_TLK_NM</string>
     <string name="MST_HobliColumnName">VLM_HBL_NM</string>
     <string name="MST_VillColumnName">VLM_VLG_NM</string>
+    <string name="no_history_found">No History Found</string>
 
 
 </resources>

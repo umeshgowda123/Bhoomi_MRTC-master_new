@@ -705,13 +705,21 @@ public class Serach_History extends AppCompatActivity {
                                                 Log.d("TAG", "onNext: " + LandCon_history.size());
 
 
-                                                nodata.setVisibility(View.GONE);
-                                                l1.setVisibility(View.VISIBLE);
-                                                tvlandConAffID.setVisibility(View.VISIBLE);
+                                                if (LandCon_history.size()<0){
+                                                    tableLayout.setVisibility(View.GONE);
+                                                    tvlandCOnUserID.setVisibility(View.GONE);
+                                                    historyList1.setVisibility(View.GONE);
+                                                    nodata.setVisibility(View.GONE);
+                                                } else if (LandCon_history.size()>0){
+                                                    l1.setVisibility(View.VISIBLE);
+                                                    tvlandConAffID.setVisibility(View.VISIBLE);
 
-                                                adapter6 = new ShowLandConHistoryAdapter(LandCon_history, getApplicationContext());
-                                                historyList.setAdapter(adapter6);
-                                                Log.i("select the DATA", " " + historyList);
+                                                    adapter6 = new ShowLandConHistoryAdapter(LandCon_history, getApplicationContext());
+                                                    historyList.setAdapter(adapter6);
+                                                    Log.i("select the DATA", " " + historyList);
+
+                                                }
+
 
                                             }
 
@@ -739,14 +747,22 @@ public class Serach_History extends AppCompatActivity {
                                             public void onNext(@NonNull List<LandCon_Data_History> LandCon_history) {
                                                 Log.d("TAG", "onNext: " + LandCon_history.size());
 
-                                                nodata.setVisibility(View.GONE);
-                                                tableLayout.setVisibility(View.VISIBLE);
-                                                tvlandCOnUserID.setVisibility(View.VISIBLE);
-                                                historyList1.setVisibility(View.VISIBLE);
 
-                                                adapter6 = new ShowLandConHistoryAdapter(LandCon_history, getApplicationContext());
-                                                historyList1.setAdapter(adapter6);
-                                                Log.i("select the DATA", " " + historyList1);
+                                                if (LandCon_history.size()<0){
+                                                    tvlandConAffID.setVisibility(View.GONE);
+                                                    nodata.setVisibility(View.GONE);
+                                                } else if (LandCon_history.size()>0){
+                                                    l1.setVisibility(View.VISIBLE);
+                                                    tableLayout.setVisibility(View.VISIBLE);
+                                                    tvlandCOnUserID.setVisibility(View.VISIBLE);
+                                                    historyList1.setVisibility(View.VISIBLE);
+
+                                                    adapter6 = new ShowLandConHistoryAdapter(LandCon_history, getApplicationContext());
+                                                    historyList1.setAdapter(adapter6);
+                                                    Log.i("select the DATA", " " + historyList1);
+                                                }
+
+
 
                                             }
                                             //}
@@ -815,8 +831,13 @@ public class Serach_History extends AppCompatActivity {
                                             public void onNext(@NonNull List<LandConFinal_Data_History> LandConFinal_history) {
                                                 Log.d("TAG", "onNext: " + LandConFinal_history.size());
 
+                                                if (LandConFinal_history.size()<0){
+                                                    l1.setVisibility(View.GONE);
+                                                    historyList1.setVisibility(View.GONE);
+                                                    tvLandConFinalRequesID.setVisibility(View.GONE);
+                                                    nodata.setVisibility(View.GONE);
+                                                } else if (LandConFinal_history.size()>0){
 
-                                                nodata.setVisibility(View.GONE);
                                                 tvdist.setVisibility(View.VISIBLE);
                                                 tvtlk.setVisibility(View.VISIBLE);
                                                 tvhlb.setVisibility(View.VISIBLE);
@@ -886,7 +907,7 @@ public class Serach_History extends AppCompatActivity {
                                                                 }
                                                             });
                                                 }
-                                                //}
+                                                }
                                             }
 
                                             @Override
@@ -914,26 +935,34 @@ public class Serach_History extends AppCompatActivity {
                                             public void onNext(@NonNull List<LandConFinal_Data_History> LandConFinal_history) {
                                                 Log.d("TAG", "onNext: " + LandConFinal_history.size());
 
+                                                if (LandConFinal_history.size() < 0) {
+                                                    tvdist.setVisibility(View.GONE);
+                                                    tvtlk.setVisibility(View.GONE);
+                                                    tvhlb.setVisibility(View.GONE);
+                                                    tvvill.setVisibility(View.GONE);
+                                                    tvsurvaynum.setVisibility(View.GONE);
+                                                    nodata.setVisibility(View.GONE);
+                                                } else if (LandConFinal_history.size() > 0) {
 
-                                                l1.setVisibility(View.VISIBLE);
-                                                nodata.setVisibility(View.GONE);
-                                                historyList1.setVisibility(View.VISIBLE);
-                                                tvLandConFinalRequesID.setVisibility(View.VISIBLE);
+                                                    l1.setVisibility(View.VISIBLE);
+                                                    historyList1.setVisibility(View.VISIBLE);
+                                                    tvLandConFinalRequesID.setVisibility(View.VISIBLE);
 
-                                                LandConFinal_data_history = (List<LandConFinal_Data_History>) LandConFinal_history;
-                                                int i;
+                                                    LandConFinal_data_history = (List<LandConFinal_Data_History>) LandConFinal_history;
+                                                    int i;
 
-                                                for (i = 0; i < LandConFinal_data_history.size(); i++) {
+                                                    for (i = 0; i < LandConFinal_data_history.size(); i++) {
 
 
-                                                    String REQUEST_ID = LandConFinal_data_history.get(i).getREQUEST_ID();
-                                                    String REQUEST_ID_RES = LandConFinal_data_history.get(i).getREQUEST_ID_RES();
-                                                    LandConFinal_data_history.get(i).setREQUEST_ID(REQUEST_ID);
-                                                    LandConFinal_data_history.get(i).setREQUEST_ID_RES(REQUEST_ID_RES);
+                                                        String REQUEST_ID = LandConFinal_data_history.get(i).getREQUEST_ID();
+                                                        String REQUEST_ID_RES = LandConFinal_data_history.get(i).getREQUEST_ID_RES();
+                                                        LandConFinal_data_history.get(i).setREQUEST_ID(REQUEST_ID);
+                                                        LandConFinal_data_history.get(i).setREQUEST_ID_RES(REQUEST_ID_RES);
 
-                                                    adapter7 = new ShowLandConFinalHistoryAdapter(LandConFinal_data_history, getApplicationContext());
-                                                    historyList1.setAdapter(adapter7);
-                                                    Log.i("select the DATA", " " + historyList1);
+                                                        adapter7 = new ShowLandConFinalHistoryAdapter(LandConFinal_data_history, getApplicationContext());
+                                                        historyList1.setAdapter(adapter7);
+                                                        Log.i("select the DATA", " " + historyList1);
+                                                    }
                                                 }
                                             }
 

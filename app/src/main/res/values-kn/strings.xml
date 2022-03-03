@@ -423,8 +423,9 @@
     <string name="MST_TalukColumnName">VLM_TKN_NM</string>
     <string name="MST_HobliColumnName">VLM_HKN_NM</string>
     <string name="MST_VillColumnName">VLM_VKN_NM</string>
+    <string name="no_history_found">ಯಾವುದೇ ಇತಿಹಾಸ ಕಂಡುಬಂದಿಲ್ಲ</string>
 
-<!--    <string name="MST_DistColumnName">ಜಿಲ್ಲೆ</string>-->
+    <!--    <string name="MST_DistColumnName">ಜಿಲ್ಲೆ</string>-->
 <!--    <string name="MST_TalukColumnName">ತಾಲ್ಲೂಕು</string>-->
 <!--    <string name="MST_HobliColumnName">ಹೋಬಳಿ</string>-->
 <!--    <string name="MST_VillColumnName">ಗ್ರಾಮ</string>-->
