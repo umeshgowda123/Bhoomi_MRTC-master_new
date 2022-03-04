@@ -82,8 +82,8 @@
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
+                        android:backgroundTint="@color/colorTitleBackground"
                         android:padding="8dp">
-
 
 
                         <TextView
@@ -108,7 +108,6 @@
                             android:id="@+id/tvhlbNAME"
                             android:layout_width="75dp"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
                             android:text="@string/hobli"
                             android:textColor="@android:color/black"
                             android:visibility="gone" />
@@ -117,7 +116,6 @@
                             android:id="@+id/tvvllNAME"
                             android:layout_width="85dp"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
                             android:text="@string/village"
                             android:textColor="@android:color/black"
                             android:visibility="gone" />
@@ -126,7 +124,6 @@
                             android:id="@+id/tvsryNo"
                             android:layout_width="70dp"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
                             android:text="@string/survey_no"
                             android:textColor="@android:color/black"
                             android:visibility="gone" />
@@ -135,8 +132,8 @@
                             android:id="@+id/tvrtcxml_reff"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="RTC_XML_Ref NO"
                             android:layout_marginStart="14dp"
+                            android:text="RTC_XML_Ref NO"
                             android:textColor="@android:color/black"
                             android:visibility="gone" />
 

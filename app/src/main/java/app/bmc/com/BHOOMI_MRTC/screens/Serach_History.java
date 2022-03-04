@@ -719,8 +719,6 @@ public class Serach_History extends AppCompatActivity {
                                                     Log.i("select the DATA", " " + historyList);
 
                                                 }
-
-
                                             }
 
                                             @Override
@@ -831,18 +829,18 @@ public class Serach_History extends AppCompatActivity {
                                             public void onNext(@NonNull List<LandConFinal_Data_History> LandConFinal_history) {
                                                 Log.d("TAG", "onNext: " + LandConFinal_history.size());
 
-                                                if (LandConFinal_history.size()<0){
+                                                if (LandConFinal_history.size() <= 0) {
                                                     l1.setVisibility(View.GONE);
                                                     historyList1.setVisibility(View.GONE);
                                                     tvLandConFinalRequesID.setVisibility(View.GONE);
                                                     nodata.setVisibility(View.GONE);
-                                                } else if (LandConFinal_history.size()>0){
+                                                } else if (LandConFinal_history.size() > 0) {
 
-                                                tvdist.setVisibility(View.VISIBLE);
-                                                tvtlk.setVisibility(View.VISIBLE);
-                                                tvhlb.setVisibility(View.VISIBLE);
-                                                tvvill.setVisibility(View.VISIBLE);
-                                                tvsurvaynum.setVisibility(View.VISIBLE);
+                                                    tvdist.setVisibility(View.VISIBLE);
+                                                    tvtlk.setVisibility(View.VISIBLE);
+                                                    tvhlb.setVisibility(View.VISIBLE);
+                                                    tvvill.setVisibility(View.VISIBLE);
+                                                    tvsurvaynum.setVisibility(View.VISIBLE);
 
                                                 LandConFinal_data_history = (List<LandConFinal_Data_History>) LandConFinal_history;
                                                 int i;
@@ -896,6 +894,7 @@ public class Serach_History extends AppCompatActivity {
                                                                     }
                                                                 }
 
+
                                                                 @Override
                                                                 public void onError(@NonNull Throwable e) {
 
@@ -907,7 +906,7 @@ public class Serach_History extends AppCompatActivity {
                                                                 }
                                                             });
                                                 }
-                                                }
+                                            }
                                             }
 
                                             @Override
@@ -935,7 +934,7 @@ public class Serach_History extends AppCompatActivity {
                                             public void onNext(@NonNull List<LandConFinal_Data_History> LandConFinal_history) {
                                                 Log.d("TAG", "onNext: " + LandConFinal_history.size());
 
-                                                if (LandConFinal_history.size()<0) {
+                                                if (LandConFinal_history.size() <= 0) {
                                                     tvdist.setVisibility(View.GONE);
                                                     tvtlk.setVisibility(View.GONE);
                                                     tvhlb.setVisibility(View.GONE);

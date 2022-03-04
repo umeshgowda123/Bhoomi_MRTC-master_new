@@ -48,20 +48,22 @@ public class ShowLandConFinalHistoryAdapter extends ArrayAdapter<LandConFinal_Da
         }
 
         assert dataModel != null;
-        if(TextUtils.isEmpty(dataModel.getLandFinal_DistName())){
-            viewHolder.tvShowDstName.setVisibility(View.GONE);
-            viewHolder.tvShowTlkName.setVisibility(View.GONE);
-            viewHolder.tvShowHlbName.setVisibility(View.GONE);
-            viewHolder.tvShowVllName.setVisibility(View.GONE);
-            viewHolder.tvShowSurveyNo.setVisibility(View.GONE);
-            viewHolder.tvShowlandConFinalReqestId.setVisibility(View.VISIBLE);
-        } else {
+        if(TextUtils.isEmpty(dataModel.getREQUEST_ID())){
             viewHolder.tvShowDstName.setVisibility(View.VISIBLE);
             viewHolder.tvShowTlkName.setVisibility(View.VISIBLE);
             viewHolder.tvShowHlbName.setVisibility(View.VISIBLE);
             viewHolder.tvShowVllName.setVisibility(View.VISIBLE);
             viewHolder.tvShowSurveyNo.setVisibility(View.VISIBLE);
             viewHolder.tvShowlandConFinalReqestId.setVisibility(View.GONE);
+
+        } else {
+            viewHolder.tvShowDstName.setVisibility(View.GONE);
+            viewHolder.tvShowTlkName.setVisibility(View.GONE);
+            viewHolder.tvShowHlbName.setVisibility(View.GONE);
+            viewHolder.tvShowVllName.setVisibility(View.GONE);
+            viewHolder.tvShowSurveyNo.setVisibility(View.GONE);
+            viewHolder.tvShowlandConFinalReqestId.setVisibility(View.VISIBLE);
+
         }
         viewHolder.tvShowDstName.setText(dataModel.getLandFinal_DistName());
         viewHolder.tvShowTlkName.setText(dataModel.getLandFinal_TalukName());
