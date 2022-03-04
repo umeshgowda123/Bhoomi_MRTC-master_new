@@ -746,7 +746,7 @@ public class Serach_History extends AppCompatActivity {
                                                 Log.d("TAG", "onNext: " + LandCon_history.size());
 
 
-                                                if (LandCon_history.size()<0){
+                                                if (LandCon_history.size()<=0){
                                                     tvlandConAffID.setVisibility(View.GONE);
                                                     nodata.setVisibility(View.GONE);
                                                 } else if (LandCon_history.size()>0){
